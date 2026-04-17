@@ -1,14 +1,14 @@
-"""Reconstruit PPT-IGPDE-DSFR-base-intervenant.pptx depuis demo-template-dsfr.pptx.
+"""Reconstruit PPT-IGPDE-DSFR-base-intervenant.pptx depuis gabarits-ppt-igpde.pptx.
 
-Utile quand le source IGPDE original a été déplacé. La démo porte déjà les
-layouts rescalés (13,33" × 7,5"), il suffit de supprimer ses slides.
+Utile quand le source IGPDE original a été déplacé. Le PPTX de gabarits porte
+déjà les layouts rescalés (13,33" × 7,5"), il suffit de supprimer ses slides.
 """
 
 from pathlib import Path
 import shutil
 from pptx import Presentation
 
-SRC = Path("/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/demo-template-dsfr.pptx")
+SRC = Path("/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/gabarits-ppt-igpde.pptx")
 DST = Path("/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/PPT-IGPDE-DSFR-base-intervenant.pptx")
 
 NS_R = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"

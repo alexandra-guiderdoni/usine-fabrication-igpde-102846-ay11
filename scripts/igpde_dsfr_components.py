@@ -21,6 +21,7 @@ Grille IGPDE-DSFR (13,33" x 7,5") :
   BOTTOM_CONTENT = 6.8"  (fin zone contenu au-dessus du footer)
 """
 
+import math
 from pathlib import Path
 from copy import deepcopy
 
@@ -289,7 +290,7 @@ def new_slide(prs, layouts, layout_name="titre_contenu", titre=None,
 
     # 1. Copier date / pied de page / n° diapo depuis le layout vers la slide
     #    Pour la couverture, le layout IGPDE natif place le pied de page au milieu
-    #    de la slide — on repositionne aux coordonnees standard IGPDE (y=6.98")
+    #    de la slide - on repositionne aux coordonnees standard IGPDE (y=6.98")
     cloned_date = None
     cloned_footer = None
     cloned_num = None
@@ -330,6 +331,26 @@ def new_slide(prs, layouts, layout_name="titre_contenu", titre=None,
         # Titre "utile" (grande zone visible) : ecrire dedans
         if is_title and not _is_title_useless(ph):
             if titre and not titre_pose and ph.has_text_frame:
+                # Resserrer le placeholder titre : le layout IGPDE pose un box
+                # de ~1,5" de haut a top=1,31" qui laisse ~1" de vide sous le
+                # texte du titre. On le reduit a 1,05" de haut a top=1,15",
+                # ce qui rapproche le bas du titre de y=2,20" (contre 2,81"
+                # avant). Les composants de contenu peuvent alors commencer
+                # plus haut sans chevaucher le titre (supporte 1 a 2 lignes).
+                #
+                # Important : python-pptx ecrit un <a:xfrm> sur le shape des
+                # qu'une dimension est modifiee, mais les dimensions non
+                # setees tombent a 0 au lieu d'heriter du layout. Il faut
+                # donc copier les 4 dimensions explicitement.
+                try:
+                    current_left = ph.left
+                    current_width = ph.width
+                    ph.top = Inches(1.15)
+                    ph.left = current_left
+                    ph.width = current_width
+                    ph.height = Inches(1.05)
+                except Exception:
+                    pass
                 _apply_text(ph.text_frame, titre, font=FONT, size=28, bold=True,
                             color=BLEU_FRANCE)
                 titre_pose = True
@@ -345,6 +366,11 @@ def new_slide(prs, layouts, layout_name="titre_contenu", titre=None,
                     tf = ph.text_frame
                     _apply_text(tf, fil_ariane, font=FONT, size=11,
                                 bold=False, color=GRIS_MENTION, align=PP_ALIGN.RIGHT)
+                    # Neutraliser la numerotation automatique heritee du layout
+                    # (lstStyle > lvl1pPr > buAutoNum type="arabicPeriod") qui,
+                    # sans cette neutralisation, affiche « 1. » en prefixe du fil
+                    # d'Ariane et donne « 1.3. Easy Checks | ... » au rendu.
+                    _neutralize_auto_numbering(tf._txBody)
                     fil_pose = True
                     continue
             except Exception:
@@ -388,16 +414,137 @@ def new_slide(prs, layouts, layout_name="titre_contenu", titre=None,
     return slide
 
 
-def add_notes(slide, texte):
-    """Ajoute des notes presentateur."""
+def add_notes(slide, texte, lang="fr-FR"):
+    """Ajoute des notes presentateur en francais (lang=fr-FR par defaut).
+
+    Le texte est decoupe automatiquement : une phrase par paragraphe, pour
+    une lecture plus rapide en mode orateur. La decoupe se fait sur toute
+    ponctuation finale (. ? ! ...) suivie d'un espace et d'une majuscule
+    francaise ou d'un guillemet francais.
+
+    python-pptx cree un run nu via tf.text=..., sans attribut <a:rPr lang>.
+    Sans cet attribut, PowerPoint et les lecteurs d'ecran interpretent le
+    texte selon la langue systeme (souvent en-US), ce qui produit un
+    soulignement rouge du correcteur et une lecture avec accent anglais.
+    On pose donc lang=fr-FR sur chaque run des notes des la creation.
+    """
+    import re
+    # Une phrase par ligne : split sur ponctuation finale + espace + majuscule/guillemet
+    phrases = re.split(r'(?<=[.!?…])\s+(?=[A-ZÀ-Ÿ«"])', texte.strip())
+    phrases = [p.strip() for p in phrases if p.strip()]
+
     notes = slide.notes_slide
     tf = notes.notes_text_frame
-    tf.text = texte
+    # Nettoyer le text frame et poser la premiere phrase
+    tf.text = phrases[0] if phrases else ""
+    for phrase in phrases[1:]:
+        p = tf.add_paragraph()
+        p.text = phrase
+    # Filet de securite : lang=fr-FR sur chaque run
+    _set_lang_on_runs(tf._txBody, lang=lang)
 
 
 # ----------------------------------------------------------------------
 # Briques de base
 # ----------------------------------------------------------------------
+def _estimate_height(content, available_width, size=11, line_height_mult=1.35):
+    """Estime la hauteur (pouces) necessaire pour afficher un contenu.
+
+    - content : str (1 texte) ou list[str] (bullets)
+    - available_width : largeur utile en pouces APRES padding interne
+    - size : taille police en pt (11 pour bullets, 14 pour titre, 18 pour highlight)
+    - line_height_mult : multiplicateur d'interligne (1,35 = marge de securite)
+
+    Heuristique empirique : Marianne/Calibri a 11pt tient ~7,5 caracteres
+    par pouce. Pour les bullets en 12pt (taille reelle dans _add_bullets),
+    le caller doit passer size=12.
+    """
+    if content is None:
+        return 0.0
+    items = [content] if isinstance(content, str) else list(content)
+    chars_per_inch = 7.5 * (11.0 / size)
+    chars_per_line = max(8, int(available_width * chars_per_inch))
+    line_height_inches = (size / 72.0) * line_height_mult
+    total_lines = 0
+    for item in items:
+        if item is None:
+            continue
+        for segment in str(item).split("\n"):
+            n = max(1, math.ceil(len(segment) / chars_per_line))
+            total_lines += n
+    return total_lines * line_height_inches
+
+
+def estimate_callout_height(titre, bullets, width=None):
+    """Hauteur auto d'un callout ou d'une alert (meme formule)."""
+    if width is None:
+        width = CONTENT_W
+    h_titre = 0.55 if titre else 0.15
+    h_body = _estimate_height(bullets, width - 0.5, size=12)
+    return max(h_titre + h_body + 0.25, 0.90)
+
+
+# Alias pour les alerts (meme structure que callout)
+estimate_alert_height = estimate_callout_height
+
+
+def estimate_highlight_height(texte, width=None):
+    """Hauteur auto d'un highlight."""
+    if width is None:
+        width = CONTENT_W
+    h_text = _estimate_height(texte, width - 0.4, size=18)
+    return max(h_text + 0.3, 0.70)
+
+
+def estimate_quote_height(texte, auteur="", width=None):
+    """Hauteur auto d'une quote."""
+    if width is None:
+        width = CONTENT_W
+    h_text = _estimate_height(texte, width - 0.4, size=16)
+    h_auteur = 0.50 if auteur else 0
+    return max(h_text + h_auteur + 0.30, 0.90)
+
+
+class Stack:
+    """Curseur vertical qui empile les composants avec un gap constant.
+
+    Usage dans une slide :
+        stack = Stack(top=2.30, gap=0.30)
+        add_highlight(slide, "Texte", top=stack.push(estimate_highlight_height("Texte")))
+        add_callout(slide, "Titre", bullets, top=stack.push(estimate_callout_height("Titre", bullets)))
+
+    `push(h)` renvoie le top courant et avance le curseur de (h + gap).
+    """
+
+    def __init__(self, top=2.30, gap=0.30):
+        self._cursor = float(top)
+        self._gap = float(gap)
+
+    def push(self, height):
+        t = self._cursor
+        self._cursor += float(height) + self._gap
+        return round(t, 3)
+
+    @property
+    def cursor(self):
+        return self._cursor
+
+
+def estimate_card_height(titre, contenu, width, numero=None):
+    """Estime la hauteur necessaire pour une carte DSFR (helper public).
+
+    A utiliser dans une slide qui dispose plusieurs cartes cote a cote :
+    calculer `max(estimate_card_height(...) for carte in cartes)` puis
+    passer cette valeur a `add_card(height=...)` pour toutes les cartes.
+    Assure un alignement visuel uniforme sans debordement.
+    """
+    h_numero = 0.80 if numero is not None else 0.0
+    h_titre = 0.50 if titre else 0.15
+    h_body = _estimate_height(contenu, width - 0.5, size=11)
+    h_padding = 0.30
+    return max(h_numero + h_titre + h_body + h_padding, 1.5)
+
+
 def _make_box(slide, top, left, width, height, fill_color,
               accent_color=None, accent_w=0.08, border_color=None):
     """Rectangle DSFR : fond couleur, accent gauche optionnel."""
@@ -434,8 +581,23 @@ def _make_box(slide, top, left, width, height, fill_color,
 # ----------------------------------------------------------------------
 # Composants DSFR
 # ----------------------------------------------------------------------
-def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height=2.0):
-    """Callout bleu : accent gauche Bleu France + fond bleu clair + titre bold + bullets."""
+def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height=None):
+    """Callout bleu : accent gauche Bleu France + fond bleu clair + titre bold + bullets.
+
+    La hauteur est calculee automatiquement a partir du contenu (titre +
+    bullets). Le parametre `height`, s'il est passe, sert de minimum :
+    la hauteur finale est `max(height, auto)` pour garantir l'absence
+    de debordement.
+    """
+    # Calcul auto TOUJOURS : le parametre height est ignore pour harmoniser
+    # le rendu (ni vide a la fin, ni debordement). Pour forcer une hauteur
+    # specifique (alignement entre plusieurs composants), utiliser add_card
+    # qui respecte max(height, auto).
+    h_titre = 0.55 if titre else 0.15
+    h_body = _estimate_height(bullets, width - 0.5, size=12)
+    h_padding = 0.25
+    height = max(h_titre + h_body + h_padding, 0.90)
+
     _make_box(slide, top, left, width, height,
               fill_color=BLEU_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.08)
     # Titre
@@ -460,16 +622,25 @@ def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, heig
     return slide
 
 
-def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height=2.0,
+def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height=None,
               alert_type="info"):
-    """Alerte DSFR : success, warning, error, info."""
-    palette = {
-        "success": (VERT_CLAIR, VERT_SUCCES),
-        "warning": (ORANGE_CLAIR, ORANGE_WARN),
-        "error": (ROUGE_CLAIR, ROUGE_ERREUR),
-        "info": (BLEU_INFO_CLAIR, BLEU_INFO),
-    }
-    fond, accent = palette.get(alert_type, palette["info"])
+    """Alerte DSFR - rendu uniformise en gris/bleu DSFR.
+
+    Le parametre alert_type (success, warning, error, info) est conserve
+    pour la compatibilite mais n'affecte plus les couleurs : toutes les
+    alertes utilisent fond gris clair + accent Bleu France DSFR, distinct
+    du callout (fond bleu clair) par la seule teinte du fond. Choix adopte
+    pour homogeneiser le rendu : pas de rouge / vert / orange dans le deck.
+
+    Hauteur calculee automatiquement a partir du contenu.
+    """
+    # Palette unifiee : gris clair + accent Bleu France pour toutes les alerts
+    fond, accent = GRIS_CLAIR, BLEU_FRANCE
+    # Calcul auto TOUJOURS (voir add_callout pour le rationnel)
+    h_titre = 0.55 if titre else 0.15
+    h_body = _estimate_height(bullets, width - 0.5, size=12)
+    h_padding = 0.25
+    height = max(h_titre + h_body + h_padding, 0.90)
     _make_box(slide, top, left, width, height,
               fill_color=fond, accent_color=accent, accent_w=0.08)
     if titre:
@@ -492,10 +663,17 @@ def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height
     return slide
 
 
-def add_highlight(slide, texte, top, left=MARGIN_L, width=CONTENT_W, height=0.9):
-    """Highlight : accent bleu gauche + texte emphase 18pt."""
+def add_highlight(slide, texte, top, left=MARGIN_L, width=CONTENT_W, height=None):
+    """Highlight : accent bleu gauche + texte emphase 18pt.
+
+    Hauteur calculee automatiquement a partir du texte (ignore `height`
+    sauf si passe explicitement et superieur).
+    """
+    h_text = _estimate_height(texte, width - 0.4, size=18)
+    # Calcul auto TOUJOURS
+    height = max(h_text + 0.3, 0.70)
     _make_box(slide, top, left, width, height,
-              fill_color=GRIS_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.12)
+              fill_color=GRIS_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.08)
     t_box = slide.shapes.add_textbox(
         Inches(left + 0.3), Inches(top + 0.1),
         Inches(width - 0.4), Inches(height - 0.2),
@@ -507,13 +685,17 @@ def add_highlight(slide, texte, top, left=MARGIN_L, width=CONTENT_W, height=0.9)
 
 
 def add_quote(slide, texte, auteur="", top=TOP_CONTENT, left=MARGIN_L,
-              width=CONTENT_W, height=1.5):
-    """Citation italique + auteur."""
+              width=CONTENT_W, height=None):
+    """Citation italique + auteur. Hauteur calculee automatiquement."""
+    h_text = _estimate_height(texte, width - 0.4, size=16)
+    h_auteur = 0.50 if auteur else 0
+    # Calcul auto TOUJOURS
+    height = max(h_text + h_auteur + 0.30, 0.90)
     _make_box(slide, top, left, width, height,
               fill_color=BLEU_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.08)
     t_box = slide.shapes.add_textbox(
         Inches(left + 0.3), Inches(top + 0.15),
-        Inches(width - 0.4), Inches(height - 0.6),
+        Inches(width - 0.4), Inches(height - (0.6 if auteur else 0.3)),
     )
     t_box.name = "DSFR-quote-texte"
     _apply_text(t_box.text_frame, f"\u201C {texte} \u201D", font=FONT, size=16,
@@ -524,19 +706,25 @@ def add_quote(slide, texte, auteur="", top=TOP_CONTENT, left=MARGIN_L,
             Inches(width - 0.4), Inches(0.4),
         )
         a_box.name = "DSFR-quote-auteur"
-        _apply_text(a_box.text_frame, f"\u2014 {auteur}", font=FONT, size=12,
+        _apply_text(a_box.text_frame, f"- {auteur}", font=FONT, size=12,
                     bold=True, color=BLEU_FRANCE)
     return slide
 
 
-def add_card(slide, titre, contenu, top, left, width=3.78, height=2.2,
+def add_card(slide, titre, contenu, top, left, width=3.78, height=None,
              numero=None):
     """Carte DSFR : accent bleu + fond gris clair + titre + contenu.
 
     Si numero est fourni (1, 2, 3...), affiche une pastille ronde bleue en haut.
+
+    Hauteur : si None, calcul auto. Si passe, prend max(passe, auto) pour
+    garantir l'absence de debordement tout en respectant une hauteur
+    imposee (utile pour aligner plusieurs cartes cote a cote).
     """
+    auto_h = estimate_card_height(titre, contenu, width, numero)
+    height = auto_h if height is None else max(height, auto_h)
     _make_box(slide, top, left, width, height,
-              fill_color=GRIS_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.1)
+              fill_color=GRIS_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.08)
     y_titre = top + 0.15
     if numero is not None:
         # Pastille ronde bleue avec le numero
@@ -886,9 +1074,49 @@ def compose_chapitre(slide, numero, titre):
 # ----------------------------------------------------------------------
 # Post-traitement a11y
 # ----------------------------------------------------------------------
+def _neutralize_auto_numbering(txBody):
+    """Ajoute <a:buNone/> sur chaque paragraphe d'un text frame.
+
+    Neutralise la numerotation automatique heritee du layout (buAutoNum),
+    qui sinon prefixe les paragraphes par « 1. », « 2. », etc. au rendu.
+    Utilise sur le placeholder du fil d'Ariane.
+    """
+    a_ns = f"{{{NSMAP_A}}}"
+    for p in txBody.iter(f"{a_ns}p"):
+        pPr = p.find(f"{a_ns}pPr")
+        if pPr is None:
+            pPr = etree.SubElement(p, f"{a_ns}pPr")
+            p.remove(pPr)
+            p.insert(0, pPr)
+        # Retirer tout buAutoNum existant
+        for el in pPr.findall(f"{a_ns}buAutoNum"):
+            pPr.remove(el)
+        # Retirer les buChar eventuels aussi
+        for el in pPr.findall(f"{a_ns}buChar"):
+            pPr.remove(el)
+        # Ajouter buNone s'il n'est pas deja present
+        if pPr.find(f"{a_ns}buNone") is None:
+            etree.SubElement(pPr, f"{a_ns}buNone")
+
+
 def _set_lang_on_runs(element, lang="fr-FR"):
-    """Applique lang=fr-FR sur chaque run de texte."""
-    for rPr in element.iter(f"{{{NSMAP_A}}}rPr"):
+    """Applique lang=fr-FR sur chaque run de texte.
+
+    Couvre trois cas :
+    - rPr deja present sur un run : on force l'attribut lang
+    - rPr absent (run cree par python-pptx via tf.text=...) : on cree le rPr
+      en tete du run avant <a:t>, avec lang
+    - defRPr et endParaRPr : on force aussi l'attribut lang
+    """
+    r_tag = f"{{{NSMAP_A}}}r"
+    rPr_tag = f"{{{NSMAP_A}}}rPr"
+    for r in element.iter(r_tag):
+        rPr = r.find(rPr_tag)
+        if rPr is None:
+            rPr = etree.SubElement(r, rPr_tag)
+            # rPr doit etre le 1er enfant du run (avant <a:t>)
+            r.remove(rPr)
+            r.insert(0, rPr)
         rPr.set("lang", lang)
     for defRPr in element.iter(f"{{{NSMAP_A}}}defRPr"):
         defRPr.set("lang", lang)
@@ -965,6 +1193,11 @@ def finalize_pptx(prs, output, title="", author="Alex", subject="",
         _mark_decoratives(slide)
         _set_lang_on_runs(slide._element, lang=lang)
         _reorder_shapes(slide)
+        # Notes presentateur : meme post-traitement de langue.
+        # add_notes() cree un run sans rPr, sans cette passe les notes
+        # sont rendues en langue systeme (souvent en-US).
+        if slide.has_notes_slide:
+            _set_lang_on_runs(slide.notes_slide._element, lang=lang)
     # Core properties
     cp = prs.core_properties
     if title:
@@ -975,4 +1208,15 @@ def finalize_pptx(prs, output, title="", author="Alex", subject="",
         cp.subject = subject
     cp.language = lang
     prs.save(output)
+    # macOS : retirer le flag com.apple.quarantine pose par Gatekeeper
+    # Sans ce fix, PowerPoint ouvre le PPTX en mode protege et refuse
+    # d'enregistrer les modifications manuelles de l'utilisateur.
+    try:
+        import subprocess
+        subprocess.run(
+            ["xattr", "-d", "com.apple.quarantine", str(output)],
+            capture_output=True, check=False, timeout=5,
+        )
+    except Exception:
+        pass
     return output

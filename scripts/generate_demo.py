@@ -1,4 +1,9 @@
-"""Génère demo-template-dsfr.pptx : 1 slide par layout + composants DSFR."""
+"""Génère gabarits-ppt-igpde.pptx : 1 slide par layout + composants DSFR.
+
+Ce fichier sert de démonstration pédagogique pour l'intervenant : chaque gabarit
+IGPDE-DSFR (couverture, titre-sous-titre, sommaire, chapitre, 3 colonnes,
+titre-contenu) est illustré avec les composants DSFR disponibles.
+"""
 
 import sys
 from pathlib import Path
@@ -16,7 +21,7 @@ from igpde_dsfr_components import (
 )
 from pptx.enum.text import PP_ALIGN
 
-OUTPUT = Path(__file__).parent.parent / "demo-template-dsfr.pptx"
+OUTPUT = Path(__file__).parent.parent / "gabarits-ppt-igpde.pptx"
 
 
 def main():
@@ -40,7 +45,7 @@ def main():
     _apply_text(sub_box.text_frame, "Formation 102638 | Bureautique et web",
                 font=FONT, size=14, bold=True, color=ROUGE_MARIANNE,
                 align=PP_ALIGN.RIGHT)
-    add_notes(s1, "Slide de couverture — accueil des stagiaires, tour de table.")
+    add_notes(s1, "Slide de couverture - accueil des stagiaires, tour de table.")
 
     # --- SLIDE 2 : Titre et sous-titre ---
     s2 = new_slide(prs, layouts, layout_name="titre_soustitre",
@@ -109,7 +114,7 @@ def main():
     add_notes(s5,
               "R1 : comprendre les 4 principes WCAG. R2 : ancrage pédagogique.")
 
-    # --- SLIDE 6 : Titre et contenu — KPI + alert ---
+    # --- SLIDE 6 : Titre et contenu - KPI + alert ---
     s6 = new_slide(prs, layouts, layout_name="titre_contenu",
                    titre="État de l\u2019accessibilité dans les administrations",
                    fil_ariane="1. Cadre légal | Chiffres clés",
@@ -240,7 +245,7 @@ def main():
 
     # --- SLIDE 13 : 1 carte DSFR (centrée) ---
     s13 = new_slide(prs, layouts, layout_name="titre_contenu",
-                    titre="Layout une carte — message central",
+                    titre="Layout une carte - message central",
                     fil_ariane="Démo | 1 carte",
                     footer_text="Formation 102638 / Démo composants",
                     date_text=DATE, page_num=13)
@@ -256,7 +261,7 @@ def main():
 
     # --- SLIDE 14 : 2 cartes DSFR (côte à côte) ---
     s14 = new_slide(prs, layouts, layout_name="titre_contenu",
-                    titre="Layout deux cartes — comparer ou opposer",
+                    titre="Layout deux cartes - comparer ou opposer",
                     fil_ariane="Démo | 2 cartes",
                     footer_text="Formation 102638 / Démo composants",
                     date_text=DATE, page_num=14)
@@ -280,7 +285,7 @@ def main():
 
     # --- SLIDE 15 : 3 cartes DSFR (côte à côte) ---
     s15 = new_slide(prs, layouts, layout_name="titre_contenu",
-                    titre="Layout trois cartes — triptyque ou séquence",
+                    titre="Layout trois cartes - triptyque ou séquence",
                     fil_ariane="Démo | 3 cartes",
                     footer_text="Formation 102638 / Démo composants",
                     date_text=DATE, page_num=15)
@@ -305,7 +310,7 @@ def main():
 
     # --- SLIDE 16 : 1 carte + callout plein largeur ---
     s16 = new_slide(prs, layouts, layout_name="titre_contenu",
-                    titre="Une carte + callout — accroche et renforcement",
+                    titre="Une carte + callout - accroche et renforcement",
                     fil_ariane="Démo | 1 carte + callout",
                     footer_text="Formation 102638 / Démo composants",
                     date_text=DATE, page_num=16)
@@ -327,7 +332,7 @@ def main():
 
     # --- SLIDE 17 : 2 cartes + callout plein largeur ---
     s17 = new_slide(prs, layouts, layout_name="titre_contenu",
-                    titre="Deux cartes + callout — comparaison et synthèse",
+                    titre="Deux cartes + callout - comparaison et synthèse",
                     fil_ariane="Démo | 2 cartes + callout",
                     footer_text="Formation 102638 / Démo composants",
                     date_text=DATE, page_num=17)
@@ -355,7 +360,7 @@ def main():
 
     # --- SLIDE 18 : 3 cartes + callout plein largeur ---
     s18 = new_slide(prs, layouts, layout_name="titre_contenu",
-                    titre="Trois cartes + callout — processus et rappel",
+                    titre="Trois cartes + callout - processus et rappel",
                     fil_ariane="Démo | 3 cartes + callout",
                     footer_text="Formation 102638 / Démo composants",
                     date_text=DATE, page_num=18)
@@ -387,7 +392,7 @@ def main():
 
     # --- SLIDE 19 : 1 carte sans numéro (pleine largeur) ---
     s19 = new_slide(prs, layouts, layout_name="titre_contenu",
-                    titre="Une carte sans numéro — message sans séquence",
+                    titre="Une carte sans numéro - message sans séquence",
                     fil_ariane="Démo | 1 carte sans n°",
                     footer_text="Formation 102638 / Démo composants",
                     date_text=DATE, page_num=19)
@@ -398,12 +403,12 @@ def main():
              top=TOP_CARDS, left=MARGIN_L,
              width=CONTENT_W, height=3.5)
     add_notes(s19,
-              "Usage : carte isolée sans numérotation — un concept, "
+              "Usage : carte isolée sans numérotation - un concept, "
               "pas une étape de séquence.")
 
     # --- SLIDE 20 : 2 cartes sans numéro ---
     s20 = new_slide(prs, layouts, layout_name="titre_contenu",
-                    titre="Deux cartes sans numéro — deux facettes équivalentes",
+                    titre="Deux cartes sans numéro - deux facettes équivalentes",
                     fil_ariane="Démo | 2 cartes sans n°",
                     footer_text="Formation 102638 / Démo composants",
                     date_text=DATE, page_num=20)
@@ -422,11 +427,11 @@ def main():
                  width=COL_W, height=3.5)
     add_notes(s20,
               "Usage : deux approches équivalentes, pas de hiérarchie ni "
-              "d\u2019ordre implicite — pas de numérotation.")
+              "d\u2019ordre implicite - pas de numérotation.")
 
     # --- SLIDE 21 : 3 cartes sans numéro ---
     s21 = new_slide(prs, layouts, layout_name="titre_contenu",
-                    titre="Trois cartes sans numéro — triade de concepts",
+                    titre="Trois cartes sans numéro - triade de concepts",
                     fil_ariane="Démo | 3 cartes sans n°",
                     footer_text="Formation 102638 / Démo composants",
                     date_text=DATE, page_num=21)
@@ -449,7 +454,7 @@ def main():
                  left=MARGIN_L + i * (card_w_3c + GAP),
                  width=card_w_3c, height=3.5)
     add_notes(s21,
-              "Usage : trois concepts juxtaposés sans ordre — "
+              "Usage : trois concepts juxtaposés sans ordre - "
               "triade, piliers, dimensions équivalentes.")
 
     # --- SLIDE 22 : 1 carte sans numéro + callout plein largeur ---
@@ -536,7 +541,7 @@ def main():
 
     # --- SLIDE 25 : Checklist ---
     s25 = new_slide(prs, layouts, layout_name="titre_contenu",
-                    titre="Checklist — préparer un document accessible",
+                    titre="Checklist - préparer un document accessible",
                     fil_ariane="Démo | Checklist",
                     footer_text="Formation 102638 / Démo composants",
                     date_text=DATE, page_num=25)
@@ -547,7 +552,7 @@ def main():
         ("Tableaux avec en-têtes de colonne identifiés", True),
         ("Liens avec texte descriptif (pas « cliquer ici »)", False),
         ("Langue du document définie (fr-FR)", True),
-        ("Pas de justification — alignement à gauche", False),
+        ("Pas de justification - alignement à gauche", False),
     ], top=TOP_CARDS)
     add_notes(s25,
               "Usage : récap de critères, to-do post-formation. "
@@ -555,7 +560,7 @@ def main():
 
     # --- SLIDE 26 : Avant / après ---
     s26 = new_slide(prs, layouts, layout_name="titre_contenu",
-                    titre="Avant / après — un lien accessible",
+                    titre="Avant / après - un lien accessible",
                     fil_ariane="Démo | Avant et après",
                     footer_text="Formation 102638 / Démo composants",
                     date_text=DATE, page_num=26)
@@ -581,7 +586,7 @@ def main():
 
     # --- SLIDE 27 : Exemple / contre-exemple ---
     s27 = new_slide(prs, layouts, layout_name="titre_contenu",
-                    titre="Exemple et contre-exemple — alt text d\u2019image",
+                    titre="Exemple et contre-exemple - alt text d\u2019image",
                     fil_ariane="Démo | Bon et mauvais exemple",
                     footer_text="Formation 102638 / Démo composants",
                     date_text=DATE, page_num=27)
@@ -630,7 +635,7 @@ def main():
               "évaluation à chaud. Pas de fil d\u2019Ariane (fin de parcours).")
 
     finalize_pptx(prs, str(OUTPUT),
-                  title="Template IGPDE-DSFR — démonstration",
+                  title="Template IGPDE-DSFR - démonstration",
                   author="Alex Guiderdoni",
                   subject="Démonstration des composants DSFR sur template IGPDE")
     print(f"[OK] {OUTPUT.name} généré ({len(prs.slides)} slides)")
