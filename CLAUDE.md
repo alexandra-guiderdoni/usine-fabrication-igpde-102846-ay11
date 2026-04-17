@@ -289,6 +289,18 @@ Importés depuis `igpde_dsfr_components` :
 
 ## Dépendances
 
-- Python 3 + `python-pptx` + `lxml` (installés globalement)
+- Python 3 + `python-pptx` + `lxml` + `openpyxl` (installés globalement)
 - Police Marianne installée sur le système (fallback Arial automatique)
 - Template IGPDE-DSFR présent (`PPT-IGPDE-DSFR-base-intervenant.pptx`) — sinon lancer `build_template.py` ou `rebuild_template_from_demo.py`
+- LibreOffice (`/Applications/LibreOffice.app`) pour conversion PDF et captures de vérification
+
+---
+
+## Leçons capitalisées
+
+Les patterns techniques non évidents découverts pendant le développement sont documentés dans `lessons.md` à la racine du projet : modification de placeholder hérité python-pptx, numérotation auto parasite des layouts DSFR, quarantine macOS, langue des notes présentateur, interligne LibreOffice, calibration Stack, palette alerts unifiée. À relire avant toute extension du support.
+
+---
+
+**Dernière mise à jour** : 2026-04-18
+**Version** : 1.2.0 (auto-height + Stack + alerts unifiées)
