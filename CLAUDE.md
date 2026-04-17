@@ -53,7 +53,8 @@ Constantes exportées par `igpde_dsfr_components.py` :
 | `GAP` | 0,33" | Gouttière entre colonnes |
 | `COL_W` | 5,98" | Largeur colonne 50 % |
 | `COL_R` | 6,83" | Position colonne droite |
-| `TOP_CONTENT` | 2,68" | Début zone contenu sous le titre |
+| `TOP_CONTENT` | 2,68" | Début zone contenu sous le titre (KPI, stepper, tableau, callout seul) |
+| `TOP_CARDS` | 2,45" | Début zone cartes (gap serré au titre — spécifique aux slides à cartes) |
 | `BOTTOM_CONTENT` | 6,80" | Fin zone contenu avant le footer |
 | `FOOTER_Y` | 6,98" | Y de la ligne séparatrice du footer |
 

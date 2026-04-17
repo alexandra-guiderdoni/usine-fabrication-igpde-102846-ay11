@@ -71,6 +71,7 @@ GAP = 0.33
 COL_W = (CONTENT_W - GAP) / 2          # ~5.975"
 COL_R = MARGIN_L + COL_W + GAP         # ~6.825"
 TOP_CONTENT = 2.68                     # debut zone contenu (sous titre)
+TOP_CARDS = 2.45                       # debut zone cartes (gap serre au titre)
 BOTTOM_CONTENT = 6.80                  # fin zone contenu (au-dessus footer)
 FOOTER_Y = 6.98                        # y du footer IGPDE
 
@@ -766,7 +767,7 @@ def compose_sommaire(slide, titre, parties):
     n = min(len(parties), 3)
     card_w = (CONTENT_W - GAP * (n - 1)) / n
     card_h = 3.6
-    card_top = TOP_CONTENT + 0.15
+    card_top = TOP_CARDS
     for i, (titre_partie, description) in enumerate(parties[:n]):
         x = MARGIN_L + i * (card_w + GAP)
         add_card(slide, titre_partie, description, top=card_top, left=x,

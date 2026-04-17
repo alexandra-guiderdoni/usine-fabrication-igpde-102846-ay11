@@ -10,7 +10,7 @@ from igpde_dsfr_components import (
     add_pave_chiffre, add_stepper, add_tableau, add_fleche,
     add_texte_libre, add_encadre, add_notes,
     compose_sommaire, compose_chapitre,
-    MARGIN_L, CONTENT_W, GAP, COL_W, COL_R, TOP_CONTENT,
+    MARGIN_L, CONTENT_W, GAP, COL_W, COL_R, TOP_CONTENT, TOP_CARDS,
     BLEU_FRANCE, ROUGE_MARIANNE, GRIS_CLAIR, BLEU_CLAIR,
 )
 
@@ -102,7 +102,7 @@ def main():
           "Texte lisible",
           "Prévisibilité"]),
     ]):
-        add_card(s5, t, c, top=TOP_CONTENT, left=MARGIN_L + i * (card_w + GAP),
+        add_card(s5, t, c, top=TOP_CARDS, left=MARGIN_L + i * (card_w + GAP),
                  width=card_w, height=3.5, numero=i + 1)
     add_notes(s5,
               "R1 : comprendre les 4 principes WCAG. R2 : ancrage pédagogique.")
@@ -235,6 +235,153 @@ def main():
               "sur les réseaux sociaux",
     )
     add_notes(s12, "Transition vers la partie 4, réseaux sociaux accessibles.")
+
+    # --- SLIDE 13 : 1 carte DSFR (centrée) ---
+    s13 = new_slide(prs, layouts, layout_name="titre_contenu",
+                    titre="Layout une carte — message central",
+                    fil_ariane="Démo | 1 carte",
+                    footer_text="Formation 102638 / Démo composants",
+                    date_text=DATE, page_num=13)
+    add_card(s13, "Principe fondamental",
+             ["Une information doit être perceptible,",
+              "utilisable, compréhensible et robuste",
+              "(acronyme POUR de WCAG 2.2)."],
+             top=TOP_CARDS, left=MARGIN_L,
+             width=CONTENT_W, height=3.5, numero=1)
+    add_notes(s13,
+              "Usage : message unique à retenir, concept structurant. "
+              "Carte centrée pour focaliser l\u2019attention.")
+
+    # --- SLIDE 14 : 2 cartes DSFR (côte à côte) ---
+    s14 = new_slide(prs, layouts, layout_name="titre_contenu",
+                    titre="Layout deux cartes — comparer ou opposer",
+                    fil_ariane="Démo | 2 cartes",
+                    footer_text="Formation 102638 / Démo composants",
+                    date_text=DATE, page_num=14)
+    card_w_2 = COL_W
+    for i, (t, c) in enumerate([
+        ("Audit automatique",
+         ["Rapide (quelques minutes)",
+          "Couvre 30 % des critères",
+          "Outils : axe-core, WAVE, Lighthouse"]),
+        ("Audit manuel",
+         ["Long (journées à semaines)",
+          "Couvre 100 % des critères",
+          "Tests clavier, lecteur d\u2019écran, contraste"]),
+    ]):
+        add_card(s14, t, c, top=TOP_CARDS,
+                 left=MARGIN_L + i * (card_w_2 + GAP),
+                 width=card_w_2, height=3.5, numero=i + 1)
+    add_notes(s14,
+              "Usage : comparaison en miroir, avant/après, deux approches. "
+              "R21 de la neuropédagogie : apprentissage par opposition.")
+
+    # --- SLIDE 15 : 3 cartes DSFR (côte à côte) ---
+    s15 = new_slide(prs, layouts, layout_name="titre_contenu",
+                    titre="Layout trois cartes — triptyque ou séquence",
+                    fil_ariane="Démo | 3 cartes",
+                    footer_text="Formation 102638 / Démo composants",
+                    date_text=DATE, page_num=15)
+    card_w_3 = (CONTENT_W - GAP * 2) / 3
+    for i, (t, c) in enumerate([
+        ("Analyser",
+         ["Identifier les points de blocage",
+          "Prioriser par impact utilisateur"]),
+        ("Corriger",
+         ["Appliquer les remédiations",
+          "Documenter les écarts restants"]),
+        ("Vérifier",
+         ["Tester sur le terrain",
+          "Mesurer la progression"]),
+    ]):
+        add_card(s15, t, c, top=TOP_CARDS,
+                 left=MARGIN_L + i * (card_w_3 + GAP),
+                 width=card_w_3, height=3.0, numero=i + 1)
+    add_notes(s15,
+              "Usage : triptyque (3 directions), séquence (3 étapes), "
+              "triade conceptuelle. Au-delà de 3 cartes, préférer un tableau.")
+
+    # --- SLIDE 16 : 1 carte + callout plein largeur ---
+    s16 = new_slide(prs, layouts, layout_name="titre_contenu",
+                    titre="Une carte + callout — accroche et renforcement",
+                    fil_ariane="Démo | 1 carte + callout",
+                    footer_text="Formation 102638 / Démo composants",
+                    date_text=DATE, page_num=16)
+    add_card(s16, "Principe fondamental",
+             ["Une information doit être perceptible,",
+              "utilisable, compréhensible et robuste",
+              "(acronyme POUR de WCAG 2.2)."],
+             top=TOP_CARDS, left=MARGIN_L,
+             width=CONTENT_W, height=2.3, numero=1)
+    add_callout(
+        s16, "Point d\u2019attention",
+        ["Ces 4 principes structurent l\u2019ensemble des 50 critères RGAA 4.1.2.",
+         "Les retenir facilite la lecture du référentiel."],
+        top=TOP_CARDS + 2.6, height=1.5,
+    )
+    add_notes(s16,
+              "Usage : carte = message principal, callout = renforcement "
+              "ou implication concrète.")
+
+    # --- SLIDE 17 : 2 cartes + callout plein largeur ---
+    s17 = new_slide(prs, layouts, layout_name="titre_contenu",
+                    titre="Deux cartes + callout — comparaison et synthèse",
+                    fil_ariane="Démo | 2 cartes + callout",
+                    footer_text="Formation 102638 / Démo composants",
+                    date_text=DATE, page_num=17)
+    card_h_2 = 2.3
+    for i, (t, c) in enumerate([
+        ("Audit automatique",
+         ["Rapide (quelques minutes)",
+          "Couvre 30 % des critères"]),
+        ("Audit manuel",
+         ["Long (journées à semaines)",
+          "Couvre 100 % des critères"]),
+    ]):
+        add_card(s17, t, c, top=TOP_CARDS,
+                 left=MARGIN_L + i * (COL_W + GAP),
+                 width=COL_W, height=card_h_2, numero=i + 1)
+    add_callout(
+        s17, "À retenir",
+        ["Les deux approches sont complémentaires :",
+         "automatique pour détecter, manuel pour qualifier."],
+        top=TOP_CARDS + card_h_2 + 0.3, height=1.5,
+    )
+    add_notes(s17,
+              "Usage : cartes = comparaison, callout = conclusion/synthèse "
+              "qui relie les deux.")
+
+    # --- SLIDE 18 : 3 cartes + callout plein largeur ---
+    s18 = new_slide(prs, layouts, layout_name="titre_contenu",
+                    titre="Trois cartes + callout — processus et rappel",
+                    fil_ariane="Démo | 3 cartes + callout",
+                    footer_text="Formation 102638 / Démo composants",
+                    date_text=DATE, page_num=18)
+    card_w_3b = (CONTENT_W - GAP * 2) / 3
+    card_h_3 = 2.3
+    for i, (t, c) in enumerate([
+        ("Analyser",
+         ["Identifier les blocages",
+          "Prioriser par impact"]),
+        ("Corriger",
+         ["Appliquer les remédiations",
+          "Documenter les écarts"]),
+        ("Vérifier",
+         ["Tester sur le terrain",
+          "Mesurer la progression"]),
+    ]):
+        add_card(s18, t, c, top=TOP_CARDS,
+                 left=MARGIN_L + i * (card_w_3b + GAP),
+                 width=card_w_3b, height=card_h_3, numero=i + 1)
+    add_callout(
+        s18, "Règle d\u2019or",
+        ["Un cycle Analyser-Corriger-Vérifier dure 2 à 3 semaines.",
+         "Le répéter tant qu\u2019il reste des non-conformités bloquantes."],
+        top=TOP_CARDS + card_h_3 + 0.3, height=1.5,
+    )
+    add_notes(s18,
+              "Usage : cartes = étapes d\u2019un processus, callout = règle "
+              "transverse à retenir.")
 
     finalize_pptx(prs, str(OUTPUT),
                   title="Template IGPDE-DSFR — démonstration",
