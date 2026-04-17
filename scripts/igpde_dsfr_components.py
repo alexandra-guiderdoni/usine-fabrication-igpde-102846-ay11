@@ -376,10 +376,10 @@ def new_slide(prs, layouts, layout_name="titre_contenu", titre=None,
             _apply_text(t_box.text_frame, titre, font=FONT, size=32, bold=True,
                         color=BLEU_FRANCE, align=PP_ALIGN.RIGHT)
         elif layout_name == "titre_soustitre":
-            # Zone texte centrale du layout (0.52, 3.42, 12.28 x 3.03)
+            # Titre remonte pour laisser la zone de contenu libre en dessous
             t_box = slide.shapes.add_textbox(
-                Inches(MARGIN_L), Inches(3.4),
-                Inches(CONTENT_W), Inches(1.4),
+                Inches(MARGIN_L), Inches(2.5),
+                Inches(CONTENT_W), Inches(1.1),
             )
             t_box.name = "Title-DSFR-soustitre"
             _apply_text(t_box.text_frame, titre, font=FONT, size=36, bold=True,
@@ -726,6 +726,82 @@ def add_fleche(slide, top, left, width=0.8):
     fleche.fill.fore_color.rgb = VERT_SUCCES
     fleche.line.fill.background()
     fleche.shadow.inherit = False
+    return slide
+
+
+def add_checklist(slide, items, top, left=MARGIN_L, width=CONTENT_W,
+                  height=None, size=14):
+    """Liste a cocher DSFR : case Unicode + texte.
+
+    items : liste d'items. Chaque item peut etre :
+      - une string (case non cochee par defaut)
+      - un tuple (texte, checked: bool) pour controler l'etat
+    """
+    if height is None:
+        height = len(items) * 0.45 + 0.3
+    box = slide.shapes.add_textbox(
+        Inches(left), Inches(top),
+        Inches(width), Inches(height),
+    )
+    box.name = "DSFR-checklist"
+    tf = box.text_frame
+    tf.word_wrap = True
+    tf.margin_left = Inches(0.15)
+    tf.margin_right = Inches(0.15)
+    tf.margin_top = Inches(0.1)
+    tf.margin_bottom = Inches(0.1)
+    tf.paragraphs[0].text = ""
+    for i, item in enumerate(items):
+        if isinstance(item, tuple):
+            text, checked = item[0], item[1]
+        else:
+            text, checked = item, False
+        box_char = "\u2611" if checked else "\u2610"  # case cochee ou vide
+        p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
+        p.alignment = PP_ALIGN.LEFT
+        p.line_spacing = 1.5
+        # Case
+        run_box = p.add_run()
+        run_box.text = f"{box_char}  "
+        run_box.font.name = FONT
+        run_box.font.size = Pt(size + 4)
+        run_box.font.bold = True
+        run_box.font.color.rgb = VERT_SUCCES if checked else BLEU_FRANCE
+        # Texte
+        run_text = p.add_run()
+        run_text.text = text
+        run_text.font.name = FONT
+        run_text.font.size = Pt(size)
+        run_text.font.color.rgb = NOIR
+    return slide
+
+
+def add_avant_apres(slide, avant_titre, avant_bullets, apres_titre, apres_bullets,
+                    top=None, height=3.5):
+    """Comparaison avant/apres en 2 colonnes : rouge clair (avant) / vert clair (apres)."""
+    if top is None:
+        top = TOP_CARDS
+    add_alert(slide, avant_titre, avant_bullets,
+              top=top, left=MARGIN_L, width=COL_W, height=height,
+              alert_type="error")
+    add_alert(slide, apres_titre, apres_bullets,
+              top=top, left=COL_R, width=COL_W, height=height,
+              alert_type="success")
+    return slide
+
+
+def add_exemple_contre_exemple(slide, bon_titre, bon_bullets,
+                                mauvais_titre, mauvais_bullets,
+                                top=None, height=3.5):
+    """2 colonnes pedagogiques : bon exemple (vert, check) / contre-exemple (rouge, croix)."""
+    if top is None:
+        top = TOP_CARDS
+    add_alert(slide, f"\u2713  {bon_titre}", bon_bullets,
+              top=top, left=MARGIN_L, width=COL_W, height=height,
+              alert_type="success")
+    add_alert(slide, f"\u2717  {mauvais_titre}", mauvais_bullets,
+              top=top, left=COL_R, width=COL_W, height=height,
+              alert_type="error")
     return slide
 
 

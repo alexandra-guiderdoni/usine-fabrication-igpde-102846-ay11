@@ -9,10 +9,12 @@ from igpde_dsfr_components import (
     add_callout, add_alert, add_highlight, add_quote, add_card,
     add_pave_chiffre, add_stepper, add_tableau, add_fleche,
     add_texte_libre, add_encadre, add_notes,
+    add_checklist, add_avant_apres, add_exemple_contre_exemple,
     compose_sommaire, compose_chapitre,
     MARGIN_L, CONTENT_W, GAP, COL_W, COL_R, TOP_CONTENT, TOP_CARDS,
     BLEU_FRANCE, ROUGE_MARIANNE, GRIS_CLAIR, BLEU_CLAIR,
 )
+from pptx.enum.text import PP_ALIGN
 
 OUTPUT = Path(__file__).parent.parent / "demo-template-dsfr.pptx"
 
@@ -51,7 +53,7 @@ def main():
          "Produire un document bureautique accessible",
          "Auditer une page web avec les outils standards",
          "Remédier aux non-conformités détectées"],
-        top=5.0, height=1.8,
+        top=3.8, height=2.5,
     )
     add_notes(s2,
               "Présenter les 4 objectifs, insister sur le caractère opérationnel.")
@@ -382,6 +384,250 @@ def main():
     add_notes(s18,
               "Usage : cartes = étapes d\u2019un processus, callout = règle "
               "transverse à retenir.")
+
+    # --- SLIDE 19 : 1 carte sans numéro (pleine largeur) ---
+    s19 = new_slide(prs, layouts, layout_name="titre_contenu",
+                    titre="Une carte sans numéro — message sans séquence",
+                    fil_ariane="Démo | 1 carte sans n°",
+                    footer_text="Formation 102638 / Démo composants",
+                    date_text=DATE, page_num=19)
+    add_card(s19, "Principe fondamental",
+             ["Une information doit être perceptible,",
+              "utilisable, compréhensible et robuste",
+              "(acronyme POUR de WCAG 2.2)."],
+             top=TOP_CARDS, left=MARGIN_L,
+             width=CONTENT_W, height=3.5)
+    add_notes(s19,
+              "Usage : carte isolée sans numérotation — un concept, "
+              "pas une étape de séquence.")
+
+    # --- SLIDE 20 : 2 cartes sans numéro ---
+    s20 = new_slide(prs, layouts, layout_name="titre_contenu",
+                    titre="Deux cartes sans numéro — deux facettes équivalentes",
+                    fil_ariane="Démo | 2 cartes sans n°",
+                    footer_text="Formation 102638 / Démo composants",
+                    date_text=DATE, page_num=20)
+    for i, (t, c) in enumerate([
+        ("Audit automatique",
+         ["Rapide (quelques minutes)",
+          "Couvre 30 % des critères",
+          "Outils : axe-core, WAVE, Lighthouse"]),
+        ("Audit manuel",
+         ["Long (journées à semaines)",
+          "Couvre 100 % des critères",
+          "Tests clavier, lecteur d\u2019écran, contraste"]),
+    ]):
+        add_card(s20, t, c, top=TOP_CARDS,
+                 left=MARGIN_L + i * (COL_W + GAP),
+                 width=COL_W, height=3.5)
+    add_notes(s20,
+              "Usage : deux approches équivalentes, pas de hiérarchie ni "
+              "d\u2019ordre implicite — pas de numérotation.")
+
+    # --- SLIDE 21 : 3 cartes sans numéro ---
+    s21 = new_slide(prs, layouts, layout_name="titre_contenu",
+                    titre="Trois cartes sans numéro — triade de concepts",
+                    fil_ariane="Démo | 3 cartes sans n°",
+                    footer_text="Formation 102638 / Démo composants",
+                    date_text=DATE, page_num=21)
+    card_w_3c = (CONTENT_W - GAP * 2) / 3
+    for i, (t, c) in enumerate([
+        ("Perceptible",
+         ["Alternatives textuelles",
+          "Contrastes suffisants",
+          "Sous-titres"]),
+        ("Utilisable",
+         ["Navigation au clavier",
+          "Temps suffisant",
+          "Pas de clignotement"]),
+        ("Compréhensible",
+         ["Langue identifiée",
+          "Texte lisible",
+          "Prévisibilité"]),
+    ]):
+        add_card(s21, t, c, top=TOP_CARDS,
+                 left=MARGIN_L + i * (card_w_3c + GAP),
+                 width=card_w_3c, height=3.5)
+    add_notes(s21,
+              "Usage : trois concepts juxtaposés sans ordre — "
+              "triade, piliers, dimensions équivalentes.")
+
+    # --- SLIDE 22 : 1 carte sans numéro + callout plein largeur ---
+    s22 = new_slide(prs, layouts, layout_name="titre_contenu",
+                    titre="Une carte sans numéro + callout",
+                    fil_ariane="Démo | 1 carte sans n° + callout",
+                    footer_text="Formation 102638 / Démo composants",
+                    date_text=DATE, page_num=22)
+    add_card(s22, "Principe fondamental",
+             ["Une information doit être perceptible,",
+              "utilisable, compréhensible et robuste",
+              "(acronyme POUR de WCAG 2.2)."],
+             top=TOP_CARDS, left=MARGIN_L,
+             width=CONTENT_W, height=2.3)
+    add_callout(
+        s22, "Point d\u2019attention",
+        ["Ces 4 principes structurent l\u2019ensemble des 50 critères RGAA 4.1.2.",
+         "Les retenir facilite la lecture du référentiel."],
+        top=TOP_CARDS + 2.6, height=1.5,
+    )
+    add_notes(s22,
+              "Usage : carte sans numérotation + callout de renforcement. "
+              "Un concept unique relié à une implication concrète.")
+
+    # --- SLIDE 23 : 2 cartes sans numéro + callout plein largeur ---
+    s23 = new_slide(prs, layouts, layout_name="titre_contenu",
+                    titre="Deux cartes sans numéro + callout",
+                    fil_ariane="Démo | 2 cartes sans n° + callout",
+                    footer_text="Formation 102638 / Démo composants",
+                    date_text=DATE, page_num=23)
+    card_h_2b = 2.3
+    for i, (t, c) in enumerate([
+        ("Audit automatique",
+         ["Rapide (quelques minutes)",
+          "Couvre 30 % des critères"]),
+        ("Audit manuel",
+         ["Long (journées à semaines)",
+          "Couvre 100 % des critères"]),
+    ]):
+        add_card(s23, t, c, top=TOP_CARDS,
+                 left=MARGIN_L + i * (COL_W + GAP),
+                 width=COL_W, height=card_h_2b)
+    add_callout(
+        s23, "À retenir",
+        ["Les deux approches sont complémentaires :",
+         "automatique pour détecter, manuel pour qualifier."],
+        top=TOP_CARDS + card_h_2b + 0.3, height=1.5,
+    )
+    add_notes(s23,
+              "Usage : deux facettes équivalentes (pas d\u2019ordre) + "
+              "synthèse qui relie les deux.")
+
+    # --- SLIDE 24 : 3 cartes sans numéro + callout plein largeur ---
+    s24 = new_slide(prs, layouts, layout_name="titre_contenu",
+                    titre="Trois cartes sans numéro + callout",
+                    fil_ariane="Démo | 3 cartes sans n° + callout",
+                    footer_text="Formation 102638 / Démo composants",
+                    date_text=DATE, page_num=24)
+    card_w_3d = (CONTENT_W - GAP * 2) / 3
+    card_h_3b = 2.3
+    for i, (t, c) in enumerate([
+        ("Perceptible",
+         ["Alternatives textuelles",
+          "Contrastes suffisants"]),
+        ("Utilisable",
+         ["Navigation au clavier",
+          "Temps suffisant"]),
+        ("Compréhensible",
+         ["Langue identifiée",
+          "Texte lisible"]),
+    ]):
+        add_card(s24, t, c, top=TOP_CARDS,
+                 left=MARGIN_L + i * (card_w_3d + GAP),
+                 width=card_w_3d, height=card_h_3b)
+    add_callout(
+        s24, "Règle d\u2019or",
+        ["Les 4 principes POUR couvrent 100 % des exigences WCAG.",
+         "Tout critère se rattache à l\u2019un d\u2019eux."],
+        top=TOP_CARDS + card_h_3b + 0.3, height=1.5,
+    )
+    add_notes(s24,
+              "Usage : triade équivalente + règle transverse qui englobe "
+              "les trois. Pas de séquence, pas de numérotation.")
+
+    # --- SLIDE 25 : Checklist ---
+    s25 = new_slide(prs, layouts, layout_name="titre_contenu",
+                    titre="Checklist — préparer un document accessible",
+                    fil_ariane="Démo | Checklist",
+                    footer_text="Formation 102638 / Démo composants",
+                    date_text=DATE, page_num=25)
+    add_checklist(s25, [
+        ("Styles hiérarchiques appliqués (Titre 1, Titre 2, Titre 3)", True),
+        ("Alt text renseigné sur toutes les images informatives", True),
+        ("Contrastes vérifiés (\u2265 4,5:1 pour le texte courant)", False),
+        ("Tableaux avec en-têtes de colonne identifiés", True),
+        ("Liens avec texte descriptif (pas « cliquer ici »)", False),
+        ("Langue du document définie (fr-FR)", True),
+        ("Pas de justification — alignement à gauche", False),
+    ], top=TOP_CARDS)
+    add_notes(s25,
+              "Usage : récap de critères, to-do post-formation. "
+              "Cases cochées = acquis, cases vides = à travailler.")
+
+    # --- SLIDE 26 : Avant / après ---
+    s26 = new_slide(prs, layouts, layout_name="titre_contenu",
+                    titre="Avant / après — un lien accessible",
+                    fil_ariane="Démo | Avant et après",
+                    footer_text="Formation 102638 / Démo composants",
+                    date_text=DATE, page_num=26)
+    add_avant_apres(
+        s26,
+        avant_titre="Avant",
+        avant_bullets=[
+            "« Cliquez ici pour en savoir plus »",
+            "Hors contexte, le lecteur ne sait pas où il arrive",
+            "Échec du critère RGAA 6.1",
+        ],
+        apres_titre="Après",
+        apres_bullets=[
+            "« Consulter le rapport d\u2019audit 2025 »",
+            "Le texte du lien décrit sa destination",
+            "Conforme au critère RGAA 6.1",
+        ],
+        top=TOP_CARDS, height=3.5,
+    )
+    add_notes(s26,
+              "Usage : montrer la correction d\u2019un défaut courant. "
+              "Rouge clair pour le défaut, vert clair pour la version accessible.")
+
+    # --- SLIDE 27 : Exemple / contre-exemple ---
+    s27 = new_slide(prs, layouts, layout_name="titre_contenu",
+                    titre="Exemple et contre-exemple — alt text d\u2019image",
+                    fil_ariane="Démo | Bon et mauvais exemple",
+                    footer_text="Formation 102638 / Démo composants",
+                    date_text=DATE, page_num=27)
+    add_exemple_contre_exemple(
+        s27,
+        bon_titre="À faire",
+        bon_bullets=[
+            "alt=\"Graphique en barres : progression 2020-2025\"",
+            "Description concise et informative",
+            "Rend l\u2019image compréhensible sans la voir",
+        ],
+        mauvais_titre="À éviter",
+        mauvais_bullets=[
+            "alt=\"image\" ou alt=\"image1.png\"",
+            "Texte sans valeur informative",
+            "alt=\"\" sur une image porteuse d\u2019information",
+        ],
+        top=TOP_CARDS, height=3.5,
+    )
+    add_notes(s27,
+              "Usage : ancrage pédagogique par opposition. "
+              "Icônes ✓ et ✗ signalent immédiatement la nature de chaque colonne.")
+
+    # --- SLIDE 28 : Clôture ---
+    s28 = new_slide(prs, layouts, layout_name="titre_contenu",
+                    titre="Merci pour votre attention",
+                    footer_text="Formation 102638 / Clôture",
+                    date_text=DATE, page_num=28)
+    add_highlight(
+        s28,
+        "Pour toute question : formation-igpde@finances.gouv.fr",
+        top=3.2, height=1.0,
+    )
+    add_texte_libre(
+        s28, "Retrouvez les supports sur l\u2019espace Alizé de l\u2019IGPDE",
+        top=4.6, left=MARGIN_L, width=CONTENT_W, height=0.5,
+        size=14, color=BLEU_FRANCE, align=PP_ALIGN.CENTER,
+    )
+    add_texte_libre(
+        s28, "Merci de répondre à l\u2019évaluation à chaud en sortant de salle",
+        top=5.3, left=MARGIN_L, width=CONTENT_W, height=0.5,
+        size=12, color=GRIS_CLAIR, align=PP_ALIGN.CENTER,
+    )
+    add_notes(s28,
+              "Slide de clôture : remerciements, contact formateur, rappel "
+              "évaluation à chaud. Pas de fil d\u2019Ariane (fin de parcours).")
 
     finalize_pptx(prs, str(OUTPUT),
                   title="Template IGPDE-DSFR — démonstration",
