@@ -1,0 +1,229 @@
+Communiquer
+sur les réseaux
+Pôle Numérique Inclusif · accessibilite@beta.gouv.fr
+
+Licence Ouverte 2.0
+Ce document est sous Licence Ouverte 2.0. 
+Vous êtes libre de : 
+le communiquer, le reproduire, le copier
+l’adapter, le modifier, l’extraire et le transformer
+le diffuser, le redistribuer, le publier et le transmettre, de l’exploiter à titre commercial, par exemple en la combinant avec d’autres informations, ou en l’incluant dans votre propre produit ou application.
+Sous réserve de :
+mentionner la paternité de l’information : sa source (ses auteurs et autrices) et la date de cette présentation.
+
+À propos du Pôle Numérique Inclusif beta.gouv.fr
+Contactez-nous sur #domaine-accessibilité ou par email accessibilite@beta.gouv.fr
+Romy DUHEM-VERDIÈRE
+Coach a11y
+Anne-Sophie TRANCHET
+UX/UI Design
+Juliette FERRER
+Dev front-end
+Cécile FREYD-FOUCAULT
+Product design
+
+De quoi va-t-on parler ?
+Publier des textes
+Publier des images 
+Publier des vidéos et podcasts
+
+Un peu de contexte
+77 % de la population utilise un smartphone, plus particulièrement les jeunes, qui se servent de celui-ci pour surfer sur Internet.
+62 % sont inscrites sur les réseaux sociaux.
+Source :  Un numérique accessible pour les personnes handicapées, c’est pour quand ? https://fr.slides.access42.net/passageenseine2023/
+48 % éprouvent une forme de difficulté qui les empêche d’utiliser pleinement les outils numériques et internet.
+7,6 millions de personnes sont concernées par le handicap. Cela correspond à 1 personne sur 7, soit 14 % de la population.
+
+Les textes
+Emojis
+Hashtag
+Caractères spéciaux
+Écriture inclusive
+
+Emojis
+Un emoji est plus long qu’il en a l’air
+Un emoji peut en cacher un autre
+Un emoji n’est pas toujours clair
+Un emoji n’est pas toujours visible
+
+Source : Des emojis accessibles  blog.hello-bokeh.fr/2020/07/23/des-emoji-accessibles/
+🙈🤞🏻🤞🏻🤞🏻 okok bon bah bon courage 😘😘 😘
+
+Emojis
+Un emoji est plus long qu’il en a l’air
+Un emoji peut en cacher un autre
+Un emoji n’est pas toujours clair
+Un emoji n’est pas toujours visible
+
+Source : Des emojis accessibles  blog.hello-bokeh.fr/2020/07/23/des-emoji-accessibles/
+À retenir
+Utiliser des emojis de temps en temps, c’est ok ✅.
+Placer l’émoji de préférence à la fin d’un message 👍.
+Mettre les informations importantes avant l’émoji ⬅️.
+S’assurer que le message a du sens même sans emoji 😇.
+
+Emojis
+Un emoji est plus long qu’il en a l’air
+Un emoji peut en cacher un autre
+Un emoji n’est pas toujours clair
+Un emoji n’est pas toujours visible
+
+Source : Des emojis accessibles  blog.hello-bokeh.fr/2020/07/23/des-emoji-accessibles/
+À retenir
+Utiliser des emojis de temps en temps, c’est ok ✅.
+Placer l’émoji de préférence à la fin d’un message 👍.
+Mettre les informations importantes avant l’émoji ⬅️.
+S’assurer que le message a du sens même sans emoji 😇.
+Note : 
+Sur le web, stratégie différente : on peut rendre les emojis silencieux pour les lecteurs d’écran :
+<span aria-hidden=”true”>🤩</span>
+
+Hashtags
+Les hashtags en #CamelCase
+sont plus facile à lire
+peuvent être lu par des lecteurs d’écrans
+ne risquent pas de déformer le message
+
+
+
+
+
+Source : Formatting Hashtags accessible-social.com/copy-and-formatting/hashtags
+À retenir
+Mettre une majuscule aux premières lettres de chaque mots d’un hashtag
+
+Caractères spéciaux
+
+Caractères spéciaux
+Les caractères spéciaux ne sont 
+pas reconnus (ou mal reconnus) par les lecteurs d’écrans
+pas traduisibles
+
+Source : le détournement des caractères Unicode, fléau pour l’accessibilité du web lalutineduweb.fr/detournement-unicode-emojis-accessibilite/
+À retenir
+Ne pas utiliser les caractères spéciaux
+
+Écriture inclusive
+Étude exploratoire de Sophie Véla, sur la compréhension sémantique (sens du mot et de la phrase) : 95% des propositions sont comprises. 
+Les phrases posant des difficultés sont les mêmes pour dys et non dys, et mobilisent plutôt des ligatures. 
+Mémoire de Justine Bulteau sur la compréhension d’extraits, selon différentes formes d’écritures inclusives. 
+L’habitude aux écritures inclusives et le positionnement sur celles-ci influence sur l’accessibilité. Plus une personne est favorable aux écritures inclusives et a l’habitude de les lire, plus elle aura de la facilité à les comprendre et à les lire; et inversement.
+
+Écriture inclusive
+L’écriture inclusive ne se résume pas au point médian.
+Mots épicènes : « les personnes » (que j’aime beaucoup, car on peut ensuite accorder au féminin 😇) 
+Formules englobantes : « les responsables des achats » plutôt que « les acheteurs et les acheteuses » 
+Écriture décomposée : « les développeuses et développeurs »
+ 
+Abréviations inclusives, avec le point médian pour les mots qui se prononcent à l’identique, comme « ami·e·s » (mais pas pour « les utilisateur·rices »)
+Néologismes au genre neutre : « iel » (il ou elle) ou « celleux » (celles et ceux), « orateurices » (orateurs et oratrices)
+À retenir
+L’accessibilité ne doit pas être une excuse pour ne pas être inclusifs.
+Résumé des défauts d’accessibilité
+
+Pour les personnes utilisant un lecteur d’écran : support plus ou moins abouti selon le signe et le logiciel utilisé. 
+
+Pour les personnes dyslexiques : difficultée du point médian plus lié au fait qu’il soit nouveau.
+ Écriture inclusive : le point d’hyphénation rend-il vraiment meilleure la lecture par les lecteurs d’écran ?
+lalutineduweb.fr/ecriture-inclusive-point-hyphenation-accessibilite-lecteurs-ecran/
+
+Les images
+Alternatives
+Contrastes
+Gifs animés
+
+Alternatives aux images
+🎯 Objectif : donner du contexte manquant aux personnes qui ne voient pas l’image.
+
+Alternatives aux images
+Comment bien rédiger une alternative ?
+Visuel : décrire ce qui vous paraît important (il n’y a pas qu’une seule manière de faire !)
+Avec du texte : intégrer le texte important dans la description
+⚠️ Image décorative : prévenir avec la mention « image décorative » (contrairement au web)
+
+Source : w3.org/WAI/tutorials/images/decision-tree/fr
+
+Alternatives aux images
+À chaque plateforme son moyen technique 
+Linkedin
+Mastodon
+X/Twitter
+
+Contrastes des images
+Respecter un contraste suffisant si le texte est sur une image ou une couleur de fond : au moins 4.5:1 
+Jouer avec les effets graphiques (overlay sur l’image, fond coloré sous le texte…)
+Outil pour aider 
+https://www.tpgi.com/color-contrast-checker/
+
+Gifs animés
+Difficulté de navigation pour les utilisateurs ayant des troubles de l’attention.
+Actuellement, seul Twitter permet aux utilisateurs de mettre les GIF en pause.
+Étude de cas : Rédaction d’alternatives pour  1000 gifs animés fréquemment utilisés / https://www.scribelytribe.com/case-studies/giphy
+Difficulté de perception pour les personnes utilisant une synthèse vocale.
+Actuellement, peu de réseaux permettent de renseigner des alternatives aux GIF. 
+À retenir
+Éviter les gifs animés !
+
+Les vidéos, audios et podcasts
+Transcriptions
+Sous-titres
+
+Vidéos
+🚨 Elles doivent être consultables sans le son : 
+pour être accessibles aux personnes sourdes et malentendantes
+car une grande partie de votre public consultera vos comptes sur un mobile, souvent en mode silencieux. 
+À retenir
+Inclure des sous-titres (de taille suffisante) pour chacune de vos vidéos.
+Cette vidéo est sous-titrée. Une retranscription est même proposée dans le corps du post.
+
+Podcasts
+ 
+Proposez une transcription
+hébergée sur votre site
+via  votre flux RSS de podcasts
+Pris en charge par Apple Podcast par exemple
+Transcription automatique modifiable sur Ausha
+
+Exemple de transcription hébergée par le projet
+Source : Pourquoi et comment rendre accessible un podcast ? emmanuelle-aboaf.netlify.app/blog/article/pourquoi-et-comment-rendre-accessible-un-podcast
+
+À éviter : les sous-titres mots à mots
+Les sous-titres mots à mots passent trop rapidement pour pouvoir être lus par tout le monde. Ils peuvent aussi déclencher des crises d’épilepsie.
+
+À éviter : les sous-titres illisibles
+Nope
+Oui, avec un fond
+Oui, avec une bordure
+
+Sous-titres : quelques ressources
+Toutes les vidéos doivent avoir des sous-titres et si possible une transcription.
+YouTube permet de générer automatiquement des sous-titres. Vous pouvez télécharger le .srt via YouTube.
+Pour les réseaux sociaux ne générant pas de sous-titres automatiques, il existe des outils comme MixCaptions (AppStore) ou AutoCap (GooglePlay).
+⚠️ Il faut toujours vérifier / corriger les sous-titres automatiques. 
+
+D’autres ressources chez Emmanuelle Aboaf
+Comment continuer à bien sous-titrer vos vidéos ?
+Comment sous-titrer vos vidéos et vos podcasts et avec quels outils ?
+
+En résumé
+
+Ce qu’il faut retenir
+Apprendre à utiliser vos plateformes de réseaux sociaux
+Linkedin, Mastodon, X/Twitter… 
+Voir par exemple access42.net/images-accessibles-reseaux-sociaux
+Mettre en place des bonnes pratiques de communication
+Limiter les émojis
+Bannir les faux caractères…
+Mettre en place des process
+Si vidéo, penser aussi aux sous-titres
+Si vidéo/podcast, penser aux transcriptions
+
+espace-membre.incubateur.net/formations
+
+Contacts chez beta.gouv.fr
+Sur le channel #domaine-accessibilité de Mattermost
+Par le formulaire de demande d'accompagnement
+Par le Pôle Numérique Inclusif à accessibilite@beta.gouv.fr
+
+
+30
