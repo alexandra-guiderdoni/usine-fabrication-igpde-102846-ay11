@@ -50,11 +50,11 @@ def build(prs, layouts, ctx):
 
     callout_titre = "5 piliers, 5 corrections, 8 minutes"
     callout_bullets = [
-        "P1 — Styles Titre 1/2/3 et Ligne d'en-tête dans chaque tableau",
-        "P2 — Ajouter : Alerte avant le texte écrit en rouge",
-        "P3 — Texte alt sur l'image et renommer le lien",
-        "P4 — Sélectionner le passage > Révision > Langue > Définir",
-        "P5 — Fichier > Informations > renseigner Titre et Auteur",
+        "P1 - Styles Titre 1/2/3 et Ligne d'en-tête dans chaque tableau",
+        "P2 - Ajouter : Alerte avant le texte écrit en rouge",
+        "P3 - Texte alt sur l'image et renommer le lien",
+        "P4 - Sélectionner le passage > Révision > Langue > Définir",
+        "P5 - Fichier > Informations > renseigner Titre et Auteur",
     ]
     add_callout(
         slide,

@@ -611,7 +611,8 @@ def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, heig
     # le rendu (ni vide a la fin, ni debordement). Pour forcer une hauteur
     # specifique (alignement entre plusieurs composants), utiliser add_card
     # qui respecte max(height, auto).
-    h_titre = 0.55 if titre else 0.15
+    h_titre_box = max(_estimate_height(titre, width - 0.35, size=14), 0.35) if titre else 0
+    h_titre = (0.10 + h_titre_box + 0.10) if titre else 0.15
     h_body = _estimate_height(bullets, width - 0.5, size=12)
     h_padding = 0.25
     height = max(h_titre + h_body + h_padding, 0.90)
@@ -622,16 +623,16 @@ def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, heig
     # Titre
     if titre:
         t_box = slide.shapes.add_textbox(
-            Inches(left + 0.25), Inches(top + 0.1),
-            Inches(width - 0.35), Inches(0.4),
+            Inches(left + 0.25), Inches(top + 0.10),
+            Inches(width - 0.35), Inches(h_titre_box),
         )
         t_box.name = "DSFR-callout-titre"
         _apply_text(t_box.text_frame, titre, font=FONT, size=14, bold=True,
                     color=BLEU_FRANCE)
     # Bullets
     if bullets:
-        body_top = top + 0.55 if titre else top + 0.15
-        body_h = height - (0.65 if titre else 0.25)
+        body_top = (top + h_titre) if titre else (top + 0.15)
+        body_h = height - (h_titre + 0.10 if titre else 0.25)
         b_box = slide.shapes.add_textbox(
             Inches(left + 0.25), Inches(body_top),
             Inches(width - 0.35), Inches(body_h),
@@ -656,7 +657,8 @@ def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height
     # Palette unifiee : gris clair + accent Bleu France pour toutes les alerts
     fond, accent = GRIS_CLAIR, BLEU_FRANCE
     # Calcul auto TOUJOURS (voir add_callout pour le rationnel)
-    h_titre = 0.55 if titre else 0.15
+    h_titre_box = max(_estimate_height(titre, width - 0.35, size=14), 0.35) if titre else 0
+    h_titre = (0.10 + h_titre_box + 0.10) if titre else 0.15
     h_body = _estimate_height(bullets, width - 0.5, size=12)
     h_padding = 0.25
     height = max(h_titre + h_body + h_padding, 0.90)
@@ -665,15 +667,15 @@ def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height
               fill_color=fond, accent_color=accent, accent_w=0.08)
     if titre:
         t_box = slide.shapes.add_textbox(
-            Inches(left + 0.25), Inches(top + 0.1),
-            Inches(width - 0.35), Inches(0.4),
+            Inches(left + 0.25), Inches(top + 0.10),
+            Inches(width - 0.35), Inches(h_titre_box),
         )
         t_box.name = f"DSFR-alert-{alert_type}-titre"
         _apply_text(t_box.text_frame, titre, font=FONT, size=14, bold=True,
                     color=accent)
     if bullets:
-        body_top = top + 0.55 if titre else top + 0.15
-        body_h = height - (0.65 if titre else 0.25)
+        body_top = (top + h_titre) if titre else (top + 0.15)
+        body_h = height - (h_titre + 0.10 if titre else 0.25)
         b_box = slide.shapes.add_textbox(
             Inches(left + 0.25), Inches(body_top),
             Inches(width - 0.35), Inches(body_h),
@@ -701,8 +703,17 @@ def add_highlight(slide, texte, top, left=MARGIN_L, width=CONTENT_W, height=None
         Inches(width - 0.4), Inches(height - 0.2),
     )
     t_box.name = "DSFR-highlight"
-    p = _apply_text(t_box.text_frame, texte, font=FONT, size=18, bold=True,
+    lines = str(texte).split('\n')
+    p = _apply_text(t_box.text_frame, lines[0], font=FONT, size=18, bold=True,
                     color=BLEU_FRANCE, anchor=MSO_ANCHOR.MIDDLE)
+    for line in lines[1:]:
+        new_p = t_box.text_frame.add_paragraph()
+        run = new_p.add_run()
+        run.text = line
+        run.font.name = FONT
+        run.font.size = Pt(18)
+        run.font.bold = True
+        run.font.color.rgb = BLEU_FRANCE
     if url:
         run = p.runs[0]
         run.font.bold = False

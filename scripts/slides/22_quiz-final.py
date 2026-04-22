@@ -1,14 +1,8 @@
-"""Slide 47 : Quiz final - Trouvez les 5 erreurs.
-
-Règles neuropédagogie appliquées :
-- R4 : Récupération active (quiz de synthèse)
-- R16 : Interleaving (5 erreurs, 1 par pilier)
-- R3 : Préparation mentale pour discrimination tous les 5 piliers
-"""
+"""Slide quiz final - Questions uniquement (5 erreurs a trouver)."""
 
 from igpde_dsfr_components import (
-    add_alert, add_callout, add_notes, new_slide,
-    estimate_alert_height, estimate_callout_height,
+    add_alert, add_highlight, add_notes, new_slide,
+    estimate_highlight_height, CONTENT_W, MARGIN_L,
 )
 
 
@@ -23,7 +17,10 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    alert_titre = "Un document Word contient :"
+    consigne = "Un document Word contient les éléments suivants. Identifiez les 5 erreurs d'accessibilité (1 par pilier)."
+    add_highlight(slide, consigne,
+                  top=2.3, left=MARGIN_L, width=CONTENT_W)
+
     alert_bullets = [
         "Un titre Introduction mis en gras Arial 16 (sans style) [P1]",
         "Un tableau de résultats avec des lignes en rouge et en vert [P2]",
@@ -33,32 +30,16 @@ def build(prs, layouts, ctx):
     ]
     add_alert(
         slide,
-        alert_titre,
+        "Le document contient :",
         alert_bullets,
-        top=2.3,
+        top=round(2.3 + estimate_highlight_height(consigne, CONTENT_W) + 0.3, 2),
         alert_type="info",
-    )
-
-    callout_titre = "5 piliers, 5 corrections"
-    callout_bullets = [
-        "P1 — Appliquer le style Titre 1",
-        "P2 — Ajouter les étiquettes : Conforme et Non conforme dans les cellules",
-        "P3 — Renommer le lien : Accéder au formulaire de demande RH",
-        "P4 — Révision > Langue > Définir la langue de vérification : Français",
-        "P5 — Fichier > Informations > Propriétés : saisir Titre et Auteur",
-    ]
-    add_callout(
-        slide,
-        callout_titre,
-        callout_bullets,
-        top=round(2.3 + estimate_alert_height(alert_titre, alert_bullets) + 0.25, 2),
     )
 
     add_notes(
         slide,
-        "Laisser 3 minutes de réflexion individuelle. Corriger en groupe, commenter "
-        "les erreurs manquées. Si quelqu'un trouve les 5 : féliciter et demander combien "
-        "de temps il a mis. Si moins de 3 : identifier quel pilier est moins bien maîtrisé "
-        "et orienter vers les slides correspondantes."
+        "Laisser 3 minutes de réflexion individuelle avant de passer à la slide suivante. "
+        "Ne pas aider - la difficulté fait partie de l'apprentissage. "
+        "Demander à main levée combien trouvent 3 erreurs, 4, les 5."
     )
     return slide

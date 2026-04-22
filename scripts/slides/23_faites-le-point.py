@@ -1,4 +1,4 @@
-"""Slide 48 : Faites le point - Métacognition et retrait active.
+"""Slide 48 : Faites le point - Métacognition et récupération active.
 
 Règles neuropédagogie appliquées :
 - R4 : Récupération active sans relecture
@@ -7,7 +7,9 @@ Règles neuropédagogie appliquées :
 """
 
 from igpde_dsfr_components import (
-    add_highlight, add_alert, add_notes, new_slide
+    Stack, MARGIN_L, CONTENT_W,
+    add_highlight, add_texte_libre, add_alert, add_notes, new_slide,
+    estimate_highlight_height,
 )
 
 
@@ -22,31 +24,34 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    add_highlight(
-        slide,
-        "Avant de regarder la réponse, notez sans relire :",
-        top=2.3
-    )
+    stack = Stack(top=2.3, gap=0.30)
 
-    # Create three text areas for free-text responses
-    # Note: igpde_dsfr_components doesn't have add_texte_libre, so we'll use simple text representations
-    slide.shapes.add_textbox(0.52, 3.15, 12.28, 0.8).text_frame.text = \
-        "1.  La règle la plus importante pour les lecteurs d'écran : _______________"
-    slide.shapes.add_textbox(0.52, 4.1, 12.28, 0.8).text_frame.text = \
-        "2.  La vérification à faire en 30 secondes sur n'importe quel document : _______________"
-    slide.shapes.add_textbox(0.52, 5.05, 12.28, 0.8).text_frame.text = \
-        "3.  Le geste que vous ferez dès demain sur votre prochain document : _______________"
+    consigne = "Avant de regarder la réponse, notez sans relire :"
+    add_highlight(slide, consigne,
+                  top=stack.push(estimate_highlight_height(consigne, CONTENT_W)),
+                  left=MARGIN_L, width=CONTENT_W)
 
-    alert_bullets = [
-        "Styles de titre - Ctrl+F onglet Titres - et vérifier le texte alternatif",
-        "Vous avez retenu l'essentiel. Sinon : relire les piliers 1 et 3."
+    questions = [
+        "1.  La règle la plus importante pour les lecteurs d'écran : _______________",
+        "2.  La vérification à faire en 30 secondes sur n'importe quel document : _______________",
+        "3.  Le geste que vous ferez dès demain sur votre prochain document : _______________",
     ]
+    for q in questions:
+        add_texte_libre(slide, q,
+                        top=stack.push(0.55),
+                        left=MARGIN_L, width=CONTENT_W,
+                        height=0.50, size=14)
+
     add_alert(
         slide,
         "Si vous avez répondu...",
-        alert_bullets,
-        top=5.55,
-        alert_type="success"
+        [
+            "Styles de titre - Ctrl+F onglet Titres - et vérifier le texte alternatif",
+            "Vous avez retenu l'essentiel. Sinon : relire les piliers 1 et 3.",
+        ],
+        top=stack.cursor,
+        left=MARGIN_L, width=CONTENT_W,
+        alert_type="success",
     )
 
     add_notes(
@@ -54,6 +59,6 @@ def build(prs, layouts, ctx):
         "Silence total pendant 2 minutes. Ne pas aider. Ce travail de récupération active "
         "consolide la mémoire à long terme plus efficacement que relire le support. "
         "Quand tout le monde a écrit : comparer avec la réponse. L'écart entre ce qu'on "
-        "croit savoir et ce qu'on sait vraiment est très instructif."
+        "croit savoir et ce qu'on sait vraiment est très instructif.",
     )
     return slide

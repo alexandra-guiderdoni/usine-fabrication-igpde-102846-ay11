@@ -32,10 +32,10 @@ def build(prs, layouts, ctx):
 
     card2_titre = "Le document contient"
     card2_contenu = [
-        "un titre Introduction en gras Arial 16",
-        "un graphique de résultats sans description",
-        "la mention urgent écrite en gras et en rouge",
-        "un lien cliquez ici pour les annexes",
+        "Un titre Introduction en gras Arial 16",
+        "Un graphique de résultats sans description",
+        "La mention urgent écrite en gras et en rouge",
+        "Un lien cliquez ici pour les annexes",
     ]
 
     card_h = max(

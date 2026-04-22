@@ -1,62 +1,59 @@
-"""Slide 51 : Revenez dans 7 jours - Répétitions espacées.
-
-Règles neuropédagogie appliquées :
-- R24 : Répétitions espacées (J+7, J+30) pour mémorisation long terme
-- R4 : Récupération active (refaire le quiz)
-- R22 : Progression (niveaux de maîtrise : 3/5 vs 5/5)
-"""
+"""Slide clôture module 2 - Engagement personnel + progression J+7 / J+30 / 6 mois."""
 
 from igpde_dsfr_components import (
-    add_callout, add_highlight, add_notes, new_slide,
-    estimate_callout_height
+    Stack, MARGIN_L, CONTENT_W, GAP,
+    add_highlight, add_card, add_notes, new_slide,
+    estimate_highlight_height, estimate_card_height,
 )
+
+CARD_W = (CONTENT_W - 2 * GAP) / 3
 
 
 def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_soustitre",
-        titre="Revenez dans 7 jours",
-        fil_ariane="2. Documents accessibles | Répétitions espacées",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Répétitions",
+        titre="À vous de jouer",
+        fil_ariane="2. Documents accessibles | Clôture",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Fin",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
-    callout1_bullets = [
-        "5/5 : les réflexes sont installés - passez à la checklist sur un vrai document",
-        "3-4/5 : relisez les piliers correspondant aux erreurs manquées",
-        "Moins de 3 : reprenez les piliers 1 et 3 (80 % des cas)"
-    ]
-    add_callout(
-        slide,
-        "J+7 : refaites le quiz final sans rouvrir ce support",
-        callout1_bullets,
-        top=2.3
-    )
+    stack = Stack(top=2.3, gap=0.35)
 
-    callout2_bullets = [
-        "Parcourez la checklist de haut en bas",
-        "C'est le seul test qui compte"
-    ]
-    add_callout(
-        slide,
-        "J+30 : ouvrez votre prochain document Word",
-        callout2_bullets,
-        top=4.1
-    )
+    engagement = "Je m'engage à vérifier les styles de titre et le texte alternatif sur mon prochain document."
+    add_highlight(slide, engagement,
+                  top=stack.push(estimate_highlight_height(engagement, CONTENT_W)),
+                  left=MARGIN_L, width=CONTENT_W)
 
-    add_highlight(
-        slide,
-        "Phrase-clé à 6 mois : Titres avec styles, images avec texte alt, vérificateur avant d'envoyer.",
-        top=5.60
+    c1 = ["Refaites le quiz final sans rouvrir ce support",
+          "3-4/5 : relisez le pilier correspondant aux erreurs"]
+    c2 = ["Ouvrez un vrai document Word",
+          "Appliquez la checklist de haut en bas"]
+    c3 = ["Styles de titre, texte alt, vérificateur avant envoi",
+          "Si c'est automatique : les réflexes sont installés"]
+
+    card_h = max(
+        estimate_card_height("J+7", c1, CARD_W),
+        estimate_card_height("J+30", c2, CARD_W),
+        estimate_card_height("6 mois", c3, CARD_W),
     )
+    cards_top = stack.push(card_h)
+
+    add_card(slide, "J+7", c1,
+             top=cards_top, left=MARGIN_L, width=CARD_W, height=card_h)
+    add_card(slide, "J+30", c2,
+             top=cards_top, left=MARGIN_L + CARD_W + GAP, width=CARD_W, height=card_h)
+    add_card(slide, "6 mois", c3,
+             top=cards_top, left=MARGIN_L + 2 * (CARD_W + GAP), width=CARD_W, height=card_h)
 
     add_notes(
         slide,
-        "Les répétitions espacées multiplient par 3 la rétention à long terme "
-        "(Ebbinghaus, confirmé par Pashler 2007). J+7 = pic de l'oubli. J+30 = consolidation "
-        "à long terme. La phrase-clé est l'ancre : si un stagiaire ne retient qu'une chose, "
-        "c'est ça."
+        "L'engagement explicite crée une intention comportementale plus forte qu'une affirmation. "
+        "Laisser chaque stagiaire écrire son engagement (physique ou mental). "
+        "J+7 = pic de l'oubli selon la courbe d'Ebbinghaus - c'est le moment critique. "
+        "J+30 = consolidation. À 6 mois, si les 3 gestes sont devenus automatiques, "
+        "la formation a atteint son objectif.",
     )
     return slide

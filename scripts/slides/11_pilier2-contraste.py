@@ -31,10 +31,11 @@ def build(prs, layouts, ctx):
             "Ouvrir le Colour Contrast Analyser (CCA) de TPGi - gratuit Windows et macOS",
             "Pipette Premier plan sur la couleur du texte",
             "Pipette Arrière-plan sur la couleur du fond",
-            "Lire le ratio : conforme si >= 4,5:1 texte normal, >= 3:1 grand texte"
+            "Lire le ratio : conforme si >= 4,5:1 pour le texte normal",
+            ">= 3:1 pour le grand texte (18 pt+ ou 14 pt gras)",
         ],
         top=2.3,
-        height=2.2
+        height=2.8
     )
 
     add_pave_chiffre(

@@ -27,7 +27,7 @@ def build(prs, layouts, ctx):
 
     balise_bullets = [
         "Langue principale : Fichier > Options > Langue",
-        "Passage étranger : sélectionner le texte > Révision > Langue > Définir la langue",
+        "Passage en langue étrangère : sélectionner le texte > Révision > Langue > Définir la langue",
         "Sans balisage de langue, le lecteur d'écran prononce mal le mot"
     ]
     add_callout(

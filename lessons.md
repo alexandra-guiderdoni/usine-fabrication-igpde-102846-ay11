@@ -113,6 +113,51 @@ Justification : palette sobre, homogène, sans signal rouge/vert/orange qui alou
 
 ---
 
+## add_callout / add_alert : hauteur de titre dynamique
+
+Avant cette session, la hauteur du titre était fixée à `Inches(0.4)` et le corps commençait toujours à `top + 0.55"`. Si le titre passait sur 2 lignes, le corps chevauchait le titre.
+
+**Fix appliqué** : `h_titre_box = max(_estimate_height(titre, width-0.35, size=14), 0.35)` — hauteur calculée dynamiquement. Corps positionné à `top + 0.10 + h_titre_box + 0.10`.
+
+Affecte : `add_callout()` et `add_alert()` dans `igpde_dsfr_components.py`.
+
+---
+
+## add_highlight : saut de ligne via `\n`
+
+`add_highlight` appelle `_apply_text` qui pose `run.text = str(texte)` sans interpréter les `\n`.
+
+**Fix appliqué** : splitta sur `\n`, premier segment via `_apply_text`, segments suivants via `tf.add_paragraph()` avec le même formatage (FONT, 18pt, bold, BLEU_FRANCE).
+
+`_estimate_height` gérait déjà `\n` correctement (split interne).
+
+---
+
+## add_textbox direct sans Inches() = positions brisées
+
+`slide.shapes.add_textbox(0.52, 3.15, ...)` passe des valeurs en EMU, pas en pouces. 0.52 EMU ≈ 0 sur un slide de 13,33 pouces.
+
+**Règle** : toujours utiliser `Inches(x)` ou les helpers `add_texte_libre` / `add_callout`. Ne jamais appeler `add_textbox` directement avec des valeurs décimales.
+
+---
+
+## Grille 2 rangées de cartes : top dynamique anti-débordement
+
+Pour deux rangées de cartes (ex. sommaire 2x2), calculer le `row1_top` en fonction de `card_h` :
+
+```python
+BOTTOM_SAFE = BOTTOM_CONTENT - 0.05
+row1_top = min(2.20, BOTTOM_SAFE - 2 * card_h - GAP_ROWS)
+row2_top = row1_top + card_h + GAP_ROWS
+```
+
+- Si les cartes sont petites : `row1_top = 2.20"` (proche du titre)
+- Si les cartes sont grandes : `row1_top` se recale vers le haut pour ne pas déborder
+
+Erreur fréquente : hardcoder `TOP_CARDS = 2.45"` sans vérifier que `row2_top + card_h <= BOTTOM_CONTENT`.
+
+---
+
 ## Refactoring massif via AST
 
 Pour patcher 14 slides en une opération (remplacer `top=X.XX, height=Y.YY` par `top=stack.push(estimate_*(args))`), un script Python utilisant `ast` + `ast.unparse` a été efficace. Préservation des args de chaque composant via `ast.unparse(arg_node)` pour regénérer le code source fidèlement.
