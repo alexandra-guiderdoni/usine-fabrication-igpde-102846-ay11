@@ -60,12 +60,14 @@ Ce support de formation n'est pas une documentation illustrée : c'est une **exp
 
 ### Modules du programme détaillé
 
-| N° | Module | Contenu clé |
-|----|--------|-------------|
-| 1 | Comprendre l'accessibilité numérique et son cadre légal | Définition, enjeux, obligations des acteurs publics, déclaration d'accessibilité |
-| 2 | Créer des documents bureautiques accessibles | Word, mémo LibreOffice, export PDF accessible |
-| 3 | Pratiquer les évaluations rapides d'accessibilité web (Easy Checks) | 13 vérifications W3C WAI — corpus local dans `03-easy-checks/` |
-| 4 | Améliorer l'accessibilité des publications sur les réseaux sociaux | Alt text, hashtags, émojis |
+**Ordre impératif : M1 → M2 → M3 → M4. Ne jamais inverser.**
+
+| N° | Module | Fichiers sources | Pages PPTX | Contenu clé |
+|----|--------|-----------------|------------|-------------|
+| 0 | Introduction, cadre légal | `01_` → `02q_` | 1–19 | Couverture, objectifs, sommaire, intervenants, idées reçues, définition, RGAA, déclaration |
+| 2 | Créer des documents bureautiques accessibles | `03_` → `26_` | 20–44 | Word, 5 piliers, exercices, quiz, checklist, clôture |
+| 3 | Pratiquer les évaluations rapides d'accessibilité web (Easy Checks) | `28_` → `52_` | 45–69 | 13 vérifications W3C WAI — corpus local dans `03-easy-checks/` |
+| 4 | Améliorer l'accessibilité des publications sur les réseaux sociaux | `53_` → `55o_` | 70–86 | Alt text, hashtags, émojis, écriture inclusive |
 
 ---
 
@@ -75,23 +77,23 @@ Le module 3 couvre les 13 Easy Checks du W3C WAI (source : `03-easy-checks/w3c-e
 
 **Convention** : le fil d'Ariane des slides du module 3 a la forme `3. Easy Checks | N. Libellé court` où `N` est le numéro du check W3C.
 
-| Easy Check W3C | WCAG | Slides | Libellé court retenu |
-|----------------|------|--------|----------------------|
-| Chapitre d'ouverture module 3 | — | `03_chapitre-easy-checks` | 3. Easy Checks |
-| 1. Texte alternatif des images | 1.1.1 | `04_` à `06_` (3 slides : types / rédaction / exemples) | 1. Alternatives textuelles |
-| 2. Titre de page | 2.4.2 | `07_` (1 slide) | 2. Titre de page |
-| 3. Titres de rubriques | 1.3.1, 2.4.6 | `08_` à `09_` (2 slides : hiérarchie / outils) | 3. Titres de rubriques |
-| 4. Contraste des couleurs | 1.4.3 | `10_` à `11_` (2 slides : principe / outils) | 4. Contraste |
-| 5. Lien d'évitement | 2.4.1 | `12_` (1 slide) | 5. Lien d'évitement |
-| **6. Focus clavier visible** | 2.4.7 | `13_` à `16_` (4 slides : ouverture / 5 touches / signaux / mission) | **6. Focus et navigation clavier** (élargi) |
-| 7. Langue de la page | 3.1.1 | `17_` (1 slide) | 7. Langue |
-| 8. Zoom | 1.4.4 | `18_` (1 slide) | 8. Zoom |
-| 9. Sous-titres | 1.2.2 | `19_` à `20_` (2 slides : principe / pièges auto) | 9. Sous-titres |
-| 10. Transcriptions | 1.2.1 | `21_` (1 slide) | 10. Transcriptions |
-| 11. Audiodescription | 1.2.5 | `22_` (1 slide) | 11. Audiodescription |
-| 12. Étiquettes de formulaire | 3.3.2, 1.3.1 | `23_` à `25_` (3 slides : principe / placeholder / groupes) | 12. Étiquettes de formulaire |
-| 13. Champs obligatoires | 3.3.2 | `26_` (1 slide) | 13. Champs obligatoires |
-| Mission finale module 3 | — | `27_mission-13-checks` | Mission finale |
+| Easy Check W3C | WCAG | Fichiers sources | Libellé court retenu |
+|----------------|------|-----------------|----------------------|
+| Chapitre d'ouverture module 3 | — | `28_chapitre-easy-checks` | 3. Easy Checks |
+| 1. Texte alternatif des images | 1.1.1 | `29_` à `31_` (3 slides : types / rédaction / exemples) | 1. Alternatives textuelles |
+| 2. Titre de page | 2.4.2 | `32_` (1 slide) | 2. Titre de page |
+| 3. Titres de rubriques | 1.3.1, 2.4.6 | `33_` à `34_` (2 slides : hiérarchie / outils) | 3. Titres de rubriques |
+| 4. Contraste des couleurs | 1.4.3 | `35_` à `36_` (2 slides : principe / outils) | 4. Contraste |
+| 5. Lien d'évitement | 2.4.1 | `37_` (1 slide) | 5. Lien d'évitement |
+| **6. Focus clavier visible** | 2.4.7 | `38_` à `41_` (4 slides : ouverture / 5 touches / signaux / mission) | **6. Focus et navigation clavier** (élargi) |
+| 7. Langue de la page | 3.1.1 | `42_` (1 slide) | 7. Langue |
+| 8. Zoom | 1.4.4 | `43_` (1 slide) | 8. Zoom |
+| 9. Sous-titres | 1.2.2 | `44_` à `45_` (2 slides : principe / pièges auto) | 9. Sous-titres |
+| 10. Transcriptions | 1.2.1 | `46_` (1 slide) | 10. Transcriptions |
+| 11. Audiodescription | 1.2.5 | `47_` (1 slide) | 11. Audiodescription |
+| 12. Étiquettes de formulaire | 3.3.2, 1.3.1 | `48_` à `50_` (3 slides : principe / placeholder / groupes) | 12. Étiquettes de formulaire |
+| 13. Champs obligatoires | 3.3.2 | `51_` (1 slide) | 13. Champs obligatoires |
+| Mission finale module 3 | — | `52_mission-13-checks` | Mission finale |
 
 **Note sur l'Easy Check 6 étendu** : l'Easy Check 6 du W3C se concentre strictement sur le **focus clavier visible** (CR 2.4.7). La séquence `03_` à `06_` élargit ce périmètre à la **navigation clavier complète** (tabulation avec `Tab` / `Shift+Tab`, activation avec `Entrée` / `Espace`, lecture aux flèches, annonce d'état) parce que le public cible (communicants) a besoin d'une boîte à outils clavier cohérente, pas d'un critère isolé. L'extension touche aussi WCAG 2.1.1 (fonctionnalités au clavier) et 2.4.3 (ordre de tabulation logique).
 
@@ -268,6 +270,11 @@ Importés depuis `igpde_dsfr_components` :
   ```
   Les slides à plusieurs composants empilés utilisent ce pattern pour un rendu sans vide et sans débordement, quel que soit le contenu
 - **Langue des notes présentateur** : `add_notes()` pose `lang="fr-FR"` sur chaque run dès la création ; `finalize_pptx()` repasse sur le `notes_slide` de chaque diapo. Cette double passe corrige un bug latent de python-pptx : `tf.text = texte` crée un `<a:r>` sans `<a:rPr lang>`, et PowerPoint interprète alors le texte selon la langue système (souvent en-US). Sans ce fix, les notes s'affichent soulignées en rouge par le correcteur et sont lues avec un accent anglais par les lecteurs d'écran. Le fix est dans `igpde_dsfr_components.py` (`_set_lang_on_runs` crée les `rPr` manquants, `finalize_pptx` traite aussi les notes)
+- **`add_highlight` supporte `\n`** : un `\n` dans le texte crée un vrai saut de paragraphe (pas un retour à la ligne visuel). `_estimate_height` gère déjà `\n` correctement. Exemple : `"Règle d'or :\nvous créez un obstacle..."` affiche deux lignes distinctes
+- **Hauteur titre dynamique dans `add_callout` / `add_alert`** : la hauteur du titre n'est plus fixée à `0.4"`. Elle est calculée via `_estimate_height(titre, ..., size=14)` et le corps commence à `top + 0.10 + h_titre_box + 0.10`. Un titre sur 2 lignes ne chevauche plus le corps
+- **Ne jamais appeler `add_textbox` directement** : `slide.shapes.add_textbox(0.52, 3.15, ...)` passe des valeurs en EMU, pas en pouces — positions à zéro. Toujours utiliser `add_texte_libre` ou les helpers DSFR qui wrappent avec `Inches()`
+- **Grille 2 rangées de cartes** : pour un sommaire 2×2, calculer `row1_top` dynamiquement pour éviter tout débordement sur le footer : `row1_top = min(2.20, BOTTOM_CONTENT - 0.05 - 2 * card_h - GAP_ROWS)`. Ne pas hardcoder `TOP_CARDS` pour les layouts multi-rangées
+- **Quiz en deux slides distinctes** : questions sur une slide, réponses sur la slide suivante (suffixe `b` dans le nom de fichier, ex. `22_quiz-final.py` + `22b_quiz-final-reponses.py`). Jamais questions + réponses sur la même slide
 
 ---
 
@@ -277,7 +284,7 @@ Importés depuis `igpde_dsfr_components` :
 |---------|---------|
 | `PPT-IGPDE-DSFR-base-intervenant.pptx` | Template vierge (6 layouts, aucune slide) - base pour toute nouvelle présentation |
 | `gabarits-ppt-igpde.pptx` | Démonstration pédagogique - 1 slide par gabarit IGPDE-DSFR + composants DSFR illustrés. Produit par `scripts/generate_demo.py` |
-| `formation-102638-juin-2026.pptx` | Support de formation complet pour la session de juin 2026 (27 slides, assemblé depuis `scripts/slides/`). Produit par `scripts/assemble.py` |
+| `formation-102638-juin-2026.pptx` | Support de formation complet pour la session de juin 2026 (86 slides, assemblé depuis `scripts/slides/`). Produit par `scripts/assemble.py` |
 | `03-easy-checks/grille-audit-easy-checks.md` | Grille d'audit documentaire (13 critères, mode d'emploi, imprimable) |
 | `03-easy-checks/grille-audit-easy-checks.xlsx` | Grille d'audit opérationnelle (16 onglets : Mode d'emploi, Échantillon RGAA, 12 onglets de page obligatoire/représentative pré-remplis avec l'intitulé, Exemple, Synthèse multi-pages avec agrégation automatique via formules cross-sheet). Pour saisie pendant la mission finale de la slide 27 |
 | `_assets/` | Logos et visuels IGPDE extraits du source original |
@@ -298,9 +305,9 @@ Importés depuis `igpde_dsfr_components` :
 
 ## Leçons capitalisées
 
-Les patterns techniques non évidents découverts pendant le développement sont documentés dans `lessons.md` à la racine du projet : modification de placeholder hérité python-pptx, numérotation auto parasite des layouts DSFR, quarantine macOS, langue des notes présentateur, interligne LibreOffice, calibration Stack, palette alerts unifiée. À relire avant toute extension du support.
+Les patterns techniques non évidents découverts pendant le développement sont documentés dans `lessons.md` à la racine du projet : modification de placeholder hérité python-pptx, numérotation auto parasite des layouts DSFR, quarantine macOS, langue des notes présentateur, interligne LibreOffice, calibration Stack, palette alerts unifiée, hauteur titre dynamique callout/alert, support `\n` dans highlight, grille 2 rangées anti-débordement. À relire avant toute extension du support.
 
 ---
 
-**Dernière mise à jour** : 2026-04-18
-**Version** : 1.2.0 (auto-height + Stack + alerts unifiées)
+**Dernière mise à jour** : 2026-04-22
+**Version** : 1.3.0 (86 slides, quiz scindé, titre dynamique, highlight \n, grille 2×2 dynamique)
