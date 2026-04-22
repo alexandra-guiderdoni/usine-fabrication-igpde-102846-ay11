@@ -447,6 +447,24 @@ def add_notes(slide, texte, lang="fr-FR"):
 # ----------------------------------------------------------------------
 # Briques de base
 # ----------------------------------------------------------------------
+def _safe_top(top, height, component="composant"):
+    """Remonte le top si le composant deborderait sur le footer.
+
+    Empeche silencieusement tout debordement au-dela de BOTTOM_CONTENT.
+    Affiche un avertissement console pour signaler les slides a corriger.
+    """
+    if top + height > BOTTOM_CONTENT:
+        import sys
+        safe = round(BOTTOM_CONTENT - height, 3)
+        print(
+            f"[WARN footer] {component} : top={top:.2f} + h={height:.2f}"
+            f" = {top + height:.2f} > {BOTTOM_CONTENT} — remonte a top={safe}",
+            file=sys.stderr,
+        )
+        return max(safe, 2.3)
+    return top
+
+
 def _estimate_height(content, available_width, size=11, line_height_mult=1.35):
     """Estime la hauteur (pouces) necessaire pour afficher un contenu.
 
@@ -597,6 +615,7 @@ def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, heig
     h_body = _estimate_height(bullets, width - 0.5, size=12)
     h_padding = 0.25
     height = max(h_titre + h_body + h_padding, 0.90)
+    top = _safe_top(top, height, "add_callout")
 
     _make_box(slide, top, left, width, height,
               fill_color=BLEU_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.08)
@@ -641,6 +660,7 @@ def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height
     h_body = _estimate_height(bullets, width - 0.5, size=12)
     h_padding = 0.25
     height = max(h_titre + h_body + h_padding, 0.90)
+    top = _safe_top(top, height, "add_alert")
     _make_box(slide, top, left, width, height,
               fill_color=fond, accent_color=accent, accent_w=0.08)
     if titre:
@@ -663,15 +683,17 @@ def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height
     return slide
 
 
-def add_highlight(slide, texte, top, left=MARGIN_L, width=CONTENT_W, height=None):
+def add_highlight(slide, texte, top, left=MARGIN_L, width=CONTENT_W, height=None, url=None):
     """Highlight : accent bleu gauche + texte emphase 18pt.
 
     Hauteur calculee automatiquement a partir du texte (ignore `height`
     sauf si passe explicitement et superieur).
+    Si `url` est fourni, le texte devient un lien cliquable.
     """
     h_text = _estimate_height(texte, width - 0.4, size=18)
     # Calcul auto TOUJOURS
     height = max(h_text + 0.3, 0.70)
+    top = _safe_top(top, height, "add_highlight")
     _make_box(slide, top, left, width, height,
               fill_color=GRIS_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.08)
     t_box = slide.shapes.add_textbox(
@@ -679,8 +701,23 @@ def add_highlight(slide, texte, top, left=MARGIN_L, width=CONTENT_W, height=None
         Inches(width - 0.4), Inches(height - 0.2),
     )
     t_box.name = "DSFR-highlight"
-    _apply_text(t_box.text_frame, texte, font=FONT, size=18, bold=True,
-                color=BLEU_FRANCE, anchor=MSO_ANCHOR.MIDDLE)
+    p = _apply_text(t_box.text_frame, texte, font=FONT, size=18, bold=True,
+                    color=BLEU_FRANCE, anchor=MSO_ANCHOR.MIDDLE)
+    if url:
+        run = p.runs[0]
+        run.font.bold = False
+        run.font.underline = True
+        rId = slide.part.relate_to(
+            url,
+            "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+            is_external=True,
+        )
+        rPr = run._r.get_or_add_rPr()
+        hlinkClick = etree.SubElement(
+            rPr,
+            f"{{{NSMAP_A}}}hlinkClick",
+            {"{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id": rId},
+        )
     return slide
 
 

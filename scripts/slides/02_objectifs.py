@@ -1,6 +1,9 @@
-"""Slide 2 : objectifs pédagogiques (callout 4 points)."""
+"""Slide 2 : objectifs pédagogiques - 3 objectifs du catalogue 102638."""
 
-from igpde_dsfr_components import add_callout, add_notes, new_slide
+from igpde_dsfr_components import (
+    add_callout, add_card, add_notes, new_slide,
+    estimate_callout_height, MARGIN_L, COL_W, COL_R,
+)
 
 
 def build(prs, layouts, ctx):
@@ -13,20 +16,36 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
+    callout_titre = "Cette formation vous permettra de :"
+    callout_bullets = [
+        "Expliquer les enjeux de l'accessibilité numérique et son cadre légal"
+        " dans le contexte de la communication",
+        "Identifier et évaluer les principales erreurs d'accessibilité",
+        "Rendre des contenus numériques accessibles",
+    ]
     add_callout(
         slide,
-        "À l\u2019issue de cette formation, les stagiaires sauront :",
-        [
-            "Identifier les critères RGAA 4.1.2 applicables",
-            "Produire un document bureautique accessible",
-            "Auditer une page web avec les outils standards",
-            "Remédier aux non-conformités détectées",
-        ],
-        top=3.35, height=2.5,
+        callout_titre,
+        callout_bullets,
+        top=3.35,
+        left=MARGIN_L,
+        width=COL_W,
+    )
+
+    add_card(
+        slide,
+        titre="Image à insérer",
+        contenu=[],
+        top=3.35,
+        left=COL_R,
+        width=COL_W,
+        height=estimate_callout_height(callout_titre, callout_bullets, COL_W),
     )
 
     add_notes(
         slide,
-        "Présenter les 4 objectifs, insister sur le caractère opérationnel.",
+        "Objectifs repris mot pour mot de la fiche catalogue 102638. "
+        "Présenter les 3 objectifs, insister sur le caractère opérationnel : "
+        "cette formation débouche sur des gestes concrets, pas seulement de la théorie.",
     )
     return slide
