@@ -27,7 +27,7 @@ def build(prs, layouts, ctx):
         slide,
         callout_titre,
         callout_bullets,
-        top=3.35,
+        top=2.30,
         left=MARGIN_L,
         width=COL_W,
     )
@@ -36,7 +36,7 @@ def build(prs, layouts, ctx):
         slide,
         titre="Image à insérer",
         contenu=[],
-        top=3.35,
+        top=2.30,
         left=COL_R,
         width=COL_W,
         height=estimate_callout_height(callout_titre, callout_bullets, COL_W),
