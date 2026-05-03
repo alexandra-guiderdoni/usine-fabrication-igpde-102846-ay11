@@ -28,9 +28,9 @@ def build(prs, layouts, ctx):
     kpi_top = stack.cursor
     item_w = (CONTENT_W - GAP * 2) / 3
     kpis = [
-        ("12 millions", "de personnes en situation\nde handicap en France"),
-        ("80 %", "des sites publics non\nconformes au RGAA"),
-        ("2005", "loi Handicap : obligation\nd'accessibilité numérique"),
+        ("12 millions", "de personnes en situation\nde handicap en France."),
+        ("80 %", "des sites publics non\nconformes au RGAA."),
+        ("2005", "loi Handicap : obligation\nd'accessibilité numérique."),
     ]
     for i, (valeur, label) in enumerate(kpis):
         left = MARGIN_L + i * (item_w + GAP)
