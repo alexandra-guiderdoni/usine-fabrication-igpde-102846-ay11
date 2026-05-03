@@ -1,14 +1,15 @@
-"""Slide 46 : Par où commencer ?
+"""Slide 46 : Par ou commencer ?
 
-Règles neuropédagogie appliquées :
-- R2 : Matrice Importance/Effort pour priorisation
-- R9 : Déconstruction (commencer par le haut-gauche = impact fort/effort faible)
-- R12 : Ordre d'action clair (4 étapes, pas 50)
+Regles neuropedagogie appliquees :
+- R2 : Priorisation par facilite (pas par importance - tout est important)
+- R9 : Deconstruction (3 reflexes, pas 50)
+- R12 : Ordre d'action clair et immediat
 """
 
 from igpde_dsfr_components import (
-    add_tableau, add_highlight, add_stepper, add_notes, new_slide,
+    add_highlight, add_stepper, add_notes, new_slide,
     estimate_highlight_height,
+    MARGIN_L, CONTENT_W, Stack,
 )
 
 
@@ -23,47 +24,31 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    tbl_h = add_tableau(
-        slide,
-        ["", "Effort faible", "Effort élevé"],
-        [
-            [
-                "Impact fort",
-                "Styles de titre + Texte alt + Nom de fichier + Vérificateur",
-                "Retravailler un document existant entier"
-            ],
-            [
-                "Impact faible",
-                "Propriétés (Titre, Auteur)",
-                "Corriger le contraste sur des centaines de pages"
-            ]
-        ],
-        top=2.3,
-        col_widths=[1.8, 5.5, 4.98]
-    )
+    stack = Stack(top=2.3, gap=0.30)
 
-    hl_text = "Commencer par là : impact fort, effort faible"
-    hl_h = estimate_highlight_height(hl_text)
-    hl_top = round(2.3 + tbl_h + 0.25, 2)
-    add_highlight(slide, hl_text, top=hl_top)
+    accroche = "Tout est important. Commencez par ce qui prend 30 secondes."
+    add_highlight(
+        slide, accroche,
+        top=stack.push(estimate_highlight_height(accroche, CONTENT_W)),
+    )
 
     add_stepper(
         slide,
         [
             "Styles de titre sur tous les titres",
-            "Texte alt sur chaque image",
-            "Lancer le vérificateur d'accessibilité",
-            "Vérifier les propriétés du document",
+            "Texte alternatif sur chaque image",
+            "Lancer le vérificateur d'accessibilité avant d'envoyer",
         ],
-        top=round(hl_top + hl_h + 0.25, 2),
-        height=1.8,
+        top=stack.push(2.5),
+        height=2.5,
     )
 
     add_notes(
         slide,
-        "Le quadrant haut-gauche est le meilleur investissement. 4 actions qui couvrent "
-        "les piliers 1, 3 et 5 - les plus impactants. Retravailler un document entier est "
-        "décourageant : commencer par les nouveaux documents. Le contraste sur des centaines "
-        "de pages = piège : traiter à la source (templates, charte graphique)."
+        "Ne pas hiérarchiser les piliers entre eux : tous sont obligatoires. "
+        "La logique ici est l'effort, pas l'importance. Ces 3 réflexes couvrent "
+        "les piliers 1, 3 et 5 et prennent moins d'une minute chacun. "
+        "Le reste (contraste, langue, propriétés, listes) vient naturellement "
+        "une fois que ces 3 réflexes sont installés.",
     )
     return slide
