@@ -24,7 +24,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.3, gap=0.20)
+    stack = Stack(top=2.3, gap=0.15)
 
     card1_titre = "Mise en situation"
     card1_contenu = (
@@ -35,14 +35,14 @@ def build(prs, layouts, ctx):
     )
 
     card2_titre = "Le document contient"
-    card2_contenu = [
-        "Des titres en gras sans niveaux de titre",
-        "Un tableau sans en-tête balisée",
-        "Un graphique sans description alternative",
-        "La mention URGENT en rouge sans autre indication",
-        "Une note en gris à contraste insuffisant",
-        "Un lien cliquez ici non descriptif",
-    ]
+    card2_contenu = (
+        "Structure : titres en gras sans styles, "
+        "tableau sans en-tête balisée\n\n"
+        "Couleurs : mention Urgent en rouge sans autre indication, "
+        "note en gris à contraste insuffisant\n\n"
+        "Contenus : graphique et organigramme sans alt adapté, "
+        "icône redondante, lien cliquez ici"
+    )
 
     card_h = max(
         estimate_card_height(card1_titre, card1_contenu, COL_W),
@@ -53,6 +53,7 @@ def build(prs, layouts, ctx):
     add_card(slide, card1_titre, card1_contenu, top=cards_top, left=MARGIN_L, width=COL_W, height=card_h)
     add_card(slide, card2_titre, card2_contenu, top=cards_top, left=COL_R, width=COL_W, height=card_h)
 
+    stack.gap = 0.35
     accroche = "25 minutes en binôme : trouvez les erreurs, puis corrigez-les."
     add_highlight(slide, accroche, top=stack.push(estimate_highlight_height(accroche, CONTENT_W)))
 
@@ -61,7 +62,7 @@ def build(prs, layouts, ctx):
         "Distribuer sami-doc-inaccessible.docx aux binômes.\n\n"
         "Phase 1 - Identification (10 min) : « Trouvez toutes les erreurs "
         "d'accessibilité. Notez-les sans corriger. » Pas de checklist.\n\n"
-        "Phase 2 - Correction (10 min) : afficher la liste des 8 erreurs. "
+        "Phase 2 - Correction (10 min) : afficher la liste des 10 erreurs. "
         "Les binômes corrigent dans l'ordre structure > couleurs > contenus. "
         "Le vérificateur Word sert d'outil de découverte : « Que détecte-t-il ? "
         "Que rate-t-il ? »\n\n"

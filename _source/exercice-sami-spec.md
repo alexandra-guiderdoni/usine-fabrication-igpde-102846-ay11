@@ -7,7 +7,7 @@ Amendé suite au Devil Council du 2026-05-02.
 
 ## Contexte pédagogique
 
-Sami, chargée de communication à la Direction des affaires juridiques, envoie son rapport trimestriel « Bilan T1 2025 » à 40 destinataires. Le document contient 8 erreurs d'accessibilité couvrant les 3 premiers piliers, dont une erreur ambiguë qui force le jugement.
+Sami, charge de communication a la Direction des affaires juridiques, envoie son rapport trimestriel « Bilan T1 2025 » a 40 destinataires. Le document contient 10 erreurs d'accessibilite couvrant les 3 premiers piliers, dont une erreur ambigue qui force le jugement.
 
 - **Public** : communicants, niveau initiation
 - **Format** : exercice en binôme, 25 minutes (3 phases)
@@ -96,9 +96,29 @@ Pourquoi : double erreur. (1) Le lecteur d'écran annonce « image » sans descr
 
 Pourquoi : « cliquez ici » ne donne aucune information hors contexte visuel. Le lecteur d'écran liste les liens par intitulé.
 
+### Erreur 9 - Organigramme avec alt inadapte (Pilier 3 - Contenus)
+
+| Inaccessible | Accessible |
+|---|---|
+| Organigramme avec alt="image.png" (nom de fichier par defaut) | alt="Organigramme de la Direction des affaires juridiques (description ci-dessous)." + description textuelle detaillee sous l'image |
+
+Pourquoi : le nom de fichier ne donne aucune information. Pour une image complexe (RGAA 1.6 et 1.7), l'alt doit rester court (~80 caracteres) et renvoyer vers une description detaillee presente dans le document. Ne pas tout mettre dans l'alt.
+
+**Role pedagogique** : montre la difference entre image simple (alt descriptif) et image complexe (alt court + description adjacente). Illustre aussi le piege du nom de fichier automatique.
+
+### Erreur 10 - Icone redondante avec alt non vide (Pilier 3 - Contenus)
+
+| Inaccessible | Accessible |
+|---|---|
+| Icone enveloppe avec alt="E-mail" (redondant avec le texte adjacent) | Icone marquee comme decorative (case « Marquer comme decoratif » cochee) |
+
+Pourquoi : l'icone est placee juste a cote du mot « e-mail ». Si on ecrit « E-mail » dans l'alternative, le lecteur d'ecran lit « E-mail, e-mail » — redondance qui pollue la lecture. Toute image qui n'apporte pas d'information supplementaire doit etre ignoree. Dans Word, on coche « Marquer comme decoratif » au lieu d'ecrire alt="".
+
+**Role pedagogique** : montre que l'accessibilite des images ne se limite pas a « mettre un alt text partout ». Certaines images doivent etre explicitement ignorees.
+
 ---
 
-## Structure du document (1 page)
+## Structure du document (2 pages)
 
 ```
 [En-tête : Direction des affaires juridiques - Logo fictif]
@@ -117,7 +137,14 @@ Résultats du trimestre                        <-- Erreur 2 : gras Arial 14 au l
 Détail par canal                              <-- Erreur 3 : gras Arial 12 souligné au lieu de Titre 3
 [Graphique barres couleurs seules, sans alt]  <-- Erreur 7 (double : alt + couleurs)
 
-Annexes                                       <-- Titre 2 (correct, pour contraste)
+Organisation du service                       <-- Faux titre (gras Arial 14 bleu)
+[Organigramme avec alt="image.png"]           <-- Erreur 9
+
+Contact                                       <-- Faux titre (gras Arial 14 bleu)
+Pour toute question, contactez-nous par       <-- Erreur 10 : icone enveloppe alt="E-mail"
+[icone enveloppe] e-mail pour plus d'infos.
+
+Annexes                                       <-- Faux titre (gras Arial 14 bleu)
 Pour accéder aux annexes, cliquez ici.        <-- Erreur 8
 
 Note : les données sont provisoires.*         <-- Erreur 6 : gris #767676 (ratio 4,48:1)
@@ -140,7 +167,7 @@ Pas de checklist distribuée à cette phase. Les stagiaires doivent mobiliser ce
 
 | Temps | Action |
 |---|---|
-| 10-12 min | Le formateur affiche la liste des 8 erreurs. Les binômes comparent avec leur liste |
+| 10-12 min | Le formateur affiche la liste des 10 erreurs. Les binômes comparent avec leur liste |
 | 12-20 min | Chaque binôme corrige les erreurs dans l'ordre prescrit (Pilier 1 puis 2 puis 3) |
 
 Le vérificateur Word est utilisé comme **outil de découverte** (« que détecte-t-il ? que rate-t-il ? »), pas comme preuve de conformité.
@@ -150,7 +177,7 @@ Le vérificateur Word est utilisé comme **outil de découverte** (« que détec
 | Temps | Action |
 |---|---|
 | 20-22 min | Le formateur débrief l'erreur 6 (contraste ambigu) : montrer le CCA, expliquer le seuil 4,5:1 |
-| 22-25 min | Question de transfert : « Sur votre dernier document envoyé, laquelle de ces 8 erreurs avez-vous probablement faite ? » Tour de table rapide (1 phrase par binôme) |
+| 22-25 min | Question de transfert : « Sur votre dernier document envoyé, laquelle de ces 10 erreurs avez-vous probablement faite ? » Tour de table rapide (1 phrase par binôme) |
 
 La question de transfert est le vrai objectif pédagogique. L'exercice Sami n'est que le véhicule.
 

@@ -3,7 +3,9 @@
 Produit :
 - _assets/graphique-inaccessible.png  (barres couleurs seules)
 - _assets/graphique-accessible.png    (barres avec motifs + etiquettes)
-- sami-doc-inaccessible.docx         (8 erreurs intentionnelles)
+- _assets/icone-enveloppe.png         (icone e-mail)
+- _assets/organigramme.png            (organigramme du service)
+- sami-doc-inaccessible.docx         (10 erreurs intentionnelles)
 - sami-doc-accessible.docx           (version corrigee)
 """
 
@@ -91,10 +93,86 @@ def generate_chart_accessible():
 
 
 # ------------------------------------------------------------------
-# 2. Document inaccessible
+# 2. Icone enveloppe + organigramme
 # ------------------------------------------------------------------
 
-def build_inaccessible(chart_path: Path):
+def generate_icon_enveloppe():
+    """Petite icone d'enveloppe pour le paragraphe contact."""
+    fig, ax = plt.subplots(figsize=(0.5, 0.5))
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 10)
+    ax.set_aspect("equal")
+    ax.axis("off")
+    # Corps de l'enveloppe
+    rect = mpatches.FancyBboxPatch((1, 2), 8, 5, boxstyle="round,pad=0.3",
+                                    facecolor="#000091", edgecolor="#000091")
+    ax.add_patch(rect)
+    # Rabat triangulaire
+    ax.plot([1, 5, 9], [7, 3.5, 7], color="white", linewidth=1.5)
+    fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
+    path = ASSETS / "icone-enveloppe.png"
+    fig.savefig(path, dpi=100, transparent=True, bbox_inches="tight",
+                pad_inches=0.02)
+    plt.close(fig)
+    return path
+
+
+def generate_organigramme():
+    """Organigramme simple de la Direction des affaires juridiques."""
+    fig, ax = plt.subplots(figsize=(6, 3.5))
+    ax.set_xlim(0, 12)
+    ax.set_ylim(0, 7)
+    ax.axis("off")
+
+    box_style = dict(boxstyle="round,pad=0.4", facecolor="#000091",
+                     edgecolor="#000091")
+    text_kw = dict(ha="center", va="center", fontsize=8, color="white",
+                   fontweight="bold", bbox=box_style)
+
+    ax.text(6, 6, "Direction des\naffaires juridiques", **text_kw)
+
+    equipes = [
+        (1.5, 2.5, "Bureau du\ndroit public"),
+        (4.5, 2.5, "Bureau du\ndroit social"),
+        (7.5, 2.5, "Bureau de la\ncommunication"),
+        (10.5, 2.5, "Bureau des\naffaires internationales"),
+    ]
+    for x, y, label in equipes:
+        ax.text(x, y, label, **text_kw)
+        ax.plot([x, x], [y + 0.8, 5.2], color="#000091", linewidth=1.5)
+
+    ax.plot([1.5, 10.5], [5.2, 5.2], color="#000091", linewidth=1.5)
+    ax.plot([6, 6], [5.2, 5.5], color="#000091", linewidth=1.5)
+
+    fig.tight_layout()
+    path = ASSETS / "organigramme.png"
+    fig.savefig(path, dpi=150, facecolor="white", bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+# ------------------------------------------------------------------
+# 3. Document inaccessible
+# ------------------------------------------------------------------
+
+def _set_image_alt(doc, alt_text="", title=""):
+    """Pose alt text et titre sur la derniere image inseree."""
+    inline_shape = doc.inline_shapes[-1]
+    pic = inline_shape._inline
+    docPr = pic.find(qn("wp:docPr"))
+    if docPr is not None:
+        docPr.set("descr", alt_text)
+        if title:
+            docPr.set("title", title)
+
+
+def _mark_image_decorative(doc):
+    """Marque la derniere image comme decorative (alt vide)."""
+    _set_image_alt(doc, alt_text="", title="")
+
+
+def build_inaccessible(chart_path: Path, icon_path: Path = None,
+                       organigramme_path: Path = None):
     doc = Document()
 
     style_normal = doc.styles["Normal"]
@@ -179,6 +257,39 @@ def build_inaccessible(chart_path: Path):
 
     doc.add_paragraph()
 
+    # Erreur 9 : organigramme avec alt "image.png" (nom de fichier par defaut)
+    if organigramme_path:
+        p = doc.add_paragraph()
+        run = p.add_run("Organisation du service")
+        run.bold = True
+        run.font.name = "Arial"
+        run.font.size = Pt(14)
+        run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
+
+        doc.add_picture(str(organigramme_path), width=Inches(5.0))
+        doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
+        _set_image_alt(doc, alt_text="image.png")
+
+        doc.add_paragraph()
+
+    # Erreur 10 : icone redondante avec alt "E-mail" au lieu de decoratif
+    if icon_path:
+        p = doc.add_paragraph()
+        run = p.add_run("Contact")
+        run.bold = True
+        run.font.name = "Arial"
+        run.font.size = Pt(14)
+        run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
+
+        p = doc.add_paragraph()
+        p.add_run("Pour toute question, contactez-nous par ")
+        r = p.add_run()
+        r.add_picture(str(icon_path), width=Inches(0.18))
+        _set_image_alt(doc, alt_text="E-mail")
+        p.add_run(" e-mail pour plus d'informations.")
+
+    doc.add_paragraph()
+
     # Section Annexes (faux titre aussi, meme apparence)
     p = doc.add_paragraph()
     run = p.add_run("Annexes")
@@ -214,7 +325,8 @@ def build_inaccessible(chart_path: Path):
 # 3. Document accessible
 # ------------------------------------------------------------------
 
-def build_accessible(chart_path: Path):
+def build_accessible(chart_path: Path, icon_path: Path = None,
+                     organigramme_path: Path = None):
     doc = Document()
 
     # Police par defaut : Calibri (fallback Marianne)
@@ -324,6 +436,44 @@ def build_accessible(chart_path: Path):
 
     doc.add_paragraph()
 
+    # Organigramme avec alt court + description detaillee
+    if organigramme_path:
+        doc.add_heading("Organisation du service", level=2)
+
+        doc.add_picture(str(organigramme_path), width=Inches(5.0))
+        doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
+        _set_image_alt(
+            doc,
+            alt_text="Organigramme de la Direction des affaires juridiques "
+                     "(description ci-dessous).",
+            title="Organigramme du service",
+        )
+
+        p = doc.add_paragraph()
+        run = p.add_run(
+            "La Direction des affaires juridiques comprend 4 bureaux : "
+            "le Bureau du droit public, le Bureau du droit social, "
+            "le Bureau de la communication et le Bureau des affaires "
+            "internationales. Chaque bureau est rattache directement "
+            "a la direction.")
+        run.font.name = "Arial"
+        run.font.size = Pt(10)
+
+        doc.add_paragraph()
+
+    # Icone decorative + paragraphe contact
+    if icon_path:
+        doc.add_heading("Contact", level=2)
+
+        p = doc.add_paragraph()
+        p.add_run("Pour toute question, contactez-nous par ")
+        r = p.add_run()
+        r.add_picture(str(icon_path), width=Inches(0.18))
+        _mark_image_decorative(doc)
+        p.add_run(" e-mail pour plus d'informations.")
+
+    doc.add_paragraph()
+
     # Annexes (Titre 2)
     doc.add_heading("Annexes", level=2)
 
@@ -378,8 +528,14 @@ if __name__ == "__main__":
     chart_good = generate_chart_accessible()
     print(f"  -> {chart_good.name}")
 
+    print("\nGeneration des images supplementaires...")
+    icon = generate_icon_enveloppe()
+    print(f"  -> {icon.name}")
+    orga = generate_organigramme()
+    print(f"  -> {orga.name}")
+
     print("\nGeneration des documents Word...")
-    build_inaccessible(chart_bad)
-    build_accessible(chart_good)
+    build_inaccessible(chart_bad, icon_path=icon, organigramme_path=orga)
+    build_accessible(chart_good, icon_path=icon, organigramme_path=orga)
 
     print("\nTermine.")

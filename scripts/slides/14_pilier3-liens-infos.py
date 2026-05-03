@@ -49,7 +49,7 @@ def build(prs, layouts, ctx):
         "Informations essentielles dans les zones non lues",
         [
             "En-têtes et pieds de page : non lus automatiquement",
-            "Filigranes (CONFIDENTIEL, BROUILLON) : invisibles",
+            "Filigranes (Confidentiel, Brouillon) : invisibles",
             "Solution : reproduire l'info dans le corps du document",
         ],
         top=4.4,
@@ -77,6 +77,6 @@ def build(prs, layouts, ctx):
         "Lire à voix haute les liens inaccessibles puis les accessibles. La différence "
         "est immédiate. Pour les filigranes : montrer un vrai document avec CONFIDENTIEL "
         "en filigrane. Demander : est-ce que votre lecteur d'écran l'annonce ? Non - "
-        "il faut le mettre dans le corps."
+        "il faut reproduire l'information dans le corps du document."
     )
     return slide

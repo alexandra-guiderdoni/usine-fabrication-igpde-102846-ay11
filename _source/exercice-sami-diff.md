@@ -26,6 +26,8 @@ Comparaison entre `sami-doc-inaccessible.docx` et `sami-doc-accessible.docx`.
 |---|---------|-------------|------------|
 | 7 | Graphique | Pas de texte alternatif, barres differenciees par couleur seule (vert/rouge) | Alt text descriptif, barres avec motifs distincts + etiquettes |
 | 8 | Lien annexes | « cliquez ici » | « Consulter les annexes du rapport T1 2025 (PDF, 1,2 Mo) » |
+| 9 | Organigramme | alt="image.png" (nom de fichier par defaut) | Alt court renvoyant vers description detaillee sous l'image |
+| 10 | Icone enveloppe | alt="E-mail" (redondant avec texte adjacent) | Marquee comme decorative |
 
 ## Metadonnees
 
