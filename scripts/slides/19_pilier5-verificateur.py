@@ -1,4 +1,4 @@
-"""Slide 44 : Pilier 5 - Le vérificateur d'accessibilité Word.
+"""Slide 44 : Le vérificateur d'accessibilité Word.
 
 Règles neuropédagogie appliquées :
 - R14 : Tableau montrant détecte vs ne détecte pas
@@ -16,7 +16,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Pilier 5 - Le vérificateur d'accessibilité Word",
+        titre="Le vérificateur d'accessibilité Word",
         fil_ariane="2. Documents accessibles | 5. Finalisation",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Finalisation",
         date_text=ctx.date,

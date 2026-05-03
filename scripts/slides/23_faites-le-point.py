@@ -47,7 +47,7 @@ def build(prs, layouts, ctx):
         "Si vous avez répondu...",
         [
             "Styles de titre - Ctrl+F onglet Titres - et vérifier le texte alternatif",
-            "Vous avez retenu l'essentiel. Sinon : relire les piliers 1 et 3.",
+            "Vous avez retenu l'essentiel. Sinon : relire Structure et Contenus.",
         ],
         top=stack.cursor,
         left=MARGIN_L, width=CONTENT_W,

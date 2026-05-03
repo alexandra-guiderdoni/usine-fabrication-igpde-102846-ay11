@@ -1,4 +1,4 @@
-"""Slide 39 : Pilier 3 - Liens et informations essentielles.
+"""Slide 39 : Liens et informations essentielles.
 
 Règles neuropédagogie appliquées :
 - R10 : Tableau mauvais/bon pour discrimination des liens
@@ -16,7 +16,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Pilier 3 - Liens et informations essentielles",
+        titre="Liens et informations essentielles",
         fil_ariane="2. Documents accessibles | 3. Contenus",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Contenus",
         date_text=ctx.date,

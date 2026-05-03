@@ -1,4 +1,4 @@
-"""Slide 37 : Pilier 2 - La couleur ne suffit jamais.
+"""Slide 37 : La couleur ne suffit jamais.
 
 Regles neuropedagogie appliquees :
 - R13 : Chiffre-cle personnalise (8 % = 1 sur 12 = 16 sur 200)
@@ -18,7 +18,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Pilier 2 - La couleur ne doit pas porter l'information seule",
+        titre="La couleur ne doit pas porter l'information seule",
         fil_ariane="2. Documents accessibles | 2. Couleurs",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Couleurs",
         date_text=ctx.date,

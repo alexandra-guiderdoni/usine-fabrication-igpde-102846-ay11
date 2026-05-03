@@ -1,4 +1,4 @@
-"""Slide 38 : Pilier 3 - Texte alternatif sur les images.
+"""Slide 38 : Texte alternatif sur les images.
 
 Règles neuropédagogie appliquées :
 - R7 : Procédure détaillée en stepper (4 étapes = décomposition)
@@ -13,7 +13,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Pilier 3 - Texte alternatif sur les images",
+        titre="Texte alternatif sur les images",
         fil_ariane="2. Documents accessibles | 3. Contenus",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Contenus",
         date_text=ctx.date,

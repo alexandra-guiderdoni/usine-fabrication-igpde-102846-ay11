@@ -23,7 +23,7 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Transition vers le module 2. Annoncer : 24 réflexes en 5 piliers. "
+        "Transition vers le module 2. Annoncer : 24 réflexes en 5 thèmes. "
         "Public : communicants, pas développeurs. Chaque slide = 1 réflexe actionnable."
     )
     return slide

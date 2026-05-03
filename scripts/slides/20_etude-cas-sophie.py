@@ -1,9 +1,9 @@
-"""Slide 45 : Retour sur le document de Sami - Piliers 4 et 5.
+"""Slide 45 : Retour sur le document de Sami - Langue et Finalisation.
 
 Regles neuropedagogie appliquees :
 - R13 : Repetition espacee (retour sur un exercice deja fait)
 - R10 : Effet Zeigarnik (exercice non termine revele)
-- R16 : Interleaving (les 2 derniers piliers appliques au meme document)
+- R16 : Interleaving (les 2 derniers thèmes appliques au meme document)
 """
 
 from igpde_dsfr_components import (

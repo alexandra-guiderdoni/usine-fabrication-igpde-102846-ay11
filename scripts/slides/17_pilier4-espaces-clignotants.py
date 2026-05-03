@@ -1,4 +1,4 @@
-"""Slide 42 : Pilier 4 - Espaces et objets clignotants.
+"""Slide 42 : Espaces et objets clignotants.
 
 Règles neuropédagogie appliquées :
 - R21 : Révéler les caractères invisibles (symboles de paragraphe)
@@ -16,7 +16,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Pilier 4 - Espaces et objets clignotants",
+        titre="Espaces et objets clignotants",
         fil_ariane="2. Documents accessibles | 4. Langue",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Langue",
         date_text=ctx.date,

@@ -1,4 +1,4 @@
-"""Slide 34 : Pilier 1 - Listes natives.
+"""Slide 34 : Listes natives.
 
 Règles neuropédagogie appliquées :
 - R10 : Bon/Mauvais contrastant pour discrimination
@@ -16,7 +16,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Pilier 1 - Listes natives",
+        titre="Listes natives",
         fil_ariane="2. Documents accessibles | 1. Structure",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Structure",
         date_text=ctx.date,

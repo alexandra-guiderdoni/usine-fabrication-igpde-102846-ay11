@@ -1,7 +1,7 @@
 """Slide 50 : Checklist - Vos 21 critères.
 
 Règles neuropédagogie appliquées :
-- R17 : Checklist ordonnée par pilier et impact
+- R17 : Checklist ordonnée par thème et impact
 - R2 : Partition en 2 colonnes = cognition distribuée
 - R12 : Vérification progressive (5 premiers critères = 80 % impact)
 """

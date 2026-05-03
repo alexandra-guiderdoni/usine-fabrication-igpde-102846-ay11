@@ -28,7 +28,7 @@ def build(prs, layouts, ctx):
                   left=MARGIN_L, width=CONTENT_W)
 
     c1 = ["Refaites le quiz final sans rouvrir ce support",
-          "3-4/5 : relisez le pilier correspondant aux erreurs"]
+          "3-4/5 : relisez le thème correspondant aux erreurs"]
     c2 = ["Ouvrez un vrai document Word",
           "Appliquez la checklist de haut en bas"]
     c3 = ["Styles de titre, texte alt, vérificateur avant envoi",

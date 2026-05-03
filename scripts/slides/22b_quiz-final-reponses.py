@@ -18,15 +18,15 @@ def build(prs, layouts, ctx):
     )
 
     callout_bullets = [
-        "P1 - Appliquer le style Titre 1 sur Introduction",
-        "P2 - Ajouter les étiquettes texte : Conforme et Non conforme dans les cellules",
-        "P3 - Renommer le lien : Accéder au formulaire de demande RH",
-        "P4 - Révision > Langue > Définir la langue de vérification : Français",
-        "P5 - Fichier > Informations > Propriétés : saisir Titre et Auteur",
+        "Structure : appliquer le style Titre 1 sur Introduction",
+        "Couleurs : ajouter les étiquettes texte Conforme et Non conforme",
+        "Contenus : renommer le lien Accéder au formulaire de demande RH",
+        "Langue : Révision > Langue > Définir la langue : Français",
+        "Finalisation : Fichier > Informations > saisir Titre et Auteur",
     ]
     add_callout(
         slide,
-        "5 piliers, 5 corrections",
+        "5 thèmes, 5 corrections",
         callout_bullets,
         top=2.3,
         left=MARGIN_L,
@@ -35,9 +35,9 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Corriger en groupe, pilier par pilier. Commenter les erreurs manquées. "
+        "Corriger en groupe, thème par thème. Commenter les erreurs manquées. "
         "Si quelqu'un trouve les 5 : féliciter et demander combien de temps il a mis. "
-        "Si moins de 3 : identifier quel pilier est moins bien maîtrisé "
+        "Si moins de 3 : identifier quel thème est moins bien maîtrisé "
         "et orienter vers les slides correspondantes."
     )
     return slide

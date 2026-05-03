@@ -1,4 +1,4 @@
-"""Slide 36 : Pilier 2 - Contraste : un seuil chiffré, pas une opinion.
+"""Slide 36 : Contraste : un seuil chiffré, pas une opinion.
 
 Règles neuropédagogie appliquées :
 - R12 : Mesure objective (ratio 4,5:1, 3:1) élimine la subjectivité
@@ -18,7 +18,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Pilier 2 - Contraste : un seuil chiffré, pas une opinion",
+        titre="Contraste : un seuil chiffré, pas une opinion",
         fil_ariane="2. Documents accessibles | 2. Couleurs",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Couleurs",
         date_text=ctx.date,

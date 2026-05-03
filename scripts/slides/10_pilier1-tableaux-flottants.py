@@ -1,4 +1,4 @@
-"""Slide 35 : Pilier 1 - Tableaux et objets flottants.
+"""Slide 35 : Tableaux et objets flottants.
 
 Règles neuropédagogie appliquées :
 - R1 : Citation fondatrice pour ancrer la règle d'or
@@ -17,7 +17,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Pilier 1 - Tableaux et objets flottants",
+        titre="Tableaux et objets flottants",
         fil_ariane="2. Documents accessibles | 1. Structure",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Structure",
         date_text=ctx.date,

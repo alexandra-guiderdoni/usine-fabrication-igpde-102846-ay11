@@ -1,4 +1,4 @@
-"""Slide 41 : Pilier 4 - Langue, majuscules et lisibilité.
+"""Slide 41 : Langue, majuscules et lisibilité.
 
 Règles neuropédagogie appliquées :
 - R19 : Procédures détaillées (balisage de langue, casse)
@@ -16,7 +16,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Pilier 4 - Langue, majuscules et lisibilité",
+        titre="Langue, majuscules et lisibilité",
         fil_ariane="2. Documents accessibles | 4. Langue",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Langue",
         date_text=ctx.date,

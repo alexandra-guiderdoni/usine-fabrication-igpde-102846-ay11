@@ -1,4 +1,4 @@
-"""Slide 43 : Pilier 5 - Avant de publier : 5 vérifications en 2 minutes.
+"""Slide 43 : Avant de publier : 5 vérifications en 2 minutes.
 
 Règles neuropédagogie appliquées :
 - R7 : Procédure stepper (5 étapes mécaniques)
@@ -13,7 +13,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Pilier 5 - Avant de publier : 5 vérifications en 2 minutes",
+        titre="Avant de publier : 5 vérifications en 2 minutes",
         fil_ariane="2. Documents accessibles | 5. Finalisation",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Finalisation",
         date_text=ctx.date,
@@ -41,7 +41,7 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Le pilier 5 est la checklist finale avant envoi. 2 minutes maximum. Le vérificateur "
+        "La finalisation est la checklist finale avant envoi. 2 minutes maximum. Le vérificateur "
         "Word est le dernier filet de sécurité - mais il ne détecte pas tout (voir slide "
         "suivante). Insister sur le nom de fichier : c'est le seul identifiant visible "
         "avant d'ouvrir le document."

@@ -1,4 +1,4 @@
-"""Slide 33 : Pilier 1 - Les styles de titre : le fondement de tout.
+"""Slide 33 : Les styles de titre : le fondement de tout.
 
 Règles neuropédagogie appliquées :
 - R5 : Perspective utilisateur (comment un lecteur d'écran voit les titres)
@@ -16,7 +16,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Pilier 1 - Les styles de titre : le fondement de tout",
+        titre="Les styles de titre : le fondement de tout",
         fil_ariane="2. Documents accessibles | 1. Structure",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Structure",
         date_text=ctx.date,

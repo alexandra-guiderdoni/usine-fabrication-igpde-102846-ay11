@@ -45,9 +45,9 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Ne pas hiérarchiser les piliers entre eux : tous sont obligatoires. "
+        "Ne pas hiérarchiser les thèmes entre eux : tous sont obligatoires. "
         "La logique ici est l'effort, pas l'importance. Ces 3 réflexes couvrent "
-        "les piliers 1, 3 et 5 et prennent moins d'une minute chacun. "
+        "Structure, Contenus et Finalisation et prennent moins d'une minute chacun. "
         "Le reste (contraste, langue, propriétés, listes) vient naturellement "
         "une fois que ces 3 réflexes sont installés.",
     )
