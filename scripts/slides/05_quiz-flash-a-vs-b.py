@@ -18,7 +18,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Quiz - lequel de ces deux documents est accessible ?",
-        fil_ariane="2. Documents accessibles | Quiz",
+        fil_ariane="2. Documents accessibles | Quiz flash",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Quiz",
         date_text=ctx.date,
         page_num=ctx.page_num,

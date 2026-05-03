@@ -49,7 +49,7 @@ def build(prs, layouts, ctx):
         top=stack.push(estimate_callout_height("Majuscules : deux problèmes", maj_bullets))
     )
 
-    highlight_text = "Police sans serif (Arial, Calibri), 12 pt minimum, interligne 1,15. Ne pas justifier le texte."
+    highlight_text = "Police sans serif (Arial, Marianne), 12 pt minimum, interligne 1,15. Ne pas justifier le texte."
     add_highlight(
         slide,
         highlight_text,

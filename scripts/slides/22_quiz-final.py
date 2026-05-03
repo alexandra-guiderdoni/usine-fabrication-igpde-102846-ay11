@@ -1,8 +1,9 @@
-"""Slide quiz final - Questions uniquement (5 erreurs a trouver)."""
+"""Slide quiz final - Questions (5 erreurs a trouver)."""
 
 from igpde_dsfr_components import (
     add_alert, add_highlight, add_notes, new_slide,
-    estimate_highlight_height, CONTENT_W, MARGIN_L,
+    estimate_highlight_height,
+    CONTENT_W, MARGIN_L, Stack,
 )
 
 
@@ -10,36 +11,44 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Quiz final : trouvez les 5 erreurs",
+        titre="Quiz final : saurez-vous trouver les 5 erreurs ?",
         fil_ariane="2. Documents accessibles | Quiz final",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Quiz final",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
-    consigne = "Un document Word contient les éléments suivants. Identifiez les 5 erreurs d'accessibilité."
-    add_highlight(slide, consigne,
-                  top=2.3, left=MARGIN_L, width=CONTENT_W)
+    stack = Stack(top=2.3, gap=0.25)
 
-    alert_bullets = [
-        "Un titre Introduction mis en gras Arial 16 (sans style)",
-        "Un tableau de résultats avec des lignes en rouge et en vert",
-        "Un lien cliquez ici pour le formulaire",
-        "La langue du document non définie dans les propriétés Word",
-        "Les propriétés du document Titre et Auteur non renseignées",
-    ]
+    consigne = (
+        "Un collègue vous partage un document Word pour relecture.\n"
+        "En l'analysant, vous repérez les éléments suivants."
+    )
+    add_highlight(
+        slide, consigne,
+        top=stack.push(estimate_highlight_height(consigne, CONTENT_W)),
+    )
+
+    alert_contenu = (
+        "1. Le titre Introduction est en gras Arial 16 au lieu d'utiliser un style de titre\n"
+        "2. Un tableau de suivi utilise uniquement des lignes rouges et vertes pour les résultats\n"
+        "3. Un lien est rédigé : cliquez ici pour le formulaire\n"
+        "4. La langue principale du document n'est pas définie\n"
+        "5. Les propriétés du fichier (Titre et Auteur) sont vides"
+    )
     add_alert(
         slide,
-        "Le document contient :",
-        alert_bullets,
-        top=round(2.3 + estimate_highlight_height(consigne, CONTENT_W) + 0.3, 2),
+        "Identifiez les 5 erreurs d'accessibilité :",
+        alert_contenu,
+        top=stack.push(3.0),
         alert_type="info",
     )
 
     add_notes(
         slide,
-        "Laisser 3 minutes de réflexion individuelle avant de passer à la slide suivante. "
-        "Ne pas aider - la difficulté fait partie de l'apprentissage. "
-        "Demander à main levée combien trouvent 3 erreurs, 4, les 5."
+        "Lancer le chronomètre : 3 minutes de réflexion individuelle en silence. "
+        "Ne pas aider - la difficulté fait partie du processus d'apprentissage. "
+        "Au bout des 3 minutes, demander à main levée : « Qui a trouvé "
+        "3 erreurs ? 4 erreurs ? Les 5 ? » avant de passer à la correction.",
     )
     return slide

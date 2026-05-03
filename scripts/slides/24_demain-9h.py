@@ -18,7 +18,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Demain à 9 h, vos 3 premiers réflexes",
+        titre="Dès demain, vos trois premiers réflexes",
         fil_ariane="2. Documents accessibles | Plan d'action",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Plan d'action",
         date_text=ctx.date,
@@ -44,7 +44,7 @@ def build(prs, layouts, ctx):
         estimate_card_height("Clic droit > Texte de remplacement", card2_contenu, CARD_W, numero="2"),
         estimate_card_height("Fichier > Vérifier l'accessibilité", card3_contenu, CARD_W, numero="3")
     ]
-    card_height = max(heights)
+    card_height = max(*heights, 4.0)
 
     add_card(
         slide,

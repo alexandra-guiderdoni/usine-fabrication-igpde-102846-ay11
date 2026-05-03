@@ -12,7 +12,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Écriture inclusive : ce qui est accessible et ce qui ne l'est pas",
-        fil_ariane="4. Réseaux sociaux | Geste 4 - Texte natif",
+        fil_ariane="4. Réseaux sociaux | Écriture inclusive",
         footer_text=f"{ctx.footer_base} / Réseaux sociaux",
         date_text=ctx.date,
         page_num=ctx.page_num,

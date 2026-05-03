@@ -1,14 +1,15 @@
 """Slide 33 : Les styles de titre : le fondement de tout.
 
-Règles neuropédagogie appliquées :
-- R5 : Perspective utilisateur (comment un lecteur d'écran voit les titres)
-- R10 : Avant/Après contrastant pour mémorisation
-- R19 : Procédure d'action détaillée + vérification
+Regles neuropedagogie appliquees :
+- R5 : Perspective utilisateur (comment un lecteur d'ecran voit les titres)
+- R10 : Avant/Apres contrastant pour memorisation
+- R19 : Procedure d'action detaillee + verification
 """
 
 from igpde_dsfr_components import (
     add_highlight, add_avant_apres, add_callout, add_notes, new_slide,
-    estimate_callout_height
+    estimate_highlight_height, estimate_callout_height,
+    MARGIN_L, CONTENT_W, Stack,
 )
 
 
@@ -23,12 +24,15 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
+    stack = Stack(top=2.1, gap=0.30)
+
+    question = "Comment un lecteur d'écran repère-t-il les titres dans Word ?"
     add_highlight(
-        slide,
-        "Comment un lecteur d'écran repère-t-il les titres dans Word ?",
-        top=2.3
+        slide, question,
+        top=stack.push(estimate_highlight_height(question, CONTENT_W)),
     )
 
+    stack.gap = 0.35
     add_avant_apres(
         slide,
         "Sans styles de titre",
@@ -43,7 +47,7 @@ def build(prs, layouts, ctx):
             "Titre 2 : Budget / Titre 3 : Prévisions 2025",
             "Navigation en quelques secondes comme une table des matières interactive"
         ],
-        top=3.1,
+        top=stack.push(2.0),
         height=2.0
     )
 
@@ -52,11 +56,13 @@ def build(prs, layouts, ctx):
         "Raccourci volet Styles : Ctrl+Alt+Maj+S",
         "Vérification : Ctrl+F > onglet Titres - les titres apparaissent ? C'est bon."
     ]
+    stack.gap = 0.30
     add_callout(
         slide,
         "Comment faire",
         callout_bullets,
-        top=5.30
+        top=stack.push(estimate_callout_height("Comment faire", callout_bullets,
+                                               CONTENT_W)),
     )
 
     add_notes(

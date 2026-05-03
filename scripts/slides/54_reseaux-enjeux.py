@@ -12,7 +12,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Pourquoi l'accessibilité sur les réseaux ?",
-        fil_ariane="4. Réseaux sociaux | Enjeux",
+        fil_ariane="4. Réseaux sociaux",
         footer_text=f"{ctx.footer_base} / Module 4",
         date_text=ctx.date,
         page_num=ctx.page_num,

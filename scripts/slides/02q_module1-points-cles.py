@@ -35,7 +35,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Module 1 - Ce que vous retenez",
-        fil_ariane="1. Cadre légal | Synthèse",
+        fil_ariane="1. Introduction | Points clés",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,
         page_num=ctx.page_num,

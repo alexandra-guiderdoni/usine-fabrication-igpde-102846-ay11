@@ -1,4 +1,4 @@
-"""Slide : Checklist exercice - Structure et contenus."""
+"""Slide : Checklist autres - Mise en page et formatage."""
 
 from igpde_dsfr_components import (
     add_checklist, add_highlight, add_notes, new_slide,
@@ -10,22 +10,22 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Checklist : pratiqué dans l'exercice (1/2)",
+        titre="Checklist : autres critères essentiels (2/2)",
         fil_ariane="2. Documents accessibles | Checklist",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Checklist",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
-    accroche = "Ces critères, vous savez déjà les corriger."
+    accroche = "Mise en page et formatage propre."
     add_highlight(slide, accroche, top=2.3)
 
     items = [
-        "Titres avec styles intégrés (pas du gras manuel)",
-        "Hiérarchie des titres cohérente (H1, H2, H3)",
-        "Texte alternatif sur images / décoratifs marqués",
-        "Tableaux de données avec ligne d'en-tête",
-        "Listes natives (pas de tirets manuels)",
+        "Pas de zones de texte flottantes",
+        "Sauts de page propres (pas de retours à la ligne)",
+        "Colonnes intégrées (pas de tabulations)",
+        "Tableaux de mise en page avec habillage Aucun",
+        "Aucun formulaire Word interactif",
     ]
 
     add_checklist(
@@ -36,7 +36,8 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Première moitié des critères pratiqués dans l'exercice de Sami. "
-        "Ce sont les fondamentaux de structure et de contenu alternatif.",
+        "Conseil : intégrer 2-3 nouveaux critères par semaine "
+        "jusqu'à ce que les 21 soient automatiques. Suggérer de "
+        "plastifier ces 4 slides ou de les garder en favoris.",
     )
     return slide

@@ -18,7 +18,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Lien d’évitement : le raccourci qui sauve 30 Tab",
-        fil_ariane="3. Easy Checks | 5. Lien d’évitement",
+        fil_ariane="3. Easy Checks | 5. Lien d'évitement",
         footer_text=f"{ctx.footer_base} / Easy Checks - Lien d’évitement",
         date_text=ctx.date,
         page_num=ctx.page_num,

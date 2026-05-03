@@ -21,7 +21,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Regardez ce tweet - qu'est-ce qui ne va pas ?",
-        fil_ariane="4. Réseaux sociaux | Accroche",
+        fil_ariane="4. Réseaux sociaux | Cas pratique",
         footer_text=f"{ctx.footer_base} / Réseaux sociaux",
         date_text=ctx.date,
         page_num=ctx.page_num,

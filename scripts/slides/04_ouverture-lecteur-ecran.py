@@ -14,7 +14,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_soustitre",
         titre="Le lecteur d'écran en action",
-        fil_ariane="2. Documents accessibles",
+        fil_ariane="2. Documents accessibles | Ouverture",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Contexte",
         date_text=ctx.date,
         page_num=ctx.page_num,

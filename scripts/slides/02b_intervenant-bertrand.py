@@ -41,7 +41,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Bertrand Matge",
-        fil_ariane="Intervenants",
+        fil_ariane="1. Introduction | Intervenants",
         footer_text=f"{ctx.footer_base} / Intervenants",
         date_text=ctx.date,
         page_num=ctx.page_num,

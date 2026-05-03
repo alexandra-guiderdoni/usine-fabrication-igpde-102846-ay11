@@ -12,6 +12,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
+        fil_ariane="1. Introduction | Idées reçues",
         titre="Ensemble, faisons tomber les préjugés !",
         footer_text=f"{ctx.footer_base} / Accueil",
         date_text=ctx.date,

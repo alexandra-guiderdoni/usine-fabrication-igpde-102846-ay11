@@ -12,7 +12,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Hashtags : le CamelCase qui change tout",
-        fil_ariane="4. Réseaux sociaux | Geste 3 - Hashtags",
+        fil_ariane="4. Réseaux sociaux | Hashtags",
         footer_text=f"{ctx.footer_base} / Réseaux sociaux",
         date_text=ctx.date,
         page_num=ctx.page_num,

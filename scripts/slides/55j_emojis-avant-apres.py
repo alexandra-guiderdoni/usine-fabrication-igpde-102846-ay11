@@ -12,7 +12,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Ce que ça donne avec trop d'émojis",
-        fil_ariane="4. Réseaux sociaux | Geste 2 - Émojis",
+        fil_ariane="4. Réseaux sociaux | Émojis",
         footer_text=f"{ctx.footer_base} / Réseaux sociaux",
         date_text=ctx.date,
         page_num=ctx.page_num,

@@ -12,7 +12,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Quiz : vrai ou faux ?",
-        fil_ariane="4. Réseaux sociaux | Quiz de clôture",
+        fil_ariane="4. Réseaux sociaux | Quiz",
         footer_text=f"{ctx.footer_base} / Réseaux sociaux",
         date_text=ctx.date,
         page_num=ctx.page_num,

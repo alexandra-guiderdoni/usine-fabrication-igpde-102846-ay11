@@ -15,7 +15,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="4 réflexes avant chaque publication",
-        fil_ariane="4. Réseaux sociaux | Vue synthétique",
+        fil_ariane="4. Réseaux sociaux | Réflexes",
         footer_text=f"{ctx.footer_base} / Réseaux sociaux",
         date_text=ctx.date,
         page_num=ctx.page_num,

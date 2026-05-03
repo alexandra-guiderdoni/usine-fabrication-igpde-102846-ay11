@@ -14,7 +14,6 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="chapitre",
         titre="",  # le titre est posé par compose_chapitre
-        fil_ariane="3. Easy Checks",
         footer_text=f"{ctx.footer_base} / Easy Checks",
         date_text=ctx.date,
         page_num=ctx.page_num,

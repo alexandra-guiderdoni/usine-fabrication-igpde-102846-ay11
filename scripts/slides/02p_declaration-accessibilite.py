@@ -11,7 +11,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="La déclaration d'accessibilité",
-        fil_ariane="1. Cadre légal | Déclaration",
+        fil_ariane="1. Introduction | Cadre légal",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,
         page_num=ctx.page_num,
