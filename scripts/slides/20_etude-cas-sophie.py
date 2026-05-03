@@ -28,7 +28,7 @@ def build(prs, layouts, ctx):
 
     card1_titre = "Vous vous souvenez ?"
     card1_contenu = (
-        "Le document de Sami contenait 16 erreurs "
+        "Le document de Sami contenait 19 erreurs "
         "de Structure, Couleurs, Contenus et Lisibilité.\n\n"
         "Mais il en contenait 2 de plus que vous "
         "n'aviez pas encore les outils pour détecter."

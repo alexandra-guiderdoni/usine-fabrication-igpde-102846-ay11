@@ -74,7 +74,9 @@ def build(prs, layouts, ctx):
         "Contenus : graphique et organigramme sans alt adapté, "
         "icône redondante, lien cliquez ici\n\n"
         "Lisibilité : texte justifié, paragraphes vides, "
-        "majuscules, filigrane invisible"
+        "majuscules, filigrane invisible\n\n"
+        "Et aussi : faux sommaire, texte en image, "
+        "tableau avec cellules fusionnées"
     )
 
     card_h = max(
@@ -86,7 +88,7 @@ def build(prs, layouts, ctx):
     add_card(slide, card1_titre, card1_contenu, top=cards_top, left=MARGIN_L, width=COL_W, height=card_h)
     add_card(slide, card2_titre, card2_contenu, top=cards_top, left=COL_R, width=COL_W, height=card_h)
 
-    _bold_keywords(slide, ["Structure :", "Couleurs :", "Contenus :", "Lisibilité :"])
+    _bold_keywords(slide, ["Structure :", "Couleurs :", "Contenus :", "Lisibilité :", "Et aussi :"])
 
     stack.gap = 0.35
     accroche = "30 minutes en binôme : trouvez les erreurs, puis corrigez-les."
@@ -97,7 +99,7 @@ def build(prs, layouts, ctx):
         "Distribuer sami-doc-inaccessible.docx aux binômes.\n\n"
         "Phase 1 - Identification (10 min) : « Trouvez toutes les erreurs "
         "d'accessibilité. Notez-les sans corriger. » Pas de checklist.\n\n"
-        "Phase 2 - Correction (15 min) : afficher la liste des 16 erreurs. "
+        "Phase 2 - Correction (15 min) : afficher la liste des 19 erreurs. "
         "Les binômes corrigent dans l'ordre structure > couleurs > contenus. "
         "Le vérificateur Word sert d'outil de découverte : « Que détecte-t-il ? "
         "Que rate-t-il ? »\n\n"

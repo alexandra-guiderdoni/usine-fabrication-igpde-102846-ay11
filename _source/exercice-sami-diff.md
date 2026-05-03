@@ -30,6 +30,8 @@ Comparaison entre `sami-doc-inaccessible.docx` et `sami-doc-accessible.docx`.
 | 10 | Icone enveloppe | alt="E-mail" (redondant avec texte adjacent) | Marquee comme decorative |
 | 11 | Fausse liste a puces | Tirets manuels (- item) | Liste a puces native (Accueil > Puces) |
 | 12 | Fausse liste numerotee | Numeros tapes a la main (1. 2. 3.) | Liste numerotee native (Accueil > Numerotation) |
+| 19 | Faux sommaire | Points de suite et numeros tapes a la main | Table des matieres automatique (References > Table des matieres) |
+| 21 | Tableau fusionne | Cellules fusionnees sur 3 colonnes | Tableau simple en grille sans fusion |
 
 ## Pilier 4 - Langue
 
@@ -51,6 +53,7 @@ Comparaison entre `sami-doc-inaccessible.docx` et `sami-doc-accessible.docx`.
 | N | Element | Inaccessible | Accessible |
 |---|---------|-------------|------------|
 | 18 | Filigrane | Filigrane CONFIDENTIEL (invisible lecteur d'ecran) | Mention Document confidentiel dans le corps du texte |
+| 20 | Texte en image | Avis important insere comme image | Meme contenu en vrai texte |
 
 ## Metadonnees
 

@@ -7,7 +7,7 @@ Amendé suite au Devil Council du 2026-05-02.
 
 ## Contexte pédagogique
 
-Sami, charge de communication a la Direction des affaires juridiques, envoie son rapport trimestriel « Bilan T1 2025 » a 40 destinataires. Le document contient 18 erreurs d'accessibilite couvrant les 5 piliers, dont une erreur ambigue qui force le jugement. Les erreurs des piliers 4 et 5 sont revelees apres l'enseignement de ces piliers (slide 37, effet Zeigarnik).
+Sami, charge de communication a la Direction des affaires juridiques, envoie son rapport trimestriel « Bilan T1 2025 » a 40 destinataires. Le document contient 21 erreurs d'accessibilite couvrant les 5 piliers, dont une erreur ambigue qui force le jugement. Les erreurs des piliers 4 et 5 sont revelees apres l'enseignement de ces piliers (slide 37, effet Zeigarnik).
 
 - **Public** : communicants, niveau initiation
 - **Format** : exercice en binôme, 25 minutes (3 phases)
@@ -190,6 +190,32 @@ Pourquoi : le lecteur d'ecran peut epeler lettre par lettre les mots en majuscul
 
 Pourquoi : les filigranes sont des objets graphiques dans l'en-tete, non lus par les lecteurs d'ecran. Un utilisateur aveugle ne sait pas que le document est confidentiel.
 
+### Erreur 19 - Faux sommaire tape a la main (pilier 1 - structure)
+
+| Inaccessible | Accessible |
+|---|---|
+| Sommaire avec points de suite tapes manuellement et numeros de page en dur | Table des matieres automatique generee depuis les styles de titre |
+
+Pourquoi : un sommaire tape a la main n'est pas lie aux titres du document. Il ne se met pas a jour, n'est pas navigable et le lecteur d'ecran ne peut pas sauter directement a une section.
+
+### Erreur 20 - Texte sous forme d'image (pilier 3 - contenus)
+
+| Inaccessible | Accessible |
+|---|---|
+| Avis important insere comme image (capture d'ecran) | Meme contenu en vrai texte dans le document |
+
+Texte : « Avis important : les indicateurs du T2 2025 seront transmis avant le 15 septembre 2025. »
+
+Pourquoi : le texte dans une image ne peut pas etre lu par la synthese vocale, ni agrandi proprement, ni selectionne, ni recherche. Il faut toujours saisir le texte directement dans Word, sauf pour les logos.
+
+### Erreur 21 - Tableau avec cellules fusionnees (pilier 1 - structure)
+
+| Inaccessible | Accessible |
+|---|---|
+| Tableau avec premiere ligne fusionnee sur 3 colonnes | Tableau simple en grille sans fusion, avec en-tete balisee |
+
+Pourquoi : les cellules fusionnees cassent la logique de lecture des aides techniques. Le lecteur d'ecran ne peut plus associer chaque cellule a sa colonne. L'ideal est de garder des tableaux sous forme de grilles simples.
+
 ---
 
 ## Structure du document (2 pages)
@@ -242,7 +268,7 @@ Pas de checklist distribuée à cette phase. Les stagiaires doivent mobiliser ce
 
 | Temps | Action |
 |---|---|
-| 10-12 min | Le formateur affiche la liste des 16 erreurs. Les binômes comparent avec leur liste |
+| 10-12 min | Le formateur affiche la liste des 19 erreurs. Les binômes comparent avec leur liste |
 | 12-20 min | Chaque binôme corrige les erreurs dans l'ordre prescrit (Pilier 1 puis 2 puis 3) |
 
 Le vérificateur Word est utilisé comme **outil de découverte** (« que détecte-t-il ? que rate-t-il ? »), pas comme preuve de conformité.
@@ -252,7 +278,7 @@ Le vérificateur Word est utilisé comme **outil de découverte** (« que détec
 | Temps | Action |
 |---|---|
 | 20-22 min | Le formateur débrief l'erreur 6 (contraste ambigu) : montrer le CCA, expliquer le seuil 4,5:1 |
-| 22-25 min | Question de transfert : « Sur votre dernier document envoyé, laquelle de ces 18 erreurs avez-vous probablement faite ? » Tour de table rapide (1 phrase par binôme) |
+| 22-25 min | Question de transfert : « Sur votre dernier document envoyé, laquelle de ces 21 erreurs avez-vous probablement faite ? » Tour de table rapide (1 phrase par binôme) |
 
 La question de transfert est le vrai objectif pédagogique. L'exercice Sami n'est que le véhicule.
 

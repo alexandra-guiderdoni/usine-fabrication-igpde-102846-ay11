@@ -151,6 +151,29 @@ def generate_organigramme():
     return path
 
 
+def generate_texte_image():
+    """Genere une image contenant du texte (avis important) pour l'erreur texte-image."""
+    fig, ax = plt.subplots(figsize=(5, 1.5))
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 3)
+    ax.axis("off")
+    rect = mpatches.FancyBboxPatch((0.2, 0.2), 9.6, 2.6, boxstyle="round,pad=0.3",
+                                    facecolor="#FFF3CD", edgecolor="#856404",
+                                    linewidth=1.5)
+    ax.add_patch(rect)
+    ax.text(5, 1.5,
+            "Avis important : les indicateurs du T2 2025\n"
+            "seront transmis avant le 15 septembre 2025.",
+            ha="center", va="center", fontsize=11,
+            fontweight="bold", color="#856404")
+    fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
+    path = ASSETS / "texte-image.png"
+    fig.savefig(path, dpi=150, facecolor="white", bbox_inches="tight",
+                pad_inches=0.05)
+    plt.close(fig)
+    return path
+
+
 # ------------------------------------------------------------------
 # 3. Document inaccessible
 # ------------------------------------------------------------------
@@ -211,8 +234,32 @@ def _mark_image_decorative(doc):
     _set_image_alt(doc, alt_text="", title="")
 
 
+def _add_toc(doc):
+    """Insere un champ Table des matieres automatique."""
+    from lxml import etree
+    p = doc.add_paragraph()
+    run = p.add_run()
+    fldChar_begin = parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="begin"/>')
+    run._r.append(fldChar_begin)
+    run2 = p.add_run()
+    instrText = parse_xml(
+        f'<w:instrText {nsdecls("w")} xml:space="preserve"> TOC \\o "1-3" \\h \\z \\u </w:instrText>'
+    )
+    run2._r.append(instrText)
+    run3 = p.add_run()
+    fldChar_separate = parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="separate"/>')
+    run3._r.append(fldChar_separate)
+    run4 = p.add_run("(Table des matières - mettre à jour avec F9)")
+    run4.font.color.rgb = RGBColor(0x80, 0x80, 0x80)
+    run4.font.size = Pt(10)
+    run5 = p.add_run()
+    fldChar_end = parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="end"/>')
+    run5._r.append(fldChar_end)
+
+
 def build_inaccessible(chart_path: Path, icon_path: Path = None,
-                       organigramme_path: Path = None):
+                       organigramme_path: Path = None,
+                       texte_image_path: Path = None):
     doc = Document()
 
     style_normal = doc.styles["Normal"]
@@ -246,6 +293,24 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
         "trimestre 2025. Il couvre les principaux indicateurs de performance "
         "de nos canaux digitaux."
     )
+
+    # Erreur 19 : faux sommaire tape a la main (points de suite manuels)
+    p = doc.add_paragraph()
+    run = p.add_run("Sommaire")
+    run.bold = True
+    run.font.name = "Arial"
+    run.font.size = Pt(14)
+    run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
+    for titre_som, page in [
+        ("Résultats du trimestre", "2"),
+        ("Détail par canal", "3"),
+        ("Organisation du service", "4"),
+        ("Contact", "5"),
+        ("Annexes", "5"),
+    ]:
+        doc.add_paragraph(f"{titre_som} .............. {page}")
+
+    doc.add_paragraph()
 
     # Erreur 5 : couleur seule (rouge #FF0000 sans gras, meme texte que l'accessible)
     p = doc.add_paragraph()
@@ -361,6 +426,35 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
         "Please contact the communication department for further details."
     )
 
+    # Erreur 20 : texte sous forme d'image
+    if texte_image_path:
+        doc.add_paragraph()
+        doc.add_picture(str(texte_image_path), width=Inches(4.5))
+        doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
+
+    # Erreur 21 : tableau avec cellules fusionnees
+    doc.add_paragraph()
+    p = doc.add_paragraph()
+    run = p.add_run("Répartition par service")
+    run.bold = True
+    run.font.name = "Arial"
+    run.font.size = Pt(12)
+    run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
+    table = doc.add_table(rows=4, cols=3)
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    # Fusionner la premiere ligne sur 3 colonnes
+    table.cell(0, 0).merge(table.cell(0, 2))
+    table.cell(0, 0).text = "Direction des affaires juridiques"
+    table.cell(1, 0).text = "Service"
+    table.cell(1, 1).text = "Effectif"
+    table.cell(1, 2).text = "Budget"
+    table.cell(2, 0).text = "Communication"
+    table.cell(2, 1).text = "12"
+    table.cell(2, 2).text = "45 000"
+    table.cell(3, 0).text = "Juridique"
+    table.cell(3, 1).text = "28"
+    table.cell(3, 2).text = "120 000"
+
     doc.add_paragraph()
 
     # Section Annexes (faux titre + Erreur 17 : majuscules tapees au clavier)
@@ -399,7 +493,8 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
 # ------------------------------------------------------------------
 
 def build_accessible(chart_path: Path, icon_path: Path = None,
-                     organigramme_path: Path = None):
+                     organigramme_path: Path = None,
+                     texte_image_path: Path = None):
     doc = Document()
 
     style_normal = doc.styles["Normal"]
@@ -448,6 +543,11 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
         "trimestre 2025. Il couvre les principaux indicateurs de performance "
         "de nos canaux digitaux."
     )
+
+    # Sommaire automatique (table des matieres generee depuis les styles)
+    doc.add_heading("Sommaire", level=2)
+    _add_toc(doc)
+    doc.add_paragraph()
 
     # Mention urgente accessible (#C00000 ratio 6.5:1 sur blanc)
     p = doc.add_paragraph()
@@ -584,6 +684,42 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     lang_en = parse_xml(f'<w:lang {nsdecls("w")} w:val="en-US"/>')
     rPr.append(lang_en)
 
+    # Texte en clair (pas sous forme d'image)
+    p = doc.add_paragraph()
+    run = p.add_run(
+        "Avis important : les indicateurs du T2 2025 "
+        "seront transmis avant le 15 septembre 2025.")
+    run.bold = True
+    run.font.name = "Arial"
+    run.font.size = Pt(11)
+
+    # Tableau simple sans cellules fusionnees
+    doc.add_heading("Répartition par service", level=3)
+    table = doc.add_table(rows=3, cols=3, style="Table Grid")
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    data = [
+        ["Service", "Effectif", "Budget"],
+        ["Communication", "12", "45 000"],
+        ["Juridique", "28", "120 000"],
+    ]
+    for i, row_data in enumerate(data):
+        for j, cell_text in enumerate(row_data):
+            cell = table.cell(i, j)
+            cell.text = cell_text
+            for paragraph in cell.paragraphs:
+                for run in paragraph.runs:
+                    run.font.name = "Arial"
+                    run.font.size = Pt(10)
+            if i == 0:
+                for paragraph in cell.paragraphs:
+                    for run in paragraph.runs:
+                        run.bold = True
+    tbl = table._tbl
+    first_row = tbl.tr_lst[0]
+    trPr = first_row.get_or_add_trPr()
+    tblHeader = parse_xml(f'<w:tblHeader {nsdecls("w")} val="true"/>')
+    trPr.append(tblHeader)
+
     doc.add_paragraph()
 
     # Annexes (Titre 2, majuscules via all_caps, pas tapees au clavier)
@@ -647,9 +783,13 @@ if __name__ == "__main__":
     print(f"  -> {icon.name}")
     orga = generate_organigramme()
     print(f"  -> {orga.name}")
+    txt_img = generate_texte_image()
+    print(f"  -> {txt_img.name}")
 
     print("\nGeneration des documents Word...")
-    build_inaccessible(chart_bad, icon_path=icon, organigramme_path=orga)
-    build_accessible(chart_good, icon_path=icon, organigramme_path=orga)
+    build_inaccessible(chart_bad, icon_path=icon, organigramme_path=orga,
+                       texte_image_path=txt_img)
+    build_accessible(chart_good, icon_path=icon, organigramme_path=orga,
+                     texte_image_path=txt_img)
 
     print("\nTermine.")
