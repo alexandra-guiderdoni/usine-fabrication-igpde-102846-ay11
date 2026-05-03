@@ -112,6 +112,7 @@ Tous les scripts Python vivent dans `/Users/alex/Claude/projets-formations/IGPDE
 | `assemble.py` | Assemble les slides de `scripts/slides/` en un PPTX unique (support de formation) |
 | `slides/NN_nom.py` | Une slide par module, ordre garanti par préfixe numérique (`01_`, `02_`…) |
 | `generate_grille_audit.py` | Génère `03-easy-checks/grille-audit-easy-checks.xlsx` - classeur d'audit pour les stagiaires (13 critères, 4 onglets, validation de données, formules de synthèse) |
+| `generate_exercice_sami.py` | Génère les 2 DOCX de l'exercice Sami (`_source/sami-doc-inaccessible.docx` + `_source/sami-doc-accessible.docx`) et les 2 graphiques PNG (`_assets/graphique-*.png`). Spec dans `_source/exercice-sami-spec.md` |
 
 Exécution type :
 ```bash
@@ -285,10 +286,12 @@ Importés depuis `igpde_dsfr_components` :
 | `PPT-IGPDE-DSFR-base-intervenant.pptx` | Template vierge (6 layouts, aucune slide) - base pour toute nouvelle présentation |
 | `gabarits-ppt-igpde.pptx` | Démonstration pédagogique - 1 slide par gabarit IGPDE-DSFR + composants DSFR illustrés. Produit par `scripts/generate_demo.py` |
 | `formation-102638-juin-2026.pptx` | Support de formation complet pour la session de juin 2026 (86 slides, assemblé depuis `scripts/slides/`). Produit par `scripts/assemble.py` |
+| `_source/sami-doc-inaccessible.docx` | Exercice Sami - document Word avec 8 erreurs intentionnelles (3 faux titres, tableau sans en-tête, URGENT couleur seule, contraste #767676, graphique sans alt, lien non descriptif). Distribué aux binômes en slide 32. Produit par `scripts/generate_exercice_sami.py`. Sera enrichi au fil des slides 20 à 44 |
+| `_source/sami-doc-accessible.docx` | Exercice Sami - version corrigée (vrais styles, en-tête balisée, contraste #595959, alt text, lien descriptif, propriétés document). Produit par `scripts/generate_exercice_sami.py`. Sera enrichi au fil des slides 20 à 44 |
 | `03-easy-checks/grille-audit-easy-checks.md` | Grille d'audit documentaire (13 critères, mode d'emploi, imprimable) |
 | `03-easy-checks/grille-audit-easy-checks.xlsx` | Grille d'audit opérationnelle (16 onglets : Mode d'emploi, Échantillon RGAA, 12 onglets de page obligatoire/représentative pré-remplis avec l'intitulé, Exemple, Synthèse multi-pages avec agrégation automatique via formules cross-sheet). Pour saisie pendant la mission finale de la slide 27 |
-| `_assets/` | Logos et visuels IGPDE extraits du source original |
-| `_source/` | Sources du programme de formation 102638 (DOCX, cartographie) |
+| `_assets/` | Logos, visuels IGPDE et graphiques de l'exercice Sami (versions accessible et inaccessible) |
+| `_source/` | Sources du programme de formation 102638 (DOCX, cartographie, spec exercice Sami) |
 
 **Convention de nommage des PPTX produits** : pour une nouvelle session, créer une variante datée via `python3 scripts/assemble.py -o formation-102638-<mois-année>.pptx`. Le script conserve la source unique dans `scripts/slides/`, seul le livrable change de nom.
 

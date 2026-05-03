@@ -29,7 +29,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.3, gap=0.35)
+    stack = Stack(top=2.3, gap=0.15)
 
     add_highlight(
         slide,
@@ -37,16 +37,19 @@ def build(prs, layouts, ctx):
         top=stack.push(estimate_highlight_height('L’audiodescription ajoute une voix off qui décrit les images clés pendant les silences.')),
     )
 
+    callout_titre = "Ce qu’il faut vérifier :"
+    callout_bullets = [
+        "La vidéo propose une piste audiodécrite activable (bouton AD)",
+        "L’audiodescription décrit les éléments visuels essentiels à la compréhension",
+        "Elle s’intercale dans les silences, sans couvrir les dialogues",
+        "Pour une vidéo sans dialogue essentiel : une description textuelle synchronisée suffit",
+    ]
     add_callout(
         slide,
-        "Ce qu’il faut vérifier :",
-        [
-            "La vidéo propose une piste audiodécrite activable (bouton AD)",
-            "L’audiodescription décrit les éléments visuels essentiels à la compréhension",
-            "Elle s’intercale dans les silences, sans couvrir les dialogues",
-            "Pour une vidéo sans dialogue essentiel : une description textuelle synchronisée suffit",
-        ],
-        top=stack.push(estimate_callout_height('Ce qu’il faut vérifier :', ['La vidéo propose une piste audiodécrite activable (bouton AD)', 'L’audiodescription décrit les éléments visuels essentiels à la compréhension', 'Elle s’intercale dans les silences, sans couvrir les dialogues', 'Pour une vidéo sans dialogue essentiel : une description textuelle synchronisée suffit'])),
+        callout_titre,
+        callout_bullets,
+        top=stack.push(estimate_callout_height(callout_titre, callout_bullets, line_spacing=1.0)),
+        line_spacing=1.0,
     )
 
     add_quote(

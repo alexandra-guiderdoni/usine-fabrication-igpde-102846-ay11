@@ -40,8 +40,8 @@ def build(prs, layouts, ctx):
                 "Chiffre d'affaires 2020-2024 : hausse de 15 à 23 %"
             ],
             [
-                "Logo de l'entreprise",
-                "(vide - image décorative)"
+                "Icône d'enveloppe ou E-mail",
+                'alt="" (vide - icône redondante)'
             ],
             [
                 "image.png",

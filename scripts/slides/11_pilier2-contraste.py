@@ -7,7 +7,7 @@ Règles neuropédagogie appliquées :
 """
 
 from igpde_dsfr_components import (
-    add_stepper, add_pave_chiffre, add_notes, new_slide,
+    add_stepper, add_pave_chiffre, add_image, add_notes, new_slide,
     MARGIN_L, CONTENT_W, GAP
 )
 
@@ -56,6 +56,13 @@ def build(prs, layouts, ctx):
         left=MARGIN_L + KPI_W + GAP,
         width=KPI_W,
         height=1.5
+    )
+
+    add_image(
+        slide,
+        "_assets/qrcode-vispero-contrast.png",
+        top=5.40, left=MARGIN_L + 2 * (KPI_W + GAP) - 1.5, width=1.3, height=1.3,
+        alt_text="QR code : https://vispero.com/lp/color-contrast-checker/",
     )
 
     add_notes(

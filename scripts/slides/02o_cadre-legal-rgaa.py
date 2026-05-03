@@ -31,8 +31,8 @@ def build(prs, layouts, ctx):
         "Pénalité jusqu'à 25 000 EUR par service non conforme",
     ]
 
-    stepper_h = 2.5
-    stack = Stack(top=2.30, gap=0.25)
+    stepper_h = 2.0
+    stack = Stack(top=2.30, gap=0.20)
     add_stepper(slide, etapes, top=stack.push(stepper_h),
                 left=MARGIN_L, width=CONTENT_W, height=stepper_h)
 

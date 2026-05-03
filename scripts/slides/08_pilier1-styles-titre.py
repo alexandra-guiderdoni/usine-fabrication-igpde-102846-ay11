@@ -25,7 +25,7 @@ def build(prs, layouts, ctx):
 
     add_highlight(
         slide,
-        "Devinez : comment un lecteur d'écran repère-t-il les titres dans Word ?",
+        "Comment un lecteur d'écran repère-t-il les titres dans Word ?",
         top=2.3
     )
 

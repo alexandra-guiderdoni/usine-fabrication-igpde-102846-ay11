@@ -1,12 +1,13 @@
 """Slide 02d : tour de table - template de présentation en 3 colonnes."""
 
 from igpde_dsfr_components import (
-    CONTENT_W, MARGIN_L, GAP,
+    CONTENT_W, MARGIN_L, GAP, BOTTOM_CONTENT,
     add_card, add_notes, new_slide,
-    estimate_card_height,
 )
 
 CARD_W = (CONTENT_W - 2 * GAP) / 3
+CARD_TOP = 2.30
+CARD_H = BOTTOM_CONTENT - CARD_TOP - 0.05
 
 
 def build(prs, layouts, ctx):
@@ -20,42 +21,37 @@ def build(prs, layouts, ctx):
     )
 
     card1_titre = "Qui êtes-vous ?"
-    card1_contenu = [
-        "Bonjour, je m'appelle [prénom]",
-        "Je suis [métier / fonction]",
-        "chez [direction / service]",
-        "depuis [durée]",
-    ]
+    card1_contenu = (
+        "Bonjour, je m'appelle [prénom]\n"
+        "Je suis [métier / fonction]\n"
+        "chez [direction / service]\n"
+        "depuis [durée]"
+    )
 
     card2_titre = "Mon rapport à l'accessibilité"
-    card2_contenu = [
-        "Quand j'entends « accessibilité numérique », je pense à [premier mot]",
-        "Je me situe plutôt :",
-        "[ ] Complet débutant",
-        "[ ] J'en ai entendu parler",
-        "[ ] J'ai déjà appliqué quelques règles",
-    ]
+    card2_contenu = (
+        "Quand j'entends « accessibilité numérique », je pense à [premier mot]\n\n"
+        "Je me situe plutôt :\n"
+        "[ ] Complet débutant\n"
+        "[ ] J'en ai entendu parler\n"
+        "[ ] J'ai déjà appliqué quelques règles"
+    )
 
     card3_titre = "Ce que j'attends"
-    card3_contenu = [
-        "Je produis principalement [type de contenu]",
-        "Pour un usage : [ ] Interne   [ ] Grand public",
-        "Ce que j'espère retirer :",
-        "J'aimerais [objectif personnel]",
-    ]
-
-    card_h = max(
-        estimate_card_height(card1_titre, card1_contenu, CARD_W),
-        estimate_card_height(card2_titre, card2_contenu, CARD_W),
-        estimate_card_height(card3_titre, card3_contenu, CARD_W),
+    card3_contenu = (
+        "Je produis principalement [type de contenu]\n\n"
+        "Pour un usage :\n"
+        "[ ] Interne   [ ] Grand public\n\n"
+        "Ce que j'espère retirer :\n"
+        "J'aimerais [objectif personnel]"
     )
 
     add_card(slide, card1_titre, card1_contenu,
-             top=2.30, left=MARGIN_L, width=CARD_W, height=card_h)
+             top=CARD_TOP, left=MARGIN_L, width=CARD_W, height=CARD_H)
     add_card(slide, card2_titre, card2_contenu,
-             top=2.30, left=MARGIN_L + CARD_W + GAP, width=CARD_W, height=card_h)
+             top=CARD_TOP, left=MARGIN_L + CARD_W + GAP, width=CARD_W, height=CARD_H)
     add_card(slide, card3_titre, card3_contenu,
-             top=2.30, left=MARGIN_L + 2 * (CARD_W + GAP), width=CARD_W, height=card_h)
+             top=CARD_TOP, left=MARGIN_L + 2 * (CARD_W + GAP), width=CARD_W, height=CARD_H)
 
     add_notes(
         slide,

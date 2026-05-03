@@ -21,7 +21,7 @@ def build(prs, layouts, ctx):
     stack = Stack(top=2.30, gap=0.30)
 
     accroche = (
-        "L'accessibilité numérique, ça fait peur... mais souvent pour de mauvaises raisons."
+        "L'accessibilité numérique, ça fait peur ... mais souvent pour de mauvaises raisons."
     )
     hl_h = estimate_highlight_height(accroche, CONTENT_W)
     add_highlight(slide, accroche, top=stack.push(hl_h), left=MARGIN_L, width=CONTENT_W)

@@ -34,7 +34,7 @@ def build(prs, layouts, ctx):
             ["2. Couleurs", "Rapport de contraste, couleur porteuse de sens"],
             ["3. Contenu alternatif", "Texte alternatif, objets alignés, liens descriptifs"],
             ["4. Langue et lisibilité", "Balisage linguistique, majuscules, espaces répétés"],
-            ["5. Finalisation", "Vérificateur intégré, propriétés du document, export PDF"]
+            ["5. Finalisation", "Vérificateur d'accessibilité, propriétés du document, export PDF"]
         ],
         top=3.65,
         col_widths=[3.5, 8.78]

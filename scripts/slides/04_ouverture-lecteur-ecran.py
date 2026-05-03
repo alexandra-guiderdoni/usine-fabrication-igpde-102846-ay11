@@ -22,9 +22,9 @@ def build(prs, layouts, ctx):
 
     add_quote(
         slide,
-        "Texte, texte, texte, texte, texte, texte... Pendant 4 minutes. Sans titre. Sans repère. Sans pouvoir naviguer vers la section qui le concerne.",
-        auteur="Ce qu'entend une personne malvoyante face à votre document Word",
-        top=2.3
+        "Texte, texte, texte, texte, texte, texte ...\n\nPendant 4 minutes. Sans titre. Sans repère.\nSans pouvoir naviguer vers la section qui le concerne.\n\n-> C'est ce qu'entend une personne malvoyante face à votre document Word.",
+        top=2.3,
+        height=2.8,
     )
 
     add_alert(
@@ -35,8 +35,9 @@ def build(prs, layouts, ctx):
             "Dans une réunion de 12 personnes : au moins 1 daltonien",
             "Parmi 30 destinataires : 4 ou 5 ont un handicap"
         ],
-        top=4.5,
-        alert_type="warning"
+        top=5.4,
+        alert_type="warning",
+        line_spacing=1.0,
     )
 
     add_notes(

@@ -7,7 +7,7 @@ from igpde_dsfr_components import (
 )
 
 CARD_W = (CONTENT_W - GAP) / 2
-GAP_ROWS = 0.25
+GAP_ROWS = 0.10
 
 
 def build(prs, layouts, ctx):
@@ -41,6 +41,8 @@ def build(prs, layouts, ctx):
     ]
 
     card_h = max(estimate_card_height(t, c, CARD_W, numero=n) for t, c, n, _ in modules)
+    max_card_h = (6.80 - 0.05 - 2.30 - GAP_ROWS) / 2
+    card_h = min(card_h, max_card_h)
     row1_top = 2.30
     row2_top = row1_top + card_h + GAP_ROWS
 

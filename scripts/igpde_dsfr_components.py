@@ -84,7 +84,8 @@ LAYOUT_CHAPITRE = 3
 LAYOUT_3_COLONNES = 4
 LAYOUT_TITRE_CONTENU = 5
 
-TEMPLATE_PATH = Path(__file__).parent.parent / "PPT-IGPDE-DSFR-base-intervenant.pptx"
+PROJECT_ROOT = Path(__file__).parent.parent
+TEMPLATE_PATH = PROJECT_ROOT / "PPT-IGPDE-DSFR-base-intervenant.pptx"
 
 
 # ----------------------------------------------------------------------
@@ -129,7 +130,8 @@ def _apply_text(tf, texte, font=FONT, size=14, bold=False, italic=False,
     return p
 
 
-def _add_bullets(tf, items, font=FONT, size=12, color=NOIR, bold_first=False):
+def _add_bullets(tf, items, font=FONT, size=14, color=NOIR, bold_first=False,
+                  line_spacing=1.5):
     tf.word_wrap = True
     tf.margin_left = Inches(0.08)
     tf.margin_right = Inches(0.08)
@@ -144,7 +146,7 @@ def _add_bullets(tf, items, font=FONT, size=12, color=NOIR, bold_first=False):
         else:
             p = tf.add_paragraph()
         p.alignment = PP_ALIGN.LEFT
-        p.line_spacing = 1.25
+        p.line_spacing = line_spacing
         run = p.add_run()
         run.text = f"\u2022 {item}"
         run.font.name = font
@@ -470,17 +472,17 @@ def _estimate_height(content, available_width, size=11, line_height_mult=1.35):
 
     - content : str (1 texte) ou list[str] (bullets)
     - available_width : largeur utile en pouces APRES padding interne
-    - size : taille police en pt (11 pour bullets, 14 pour titre, 18 pour highlight)
+    - size : taille police en pt (14 pour bullets/contenu, 18 pour highlight)
     - line_height_mult : multiplicateur d'interligne (1,35 = marge de securite)
 
-    Heuristique empirique : Marianne/Calibri a 11pt tient ~7,5 caracteres
-    par pouce. Pour les bullets en 12pt (taille reelle dans _add_bullets),
-    le caller doit passer size=12.
+    Heuristique empirique recalibree : Marianne a 14pt tient ~8,5
+    caracteres par pouce (mesure sur PPTX reel). Base 9,0 avec
+    scaling lineaire pour marge de securite.
     """
     if content is None:
         return 0.0
     items = [content] if isinstance(content, str) else list(content)
-    chars_per_inch = 7.5 * (11.0 / size)
+    chars_per_inch = 9.0 * (11.0 / size)
     chars_per_line = max(8, int(available_width * chars_per_inch))
     line_height_inches = (size / 72.0) * line_height_mult
     total_lines = 0
@@ -493,12 +495,13 @@ def _estimate_height(content, available_width, size=11, line_height_mult=1.35):
     return total_lines * line_height_inches
 
 
-def estimate_callout_height(titre, bullets, width=None):
+def estimate_callout_height(titre, bullets, width=None, line_spacing=1.5):
     """Hauteur auto d'un callout ou d'une alert (meme formule)."""
     if width is None:
         width = CONTENT_W
     h_titre = 0.55 if titre else 0.15
-    h_body = _estimate_height(bullets, width - 0.5, size=12)
+    adjusted_lhm = 1.35 * (line_spacing / 1.25)
+    h_body = _estimate_height(bullets, width - 0.5, size=14, line_height_mult=adjusted_lhm)
     return max(h_titre + h_body + 0.25, 0.90)
 
 
@@ -558,9 +561,9 @@ def estimate_card_height(titre, contenu, width, numero=None):
     """
     h_numero = 0.80 if numero is not None else 0.0
     h_titre = 0.50 if titre else 0.15
-    h_body = _estimate_height(contenu, width - 0.5, size=11)
+    h_body = _estimate_height(contenu, width - 0.5, size=14)
     h_padding = 0.30
-    return max(h_numero + h_titre + h_body + h_padding, 1.5)
+    return max(h_numero + h_titre + h_body + h_padding, 1.0)
 
 
 def _make_box(slide, top, left, width, height, fill_color,
@@ -599,7 +602,8 @@ def _make_box(slide, top, left, width, height, fill_color,
 # ----------------------------------------------------------------------
 # Composants DSFR
 # ----------------------------------------------------------------------
-def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height=None):
+def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height=None,
+                line_spacing=1.25):
     """Callout bleu : accent gauche Bleu France + fond bleu clair + titre bold + bullets.
 
     La hauteur est calculee automatiquement a partir du contenu (titre +
@@ -613,7 +617,8 @@ def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, heig
     # qui respecte max(height, auto).
     h_titre_box = max(_estimate_height(titre, width - 0.35, size=14), 0.35) if titre else 0
     h_titre = (0.10 + h_titre_box + 0.10) if titre else 0.15
-    h_body = _estimate_height(bullets, width - 0.5, size=12)
+    adjusted_lhm = 1.35 * (line_spacing / 1.25)
+    h_body = _estimate_height(bullets, width - 0.5, size=14, line_height_mult=adjusted_lhm)
     h_padding = 0.25
     height = max(h_titre + h_body + h_padding, 0.90)
     top = _safe_top(top, height, "add_callout")
@@ -638,12 +643,13 @@ def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, heig
             Inches(width - 0.35), Inches(body_h),
         )
         b_box.name = "DSFR-callout-body"
-        _add_bullets(b_box.text_frame, bullets, font=FONT, size=12, color=NOIR)
+        _add_bullets(b_box.text_frame, bullets, font=FONT, size=14, color=NOIR,
+                     line_spacing=line_spacing)
     return slide
 
 
 def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height=None,
-              alert_type="info"):
+              alert_type="info", line_spacing=1.5):
     """Alerte DSFR - rendu uniformise en gris/bleu DSFR.
 
     Le parametre alert_type (success, warning, error, info) est conserve
@@ -659,7 +665,8 @@ def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height
     # Calcul auto TOUJOURS (voir add_callout pour le rationnel)
     h_titre_box = max(_estimate_height(titre, width - 0.35, size=14), 0.35) if titre else 0
     h_titre = (0.10 + h_titre_box + 0.10) if titre else 0.15
-    h_body = _estimate_height(bullets, width - 0.5, size=12)
+    adjusted_lhm = 1.35 * (line_spacing / 1.25)
+    h_body = _estimate_height(bullets, width - 0.5, size=14, line_height_mult=adjusted_lhm)
     h_padding = 0.25
     height = max(h_titre + h_body + h_padding, 0.90)
     top = _safe_top(top, height, "add_alert")
@@ -681,7 +688,8 @@ def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height
             Inches(width - 0.35), Inches(body_h),
         )
         b_box.name = f"DSFR-alert-{alert_type}-body"
-        _add_bullets(b_box.text_frame, bullets, font=FONT, size=12, color=NOIR)
+        _add_bullets(b_box.text_frame, bullets, font=FONT, size=14, color=NOIR,
+                     line_spacing=line_spacing)
     return slide
 
 
@@ -737,8 +745,8 @@ def add_quote(slide, texte, auteur="", top=TOP_CONTENT, left=MARGIN_L,
     """Citation italique + auteur. Hauteur calculee automatiquement."""
     h_text = _estimate_height(texte, width - 0.4, size=16)
     h_auteur = 0.50 if auteur else 0
-    # Calcul auto TOUJOURS
-    height = max(h_text + h_auteur + 0.30, 0.90)
+    auto_h = max(h_text + h_auteur + 0.30, 0.90)
+    height = max(height, auto_h) if height is not None else auto_h
     _make_box(slide, top, left, width, height,
               fill_color=BLEU_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.08)
     t_box = slide.shapes.add_textbox(
@@ -746,15 +754,26 @@ def add_quote(slide, texte, auteur="", top=TOP_CONTENT, left=MARGIN_L,
         Inches(width - 0.4), Inches(height - (0.6 if auteur else 0.3)),
     )
     t_box.name = "DSFR-quote-texte"
-    _apply_text(t_box.text_frame, f"\u201C {texte} \u201D", font=FONT, size=16,
+    segments = str(texte).split("\n")
+    _apply_text(t_box.text_frame, segments[0], font=FONT, size=16,
                 italic=True, color=NOIR)
+    for seg in segments[1:]:
+        p = t_box.text_frame.add_paragraph()
+        p.alignment = PP_ALIGN.LEFT
+        p.line_spacing = 1.25
+        run = p.add_run()
+        run.text = seg
+        run.font.name = FONT
+        run.font.size = Pt(16)
+        run.font.italic = True
+        run.font.color.rgb = NOIR
     if auteur:
         a_box = slide.shapes.add_textbox(
             Inches(left + 0.3), Inches(top + height - 0.5),
             Inches(width - 0.4), Inches(0.4),
         )
         a_box.name = "DSFR-quote-auteur"
-        _apply_text(a_box.text_frame, f"- {auteur}", font=FONT, size=12,
+        _apply_text(a_box.text_frame, auteur, font=FONT, size=14,
                     bold=True, color=BLEU_FRANCE)
     return slide
 
@@ -770,7 +789,7 @@ def add_card(slide, titre, contenu, top, left, width=3.78, height=None,
     imposee (utile pour aligner plusieurs cartes cote a cote).
     """
     auto_h = estimate_card_height(titre, contenu, width, numero)
-    height = auto_h if height is None else max(height, auto_h)
+    height = auto_h if height is None else height
     _make_box(slide, top, left, width, height,
               fill_color=GRIS_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.08)
     y_titre = top + 0.15
@@ -805,9 +824,9 @@ def add_card(slide, titre, contenu, top, left, width=3.78, height=None,
         )
         c_box.name = "DSFR-card-contenu"
         if isinstance(contenu, list):
-            _add_bullets(c_box.text_frame, contenu, font=FONT, size=11, color=NOIR)
+            _add_bullets(c_box.text_frame, contenu, font=FONT, size=14, color=NOIR)
         else:
-            _apply_text(c_box.text_frame, contenu, font=FONT, size=11, color=NOIR)
+            _apply_text(c_box.text_frame, contenu, font=FONT, size=14, color=NOIR)
     return slide
 
 
@@ -831,7 +850,7 @@ def add_pave_chiffre(slide, valeur, label, top, left, width=3.78, height=1.5):
         Inches(width), Inches(height * 0.3),
     )
     l_box.name = "DSFR-kpi-label"
-    _apply_text(l_box.text_frame, label, font=FONT, size=11, bold=False,
+    _apply_text(l_box.text_frame, label, font=FONT, size=14, bold=False,
                 color=NOIR, align=PP_ALIGN.CENTER)
     return slide
 
@@ -878,7 +897,7 @@ def add_stepper(slide, etapes, top, left=MARGIN_L, width=CONTENT_W, height=2.5):
             Inches(item_w), Inches(height - pastille_size - 0.1),
         )
         t_box.name = f"DSFR-stepper-texte-{i+1}"
-        _apply_text(t_box.text_frame, etape, font=FONT, size=12, bold=False,
+        _apply_text(t_box.text_frame, etape, font=FONT, size=14, bold=False,
                     color=NOIR, align=PP_ALIGN.CENTER)
     return slide
 
@@ -913,7 +932,7 @@ def add_tableau(slide, headers, rows, top, left=MARGIN_L, width=CONTENT_W,
         cell.margin_top = Inches(0.05)
         cell.margin_bottom = Inches(0.05)
         tf = cell.text_frame
-        _apply_text(tf, h, font=FONT, size=12, bold=True, color=BLANC,
+        _apply_text(tf, h, font=FONT, size=14, bold=True, color=BLANC,
                     anchor=MSO_ANCHOR.MIDDLE)
     # Corps
     for r, row in enumerate(rows):
@@ -926,7 +945,7 @@ def add_tableau(slide, headers, rows, top, left=MARGIN_L, width=CONTENT_W,
             cell.margin_top = Inches(0.05)
             cell.margin_bottom = Inches(0.05)
             tf = cell.text_frame
-            _apply_text(tf, val, font=FONT, size=11, color=NOIR,
+            _apply_text(tf, val, font=FONT, size=14, color=NOIR,
                         anchor=MSO_ANCHOR.MIDDLE)
     # Marquer la premiere ligne comme header (a11y)
     tblPr = tbl._tbl.find(".//{http://schemas.openxmlformats.org/drawingml/2006/main}tblPr")
@@ -948,6 +967,27 @@ def add_texte_libre(slide, texte, top, left=MARGIN_L, width=CONTENT_W,
     _apply_text(box.text_frame, texte, font=FONT, size=size, bold=bold,
                 color=color, align=align)
     return slide
+
+
+def add_image(slide, image_path, top, left, width, height=None, alt_text=""):
+    """Image positionnee librement avec alt text accessible."""
+    from pathlib import Path
+    img_path = Path(image_path)
+    if not img_path.is_absolute():
+        img_path = PROJECT_ROOT / img_path
+    kwargs = {"width": Inches(width)}
+    if height is not None:
+        kwargs["height"] = Inches(height)
+    pic = slide.shapes.add_picture(
+        str(img_path), Inches(left), Inches(top), **kwargs,
+    )
+    if alt_text:
+        pic._element.find(
+            ".//{http://schemas.openxmlformats.org/presentationml/2006/main}cNvPr"
+        ).set("descr", alt_text)
+    else:
+        pic.name = "DSFR-image-decoratif"
+    return pic
 
 
 def add_fleche(slide, top, left, width=0.8):
@@ -1062,7 +1102,7 @@ def add_encadre(slide, top, left, width, height, titre="", bullets=None,
             Inches(width - 0.4), Inches(height - (y - top) - 0.15),
         )
         b_box.name = "DSFR-encadre-bullets"
-        _add_bullets(b_box.text_frame, bullets, font=FONT, size=12, color=NOIR)
+        _add_bullets(b_box.text_frame, bullets, font=FONT, size=14, color=NOIR)
     return slide
 
 

@@ -194,9 +194,9 @@ Si une information est essentielle (« CONFIDENTIEL », « BROUILLON — Ne pas 
 
 ---
 
-## Exercice cross-piliers : les erreurs de Karine
+## Exercice cross-piliers : les erreurs de Sami
 
-Karine, chargée de communication, envoie son rapport trimestriel à 40 personnes. Il contient :
+Sami, chargée de communication, envoie son rapport trimestriel à 40 personnes. Il contient :
 - Un titre « Introduction » en gras Arial 16
 - Un graphique de résultats sans description
 - La mention « URGENT » écrite uniquement en rouge dans le corps du texte
@@ -429,7 +429,7 @@ Refaites le quiz final sans rouvrir ce guide. Notez combien d'erreurs vous trouv
 
 ## Métadonnées pédagogiques
 
-**Règles appliquées :** 1 (quiz flash ouverture), 2 (primauté/récence), 3 (WIIFM), 4 (charge cognitive réduite — sections orphelines fusionnées), 5 (chunking — 5 piliers), 7 (storytelling — Sophie + Karine), 8 (analogies — bloc plat, table des matières interactive, barrière invisible), 9 (émotion — narratif lecteur d'écran en ouverture), 10 (Zeigarnik — réponse quiz différée), 11 (prédictions — « Devinez », quiz flash, quiz final), 12 (récupération active — quiz final + « Faites le point »), 13 (répétitions espacées — parcours J1/J+7/J+30 section « Revenez dans 7 jours »), 14 (interleaving — exercice Karine cross-piliers 1+2+3), 15 (jargon traduit), 16 (tableaux avant/après systématiques), 17 (variation stimuli — narrative/quiz/tableau/règle d'or/cas/métacognition), 19 (feedback immédiat), 21 (scaffolding — pilier 1 fondements → pilier 5 vérification + quadrant impact/effort corrigé), 24 (plan d'action — « Demain à 9h »), 25 (métacognition — « Faites le point » avant le plan d'action), 26 (transformation — phrase-clé à 6 mois)
+**Règles appliquées :** 1 (quiz flash ouverture), 2 (primauté/récence), 3 (WIIFM), 4 (charge cognitive réduite — sections orphelines fusionnées), 5 (chunking — 5 piliers), 7 (storytelling — Sophie + Sami), 8 (analogies — bloc plat, table des matières interactive, barrière invisible), 9 (émotion — narratif lecteur d'écran en ouverture), 10 (Zeigarnik — réponse quiz différée), 11 (prédictions — « Devinez », quiz flash, quiz final), 12 (récupération active — quiz final + « Faites le point »), 13 (répétitions espacées — parcours J1/J+7/J+30 section « Revenez dans 7 jours »), 14 (interleaving — exercice Sami cross-piliers 1+2+3), 15 (jargon traduit), 16 (tableaux avant/après systématiques), 17 (variation stimuli — narrative/quiz/tableau/règle d'or/cas/métacognition), 19 (feedback immédiat), 21 (scaffolding — pilier 1 fondements → pilier 5 vérification + quadrant impact/effort corrigé), 24 (plan d'action — « Demain à 9h »), 25 (métacognition — « Faites le point » avant le plan d'action), 26 (transformation — phrase-clé à 6 mois)
 
 **Avant/Après :**
 - Avant : « cliquez ici » → Après : « Accéder au formulaire de demande RH »
@@ -439,4 +439,4 @@ Refaites le quiz final sans rouvrir ce guide. Notez combien d'erreurs vous trouv
 
 **Phrase-clé à 6 mois :** « Titres avec styles, images avec texte alt, vérificateur avant d'envoyer. »
 
-**Verdict :** `[★]` Transformatif — émotion incarnée, Zeigarnik, interleaving Karine, métacognition avant plan d'action, répétitions espacées J1/J+7/J+30
+**Verdict :** `[★]` Transformatif — émotion incarnée, Zeigarnik, interleaving Sami, métacognition avant plan d'action, répétitions espacées J1/J+7/J+30

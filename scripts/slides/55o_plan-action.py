@@ -18,14 +18,14 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.30, gap=0.30)
+    stack = Stack(top=2.30, gap=0.15)
 
     gestes = [
         "Avant votre prochain post : activez l'alt text sur votre plateforme principale",
         "Relisez votre dernière publication : comptez les émojis et testez le texte sans eux",
         "Vérifiez vos 3 derniers hashtags : sont-ils en CamelCase ?",
     ]
-    stepper_h = 2.5
+    stepper_h = 2.0
     add_stepper(slide, gestes, top=stack.push(stepper_h),
                 left=MARGIN_L, width=CONTENT_W, height=stepper_h)
 
@@ -36,17 +36,19 @@ def build(prs, layouts, ctx):
         "Partagez ce mémo à votre équipe de communication",
     ]
     add_alert(slide, sept_jours_titre, sept_jours_bullets,
-              top=stack.push(0), left=MARGIN_L, width=COL_W, alert_type="success")
+              top=stack.push(0), left=MARGIN_L, width=COL_W,
+              alert_type="success", line_spacing=1.0)
 
-    rappel_titre = "4 réflexes, 2 minutes, 0 compétence technique requise"
+    rappel_titre = "Mémo : les 4 réflexes"
     rappel_bullets = [
-        "Alt text : 1 phrase qui décrit l'image",
-        "Émojis : 1 ou 2, en fin de message, texte sensé sans eux",
-        "Hashtags : CamelCase, en fin de post, 2 à 3 max",
-        "Texte : jamais de faux gras ou faux italique",
+        "Alt text : 1 phrase par image",
+        "Émojis : 1-2, en fin de message",
+        "Hashtags : CamelCase, 2-3 en fin de post",
+        "Texte : pas de faux gras ni italique",
     ]
     add_alert(slide, rappel_titre, rappel_bullets,
-              top=stack.cursor, left=COL_R, width=COL_W, alert_type="info")
+              top=stack.cursor, left=COL_R, width=COL_W,
+              alert_type="info", line_spacing=1.0)
 
     add_notes(
         slide,

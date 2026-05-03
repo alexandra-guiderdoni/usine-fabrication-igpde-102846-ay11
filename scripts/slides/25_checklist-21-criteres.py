@@ -57,7 +57,7 @@ def build(prs, layouts, ctx):
         left=MARGIN_L,
         width=COL_W,
         height=None,
-        size=11
+        size=14
     )
 
     add_checklist(
@@ -67,7 +67,7 @@ def build(prs, layouts, ctx):
         left=COL_R,
         width=COL_W,
         height=None,
-        size=11
+        size=14
     )
 
     add_notes(

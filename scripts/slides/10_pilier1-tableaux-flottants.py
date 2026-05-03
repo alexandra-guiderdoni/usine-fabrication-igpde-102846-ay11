@@ -24,11 +24,11 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.3, gap=0.30)
+    stack = Stack(top=2.3, gap=0.20)
 
     regle_texte = (
-        "Règle d'or : ne jamais utiliser Tab, Espace ou Entrée pour simuler une mise en page -\n"
-        "vous créez un obstacle de structure pour les technologies d'assistance."
+        "Règle d'or : ne jamais utiliser Tab, Espace ou Entrée pour simuler une mise en page.\n"
+        "Vous créez un obstacle de structure pour les technologies d'assistance."
     )
     add_highlight(slide, regle_texte,
                   top=stack.push(estimate_highlight_height(regle_texte, CONTENT_W)),
@@ -36,23 +36,22 @@ def build(prs, layouts, ctx):
 
     callout1_titre = "Tableaux de mise en page"
     callout1_bullets = [
-        "Insertion > Tableau > choisir les colonnes et lignes",
-        "Habillage : clic droit > Propriétés > Habillage = Aucun",
-        "Un tableau flottant (Autour) n'est pas lu au bon moment",
+        "Insertion > Tableau > colonnes et lignes",
+        "Habillage : Propriétés > Aucun",
+        "Un tableau flottant (Autour) est lu au mauvais moment",
     ]
     add_callout(slide, callout1_titre, callout1_bullets,
-                top=stack.push(estimate_callout_height(callout1_titre, callout1_bullets)),
-                left=MARGIN_L, width=CONTENT_W)
+                top=stack.push(estimate_callout_height(callout1_titre, callout1_bullets, line_spacing=1.0)),
+                left=MARGIN_L, width=CONTENT_W, line_spacing=1.0)
 
-    alert_titre = "Objets flottants : zones de texte et images en habillage Devant le texte"
+    alert_titre = "Objets flottants : zones de texte et images"
     alert_bullets = [
-        "Invisibles ou lus dans un ordre aléatoire par le lecteur d'écran",
-        "Solution : colonnes intégrées Word ou habillage En ligne avec le texte",
+        "Lus dans un ordre aléatoire - solution : colonnes Word ou habillage En ligne",
     ]
     add_alert(slide, alert_titre, alert_bullets,
-              top=stack.cursor,
+              top=5.80,
               left=MARGIN_L, width=CONTENT_W,
-              alert_type="warning")
+              alert_type="warning", line_spacing=1.0)
 
     add_notes(
         slide,

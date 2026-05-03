@@ -7,8 +7,8 @@ Règles neuropédagogie appliquées :
 """
 
 from igpde_dsfr_components import (
-    add_tableau, add_alert, add_callout, add_notes, new_slide,
-    estimate_alert_height, estimate_callout_height
+    add_tableau, add_callout, add_alert, add_notes, new_slide,
+    MARGIN_L, COL_W, COL_R,
 )
 
 
@@ -44,28 +44,32 @@ def build(prs, layouts, ctx):
         col_widths=[4.5, 7.78]
     )
 
-    alert_bullets = [
-        "En-têtes et pieds de page : non lus automatiquement",
-        "Filigranes (CONFIDENTIEL, BROUILLON) : invisibles pour le lecteur",
-        "Solution : reproduire l'information essentielle dans le corps du document"
-    ]
     add_alert(
         slide,
         "Informations essentielles dans les zones non lues",
-        alert_bullets,
-        top=4.0,
-        alert_type="warning"
+        [
+            "En-têtes et pieds de page : non lus automatiquement",
+            "Filigranes (CONFIDENTIEL, BROUILLON) : invisibles",
+            "Solution : reproduire l'info dans le corps du document",
+        ],
+        top=4.4,
+        left=MARGIN_L,
+        width=COL_W,
+        alert_type="warning",
+        line_spacing=1.0,
     )
 
-    callout_bullets = [
-        "Intégrer : titre + format + poids + langue si elle diffère du document",
-        "Exemple : \"Rapport annuel 2024 (PDF, 2 Mo, version anglaise)\""
-    ]
     add_callout(
         slide,
-        "Pour les liens de téléchargement",
-        callout_bullets,
-        top=5.50
+        "Liens de téléchargement",
+        [
+            "Titre + format + poids + langue si différente",
+            "Exemple : Rapport annuel 2024 (PDF, 2 Mo, anglais)",
+        ],
+        top=4.4,
+        left=COL_R,
+        width=COL_W,
+        line_spacing=1.0,
     )
 
     add_notes(

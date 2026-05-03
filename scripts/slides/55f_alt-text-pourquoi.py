@@ -27,33 +27,33 @@ def build(prs, layouts, ctx):
     hl_h = estimate_highlight_height(analogie, CONTENT_W)
     add_highlight(slide, analogie, top=top, left=MARGIN_L, width=CONTENT_W)
 
-    top2 = round(top + hl_h + 0.25, 2)
+    top2 = round(top + hl_h + 0.15, 2)
 
     beneficiaires_titre = "Qui en bénéficie ?"
     beneficiaires_bullets = [
-        "Personnes aveugles ou malvoyantes (lecteur d'écran lit l'alt text)",
-        "Connexion lente ou image non chargée (le texte s'affiche à la place)",
-        "Moteurs de recherche (Google indexe les images via l'alt text)",
-        "Intelligences artificielles et outils d'analyse d'image",
-        "Toute personne dans un contexte défavorable (mauvaise luminosité, etc.)",
+        "Personnes aveugles ou malvoyantes (lecteur d'écran)",
+        "Connexion lente ou image non chargée",
+        "Moteurs de recherche (Google indexe via l'alt text)",
+        "IA et outils d'analyse d'image",
+        "Contexte défavorable (luminosité, etc.)",
     ]
-    bh = estimate_callout_height(beneficiaires_titre, beneficiaires_bullets, COL_W)
+    bh = estimate_callout_height(beneficiaires_titre, beneficiaires_bullets, COL_W, line_spacing=1.0)
 
     exemples_titre = "Concrètement sur les réseaux"
     exemples_bullets = [
-        "LinkedIn : Modifier → Ajouter du texte alternatif",
-        "Facebook : Modifier l'image → Texte alternatif",
-        "Twitter/X : intégré au formulaire de publication",
-        "Instagram : Paramètres avancés → Texte alternatif",
-        "Canva : Clic droit sur l'image → Texte alternatif",
+        "LinkedIn : Modifier → Texte alternatif",
+        "Facebook : Modifier l'image → Alt text",
+        "Twitter/X : intégré à la publication",
+        "Instagram : Paramètres avancés → Alt text",
+        "Canva : Clic droit → Texte alternatif",
     ]
-    eh = estimate_callout_height(exemples_titre, exemples_bullets, COL_W)
+    eh = estimate_callout_height(exemples_titre, exemples_bullets, COL_W, line_spacing=1.0)
 
     col_h = max(bh, eh)
     add_callout(slide, beneficiaires_titre, beneficiaires_bullets,
-                top=top2, left=MARGIN_L, width=COL_W, height=col_h)
+                top=top2, left=MARGIN_L, width=COL_W, height=col_h, line_spacing=1.0)
     add_alert(slide, exemples_titre, exemples_bullets,
-              top=top2, left=COL_R, width=COL_W, alert_type="info")
+              top=top2, left=COL_R, width=COL_W, alert_type="info", line_spacing=1.0)
 
     add_notes(
         slide,

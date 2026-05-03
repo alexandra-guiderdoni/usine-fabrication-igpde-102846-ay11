@@ -24,7 +24,6 @@ def build(prs, layouts, ctx):
         "12 stagiaires - 6 binômes de 2 personnes",
         "Chaque binôme pioche 1 carte idée reçue : vous en êtes les gardiens",
         "Pendant la journée : les exercices pratiques se font en binôme",
-        "En fin de journée : chaque binôme présente son engagement concret en 1 minute",
     ]
     consigne_h = estimate_callout_height(consigne_titre, consigne_bullets, COL_W)
 
@@ -32,7 +31,6 @@ def build(prs, layouts, ctx):
     pourquoi_bullets = [
         "L'apprentissage est plus solide quand on explique à quelqu'un d'autre",
         "Deux regards valent mieux qu'un sur un document à corriger",
-        "Vous repartez avec un référent dans votre réseau",
     ]
     pourquoi_h = estimate_alert_height(pourquoi_titre, pourquoi_bullets, COL_W)
 

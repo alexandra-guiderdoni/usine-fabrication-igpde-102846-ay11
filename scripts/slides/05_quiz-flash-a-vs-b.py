@@ -17,14 +17,14 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Quiz flash : lequel est accessible ?",
+        titre="Quiz - lequel de ces deux documents est accessible ?",
         fil_ariane="2. Documents accessibles | Quiz",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Quiz",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
-    texte_hl = "Ils sont visuellement identiques. Lequel préférez-vous pour VoiceOver ?"
+    texte_hl = "Ils sont visuellement identiques. Lequel préférez-vous pour NVDA ?"
     stack = Stack(top=2.30, gap=0.35)
     add_highlight(slide, texte_hl,
                   top=stack.push(estimate_highlight_height(texte_hl, CONTENT_W)))
@@ -43,7 +43,7 @@ def build(prs, layouts, ctx):
     card_h = max(
         estimate_card_height("Document A", bullets_a, COL_W),
         estimate_card_height("Document B", bullets_b, COL_W),
-    )
+    ) + 0.5
     cards_top = stack.push(card_h)
 
     add_card(slide, titre="Document A", contenu=bullets_a,
@@ -51,7 +51,7 @@ def build(prs, layouts, ctx):
     add_card(slide, titre="Document B", contenu=bullets_b,
              top=cards_top, left=COL_R, width=COL_W, height=card_h)
 
-    add_highlight(slide, "Réponse après la prochaine section.",
+    add_highlight(slide, "Votre réponse ?",
                   top=stack.cursor)
 
     add_notes(
