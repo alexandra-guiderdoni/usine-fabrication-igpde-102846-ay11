@@ -16,7 +16,7 @@ Sami, charge de communication a la Direction des affaires juridiques, envoie son
 
 ---
 
-## Les 8 erreurs et leurs corrections
+## Les 21 erreurs et leurs corrections
 
 Ordre de correction prescrit : Structure (Pilier 1) puis Couleurs (Pilier 2) puis Contenus (Pilier 3).
 

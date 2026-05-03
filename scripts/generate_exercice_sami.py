@@ -5,12 +5,12 @@ Produit :
 - _assets/graphique-accessible.png    (barres avec motifs + etiquettes)
 - _assets/icone-enveloppe.png         (icone e-mail)
 - _assets/organigramme.png            (organigramme du service)
-- sami-doc-inaccessible.docx         (10 erreurs intentionnelles)
+- sami-doc-inaccessible.docx         (21 erreurs intentionnelles)
 - sami-doc-accessible.docx           (version corrigee)
 """
 
-import os
 import subprocess
+from xml.sax.saxutils import escape
 from pathlib import Path
 
 import matplotlib
@@ -20,15 +20,21 @@ import matplotlib.patches as mpatches
 import numpy as np
 
 from docx import Document
-from docx.shared import Pt, Cm, Inches, RGBColor
+from docx.shared import Pt, Inches, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
+from docx.opc.constants import RELATIONSHIP_TYPE as RT
 from docx.oxml.ns import qn, nsdecls
 from docx.oxml import parse_xml
+from lxml import etree
 
 PROJECT = Path(__file__).resolve().parent.parent
 ASSETS = PROJECT / "_assets"
 ASSETS.mkdir(exist_ok=True)
+
+A_NS = "http://schemas.openxmlformats.org/drawingml/2006/main"
+ADEC_NS = "http://schemas.microsoft.com/office/drawing/2017/decorative"
+DECORATIVE_EXT_URI = "{C183D7F6-B498-43B3-948B-1728B52AA6E4}"
 
 
 # ------------------------------------------------------------------
@@ -230,8 +236,86 @@ def _set_image_alt(doc, alt_text="", title=""):
 
 
 def _mark_image_decorative(doc):
-    """Marque la derniere image comme decorative (alt vide)."""
+    """Marque la derniere image comme decorative via l'extension Office."""
     _set_image_alt(doc, alt_text="", title="")
+    inline_shape = doc.inline_shapes[-1]
+    docPr = inline_shape._inline.find(qn("wp:docPr"))
+    if docPr is None:
+        return
+
+    extLst = docPr.find(f"{{{A_NS}}}extLst")
+    if extLst is None:
+        extLst = etree.SubElement(docPr, f"{{{A_NS}}}extLst")
+    for ext in list(extLst.findall(f"{{{A_NS}}}ext")):
+        if ext.get("uri") == DECORATIVE_EXT_URI:
+            extLst.remove(ext)
+    ext = parse_xml(
+        f'<a:ext xmlns:a="{A_NS}" uri="{DECORATIVE_EXT_URI}">'
+        f'<adec:decorative xmlns:adec="{ADEC_NS}" val="1"/>'
+        f'</a:ext>'
+    )
+    extLst.append(ext)
+
+
+def _set_style_language(style, lang):
+    """Pose la langue sur un style Word."""
+    rPr = style.element.get_or_add_rPr()
+    lang_el = rPr.find(qn("w:lang"))
+    if lang_el is None:
+        lang_el = parse_xml(
+            f'<w:lang {nsdecls("w")} w:val="{lang}" '
+            f'w:eastAsia="{lang}" w:bidi="{lang}"/>'
+        )
+        rPr.append(lang_el)
+    else:
+        lang_el.set(qn("w:val"), lang)
+        lang_el.set(qn("w:eastAsia"), lang)
+        lang_el.set(qn("w:bidi"), lang)
+
+
+def _set_doc_defaults_language(doc, lang):
+    """Pose la langue par defaut du document dans styles.xml."""
+    styles = doc.styles.element
+    doc_defaults = styles.find(qn("w:docDefaults"))
+    if doc_defaults is None:
+        doc_defaults = parse_xml(f'<w:docDefaults {nsdecls("w")}/>')
+        styles.insert(0, doc_defaults)
+
+    rPr_default = doc_defaults.find(qn("w:rPrDefault"))
+    if rPr_default is None:
+        rPr_default = parse_xml(f'<w:rPrDefault {nsdecls("w")}/>')
+        doc_defaults.insert(0, rPr_default)
+
+    rPr = rPr_default.find(qn("w:rPr"))
+    if rPr is None:
+        rPr = parse_xml(f'<w:rPr {nsdecls("w")}/>')
+        rPr_default.append(rPr)
+
+    lang_el = rPr.find(qn("w:lang"))
+    if lang_el is None:
+        lang_el = parse_xml(
+            f'<w:lang {nsdecls("w")} w:val="{lang}" '
+            f'w:eastAsia="{lang}" w:bidi="{lang}"/>'
+        )
+        rPr.append(lang_el)
+    else:
+        lang_el.set(qn("w:val"), lang)
+        lang_el.set(qn("w:eastAsia"), lang)
+        lang_el.set(qn("w:bidi"), lang)
+
+
+def _add_hyperlink(paragraph, text, url):
+    """Ajoute un vrai lien hypertexte Word avec style visuel standard."""
+    r_id = paragraph.part.relate_to(url, RT.HYPERLINK, is_external=True)
+    hyperlink = parse_xml(
+        f'<w:hyperlink {nsdecls("w", "r")} r:id="{r_id}">'
+        f'<w:r>'
+        f'<w:rPr><w:color w:val="0000FF"/><w:u w:val="single"/></w:rPr>'
+        f'<w:t>{escape(text)}</w:t>'
+        f'</w:r>'
+        f'</w:hyperlink>'
+    )
+    paragraph._p.append(hyperlink)
 
 
 def _add_toc(doc):
@@ -261,6 +345,9 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
                        organigramme_path: Path = None,
                        texte_image_path: Path = None):
     doc = Document()
+    doc.core_properties.title = ""
+    doc.core_properties.author = ""
+    doc.core_properties.subject = ""
 
     style_normal = doc.styles["Normal"]
     style_normal.font.name = "Arial"
@@ -353,7 +440,7 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     for _ in range(4):
         doc.add_paragraph()
 
-    # Erreur 13 : fausse liste a puces (tirets manuels)
+    # Erreur 11 : fausse liste a puces (tirets manuels)
     doc.add_paragraph("Objectifs du trimestre :")
     for item in [
         "- Augmenter le trafic de 10 %",
@@ -362,7 +449,7 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     ]:
         doc.add_paragraph(item)
 
-    # Erreur 14 : fausse liste numerotee (numeros tapes a la main)
+    # Erreur 12 : fausse liste numerotee (numeros tapes a la main)
     doc.add_paragraph("Priorites pour le prochain trimestre :")
     for item in [
         "1. Refonte de la page d'accueil",
@@ -420,7 +507,7 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
         _set_image_alt(doc, alt_text="E-mail")
         p.add_run(" e-mail pour plus d'informations.")
 
-    # Erreur 11 : passage anglais sans balisage de langue
+    # Erreur 13 : passage anglais sans balisage de langue
     doc.add_paragraph(
         "The quarterly report is available upon request. "
         "Please contact the communication department for further details."
@@ -467,9 +554,11 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
 
     # Erreur 8 : lien non descriptif
     p = doc.add_paragraph("Pour accéder aux annexes, ")
-    run = p.add_run("cliquez ici")
-    run.font.color.rgb = RGBColor(0x00, 0x00, 0xFF)
-    run.underline = True
+    _add_hyperlink(
+        p,
+        "cliquez ici",
+        "https://example.org/annexes-rapport-t1-2025.pdf",
+    )
     p.add_run(".")
 
     # Erreur 6 : contraste ambigu (gris #767676)
@@ -480,7 +569,7 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     run.font.size = Pt(9)
     run.font.name = "Arial"
 
-    # Erreur 12 : pas de proprietes document
+    # Erreur 14 : pas de proprietes document
     output = PROJECT / "_source" / "sami-doc-inaccessible.docx"
     doc.save(str(output))
     _remove_quarantine(output)
@@ -503,14 +592,9 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     # Alignement a gauche (pas de justification)
     style_normal.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
 
-    # Langue du document : fr-FR sur le style Normal (propage a tout le texte)
-    rPr = style_normal.element.get_or_add_rPr()
-    lang_el = rPr.find(qn("w:lang"))
-    if lang_el is None:
-        lang_el = parse_xml(f'<w:lang {nsdecls("w")} w:val="fr-FR" w:eastAsia="fr-FR" w:bidi="fr-FR"/>')
-        rPr.append(lang_el)
-    else:
-        lang_el.set(qn("w:val"), "fr-FR")
+    # Langue du document : fr-FR par defaut, passage anglais balise plus bas.
+    _set_doc_defaults_language(doc, "fr-FR")
+    _set_style_language(style_normal, "fr-FR")
 
     # Configurer les styles de titre
     for level, size in [(1, 16), (2, 14), (3, 12)]:
@@ -530,7 +614,6 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     # Mention confidentiel dans le corps (pas en filigrane)
     p = doc.add_paragraph()
     run = p.add_run("Document confidentiel")
-    run.bold = True
     run.font.name = "Arial"
     run.font.size = Pt(11)
 
@@ -547,7 +630,6 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     # Sommaire automatique (table des matieres generee depuis les styles)
     doc.add_heading("Sommaire", level=2)
     _add_toc(doc)
-    doc.add_paragraph()
 
     # Mention urgente accessible (#C00000 ratio 6.5:1 sur blanc)
     p = doc.add_paragraph()
@@ -594,8 +676,6 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     tblHeader = parse_xml(f'<w:tblHeader {nsdecls("w")} val="true"/>')
     trPr.append(tblHeader)
 
-    doc.add_paragraph()
-
     # Vraie liste a puces native
     doc.add_paragraph("Objectifs du trimestre :")
     for item in [
@@ -613,8 +693,6 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
         "Déploiement de la newsletter",
     ]:
         doc.add_paragraph(item, style="List Number")
-
-    doc.add_paragraph()
 
     # Titre 3
     doc.add_heading("Détail par canal", level=3)
@@ -634,8 +712,6 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
             "visiteurs uniques en hausse de 12 %, pages vues +11 %, "
             "taux de rebond en baisse de 4 points.")
         nvPicPr.set("title", "Trafic web T1 2025")
-
-    doc.add_paragraph()
 
     # Organigramme avec alt court + description detaillee
     if organigramme_path:
@@ -659,8 +735,6 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
             "a la direction.")
         run.font.name = "Arial"
         run.font.size = Pt(10)
-
-        doc.add_paragraph()
 
     # Icone decorative + paragraphe contact
     if icon_path:
@@ -689,7 +763,6 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     run = p.add_run(
         "Avis important : les indicateurs du T2 2025 "
         "seront transmis avant le 15 septembre 2025.")
-    run.bold = True
     run.font.name = "Arial"
     run.font.size = Pt(11)
 
@@ -720,8 +793,6 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     tblHeader = parse_xml(f'<w:tblHeader {nsdecls("w")} val="true"/>')
     trPr.append(tblHeader)
 
-    doc.add_paragraph()
-
     # Annexes (Titre 2, majuscules via all_caps, pas tapees au clavier)
     h = doc.add_heading("Annexes", level=2)
     for run in h.runs:
@@ -729,10 +800,11 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
 
     # Lien descriptif
     p = doc.add_paragraph()
-    run = p.add_run(
-        "Consulter les annexes du rapport T1 2025 (PDF, 1,2 Mo)")
-    run.font.color.rgb = RGBColor(0x00, 0x00, 0xFF)
-    run.underline = True
+    _add_hyperlink(
+        p,
+        "Consulter les annexes du rapport T1 2025 (PDF, 1,2 Mo)",
+        "https://example.org/annexes-rapport-t1-2025.pdf",
+    )
 
     # Note avec contraste suffisant (#595959 -> ratio 7:1)
     p = doc.add_paragraph()
