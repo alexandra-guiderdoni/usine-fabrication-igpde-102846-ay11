@@ -155,6 +155,46 @@ def generate_organigramme():
 # 3. Document inaccessible
 # ------------------------------------------------------------------
 
+def _add_watermark(doc, text):
+    """Ajoute un filigrane texte diagonal au document via VML dans le header."""
+    from lxml import etree
+    section = doc.sections[0]
+    header = section.header
+    header.is_linked_to_previous = False
+    p = header.paragraphs[0] if header.paragraphs else header.add_paragraph()
+    ns = {
+        "w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
+        "v": "urn:schemas-microsoft-com:vml",
+        "o": "urn:schemas-microsoft-com:office:office",
+    }
+    pict_xml = (
+        f'<w:r xmlns:w="{ns["w"]}" xmlns:v="{ns["v"]}" xmlns:o="{ns["o"]}">'
+        f'<w:rPr><w:noProof/></w:rPr>'
+        f'<w:pict>'
+        f'<v:shapetype id="_x0000_t136" coordsize="21600,21600" o:spt="136" '
+        f'path="m@7,l@8,m@5,21600l@6,21600e">'
+        f'<v:formulas><v:f eqn="sum #0 0 10800"/></v:formulas>'
+        f'<v:path textpathok="t"/>'
+        f'<v:textpath on="t" fitshape="t"/>'
+        f'<o:lock v:ext="edit" text="t" shapetype="t"/>'
+        f'</v:shapetype>'
+        f'<v:shape id="WaterMark" o:spid="_x0000_s2049" type="#_x0000_t136" '
+        f'style="position:absolute;margin-left:0;margin-top:0;width:500pt;'
+        f'height:100pt;rotation:315;z-index:-251658752;'
+        f'mso-position-horizontal:center;mso-position-horizontal-relative:margin;'
+        f'mso-position-vertical:center;mso-position-vertical-relative:margin" '
+        f'o:allowincell="f" fillcolor="silver" stroked="f">'
+        f'<v:fill opacity=".5"/>'
+        f'<v:textpath style="font-family:&quot;Arial&quot;;font-size:1pt" '
+        f'string="{text}"/>'
+        f'</v:shape>'
+        f'</w:pict>'
+        f'</w:r>'
+    )
+    r_element = etree.fromstring(pict_xml)
+    p._p.append(r_element)
+
+
 def _set_image_alt(doc, alt_text="", title=""):
     """Pose alt text et titre sur la derniere image inseree."""
     inline_shape = doc.inline_shapes[-1]
@@ -178,6 +218,8 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     style_normal = doc.styles["Normal"]
     style_normal.font.name = "Arial"
     style_normal.font.size = Pt(11)
+    # Erreur 15 : texte justifie (cree des espaces inegaux, difficile pour dyslexiques)
+    style_normal.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
 
     # En-tete fictif
     header = doc.sections[0].header
@@ -186,6 +228,9 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     hp.style.font.name = "Arial"
     hp.style.font.size = Pt(9)
     hp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+
+    # Erreur 18 : filigrane invisible au lecteur d'ecran
+    _add_watermark(doc, "CONFIDENTIEL")
 
     # Erreur 1 : faux Titre 1 (gras Arial 16, couleur bleu pour simuler un vrai titre)
     p = doc.add_paragraph()
@@ -239,7 +284,9 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
                 paragraph.style.font.size = Pt(10)
     # Pas de ligne d'en-tete balisee (pas de tblHeader)
 
-    doc.add_paragraph()
+    # Erreur 16 : paragraphes vides pour simuler un espacement
+    for _ in range(4):
+        doc.add_paragraph()
 
     # Erreur 13 : fausse liste a puces (tirets manuels)
     doc.add_paragraph("Objectifs du trimestre :")
@@ -316,9 +363,9 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
 
     doc.add_paragraph()
 
-    # Section Annexes (faux titre aussi, meme apparence)
+    # Section Annexes (faux titre + Erreur 17 : majuscules tapees au clavier)
     p = doc.add_paragraph()
-    run = p.add_run("Annexes")
+    run = p.add_run("ANNEXES")
     run.bold = True
     run.font.name = "Arial"
     run.font.size = Pt(14)
@@ -355,10 +402,11 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
                      organigramme_path: Path = None):
     doc = Document()
 
-    # Police par defaut : Calibri (fallback Marianne)
     style_normal = doc.styles["Normal"]
     style_normal.font.name = "Arial"
     style_normal.font.size = Pt(11)
+    # Alignement a gauche (pas de justification)
+    style_normal.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
 
     # Langue du document : fr-FR sur le style Normal (propage a tout le texte)
     rPr = style_normal.element.get_or_add_rPr()
@@ -383,6 +431,13 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     hp.style.font.name = "Arial"
     hp.style.font.size = Pt(9)
     hp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+
+    # Mention confidentiel dans le corps (pas en filigrane)
+    p = doc.add_paragraph()
+    run = p.add_run("Document confidentiel")
+    run.bold = True
+    run.font.name = "Arial"
+    run.font.size = Pt(11)
 
     # Titre 1
     doc.add_heading("Introduction", level=1)
@@ -531,8 +586,10 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
 
     doc.add_paragraph()
 
-    # Annexes (Titre 2)
-    doc.add_heading("Annexes", level=2)
+    # Annexes (Titre 2, majuscules via all_caps, pas tapees au clavier)
+    h = doc.add_heading("Annexes", level=2)
+    for run in h.runs:
+        run.font.all_caps = True
 
     # Lien descriptif
     p = doc.add_paragraph()

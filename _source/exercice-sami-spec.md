@@ -7,7 +7,7 @@ Amendé suite au Devil Council du 2026-05-02.
 
 ## Contexte pédagogique
 
-Sami, charge de communication a la Direction des affaires juridiques, envoie son rapport trimestriel « Bilan T1 2025 » a 40 destinataires. Le document contient 14 erreurs d'accessibilite couvrant les 5 piliers, dont une erreur ambigue qui force le jugement. Les erreurs des piliers 4 et 5 sont revelees apres l'enseignement de ces piliers (slide 37, effet Zeigarnik).
+Sami, charge de communication a la Direction des affaires juridiques, envoie son rapport trimestriel « Bilan T1 2025 » a 40 destinataires. Le document contient 18 erreurs d'accessibilite couvrant les 5 piliers, dont une erreur ambigue qui force le jugement. Les erreurs des piliers 4 et 5 sont revelees apres l'enseignement de ces piliers (slide 37, effet Zeigarnik).
 
 - **Public** : communicants, niveau initiation
 - **Format** : exercice en binôme, 25 minutes (3 phases)
@@ -156,7 +156,39 @@ Pourquoi : sans balisage, le lecteur d'ecran lit le passage anglais avec la pron
 
 Pourquoi : les proprietes du document sont la premiere information lue par un lecteur d'ecran. Sans titre, l'utilisateur ne sait pas ce qu'il ouvre.
 
-**Role pedagogique** : erreur revelee en meme temps que l'erreur 11 apres le pilier 5. Correction en 30 secondes (Fichier > Informations).
+**Role pedagogique** : erreur revelee en meme temps que l'erreur 13 apres le pilier 5. Correction en 30 secondes (Fichier > Informations).
+
+### Erreur 15 - Texte justifie (pilier 4 - lisibilite)
+
+| Inaccessible | Accessible |
+|---|---|
+| Tout le document en texte justifie | Texte aligne a gauche |
+
+Pourquoi : le texte justifie cree des espaces inegaux entre les mots (lezardes) qui rendent la lecture difficile pour les personnes dyslexiques ou malvoyantes.
+
+### Erreur 16 - Paragraphes vides (pilier 4 - lisibilite)
+
+| Inaccessible | Accessible |
+|---|---|
+| 4 paragraphes vides entre le tableau et les listes | Espacement gere par les styles de paragraphe |
+
+Pourquoi : le lecteur d'ecran lit « vide, vide, vide, vide » a chaque paragraphe vide. L'espacement doit etre gere par les proprietes Avant/Apres du style de paragraphe.
+
+### Erreur 17 - Majuscules tapees au clavier (pilier 4 - lisibilite)
+
+| Inaccessible | Accessible |
+|---|---|
+| « ANNEXES » tape en majuscules | « Annexes » en minuscules avec propriete Police > Tout en majuscules |
+
+Pourquoi : le lecteur d'ecran peut epeler lettre par lettre les mots en majuscules. La propriete CSS/Word « Tout en majuscules » affiche visuellement en majuscules mais le lecteur lit le mot normalement.
+
+### Erreur 18 - Filigrane invisible (pilier 3 - contenus)
+
+| Inaccessible | Accessible |
+|---|---|
+| Filigrane « CONFIDENTIEL » (invisible au lecteur d'ecran) | Mention « Document confidentiel » en texte dans le corps |
+
+Pourquoi : les filigranes sont des objets graphiques dans l'en-tete, non lus par les lecteurs d'ecran. Un utilisateur aveugle ne sait pas que le document est confidentiel.
 
 ---
 
@@ -210,7 +242,7 @@ Pas de checklist distribuée à cette phase. Les stagiaires doivent mobiliser ce
 
 | Temps | Action |
 |---|---|
-| 10-12 min | Le formateur affiche la liste des 12 erreurs. Les binômes comparent avec leur liste |
+| 10-12 min | Le formateur affiche la liste des 16 erreurs. Les binômes comparent avec leur liste |
 | 12-20 min | Chaque binôme corrige les erreurs dans l'ordre prescrit (Pilier 1 puis 2 puis 3) |
 
 Le vérificateur Word est utilisé comme **outil de découverte** (« que détecte-t-il ? que rate-t-il ? »), pas comme preuve de conformité.
@@ -220,7 +252,7 @@ Le vérificateur Word est utilisé comme **outil de découverte** (« que détec
 | Temps | Action |
 |---|---|
 | 20-22 min | Le formateur débrief l'erreur 6 (contraste ambigu) : montrer le CCA, expliquer le seuil 4,5:1 |
-| 22-25 min | Question de transfert : « Sur votre dernier document envoyé, laquelle de ces 14 erreurs avez-vous probablement faite ? » Tour de table rapide (1 phrase par binôme) |
+| 22-25 min | Question de transfert : « Sur votre dernier document envoyé, laquelle de ces 18 erreurs avez-vous probablement faite ? » Tour de table rapide (1 phrase par binôme) |
 
 La question de transfert est le vrai objectif pédagogique. L'exercice Sami n'est que le véhicule.
 

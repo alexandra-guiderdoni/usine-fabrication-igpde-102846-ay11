@@ -36,12 +36,21 @@ Comparaison entre `sami-doc-inaccessible.docx` et `sami-doc-accessible.docx`.
 | N | Element | Inaccessible | Accessible |
 |---|---------|-------------|------------|
 | 13 | Passage anglais | Texte en anglais sans balisage de langue | Passage balise en anglais (Revision > Langue > Definir) |
+| 15 | Texte justifie | Tout le document en texte justifie | Texte aligne a gauche |
+| 16 | Paragraphes vides | 4 paragraphes vides pour simuler un espacement | Espacement gere par les styles de paragraphe |
+| 17 | Majuscules | ANNEXES tape en majuscules | Annexes avec propriete Tout en majuscules |
 
 ## Pilier 5 - Finalisation
 
 | N | Element | Inaccessible | Accessible |
 |---|---------|-------------|------------|
 | 14 | Proprietes document | Titre et Auteur vides | Titre et Auteur renseignes |
+
+## Contenus (complement)
+
+| N | Element | Inaccessible | Accessible |
+|---|---------|-------------|------------|
+| 18 | Filigrane | Filigrane CONFIDENTIEL (invisible lecteur d'ecran) | Mention Document confidentiel dans le corps du texte |
 
 ## Metadonnees
 
