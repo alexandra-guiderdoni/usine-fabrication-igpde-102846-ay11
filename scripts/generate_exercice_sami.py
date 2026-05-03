@@ -241,6 +241,26 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
 
     doc.add_paragraph()
 
+    # Erreur 13 : fausse liste a puces (tirets manuels)
+    doc.add_paragraph("Objectifs du trimestre :")
+    for item in [
+        "- Augmenter le trafic de 10 %",
+        "- Publier 3 articles par semaine",
+        "- Reduire le taux de rebond sous 40 %",
+    ]:
+        doc.add_paragraph(item)
+
+    # Erreur 14 : fausse liste numerotee (numeros tapes a la main)
+    doc.add_paragraph("Priorites pour le prochain trimestre :")
+    for item in [
+        "1. Refonte de la page d'accueil",
+        "2. Mise en conformite accessibilite",
+        "3. Deploiement de la newsletter",
+    ]:
+        doc.add_paragraph(item)
+
+    doc.add_paragraph()
+
     # Erreur 3 : faux Titre 3 (gras Arial 12 souligne, couleur bleu pour simuler un vrai titre)
     p = doc.add_paragraph()
     run = p.add_run("Détail par canal")
@@ -288,6 +308,12 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
         _set_image_alt(doc, alt_text="E-mail")
         p.add_run(" e-mail pour plus d'informations.")
 
+    # Erreur 11 : passage anglais sans balisage de langue
+    doc.add_paragraph(
+        "The quarterly report is available upon request. "
+        "Please contact the communication department for further details."
+    )
+
     doc.add_paragraph()
 
     # Section Annexes (faux titre aussi, meme apparence)
@@ -313,7 +339,7 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     run.font.size = Pt(9)
     run.font.name = "Arial"
 
-    # Pas de proprietes document (erreur bonus)
+    # Erreur 12 : pas de proprietes document
     output = PROJECT / "_source" / "sami-doc-inaccessible.docx"
     doc.save(str(output))
     _remove_quarantine(output)
@@ -415,6 +441,26 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
 
     doc.add_paragraph()
 
+    # Vraie liste a puces native
+    doc.add_paragraph("Objectifs du trimestre :")
+    for item in [
+        "Augmenter le trafic de 10 %",
+        "Publier 3 articles par semaine",
+        "Réduire le taux de rebond sous 40 %",
+    ]:
+        doc.add_paragraph(item, style="List Bullet")
+
+    # Vraie liste numerotee native
+    doc.add_paragraph("Priorités pour le prochain trimestre :")
+    for item in [
+        "Refonte de la page d'accueil",
+        "Mise en conformité accessibilité",
+        "Déploiement de la newsletter",
+    ]:
+        doc.add_paragraph(item, style="List Number")
+
+    doc.add_paragraph()
+
     # Titre 3
     doc.add_heading("Détail par canal", level=3)
 
@@ -471,6 +517,17 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
         r.add_picture(str(icon_path), width=Inches(0.18))
         _mark_image_decorative(doc)
         p.add_run(" e-mail pour plus d'informations.")
+
+    # Passage anglais avec balisage de langue
+    p = doc.add_paragraph()
+    run = p.add_run(
+        "The quarterly report is available upon request. "
+        "Please contact the communication department for further details.")
+    run.font.name = "Arial"
+    run.font.size = Pt(11)
+    rPr = run._r.get_or_add_rPr()
+    lang_en = parse_xml(f'<w:lang {nsdecls("w")} w:val="en-US"/>')
+    rPr.append(lang_en)
 
     doc.add_paragraph()
 

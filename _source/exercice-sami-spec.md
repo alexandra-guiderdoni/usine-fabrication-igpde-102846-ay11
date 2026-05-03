@@ -7,7 +7,7 @@ Amendé suite au Devil Council du 2026-05-02.
 
 ## Contexte pédagogique
 
-Sami, charge de communication a la Direction des affaires juridiques, envoie son rapport trimestriel « Bilan T1 2025 » a 40 destinataires. Le document contient 10 erreurs d'accessibilite couvrant les 3 premiers piliers, dont une erreur ambigue qui force le jugement.
+Sami, charge de communication a la Direction des affaires juridiques, envoie son rapport trimestriel « Bilan T1 2025 » a 40 destinataires. Le document contient 14 erreurs d'accessibilite couvrant les 5 piliers, dont une erreur ambigue qui force le jugement. Les erreurs des piliers 4 et 5 sont revelees apres l'enseignement de ces piliers (slide 37, effet Zeigarnik).
 
 - **Public** : communicants, niveau initiation
 - **Format** : exercice en binôme, 25 minutes (3 phases)
@@ -116,6 +116,48 @@ Pourquoi : l'icone est placee juste a cote du mot « e-mail ». Si on ecrit « E
 
 **Role pedagogique** : montre que l'accessibilite des images ne se limite pas a « mettre un alt text partout ». Certaines images doivent etre explicitement ignorees.
 
+### Erreur 11 - Fausse liste a puces (Pilier 1 - Structure)
+
+| Inaccessible | Accessible |
+|---|---|
+| Tirets manuels (- item) tapes au clavier | Liste a puces native (Accueil > Puces) |
+
+Texte : « Objectifs du trimestre : augmenter le trafic de 10 %, publier 3 articles par semaine, reduire le taux de rebond sous 40 % »
+
+Pourquoi : les tirets manuels ne sont pas reconnus comme une liste par le lecteur d'ecran. Il lit « tiret Augmenter... » au lieu de « liste de 3 elements, element 1 sur 3 ».
+
+### Erreur 12 - Fausse liste numerotee (Pilier 1 - Structure)
+
+| Inaccessible | Accessible |
+|---|---|
+| Numeros tapes a la main (1. 2. 3.) | Liste numerotee native (Accueil > Numerotation) |
+
+Texte : « Priorites pour le prochain trimestre : refonte de la page d'accueil, mise en conformite accessibilite, deploiement de la newsletter »
+
+Pourquoi : meme probleme que les fausses puces. La structure de liste est invisible pour le lecteur d'ecran, la navigation par element est impossible.
+
+### Erreur 13 - Passage anglais sans balisage de langue (pilier 4 - langue)
+
+| Inaccessible | Accessible |
+|---|---|
+| Phrase en anglais sans balisage de langue | Passage selectionne > Revision > Langue > Definir en anglais |
+
+Texte : « The quarterly report is available upon request. Please contact the communication department for further details. »
+
+Pourquoi : sans balisage, le lecteur d'ecran lit le passage anglais avec la prononciation francaise, ce qui le rend incomprehensible.
+
+**Role pedagogique** : erreur revelee uniquement apres l'enseignement du pilier 4 (slide 37). Cree un effet Zeigarnik : les stagiaires pensaient avoir trouve toutes les erreurs.
+
+### Erreur 14 - Proprietes du document vides (pilier 5 - finalisation)
+
+| Inaccessible | Accessible |
+|---|---|
+| Proprietes Titre et Auteur vides | Titre : « Rapport trimestriel - Bilan T1 2025 », Auteur : « Sami Dupont » |
+
+Pourquoi : les proprietes du document sont la premiere information lue par un lecteur d'ecran. Sans titre, l'utilisateur ne sait pas ce qu'il ouvre.
+
+**Role pedagogique** : erreur revelee en meme temps que l'erreur 11 apres le pilier 5. Correction en 30 secondes (Fichier > Informations).
+
 ---
 
 ## Structure du document (2 pages)
@@ -143,6 +185,7 @@ Organisation du service                       <-- Faux titre (gras Arial 14 bleu
 Contact                                       <-- Faux titre (gras Arial 14 bleu)
 Pour toute question, contactez-nous par       <-- Erreur 10 : icone enveloppe alt="E-mail"
 [icone enveloppe] e-mail pour plus d'infos.
+The quarterly report is available upon...     <-- Erreur 11 : anglais sans balisage
 
 Annexes                                       <-- Faux titre (gras Arial 14 bleu)
 Pour accéder aux annexes, cliquez ici.        <-- Erreur 8
@@ -167,7 +210,7 @@ Pas de checklist distribuée à cette phase. Les stagiaires doivent mobiliser ce
 
 | Temps | Action |
 |---|---|
-| 10-12 min | Le formateur affiche la liste des 10 erreurs. Les binômes comparent avec leur liste |
+| 10-12 min | Le formateur affiche la liste des 12 erreurs. Les binômes comparent avec leur liste |
 | 12-20 min | Chaque binôme corrige les erreurs dans l'ordre prescrit (Pilier 1 puis 2 puis 3) |
 
 Le vérificateur Word est utilisé comme **outil de découverte** (« que détecte-t-il ? que rate-t-il ? »), pas comme preuve de conformité.
@@ -177,7 +220,7 @@ Le vérificateur Word est utilisé comme **outil de découverte** (« que détec
 | Temps | Action |
 |---|---|
 | 20-22 min | Le formateur débrief l'erreur 6 (contraste ambigu) : montrer le CCA, expliquer le seuil 4,5:1 |
-| 22-25 min | Question de transfert : « Sur votre dernier document envoyé, laquelle de ces 10 erreurs avez-vous probablement faite ? » Tour de table rapide (1 phrase par binôme) |
+| 22-25 min | Question de transfert : « Sur votre dernier document envoyé, laquelle de ces 14 erreurs avez-vous probablement faite ? » Tour de table rapide (1 phrase par binôme) |
 
 La question de transfert est le vrai objectif pédagogique. L'exercice Sami n'est que le véhicule.
 

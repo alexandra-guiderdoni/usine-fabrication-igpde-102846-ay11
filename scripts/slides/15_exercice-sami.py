@@ -37,7 +37,7 @@ def build(prs, layouts, ctx):
     card2_titre = "Le document contient"
     card2_contenu = (
         "Structure : titres en gras sans styles, "
-        "tableau sans en-tête balisée\n\n"
+        "tableau sans en-tête, fausses listes\n\n"
         "Couleurs : mention Urgent en rouge sans autre indication, "
         "note en gris à contraste insuffisant\n\n"
         "Contenus : graphique et organigramme sans alt adapté, "
@@ -62,7 +62,7 @@ def build(prs, layouts, ctx):
         "Distribuer sami-doc-inaccessible.docx aux binômes.\n\n"
         "Phase 1 - Identification (10 min) : « Trouvez toutes les erreurs "
         "d'accessibilité. Notez-les sans corriger. » Pas de checklist.\n\n"
-        "Phase 2 - Correction (10 min) : afficher la liste des 10 erreurs. "
+        "Phase 2 - Correction (10 min) : afficher la liste des 12 erreurs. "
         "Les binômes corrigent dans l'ordre structure > couleurs > contenus. "
         "Le vérificateur Word sert d'outil de découverte : « Que détecte-t-il ? "
         "Que rate-t-il ? »\n\n"

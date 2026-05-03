@@ -1,15 +1,15 @@
-"""Slide 45 : Étude de cas - Le compte rendu de Sophie.
+"""Slide 45 : Retour sur le document de Sami - Piliers 4 et 5.
 
-Règles neuropédagogie appliquées :
-- R6 : Mise en situation (assistant de direction, cas réaliste)
-- R16 : Interleaving (5 erreurs, 1 par pilier)
-- R18 : Timing réaliste (8 minutes mesurées, pas estimées)
+Regles neuropedagogie appliquees :
+- R13 : Repetition espacee (retour sur un exercice deja fait)
+- R10 : Effet Zeigarnik (exercice non termine revele)
+- R16 : Interleaving (les 2 derniers piliers appliques au meme document)
 """
 
 from igpde_dsfr_components import (
     add_card, add_callout, add_notes, new_slide,
     estimate_card_height, estimate_callout_height,
-    MARGIN_L, COL_W, COL_R,
+    MARGIN_L, CONTENT_W, COL_W, COL_R, Stack,
 )
 
 
@@ -17,57 +17,61 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Étude de cas : le compte rendu de Sophie",
-        fil_ariane="2. Documents accessibles | Étude de cas",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Étude de cas",
+        titre="Retour sur le document de Sami",
+        fil_ariane="2. Documents accessibles | Retour exercice",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Retour exercice",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
-    card1_titre = "Mise en situation"
-    card1_contenu = [
-        "Sophie, assistante de direction, doit publier son compte rendu de réunion.",
-        "Quels piliers sont concernés ?",
-        "Quelles corrections, dans quel ordre ?",
-    ]
+    stack = Stack(top=2.3, gap=0.20)
 
-    card2_titre = "Le document contient"
+    card1_titre = "Vous vous souvenez ?"
+    card1_contenu = (
+        "Le document de Sami contenait 12 erreurs "
+        "de Structure, Couleurs et Contenus.\n\n"
+        "Mais il en contenait 2 de plus que vous "
+        "n'aviez pas encore les outils pour détecter."
+    )
+
+    card2_titre = "Les 2 erreurs cachées"
     card2_contenu = [
-        "titres en gras et tableaux sans en-tête",
-        "une action en rouge sans étiquette texte",
-        "image sans alt, lien cliquez ici",
-        "passage anglais sans balisage de langue",
-        "propriétés Titre et Auteur vides",
+        "Langue : un passage en anglais sans balisage de langue",
+        "Finalisation : les propriétés du document (titre, auteur) sont vides",
     ]
 
     card_h = max(
         estimate_card_height(card1_titre, card1_contenu, COL_W),
         estimate_card_height(card2_titre, card2_contenu, COL_W),
     )
+    cards_top = stack.push(card_h)
 
-    add_card(slide, card1_titre, card1_contenu, top=2.3, left=MARGIN_L, width=COL_W, height=card_h)
-    add_card(slide, card2_titre, card2_contenu, top=2.3, left=COL_R, width=COL_W, height=card_h)
+    add_card(slide, card1_titre, card1_contenu, top=cards_top,
+             left=MARGIN_L, width=COL_W, height=card_h)
+    add_card(slide, card2_titre, card2_contenu, top=cards_top,
+             left=COL_R, width=COL_W, height=card_h)
 
-    callout_titre = "5 piliers, 5 corrections, 8 minutes"
+    callout_titre = "Les corrections en 2 minutes"
     callout_bullets = [
-        "P1 - Styles Titre 1/2/3 et Ligne d'en-tête dans chaque tableau",
-        "P2 - Ajouter : Alerte avant le texte écrit en rouge",
-        "P3 - Texte alt sur l'image et renommer le lien",
-        "P4 - Sélectionner le passage > Révision > Langue > Définir",
-        "P5 - Fichier > Informations > renseigner Titre et Auteur",
+        "Langue : sélectionner le passage anglais > Révision > Langue > Définir en anglais",
+        "Finalisation : Fichier > Informations > renseigner Titre et Auteur",
     ]
+    stack.gap = 0.30
     add_callout(
         slide,
         callout_titre,
         callout_bullets,
-        top=round(2.3 + card_h + 0.25, 2),
+        top=stack.push(estimate_callout_height(callout_titre, callout_bullets,
+                                               CONTENT_W)),
     )
 
     add_notes(
         slide,
-        "Sophie a tout faux, mais aucune de ses erreurs n'est due à de la mauvaise "
-        "volonté - juste des habitudes. Tout le monde a fait au moins 3 de ces erreurs "
-        "dans sa carrière. Le temps de 8 minutes est mesuré - pas estimé. Proposer aux "
-        "stagiaires de corriger un vrai document en 8 minutes."
+        "Effet de surprise : les stagiaires pensaient avoir trouvé toutes les "
+        "erreurs. Révéler que le document en contenait 2 de plus montre que "
+        "l'accessibilité a des dimensions qu'on ne voit pas sans formation.\n\n"
+        "Proposer aux stagiaires de rouvrir sami-doc-inaccessible.docx et de "
+        "corriger ces 2 erreurs en 2 minutes. Le passage anglais est dans la "
+        "section Contact. Les propriétés sont dans Fichier > Informations.",
     )
     return slide

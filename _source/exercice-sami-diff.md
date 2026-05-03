@@ -28,6 +28,20 @@ Comparaison entre `sami-doc-inaccessible.docx` et `sami-doc-accessible.docx`.
 | 8 | Lien annexes | « cliquez ici » | « Consulter les annexes du rapport T1 2025 (PDF, 1,2 Mo) » |
 | 9 | Organigramme | alt="image.png" (nom de fichier par defaut) | Alt court renvoyant vers description detaillee sous l'image |
 | 10 | Icone enveloppe | alt="E-mail" (redondant avec texte adjacent) | Marquee comme decorative |
+| 11 | Fausse liste a puces | Tirets manuels (- item) | Liste a puces native (Accueil > Puces) |
+| 12 | Fausse liste numerotee | Numeros tapes a la main (1. 2. 3.) | Liste numerotee native (Accueil > Numerotation) |
+
+## Pilier 4 - Langue
+
+| N | Element | Inaccessible | Accessible |
+|---|---------|-------------|------------|
+| 13 | Passage anglais | Texte en anglais sans balisage de langue | Passage balise en anglais (Revision > Langue > Definir) |
+
+## Pilier 5 - Finalisation
+
+| N | Element | Inaccessible | Accessible |
+|---|---------|-------------|------------|
+| 14 | Proprietes document | Titre et Auteur vides | Titre et Auteur renseignes |
 
 ## Metadonnees
 
