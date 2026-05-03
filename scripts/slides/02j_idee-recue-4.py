@@ -27,7 +27,7 @@ def build(prs, layouts, ctx):
 
     decrypt_bullets = [
         "L'accessibilité ne peut pas être portée par une seule équipe ou une seule personne",
-        "Elle implique tous les producteurs de contenu : rédacteurs, communicants, designers...",
+        "Elle implique tous les producteurs de contenu : rédacteurs, communicants, designers ...",
         "Chaque document Word, chaque image publiée engage une responsabilité",
         "La loi de 2005 et la directive européenne 2016/2102 s'appliquent à tous les agents publics",
     ]

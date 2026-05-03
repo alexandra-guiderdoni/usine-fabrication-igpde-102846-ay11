@@ -12,7 +12,7 @@ CARD_W = (CONTENT_W - 2 * GAP) / 3
 def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
-        layout_name="titre_soustitre",
+        layout_name="titre_contenu",
         titre="À vous de jouer",
         fil_ariane="2. Documents accessibles | Clôture",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Fin",

@@ -35,7 +35,7 @@ def build(prs, layouts, ctx):
           "Rassembler en fin de post, 2 à 3 maximum"],
          3, MARGIN_L),
         ("Texte natif",
-         ["Jamais de faux gras ou faux italique (InstaFont...)",
+         ["Jamais de faux gras ou faux italique (InstaFont ...)",
           "Les caractères Unicode stylisés sont illisibles par les lecteurs d'écran"],
          4, MARGIN_L + CARD_W + GAP),
     ]

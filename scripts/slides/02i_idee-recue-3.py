@@ -28,7 +28,7 @@ def build(prs, layouts, ctx):
     decrypt_bullets = [
         "Le contraste et les textes alternatifs ne sont que 2 exigences sur des centaines",
         "Le RGAA compte 106 critères, les WCAG 2.1 en comptent 78",
-        "Titres, liens, tableaux, formulaires, langue, ordre de lecture... autant de dimensions",
+        "Titres, liens, tableaux, formulaires, langue, ordre de lecture ... autant de dimensions",
         "L'accessibilité touche toute la chaîne : rédaction, mise en forme, export, publication",
     ]
 

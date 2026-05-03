@@ -12,7 +12,7 @@ from igpde_dsfr_components import add_quote, add_alert, add_notes, new_slide
 def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
-        layout_name="titre_soustitre",
+        layout_name="titre_contenu",
         titre="Le lecteur d'écran en action",
         fil_ariane="2. Documents accessibles | Ouverture",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Contexte",

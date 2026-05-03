@@ -21,7 +21,7 @@ from igpde_dsfr_components import (
 def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
-        layout_name="titre_soustitre",
+        layout_name="titre_contenu",
         titre="Naviguer sans souris : le test qui change tout",
         fil_ariane="3. Easy Checks | 6. Focus et navigation clavier",
         footer_text=f"{ctx.footer_base} / Easy Checks - Clavier",

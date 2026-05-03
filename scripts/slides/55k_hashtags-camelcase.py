@@ -45,7 +45,7 @@ def build(prs, layouts, ctx):
 
     anecdote = (
         "#SusanAlbumParty (2012) : sans CamelCase, lu 'Susan album party'. "
-        "Avec majuscules, ça aurait été encore plus clair - et moins... ambigu."
+        "Avec majuscules, ça aurait été encore plus clair - et moins ... ambigu."
     )
     hl_h = estimate_highlight_height(anecdote, CONTENT_W)
     add_highlight(slide, anecdote,

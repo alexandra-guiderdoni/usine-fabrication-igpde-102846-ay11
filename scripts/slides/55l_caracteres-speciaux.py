@@ -25,7 +25,7 @@ def build(prs, layouts, ctx):
 
     probleme_titre = "Le problème"
     probleme_bullets = [
-        "InstaFont, LingoJam... proposent du 'faux gras' et 'faux italique'",
+        "InstaFont, LingoJam ... proposent du 'faux gras' et 'faux italique'",
         "Exemple : \U0001d57b\U0001d578\U0001d568\U0001d573 \U0001d56c\U0001d56e\U0001d56a\U0001d574 "
         "(rendu visuel identique à du gras)",
         "Ces caractères sont des symboles mathématiques, pas du texte",

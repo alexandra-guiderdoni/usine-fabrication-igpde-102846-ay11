@@ -37,7 +37,7 @@ def build(prs, layouts, ctx):
         slide,
         "Sans styles de titre",
         [
-            "Texte, texte, texte, texte...",
+            "Texte, texte, texte, texte ...",
             "Un bloc plat - aucun repère de navigation",
             "4 minutes d'écoute sans pouvoir avancer"
         ],
@@ -47,8 +47,8 @@ def build(prs, layouts, ctx):
             "Titre 2 : Budget / Titre 3 : Prévisions 2025",
             "Navigation en quelques secondes comme une table des matières interactive"
         ],
-        top=stack.push(2.0),
-        height=2.0
+        top=stack.push(1.6),
+        height=1.6
     )
 
     callout_bullets = [

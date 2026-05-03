@@ -1,8 +1,8 @@
 """Slide quiz final - Questions (5 erreurs a trouver)."""
 
 from igpde_dsfr_components import (
-    add_alert, add_highlight, add_notes, new_slide,
-    estimate_highlight_height,
+    add_callout, add_highlight, add_notes, new_slide,
+    estimate_highlight_height, estimate_callout_height,
     CONTENT_W, MARGIN_L, Stack,
 )
 
@@ -29,19 +29,19 @@ def build(prs, layouts, ctx):
         top=stack.push(estimate_highlight_height(consigne, CONTENT_W)),
     )
 
-    alert_contenu = (
-        "1. Le titre Introduction est en gras Arial 16 au lieu d'utiliser un style de titre\n"
-        "2. Un tableau de suivi utilise uniquement des lignes rouges et vertes pour les résultats\n"
-        "3. Un lien est rédigé : cliquez ici pour le formulaire\n"
-        "4. La langue principale du document n'est pas définie\n"
-        "5. Les propriétés du fichier (Titre et Auteur) sont vides"
-    )
-    add_alert(
+    titre_callout = "Identifiez les 5 erreurs d'accessibilité :"
+    items = [
+        "1. Le titre Introduction est en gras Arial 16 au lieu d'un style de titre",
+        "2. Un tableau de suivi utilise uniquement des lignes rouges et vertes",
+        "3. Un lien est rédigé : cliquez ici pour le formulaire",
+        "4. La langue principale du document n'est pas définie",
+        "5. Les propriétés du fichier (Titre et Auteur) sont vides",
+    ]
+    add_callout(
         slide,
-        "Identifiez les 5 erreurs d'accessibilité :",
-        alert_contenu,
-        top=stack.push(3.0),
-        alert_type="info",
+        titre_callout,
+        items,
+        top=stack.push(estimate_callout_height(titre_callout, items, CONTENT_W)),
     )
 
     add_notes(
