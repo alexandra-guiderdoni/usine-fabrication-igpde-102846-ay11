@@ -185,6 +185,14 @@ def page_shell(
 """
 
 
+def content_column(content: str) -> str:
+    return f"""<div class="fr-grid-row">
+  <div class="fr-col-12 fr-col-md-8">
+{content}
+  </div>
+</div>"""
+
+
 def page_card(page: dict, href: str) -> str:
     return f"""<div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
   <div class="fr-card fr-enlarge-link">
@@ -223,8 +231,7 @@ def generate_root(contract: dict) -> None:
 </div>"""
         for label, href, desc in versions
     )
-    main = f"""<main id="contenu" class="fr-container fr-py-6w">
-  <h1>Exercice - Les 13 Easy Checks du W3C</h1>
+    content = f"""  <h1>Exercice - Les 13 Easy Checks du W3C</h1>
   <div class="fr-alert fr-alert--info fr-mb-4w">
     <h2 class="fr-alert__title">Pré-diagnostic pédagogique</h2>
     <p>Cet exercice ne constitue pas un audit RGAA et ne permet pas de publier un taux de conformité.</p>
@@ -259,15 +266,18 @@ def generate_root(contract: dict) -> None:
       <li><a class="fr-link" href="manifest.md">Consulter le manifeste des erreurs injectées</a></li>
       <li><a class="fr-link" href="corrige-easy-checks.md">Consulter le corrigé Easy Checks</a></li>
     </ul>
-  </section>
+  </section>"""
+    main = f"""<main id="contenu" class="fr-container fr-py-6w">
+{content_column(content)}
 </main>"""
     write_text(DOCS_DIR / "index.html", page_shell(contract, "Exercice Easy Checks - Ministère de l'Accessibilité numérique", 0, main, "home"))
 
 
 def generate_static_page(contract: dict, filename: str, title: str, body: str) -> None:
+    content = f"""  <h1>{esc(title)}</h1>
+  <p>{esc(body)}</p>"""
     main = f"""<main id="contenu" class="fr-container fr-py-6w">
-  <h1>{esc(title)}</h1>
-  <p>{esc(body)}</p>
+{content_column(content)}
 </main>"""
     write_text(DOCS_DIR / filename, page_shell(contract, f"{title} - {contract['site']['name']}", 0, main, ""))
 
@@ -276,12 +286,13 @@ def generate_version_index(contract: dict, version_key: str, current: str) -> No
     version = contract["versions"][version_key]
     pages = contract["pages"]
     cards = "\n".join(page_card(page, f"{page['id']}.html") for page in pages)
-    main = f"""<main id="contenu" class="fr-container fr-py-6w">
-  <h1>{esc(version['role'])}</h1>
+    content = f"""  <h1>{esc(version['role'])}</h1>
   <p>Index généré depuis le contrat d'évaluation. Chaque page cible un Easy Check et une erreur principale.</p>
   <div class="fr-grid-row fr-grid-row--gutters">
 {cards}
-  </div>
+  </div>"""
+    main = f"""<main id="contenu" class="fr-container fr-py-6w">
+{content_column(content)}
 </main>"""
     write_text(DOCS_DIR / version["path"] / "index.html", page_shell(contract, version["role"], 1, main, current))
 
@@ -295,6 +306,14 @@ def help_accordions(page: dict) -> str:
     sections = []
     for index, (title, text) in enumerate(panels, start=1):
         panel_id = f"{page['id']}-help-{index}"
+        findings = ""
+        if title == "Ce qui pose problème" and page["help"].get("findings"):
+            items = "\n".join(f"      <li>{esc(item)}</li>" for item in page["help"]["findings"])
+            findings = f"""
+    <p>Les erreurs à trouver sont :</p>
+    <ul>
+{items}
+    </ul>"""
         sections.append(
             f"""<section class="fr-accordion">
   <h3 class="fr-accordion__title">
@@ -302,6 +321,7 @@ def help_accordions(page: dict) -> str:
   </h3>
   <div class="fr-collapse" id="{panel_id}">
     <p>{esc(text)}</p>
+{findings}
   </div>
 </section>"""
         )
@@ -535,14 +555,14 @@ def content_ec01(version_key: str) -> str:
     if accessible:
         informative = '<img class="demo-informative-image" src="../assets/shared/images/schema-rgaa.svg" alt="Schéma : vérifier, corriger puis publier une ressource accessible.">'
         decorative = '<img src="../assets/shared/images/motif-hexagones.svg" alt="">'
-        linked = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Envoyer un courriel au ministère"></a>'
+        linked = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="">Envoyer un courriel au ministère</a>'
     else:
         informative = '<img class="demo-informative-image" src="../assets/shared/images/schema-rgaa.svg">'
         decorative = '<img src="../assets/shared/images/motif-hexagones.svg" alt="Long séparateur horizontal bleu composé de deux traits et d\'un losange central décoratif pour séparer la rubrique de contact du contenu précédent">'
-        linked = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Dessin d\'une enveloppe"></a>'
+        linked = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Dessin d\'une enveloppe">Envoyer un courriel au ministère</a>'
     return f"""<section aria-labelledby="content-title">
-  <h2 id="content-title">Nouvelle ressource RGAA (Référentiel général d'amélioration de l'accessibilité)</h2>
-  <p>Le ministère publie un kit court pour préparer une première revue d'accessibilité. Il s'adresse aux équipes qui contrôlent une page avant publication. La page présente les repères utiles pour vérifier rapidement une ressource.</p>
+  <h2 id="content-title">Méthodologie d'audit RGAA (Référentiel général d'amélioration de l'accessibilité)</h2>
+  <p>Le ministère publie une méthodologie courte pour préparer une première revue d'accessibilité. Elle s'adresse aux équipes qui contrôlent une page avant publication. La page présente les repères utiles pour vérifier rapidement une ressource.</p>
   <div class="fr-grid-row fr-grid-row--gutters demo-image-check">
     <div class="fr-col-12 demo-image-check__item">
       <p>Le schéma ci-dessous présente les trois étapes proposées aux équipes éditoriales. Il sert à comprendre l'ordre des actions à mener. Chaque étape correspond à un moment concret du travail de publication.</p>
@@ -550,13 +570,13 @@ def content_ec01(version_key: str) -> str:
       <p>Cette démarche sert de repère pour vérifier une ressource avant publication. Elle aide l'équipe à passer de l'audit à la mise en ligne. Le visuel résume donc une information que le texte seul ne détaille pas entièrement.</p>
     </div>
     <div class="fr-col-12 demo-image-check__item">
-      <p>La rubrique suivante présente le contact utile pour les questions sur la ressource. Un séparateur visuel introduit ce changement de sujet. Il ne porte pas d'information nécessaire à la compréhension du contenu.</p>
+      <p>La rubrique suivante présente le contact utile pour les questions sur la méthodologie. Un séparateur visuel introduit ce changement de sujet. Il ne porte pas d'information nécessaire à la compréhension du contenu.</p>
       <div class="demo-separator-image">{decorative}</div>
       <p>Le séparateur visuel marque le passage vers les informations de contact. Il donne simplement un rythme à la lecture de la page. La même information reste compréhensible si ce motif n'est pas restitué.</p>
     </div>
     <div class="fr-col-12 demo-image-check__contact">
       <h3>Nous contacter</h3>
-      <p>Moyen pour nous contacter : {linked}. Utilisez ce lien pour poser une question sur la ressource. Le lien doit rester compréhensible même lorsque seule l'image est annoncée.</p>
+      <p>Moyen pour nous contacter : {linked}. Utilisez ce lien pour poser une question sur cette méthodologie. L'icône doit rester silencieuse quand le texte visible donne déjà l'action du lien.</p>
       <p>Une réponse est apportée par l'équipe chargée de la ressource. Les demandes sont traitées pendant les jours ouvrés. Les informations transmises permettent d'orienter la demande vers le bon interlocuteur.</p>
     </div>
   </div>
@@ -839,10 +859,11 @@ def generate_exercise_page(contract: dict, page: dict, version_key: str, current
   </nav>
 </div>"""
     main_body = f"{notice}\n  {content}" if version_key == "help" else f"{content}\n  "
+    exercise_content = f"""  <h1>{page['number']}. {esc(page['title'])}</h1>
+  {main_body}"""
     main = f"""{breadcrumb}
 <main id="contenu" class="fr-container fr-py-6w">
-  <h1>{page['number']}. {esc(page['title'])}</h1>
-  {main_body}
+{content_column(exercise_content)}
 </main>"""
     write_text(
         DOCS_DIR / version["path"] / f"{page['id']}.html",
@@ -944,10 +965,15 @@ def generate_site_css() -> None:
   max-width: 100%;
 }
 
+.demo-contact-link {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
 .demo-contact-link img {
   height: auto;
   max-width: 1.75rem;
-  vertical-align: middle;
 }
 
 .demo-fake-heading {

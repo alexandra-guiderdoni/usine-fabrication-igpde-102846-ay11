@@ -46,10 +46,15 @@ body {
   max-width: 100%;
 }
 
+.demo-contact-link {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
 .demo-contact-link img {
   height: auto;
   max-width: 1.75rem;
-  vertical-align: middle;
 }
 
 .demo-fake-heading {

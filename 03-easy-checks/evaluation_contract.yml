@@ -88,17 +88,21 @@ pages:
     inaccessible_errors:
       - "Image informative sans alternative ou avec alt vide."
       - "Image décorative trop bavarde."
-      - "Image-lien avec alternative qui décrit l'image au lieu d'indiquer la destination ou l'action."
+      - "Icône décorative dans un lien texte avec une alternative qui décrit l'image."
     bonus_occurrences:
       - "Image décorative bavarde."
-      - "Image-lien dont l'alternative décrit l'image au lieu de l'action."
+      - "Icône de lien dont l'alternative crée du bruit dans le nom accessible."
     do_not_penalize:
       - "Image purement décorative avec alt vide."
-    accessible_correction: "Image informative : alternative courte reprenant l'information. Image décorative : alt vide. Image-lien : alternative indiquant la cible ou l'action, pas l'apparence de l'image."
+    accessible_correction: "Image informative : alternative courte reprenant l'information. Image décorative : alt vide. Icône décorative dans un lien texte : alt vide."
     help:
-      hint: "Comparer le rôle réel de chaque image avec son alternative dans WAVE, ANDI ou le HTML."
-      problem: "L'image n'est pas décrite selon son rôle réel : information perdue, bruit inutile ou lien incompréhensible."
-      fix: "Qualifier l'image dans son contexte, puis choisir entre alternative informative, alt vide décoratif ou alternative de lien orientée action."
+      hint: "Comparer le rôle réel de chaque image avec son alternative dans WAVE, ANDI ou le HTML. Vérifier séparément l'image informative, le séparateur décoratif et l'icône du lien de contact."
+      problem: "L'image n'est pas décrite selon son rôle réel : information perdue ou bruit inutile."
+      findings:
+        - "Image informative : le schéma de méthodologie d'audit n'a pas d'attribut alt."
+        - "Image décorative : le séparateur visuel a un alt trop long alors qu'il devrait être ignoré."
+        - "Icône de lien : l'enveloppe est décorative à côté d'un texte visible, mais son alt ajoute du bruit."
+      fix: "Qualifier l'image dans son contexte, puis choisir entre alternative informative et alt vide pour les images ou icônes décoratives."
     dsfr_components:
       - "Carte"
       - "Lien"
