@@ -58,7 +58,7 @@ def build(prs, layouts, ctx):
         "Distribuer sami-doc-inaccessible.docx aux binômes.\n\n"
         "Phase 1 - Identification (10 min) : « Trouvez toutes les erreurs "
         "d'accessibilité. Notez-les sans corriger. » Pas de checklist.\n\n"
-        "Phase 2 - Correction (15 min) : afficher la liste des 19 erreurs. "
+        "Phase 2 - Correction (15 min) : afficher la liste des erreurs repérables à ce stade. "
         "Les binômes corrigent dans l'ordre structure > couleurs > contenus. "
         "Le vérificateur Word sert d'outil de découverte : « Que détecte-t-il ? "
         "Que rate-t-il ? »\n\n"

@@ -816,7 +816,7 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     run.font.name = "Arial"
 
     # Proprietes du document
-    doc.core_properties.title = "Rapport trimestriel – Bilan T1 2025"
+    doc.core_properties.title = "Rapport trimestriel - Bilan T1 2025"
     doc.core_properties.author = "Sami Dupont"
     doc.core_properties.language = "fr-FR"
     doc.core_properties.subject = "Bilan communication numérique T1 2025"

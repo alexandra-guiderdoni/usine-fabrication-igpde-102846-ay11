@@ -28,10 +28,10 @@ def build(prs, layouts, ctx):
 
     card1_titre = "Vous vous souvenez ?"
     card1_contenu = (
-        "Le document de Sami contenait 19 erreurs "
+        "Vous avez déjà travaillé la plupart des erreurs "
         "de Structure, Couleurs, Contenus et Lisibilité.\n\n"
-        "Mais il en contenait 2 de plus que vous "
-        "n'aviez pas encore les outils pour détecter."
+        "Il restait 2 erreurs des thèmes Langue et Finalisation "
+        "que vous n'aviez pas encore les outils pour détecter."
     )
 
     card2_titre = "Les 2 erreurs cachées"
@@ -68,7 +68,7 @@ def build(prs, layouts, ctx):
     add_notes(
         slide,
         "Effet de surprise : les stagiaires pensaient avoir trouvé toutes les "
-        "erreurs. Révéler que le document en contenait 2 de plus montre que "
+        "erreurs visibles à ce stade. Révéler les 2 dernières erreurs montre que "
         "l'accessibilité a des dimensions qu'on ne voit pas sans formation.\n\n"
         "Proposer aux stagiaires de rouvrir sami-doc-inaccessible.docx et de "
         "corriger ces 2 erreurs en 2 minutes. Le passage anglais est dans la "

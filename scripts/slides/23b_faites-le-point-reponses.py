@@ -34,6 +34,7 @@ def build(prs, layouts, ctx):
         bullets,
         top=stack.push(estimate_callout_height("Les réponses", bullets,
                                                CONTENT_W)),
+        bullet_prefix="",
     )
 
     bilan = (

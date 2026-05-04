@@ -1,6 +1,6 @@
 """Assemble le module 4 Réseaux sociaux en PPTX autonome.
 
-Les slides sont des fichiers `rs_NN_*.py` dans `scripts/slides/` —
+Les slides sont des fichiers `rs_NN_*.py` dans `scripts/slides/` -
 ce préfixe les rend invisibles à l'assembleur principal.
 
 Usage :

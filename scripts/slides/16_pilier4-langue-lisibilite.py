@@ -7,8 +7,8 @@ Règles neuropédagogie appliquées :
 """
 
 from igpde_dsfr_components import (
-    add_callout, add_highlight, add_notes, new_slide, Stack,
-    estimate_callout_height, estimate_highlight_height
+    add_callout, add_notes, new_slide,
+    COL_R, COL_W, MARGIN_L,
 )
 
 
@@ -23,8 +23,6 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.3, gap=0.25)
-
     balise_bullets = [
         "Langue principale : Fichier > Options > Langue",
         "Passage en langue étrangère : sélectionner le texte > Révision > Langue > Définir la langue",
@@ -34,26 +32,35 @@ def build(prs, layouts, ctx):
         slide,
         "Balisage de langue",
         balise_bullets,
-        top=stack.push(estimate_callout_height("Balisage de langue", balise_bullets))
+        top=2.3,
     )
 
     maj_bullets = [
         "Difficiles à lire pour les dyslexiques",
         "Prononciation ambiguë par les lecteurs d'écran",
-        "Solution : minuscules d'abord, puis Police > Modifier la casse > MAJUSCULES"
+        "Solution : minuscules d'abord, puis Police > Modifier la casse",
     ]
     add_callout(
         slide,
         "Majuscules : deux problèmes",
         maj_bullets,
-        top=stack.push(estimate_callout_height("Majuscules : deux problèmes", maj_bullets))
+        top=4.55,
+        left=MARGIN_L,
+        width=COL_W,
     )
 
-    highlight_text = "Police sans serif (Arial, Marianne), 12 pt minimum, interligne 1,15. Ne pas justifier le texte."
-    add_highlight(
+    lisibilite_bullets = [
+        "Police sans serif : Arial ou Marianne",
+        "12 pt minimum, interligne 1,15",
+        "Ne pas justifier le texte",
+    ]
+    add_callout(
         slide,
-        highlight_text,
-        top=stack.push(estimate_highlight_height(highlight_text))
+        "Lisibilité",
+        lisibilite_bullets,
+        top=4.55,
+        left=COL_R,
+        width=COL_W,
     )
 
     add_notes(

@@ -130,8 +130,21 @@ def _apply_text(tf, texte, font=FONT, size=14, bold=False, italic=False,
     return p
 
 
+def _plain_text(item):
+    """Retourne le texte brut d'un item, y compris s'il est compose de segments riches."""
+    if isinstance(item, (list, tuple)) and not isinstance(item, str):
+        parts = []
+        for segment in item:
+            if isinstance(segment, (list, tuple)):
+                parts.append(str(segment[0]))
+            else:
+                parts.append(str(segment))
+        return "".join(parts)
+    return str(item)
+
+
 def _add_bullets(tf, items, font=FONT, size=14, color=NOIR, bold_first=False,
-                  line_spacing=1.5):
+                  line_spacing=1.5, bullet_prefix="\u2022 "):
     tf.word_wrap = True
     tf.margin_left = Inches(0.08)
     tf.margin_right = Inches(0.08)
@@ -147,13 +160,26 @@ def _add_bullets(tf, items, font=FONT, size=14, color=NOIR, bold_first=False,
             p = tf.add_paragraph()
         p.alignment = PP_ALIGN.LEFT
         p.line_spacing = line_spacing
-        run = p.add_run()
-        run.text = f"\u2022 {item}"
-        run.font.name = font
-        run.font.size = Pt(size)
-        run.font.color.rgb = color
-        if bold_first and i == 0:
-            run.font.bold = True
+        segments = item if isinstance(item, (list, tuple)) and not isinstance(item, str) else [(item, False)]
+        if bullet_prefix:
+            run = p.add_run()
+            run.text = bullet_prefix
+            run.font.name = font
+            run.font.size = Pt(size)
+            run.font.color.rgb = color
+        for segment in segments:
+            if isinstance(segment, (list, tuple)):
+                text = str(segment[0])
+                is_bold = bool(segment[1]) if len(segment) > 1 else False
+            else:
+                text = str(segment)
+                is_bold = False
+            run = p.add_run()
+            run.text = text
+            run.font.name = font
+            run.font.size = Pt(size)
+            run.font.color.rgb = color
+            run.font.bold = is_bold or (bold_first and i == 0)
 
 
 # ----------------------------------------------------------------------
@@ -460,7 +486,7 @@ def _safe_top(top, height, component="composant"):
         safe = round(BOTTOM_CONTENT - height, 3)
         print(
             f"[WARN footer] {component} : top={top:.2f} + h={height:.2f}"
-            f" = {top + height:.2f} > {BOTTOM_CONTENT} — remonte a top={safe}",
+            f" = {top + height:.2f} > {BOTTOM_CONTENT} - remonte a top={safe}",
             file=sys.stderr,
         )
         return max(safe, 2.3)
@@ -489,7 +515,7 @@ def _estimate_height(content, available_width, size=11, line_height_mult=1.35):
     for item in items:
         if item is None:
             continue
-        for segment in str(item).split("\n"):
+        for segment in _plain_text(item).split("\n"):
             n = max(1, math.ceil(len(segment) / chars_per_line))
             total_lines += n
     return total_lines * line_height_inches
@@ -603,7 +629,7 @@ def _make_box(slide, top, left, width, height, fill_color,
 # Composants DSFR
 # ----------------------------------------------------------------------
 def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height=None,
-                line_spacing=1.25):
+                line_spacing=1.25, bullet_prefix="\u2022 "):
     """Callout bleu : accent gauche Bleu France + fond bleu clair + titre bold + bullets.
 
     La hauteur est calculee automatiquement a partir du contenu (titre +
@@ -644,7 +670,7 @@ def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, heig
         )
         b_box.name = "DSFR-callout-body"
         _add_bullets(b_box.text_frame, bullets, font=FONT, size=14, color=NOIR,
-                     line_spacing=line_spacing)
+                     line_spacing=line_spacing, bullet_prefix=bullet_prefix)
     return slide
 
 

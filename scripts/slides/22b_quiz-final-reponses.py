@@ -19,16 +19,31 @@ def build(prs, layouts, ctx):
     )
 
     callout_bullets = [
-        "Structure : le gras n'est pas reconnu par les lecteurs d'écran "
-        "- appliquer le style Titre 1",
-        "Couleurs : l'information ne doit pas reposer sur la couleur seule "
-        "- ajouter les étiquettes Conforme / Non conforme",
-        "Contenus : un lien doit être compréhensible hors contexte "
-        "- renommer en Accéder au formulaire de demande RH",
-        "Langue : sans déclaration, la synthèse vocale prononce avec le mauvais accent "
-        "- Révision > Langue > Définir : Français",
-        "Finalisation : le titre est la première information lue par le lecteur d'écran "
-        "- Fichier > Informations > saisir Titre et Auteur",
+        [
+            ("Structure", True),
+            (" : le gras n'est pas reconnu par les lecteurs d'écran "
+             "- appliquer le style Titre 1", False),
+        ],
+        [
+            ("Couleurs", True),
+            (" : l'information ne doit pas reposer sur la couleur seule "
+             "- ajouter les étiquettes Conforme / Non conforme", False),
+        ],
+        [
+            ("Contenus", True),
+            (" : un lien doit être compréhensible hors contexte "
+             "- renommer en Accéder au formulaire de demande RH", False),
+        ],
+        [
+            ("Langue", True),
+            (" : sans déclaration, la synthèse vocale prononce avec le mauvais accent "
+             "- Révision > Langue > Définir : Français", False),
+        ],
+        [
+            ("Finalisation", True),
+            (" : le titre est la première information lue par le lecteur d'écran "
+             "- Fichier > Informations > saisir Titre et Auteur", False),
+        ],
     ]
     add_callout(
         slide,
@@ -37,6 +52,7 @@ def build(prs, layouts, ctx):
         top=2.3,
         left=MARGIN_L,
         width=CONTENT_W,
+        line_spacing=1.8,
     )
 
     add_notes(
