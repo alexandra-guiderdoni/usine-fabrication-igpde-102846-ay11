@@ -560,7 +560,7 @@ Références DSFR obligatoires pour cette page :
 |---|---|
 | Easy Check | 11. Audiodescription |
 | Erreur inaccessible | Information visuelle essentielle non décrite dans l'audio principal et absence de piste ou version audiodécrite. |
-| Assets | Source proposée : `Valentin Haüy - CAPTCHA : le retour au Moyen Âge` (`https://www.youtube.com/watch?v=nSZ0xeXapds`) et version audiodécrite (`https://www.youtube.com/watch?v=trfLb7xlXjQ`). Ne pas télécharger ni réhéberger sans vérification des droits ; utiliser ces liens comme références pédagogiques ou remplacer par fichiers locaux autorisés. |
+| Assets | Sources proposées : `Valentin Haüy - CAPTCHA : le retour au Moyen Âge` (`https://www.youtube.com/watch?v=nSZ0xeXapds`) comme version avec transcription, et `CAPTCHA : le retour au Moyen Âge (vidéo audiodécrite)` (`https://www.youtube.com/watch?v=trfLb7xlXjQ`) comme version audiodécrite. Ne pas télécharger ni réhéberger sans vérification des droits ; utiliser ces liens comme références pédagogiques ou remplacer par fichiers locaux autorisés. |
 | Détection | Revue humaine de la vidéo. |
 | Correction accessible | Description intégrée, piste audiodécrite ou version alternative selon faisabilité. |
 | Aide accordéon | Problème : l'image porte une information non disponible autrement. Impact : personnes aveugles ou malvoyantes. Méthode : décrire les informations visuelles essentielles. |
@@ -677,7 +677,7 @@ Les vrais fichiers vidéo et audio seront fournis ultérieurement, sauf pour la 
 
 Sources page 11 :
 
-- Version originale : https://www.youtube.com/watch?v=nSZ0xeXapds
+- Version avec transcription : https://www.youtube.com/watch?v=nSZ0xeXapds
 - Version audiodécrite : https://www.youtube.com/watch?v=trfLb7xlXjQ
 
 Ces liens ne doivent pas être téléchargés ni réhébergés sans vérification des droits. Ils peuvent être utilisés comme références pédagogiques ou remplacés par des fichiers locaux autorisés.

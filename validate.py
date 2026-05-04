@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import urldefrag
+from urllib.parse import urlparse, urldefrag
 
 import yaml
 
@@ -13,6 +13,12 @@ import yaml
 ROOT = Path(__file__).resolve().parent
 CONTRACT = ROOT / "03-easy-checks" / "evaluation_contract.yml"
 DOCS = ROOT / "docs"
+ALLOWED_EXTERNAL_HOSTS = {
+    "www.youtube.com",
+    "youtube.com",
+    "www.youtube-nocookie.com",
+    "youtube-nocookie.com",
+}
 
 
 class LinkParser(HTMLParser):
@@ -32,7 +38,12 @@ class LinkParser(HTMLParser):
             if value == "#":
                 self.bad_refs.append(value)
                 continue
-            if value.startswith(("http://", "https://", "cdn", "//")):
+            if value.startswith(("http://", "https://", "//")):
+                host = urlparse(value).netloc
+                if host not in ALLOWED_EXTERNAL_HOSTS:
+                    self.bad_refs.append(value)
+                continue
+            if value.startswith("cdn"):
                 self.bad_refs.append(value)
                 continue
             if value.startswith(("mailto:", "tel:", "#")):

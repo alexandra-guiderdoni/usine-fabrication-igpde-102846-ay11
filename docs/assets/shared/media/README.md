@@ -11,7 +11,7 @@ Les vrais fichiers vidéo/audio remplaceront ces placeholders déclaratifs.
 
 ## Sources externes de référence
 
-- Page 11 - Démonstration vidéo - original : [Valentin Haüy - CAPTCHA : le retour au Moyen Âge](https://www.youtube.com/watch?v=nSZ0xeXapds)
+- Page 11 - Démonstration vidéo - with_transcription : [Valentin Haüy - CAPTCHA : le retour au Moyen Âge](https://www.youtube.com/watch?v=nSZ0xeXapds)
 - Page 11 - Démonstration vidéo - audio_described : [CAPTCHA : le retour au Moyen Âge (vidéo audiodécrite)](https://www.youtube.com/watch?v=trfLb7xlXjQ)
 
 Ne pas télécharger ni réhéberger ces sources sans vérification des droits.

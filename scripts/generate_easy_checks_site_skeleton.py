@@ -290,6 +290,57 @@ def help_accordions(page: dict) -> str:
     return "\n".join(sections)
 
 
+def youtube_media_block(source: dict, heading: str) -> str:
+    title = source["title"]
+    url = source["url"]
+    embed_url = source.get("embed_url", url)
+    role = source.get("role", "")
+    return f"""<section class="fr-mb-4w" aria-labelledby="{esc(heading.lower().replace(' ', '-'))}">
+  <h2 id="{esc(heading.lower().replace(' ', '-'))}">{esc(heading)}</h2>
+  <figure class="fr-content-media" role="group" aria-label="{esc(title)}">
+    <div class="fr-content-media__img">
+      <iframe class="fr-responsive-vid" src="{esc(embed_url)}" title="{esc(title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+    <figcaption class="fr-content-media__caption">
+      {esc(role)}
+      <br>
+      <a class="fr-link" href="{esc(url)}" rel="external">Ouvrir la vidéo sur YouTube</a>
+    </figcaption>
+  </figure>
+</section>"""
+
+
+def page_content(page: dict, version_key: str) -> str:
+    if page["id"] != "ec11-audio-description":
+        return f"""<section aria-labelledby="content-title">
+    <h2 id="content-title">Contenu ministériel à produire</h2>
+    <p>{esc(page['realistic_context'])}</p>
+  </section>"""
+
+    sources = page.get("assets", {}).get("external_sources", {})
+    with_transcription = sources.get("with_transcription")
+    audio_described = sources.get("audio_described")
+    blocks: list[str] = []
+    if version_key == "accessible":
+        if audio_described:
+            blocks.append(youtube_media_block(audio_described, "Vidéo audiodécrite"))
+        if with_transcription:
+            blocks.append(youtube_media_block(with_transcription, "Vidéo avec transcription"))
+    elif version_key == "help":
+        if with_transcription:
+            blocks.append(youtube_media_block(with_transcription, "Vidéo avec transcription"))
+        if audio_described:
+            blocks.append(youtube_media_block(audio_described, "Vidéo audiodécrite"))
+    else:
+        if with_transcription:
+            blocks.append(youtube_media_block(with_transcription, "Vidéo avec transcription"))
+    return f"""<section aria-labelledby="content-title">
+    <h2 id="content-title">CAPTCHA : le retour au Moyen Âge</h2>
+    <p>Cette page présente une vidéo de sensibilisation aux difficultés posées par les CAPTCHA visuels.</p>
+  </section>
+  {'\n  '.join(blocks)}"""
+
+
 def generate_exercise_page(contract: dict, page: dict, version_key: str, current: str) -> None:
     version = contract["versions"][version_key]
     title = f"{page['title']} - {contract['site']['name']}"
@@ -301,11 +352,12 @@ def generate_exercise_page(contract: dict, page: dict, version_key: str, current
 {help_accordions(page)}
   </div>
 </section>"""
-    elif version_key == "inaccessible":
+    elif version_key == "inaccessible" and page["id"] != "ec11-audio-description":
         notice = """<div class="fr-alert fr-alert--warning fr-mb-4w">
   <h2 class="fr-alert__title">Squelette de page</h2>
   <p>Le contenu inaccessible définitif sera produit à l'étape de fabrication de l'exercice.</p>
 </div>"""
+    content = page_content(page, version_key)
     main = f"""<main id="contenu" class="fr-container fr-py-6w">
   <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
     <button type="button" class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb">Voir le fil d'Ariane</button>
@@ -318,11 +370,8 @@ def generate_exercise_page(contract: dict, page: dict, version_key: str, current
     </div>
   </nav>
   <h1>{page['number']}. {esc(page['title'])}</h1>
+  {content}
   {notice}
-  <section aria-labelledby="content-title">
-    <h2 id="content-title">Contenu ministériel à produire</h2>
-    <p>{esc(page['realistic_context'])}</p>
-  </section>
 </main>"""
     write_text(DOCS_DIR / version["path"] / f"{page['id']}.html", page_shell(contract, title, 1, main, current))
 

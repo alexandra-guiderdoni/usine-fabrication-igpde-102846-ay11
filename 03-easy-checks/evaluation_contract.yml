@@ -486,14 +486,16 @@ pages:
         - "assets/shared/media/video-demo-ad.mp4"
       final_assets_pending: true
       external_sources:
-        original:
+        with_transcription:
           title: "Valentin Haüy - CAPTCHA : le retour au Moyen Âge"
           url: "https://www.youtube.com/watch?v=nSZ0xeXapds"
-          role: "Version non audiodécrite à utiliser pour illustrer l'information visuelle essentielle non disponible autrement."
+          embed_url: "https://www.youtube-nocookie.com/embed/nSZ0xeXapds"
+          role: "Vidéo de sensibilisation avec transcription disponible sur YouTube."
         audio_described:
           title: "CAPTCHA : le retour au Moyen Âge (vidéo audiodécrite)"
           url: "https://www.youtube.com/watch?v=trfLb7xlXjQ"
-          role: "Version audiodécrite de référence pour la correction accessible."
+          embed_url: "https://www.youtube-nocookie.com/embed/trfLb7xlXjQ"
+          role: "Version audiodécrite de la vidéo de sensibilisation."
       rights_note: "Ne pas télécharger ni réhéberger sans vérification des droits. Utiliser ces liens comme sources pédagogiques ou remplacer par fichiers locaux autorisés."
     grid:
       verdict: "NC"
