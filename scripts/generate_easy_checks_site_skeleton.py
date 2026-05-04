@@ -762,9 +762,21 @@ def content_ec03(version_key: str) -> str:
 </section>"""
 
 
+def contrast_tools_links() -> str:
+    return """<section aria-labelledby="contrast-tools-title" class="fr-mt-4w">
+  <h3 id="contrast-tools-title">Outils pour vérifier les contrastes</h3>
+  <p>Utilisez ces outils pour mesurer le ratio entre le texte et son arrière-plan. Pour ce test, cherchez en priorité les textes courants sous 4,5:1 et les gros textes, composants ou informations visuelles sous 3:1.</p>
+  <ul>
+    <li><a class="fr-link" href="https://addons.mozilla.org/en-US/firefox/addon/wcag-contrast-checker/" rel="external">WCAG Contrast Checker pour Firefox</a></li>
+    <li><a class="fr-link" href="https://chromewebstore.google.com/detail/wcag-color-contrast-check/plnahcmalebffmaghcpcmpaciebdhgdf" rel="external">WCAG Color Contrast Check pour Chrome</a></li>
+    <li><a class="fr-link" href="https://vispero.com/lp/color-contrast-checker/" rel="external">Color Contrast Checker de Vispero</a></li>
+  </ul>
+</section>"""
+
+
 def content_ec04(version_key: str) -> str:
     if version_key == "accessible":
-        return """<section aria-labelledby="content-title">
+        return f"""<section aria-labelledby="content-title">
   <h2 id="content-title">Charte de publication</h2>
   <p>Les contenus publiés utilisent les couleurs et composants DSFR sans surcharge de contraste.</p>
   <div class="fr-alert fr-alert--success fr-mb-3w">
@@ -773,13 +785,15 @@ def content_ec04(version_key: str) -> str:
   </div>
   <p><a class="fr-link" href="ec03-headings.html">Consulter la structure des titres</a></p>
   <button class="fr-btn" type="button">Valider la publication</button>
+  {contrast_tools_links()}
 </section>"""
-    return """<section aria-labelledby="content-title">
+    return f"""<section aria-labelledby="content-title">
   <h2 id="content-title">Charte de publication</h2>
   <p class="demo-low-contrast">Les contenus doivent rester faciles à lire sur tous les écrans.</p>
   <p><a class="fr-link demo-pale-link" href="ec03-headings.html">Consulter la structure des titres</a></p>
   <p><button class="fr-btn demo-pale-action" type="button">Valider la publication</button></p>
   <p><span class="fr-badge demo-status-dot">Validé</span></p>
+  {contrast_tools_links()}
 </section>"""
 
 

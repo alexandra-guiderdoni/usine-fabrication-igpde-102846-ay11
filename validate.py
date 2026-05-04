@@ -14,6 +14,9 @@ ROOT = Path(__file__).resolve().parent
 CONTRACT = ROOT / "03-easy-checks" / "evaluation_contract.yml"
 DOCS = ROOT / "docs"
 ALLOWED_EXTERNAL_HOSTS = {
+    "addons.mozilla.org",
+    "chromewebstore.google.com",
+    "vispero.com",
     "www.youtube.com",
     "youtube.com",
     "www.youtube-nocookie.com",

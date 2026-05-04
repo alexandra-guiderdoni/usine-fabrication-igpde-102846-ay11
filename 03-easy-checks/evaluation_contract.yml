@@ -220,6 +220,8 @@ pages:
     detection:
       - "WebAIM Contrast Checker"
       - "Colour Contrast Analyser"
+      - "WCAG Contrast Checker"
+      - "Vispero Color Contrast Checker"
       - "WAVE"
     inaccessible_errors:
       - "Texte courant gris clair sur blanc."
