@@ -7,9 +7,9 @@ Regles neuropedagogie appliquees :
 """
 
 from igpde_dsfr_components import (
-    add_highlight, add_avant_apres, add_callout, add_notes, new_slide,
-    estimate_highlight_height, estimate_callout_height,
-    MARGIN_L, CONTENT_W, Stack,
+    add_highlight, add_card, add_notes, new_slide,
+    estimate_highlight_height,
+    MARGIN_L, CONTENT_W, COL_R, COL_W, Stack,
 )
 
 
@@ -32,37 +32,47 @@ def build(prs, layouts, ctx):
         top=stack.push(estimate_highlight_height(question, CONTENT_W)),
     )
 
-    stack.gap = 0.35
-    add_avant_apres(
+    stack.gap = 0.25
+    cards_top = stack.push(1.95)
+    add_card(
         slide,
         "Sans styles de titre",
         [
-            "Texte, texte, texte, texte ...",
-            "Un bloc plat - aucun repère de navigation",
-            "4 minutes d'écoute sans pouvoir avancer"
+            "Un bloc plat, sans repère de navigation",
+            "Le lecteur d'écran ne peut pas aller de titre en titre",
+            "L'utilisateur doit écouter tout le document"
         ],
+        top=cards_top,
+        left=MARGIN_L,
+        width=COL_W,
+        height=1.95,
+    )
+    add_card(
+        slide,
         "Avec Titre 1, Titre 2, Titre 3",
         [
             "Titre 1 : Rapport annuel",
-            "Titre 2 : Budget / Titre 3 : Prévisions 2025",
-            "Navigation en quelques secondes comme une table des matières interactive"
+            "Titre 2 : Budget / Titre 3 : Prévisions",
+            "Navigation rapide, comme une table des matières"
         ],
-        top=stack.push(1.6),
-        height=1.6
+        top=cards_top,
+        left=COL_R,
+        width=COL_W,
+        height=1.95,
     )
 
-    callout_bullets = [
-        "Clic sur le titre > Accueil > Styles > Titre 1, Titre 2 ou Titre 3",
-        "Raccourci volet Styles : Ctrl+Alt+Maj+S",
-        "Vérification : Ctrl+F > onglet Titres - les titres apparaissent ? C'est bon."
+    procedure = [
+        "Appliquer : Accueil > Styles > Titre 1, Titre 2 ou Titre 3",
+        "Vérifier : Ctrl+F > onglet Titres"
     ]
-    stack.gap = 0.30
-    add_callout(
+    add_card(
         slide,
         "Comment faire",
-        callout_bullets,
-        top=stack.push(estimate_callout_height("Comment faire", callout_bullets,
-                                               CONTENT_W)),
+        procedure,
+        top=5.12,
+        left=MARGIN_L,
+        width=CONTENT_W,
+        height=1.50,
     )
 
     add_notes(

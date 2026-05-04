@@ -9,7 +9,7 @@ Règles neuropédagogie appliquées :
 from igpde_dsfr_components import (
     Stack, MARGIN_L, CONTENT_W,
     add_highlight, add_callout, add_alert, add_notes, new_slide,
-    estimate_highlight_height, estimate_callout_height, estimate_alert_height,
+    estimate_highlight_height, estimate_callout_height,
 )
 
 
@@ -49,7 +49,7 @@ def build(prs, layouts, ctx):
         "Lus dans un ordre aléatoire - solution : colonnes Word ou habillage En ligne",
     ]
     add_alert(slide, alert_titre, alert_bullets,
-              top=5.80,
+              top=5.75,
               left=MARGIN_L, width=CONTENT_W,
               alert_type="warning", line_spacing=1.0)
 

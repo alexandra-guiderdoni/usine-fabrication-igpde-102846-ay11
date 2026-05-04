@@ -42,6 +42,7 @@ def build(prs, layouts, ctx):
         titre_callout,
         items,
         top=stack.push(estimate_callout_height(titre_callout, items, CONTENT_W)),
+        bullet_prefix="",
     )
 
     add_notes(

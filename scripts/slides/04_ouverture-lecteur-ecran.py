@@ -35,7 +35,7 @@ def build(prs, layouts, ctx):
             "Dans une réunion de 12 personnes : au moins 1 daltonien",
             "Parmi 30 destinataires : 4 ou 5 ont un handicap"
         ],
-        top=5.4,
+        top=5.35,
         alert_type="warning",
         line_spacing=1.0,
     )

@@ -26,7 +26,7 @@ def build(prs, layouts, ctx):
 
     stack = Stack(top=2.3, gap=0.30)
 
-    accroche = "Tout est important. Commencez par ce qui prend 30 secondes."
+    accroche = "Tout est important mais commencez par ce qui est le plus facile."
     add_highlight(
         slide, accroche,
         top=stack.push(estimate_highlight_height(accroche, CONTENT_W)),

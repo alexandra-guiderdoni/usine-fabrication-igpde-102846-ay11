@@ -8,7 +8,6 @@ Règles neuropédagogie appliquées :
 
 from igpde_dsfr_components import (
     add_tableau, add_alert, add_notes, new_slide,
-    estimate_alert_height
 )
 
 
@@ -60,7 +59,7 @@ def build(prs, layouts, ctx):
         slide,
         "Le vérificateur est un premier filtre, pas un certificat de conformité.",
         alert_bullets,
-        top=5.30,
+        top=5.05,
         alert_type="warning"
     )
 
