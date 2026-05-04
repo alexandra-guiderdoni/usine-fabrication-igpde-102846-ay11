@@ -8,8 +8,8 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 - Constat minimal attendu : Au moins une image n'a pas d'alternative adaptée à son rôle réel.
 - Sévérité indicative : Gênant
 - Preuve possible : Capture WAVE/ANDI ou extrait HTML montrant alt absent, vide ou inadapté sur l'image concernée.
-- Correction : Image informative : alternative courte reprenant l'information. Image décorative : alt vide. Icône décorative dans un lien texte : alt vide.
-- Occurrences bonus : Image décorative bavarde. ; Icône de lien dont l'alternative crée du bruit dans le nom accessible.
+- Correction : Image informative : alternative courte reprenant l'information. Image décorative : alt vide. Lien composite : si le texte visible suffit, l'icône décorative doit avoir alt vide.
+- Occurrences bonus : Image décorative bavarde. ; Lien composite dont l'icône ajoute du bruit dans le nom accessible.
 - À ne pas pénaliser : Image purement décorative avec alt vide.
 
 ## 2. Résultats de recherche RGAA

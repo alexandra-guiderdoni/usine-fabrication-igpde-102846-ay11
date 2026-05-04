@@ -119,7 +119,7 @@ Version accessible :
 
 - Lien sans `href`.
 - Intitulé générique : `cliquez ici`, `en savoir plus`, `lire la suite` sans contexte.
-- Image-lien dont l'alternative décrit l'image au lieu de la destination.
+- Lien composite dont l'icône décorative ajoute du bruit au nom accessible.
 
 ## Contenus, cartes et affichage
 

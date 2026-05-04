@@ -75,7 +75,7 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec01-images-help-1">Indice</button>
   </h3>
   <div class="fr-collapse" id="ec01-images-help-1">
-    <p>Comparer le rôle réel de chaque image avec son alternative dans WAVE, ANDI ou le HTML. Vérifier séparément l&#x27;image informative, le séparateur décoratif et l&#x27;icône du lien de contact.</p>
+    <p>Comparer le rôle réel de chaque image avec son alternative dans WAVE, ANDI ou le HTML. Vérifier séparément l&#x27;image informative, le séparateur décoratif et le lien composite de contact.</p>
 
   </div>
 </section>
@@ -84,13 +84,13 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec01-images-help-2">Ce qui pose problème</button>
   </h3>
   <div class="fr-collapse" id="ec01-images-help-2">
-    <p>L&#x27;image n&#x27;est pas décrite selon son rôle réel : information perdue ou bruit inutile.</p>
+    <p>Dans le lien composite, le lecteur d&#x27;écran combine l&#x27;alternative de l&#x27;icône et le texte visible. Si l&#x27;icône décrit seulement une enveloppe, elle ajoute un bruit redondant au nom du lien.</p>
 
     <p>Les erreurs à trouver sont :</p>
     <ul>
       <li>Image informative : le schéma de méthodologie d&#x27;audit n&#x27;a pas d&#x27;attribut alt.</li>
       <li>Image décorative : le séparateur visuel a un alt trop long alors qu&#x27;il devrait être ignoré.</li>
-      <li>Icône de lien : l&#x27;enveloppe est décorative à côté d&#x27;un texte visible, mais son alt ajoute du bruit.</li>
+      <li>Lien composite : l&#x27;enveloppe est décorative à côté du texte visible « Envoyer un courriel au ministère », mais son alt ajoute « Dessin d&#x27;une enveloppe » au nom accessible.</li>
     </ul>
   </div>
 </section>
@@ -99,7 +99,7 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec01-images-help-3">Comment corriger</button>
   </h3>
   <div class="fr-collapse" id="ec01-images-help-3">
-    <p>Qualifier l&#x27;image dans son contexte, puis choisir entre alternative informative et alt vide pour les images ou icônes décoratives.</p>
+    <p>Puisque le libellé textuel du lien se suffit à lui-même pour comprendre l&#x27;action, l&#x27;icône doit être considérée comme décorative et recevoir alt=&quot;&quot;.</p>
 
   </div>
 </section>
@@ -121,7 +121,7 @@
     </div>
     <div class="fr-col-12 demo-image-check__contact">
       <h3>Nous contacter</h3>
-      <p>Moyen pour nous contacter : <a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Dessin d'une enveloppe">Envoyer un courriel au ministère</a>. Utilisez ce lien pour poser une question sur cette méthodologie. L'icône doit rester silencieuse quand le texte visible donne déjà l'action du lien.</p>
+      <p>Moyen pour nous contacter : <a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Dessin d'une enveloppe"> Envoyer un courriel au ministère</a>. Utilisez ce lien pour poser une question sur cette méthodologie.</p>
       <p>Une réponse est apportée par l'équipe chargée de la ressource. Les demandes sont traitées pendant les jours ouvrés. Les informations transmises permettent d'orienter la demande vers le bon interlocuteur.</p>
     </div>
   </div>
