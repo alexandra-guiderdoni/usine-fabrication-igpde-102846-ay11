@@ -103,8 +103,21 @@ body {
 }
 
 .demo-fixed-cards .fr-card {
-  height: 9rem;
+  height: 6.5rem;
   overflow: hidden;
+}
+
+.demo-fixed-cards .fr-grid-row {
+  min-width: 64rem;
+}
+
+.demo-fixed-cards [class*="fr-col-"] {
+  flex: 0 0 20rem;
+  max-width: 20rem;
+}
+
+.demo-fixed-cards .fr-card__content {
+  min-width: 18rem;
 }
 
 .demo-media-placeholder {

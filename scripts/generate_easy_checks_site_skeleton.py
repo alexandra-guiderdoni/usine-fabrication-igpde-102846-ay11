@@ -931,14 +931,14 @@ def content_ec08(version_key: str) -> str:
     class_attr = ' class="demo-fixed-cards"' if version_key != "accessible" else ""
     cards = "\n".join(
         [
-            card("Checklist de publication", "ec04-contrast.html", "Une ressource longue avec plusieurs points de contrôle à lire avant la mise en ligne.", "PDF"),
-            card("Kit contribution RGAA", "ec03-headings.html", "Un kit détaillé pour vérifier les titres, les listes, les images, les liens et les formulaires.", "DOCX"),
-            card("Grille de restitution", "ec13-required-errors.html", "Un modèle pour préparer la restitution collective après l'audit en binôme.", "XLSX"),
+            card("Checklist de publication", "ec04-contrast.html", "Une ressource longue avec plusieurs points de contrôle à relire avant la mise en ligne, dont le contraste, les titres, les images, les liens et les formulaires.", "PDF - 18 pages"),
+            card("Kit contribution RGAA", "ec03-headings.html", "Un kit détaillé pour aider les contributeurs à vérifier la structure éditoriale, les alternatives, la navigation clavier et les champs de formulaire.", "DOCX - modèle"),
+            card("Grille de restitution", "ec13-required-errors.html", "Un modèle pour préparer la restitution collective après l'audit en binôme, avec constats, preuves, priorité et correction attendue.", "XLSX - atelier"),
         ]
     )
     return f"""<section{class_attr} aria-labelledby="content-title">
   <h2 id="content-title">Ressources à zoomer</h2>
-  <p>Tester cette page à 200 % de zoom et sur fenêtre étroite.</p>
+  <p>Cette page rassemble les supports à remettre aux participants avant une session de correction. Les cartes doivent rester lisibles quand la page est agrandie ou consultée sur une fenêtre étroite.</p>
   <div class="fr-grid-row fr-grid-row--gutters">
 {cards}
   </div>
@@ -1244,8 +1244,21 @@ def generate_site_css() -> None:
 }
 
 .demo-fixed-cards .fr-card {
-  height: 9rem;
+  height: 6.5rem;
   overflow: hidden;
+}
+
+.demo-fixed-cards .fr-grid-row {
+  min-width: 64rem;
+}
+
+.demo-fixed-cards [class*="fr-col-"] {
+  flex: 0 0 20rem;
+  max-width: 20rem;
+}
+
+.demo-fixed-cards .fr-card__content {
+  min-width: 18rem;
 }
 
 .demo-media-placeholder {

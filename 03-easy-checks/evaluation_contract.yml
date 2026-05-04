@@ -397,7 +397,7 @@ pages:
       - "Fenêtre étroite"
     inaccessible_errors:
       - "Cartes avec hauteur fixe."
-      - "Largeur rigide."
+      - "Grille avec largeur minimale rigide qui force un défilement horizontal."
       - "Overflow masqué provoquant texte tronqué, boutons sortis ou superposition au zoom 200 %."
     bonus_occurrences:
       - "Plusieurs cartes cassées."
@@ -408,8 +408,8 @@ pages:
     accessible_correction: "Cartes DSFR fluides ; grille responsive ; contenu visible ; reflow sans perte ; composants utilisables."
     help:
       hint: "Passer le navigateur à 200 % et réduire la largeur de fenêtre."
-      problem: "Les cartes cassent au zoom ; les personnes malvoyantes ou sur petits écrans perdent du contenu."
-      fix: "Retirer les hauteurs et largeurs fixes, éviter overflow hidden, utiliser la grille DSFR et tester à 200 %."
+      problem: "Les cartes cassent au zoom ; les personnes malvoyantes ou sur petits écrans perdent du contenu et doivent faire défiler horizontalement la page."
+      fix: "Retirer les hauteurs et largeurs minimales fixes, éviter overflow hidden, utiliser la grille DSFR et tester à 200 %."
     dsfr_components:
       - "Carte"
       - "Lien"
