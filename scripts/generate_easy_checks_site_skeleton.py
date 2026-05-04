@@ -723,7 +723,7 @@ def content_ec01(version_key: str) -> str:
         <li>Par courriel : {email_link}</li>
         <li>Par SMS : {sms_link}</li>
       </ul>
-      <p>Utilisez ces liens pour poser une question sur cette méthodologie. Le courriel illustre un lien image pur. Le SMS illustre un lien composite avec une icône et un texte visible.</p>
+      <p>Utilisez ces liens pour poser une question sur cette méthodologie. Le courriel convient aux demandes détaillées. Le SMS permet d'adresser une demande courte au service compétent.</p>
       <p>Une réponse est apportée par l'équipe chargée de la ressource. Les demandes sont traitées pendant les jours ouvrés. Les informations transmises permettent d'orienter la demande vers le bon interlocuteur.</p>
     </div>
   </div>
@@ -773,7 +773,7 @@ def content_ec03(version_key: str) -> str:
   </ul>
   <h3>Points de vigilance</h3>
   <p>Le gabarit conserve ses repères de navigation : accès rapides, zones principales et fil d'Ariane. Ces éléments sont utiles, mais ils ne remplacent pas un plan de titres cohérent dans le contenu.</p>
-  {callout("Point d'attention", "Un saut de niveau peut dégrader la lisibilité du plan sans constituer à lui seul la non-conformité principale de cet exercice.", 3)}
+  {callout("Point d'attention", "Pour faciliter la lecture du plan, l'équipe privilégie des niveaux de titres continus et des intitulés de rubrique explicites.", 3)}
 </section>"""
     return """<section aria-labelledby="content-title">
   <h2 id="content-title">Guide du RGAA</h2>
@@ -798,7 +798,7 @@ def content_ec03(version_key: str) -> str:
 def contrast_tools_links() -> str:
     return """<section aria-labelledby="contrast-tools-title" class="fr-mt-4w">
   <h3 id="contrast-tools-title">Outils pour vérifier les contrastes</h3>
-  <p>Utilisez ces outils pour mesurer le ratio entre le texte et son arrière-plan. Pour ce test, cherchez en priorité les textes courants sous 4,5:1 et les gros textes, composants ou informations visuelles sous 3:1.</p>
+  <p>Utilisez ces outils pour mesurer le ratio entre le texte et son arrière-plan. Lors d'une vérification de publication, contrôlez en priorité les textes courants sous 4,5:1 et les gros textes, composants ou informations visuelles sous 3:1.</p>
   <ul>
     <li><a class="fr-link" href="https://addons.mozilla.org/en-US/firefox/addon/wcag-contrast-checker/" rel="external">WCAG Contrast Checker pour Firefox</a></li>
     <li><a class="fr-link" href="https://chromewebstore.google.com/detail/wcag-color-contrast-check/plnahcmalebffmaghcpcmpaciebdhgdf" rel="external">WCAG Color Contrast Check pour Chrome</a></li>
@@ -927,9 +927,9 @@ def content_ec07(version_key: str) -> str:
     return f"""<section aria-labelledby="content-title">
   <h2 id="content-title">Atelier international</h2>
   <p>Le ministère invite les référents à participer au {workshop} consacré aux contrôles rapides. Cette session rassemble des équipes françaises et européennes. Les supports seront relus avant diffusion pour éviter les ambiguïtés de prononciation.</p>
-  <p>Le discours d'ouverture de nos partenaires internationaux aura pour thème : {keynote}. Cette citation doit être comprise comme une expression anglaise complète. Elle ne relève pas d'un simple nom propre ni d'un mot passé dans l'usage courant.</p>
-  <p>La documentation de cette séance sera également traduite en arabe : {arabic}. Cette mention sert à montrer qu'un changement de langue peut aussi s'accompagner d'un changement de sens de lecture. Elle doit rester lisible et correctement restituée.</p>
-  <p>La séance alterne retours d'expérience et exemples internationaux. À l'issue du weekend, une newsletter récapitulative vous sera envoyée par e-mail. Ces mots d'usage courant ne doivent pas être sur-balisés.</p>
+  <p>Le discours d'ouverture de nos partenaires internationaux aura pour thème : {keynote}. Les intervenants présenteront ce thème lors de la séance commune. Une synthèse sera ajoutée au compte rendu de l'atelier.</p>
+  <p>La documentation de cette séance sera également traduite en arabe : {arabic}. Les supports correspondants seront transmis aux participants inscrits. Une version relue sera publiée dans l'espace documentaire.</p>
+  <p>La séance alterne retours d'expérience et exemples internationaux. À l'issue du weekend, une newsletter récapitulative vous sera envoyée par e-mail. Elle reprendra les ressources citées pendant l'atelier.</p>
 </section>"""
 
 
@@ -939,12 +939,12 @@ def content_ec08(version_key: str) -> str:
         [
             card("Checklist de publication", "ec04-contrast.html", "Une ressource longue avec plusieurs points de contrôle à relire avant la mise en ligne, dont le contraste, les titres, les images, les liens et les formulaires.", "PDF - 18 pages"),
             card("Kit contribution RGAA", "ec03-headings.html", "Un kit détaillé pour aider les contributeurs à vérifier la structure éditoriale, les alternatives, la navigation clavier et les champs de formulaire.", "DOCX - modèle"),
-            card("Grille de restitution", "ec13-required-errors.html", "Un modèle pour préparer la restitution collective après l'audit en binôme, avec constats, preuves, priorité et correction attendue.", "XLSX - atelier"),
+            card("Grille de restitution", "ec13-required-errors.html", "Un modèle pour préparer la restitution collective, avec constats, preuves, priorités et actions à suivre.", "XLSX - atelier"),
         ]
     )
     return f"""<section{class_attr} aria-labelledby="content-title">
   <h2 id="content-title">Ressources à zoomer</h2>
-  <p>Cette page rassemble les supports à remettre aux participants avant une session de correction. Les cartes doivent rester lisibles quand la page est agrandie ou consultée sur une fenêtre étroite.</p>
+  <p>Cette page rassemble les supports à remettre aux participants avant une session de travail. Les cartes doivent rester lisibles quand la page est agrandie ou consultée sur une fenêtre étroite.</p>
   <section aria-labelledby="session-title" class="fr-mt-4w">
     <h3 id="session-title">Avant la session</h3>
     <p>L'équipe prépare un lot de documents communs pour éviter que chaque groupe ne travaille avec une version différente des consignes. Les supports sont relus, nommés de manière cohérente et classés dans l'ordre d'utilisation pendant l'atelier.</p>
@@ -958,7 +958,7 @@ def content_ec08(version_key: str) -> str:
   </section>
   <section aria-labelledby="actions-title" class="fr-mt-4w">
     <h3 id="actions-title">Après la consultation</h3>
-    <p>Une fois les supports consultés, l'équipe vérifie que les documents sont complets et que les intitulés correspondent aux consignes données en salle. Les corrections sont ensuite reportées dans l'espace de partage.</p>
+    <p>Une fois les supports consultés, l'équipe vérifie que les documents sont complets et que les intitulés correspondent aux consignes données en salle. Les mises à jour sont ensuite reportées dans l'espace de partage.</p>
     <ul>
       <li>Confirmer que chaque ressource est disponible dans le bon format.</li>
       <li>Prévenir les participants si une ressource est remplacée avant l'atelier.</li>
@@ -971,10 +971,10 @@ def content_ec08(version_key: str) -> str:
 def content_ec09(version_key: str) -> str:
     if version_key == "accessible":
         track = '\n      <track kind="captions" src="../assets/shared/media/sous-titres-demo.vtt" srclang="fr" label="Français" default>'
-        caption = "Vidéo de sensibilisation avec sous-titres français relus et synchronisés. Le fichier média final sera intégré ultérieurement."
+        caption = "Vidéo de sensibilisation avec sous-titres français relus et synchronisés."
     else:
         track = ""
-        caption = "Vidéo de sensibilisation. Le fichier média final sera intégré ultérieurement."
+        caption = "Vidéo de sensibilisation."
     return f"""<section aria-labelledby="content-title">
   <h2 id="content-title">Vidéo de sensibilisation</h2>
   <figure class="fr-content-media" role="group" aria-label="Vidéo de sensibilisation à l'accessibilité numérique">
@@ -1003,7 +1003,7 @@ def content_ec10(version_key: str) -> str:
     return f"""<section aria-labelledby="content-title">
   <h2 id="content-title">Podcast RGAA</h2>
   <figure class="fr-content-media" role="group" aria-label="Extrait audio sur une démarche RGAA">
-    <figcaption class="fr-content-media__caption">Extrait audio présentant une démarche RGAA. Le fichier audio final sera intégré ultérieurement.</figcaption>
+    <figcaption class="fr-content-media__caption">Extrait audio présentant une démarche RGAA.</figcaption>
     <audio controls aria-label="Écouter le podcast RGAA"></audio>
   </figure>
   {transcription}
