@@ -816,6 +816,7 @@ def content_ec05(version_key: str) -> str:
     <ul class="fr-links-group">
       <li><a class="fr-link" href="ec12-form-labels.html">Ouvrir le formulaire d'inscription</a></li>
       <li><a class="fr-link" href="ec04-contrast.html">Consulter la charte de publication</a></li>
+      <li><a class="fr-link" href="ec06-keyboard-focus.html">Consulter les consignes de navigation au clavier</a></li>
       <li><a class="fr-link" href="#contacts-title">Voir les contacts support</a></li>
     </ul>
   </section>
