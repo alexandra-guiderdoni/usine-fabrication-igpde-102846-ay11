@@ -533,11 +533,11 @@ def required_errors_content(accessible: bool) -> str:
 def content_ec01(version_key: str) -> str:
     accessible = version_key == "accessible"
     if accessible:
-        informative = '<img src="../assets/shared/images/schema-rgaa.svg" alt="Schéma : vérifier, corriger puis publier une ressource accessible.">'
+        informative = '<img class="demo-informative-image" src="../assets/shared/images/schema-rgaa.svg" alt="Schéma : vérifier, corriger puis publier une ressource accessible.">'
         decorative = '<img src="../assets/shared/images/motif-hexagones.svg" alt="">'
         linked = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Envoyer un courriel au ministère"></a>'
     else:
-        informative = '<img src="../assets/shared/images/schema-rgaa.svg">'
+        informative = '<img class="demo-informative-image" src="../assets/shared/images/schema-rgaa.svg">'
         decorative = '<img src="../assets/shared/images/motif-hexagones.svg" alt="Long séparateur horizontal bleu composé de deux traits et d\'un losange central décoratif pour séparer la rubrique de contact du contenu précédent">'
         linked = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Dessin d\'une enveloppe"></a>'
     return f"""<section aria-labelledby="content-title">
@@ -546,10 +546,7 @@ def content_ec01(version_key: str) -> str:
   <div class="fr-grid-row fr-grid-row--gutters">
     <div class="fr-col-12">
       <p>Le schéma ci-dessous présente les trois étapes proposées aux équipes éditoriales.</p>
-      <figure class="fr-content-media" role="group" aria-label="Schéma de la démarche RGAA">
-        <div class="fr-content-media__img">{informative}</div>
-        <figcaption class="fr-content-media__caption">Démarche de publication accessible.</figcaption>
-      </figure>
+      {informative}
       <p>Cette démarche sert de repère pour vérifier une ressource avant publication.</p>
     </div>
     <div class="fr-col-12">
@@ -914,6 +911,13 @@ def generate_site_css() -> None:
 .fr-content-media__img img {
   height: auto;
   max-width: 100%;
+}
+
+.demo-informative-image {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  width: 100%;
 }
 
 .demo-separator-image img {
