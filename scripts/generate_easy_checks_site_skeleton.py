@@ -919,7 +919,7 @@ def generate_site_css() -> None:
 
 .demo-contact-link img {
   height: auto;
-  max-width: 3rem;
+  max-width: 1.75rem;
   vertical-align: middle;
 }
 
