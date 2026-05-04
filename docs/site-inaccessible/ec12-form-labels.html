@@ -69,31 +69,54 @@
   <h1>12. Inscription à un webinaire</h1>
   <section aria-labelledby="content-title">
   <h2 id="content-title">S'inscrire au webinaire RGAA</h2>
+  <p>Ce formulaire permet de préparer l'inscription à une session de sensibilisation. Les champs et les choix proposés reprennent les composants DSFR attendus dans un formulaire administratif.</p>
   <form action="ec12-form-labels.html" method="post" class="demo-form">
     <div class="fr-input-group">
-      <input class="fr-input" type="text" name="nom" placeholder="Nom de famille">
+      <input class="fr-input" type="text" id="nom-ko" name="nom" placeholder="Nom de famille" autocomplete="family-name" aria-describedby="nom-ko-messages">
+      <div class="fr-messages-group" id="nom-ko-messages" aria-live="polite"></div>
     </div>
     <div class="fr-input-group">
-      <label class="fr-label">Adresse électronique</label>
-      <input class="fr-input" type="email" name="email">
+      <label class="fr-label" for="courriel-ko">Adresse électronique
+        <span class="fr-hint-text">Format attendu : nom@domaine.fr</span>
+      </label>
+      <input class="fr-input" type="email" id="email-ko" name="email" autocomplete="email" aria-describedby="email-ko-messages">
+      <div class="fr-messages-group" id="email-ko-messages" aria-live="polite"></div>
     </div>
-    <p class="fr-label">Format de participation</p>
-    <div class="fr-radio-group">
-      <input type="radio" id="format-distanciel" name="format" value="distanciel">
-      <label class="fr-label" for="format-distanciel">À distance</label>
+    <div class="fr-fieldset">
+      <p class="fr-fieldset__legend fr-fieldset__legend--regular">Format de participation
+        <span class="fr-hint-text">Choisir une seule option.</span>
+      </p>
+      <div class="fr-fieldset__element">
+        <div class="fr-radio-group">
+          <input type="radio" id="format-distanciel" name="format" value="distanciel">
+          <label class="fr-label" for="format-distanciel">À distance</label>
+        </div>
+      </div>
+      <div class="fr-fieldset__element">
+        <div class="fr-radio-group">
+          <input type="radio" id="format-presentiel" name="format" value="presentiel">
+          <label class="fr-label" for="format-presentiel">Sur site</label>
+        </div>
+      </div>
+      <div class="fr-messages-group" id="format-ko-messages" aria-live="polite"></div>
     </div>
-    <div class="fr-radio-group">
-      <input type="radio" id="format-presentiel" name="format" value="presentiel">
-      <label class="fr-label" for="format-presentiel">Sur site</label>
-    </div>
-    <p class="fr-label">Thématiques souhaitées</p>
-    <div class="fr-checkbox-group">
-      <input type="checkbox" id="theme-images" name="theme" value="images">
-      <label class="fr-label" for="theme-images">Images</label>
-    </div>
-    <div class="fr-checkbox-group">
-      <input type="checkbox" id="theme-formulaires" name="theme" value="formulaires">
-      <label class="fr-label" for="theme-formulaires">Formulaires</label>
+    <div class="fr-fieldset">
+      <p class="fr-fieldset__legend fr-fieldset__legend--regular">Thématiques souhaitées
+        <span class="fr-hint-text">Plusieurs choix possibles.</span>
+      </p>
+      <div class="fr-fieldset__element">
+        <div class="fr-checkbox-group">
+          <input type="checkbox" id="theme-images" name="theme" value="images">
+          <label class="fr-label" for="theme-images">Images</label>
+        </div>
+      </div>
+      <div class="fr-fieldset__element">
+        <div class="fr-checkbox-group">
+          <input type="checkbox" id="theme-formulaires" name="theme" value="formulaires">
+          <label class="fr-label" for="theme-formulaires">Formulaires</label>
+        </div>
+      </div>
+      <div class="fr-messages-group" id="themes-ko-messages" aria-live="polite"></div>
     </div>
     <button class="fr-btn" type="submit">Confirmer l'inscription</button>
   </form>

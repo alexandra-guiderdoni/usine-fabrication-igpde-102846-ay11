@@ -559,7 +559,7 @@ pages:
       name: "Étiquettes de formulaire"
     severity: "Bloquant"
     expected_minimal_finding: "Au moins un champ ou groupe de champs n'a pas de nom accessible fiable."
-    minimal_proof: "ANDI/WAVE, clic label ou extrait HTML montrant placeholder seul, label non associé ou groupe sans fieldset/legend."
+    minimal_proof: "ANDI/WAVE, clic label ou extrait HTML montrant placeholder seul, label non associé ou groupe DSFR visuel sans fieldset/legend natifs."
     detection:
       - "ANDI"
       - "WAVE"
@@ -570,18 +570,28 @@ pages:
     inaccessible_errors:
       - "Placeholder utilisé comme seule étiquette."
       - "Étiquette visible non associée au champ."
-      - "Groupe de boutons radio ou cases à cocher sans fieldset/legend."
+      - "Groupe de boutons radio ou cases à cocher présenté avec des classes DSFR mais sans fieldset/legend natifs."
     bonus_occurrences:
       - "Nom visible différent du nom accessible."
       - "Aide non reliée."
       - "Label masqué avec display none."
     do_not_penalize:
       - "Placeholder utilisé comme exemple si une étiquette visible et associée existe."
-    accessible_correction: "Étiquette visible et persistante ; association label for/id ; placeholder utilisé seulement comme exemple ; nom accessible qui reprend le nom visible ; aide à la saisie reliée avec aria-describedby ; groupes structurés avec fieldset et legend."
+    accessible_correction: "Étiquette visible et persistante ; association label for/id ; placeholder utilisé seulement comme exemple ; nom accessible qui reprend le nom visible ; aide à la saisie reliée avec aria-describedby ; groupes DSFR structurés avec fieldset.fr-fieldset, legend.fr-fieldset__legend, fr-fieldset__element et fr-messages-group."
     help:
-      hint: "Vérifier le nom accessible des champs avec ANDI, WAVE ou l'arbre d'accessibilité."
+      hint: "Vérifier le nom accessible des champs avec ANDI, WAVE ou l'arbre d'accessibilité. Tester aussi le clic sur les libellés visibles."
       problem: "Le champ ou le groupe n'a pas de nom fiable : lecteur d'écran muet, commande vocale fragile, mémoire sollicitée ou contexte perdu."
-      fix: "Relier chaque étiquette au champ, ne pas remplacer le label par un placeholder, structurer les groupes et vérifier le nom accessible."
+      findings_intro: "Les trois familles d'erreurs à repérer sont :"
+      findings:
+        - "Champ de saisie : le nom de famille utilise le placeholder comme seule étiquette."
+        - "Champ de saisie : l'étiquette de l'adresse électronique est visible, mais son attribut for ne cible pas l'id du champ."
+        - "Choix : les boutons radio et les cases à cocher sont présentés visuellement comme des groupes DSFR, mais sans fieldset et legend natifs."
+      fix: "Relier chaque étiquette au champ, ne pas remplacer le label par un placeholder, structurer les groupes avec les composants DSFR natifs et vérifier le nom accessible."
+      fixes_intro: "Corrections DSFR attendues :"
+      fixes:
+        - "Utiliser div.fr-input-group, label.fr-label for/id, input.fr-input et fr-messages-group relié par aria-describedby."
+        - "Regrouper les boutons radio dans fieldset.fr-fieldset avec legend.fr-fieldset__legend et des éléments fr-fieldset__element."
+        - "Regrouper les cases à cocher dans fieldset.fr-fieldset avec une légende explicite et des messages de groupe."
     dsfr_components:
       - "Formulaire"
       - "Champ de saisie"

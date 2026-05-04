@@ -117,8 +117,8 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 - Point de contrôle rapide : Étiquettes de formulaire
 - Constat minimal attendu : Au moins un champ ou groupe de champs n'a pas de nom accessible fiable.
 - Sévérité indicative : Bloquant
-- Preuve possible : ANDI/WAVE, clic label ou extrait HTML montrant placeholder seul, label non associé ou groupe sans fieldset/legend.
-- Correction : Étiquette visible et persistante ; association label for/id ; placeholder utilisé seulement comme exemple ; nom accessible qui reprend le nom visible ; aide à la saisie reliée avec aria-describedby ; groupes structurés avec fieldset et legend.
+- Preuve possible : ANDI/WAVE, clic label ou extrait HTML montrant placeholder seul, label non associé ou groupe DSFR visuel sans fieldset/legend natifs.
+- Correction : Étiquette visible et persistante ; association label for/id ; placeholder utilisé seulement comme exemple ; nom accessible qui reprend le nom visible ; aide à la saisie reliée avec aria-describedby ; groupes DSFR structurés avec fieldset.fr-fieldset, legend.fr-fieldset__legend, fr-fieldset__element et fr-messages-group.
 - Occurrences bonus : Nom visible différent du nom accessible. ; Aide non reliée. ; Label masqué avec display none.
 - À ne pas pénaliser : Placeholder utilisé comme exemple si une étiquette visible et associée existe.
 

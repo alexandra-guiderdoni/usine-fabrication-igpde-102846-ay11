@@ -529,51 +529,23 @@ def form_label_content(accessible: bool) -> str:
     if not accessible:
         return """<section aria-labelledby="content-title">
   <h2 id="content-title">S'inscrire au webinaire RGAA</h2>
+  <p>Ce formulaire permet de préparer l'inscription à une session de sensibilisation. Les champs et les choix proposés reprennent les composants DSFR attendus dans un formulaire administratif.</p>
   <form action="ec12-form-labels.html" method="post" class="demo-form">
     <div class="fr-input-group">
-      <input class="fr-input" type="text" name="nom" placeholder="Nom de famille">
+      <input class="fr-input" type="text" id="nom-ko" name="nom" placeholder="Nom de famille" autocomplete="family-name" aria-describedby="nom-ko-messages">
+      <div class="fr-messages-group" id="nom-ko-messages" aria-live="polite"></div>
     </div>
     <div class="fr-input-group">
-      <label class="fr-label">Adresse électronique</label>
-      <input class="fr-input" type="email" name="email">
-    </div>
-    <p class="fr-label">Format de participation</p>
-    <div class="fr-radio-group">
-      <input type="radio" id="format-distanciel" name="format" value="distanciel">
-      <label class="fr-label" for="format-distanciel">À distance</label>
-    </div>
-    <div class="fr-radio-group">
-      <input type="radio" id="format-presentiel" name="format" value="presentiel">
-      <label class="fr-label" for="format-presentiel">Sur site</label>
-    </div>
-    <p class="fr-label">Thématiques souhaitées</p>
-    <div class="fr-checkbox-group">
-      <input type="checkbox" id="theme-images" name="theme" value="images">
-      <label class="fr-label" for="theme-images">Images</label>
-    </div>
-    <div class="fr-checkbox-group">
-      <input type="checkbox" id="theme-formulaires" name="theme" value="formulaires">
-      <label class="fr-label" for="theme-formulaires">Formulaires</label>
-    </div>
-    <button class="fr-btn" type="submit">Confirmer l'inscription</button>
-  </form>
-</section>"""
-    return """<section aria-labelledby="content-title">
-  <h2 id="content-title">S'inscrire au webinaire RGAA</h2>
-  <form action="ec12-form-labels.html" method="post" class="demo-form">
-    <div class="fr-input-group">
-      <label class="fr-label" for="nom">Nom de famille</label>
-      <input class="fr-input" type="text" id="nom" name="nom" autocomplete="family-name">
-    </div>
-    <div class="fr-input-group">
-      <label class="fr-label" for="email">Adresse électronique
+      <label class="fr-label" for="courriel-ko">Adresse électronique
         <span class="fr-hint-text">Format attendu : nom@domaine.fr</span>
       </label>
-      <input class="fr-input" type="email" id="email" name="email" autocomplete="email" aria-describedby="email-hint">
-      <p id="email-hint" class="fr-hint-text">Utilisée uniquement pour confirmer l'inscription.</p>
+      <input class="fr-input" type="email" id="email-ko" name="email" autocomplete="email" aria-describedby="email-ko-messages">
+      <div class="fr-messages-group" id="email-ko-messages" aria-live="polite"></div>
     </div>
-    <fieldset class="fr-fieldset">
-      <legend class="fr-fieldset__legend">Format de participation</legend>
+    <div class="fr-fieldset">
+      <p class="fr-fieldset__legend fr-fieldset__legend--regular">Format de participation
+        <span class="fr-hint-text">Choisir une seule option.</span>
+      </p>
       <div class="fr-fieldset__element">
         <div class="fr-radio-group">
           <input type="radio" id="format-distanciel" name="format" value="distanciel">
@@ -586,9 +558,12 @@ def form_label_content(accessible: bool) -> str:
           <label class="fr-label" for="format-presentiel">Sur site</label>
         </div>
       </div>
-    </fieldset>
-    <fieldset class="fr-fieldset">
-      <legend class="fr-fieldset__legend">Thématiques souhaitées</legend>
+      <div class="fr-messages-group" id="format-ko-messages" aria-live="polite"></div>
+    </div>
+    <div class="fr-fieldset">
+      <p class="fr-fieldset__legend fr-fieldset__legend--regular">Thématiques souhaitées
+        <span class="fr-hint-text">Plusieurs choix possibles.</span>
+      </p>
       <div class="fr-fieldset__element">
         <div class="fr-checkbox-group">
           <input type="checkbox" id="theme-images" name="theme" value="images">
@@ -601,6 +576,64 @@ def form_label_content(accessible: bool) -> str:
           <label class="fr-label" for="theme-formulaires">Formulaires</label>
         </div>
       </div>
+      <div class="fr-messages-group" id="themes-ko-messages" aria-live="polite"></div>
+    </div>
+    <button class="fr-btn" type="submit">Confirmer l'inscription</button>
+  </form>
+</section>"""
+    return """<section aria-labelledby="content-title">
+  <h2 id="content-title">S'inscrire au webinaire RGAA</h2>
+  <p>Ce formulaire permet de préparer l'inscription à une session de sensibilisation. Les champs, boutons radio et cases à cocher suivent la structure DSFR attendue.</p>
+  <form action="ec12-form-labels.html" method="post" class="demo-form">
+    <div class="fr-input-group">
+      <label class="fr-label" for="nom">Nom de famille
+        <span class="fr-hint-text">Indiquez le nom utilisé pour l'inscription.</span>
+      </label>
+      <input class="fr-input" type="text" id="nom" name="nom" autocomplete="family-name" aria-describedby="nom-messages">
+      <div class="fr-messages-group" id="nom-messages" aria-live="polite"></div>
+    </div>
+    <div class="fr-input-group">
+      <label class="fr-label" for="email">Adresse électronique
+        <span class="fr-hint-text">Format attendu : nom@domaine.fr</span>
+      </label>
+      <input class="fr-input" type="email" id="email" name="email" autocomplete="email" aria-describedby="email-messages">
+      <div class="fr-messages-group" id="email-messages" aria-live="polite"></div>
+    </div>
+    <fieldset class="fr-fieldset" aria-labelledby="format-legend format-messages">
+      <legend class="fr-fieldset__legend fr-fieldset__legend--regular" id="format-legend">Format de participation
+        <span class="fr-hint-text">Choisir une seule option.</span>
+      </legend>
+      <div class="fr-fieldset__element">
+        <div class="fr-radio-group">
+          <input type="radio" id="format-distanciel" name="format" value="distanciel">
+          <label class="fr-label" for="format-distanciel">À distance</label>
+        </div>
+      </div>
+      <div class="fr-fieldset__element">
+        <div class="fr-radio-group">
+          <input type="radio" id="format-presentiel" name="format" value="presentiel">
+          <label class="fr-label" for="format-presentiel">Sur site</label>
+        </div>
+      </div>
+      <div class="fr-messages-group" id="format-messages" aria-live="polite"></div>
+    </fieldset>
+    <fieldset class="fr-fieldset" aria-labelledby="themes-legend themes-messages">
+      <legend class="fr-fieldset__legend fr-fieldset__legend--regular" id="themes-legend">Thématiques souhaitées
+        <span class="fr-hint-text">Plusieurs choix possibles.</span>
+      </legend>
+      <div class="fr-fieldset__element">
+        <div class="fr-checkbox-group">
+          <input type="checkbox" id="theme-images" name="theme" value="images">
+          <label class="fr-label" for="theme-images">Images</label>
+        </div>
+      </div>
+      <div class="fr-fieldset__element">
+        <div class="fr-checkbox-group">
+          <input type="checkbox" id="theme-formulaires" name="theme" value="formulaires">
+          <label class="fr-label" for="theme-formulaires">Formulaires</label>
+        </div>
+      </div>
+      <div class="fr-messages-group" id="themes-messages" aria-live="polite"></div>
     </fieldset>
     <button class="fr-btn" type="submit">Confirmer l'inscription au webinaire</button>
   </form>

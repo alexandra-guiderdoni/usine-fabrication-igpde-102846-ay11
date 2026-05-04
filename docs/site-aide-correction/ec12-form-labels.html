@@ -75,7 +75,7 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec12-form-labels-help-1">Indice</button>
   </h3>
   <div class="fr-collapse" id="ec12-form-labels-help-1">
-    <p>Vérifier le nom accessible des champs avec ANDI, WAVE ou l&#x27;arbre d&#x27;accessibilité.</p>
+    <p>Vérifier le nom accessible des champs avec ANDI, WAVE ou l&#x27;arbre d&#x27;accessibilité. Tester aussi le clic sur les libellés visibles.</p>
   </div>
 </section>
 <section class="fr-accordion">
@@ -84,6 +84,12 @@
   </h3>
   <div class="fr-collapse" id="ec12-form-labels-help-2">
     <p>Le champ ou le groupe n&#x27;a pas de nom fiable : lecteur d&#x27;écran muet, commande vocale fragile, mémoire sollicitée ou contexte perdu.</p>
+    <p>Les trois familles d&#x27;erreurs à repérer sont :</p>
+    <ul>
+      <li>Champ de saisie : le nom de famille utilise le placeholder comme seule étiquette.</li>
+      <li>Champ de saisie : l&#x27;étiquette de l&#x27;adresse électronique est visible, mais son attribut for ne cible pas l&#x27;id du champ.</li>
+      <li>Choix : les boutons radio et les cases à cocher sont présentés visuellement comme des groupes DSFR, mais sans fieldset et legend natifs.</li>
+    </ul>
   </div>
 </section>
 <section class="fr-accordion">
@@ -91,38 +97,67 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec12-form-labels-help-3">Comment corriger</button>
   </h3>
   <div class="fr-collapse" id="ec12-form-labels-help-3">
-    <p>Relier chaque étiquette au champ, ne pas remplacer le label par un placeholder, structurer les groupes et vérifier le nom accessible.</p>
+    <p>Relier chaque étiquette au champ, ne pas remplacer le label par un placeholder, structurer les groupes avec les composants DSFR natifs et vérifier le nom accessible.</p>
+    <p>Corrections DSFR attendues :</p>
+    <ul>
+      <li>Utiliser div.fr-input-group, label.fr-label for/id, input.fr-input et fr-messages-group relié par aria-describedby.</li>
+      <li>Regrouper les boutons radio dans fieldset.fr-fieldset avec legend.fr-fieldset__legend et des éléments fr-fieldset__element.</li>
+      <li>Regrouper les cases à cocher dans fieldset.fr-fieldset avec une légende explicite et des messages de groupe.</li>
+    </ul>
   </div>
 </section>
   </div>
 </section>
   <section aria-labelledby="content-title">
   <h2 id="content-title">S'inscrire au webinaire RGAA</h2>
+  <p>Ce formulaire permet de préparer l'inscription à une session de sensibilisation. Les champs et les choix proposés reprennent les composants DSFR attendus dans un formulaire administratif.</p>
   <form action="ec12-form-labels.html" method="post" class="demo-form">
     <div class="fr-input-group">
-      <input class="fr-input" type="text" name="nom" placeholder="Nom de famille">
+      <input class="fr-input" type="text" id="nom-ko" name="nom" placeholder="Nom de famille" autocomplete="family-name" aria-describedby="nom-ko-messages">
+      <div class="fr-messages-group" id="nom-ko-messages" aria-live="polite"></div>
     </div>
     <div class="fr-input-group">
-      <label class="fr-label">Adresse électronique</label>
-      <input class="fr-input" type="email" name="email">
+      <label class="fr-label" for="courriel-ko">Adresse électronique
+        <span class="fr-hint-text">Format attendu : nom@domaine.fr</span>
+      </label>
+      <input class="fr-input" type="email" id="email-ko" name="email" autocomplete="email" aria-describedby="email-ko-messages">
+      <div class="fr-messages-group" id="email-ko-messages" aria-live="polite"></div>
     </div>
-    <p class="fr-label">Format de participation</p>
-    <div class="fr-radio-group">
-      <input type="radio" id="format-distanciel" name="format" value="distanciel">
-      <label class="fr-label" for="format-distanciel">À distance</label>
+    <div class="fr-fieldset">
+      <p class="fr-fieldset__legend fr-fieldset__legend--regular">Format de participation
+        <span class="fr-hint-text">Choisir une seule option.</span>
+      </p>
+      <div class="fr-fieldset__element">
+        <div class="fr-radio-group">
+          <input type="radio" id="format-distanciel" name="format" value="distanciel">
+          <label class="fr-label" for="format-distanciel">À distance</label>
+        </div>
+      </div>
+      <div class="fr-fieldset__element">
+        <div class="fr-radio-group">
+          <input type="radio" id="format-presentiel" name="format" value="presentiel">
+          <label class="fr-label" for="format-presentiel">Sur site</label>
+        </div>
+      </div>
+      <div class="fr-messages-group" id="format-ko-messages" aria-live="polite"></div>
     </div>
-    <div class="fr-radio-group">
-      <input type="radio" id="format-presentiel" name="format" value="presentiel">
-      <label class="fr-label" for="format-presentiel">Sur site</label>
-    </div>
-    <p class="fr-label">Thématiques souhaitées</p>
-    <div class="fr-checkbox-group">
-      <input type="checkbox" id="theme-images" name="theme" value="images">
-      <label class="fr-label" for="theme-images">Images</label>
-    </div>
-    <div class="fr-checkbox-group">
-      <input type="checkbox" id="theme-formulaires" name="theme" value="formulaires">
-      <label class="fr-label" for="theme-formulaires">Formulaires</label>
+    <div class="fr-fieldset">
+      <p class="fr-fieldset__legend fr-fieldset__legend--regular">Thématiques souhaitées
+        <span class="fr-hint-text">Plusieurs choix possibles.</span>
+      </p>
+      <div class="fr-fieldset__element">
+        <div class="fr-checkbox-group">
+          <input type="checkbox" id="theme-images" name="theme" value="images">
+          <label class="fr-label" for="theme-images">Images</label>
+        </div>
+      </div>
+      <div class="fr-fieldset__element">
+        <div class="fr-checkbox-group">
+          <input type="checkbox" id="theme-formulaires" name="theme" value="formulaires">
+          <label class="fr-label" for="theme-formulaires">Formulaires</label>
+        </div>
+      </div>
+      <div class="fr-messages-group" id="themes-ko-messages" aria-live="polite"></div>
     </div>
     <button class="fr-btn" type="submit">Confirmer l'inscription</button>
   </form>
