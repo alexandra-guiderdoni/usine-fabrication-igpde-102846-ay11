@@ -541,7 +541,7 @@ def content_ec01(version_key: str) -> str:
         decorative = '<img src="../assets/shared/images/motif-hexagones.svg" alt="Long séparateur horizontal bleu composé de deux traits et d\'un losange central décoratif pour séparer la rubrique de contact du contenu précédent">'
         linked = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Dessin d\'une enveloppe"></a>'
     return f"""<section aria-labelledby="content-title">
-  <h2 id="content-title">Nouvelle ressource RGAA</h2>
+  <h2 id="content-title">Nouvelle ressource RGAA (Référentiel général d'amélioration de l'accessibilité)</h2>
   <p>Le ministère publie un kit court pour préparer une première revue d'accessibilité. Il s'adresse aux équipes qui contrôlent une page avant publication. La page présente les repères utiles pour vérifier rapidement une ressource.</p>
   <div class="fr-grid-row fr-grid-row--gutters demo-image-check">
     <div class="fr-col-12 demo-image-check__item">
