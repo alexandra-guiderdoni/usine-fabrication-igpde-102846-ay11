@@ -75,7 +75,7 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec05-skiplinks-help-1">Indice</button>
   </h3>
   <div class="fr-collapse" id="ec05-skiplinks-help-1">
-    <p>Appuyer une fois sur Tab au chargement de la page et vérifier ce qui apparaît.</p>
+    <p>Appuyer une fois sur Tab au chargement de la page. Vérifier ensuite que le lien affiché est visible, compréhensible et activable sans souris.</p>
   </div>
 </section>
 <section class="fr-accordion">
@@ -83,7 +83,13 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec05-skiplinks-help-2">Ce qui pose problème</button>
   </h3>
   <div class="fr-collapse" id="ec05-skiplinks-help-2">
-    <p>L&#x27;utilisateur clavier traverse toute la navigation ou croit avoir évité le menu sans y parvenir.</p>
+    <p>L&#x27;utilisateur clavier traverse toute la navigation ou active un raccourci qui ne mène pas au contenu principal. Il croit gagner du temps, mais reste bloqué dans l&#x27;en-tête ou arrive sur une cible inexistante.</p>
+    <p>Les trois erreurs à rechercher sont :</p>
+    <ul>
+      <li>Visibilité : le bloc d&#x27;accès rapide doit apparaître dès le premier Tab.</li>
+      <li>Cible : le lien vers le contenu doit pointer vers un identifiant réellement présent dans la page.</li>
+      <li>Activation : après validation, l&#x27;utilisateur doit arriver sur la zone principale, sans rester dans l&#x27;en-tête.</li>
+    </ul>
   </div>
 </section>
 <section class="fr-accordion">
@@ -92,20 +98,41 @@
   </h3>
   <div class="fr-collapse" id="ec05-skiplinks-help-3">
     <p>Implémenter le composant DSFR Liens d&#x27;évitement, vérifier qu&#x27;il apparaît au focus et tester que chaque cible existe et fonctionne.</p>
+    <p>Corrections attendues par type de cas :</p>
+    <ul>
+      <li>Placer le composant Liens d&#x27;évitement tout en haut de page, avant l&#x27;en-tête.</li>
+      <li>Utiliser une navigation avec aria-label Accès rapide et des liens simples.</li>
+      <li>Faire pointer le premier lien vers l&#x27;identifiant du contenu principal, ici #contenu.</li>
+    </ul>
   </div>
 </section>
   </div>
 </section>
   <section aria-labelledby="content-title">
-  <h2 id="content-title">Accéder rapidement au contenu</h2>
-  <p>Cette page sert à tester le premier appui sur Tab et le bon fonctionnement des ancres de navigation.</p>
-  <div class="fr-grid-row fr-grid-row--gutters">
-    <div class="fr-col-12 fr-col-md-4"><button class="fr-btn" type="button">Ouvrir les ressources</button></div>
-    <div class="fr-col-12 fr-col-md-4"><a class="fr-link" href="ec06-keyboard-focus.html">Voir le parcours clavier</a></div>
-    <div class="fr-col-12 fr-col-md-4"><a class="fr-link" href="#footer">Aller au pied de page</a></div>
-  </div>
-  <h2>Contenu principal</h2>
-  <p>Le lien d'évitement doit permettre d'arriver directement ici sans parcourir toute la navigation.</p>
+  <h2 id="content-title">Accéder rapidement aux services</h2>
+  <p>Cette page regroupe les accès les plus utilisés par les équipes de publication. Elle permet de rejoindre les ressources utiles, de consulter les contacts de référence et de retrouver les actions liées à la préparation d'une session.</p>
+  <section aria-labelledby="services-title" class="fr-mt-4w">
+    <h3 id="services-title">Services concernés</h3>
+    <p>Les contenus sont préparés par plusieurs équipes avant leur mise en ligne. Chaque service conserve son périmètre, mais les informations doivent rester faciles à atteindre depuis une même page.</p>
+    <ul>
+      <li>Équipe éditoriale : vérification des contenus et des titres.</li>
+      <li>Équipe formation : préparation des ressources à transmettre aux participants.</li>
+      <li>Équipe support : réponse aux questions reçues après publication.</li>
+    </ul>
+  </section>
+  <section aria-labelledby="resources-title" class="fr-mt-4w">
+    <h3 id="resources-title">Ressources à consulter</h3>
+    <p>Ces liens donnent accès aux ressources les plus fréquentes pendant la préparation. Les actions principales sont regroupées pour limiter les allers-retours entre l'en-tête, le contenu et le pied de page.</p>
+    <div class="fr-grid-row fr-grid-row--gutters">
+      <div class="fr-col-12 fr-col-md-4"><button class="fr-btn" type="button">Ouvrir les ressources</button></div>
+      <div class="fr-col-12 fr-col-md-4"><a class="fr-link" href="ec06-keyboard-focus.html">Voir le parcours clavier</a></div>
+      <div class="fr-col-12 fr-col-md-4"><a class="fr-link" href="#footer">Aller au pied de page</a></div>
+    </div>
+  </section>
+  <section aria-labelledby="actions-title" class="fr-mt-4w">
+    <h3 id="actions-title">Actions disponibles</h3>
+    <p>Avant la diffusion, l'équipe peut relire la page, ouvrir les ressources associées et transmettre les corrections attendues. Les contributeurs doivent pouvoir rejoindre rapidement la zone utile sans relire l'ensemble de l'en-tête à chaque passage.</p>
+  </section>
 </section>
   </div>
 </div>

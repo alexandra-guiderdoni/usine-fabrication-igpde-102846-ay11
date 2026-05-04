@@ -273,9 +273,19 @@ pages:
       - "Composant DSFR masqué hors écran par défaut s'il apparaît bien au focus."
     accessible_correction: "Utiliser le composant DSFR Liens d'évitement : bloc placé tout en haut de page, avant l'en-tête ; navigation aria-label Accès rapide ; liste de liens simples ; premier lien vers le contenu principal ; ancres valides."
     help:
-      hint: "Appuyer une fois sur Tab au chargement de la page et vérifier ce qui apparaît."
-      problem: "L'utilisateur clavier traverse toute la navigation ou croit avoir évité le menu sans y parvenir."
+      hint: "Appuyer une fois sur Tab au chargement de la page. Vérifier ensuite que le lien affiché est visible, compréhensible et activable sans souris."
+      problem: "L'utilisateur clavier traverse toute la navigation ou active un raccourci qui ne mène pas au contenu principal. Il croit gagner du temps, mais reste bloqué dans l'en-tête ou arrive sur une cible inexistante."
+      findings_intro: "Les trois erreurs à rechercher sont :"
+      findings:
+        - "Visibilité : le bloc d'accès rapide doit apparaître dès le premier Tab."
+        - "Cible : le lien vers le contenu doit pointer vers un identifiant réellement présent dans la page."
+        - "Activation : après validation, l'utilisateur doit arriver sur la zone principale, sans rester dans l'en-tête."
       fix: "Implémenter le composant DSFR Liens d'évitement, vérifier qu'il apparaît au focus et tester que chaque cible existe et fonctionne."
+      fixes_intro: "Corrections attendues par type de cas :"
+      fixes:
+        - "Placer le composant Liens d'évitement tout en haut de page, avant l'en-tête."
+        - "Utiliser une navigation avec aria-label Accès rapide et des liens simples."
+        - "Faire pointer le premier lien vers l'identifiant du contenu principal, ici #contenu."
     dsfr_components:
       - "Liens d'évitement"
       - "En-tête"
