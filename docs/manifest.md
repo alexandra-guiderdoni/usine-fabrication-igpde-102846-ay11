@@ -1,4 +1,4 @@
-# Manifeste des erreurs injectées
+﻿# Manifeste des erreurs injectées
 
 Généré depuis `03-easy-checks/evaluation_contract.yml`.
 

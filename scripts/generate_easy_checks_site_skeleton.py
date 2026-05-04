@@ -1141,12 +1141,12 @@ def generate_manifest(contract: dict) -> None:
                 help_text="Indice / Problème / Comment corriger",
             )
         )
-    content = "# Manifeste des erreurs injectées\n\nGénéré depuis `03-easy-checks/evaluation_contract.yml`.\n\n" + "\n".join(rows) + "\n"
+    content = "\ufeff# Manifeste des erreurs injectées\n\nGénéré depuis `03-easy-checks/evaluation_contract.yml`.\n\n" + "\n".join(rows) + "\n"
     write_text(DOCS_DIR / "manifest.md", content)
 
 
 def generate_correction(contract: dict) -> None:
-    parts = ["# Corrigé points de contrôle rapides\n", "Généré depuis `03-easy-checks/evaluation_contract.yml`.\n"]
+    parts = ["\ufeff# Corrigé points de contrôle rapides\n", "Généré depuis `03-easy-checks/evaluation_contract.yml`.\n"]
     for page in contract["pages"]:
         parts.append(f"## {page['number']}. {page['title']}\n")
         parts.append(f"- Point de contrôle rapide : {page['easy_check']['name']}")

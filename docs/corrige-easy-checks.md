@@ -1,4 +1,4 @@
-# Corrigé points de contrôle rapides
+﻿# Corrigé points de contrôle rapides
 
 Généré depuis `03-easy-checks/evaluation_contract.yml`.
 
