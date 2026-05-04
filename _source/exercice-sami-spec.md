@@ -7,7 +7,7 @@ Amendé suite au Devil Council du 2026-05-02.
 
 ## Contexte pédagogique
 
-Sami, charge de communication a la Direction des affaires juridiques, envoie son rapport trimestriel « Bilan T1 2025 » a 40 destinataires. Le document mobilise 21 criteres d'accessibilite couvrant les 5 piliers, avec parfois plusieurs occurrences d'un meme probleme. Une erreur ambigue force le jugement. Les criteres des piliers 4 et 5 sont reveles apres l'enseignement de ces piliers (slide 37, effet Zeigarnik).
+Sami, chargé de communication à la Direction des affaires juridiques, envoie son rapport trimestriel « Bilan T1 2025 » à 40 destinataires. Le document mobilise 21 critères d'accessibilité couvrant les 5 piliers, avec parfois plusieurs occurrences d'un même problème. Une erreur ambiguë force le jugement. Les critères des piliers 4 et 5 sont révélés après l'enseignement de ces piliers (slide 37, effet Zeigarnik).
 
 - **Public** : communicants, niveau initiation
 - **Format** : exercice en binôme, 25 minutes (3 phases)
@@ -16,13 +16,13 @@ Sami, charge de communication a la Direction des affaires juridiques, envoie son
 
 ---
 
-## Les 21 criteres et leurs corrections
+## Les 21 critères et leurs corrections
 
-Les 21 entrees ci-dessous sont des **criteres a verifier**, pas un comptage strict d'occurrences. Un meme critere peut apparaitre plusieurs fois dans le document, par exemple les faux titres visuels. En animation, on valorise donc la bonne categorie d'erreur et la correction proposee, sans pieger les stagiaires sur un nombre exact d'anomalies.
+Les 21 entrées ci-dessous sont des **critères à vérifier**, pas un comptage strict d'occurrences. Un même critère peut apparaître plusieurs fois dans le document, par exemple les faux titres visuels. En animation, on valorise donc la bonne catégorie d'erreur et la correction proposée, sans piéger les stagiaires sur un nombre exact d'anomalies.
 
 Ordre de correction prescrit : Structure (Pilier 1) puis Couleurs (Pilier 2) puis Contenus (Pilier 3).
 
-### Critere 1 - Faux Titre 1 (Pilier 1 - Structure)
+### Critère 1 - Faux Titre 1 (Pilier 1 - Structure)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -30,7 +30,7 @@ Ordre de correction prescrit : Structure (Pilier 1) puis Couleurs (Pilier 2) pui
 
 Pourquoi : sans style, le lecteur d'écran voit un bloc plat sans repère de navigation.
 
-### Critere 2 - Faux Titre 2 (Pilier 1 - Structure)
+### Critère 2 - Faux Titre 2 (Pilier 1 - Structure)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -38,7 +38,7 @@ Pourquoi : sans style, le lecteur d'écran voit un bloc plat sans repère de nav
 
 Pourquoi : la hiérarchie ne se limite pas au titre principal. Un sous-titre non balisé casse la navigation par niveaux.
 
-### Critere 3 - Faux Titre 3 (Pilier 1 - Structure)
+### Critère 3 - Faux Titre 3 (Pilier 1 - Structure)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -46,7 +46,7 @@ Pourquoi : la hiérarchie ne se limite pas au titre principal. Un sous-titre non
 
 Pourquoi : le soulignement donne un indice visuel mais aucun indice sémantique. Le lecteur d'écran ne distingue pas ce sous-titre du texte courant.
 
-### Critere 4 - Tableau sans en-tête (Pilier 1 - Structure)
+### Critère 4 - Tableau sans en-tête (Pilier 1 - Structure)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -54,7 +54,7 @@ Pourquoi : le soulignement donne un indice visuel mais aucun indice sémantique.
 
 Contenu du tableau :
 
-| Indicateur | T4 2024 | T1 2025 | Evolution |
+| Indicateur | T4 2024 | T1 2025 | Évolution |
 |---|---|---|---|
 | Visiteurs uniques | 45 200 | 50 600 | +12 % |
 | Pages vues | 128 000 | 142 000 | +11 % |
@@ -62,7 +62,7 @@ Contenu du tableau :
 
 Pourquoi : sans en-tête balisé, le lecteur d'écran ne peut pas associer chaque cellule à sa colonne.
 
-### Critere 5 - Couleur seule (Pilier 2 - Couleurs)
+### Critère 5 - Couleur seule (Pilier 2 - Couleurs)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -70,7 +70,7 @@ Pourquoi : sans en-tête balisé, le lecteur d'écran ne peut pas associer chaqu
 
 Pourquoi : sans gras et sans texte complémentaire, la seule distinction est la couleur rouge. Une personne daltonienne ou utilisant un écran monochrome ne perçoit aucune urgence — le mot se fond dans le texte courant. Illustration pure du critère WCAG 1.4.1.
 
-### Critere 6 - Contraste ambigu (Pilier 2 - Couleurs)
+### Critère 6 - Contraste ambigu (Pilier 2 - Couleurs)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -80,7 +80,7 @@ Pourquoi : le ratio 4,48:1 est en dessous du seuil 4,5:1 pour le texte normal (W
 
 **Rôle pédagogique** : cette erreur n'a pas de réponse évidente visuellement. Elle oblige à utiliser un outil de mesure (CCA ou vérificateur) et à trancher sous incertitude. C'est la seule erreur que le formateur doit explicitement débriefer.
 
-### Critere 7 - Image sans alternative + couleurs seules (Pilier 3 + Pilier 2)
+### Critère 7 - Image sans alternative + couleurs seules (Pilier 3 + Pilier 2)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -90,7 +90,7 @@ Pourquoi : double erreur. (1) Le lecteur d'écran annonce « image » sans descr
 
 **Rôle pédagogique** : montre que l'accessibilité d'une image ne se limite pas à l'alt text — le contenu visuel lui-même doit être lisible sans couleur.
 
-### Critere 8 - Lien non descriptif (Pilier 3 - Contenus)
+### Critère 8 - Lien non descriptif (Pilier 3 - Contenus)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -98,125 +98,125 @@ Pourquoi : double erreur. (1) Le lecteur d'écran annonce « image » sans descr
 
 Pourquoi : « cliquez ici » ne donne aucune information hors contexte visuel. Le lecteur d'écran liste les liens par intitulé.
 
-### Critere 9 - Organigramme avec alt inadapte (Pilier 3 - Contenus)
+### Critère 9 - Organigramme avec alt inadapté (Pilier 3 - Contenus)
 
 | Inaccessible | Accessible |
 |---|---|
-| Organigramme avec alt="image.png" (nom de fichier par defaut) | alt="Organigramme de la Direction des affaires juridiques (description ci-dessous)." + description textuelle detaillee sous l'image |
+| Organigramme avec alt="image.png" (nom de fichier par défaut) | alt="Organigramme de la Direction des affaires juridiques (description ci-dessous)." + description textuelle détaillée sous l'image |
 
-Pourquoi : le nom de fichier ne donne aucune information. Pour une image complexe (RGAA 1.6 et 1.7), l'alt doit rester court (~80 caracteres) et renvoyer vers une description detaillee presente dans le document. Ne pas tout mettre dans l'alt.
+Pourquoi : le nom de fichier ne donne aucune information. Pour une image complexe (RGAA 1.6 et 1.7), l'alt doit rester court (~80 caractères) et renvoyer vers une description détaillée présente dans le document. Ne pas tout mettre dans l'alt.
 
-**Role pedagogique** : montre la difference entre image simple (alt descriptif) et image complexe (alt court + description adjacente). Illustre aussi le piege du nom de fichier automatique.
+**Rôle pédagogique** : montre la différence entre image simple (alt descriptif) et image complexe (alt court + description adjacente). Illustre aussi le piège du nom de fichier automatique.
 
-### Critere 10 - Icone redondante avec alt non vide (Pilier 3 - Contenus)
-
-| Inaccessible | Accessible |
-|---|---|
-| Icone enveloppe avec alt="E-mail" (redondant avec le texte adjacent) | Icone marquee comme decorative (case « Marquer comme decoratif » cochee) |
-
-Pourquoi : l'icone est placee juste a cote du mot « e-mail ». Si on ecrit « E-mail » dans l'alternative, le lecteur d'ecran lit « E-mail, e-mail » — redondance qui pollue la lecture. Toute image qui n'apporte pas d'information supplementaire doit etre ignoree. Dans Word, on coche « Marquer comme decoratif » au lieu d'ecrire alt="".
-
-**Role pedagogique** : montre que l'accessibilite des images ne se limite pas a « mettre un alt text partout ». Certaines images doivent etre explicitement ignorees.
-
-### Critere 11 - Fausse liste a puces (Pilier 1 - Structure)
+### Critère 10 - Icône redondante avec alt non vide (Pilier 3 - Contenus)
 
 | Inaccessible | Accessible |
 |---|---|
-| Puces tapees au clavier et indentees manuellement | Liste a puces native (Accueil > Puces) |
+| Icône enveloppe avec alt="E-mail" (redondant avec le texte adjacent) | Icône marquée comme décorative (case « Marquer comme décoratif » cochée) |
 
-Texte : « Objectifs du trimestre : augmenter le trafic de 10 %, publier 3 articles par semaine, reduire le taux de rebond sous 40 % »
+Pourquoi : l'icône est placée juste à côté du mot « e-mail ». Si on écrit « E-mail » dans l'alternative, le lecteur d'écran lit « E-mail, e-mail » — redondance qui pollue la lecture. Toute image qui n'apporte pas d'information supplémentaire doit être ignorée. Dans Word, on coche « Marquer comme décoratif » au lieu d'écrire alt="".
 
-Pourquoi : les puces tapees et les retraits manuels donnent l'illusion visuelle d'une vraie liste, mais ne sont pas reconnus comme une liste par le lecteur d'ecran. Il lit chaque ligne comme un paragraphe ordinaire au lieu de « liste de 3 elements, element 1 sur 3 ».
+**Rôle pédagogique** : montre que l'accessibilité des images ne se limite pas à « mettre un alt text partout ». Certaines images doivent être explicitement ignorées.
 
-### Critere 12 - Fausse liste numerotee (Pilier 1 - Structure)
-
-| Inaccessible | Accessible |
-|---|---|
-| Numeros tapes a la main (1. 2. 3.) et indentes manuellement | Liste numerotee native (Accueil > Numerotation) |
-
-Texte : « Priorites pour le prochain trimestre : refonte de la page d'accueil, mise en conformite accessibilite, deploiement de la newsletter »
-
-Pourquoi : meme probleme que les fausses puces. La numerotation semble correcte visuellement, mais la structure de liste est invisible pour le lecteur d'ecran et la navigation par element est impossible.
-
-### Critere 13 - Passage anglais sans balisage de langue (pilier 4 - langue)
+### Critère 11 - Fausse liste à puces (Pilier 1 - Structure)
 
 | Inaccessible | Accessible |
 |---|---|
-| Phrase en anglais sans balisage de langue | Passage selectionne > Revision > Langue > Definir en anglais |
+| Puces tapées au clavier et indentées manuellement | Liste à puces native (Accueil > Puces) |
+
+Texte : « Objectifs du trimestre : augmenter le trafic de 10 %, publier 3 articles par semaine, réduire le taux de rebond sous 40 % »
+
+Pourquoi : les puces tapées et les retraits manuels donnent l'illusion visuelle d'une vraie liste, mais ne sont pas reconnus comme une liste par le lecteur d'écran. Il lit chaque ligne comme un paragraphe ordinaire au lieu de « liste de 3 éléments, élément 1 sur 3 ».
+
+### Critère 12 - Fausse liste numérotée (Pilier 1 - Structure)
+
+| Inaccessible | Accessible |
+|---|---|
+| Numéros tapés à la main (1. 2. 3.) et indentés manuellement | Liste numérotée native (Accueil > Numérotation) |
+
+Texte : « Priorités pour le prochain trimestre : refonte de la page d'accueil, mise en conformité accessibilité, déploiement de la newsletter »
+
+Pourquoi : même problème que les fausses puces. La numérotation semble correcte visuellement, mais la structure de liste est invisible pour le lecteur d'écran et la navigation par élément est impossible.
+
+### Critère 13 - Passage anglais sans balisage de langue (pilier 4 - langue)
+
+| Inaccessible | Accessible |
+|---|---|
+| Phrase en anglais sans balisage de langue | Passage sélectionné > Révision > Langue > Définir en anglais |
 
 Texte : « The quarterly report is available upon request. Please contact the communication department for further details. »
 
-Pourquoi : sans balisage, le lecteur d'ecran lit le passage anglais avec la prononciation francaise, ce qui le rend incomprehensible.
+Pourquoi : sans balisage, le lecteur d'écran lit le passage anglais avec la prononciation française, ce qui le rend incompréhensible.
 
-**Role pedagogique** : critere revele uniquement apres l'enseignement du pilier 4 (slide 37). Cree un effet Zeigarnik : les stagiaires pensaient avoir trouve toutes les categories de problemes.
+**Rôle pédagogique** : critère révélé uniquement après l'enseignement du pilier 4 (slide 37). Crée un effet Zeigarnik : les stagiaires pensaient avoir trouvé toutes les catégories de problèmes.
 
-### Critere 14 - Proprietes du document vides (pilier 5 - finalisation)
-
-| Inaccessible | Accessible |
-|---|---|
-| Proprietes Titre et Auteur vides | Titre : « Rapport trimestriel - Bilan T1 2025 », Auteur : « Sami Dupont » |
-
-Pourquoi : les proprietes du document sont la premiere information lue par un lecteur d'ecran. Sans titre, l'utilisateur ne sait pas ce qu'il ouvre.
-
-**Role pedagogique** : erreur revelee en meme temps que l'erreur 13 apres le pilier 5. Correction en 30 secondes (Fichier > Informations).
-
-### Critere 15 - Texte justifie (pilier 4 - lisibilite)
+### Critère 14 - Propriétés du document vides (pilier 5 - finalisation)
 
 | Inaccessible | Accessible |
 |---|---|
-| Tout le document en texte justifie | Texte aligne a gauche |
+| Propriétés Titre et Auteur vides | Titre : « Rapport trimestriel - Bilan T1 2025 », Auteur : « Sami Dupont » |
 
-Pourquoi : le texte justifie cree des espaces inegaux entre les mots (lezardes) qui rendent la lecture difficile pour les personnes dyslexiques ou malvoyantes.
+Pourquoi : les propriétés du document sont la première information lue par un lecteur d'écran. Sans titre, l'utilisateur ne sait pas ce qu'il ouvre.
 
-### Critere 16 - Paragraphes vides (pilier 4 - lisibilite)
+**Rôle pédagogique** : erreur révélée en même temps que l'erreur 13 après le pilier 5. Correction en 30 secondes (Fichier > Informations).
 
-| Inaccessible | Accessible |
-|---|---|
-| 4 paragraphes vides entre le tableau et les listes | Espacement gere par les styles de paragraphe |
-
-Pourquoi : le lecteur d'ecran lit « vide, vide, vide, vide » a chaque paragraphe vide. L'espacement doit etre gere par les proprietes Avant/Apres du style de paragraphe.
-
-### Critere 17 - Majuscules tapees au clavier (pilier 4 - lisibilite)
+### Critère 15 - Texte justifié (pilier 4 - lisibilité)
 
 | Inaccessible | Accessible |
 |---|---|
-| « ANNEXES » tape en majuscules | « Annexes » en minuscules avec propriete Police > Tout en majuscules |
+| Tout le document en texte justifié | Texte aligné à gauche |
 
-Pourquoi : le lecteur d'ecran peut epeler lettre par lettre les mots en majuscules. La propriete CSS/Word « Tout en majuscules » affiche visuellement en majuscules mais le lecteur lit le mot normalement.
+Pourquoi : le texte justifié crée des espaces inégaux entre les mots (lézardes) qui rendent la lecture difficile pour les personnes dyslexiques ou malvoyantes.
 
-### Critere 18 - Filigrane invisible (pilier 3 - contenus)
-
-| Inaccessible | Accessible |
-|---|---|
-| Filigrane « CONFIDENTIEL » (invisible au lecteur d'ecran) | Mention « Document confidentiel » en texte dans le corps |
-
-Pourquoi : les filigranes sont des objets graphiques dans l'en-tete, non lus par les lecteurs d'ecran. Un utilisateur aveugle ne sait pas que le document est confidentiel.
-
-### Critere 19 - Faux sommaire tape a la main (pilier 1 - structure)
+### Critère 16 - Paragraphes vides (pilier 4 - lisibilité)
 
 | Inaccessible | Accessible |
 |---|---|
-| Sommaire avec points de suite tapes manuellement et numeros de page en dur | Table des matieres automatique generee depuis les styles de titre |
+| 4 paragraphes vides entre le tableau et les listes | Espacement géré par les styles de paragraphe |
 
-Pourquoi : un sommaire tape a la main n'est pas lie aux titres du document. Il ne se met pas a jour, n'est pas navigable et le lecteur d'ecran ne peut pas sauter directement a une section.
+Pourquoi : le lecteur d'écran lit « vide, vide, vide, vide » à chaque paragraphe vide. L'espacement doit être géré par les propriétés Avant/Après du style de paragraphe.
 
-### Critere 20 - Texte sous forme d'image (pilier 3 - contenus)
+### Critère 17 - Majuscules tapées au clavier (pilier 4 - lisibilité)
 
 | Inaccessible | Accessible |
 |---|---|
-| Avis important insere comme image (capture d'ecran) | Meme contenu en vrai texte dans le document |
+| « ANNEXES » tapé en majuscules | « Annexes » en minuscules avec propriété Police > Tout en majuscules |
+
+Pourquoi : le lecteur d'écran peut épeler lettre par lettre les mots en majuscules. La propriété CSS/Word « Tout en majuscules » affiche visuellement en majuscules mais le lecteur lit le mot normalement.
+
+### Critère 18 - Filigrane invisible (pilier 3 - contenus)
+
+| Inaccessible | Accessible |
+|---|---|
+| Filigrane « CONFIDENTIEL » (invisible au lecteur d'écran) | Mention « Document confidentiel » en texte dans le corps |
+
+Pourquoi : les filigranes sont des objets graphiques dans l'en-tête, non lus par les lecteurs d'écran. Un utilisateur aveugle ne sait pas que le document est confidentiel.
+
+### Critère 19 - Faux sommaire tapé à la main (pilier 1 - structure)
+
+| Inaccessible | Accessible |
+|---|---|
+| Sommaire avec points de suite tapés manuellement et numéros de page en dur | Table des matières automatique générée depuis les styles de titre |
+
+Pourquoi : un sommaire tapé à la main n'est pas lié aux titres du document. Il ne se met pas à jour, n'est pas navigable et le lecteur d'écran ne peut pas sauter directement à une section.
+
+### Critère 20 - Texte sous forme d'image (pilier 3 - contenus)
+
+| Inaccessible | Accessible |
+|---|---|
+| Avis important inséré comme image (capture d'écran) | Même contenu en vrai texte dans le document |
 
 Texte : « Avis important : les indicateurs du T2 2025 seront transmis avant le 15 septembre 2025. »
 
-Pourquoi : le texte dans une image ne peut pas etre lu par la synthese vocale, ni agrandi proprement, ni selectionne, ni recherche. Il faut toujours saisir le texte directement dans Word, sauf pour les logos.
+Pourquoi : le texte dans une image ne peut pas être lu par la synthèse vocale, ni agrandi proprement, ni sélectionné, ni recherché. Il faut toujours saisir le texte directement dans Word, sauf pour les logos.
 
-### Critere 21 - Tableau avec cellules fusionnees (pilier 1 - structure)
+### Critère 21 - Tableau avec cellules fusionnées (pilier 1 - structure)
 
 | Inaccessible | Accessible |
 |---|---|
-| Tableau en grille avec premiere ligne fusionnee sur 3 colonnes, libelles en gras seulement visuels, sans option Word **Ligne d'en-tete** | Tableau simple en grille sans fusion, avec option Word **Ligne d'en-tete** cochee |
+| Tableau en grille avec première ligne fusionnée sur 3 colonnes, libellés en gras seulement visuels, sans option Word **Ligne d'en-tête** | Tableau simple en grille sans fusion, avec option Word **Ligne d'en-tête** cochée |
 
-Pourquoi : les cellules fusionnees cassent la logique de lecture des aides techniques. Le lecteur d'ecran ne peut plus associer chaque cellule a sa colonne. Des libelles en gras ne suffisent pas : il faut une structure simple et une ligne d'en-tete declaree dans Word.
+Pourquoi : les cellules fusionnées cassent la logique de lecture des aides techniques. Le lecteur d'écran ne peut plus associer chaque cellule à sa colonne. Des libellés en gras ne suffisent pas : il faut une structure simple et une ligne d'en-tête déclarée dans Word.
 
 ---
 
@@ -227,30 +227,30 @@ Pourquoi : les cellules fusionnees cassent la logique de lecture des aides techn
 
 Rapport trimestriel - Bilan T1 2025          <-- Titre du document (propriétés)
 
-Introduction                                  <-- Critere 1 : gras Arial 16 au lieu de Titre 1
+Introduction                                  <-- Critère 1 : gras Arial 16 au lieu de Titre 1
 Paragraphe d'introduction (2-3 phrases sur le contexte du trimestre).
 
-URGENT                                        <-- Critere 5 : rouge sans gras, sans texte
+URGENT                                        <-- Critère 5 : rouge sans gras, sans texte
 La direction demande un retour rapide sur les indicateurs.
 
-Résultats du trimestre                        <-- Critere 2 : gras Arial 14 au lieu de Titre 2
-[Tableau 4x4 sans en-tête balisé]            <-- Critere 4
+Résultats du trimestre                        <-- Critère 2 : gras Arial 14 au lieu de Titre 2
+[Tableau 4x4 sans en-tête balisé]            <-- Critère 4
 
-Détail par canal                              <-- Critere 3 : gras Arial 12 souligné au lieu de Titre 3
-[Graphique barres couleurs seules, sans alt]  <-- Critere 7 (double : alt + couleurs)
+Détail par canal                              <-- Critère 3 : gras Arial 12 souligné au lieu de Titre 3
+[Graphique barres couleurs seules, sans alt]  <-- Critère 7 (double : alt + couleurs)
 
 Organisation du service                       <-- Faux titre (gras Arial 14 bleu)
-[Organigramme avec alt="image.png"]           <-- Critere 9
+[Organigramme avec alt="image.png"]           <-- Critère 9
 
 Contact                                       <-- Faux titre (gras Arial 14 bleu)
-Pour toute question, contactez-nous par       <-- Critere 10 : icone enveloppe alt="E-mail"
+Pour toute question, contactez-nous par       <-- Critère 10 : icône enveloppe alt="E-mail"
 [icone enveloppe] e-mail pour plus d'infos.
-The quarterly report is available upon...     <-- Critere 13 : anglais sans balisage
+The quarterly report is available upon...     <-- Critère 13 : anglais sans balisage
 
 Annexes                                       <-- Faux titre (gras Arial 14 bleu)
-Pour accéder aux annexes, cliquez ici.        <-- Critere 8
+Pour accéder aux annexes, cliquez ici.        <-- Critère 8
 
-Note : les données sont provisoires.*         <-- Critere 6 : gris #767676 (ratio 4,48:1)
+Note : les données sont provisoires.*         <-- Critère 6 : gris #767676 (ratio 4,48:1)
 ```
 
 ---
@@ -261,8 +261,8 @@ Note : les données sont provisoires.*         <-- Critere 6 : gris #767676 (rat
 
 | Temps | Action |
 |---|---|
-| 0-2 min | Distribution du fichier `sami-doc-inaccessible.docx`. Consigne : « Identifiez les criteres d'accessibilite qui posent probleme. Notez-les sur une feuille, sans corriger. » |
-| 2-10 min | Chaque binôme explore le document et liste les problemes identifies |
+| 0-2 min | Distribution du fichier `sami-doc-inaccessible.docx`. Consigne : « Identifiez les critères d'accessibilité qui posent problème. Notez-les sur une feuille, sans corriger. » |
+| 2-10 min | Chaque binôme explore le document et liste les problèmes identifiés |
 
 Pas de checklist distribuée à cette phase. Les stagiaires doivent mobiliser ce qu'ils ont appris.
 
@@ -270,18 +270,18 @@ Pas de checklist distribuée à cette phase. Les stagiaires doivent mobiliser ce
 
 | Temps | Action |
 |---|---|
-| 10-12 min | Le formateur peut distribuer `sami-doc-aide-correction.docx` si le groupe a besoin d'un guidage. Les commentaires Word expliquent le probleme, l'impact et la methode, sans corriger le document. |
-| 12-20 min | Chaque binôme corrige les problemes dans l'ordre prescrit (Pilier 1 puis 2 puis 3) |
+| 10-12 min | Le formateur peut distribuer `sami-doc-aide-correction.docx` si le groupe a besoin d'un guidage. Les commentaires Word expliquent le problème, l'impact et la méthode, sans corriger le document. |
+| 12-20 min | Chaque binôme corrige les problèmes dans l'ordre prescrit (Pilier 1 puis 2 puis 3) |
 
 Le vérificateur Word est utilisé comme **outil de découverte** (« que détecte-t-il ? que rate-t-il ? »), pas comme preuve de conformité.
-La version d'aide a la correction reste volontairement fautive : elle sert de support de remediation guidee, pas de corrige.
+La version d'aide à la correction reste volontairement fautive : elle sert de support de remédiation guidée, pas de corrigé.
 
 ### Phase 3 - Restitution et transfert (5 min)
 
 | Temps | Action |
 |---|---|
-| 20-22 min | Le formateur débrief le critere 6 (contraste ambigu) : montrer le CCA, expliquer le seuil 4,5:1 |
-| 22-25 min | Question de transfert : « Sur votre dernier document envoyé, lequel de ces 21 criteres avez-vous probablement oublie ? » Tour de table rapide (1 phrase par binôme) |
+| 20-22 min | Le formateur débrief le critère 6 (contraste ambigu) : montrer le CCA, expliquer le seuil 4,5:1 |
+| 22-25 min | Question de transfert : « Sur votre dernier document envoyé, lequel de ces 21 critères avez-vous probablement oublié ? » Tour de table rapide (1 phrase par binôme) |
 
 La question de transfert est le vrai objectif pédagogique. L'exercice Sami n'est que le véhicule.
 
@@ -297,10 +297,10 @@ La question de transfert est le vrai objectif pédagogique. L'exercice Sami n'es
 - Langue du document accessible : fr-FR au niveau des métadonnées ET du style Normal (propage à tout le texte). Le document inaccessible reste en anglais (langue par défaut de python-docx) - erreur bonus implicite pour le vérificateur
 - Le fichier inaccessible n'a PAS de propriétés renseignées (erreur bonus implicite pour le vérificateur)
 - En-tête : les deux versions contiennent « Direction des affaires juridiques - Rapport trimestriel T1 2025 ». C'est un repere de page, pas le substitut aux propriétés du document.
-- Pied de page : les deux versions contiennent le nom du document suivi de champs Word natifs `PAGE` et `NUMPAGES` : « Rapport trimestriel - Bilan T1 2025 - Page X / Y ». Les valeurs affichees peuvent rester a `1 / 1` tant que Word n'a pas recalcule les champs.
+- Pied de page : les deux versions contiennent le nom du document suivi de champs Word natifs `PAGE` et `NUMPAGES` : « Rapport trimestriel - Bilan T1 2025 - Page X / Y ». Les valeurs affichées peuvent rester à `1 / 1` tant que Word n'a pas recalculé les champs.
 - Mention urgente accessible : le gras est volontaire. Il ajoute une emphase textuelle pour que l'information d'urgence ne repose pas uniquement sur la couleur rouge.
-- Audit automatique : les paragraphes sans texte qui portent une image peuvent être signalés comme « paragraphes vides » dans le DOCX accessible. Ce sont des faux positifs acceptables ; le critere 16 vise les paragraphes réellement vides utilisés comme espaceurs dans la version inaccessible.
-- Audit automatique : l'icone e-mail de la version accessible est marquee decorative dans le XML Office. Un audit qui ne lit que l'attribut `descr` peut la signaler a tort comme image sans alternative ; elle ne doit pas etre comptee comme une erreur.
+- Audit automatique : les paragraphes sans texte qui portent une image peuvent être signalés comme « paragraphes vides » dans le DOCX accessible. Ce sont des faux positifs acceptables ; le critère 16 vise les paragraphes réellement vides utilisés comme espaceurs dans la version inaccessible.
+- Audit automatique : l'icône e-mail de la version accessible est marquée décorative dans le XML Office. Un audit qui ne lit que l'attribut `descr` peut la signaler à tort comme image sans alternative ; elle ne doit pas être comptée comme une erreur.
 
 ---
 

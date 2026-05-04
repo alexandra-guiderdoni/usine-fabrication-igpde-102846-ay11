@@ -4,10 +4,11 @@ Ce fichier adapte `CLAUDE.md` pour Codex. Les consignes globales Codex restent a
 
 ## Contexte
 
-- Formation accessibilite numerique, 1 jour, public communicants, pas developpeurs
-- 91 slides PPTX DSFR, 4 modules : Introduction > Word accessible > Easy Checks W3C > Reseaux sociaux
-- Ordre imperatif M1 > M2 > M3 > M4, jamais inverser
-- Exercice Sami : 21 criteres a verifier dans 2 DOCX, spec dans `_source/exercice-sami-spec.md`
+- Formation accessibilité numérique, 1 jour, public communicants, pas développeurs
+- 91 slides PPTX DSFR, 4 modules : Introduction > Word accessible > Easy Checks W3C > Réseaux sociaux
+- Ordre impératif M1 > M2 > M3 > M4, jamais inverser
+- Exercice Sami : 21 critères à vérifier dans 3 DOCX, spec dans `_source/exercice-sami-spec.md`
+- Section 2 « Documents bureautiques accessibles » validée par Alex le 2026-05-04 : slides 20 à 49, livrables Sami, spec et diff associés
 
 ## Pipeline
 
