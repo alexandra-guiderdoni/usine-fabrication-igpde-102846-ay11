@@ -41,6 +41,9 @@ Si les skills ne sont pas automatiquement injectes dans la session, lire leurs a
 - Nouvelle slide : creer `scripts/slides/NN_nom.py`, suffixe lettre pour intercaler (`05a_`)
 - Tester : `python3 scripts/assemble.py --only NN`
 - Template absent : `python3 scripts/build_template.py`
+- Previsualiser le site Easy Checks : depuis `docs/`, lancer `python3 -m http.server 8765 --bind 127.0.0.1`, puis ouvrir `http://127.0.0.1:8765/index.html`
+- Alternative fichier direct : ouvrir `file:///Users/alex/Claude/projets-formations/IGPDE-Carinne-C/docs/index.html`, mais preferer le serveur local si les composants DSFR interactifs ne reagissent pas
+- Arreter le serveur local : revenir dans le terminal qui execute `http.server` et faire `Ctrl+C`
 - Quarantine macOS : `xattr -d com.apple.quarantine formation-102638-juin-2026.pptx`
 - Controle tirets dans les scripts : `grep -rn $'—\|–' scripts/` doit retourner vide
 - Warnings footer : diagnostiquer par slide, corriger le positionnement source, puis regenerer le deck complet
