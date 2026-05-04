@@ -84,6 +84,14 @@
   </h3>
   <div class="fr-collapse" id="ec13-required-errors-help-2">
     <p>L&#x27;obligation n&#x27;est pas annoncée ou la correction n&#x27;est pas accompagnée : perte de contexte, erreurs répétées et abandon.</p>
+    <p>Les cinq points à vérifier sont :</p>
+    <ul>
+      <li>Prévention : les champs obligatoires ne doivent pas être signalés seulement par une couleur ou un astérisque inexpliqué.</li>
+      <li>Technique : les champs requis doivent porter required ou aria-required selon le cas.</li>
+      <li>Message : l&#x27;erreur doit nommer le champ concerné et expliquer la correction attendue.</li>
+      <li>Association : le message d&#x27;erreur doit être relié au champ avec aria-describedby.</li>
+      <li>Parcours : après soumission, le focus doit accompagner l&#x27;utilisateur vers le récapitulatif ou le premier champ en erreur.</li>
+    </ul>
   </div>
 </section>
 <section class="fr-accordion">
@@ -92,6 +100,14 @@
   </h3>
   <div class="fr-collapse" id="ec13-required-errors-help-3">
     <p>Prévenir avant soumission, expliquer après soumission, relier techniquement les erreurs et guider le focus.</p>
+    <p>Corrections attendues :</p>
+    <ul>
+      <li>Indiquer clairement la règle des champs obligatoires avant le formulaire.</li>
+      <li>Ajouter required ou aria-required sur les champs concernés.</li>
+      <li>Rédiger des messages d&#x27;erreur précis et les associer aux champs.</li>
+      <li>Utiliser aria-invalid=&quot;true&quot; quand le champ est en erreur.</li>
+      <li>Guider le focus vers le récapitulatif ou le premier champ à corriger.</li>
+    </ul>
   </div>
 </section>
   </div>

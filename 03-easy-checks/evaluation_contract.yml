@@ -150,7 +150,17 @@ pages:
     help:
       hint: "Regarder l'onglet du navigateur, le title HTML et le résultat WAVE. La page affiche déjà la requête, le tri, la page courante et le nombre de résultats : ces informations doivent aussi guider le titre."
       problem: "L'utilisateur ne sait pas quelle page ou quel état est ouvert, ce qui gêne la navigation entre onglets, historique et résultats. Sur une page de recherche, le titre doit reprendre la requête et la pagination utiles."
+      findings_intro: "Les trois points à vérifier sont :"
+      findings:
+        - "Titre générique : la version à auditer affiche un titre de type « Sans titre » dans l'onglet."
+        - "Contexte de recherche : la page visible indique la requête « RGAA », la page 2 sur 3 et le tri, mais ces informations ne sont pas reprises dans le titre."
+        - "Ordre de lecture : l'information spécifique doit arriver avant le nom long du ministère pour rester utile dans un onglet ou un lecteur d'écran."
       fix: "Rendre le titre unique, ajouter le contexte utile et placer l'information spécifique en premier : requête, page courante, nombre total de pages, puis nom du site."
+      fixes_intro: "Corrections attendues :"
+      fixes:
+        - "Remplacer le titre générique par un titre unique."
+        - "Inclure la requête et la pagination utiles."
+        - "Ordonner le titre du particulier vers le général, par exemple Recherche \"RGAA\" - Page 2/3 - Ministère de l'Accessibilité numérique."
     dsfr_components:
       - "Barre de recherche"
       - "Lien"
@@ -237,7 +247,17 @@ pages:
     help:
       hint: "Mesurer un texte, un lien ou un bouton avec un outil de contraste."
       problem: "La lecture ou l'identification devient difficile pour les personnes malvoyantes, en forte luminosité ou sur écran médiocre."
+      findings_intro: "Les trois familles d'éléments à mesurer sont :"
+      findings:
+        - "Texte courant : le paragraphe gris clair sur fond blanc doit être mesuré, pas jugé à l'oeil."
+        - "Actions : le lien et le bouton pâles peuvent devenir difficiles à distinguer de leur arrière-plan."
+        - "Statut : l'information de validation ne doit pas dépendre d'une couleur peu contrastée."
       fix: "Mesurer, ne pas juger à l'oeil, et ne pas transmettre une information uniquement par une couleur peu contrastée."
+      fixes_intro: "Corrections attendues :"
+      fixes:
+        - "Utiliser des couleurs DSFR dont les contrastes sont conformes aux seuils attendus."
+        - "Vérifier 4,5:1 pour le texte courant et 3:1 pour les textes larges, composants et informations visuelles."
+        - "Rendre le statut compréhensible par le texte, pas uniquement par une couleur."
     dsfr_components:
       - "Mise en avant"
       - "Alerte"
@@ -425,7 +445,17 @@ pages:
     help:
       hint: "Passer le navigateur à 200 % et réduire la largeur de fenêtre."
       problem: "Les cartes cassent au zoom ; les personnes malvoyantes ou sur petits écrans perdent du contenu et doivent faire défiler horizontalement la page."
+      findings_intro: "Les trois symptômes à rechercher sont :"
+      findings:
+        - "Hauteur fixe : une carte ne grandit pas avec son contenu quand le texte grossit."
+        - "Largeur rigide : la grille impose une largeur minimale et fait apparaître un défilement horizontal inutile."
+        - "Contenu masqué : le texte, les détails ou les actions peuvent être tronqués par overflow hidden."
       fix: "Retirer les hauteurs et largeurs minimales fixes, éviter overflow hidden, utiliser la grille DSFR et tester à 200 %."
+      fixes_intro: "Corrections attendues :"
+      fixes:
+        - "Laisser les cartes adapter leur hauteur au contenu."
+        - "Utiliser la grille DSFR responsive sans largeur minimale rigide."
+        - "Tester à 200 % et vérifier que les liens, boutons et textes restent lisibles et activables."
     dsfr_components:
       - "Carte"
       - "Lien"
@@ -460,7 +490,17 @@ pages:
     help:
       hint: "Lire la vidéo sans le son et vérifier la présence d'une piste de sous-titres exploitable."
       problem: "Le contenu oral est indisponible sans son."
+      findings_intro: "Les trois contrôles à mener sont :"
+      findings:
+        - "Piste présente : le lecteur doit proposer une piste de sous-titres activable."
+        - "Qualité : les sous-titres automatiques non relus ne suffisent pas pour publier."
+        - "Contenu utile : les paroles, noms propres, acronymes, chiffres et sons importants doivent être correctement restitués."
       fix: "Fournir un fichier VTT relu, synchronisé et activable depuis le lecteur."
+      fixes_intro: "Corrections attendues :"
+      fixes:
+        - "Ajouter une piste VTT déclarée avec track kind=\"captions\"."
+        - "Relire et corriger les sous-titres automatiques avant publication."
+        - "Synchroniser les sous-titres et ajouter les indications sonores utiles."
     dsfr_components:
       - "Contenu médias"
       - "Transcription"
@@ -499,7 +539,17 @@ pages:
     help:
       hint: "Chercher un lien de transcription immédiatement proche du lecteur audio."
       problem: "Le contenu audio n'est pas disponible en texte."
+      findings_intro: "Les trois questions à poser sont :"
+      findings:
+        - "Le lien ou bouton « Lire la transcription » est-il visible près du média ?"
+        - "La transcription reprend-elle tout le contenu utile, et pas seulement un résumé ?"
+        - "La transcription est-elle structurée pour être relue, copiée ou citée facilement ?"
       fix: "Ajouter une transcription accessible, complète, structurée et liée près du média."
+      fixes_intro: "Corrections attendues :"
+      fixes:
+        - "Placer un accès visible à la transcription immédiatement après le lecteur audio."
+        - "Fournir une transcription complète des paroles et informations sonores essentielles."
+        - "Structurer la transcription avec un titre et des paragraphes lisibles."
     dsfr_components:
       - "Contenu médias"
       - "Transcription"
@@ -539,7 +589,17 @@ pages:
     help:
       hint: "Regarder la vidéo en se demandant quelles informations seraient perdues sans l'image."
       problem: "L'image porte une information non disponible autrement."
+      findings_intro: "Les trois pertes d'information à rechercher sont :"
+      findings:
+        - "Action visuelle : une manipulation, un changement d'écran ou un résultat visible n'est pas dit dans l'audio."
+        - "Version alternative : aucune piste, version audiodécrite ou description textuelle équivalente n'est proposée."
+        - "Description insuffisante : la description existe mais reste trop vague pour comprendre l'information portée par l'image."
       fix: "Décrire les informations visuelles essentielles dans l'audio, une piste dédiée ou une version alternative."
+      fixes_intro: "Corrections attendues :"
+      fixes:
+        - "Identifier uniquement les informations visuelles nécessaires à la compréhension."
+        - "Fournir une version audiodécrite ou une piste dédiée quand l'image porte l'information."
+        - "Proposer une description textuelle équivalente si elle suffit pour le type de vidéo."
     dsfr_components:
       - "Contenu médias"
       - "Transcription"
@@ -656,7 +716,21 @@ pages:
     help:
       hint: "Soumettre le formulaire vide, puis inspecter l'annonce des champs requis et des erreurs."
       problem: "L'obligation n'est pas annoncée ou la correction n'est pas accompagnée : perte de contexte, erreurs répétées et abandon."
+      findings_intro: "Les cinq points à vérifier sont :"
+      findings:
+        - "Prévention : les champs obligatoires ne doivent pas être signalés seulement par une couleur ou un astérisque inexpliqué."
+        - "Technique : les champs requis doivent porter required ou aria-required selon le cas."
+        - "Message : l'erreur doit nommer le champ concerné et expliquer la correction attendue."
+        - "Association : le message d'erreur doit être relié au champ avec aria-describedby."
+        - "Parcours : après soumission, le focus doit accompagner l'utilisateur vers le récapitulatif ou le premier champ en erreur."
       fix: "Prévenir avant soumission, expliquer après soumission, relier techniquement les erreurs et guider le focus."
+      fixes_intro: "Corrections attendues :"
+      fixes:
+        - "Indiquer clairement la règle des champs obligatoires avant le formulaire."
+        - "Ajouter required ou aria-required sur les champs concernés."
+        - "Rédiger des messages d'erreur précis et les associer aux champs."
+        - "Utiliser aria-invalid=\"true\" quand le champ est en erreur."
+        - "Guider le focus vers le récapitulatif ou le premier champ à corriger."
     dsfr_components:
       - "Formulaire"
       - "Champ de saisie"
