@@ -1,6 +1,9 @@
 # Exercice Sami - liste des differences
 
 Comparaison entre `sami-doc-inaccessible.docx` et `sami-doc-accessible.docx`.
+Le fichier `sami-doc-aide-correction.docx` reprend volontairement la version
+inaccessible et ajoute des commentaires Word pedagogiques sur les points a
+corriger : probleme, impact et methode. Il ne corrige pas le document.
 
 ---
 

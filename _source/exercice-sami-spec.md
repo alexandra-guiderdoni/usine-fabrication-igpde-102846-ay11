@@ -12,7 +12,7 @@ Sami, charge de communication a la Direction des affaires juridiques, envoie son
 - **Public** : communicants, niveau initiation
 - **Format** : exercice en binôme, 25 minutes (3 phases)
 - **Modalité** : identifier d'abord, corriger ensuite, discuter en restitution
-- **Livrables** : `sami-doc-inaccessible.docx` + `sami-doc-accessible.docx`
+- **Livrables** : `sami-doc-inaccessible.docx` + `sami-doc-aide-correction.docx` + `sami-doc-accessible.docx`
 
 ---
 
@@ -270,10 +270,11 @@ Pas de checklist distribuée à cette phase. Les stagiaires doivent mobiliser ce
 
 | Temps | Action |
 |---|---|
-| 10-12 min | Le formateur affiche la liste des criteres travaillables a ce stade. Les binômes comparent avec leur liste |
+| 10-12 min | Le formateur peut distribuer `sami-doc-aide-correction.docx` si le groupe a besoin d'un guidage. Les commentaires Word expliquent le probleme, l'impact et la methode, sans corriger le document. |
 | 12-20 min | Chaque binôme corrige les problemes dans l'ordre prescrit (Pilier 1 puis 2 puis 3) |
 
 Le vérificateur Word est utilisé comme **outil de découverte** (« que détecte-t-il ? que rate-t-il ? »), pas comme preuve de conformité.
+La version d'aide a la correction reste volontairement fautive : elle sert de support de remediation guidee, pas de corrige.
 
 ### Phase 3 - Restitution et transfert (5 min)
 

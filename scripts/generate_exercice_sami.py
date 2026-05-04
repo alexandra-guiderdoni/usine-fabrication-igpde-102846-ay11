@@ -6,6 +6,7 @@ Produit :
 - _assets/icone-enveloppe.png         (icone e-mail)
 - _assets/organigramme.png            (organigramme du service)
 - sami-doc-inaccessible.docx         (21 erreurs intentionnelles)
+- sami-doc-aide-correction.docx      (version fautive annotee)
 - sami-doc-accessible.docx           (version corrigee)
 """
 
@@ -410,9 +411,27 @@ def _add_fake_list_item(doc, marker, text):
     return p
 
 
+def _add_guidance_comment(doc, runs, text):
+    """Ajoute un commentaire Word de correction sur un ou plusieurs runs."""
+    if not runs:
+        return
+    if not isinstance(runs, (list, tuple)):
+        runs = [runs]
+    runs = [run for run in runs if run is not None]
+    if runs:
+        doc.add_comment(
+            runs,
+            text=text,
+            author="Formation IGPDE",
+            initials="IGPDE",
+        )
+
+
 def build_inaccessible(chart_path: Path, icon_path: Path = None,
                        organigramme_path: Path = None,
-                       texte_image_path: Path = None):
+                       texte_image_path: Path = None,
+                       with_guidance: bool = False,
+                       output_name: str = "sami-doc-inaccessible.docx"):
     doc = Document()
     doc.core_properties.title = ""
     doc.core_properties.author = ""
@@ -444,6 +463,24 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     run.font.name = "Arial"
     run.font.size = Pt(16)
     run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
+    if with_guidance:
+        _add_guidance_comment(
+            doc,
+            run,
+            "Critere 1 - Probleme : ce titre est seulement mis en forme en "
+            "gras/couleur, il n'est pas reconnu comme titre par Word. Impact : "
+            "la navigation au lecteur d'ecran reste plate. Methode : appliquer "
+            "Accueil > Styles > Titre 1.",
+        )
+        _add_guidance_comment(
+            doc,
+            run,
+            "Critere 14 - Probleme : les proprietes du document sont vides. "
+            "Impact : le fichier est moins identifiable pour les aides "
+            "techniques et la recherche documentaire. Methode : Fichier > "
+            "Informations > Proprietes. Titre attendu : Rapport trimestriel - "
+            "Bilan T1 2025 ; auteur : Sami Dupont.",
+        )
 
     doc.add_paragraph(
         "Ce rapport trimestriel présente les résultats de communication "
@@ -459,6 +496,15 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     run.font.name = "Arial"
     run.font.size = Pt(14)
     run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
+    if with_guidance:
+        _add_guidance_comment(
+            doc,
+            run,
+            "Critere 19 - Probleme : ce sommaire est tape a la main. Impact : "
+            "il n'est ni navigable ni mis a jour automatiquement. Methode : "
+            "appliquer les styles de titres, puis References > Table des "
+            "matieres.",
+        )
     for titre_som, page in [
         ("Résultats du trimestre", "2"),
         ("Détail par canal", "3"),
@@ -476,6 +522,15 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     run.font.color.rgb = RGBColor(0xFF, 0x00, 0x00)
     run.font.name = "Arial"
     run.font.size = Pt(11)
+    if with_guidance:
+        _add_guidance_comment(
+            doc,
+            run,
+            "Critere 5 - Probleme : l'urgence repose surtout sur le rouge. "
+            "Impact : l'information peut etre perdue sans perception de la "
+            "couleur. Methode : ajouter une emphase non coloree, par exemple "
+            "le gras, et conserver un libelle explicite.",
+        )
 
     doc.add_paragraph(
         "La direction demande un retour rapide sur les indicateurs."
@@ -488,6 +543,14 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     run.font.name = "Arial"
     run.font.size = Pt(14)
     run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
+    if with_guidance:
+        _add_guidance_comment(
+            doc,
+            run,
+            "Critere 2 - Probleme : ce sous-titre est seulement visuel. "
+            "Impact : il ne structure pas le document pour la navigation. "
+            "Methode : appliquer Accueil > Styles > Titre 2.",
+        )
 
     # Erreur 4 : tableau sans en-tete balisee
     table = doc.add_table(rows=4, cols=4)
@@ -506,28 +569,69 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
                 paragraph.style.font.name = "Arial"
                 paragraph.style.font.size = Pt(10)
     # Pas de ligne d'en-tete balisee (pas de tblHeader)
+    if with_guidance:
+        _add_guidance_comment(
+            doc,
+            table.cell(0, 0).paragraphs[0].runs,
+            "Critere 4 - Probleme : la premiere ligne du tableau n'est pas "
+            "declaree comme en-tete. Impact : les cellules ne sont pas "
+            "associees a leurs colonnes. Methode : selectionner le tableau > "
+            "Creation de tableau > Options de style de tableau > Ligne "
+            "d'en-tete.",
+        )
 
     # Erreur 16 : paragraphes vides pour simuler un espacement
+    empty_paragraphs = []
     for _ in range(4):
-        doc.add_paragraph()
+        empty_paragraphs.append(doc.add_paragraph())
+    if with_guidance:
+        _add_guidance_comment(
+            doc,
+            table.cell(0, 1).paragraphs[0].runs,
+            "Critere 16 - Probleme : l'espacement est cree avec des "
+            "paragraphes vides. Impact : un lecteur d'ecran peut annoncer des "
+            "vides inutiles. Methode : supprimer ces paragraphes et regler "
+            "l'espacement avec Mise en page > Paragraphe > Espacement "
+            "avant/apres ou via les styles.",
+        )
 
     # Erreur 11 : fausse liste a puces (puces tapees et indentees manuellement)
     doc.add_paragraph("Objectifs du trimestre :")
+    first_fake_bullet = None
     for item in [
         "Augmenter le trafic de 10 %",
         "Publier 3 articles par semaine",
         "Reduire le taux de rebond sous 40 %",
     ]:
-        _add_fake_list_item(doc, "\u2022", item)
+        p = _add_fake_list_item(doc, "\u2022", item)
+        first_fake_bullet = first_fake_bullet or p
+    if with_guidance and first_fake_bullet:
+        _add_guidance_comment(
+            doc,
+            first_fake_bullet.runs,
+            "Critere 11 - Probleme : les puces sont tapees au clavier. "
+            "Impact : Word ne les expose pas comme une liste structuree. "
+            "Methode : selectionner les items > Accueil > Puces.",
+        )
 
     # Erreur 12 : fausse liste numerotee (numeros tapes et indentes manuellement)
     doc.add_paragraph("Priorites pour le prochain trimestre :")
+    first_fake_number = None
     for numero, item in enumerate([
         "Refonte de la page d'accueil",
         "Mise en conformite accessibilite",
         "Deploiement de la newsletter",
     ], start=1):
-        _add_fake_list_item(doc, f"{numero}.", item)
+        p = _add_fake_list_item(doc, f"{numero}.", item)
+        first_fake_number = first_fake_number or p
+    if with_guidance and first_fake_number:
+        _add_guidance_comment(
+            doc,
+            first_fake_number.runs,
+            "Critere 12 - Probleme : les numeros sont tapes a la main. "
+            "Impact : la numerotation n'est pas reconnue comme liste. "
+            "Methode : selectionner les items > Accueil > Numerotation.",
+        )
 
     doc.add_paragraph()
 
@@ -539,11 +643,29 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     run.font.name = "Arial"
     run.font.size = Pt(12)
     run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
+    if with_guidance:
+        _add_guidance_comment(
+            doc,
+            run,
+            "Critere 3 - Probleme : le soulignement et le gras creent "
+            "seulement une apparence de titre. Impact : le niveau de titre est "
+            "absent de la structure. Methode : Accueil > Styles > Titre 3.",
+        )
 
     # Erreur 7 : image sans alt + couleurs seules
     doc.add_picture(str(chart_path), width=Inches(4.5))
     last_paragraph = doc.paragraphs[-1]
     last_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    if with_guidance:
+        _add_guidance_comment(
+            doc,
+            last_paragraph.runs,
+            "Critere 7 - Probleme : le graphique n'a pas d'alternative et "
+            "s'appuie sur la couleur seule. Impact : il est inaccessible au "
+            "lecteur d'ecran et difficile pour certains daltonismes. Methode : "
+            "ajouter un alt descriptif, puis utiliser motifs, etiquettes et "
+            "legende textuelle.",
+        )
 
     doc.add_paragraph()
 
@@ -555,10 +677,27 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
         run.font.name = "Arial"
         run.font.size = Pt(14)
         run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
+        if with_guidance:
+            _add_guidance_comment(
+                doc,
+                run,
+                "Titre visuel supplementaire - Probleme : ce titre est "
+                "formatte directement. Impact : il n'apparait pas dans la "
+                "navigation. Methode : appliquer le style Titre 2.",
+            )
 
         doc.add_picture(str(organigramme_path), width=Inches(5.0))
         doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
         _set_image_alt(doc, alt_text="image.png")
+        if with_guidance:
+            _add_guidance_comment(
+                doc,
+                doc.paragraphs[-1].runs,
+                "Critere 9 - Probleme : l'alternative 'image.png' ne decrit "
+                "pas l'organigramme. Impact : l'information est perdue. "
+                "Methode : mettre une alternative courte qui renvoie vers une "
+                "description detaillee dans le corps.",
+            )
 
         doc.add_paragraph()
 
@@ -570,6 +709,14 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
         run.font.name = "Arial"
         run.font.size = Pt(14)
         run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
+        if with_guidance:
+            _add_guidance_comment(
+                doc,
+                run,
+                "Titre visuel supplementaire - Probleme : ce titre est "
+                "seulement visuel. Impact : rupture de navigation. Methode : "
+                "appliquer le style Titre 2.",
+            )
 
         p = doc.add_paragraph()
         p.add_run("Pour toute question, contactez-nous par ")
@@ -577,18 +724,44 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
         r.add_picture(str(icon_path), width=Inches(0.18))
         _set_image_alt(doc, alt_text="E-mail")
         p.add_run(" e-mail pour plus d'informations.")
+        if with_guidance:
+            _add_guidance_comment(
+                doc,
+                r,
+                "Critere 10 - Probleme : l'icone repete le mot e-mail deja "
+                "present dans le texte. Impact : redondance a la lecture "
+                "vocale. Methode : clic droit sur l'image > Afficher le texte "
+                "de remplacement > Marquer comme decoratif.",
+            )
 
     # Erreur 13 : passage anglais sans balisage de langue
-    doc.add_paragraph(
+    p = doc.add_paragraph(
         "The quarterly report is available upon request. "
         "Please contact the communication department for further details."
     )
+    if with_guidance:
+        _add_guidance_comment(
+            doc,
+            p.runs,
+            "Critere 13 - Probleme : ce passage anglais n'est pas balise dans "
+            "sa langue. Impact : il peut etre prononce avec une voix francaise. "
+            "Methode : selectionner le texte > Revision > Langue > Definir la "
+            "langue de verification > Anglais.",
+        )
 
     # Erreur 20 : texte sous forme d'image
     if texte_image_path:
         doc.add_paragraph()
         doc.add_picture(str(texte_image_path), width=Inches(4.5))
         doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
+        if with_guidance:
+            _add_guidance_comment(
+                doc,
+                doc.paragraphs[-1].runs,
+                "Critere 20 - Probleme : ce texte est une image. Impact : il "
+                "n'est ni selectionnable, ni recherchable, ni fiable en "
+                "synthese vocale. Methode : le ressaisir en vrai texte Word.",
+            )
 
     # Erreur 21 : tableau avec cellules fusionnees et en-tetes seulement visuels
     doc.add_paragraph()
@@ -598,6 +771,15 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     run.font.name = "Arial"
     run.font.size = Pt(12)
     run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
+    if with_guidance:
+        _add_guidance_comment(
+            doc,
+            run,
+            "Critere 21 - Probleme : la premiere ligne fusionnee complexifie "
+            "la structure du tableau. Impact : les associations cellules/"
+            "en-tetes deviennent fragiles. Methode : refaire un tableau simple "
+            "sans fusion et cocher Ligne d'en-tete.",
+        )
     table = doc.add_table(rows=4, cols=3, style="Table Grid")
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     # Fusionner la premiere ligne sur 3 colonnes
@@ -621,6 +803,15 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
                     if i in (0, 1):
                         cell_run.bold = True
     # Pas de tblHeader : les libelles sont visuels, pas declares comme en-tetes Word.
+    if with_guidance:
+        _add_guidance_comment(
+            doc,
+            table.cell(1, 0).paragraphs[0].runs,
+            "Critere 21 - Probleme : les libelles en gras sont seulement "
+            "visuels. Impact : ils ne sont pas annonces comme en-tetes. "
+            "Methode : declarer la ligne d'en-tete avec l'option Word et "
+            "supprimer la ligne fusionnee.",
+        )
 
     doc.add_paragraph()
 
@@ -631,6 +822,15 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     run.font.name = "Arial"
     run.font.size = Pt(14)
     run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
+    if with_guidance:
+        _add_guidance_comment(
+            doc,
+            run,
+            "Critere 17 - Probleme : le mot est tape entierement en capitales. "
+            "Impact : certaines aides peuvent l'epeler ou le prononcer moins "
+            "naturellement. Methode : saisir 'Annexes' en minuscules puis "
+            "appliquer Police > Tout en majuscules si l'effet visuel est voulu.",
+        )
 
     # Erreur 8 : lien non descriptif
     p = doc.add_paragraph("Pour accéder aux annexes, ")
@@ -640,6 +840,15 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
         "https://example.org/annexes-rapport-t1-2025.pdf",
     )
     p.add_run(".")
+    if with_guidance:
+        _add_guidance_comment(
+            doc,
+            p.runs,
+            "Critere 8 - Probleme : 'cliquez ici' n'est pas descriptif. "
+            "Impact : hors contexte, le lien ne dit pas ou il mene. Methode : "
+            "remplacer par 'Consulter les annexes du rapport T1 2025 (PDF, "
+            "1,2 Mo)'.",
+        )
 
     # Erreur 6 : contraste ambigu (gris #767676)
     p = doc.add_paragraph()
@@ -648,9 +857,36 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     run.font.color.rgb = RGBColor(0x76, 0x76, 0x76)
     run.font.size = Pt(9)
     run.font.name = "Arial"
+    if with_guidance:
+        _add_guidance_comment(
+            doc,
+            run,
+            "Critere 6 - Probleme : le gris #767676 sur blanc est trop juste "
+            "pour du petit texte. Impact : la note peut etre difficile a lire. "
+            "Methode : mesurer le contraste, puis utiliser #595959 ou du noir.",
+        )
 
     # Erreur 14 : pas de proprietes document
-    output = PROJECT / "_source" / "sami-doc-inaccessible.docx"
+    if with_guidance:
+        _add_guidance_comment(
+            doc,
+            hp.runs,
+            "Critere 18 - Probleme : le filigrane CONFIDENTIEL est un objet "
+            "graphique dans l'en-tete. Impact : il peut etre invisible pour les "
+            "lecteurs d'ecran. Methode : ajouter 'Document confidentiel' en "
+            "vrai texte dans le corps du document.",
+        )
+        _add_guidance_comment(
+            doc,
+            hp.runs,
+            "Critere 15 - Probleme : une information essentielle placee "
+            "uniquement en en-tete ou pied de page peut etre manquee. Impact : "
+            "la lecture lineaire n'est pas fiable. Methode : garder les "
+            "elements de repere en pied de page si besoin, mais reporter "
+            "l'information essentielle dans le corps.",
+        )
+
+    output = PROJECT / "_source" / output_name
     doc.save(str(output))
     _remove_quarantine(output)
     print(f"  -> {output.name}")
@@ -947,6 +1183,9 @@ if __name__ == "__main__":
     print("\nGeneration des documents Word...")
     build_inaccessible(chart_bad, icon_path=icon, organigramme_path=orga,
                        texte_image_path=txt_img)
+    build_inaccessible(chart_bad, icon_path=icon, organigramme_path=orga,
+                       texte_image_path=txt_img, with_guidance=True,
+                       output_name="sami-doc-aide-correction.docx")
     build_accessible(chart_good, icon_path=icon, organigramme_path=orga,
                      texte_image_path=txt_img)
 
