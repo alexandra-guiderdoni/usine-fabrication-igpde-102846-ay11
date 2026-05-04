@@ -530,7 +530,7 @@ def form_label_content(accessible: bool) -> str:
         return """<section aria-labelledby="content-title">
   <h2 id="content-title">S'inscrire au webinaire RGAA</h2>
   <p>Ce formulaire permet de préparer l'inscription à une session de sensibilisation. Les champs et les choix proposés reprennent les composants DSFR attendus dans un formulaire administratif.</p>
-  <form action="ec12-form-labels.html" method="post" class="demo-form">
+  <form action="ec12-form-labels.html" method="get" class="demo-form">
     <div class="fr-input-group">
       <input class="fr-input" type="text" id="nom-ko" name="nom" placeholder="Nom de famille" autocomplete="family-name" aria-describedby="nom-ko-messages">
       <div class="fr-messages-group" id="nom-ko-messages" aria-live="polite"></div>
@@ -584,7 +584,7 @@ def form_label_content(accessible: bool) -> str:
     return """<section aria-labelledby="content-title">
   <h2 id="content-title">S'inscrire au webinaire RGAA</h2>
   <p>Ce formulaire permet de préparer l'inscription à une session de sensibilisation. Les champs, boutons radio et cases à cocher suivent la structure DSFR attendue.</p>
-  <form action="ec12-form-labels.html" method="post" class="demo-form">
+  <form action="ec12-form-labels.html" method="get" class="demo-form">
     <div class="fr-input-group">
       <label class="fr-label" for="nom">Nom de famille
         <span class="fr-hint-text">Indiquez le nom utilisé pour l'inscription.</span>
@@ -649,7 +649,7 @@ def required_errors_content(accessible: bool) -> str:
     <h3 class="fr-alert__title">Erreur de saisie</h3>
     <p>Format invalide.</p>
   </div>
-  <form action="ec13-required-errors.html" method="post" class="demo-form">
+  <form action="ec13-required-errors.html" method="get" class="demo-form">
     <div class="fr-input-group">
       <label class="fr-label" for="service-ko">Service <span class="demo-red">*</span></label>
       <input class="fr-input demo-red-border" type="text" id="service-ko" name="service">
@@ -672,7 +672,7 @@ def required_errors_content(accessible: bool) -> str:
       <li><a class="fr-link" href="#date">Saisir une date au format JJ/MM/AAAA</a></li>
     </ul>
   </div>
-  <form action="ec13-required-errors.html" method="post" class="demo-form" novalidate>
+  <form action="ec13-required-errors.html" method="get" class="demo-form" novalidate>
     <div class="fr-input-group fr-input-group--error">
       <label class="fr-label" for="service">Service demandeur</label>
       <input class="fr-input" type="text" id="service" name="service" required aria-invalid="true" aria-describedby="service-error">
