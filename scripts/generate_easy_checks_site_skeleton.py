@@ -1125,24 +1125,42 @@ def generate_exercise_page(contract: dict, page: dict, version_key: str, current
 
 
 def generate_manifest(contract: dict) -> None:
-    rows = [
-        "| Page | Point de contrôle rapide | Erreur injectée | Outil de détection | Correction attendue | Aide associée |",
-        "|---|---|---|---|---|---|",
+    parts = [
+        "\ufeff# Manifeste des erreurs injectées",
+        "",
+        "Généré depuis `03-easy-checks/evaluation_contract.yml`.",
+        "",
+        "Chaque section décrit une page de l'exercice, le Point de contrôle rapide visé, les erreurs injectées et la correction attendue.",
+        "",
     ]
     for page in contract["pages"]:
-        rows.append(
-            "| {number}. {title} | {easy} | {errors} | {tools} | {correction} | {help_text} |".format(
-                number=page["number"],
-                title=page["title"],
-                easy=page["easy_check"]["name"],
-                errors="<br>".join(page["inaccessible_errors"]),
-                tools=", ".join(page["detection"]),
-                correction=page["accessible_correction"],
-                help_text="Indice / Problème / Comment corriger",
-            )
+        parts.extend(
+            [
+                f"## {page['number']}. {page['title']}",
+                "",
+                f"**Point de contrôle rapide :** {page['easy_check']['name']}",
+                "",
+                "### Erreurs injectées",
+                "",
+            ]
         )
-    content = "\ufeff# Manifeste des erreurs injectées\n\nGénéré depuis `03-easy-checks/evaluation_contract.yml`.\n\n" + "\n".join(rows) + "\n"
-    write_text(DOCS_DIR / "manifest.md", content)
+        parts.extend(f"- {error}" for error in page["inaccessible_errors"])
+        parts.extend(["", "### Outils de détection", ""])
+        parts.extend(f"- {tool}" for tool in page["detection"])
+        parts.extend(
+            [
+                "",
+                "### Correction attendue",
+                "",
+                page["accessible_correction"],
+                "",
+                "### Aide associée",
+                "",
+                "La page d'aide reprend les trois niveaux : indice, ce qui pose problème, comment corriger.",
+                "",
+            ]
+        )
+    write_text(DOCS_DIR / "manifest.md", "\n".join(parts))
 
 
 def generate_correction(contract: dict) -> None:
