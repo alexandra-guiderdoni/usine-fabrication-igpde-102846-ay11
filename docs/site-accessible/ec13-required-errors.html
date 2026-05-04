@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Demande d'audit - Ministère de l'Accessibilité numérique</title>
+  <title>Formulaire de contact - Ministère de l'Accessibilité numérique</title>
   <link rel="stylesheet" href="../assets/dsfr/dsfr.min.css">
   <link rel="stylesheet" href="../assets/dsfr/utility/utility.min.css">
   <link rel="stylesheet" href="../assets/site.css">
@@ -58,7 +58,7 @@
       <ol class="fr-breadcrumb__list">
         <li><a class="fr-breadcrumb__link" href="../index.html">Accueil</a></li>
         <li><a class="fr-breadcrumb__link" href="index.html">Site corrigé et conforme DSFR/accessibilité</a></li>
-        <li><a class="fr-breadcrumb__link" aria-current="page">Demande d'audit</a></li>
+        <li><a class="fr-breadcrumb__link" aria-current="page">Formulaire de contact</a></li>
       </ol>
     </div>
   </nav>
@@ -66,32 +66,74 @@
 <main id="contenu" class="fr-container fr-py-6w">
 <div class="fr-grid-row">
   <div class="fr-col-12 fr-col-md-8">
-  <h1>13. Demande d&#x27;audit</h1>
+  <h1>13. Formulaire de contact</h1>
   <section aria-labelledby="content-title">
-  <h2 id="content-title">Demander un accompagnement</h2>
-  <p>Tous les champs sont obligatoires, sauf mention contraire.</p>
-  <div class="fr-alert fr-alert--error fr-mb-3w" role="alert" tabindex="-1">
-    <h3 class="fr-alert__title">Erreur : deux champs sont à corriger</h3>
+  <h2 id="content-title">Contacter le ministère</h2>
+  <p>Utilisez ce formulaire pour poser une question sur l'accessibilité numérique, signaler une difficulté ou demander une orientation vers le bon service. Tous les champs sont obligatoires, sauf le téléphone.</p>
+  <div id="contact-errors" class="fr-alert fr-alert--error fr-mb-3w" role="alert" tabindex="-1" hidden>
+    <h3 class="fr-alert__title">Erreur : trois champs sont à corriger</h3>
     <ul>
-      <li><a class="fr-link" href="#service">Indiquer le service demandeur</a></li>
-      <li><a class="fr-link" href="#date">Saisir une date au format JJ/MM/AAAA</a></li>
+      <li><a class="fr-link" href="#contact-name">Indiquer votre nom</a></li>
+      <li><a class="fr-link" href="#contact-email">Saisir une adresse électronique valide</a></li>
+      <li><a class="fr-link" href="#contact-message">Décrire votre demande</a></li>
     </ul>
   </div>
-  <form action="ec13-required-errors.html" method="get" class="demo-form" novalidate>
-    <div class="fr-input-group fr-input-group--error">
-      <label class="fr-label" for="service">Service demandeur</label>
-      <input class="fr-input" type="text" id="service" name="service" required aria-invalid="true" aria-describedby="service-error">
-      <p id="service-error" class="fr-error-text">Erreur : le service demandeur est obligatoire.</p>
-    </div>
-    <div class="fr-input-group fr-input-group--error">
-      <label class="fr-label" for="date">Date souhaitée
-        <span class="fr-hint-text">Exemple : 15/06/2026.</span>
+  <form action="ec13-required-errors.html" method="get" class="demo-form" data-demo-contact-form data-mode="accessible" data-error-summary="contact-errors" data-required-fields="contact-name contact-email contact-message" novalidate>
+    <div class="fr-input-group">
+      <label class="fr-label" for="contact-name">Nom (obligatoire)
+        <span class="fr-hint-text" id="contact-name-hint">Indiquez le nom à utiliser pour la réponse.</span>
       </label>
-      <input class="fr-input" type="text" id="date" name="date" required aria-invalid="true" aria-describedby="date-error" value="32/14/2026">
-      <p id="date-error" class="fr-error-text">Erreur : la date doit respecter le format JJ/MM/AAAA.</p>
+      <input class="fr-input" type="text" id="contact-name" name="nom" autocomplete="name" required aria-describedby="contact-name-hint" data-describedby-error="contact-name-hint contact-name-error">
+      <p id="contact-name-error" class="fr-error-text demo-error-message" hidden>Erreur : le nom est obligatoire.</p>
     </div>
-    <button class="fr-btn" type="submit">Envoyer la demande d'accompagnement</button>
+    <div class="fr-input-group">
+      <label class="fr-label" for="contact-email">Adresse électronique (obligatoire)
+        <span class="fr-hint-text" id="contact-email-hint">Format attendu : nom@domaine.fr.</span>
+      </label>
+      <input class="fr-input" type="email" id="contact-email" name="email" autocomplete="email" required aria-describedby="contact-email-hint" data-describedby-error="contact-email-hint contact-email-error">
+      <p id="contact-email-error" class="fr-error-text demo-error-message" hidden>Erreur : l'adresse électronique doit respecter le format nom@domaine.fr.</p>
+    </div>
+    <div class="fr-input-group">
+      <label class="fr-label" for="contact-phone">Téléphone (facultatif)
+        <span class="fr-hint-text" id="contact-phone-hint">Exemple : 01 23 45 67 89.</span>
+      </label>
+      <input class="fr-input" type="tel" id="contact-phone" name="telephone" autocomplete="tel" aria-describedby="contact-phone-hint">
+    </div>
+    <div class="fr-input-group">
+      <label class="fr-label" for="contact-message">Message (obligatoire)
+        <span class="fr-hint-text" id="contact-message-hint">Décrivez votre question ou la difficulté rencontrée.</span>
+      </label>
+      <textarea class="fr-input" id="contact-message" name="message" rows="6" required aria-describedby="contact-message-hint" data-describedby-error="contact-message-hint contact-message-error"></textarea>
+      <p id="contact-message-error" class="fr-error-text demo-error-message" hidden>Erreur : le message est obligatoire.</p>
+    </div>
+    <button class="fr-btn" type="submit">Envoyer le message au ministère</button>
   </form>
+  <script>
+  (function () {
+    var form = document.querySelector("[data-demo-contact-form]");
+    if (!form) return;
+    var summary = document.getElementById(form.getAttribute("data-error-summary"));
+    var fields = form.getAttribute("data-required-fields").split(" ");
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (summary) {
+        summary.hidden = false;
+        summary.focus();
+      }
+      fields.forEach(function (id) {
+        var field = document.getElementById(id);
+        if (!field) return;
+        var group = field.closest(".fr-input-group");
+        var error = document.getElementById(id + "-error");
+        if (group) group.classList.add("fr-input-group--error");
+        field.classList.add("fr-input--error");
+        field.setAttribute("aria-invalid", "true");
+        field.setAttribute("aria-describedby", field.getAttribute("data-describedby-error"));
+        if (error) error.hidden = false;
+      });
+    });
+  }());
+  </script>
 </section>
 
   </div>

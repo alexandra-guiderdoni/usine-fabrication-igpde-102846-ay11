@@ -122,7 +122,7 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 - Occurrences bonus : Nom visible différent du nom accessible. ; Aide non reliée. ; Label masqué avec display none.
 - À ne pas pénaliser : Placeholder utilisé comme exemple si une étiquette visible et associée existe.
 
-## 13. Demande d'audit
+## 13. Formulaire de contact
 
 - Point de contrôle rapide : Champs obligatoires
 - Constat minimal attendu : L'obligation ou l'erreur de saisie n'est pas annoncée et reliée de manière exploitable.

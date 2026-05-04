@@ -393,7 +393,7 @@ Le tableau ci-dessous est une vue lisible du contrat. En cas d'écart lors de la
 | 10 | Podcast RGAA | Le contenu audio n'a pas de transcription accessible à proximité. | Revue de la page montrant absence de lien de transcription proche du média. | Bloquant | Transcription incomplète ; lien peu explicite ; transcription non structurée. | Résumé éditorial court en complément, s'il existe aussi une transcription complète. |
 | 11 | Démonstration vidéo | Une information visuelle essentielle n'est pas disponible autrement que par l'image. | Revue humaine de la vidéo montrant une action ou information visuelle non décrite dans l'audio ni dans une version alternative. | Bloquant | Absence de version audiodécrite ; description trop vague ; lien vers version décrite absent. | Vidéo où toutes les informations visuelles essentielles sont déjà dites dans l'audio. |
 | 12 | Inscription à un webinaire | Au moins un champ ou groupe de champs n'a pas de nom accessible fiable. | ANDI/WAVE, clic label ou extrait HTML montrant placeholder seul, label non associé ou groupe sans `fieldset`/`legend`. | Bloquant | Nom visible différent du nom accessible ; aide non reliée ; label masqué avec `display:none`. | Placeholder utilisé comme exemple si une étiquette visible et associée existe. |
-| 13 | Demande d'audit | L'obligation ou l'erreur de saisie n'est pas annoncée et reliée de manière exploitable. | Soumission du formulaire + inspection HTML montrant obligation non balisée, message vague/non relié ou focus non accompagné. | Bloquant | Absence de `required`/`aria-required` ; erreur sans `aria-describedby` ; `aria-invalid` absent si pertinent. | Astérisque utilisé s'il est expliqué et complété par une information technique et textuelle. |
+| 13 | Formulaire de contact | L'obligation ou l'erreur de saisie n'est pas annoncée et reliée de manière exploitable. | État initial puis soumission du formulaire vide + inspection HTML montrant obligation non balisée, message vague/non relié ou focus non accompagné. | Bloquant | Absence de `required`/`aria-required` ; erreur sans `aria-describedby` ; `aria-invalid` absent si pertinent. | Astérisque utilisé s'il est expliqué et complété par une information technique et textuelle. |
 
 ### Vue d'ensemble
 
@@ -411,7 +411,7 @@ Le tableau ci-dessous est une vue lisible du contrat. En cas d'écart lors de la
 | 10 | Podcast RGAA | Transcription | Revue humaine |
 | 11 | Démonstration vidéo | Audiodescription | Revue humaine |
 | 12 | Inscription à un webinaire | Étiquettes de formulaire | ANDI / WAVE / clavier |
-| 13 | Demande d'audit | Champs obligatoires | Formulaire / lecteur d'écran / clavier |
+| 13 | Formulaire de contact | Champs obligatoires | Formulaire / lecteur d'écran / clavier |
 
 ---
 
@@ -578,15 +578,15 @@ Références DSFR obligatoires pour cette page :
 | Correction accessible | Étiquette visible et persistante ; association `label for` / `id` ; placeholder utilisé seulement comme exemple ; nom accessible qui reprend le nom visible ; aide à la saisie reliée avec `aria-describedby` ; groupes structurés avec `fieldset` et `legend`. |
 | Aide accordéon | Problème : le champ ou le groupe n'a pas de nom fiable. Impact : lecteur d'écran muet, commande vocale fragile, mémoire sollicitée, contexte perdu sur les radios/checkboxes. Méthode : relier chaque étiquette au champ, ne pas remplacer le label par un placeholder, structurer les groupes et vérifier le nom accessible. |
 
-### 13. Demande d'audit
+### 13. Formulaire de contact
 
-**Contexte éditorial** : formulaire de demande d'accompagnement ou d'audit.
+**Contexte éditorial** : formulaire de contact pour poser une question sur l'accessibilité numérique ou signaler une difficulté.
 
 | Élément | Spécification |
 |---|---|
 | Point de contrôle rapide | 13. Champs obligatoires |
-| Scénario | Parcours en deux temps : avant soumission pour vérifier la prévention, puis après soumission pour vérifier l'aide à la correction. |
-| Erreur inaccessible | Avant soumission : champs obligatoires indiqués uniquement par couleur, bordure rouge ou astérisque non expliqué, sans `required` ni `aria-required`. Après soumission : message trop vague, message non associé au champ et focus non ramené vers le récapitulatif ou le premier champ en erreur. |
+| Scénario | Parcours en deux temps : état initial sans erreur affichée, puis soumission du formulaire vide pour vérifier l'aide à la correction. |
+| Erreur inaccessible | Avant soumission : les champs nom, courriel et message sont signalés par astérisque non expliqué, sans `required` ni `aria-required`. Après soumission : message trop vague, message non associé au champ et focus non ramené vers le récapitulatif ou le premier champ en erreur. |
 | Occurrences | Plusieurs champs requis peuvent reproduire l'erreur. Les défauts de prévention et de correction sont acceptés car ils décrivent le même parcours de formulaire. |
 | Détection | Soumission du formulaire, clavier, lecteur d'écran, inspection HTML, vérification de `aria-describedby`, `aria-invalid`, `required` et du déplacement de focus. |
 | Correction accessible | Mention textuelle `obligatoire` ou règle claire sur les champs optionnels ; `required` ou `aria-required` ; astérisque expliqué si utilisé ; message d'erreur précis avec exemple ou format attendu ; erreur associée au champ ; `aria-invalid="true"` si pertinent ; focus placé sur le récapitulatif d'erreurs ou le premier champ en erreur. |
@@ -625,7 +625,7 @@ Cette cartographie est une première proposition. Avant implémentation, chaque 
 | 10 | Podcast RGAA | Lecteur audio HTML, lien de transcription | Transcription absente | Lien proche vers transcription structurée |
 | 11 | Démonstration vidéo | Lecteur vidéo HTML, lien vers version décrite | Information visuelle non décrite | Audio principal, piste ou version décrite |
 | 12 | Inscription à un webinaire | Champ de saisie, cases à cocher, boutons radio, bouton | Placeholder seul, label non associé, groupe sans `fieldset`/`legend` | Labels visibles, `for/id`, `aria-describedby` si aide, `fieldset/legend` si groupe |
-| 13 | Demande d'audit | Formulaire, message d'erreur, alerte | Obligatoire mal annoncé, erreurs vagues/non reliées, focus non accompagné | Texte obligatoire, attributs requis, erreurs explicites reliées, focus guidé |
+| 13 | Formulaire de contact | Formulaire, message d'erreur, alerte | Obligatoire mal annoncé, erreurs vagues/non reliées, focus non accompagné | Texte obligatoire, attributs requis, erreurs explicites reliées, focus guidé |
 
 ### Règle de production
 

@@ -680,8 +680,8 @@ pages:
 
   - id: "ec13-required-errors"
     number: 13
-    title: "Demande d'audit"
-    realistic_context: "Formulaire de demande d'accompagnement ou d'audit."
+    title: "Formulaire de contact"
+    realistic_context: "Formulaire de contact pour poser une question sur l'accessibilité numérique ou signaler une difficulté."
     easy_check:
       number: 13
       name: "Champs obligatoires"
@@ -698,8 +698,8 @@ pages:
       - "Vérification required"
       - "Déplacement de focus"
     scenario:
-      before_submit: "Vérifier la prévention : champs obligatoires indiqués de manière visible et technique."
-      after_submit: "Vérifier l'aide à la correction : message précis, relié au champ, et focus accompagné."
+      before_submit: "Vérifier l'état initial : les champs obligatoires du formulaire de contact doivent être annoncés avant l'envoi, sans afficher d'erreur prématurée."
+      after_submit: "Soumettre le formulaire vide, puis vérifier l'aide à la correction : message précis, relié au champ, et focus accompagné."
     inaccessible_errors:
       - "Champs obligatoires indiqués uniquement par couleur, bordure rouge ou astérisque non expliqué."
       - "Absence de required ou aria-required."
@@ -714,23 +714,23 @@ pages:
       - "Astérisque utilisé s'il est expliqué et complété par une information technique et textuelle."
     accessible_correction: "Mention textuelle obligatoire ou règle claire sur les champs optionnels ; required ou aria-required ; astérisque expliqué si utilisé ; message d'erreur précis avec exemple ou format attendu ; erreur associée au champ ; aria-invalid true si pertinent ; focus placé sur le récapitulatif d'erreurs ou le premier champ en erreur."
     help:
-      hint: "Soumettre le formulaire vide, puis inspecter l'annonce des champs requis et des erreurs."
+      hint: "Observer d'abord le formulaire avant envoi, puis le soumettre vide. Comparer l'état initial et l'état après soumission."
       problem: "L'obligation n'est pas annoncée ou la correction n'est pas accompagnée : perte de contexte, erreurs répétées et abandon."
       findings_intro: "Les cinq points à vérifier sont :"
       findings:
-        - "Prévention : les champs obligatoires ne doivent pas être signalés seulement par une couleur ou un astérisque inexpliqué."
+        - "État initial : le formulaire de contact ne doit pas afficher d'erreur avant que l'utilisateur soumette."
+        - "Prévention : les champs nom, courriel et message ne doivent pas être signalés seulement par une couleur ou un astérisque inexpliqué."
         - "Technique : les champs requis doivent porter required ou aria-required selon le cas."
-        - "Message : l'erreur doit nommer le champ concerné et expliquer la correction attendue."
-        - "Association : le message d'erreur doit être relié au champ avec aria-describedby."
-        - "Parcours : après soumission, le focus doit accompagner l'utilisateur vers le récapitulatif ou le premier champ en erreur."
+        - "Message : après soumission, l'erreur doit nommer le champ concerné et expliquer la correction attendue."
+        - "Association et parcours : le message d'erreur doit être relié au champ avec aria-describedby et le focus doit accompagner l'utilisateur vers le récapitulatif ou le premier champ en erreur."
       fix: "Prévenir avant soumission, expliquer après soumission, relier techniquement les erreurs et guider le focus."
       fixes_intro: "Corrections attendues :"
       fixes:
-        - "Indiquer clairement la règle des champs obligatoires avant le formulaire."
-        - "Ajouter required ou aria-required sur les champs concernés."
+        - "Indiquer clairement la règle des champs obligatoires avant le formulaire de contact."
+        - "Ajouter required ou aria-required sur le nom, le courriel et le message."
+        - "Afficher les erreurs seulement après soumission."
         - "Rédiger des messages d'erreur précis et les associer aux champs."
-        - "Utiliser aria-invalid=\"true\" quand le champ est en erreur."
-        - "Guider le focus vers le récapitulatif ou le premier champ à corriger."
+        - "Utiliser aria-invalid=\"true\" quand le champ est en erreur et guider le focus vers le récapitulatif."
     dsfr_components:
       - "Formulaire"
       - "Champ de saisie"

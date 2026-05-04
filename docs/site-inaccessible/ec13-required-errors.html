@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Demande d'audit - Ministère de l'Accessibilité numérique</title>
+  <title>Formulaire de contact - Ministère de l'Accessibilité numérique</title>
   <link rel="stylesheet" href="../assets/dsfr/dsfr.min.css">
   <link rel="stylesheet" href="../assets/dsfr/utility/utility.min.css">
   <link rel="stylesheet" href="../assets/site.css">
@@ -58,7 +58,7 @@
       <ol class="fr-breadcrumb__list">
         <li><a class="fr-breadcrumb__link" href="../index.html">Accueil</a></li>
         <li><a class="fr-breadcrumb__link" href="index.html">Site à auditer</a></li>
-        <li><a class="fr-breadcrumb__link" aria-current="page">Demande d'audit</a></li>
+        <li><a class="fr-breadcrumb__link" aria-current="page">Formulaire de contact</a></li>
       </ol>
     </div>
   </nav>
@@ -66,26 +66,57 @@
 <main id="contenu" class="fr-container fr-py-6w">
 <div class="fr-grid-row">
   <div class="fr-col-12 fr-col-md-8">
-  <h1>13. Demande d&#x27;audit</h1>
+  <h1>13. Formulaire de contact</h1>
   <section aria-labelledby="content-title">
-  <h2 id="content-title">Demander un accompagnement</h2>
-  <p>Les champs avec une bordure rouge doivent être complétés.</p>
-  <div class="fr-alert fr-alert--error fr-mb-3w">
+  <h2 id="content-title">Contacter le ministère</h2>
+  <p>Utilisez ce formulaire pour poser une question sur l'accessibilité numérique, signaler une difficulté ou demander une orientation vers le bon service. Une réponse est apportée pendant les jours ouvrés.</p>
+  <div id="contact-errors" class="fr-alert fr-alert--error fr-mb-3w" hidden>
     <h3 class="fr-alert__title">Erreur de saisie</h3>
-    <p>Format invalide.</p>
+    <p>Certains champs doivent être corrigés.</p>
   </div>
-  <form action="ec13-required-errors.html" method="get" class="demo-form">
+  <form action="ec13-required-errors.html" method="get" class="demo-form" data-demo-contact-form data-mode="inaccessible" data-error-summary="contact-errors" data-required-fields="contact-name contact-email contact-message" novalidate>
     <div class="fr-input-group">
-      <label class="fr-label" for="service-ko">Service <span class="demo-red">*</span></label>
-      <input class="fr-input demo-red-border" type="text" id="service-ko" name="service">
+      <label class="fr-label" for="contact-name">Nom <span class="demo-red">*</span></label>
+      <input class="fr-input" type="text" id="contact-name" name="nom" autocomplete="name">
+      <p class="fr-error-text demo-error-message" id="contact-name-error" hidden>Ce champ est obligatoire.</p>
     </div>
     <div class="fr-input-group">
-      <label class="fr-label" for="date-ko">Date souhaitée <span class="demo-red">*</span></label>
-      <input class="fr-input demo-red-border" type="text" id="date-ko" name="date" value="32/14/2026">
-      <p class="fr-error-text">Format invalide.</p>
+      <label class="fr-label" for="contact-email">Adresse électronique <span class="demo-red">*</span></label>
+      <input class="fr-input" type="email" id="contact-email" name="email" autocomplete="email">
+      <p class="fr-error-text demo-error-message" id="contact-email-error" hidden>Format invalide.</p>
     </div>
-    <button class="fr-btn" type="submit">Envoyer</button>
+    <div class="fr-input-group">
+      <label class="fr-label" for="contact-phone">Téléphone</label>
+      <input class="fr-input" type="tel" id="contact-phone" name="telephone" autocomplete="tel">
+    </div>
+    <div class="fr-input-group">
+      <label class="fr-label" for="contact-message">Message <span class="demo-red">*</span></label>
+      <textarea class="fr-input" id="contact-message" name="message" rows="6"></textarea>
+      <p class="fr-error-text demo-error-message" id="contact-message-error" hidden>Ce champ est obligatoire.</p>
+    </div>
+    <button class="fr-btn" type="submit">Envoyer le message</button>
   </form>
+  <script>
+  (function () {
+    var form = document.querySelector("[data-demo-contact-form]");
+    if (!form) return;
+    var summary = document.getElementById(form.getAttribute("data-error-summary"));
+    var fields = form.getAttribute("data-required-fields").split(" ");
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (summary) summary.hidden = false;
+      fields.forEach(function (id) {
+        var field = document.getElementById(id);
+        if (!field) return;
+        var group = field.closest(".fr-input-group");
+        var error = document.getElementById(id + "-error");
+        if (group) group.classList.add("fr-input-group--error");
+        field.classList.add("fr-input--error");
+        if (error) error.hidden = false;
+      });
+    });
+  }());
+  </script>
 </section>
 
   </div>

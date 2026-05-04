@@ -308,6 +308,153 @@ def generate_static_page(contract: dict, filename: str, title: str, body: str) -
     write_text(DOCS_DIR / filename, page_shell(contract, f"{title} - {contract['site']['name']}", 0, main, ""))
 
 
+def generate_accessibility_statement_page(contract: dict) -> None:
+    def exercise_links(prefix: str) -> str:
+        return "\n".join(
+            f"""        <li><a class="fr-link" href="{esc(prefix)}{esc(page['id'])}.html">{page['number']}. {esc_text(page['title'])}</a></li>"""
+            for page in contract["pages"]
+        )
+
+    inaccessible_links = exercise_links("site-inaccessible/")
+    help_links = exercise_links("site-aide-correction/")
+    accessible_links = exercise_links("site-accessible/")
+    content = f"""  <h1>Déclaration d'accessibilité</h1>
+  <p>Le Ministère de l'Accessibilité numérique s'engage à rendre son site d'exercice pédagogique accessible conformément à l'article 47 de la loi n° 2005-102 du 11 février 2005.</p>
+  <p>Cette déclaration s'applique au site d'exercice « Les 13 points de contrôle rapides du W3C ». Elle reprend la <a class="fr-link" href="https://accessibilite.numerique.gouv.fr/obligations/declaration-accessibilite/">trame officielle de déclaration d'accessibilité</a> et l'adapte au contexte de formation.</p>
+  <p>Ce support pédagogique fictif ne dispose pas d'un schéma pluriannuel d'accessibilité ni d'un plan d'action annuel distinct. La présente page documente le statut du site livré pour l'exercice.</p>
+"""
+    content += f"""  <section class="fr-mt-5w" aria-labelledby="statement-status">
+    <h2 id="statement-status">État de conformité</h2>
+    <p>Le site d'exercice « Les 13 points de contrôle rapides du W3C » est <strong>non conforme</strong> avec le référentiel général d'amélioration de l'accessibilité (RGAA).</p>
+    <p>Ce statut est volontairement retenu, car une partie du site contient des pages non conformes utilisées comme supports d'audit. Les versions « Site à auditer » et « Site d'aide à la correction » exposent des erreurs pédagogiques et ne doivent pas être considérées comme des modèles de production.</p>
+  </section>
+
+  <section class="fr-mt-5w" aria-labelledby="statement-results">
+    <h2 id="statement-results">Résultat des tests</h2>
+    <p>Aucun audit RGAA complet et en cours de validité n'a été réalisé sur l'ensemble du site. Aucun pourcentage global de critères respectés n'est donc publié.</p>
+    <p>Des vérifications internes ont été menées sur la génération statique, les titres de page, les liens internes, la structure des pages, les composants DSFR, les formulaires, la navigation au clavier, le zoom et le contraste des cas d'exercice.</p>
+  </section>
+
+  <section class="fr-mt-5w" aria-labelledby="statement-non-accessible">
+    <h2 id="statement-non-accessible">Contenus non accessibles</h2>
+    <p>Les contenus listés ci-dessous ne sont pas accessibles ou ne doivent pas être interprétés comme une preuve de conformité globale.</p>
+
+    <section class="fr-mt-4w" aria-labelledby="statement-non-compliance">
+      <h3 id="statement-non-compliance">Non-conformités</h3>
+      <ul>
+        <li>Les pages du répertoire <code>site-inaccessible/</code> contiennent volontairement des défauts RGAA à détecter pendant l'exercice.</li>
+        <li>Les pages du répertoire <code>site-aide-correction/</code> conservent les situations d'audit et ajoutent une aide pédagogique. Elles ne constituent pas une version conforme.</li>
+        <li>Les pages du répertoire <code>site-accessible/</code> présentent les corrections attendues pour chaque point de contrôle rapide, mais ne remplacent pas un audit RGAA complet du service.</li>
+        <li>Certains documents de travail générés, comme le manifeste, le corrigé et la grille d'audit, doivent être vérifiés séparément avant une diffusion comme documents de production.</li>
+      </ul>
+    </section>
+
+    <section class="fr-mt-4w" aria-labelledby="statement-disproportionate-burden">
+      <h3 id="statement-disproportionate-burden">Dérogations pour charge disproportionnée</h3>
+      <p>Aucune dérogation pour charge disproportionnée n'est invoquée pour ce support pédagogique.</p>
+    </section>
+
+    <section class="fr-mt-4w" aria-labelledby="statement-out-of-scope">
+      <h3 id="statement-out-of-scope">Contenus non soumis à l'obligation d'accessibilité</h3>
+      <p>Les liens vers des ressources externes et les outils tiers cités dans les exercices ne sont pas sous la responsabilité éditoriale de ce site. Ils sont fournis comme ressources de formation.</p>
+    </section>
+  </section>
+
+  <section class="fr-mt-5w" aria-labelledby="statement-establishment">
+    <h2 id="statement-establishment">Établissement de cette déclaration d'accessibilité</h2>
+    <p>Cette déclaration a été établie le 5 mai 2026. Elle a été mise à jour le 5 mai 2026.</p>
+
+    <section class="fr-mt-4w" aria-labelledby="statement-technologies">
+      <h3 id="statement-technologies">Technologies utilisées</h3>
+      <ul>
+        <li>HTML5</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+        <li>Design System de l'État (DSFR) embarqué localement</li>
+        <li>SVG et fichiers multimédias de démonstration</li>
+        <li>Génération statique par scripts Python</li>
+      </ul>
+    </section>
+
+    <section class="fr-mt-4w" aria-labelledby="statement-environment">
+      <h3 id="statement-environment">Environnement de test</h3>
+      <p>Les vérifications ont été réalisées en interne sur navigateur de bureau, avec une inspection du HTML généré et des contrôles fonctionnels sur le serveur local de formation.</p>
+    </section>
+
+    <section class="fr-mt-4w" aria-labelledby="statement-tools">
+      <h3 id="statement-tools">Outils utilisés lors de l'évaluation</h3>
+      <ul>
+        <li>Script de validation interne <code>validate.py</code></li>
+        <li>Vérification des liens et des pages générées en HTTP local</li>
+        <li>Inspection du code HTML généré</li>
+        <li>Contrôles manuels de cohérence pédagogique</li>
+      </ul>
+    </section>
+
+    <section class="fr-mt-4w" aria-labelledby="statement-tested-pages">
+      <h3 id="statement-tested-pages">Pages consultées lors des vérifications internes</h3>
+      <h4>Pages générales</h4>
+      <ul>
+        <li><a class="fr-link" href="index.html">Accueil</a></li>
+        <li><a class="fr-link" href="plan-du-site.html">Plan du site</a></li>
+        <li><a class="fr-link" href="accessibilite.html">Déclaration d'accessibilité</a></li>
+        <li><a class="fr-link" href="mentions-legales.html">Mentions légales</a></li>
+        <li><a class="fr-link" href="donnees-personnelles.html">Données personnelles</a></li>
+      </ul>
+      <h4>Site à auditer</h4>
+      <ul>
+        <li><a class="fr-link" href="site-inaccessible/index.html">Accueil du site à auditer</a></li>
+{inaccessible_links}
+      </ul>
+      <h4>Site d'aide à la correction</h4>
+      <ul>
+        <li><a class="fr-link" href="site-aide-correction/index.html">Accueil du site d'aide à la correction</a></li>
+{help_links}
+      </ul>
+      <h4>Site corrigé</h4>
+      <ul>
+        <li><a class="fr-link" href="site-accessible/index.html">Accueil du site corrigé</a></li>
+{accessible_links}
+      </ul>
+    </section>
+  </section>
+
+  <section class="fr-mt-5w" aria-labelledby="statement-contact">
+    <h2 id="statement-contact">Retour d'information et contact</h2>
+    <p>Si vous n'arrivez pas à accéder à un contenu ou à un service, vous pouvez contacter le responsable du site pour être orienté vers une alternative accessible ou obtenir le contenu sous une autre forme.</p>
+    <ul>
+      <li><a class="fr-link" href="site-accessible/ec13-required-errors.html">Envoyer un message avec le formulaire de contact</a></li>
+      <li><a class="fr-link" href="mailto:contact@accessibilite-numerique.gouv.fr">Contacter le Ministère de l'Accessibilité numérique par courriel</a></li>
+    </ul>
+  </section>
+
+  <section class="fr-mt-5w" aria-labelledby="statement-response">
+    <h2 id="statement-response">Réponse aux usagers</h2>
+    <p>Pour un service administratif réel, l'organisme concerné accuse réception des réclamations relatives à l'accessibilité et répond dans le délai prévu par le code des relations entre le public et l'administration.</p>
+    <p>Dans ce support de formation, le formulaire de contact est un cas d'exercice. Aucune donnée réelle n'est collectée par le site statique.</p>
+  </section>
+
+  <section class="fr-mt-5w" aria-labelledby="statement-remedies">
+    <h2 id="statement-remedies">Voies de recours</h2>
+    <p>Cette procédure est à utiliser si vous avez signalé au responsable du site un défaut d'accessibilité qui vous empêche d'accéder à un contenu ou à un service et que vous n'avez pas obtenu de réponse satisfaisante.</p>
+    <ul>
+      <li><a class="fr-link" href="https://www.defenseurdesdroits.fr/nous-contacter-355">Écrire un message au Défenseur des droits</a></li>
+      <li><a class="fr-link" href="https://www.defenseurdesdroits.fr/carte-des-delegues">Contacter le délégué du Défenseur des droits près de chez vous</a></li>
+      <li>Envoyer un courrier par la poste, gratuitement sans timbre, à l'adresse suivante : Défenseur des droits, Libre réponse 71120, 75342 Paris CEDEX 07.</li>
+    </ul>
+  </section>"""
+    page_title = "Déclaration d'accessibilité"
+    page_breadcrumb = breadcrumb([("Accueil", "index.html")], page_title, "breadcrumb-declaration-accessibilite")
+    main = f"""{page_breadcrumb}
+<main id="contenu" class="fr-container fr-py-6w">
+{content_column(content)}
+</main>"""
+    write_text(
+        DOCS_DIR / "accessibilite.html",
+        page_shell(contract, f"{page_title} - {contract['site']['name']}", 0, main, ""),
+    )
+
+
 def sitemap_items(pages: list[dict], prefix: str) -> str:
     return "\n".join(
         f"""      <li><a class="fr-link" href="{esc(prefix)}{page['id']}.html">{esc_text(page['title'])}</a></li>"""
@@ -344,7 +491,7 @@ def generate_sitemap_page(contract: dict) -> None:
         <li><a class="fr-link" href="assets/downloads/grille-audit-easy-checks.xlsx">Grille d'audit des points de contrôle rapides</a></li>
         <li><a class="fr-link" href="manifest.md">Manifeste des erreurs injectées</a></li>
         <li><a class="fr-link" href="corrige-easy-checks.md">Corrigé des points de contrôle rapides</a></li>
-        <li><a class="fr-link" href="accessibilite.html">Accessibilité</a></li>
+        <li><a class="fr-link" href="accessibilite.html">Déclaration d'accessibilité</a></li>
         <li><a class="fr-link" href="mentions-legales.html">Mentions légales</a></li>
         <li><a class="fr-link" href="donnees-personnelles.html">Données personnelles</a></li>
       </ul>
@@ -643,50 +790,123 @@ def form_label_content(accessible: bool) -> str:
 def required_errors_content(accessible: bool) -> str:
     if not accessible:
         return """<section aria-labelledby="content-title">
-  <h2 id="content-title">Demander un accompagnement</h2>
-  <p>Les champs avec une bordure rouge doivent être complétés.</p>
-  <div class="fr-alert fr-alert--error fr-mb-3w">
+  <h2 id="content-title">Contacter le ministère</h2>
+  <p>Utilisez ce formulaire pour poser une question sur l'accessibilité numérique, signaler une difficulté ou demander une orientation vers le bon service. Une réponse est apportée pendant les jours ouvrés.</p>
+  <div id="contact-errors" class="fr-alert fr-alert--error fr-mb-3w" hidden>
     <h3 class="fr-alert__title">Erreur de saisie</h3>
-    <p>Format invalide.</p>
+    <p>Certains champs doivent être corrigés.</p>
   </div>
-  <form action="ec13-required-errors.html" method="get" class="demo-form">
+  <form action="ec13-required-errors.html" method="get" class="demo-form" data-demo-contact-form data-mode="inaccessible" data-error-summary="contact-errors" data-required-fields="contact-name contact-email contact-message" novalidate>
     <div class="fr-input-group">
-      <label class="fr-label" for="service-ko">Service <span class="demo-red">*</span></label>
-      <input class="fr-input demo-red-border" type="text" id="service-ko" name="service">
+      <label class="fr-label" for="contact-name">Nom <span class="demo-red">*</span></label>
+      <input class="fr-input" type="text" id="contact-name" name="nom" autocomplete="name">
+      <p class="fr-error-text demo-error-message" id="contact-name-error" hidden>Ce champ est obligatoire.</p>
     </div>
     <div class="fr-input-group">
-      <label class="fr-label" for="date-ko">Date souhaitée <span class="demo-red">*</span></label>
-      <input class="fr-input demo-red-border" type="text" id="date-ko" name="date" value="32/14/2026">
-      <p class="fr-error-text">Format invalide.</p>
+      <label class="fr-label" for="contact-email">Adresse électronique <span class="demo-red">*</span></label>
+      <input class="fr-input" type="email" id="contact-email" name="email" autocomplete="email">
+      <p class="fr-error-text demo-error-message" id="contact-email-error" hidden>Format invalide.</p>
     </div>
-    <button class="fr-btn" type="submit">Envoyer</button>
+    <div class="fr-input-group">
+      <label class="fr-label" for="contact-phone">Téléphone</label>
+      <input class="fr-input" type="tel" id="contact-phone" name="telephone" autocomplete="tel">
+    </div>
+    <div class="fr-input-group">
+      <label class="fr-label" for="contact-message">Message <span class="demo-red">*</span></label>
+      <textarea class="fr-input" id="contact-message" name="message" rows="6"></textarea>
+      <p class="fr-error-text demo-error-message" id="contact-message-error" hidden>Ce champ est obligatoire.</p>
+    </div>
+    <button class="fr-btn" type="submit">Envoyer le message</button>
   </form>
+  <script>
+  (function () {
+    var form = document.querySelector("[data-demo-contact-form]");
+    if (!form) return;
+    var summary = document.getElementById(form.getAttribute("data-error-summary"));
+    var fields = form.getAttribute("data-required-fields").split(" ");
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (summary) summary.hidden = false;
+      fields.forEach(function (id) {
+        var field = document.getElementById(id);
+        if (!field) return;
+        var group = field.closest(".fr-input-group");
+        var error = document.getElementById(id + "-error");
+        if (group) group.classList.add("fr-input-group--error");
+        field.classList.add("fr-input--error");
+        if (error) error.hidden = false;
+      });
+    });
+  }());
+  </script>
 </section>"""
     return """<section aria-labelledby="content-title">
-  <h2 id="content-title">Demander un accompagnement</h2>
-  <p>Tous les champs sont obligatoires, sauf mention contraire.</p>
-  <div class="fr-alert fr-alert--error fr-mb-3w" role="alert" tabindex="-1">
-    <h3 class="fr-alert__title">Erreur : deux champs sont à corriger</h3>
+  <h2 id="content-title">Contacter le ministère</h2>
+  <p>Utilisez ce formulaire pour poser une question sur l'accessibilité numérique, signaler une difficulté ou demander une orientation vers le bon service. Tous les champs sont obligatoires, sauf le téléphone.</p>
+  <div id="contact-errors" class="fr-alert fr-alert--error fr-mb-3w" role="alert" tabindex="-1" hidden>
+    <h3 class="fr-alert__title">Erreur : trois champs sont à corriger</h3>
     <ul>
-      <li><a class="fr-link" href="#service">Indiquer le service demandeur</a></li>
-      <li><a class="fr-link" href="#date">Saisir une date au format JJ/MM/AAAA</a></li>
+      <li><a class="fr-link" href="#contact-name">Indiquer votre nom</a></li>
+      <li><a class="fr-link" href="#contact-email">Saisir une adresse électronique valide</a></li>
+      <li><a class="fr-link" href="#contact-message">Décrire votre demande</a></li>
     </ul>
   </div>
-  <form action="ec13-required-errors.html" method="get" class="demo-form" novalidate>
-    <div class="fr-input-group fr-input-group--error">
-      <label class="fr-label" for="service">Service demandeur</label>
-      <input class="fr-input" type="text" id="service" name="service" required aria-invalid="true" aria-describedby="service-error">
-      <p id="service-error" class="fr-error-text">Erreur : le service demandeur est obligatoire.</p>
-    </div>
-    <div class="fr-input-group fr-input-group--error">
-      <label class="fr-label" for="date">Date souhaitée
-        <span class="fr-hint-text">Exemple : 15/06/2026.</span>
+  <form action="ec13-required-errors.html" method="get" class="demo-form" data-demo-contact-form data-mode="accessible" data-error-summary="contact-errors" data-required-fields="contact-name contact-email contact-message" novalidate>
+    <div class="fr-input-group">
+      <label class="fr-label" for="contact-name">Nom (obligatoire)
+        <span class="fr-hint-text" id="contact-name-hint">Indiquez le nom à utiliser pour la réponse.</span>
       </label>
-      <input class="fr-input" type="text" id="date" name="date" required aria-invalid="true" aria-describedby="date-error" value="32/14/2026">
-      <p id="date-error" class="fr-error-text">Erreur : la date doit respecter le format JJ/MM/AAAA.</p>
+      <input class="fr-input" type="text" id="contact-name" name="nom" autocomplete="name" required aria-describedby="contact-name-hint" data-describedby-error="contact-name-hint contact-name-error">
+      <p id="contact-name-error" class="fr-error-text demo-error-message" hidden>Erreur : le nom est obligatoire.</p>
     </div>
-    <button class="fr-btn" type="submit">Envoyer la demande d'accompagnement</button>
+    <div class="fr-input-group">
+      <label class="fr-label" for="contact-email">Adresse électronique (obligatoire)
+        <span class="fr-hint-text" id="contact-email-hint">Format attendu : nom@domaine.fr.</span>
+      </label>
+      <input class="fr-input" type="email" id="contact-email" name="email" autocomplete="email" required aria-describedby="contact-email-hint" data-describedby-error="contact-email-hint contact-email-error">
+      <p id="contact-email-error" class="fr-error-text demo-error-message" hidden>Erreur : l'adresse électronique doit respecter le format nom@domaine.fr.</p>
+    </div>
+    <div class="fr-input-group">
+      <label class="fr-label" for="contact-phone">Téléphone (facultatif)
+        <span class="fr-hint-text" id="contact-phone-hint">Exemple : 01 23 45 67 89.</span>
+      </label>
+      <input class="fr-input" type="tel" id="contact-phone" name="telephone" autocomplete="tel" aria-describedby="contact-phone-hint">
+    </div>
+    <div class="fr-input-group">
+      <label class="fr-label" for="contact-message">Message (obligatoire)
+        <span class="fr-hint-text" id="contact-message-hint">Décrivez votre question ou la difficulté rencontrée.</span>
+      </label>
+      <textarea class="fr-input" id="contact-message" name="message" rows="6" required aria-describedby="contact-message-hint" data-describedby-error="contact-message-hint contact-message-error"></textarea>
+      <p id="contact-message-error" class="fr-error-text demo-error-message" hidden>Erreur : le message est obligatoire.</p>
+    </div>
+    <button class="fr-btn" type="submit">Envoyer le message au ministère</button>
   </form>
+  <script>
+  (function () {
+    var form = document.querySelector("[data-demo-contact-form]");
+    if (!form) return;
+    var summary = document.getElementById(form.getAttribute("data-error-summary"));
+    var fields = form.getAttribute("data-required-fields").split(" ");
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (summary) {
+        summary.hidden = false;
+        summary.focus();
+      }
+      fields.forEach(function (id) {
+        var field = document.getElementById(id);
+        if (!field) return;
+        var group = field.closest(".fr-input-group");
+        var error = document.getElementById(id + "-error");
+        if (group) group.classList.add("fr-input-group--error");
+        field.classList.add("fr-input--error");
+        field.setAttribute("aria-invalid", "true");
+        field.setAttribute("aria-describedby", field.getAttribute("data-describedby-error"));
+        if (error) error.hidden = false;
+      });
+    });
+  }());
+  </script>
 </section>"""
 
 
@@ -1413,7 +1633,7 @@ def main() -> None:
     generate_media_readme(contract)
     generate_root(contract)
     generate_sitemap_page(contract)
-    generate_static_page(contract, "accessibilite.html", "Accessibilité", "Ce site est un support pédagogique. La version accessible de l'exercice vise la conformité des composants utilisés.")
+    generate_accessibility_statement_page(contract)
     generate_static_page(contract, "mentions-legales.html", "Mentions légales", "Site fictif créé pour une formation IGPDE.")
     generate_static_page(contract, "donnees-personnelles.html", "Données personnelles", "Aucune donnée personnelle réelle n'est collectée dans cet exercice.")
     for key, current in (("inaccessible", "inaccessible"), ("help", "help"), ("accessible", "accessible")):
