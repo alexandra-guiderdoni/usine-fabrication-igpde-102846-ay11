@@ -561,8 +561,8 @@ def content_ec01(version_key: str) -> str:
         decorative = '<img src="../assets/shared/images/motif-hexagones.svg" alt="Long séparateur horizontal bleu composé de deux traits et d\'un losange central décoratif pour séparer la rubrique de contact du contenu précédent">'
         linked = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Dessin d\'une enveloppe">Envoyer un courriel au ministère</a>'
     return f"""<section aria-labelledby="content-title">
-  <h2 id="content-title">Méthodologie d'audit RGAA (Référentiel général d'amélioration de l'accessibilité)</h2>
-  <p>Le ministère publie une méthodologie courte pour préparer une première revue d'accessibilité. Elle s'adresse aux équipes qui contrôlent une page avant publication. La page présente les repères utiles pour vérifier rapidement une ressource.</p>
+  <h2 id="content-title">Vérifier l'accessibilité d'une page avant publication</h2>
+  <p>Le ministère publie une méthodologie courte fondée sur le RGAA (Référentiel général d'amélioration de l'accessibilité). Elle s'adresse aux équipes qui contrôlent une page avant publication. La page présente les repères utiles pour vérifier rapidement une ressource.</p>
   <div class="fr-grid-row fr-grid-row--gutters demo-image-check">
     <div class="fr-col-12 demo-image-check__item">
       <p>Le schéma ci-dessous présente les trois étapes proposées aux équipes éditoriales. Il sert à comprendre l'ordre des actions à mener. Chaque étape correspond à un moment concret du travail de publication.</p>
@@ -1054,8 +1054,8 @@ def generate_demo_assets() -> None:
         "schema-rgaa.svg": """<svg xmlns="http://www.w3.org/2000/svg" width="720" height="360" viewBox="0 0 720 360" role="img">
   <rect width="720" height="360" fill="#f6f6f6"/>
   <rect x="60" y="100" width="160" height="110" fill="#000091"/>
-  <rect x="280" y="100" width="160" height="110" fill="#6a6af4"/>
-  <rect x="500" y="100" width="160" height="110" fill="#18753c"/>
+  <rect x="280" y="100" width="160" height="110" fill="#6e445a"/>
+  <rect x="500" y="100" width="160" height="110" fill="#297254"/>
   <path d="M230 155h40M450 155h40" stroke="#161616" stroke-width="10"/>
   <text x="140" y="165" fill="#fff" font-family="Arial" font-size="28" text-anchor="middle">Vérifier</text>
   <text x="360" y="165" fill="#fff" font-family="Arial" font-size="28" text-anchor="middle">Corriger</text>
