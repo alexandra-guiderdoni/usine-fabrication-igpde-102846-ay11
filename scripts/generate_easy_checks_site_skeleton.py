@@ -543,18 +543,18 @@ def content_ec01(version_key: str) -> str:
     return f"""<section aria-labelledby="content-title">
   <h2 id="content-title">Nouvelle ressource RGAA</h2>
   <p>Le ministère publie un kit court pour préparer une première revue d'accessibilité.</p>
-  <div class="fr-grid-row fr-grid-row--gutters">
-    <div class="fr-col-12">
+  <div class="fr-grid-row fr-grid-row--gutters demo-image-check">
+    <div class="fr-col-12 demo-image-check__item">
       <p>Le schéma ci-dessous présente les trois étapes proposées aux équipes éditoriales.</p>
       {informative}
       <p>Cette démarche sert de repère pour vérifier une ressource avant publication.</p>
     </div>
-    <div class="fr-col-12">
+    <div class="fr-col-12 demo-image-check__item">
       <p>La rubrique suivante présente le contact utile pour les questions sur la ressource.</p>
       <div class="demo-separator-image">{decorative}</div>
       <p>Le séparateur visuel marque le passage vers les informations de contact.</p>
     </div>
-    <div class="fr-col-12">
+    <div class="fr-col-12 demo-image-check__contact">
       <h3>Nous contacter</h3>
       <p>Moyen pour nous contacter : {linked}</p>
       <p>Une réponse est apportée par l'équipe chargée de la ressource.</p>
@@ -913,11 +913,29 @@ def generate_site_css() -> None:
   max-width: 100%;
 }
 
+.demo-image-check {
+  row-gap: 1.5rem;
+}
+
+.demo-image-check__item,
+.demo-image-check__contact {
+  padding-top: 0.5rem;
+}
+
+.demo-image-check__contact {
+  border-top: 1px solid #dddddd;
+}
+
 .demo-informative-image {
   display: block;
   height: auto;
+  margin: 0.75rem 0 1rem;
   max-width: 100%;
   width: 100%;
+}
+
+.demo-separator-image {
+  margin: 0.75rem 0 1rem;
 }
 
 .demo-separator-image img {

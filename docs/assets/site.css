@@ -15,11 +15,29 @@ body {
   max-width: 100%;
 }
 
+.demo-image-check {
+  row-gap: 1.5rem;
+}
+
+.demo-image-check__item,
+.demo-image-check__contact {
+  padding-top: 0.5rem;
+}
+
+.demo-image-check__contact {
+  border-top: 1px solid #dddddd;
+}
+
 .demo-informative-image {
   display: block;
   height: auto;
+  margin: 0.75rem 0 1rem;
   max-width: 100%;
   width: 100%;
+}
+
+.demo-separator-image {
+  margin: 0.75rem 0 1rem;
 }
 
 .demo-separator-image img {
