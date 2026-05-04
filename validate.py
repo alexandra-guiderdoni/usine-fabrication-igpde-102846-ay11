@@ -25,11 +25,21 @@ class LinkParser(HTMLParser):
     def __init__(self, file: Path) -> None:
         super().__init__()
         self.file = file
+        self.ids: set[str] = set()
+        self.fragments: list[str] = []
+        self.html_lang: str | None = None
+        self.images_without_alt: list[str] = []
         self.local_refs: list[str] = []
         self.bad_refs: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
+        if "id" in values and values["id"]:
+            self.ids.add(values["id"])
+        if tag == "html":
+            self.html_lang = values.get("lang")
+        if tag == "img" and "alt" not in values:
+            self.images_without_alt.append(values.get("src", "image sans src"))
         href = values.get("href")
         src = values.get("src")
         for value in (href, src):
@@ -46,7 +56,10 @@ class LinkParser(HTMLParser):
             if value.startswith("cdn"):
                 self.bad_refs.append(value)
                 continue
-            if value.startswith(("mailto:", "tel:", "#")):
+            if value.startswith("#"):
+                self.fragments.append(value[1:])
+                continue
+            if value.startswith(("mailto:", "tel:")):
                 continue
             target, _ = urldefrag(value)
             if target:
@@ -122,6 +135,35 @@ def validate_docs() -> None:
     if missing:
         details = "\n".join(f"{file}: {value}" for file, value in missing[:20])
         raise FileNotFoundError(f"Liens ou assets locaux manquants:\n{details}")
+
+    accessible_errors: list[str] = []
+    forbidden_accessible_markers = (
+        "Contenu ministériel à produire",
+        "Squelette de page",
+        "demo-no-focus",
+        "demo-fixed-cards",
+        "demo-low-contrast",
+        "demo-pale-link",
+        "demo-pale-action",
+        "demo-red-border",
+    )
+    for file in sorted((DOCS / "site-accessible").glob("*.html")):
+        text = file.read_text(encoding="utf-8")
+        parser = LinkParser(file)
+        parser.feed(text)
+        if parser.html_lang != "fr":
+            accessible_errors.append(f"{file}: lang attendu fr, trouvé {parser.html_lang!r}")
+        for fragment in parser.fragments:
+            if fragment and fragment not in parser.ids:
+                accessible_errors.append(f"{file}: ancre locale absente #{fragment}")
+        for marker in forbidden_accessible_markers:
+            if marker in text:
+                accessible_errors.append(f"{file}: marqueur interdit en version accessible: {marker}")
+        if parser.images_without_alt:
+            accessible_errors.append(f"{file}: image(s) sans alt: {', '.join(parser.images_without_alt)}")
+    if accessible_errors:
+        details = "\n".join(accessible_errors[:30])
+        raise ValueError(f"Contrôles version accessible en échec:\n{details}")
 
 
 def main() -> None:

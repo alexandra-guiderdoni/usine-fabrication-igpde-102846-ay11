@@ -9,3 +9,76 @@ body {
 .fr-breadcrumb {
   margin-bottom: 2rem;
 }
+
+.fr-content-media__img img {
+  height: auto;
+  max-width: 100%;
+}
+
+.demo-small-media img {
+  max-height: 9rem;
+}
+
+.demo-fake-heading {
+  color: #161616;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 2rem;
+  margin: 2rem 0 1rem;
+}
+
+.demo-heading-as-emphasis {
+  color: #c9191e;
+}
+
+.demo-low-contrast {
+  color: #b8b8b8;
+}
+
+.demo-pale-link {
+  color: #8f8fff;
+}
+
+.demo-pale-action {
+  background-color: #ececff;
+  color: #8f8fff;
+}
+
+.demo-status-dot {
+  background-color: #e5fbef;
+  color: #b8b8b8;
+}
+
+.demo-no-focus a:focus,
+.demo-no-focus button:focus,
+.demo-no-focus input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.demo-fixed-cards .fr-card {
+  height: 9rem;
+  overflow: hidden;
+}
+
+.demo-media-placeholder {
+  align-items: center;
+  background: #eee;
+  border: 1px solid #ddd;
+  color: #666;
+  display: flex;
+  justify-content: center;
+  min-height: 14rem;
+}
+
+.demo-form {
+  max-width: 42rem;
+}
+
+.demo-red {
+  color: #ce0500;
+}
+
+.demo-red-border {
+  border: 2px solid #ce0500;
+}
