@@ -1,4 +1,4 @@
-"""Slide 23 : Easy Check 12 - Étiquettes de formulaire, le principe.
+"""Slide 23 : Point de contrôle rapide 12 - Étiquettes de formulaire, le principe.
 
 Règles neuropédagogie appliquées :
 - R8 : analogie - l'étiquette est le nom sur une boîte aux lettres
@@ -21,8 +21,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Étiquettes : chaque champ a un nom",
-        fil_ariane="3. Easy Checks | 12. Étiquettes de formulaire",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Étiquettes",
+        fil_ariane="3. points de contrôle rapides | 12. Étiquettes de formulaire",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Étiquettes",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

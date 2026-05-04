@@ -5,7 +5,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 ## Contexte
 
 - Formation accessibilité numérique, 1 jour, public communicants (pas développeurs)
-- 91 slides PPTX DSFR, 4 modules : Introduction > Word accessible > Easy Checks W3C > Réseaux sociaux
+- 91 slides PPTX DSFR, 4 modules : Introduction > Word accessible > points de contrôle rapides W3C > Réseaux sociaux
 - Ordre impératif M1 > M2 > M3 > M4, jamais inverser
 - Exercice Sami : 21 critères à vérifier dans 3 DOCX (inaccessible/aide correction/accessible), spec dans `_source/exercice-sami-spec.md`
 - Section 2 « Documents bureautiques accessibles » validée par Alex le 2026-05-04 : slides 20 à 49, livrables Sami, spec et diff associés
@@ -73,6 +73,6 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 | Spec exercice Sami | `_source/exercice-sami-spec.md` |
 | Diff des critères Sami | `_source/exercice-sami-diff.md` |
 | Leçons techniques | `lessons.md` |
-| Easy Checks W3C | `03-easy-checks/w3c-easy-checks-fr.md` |
+| points de contrôle rapides W3C | `03-easy-checks/w3c-easy-checks-fr.md` |
 | Passation dernière session | `_source/passation-session-2026-05-03.md` |
 | Dépendances | Python 3 + `python-pptx` + `lxml` + `openpyxl` + Marianne (fallback Arial) |

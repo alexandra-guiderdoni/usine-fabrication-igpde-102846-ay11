@@ -1,12 +1,12 @@
 schema_version: "1.0"
 contract_id: "igpde-session-3-easy-checks"
-title: "Contrat d'évaluation - Exercice Les 13 Easy Checks du W3C"
+title: "Contrat d'évaluation - Exercice Les 13 points de contrôle rapides du W3C"
 course:
   code: "102638"
-  section: "3. Les 13 Easy Checks du W3C"
+  section: "3. Les 13 points de contrôle rapides du W3C"
 site:
   name: "Ministère de l'Accessibilité numérique"
-  baseline: "Formation IGPDE - Exercice Easy Checks"
+  baseline: "Formation IGPDE - Exercice points de contrôle rapides"
   root: "docs/"
 versions:
   inaccessible:
@@ -130,26 +130,27 @@ pages:
       name: "Titre de page"
     severity: "Gênant"
     expected_minimal_finding: "Le titre de page ne permet pas d'identifier précisément la page ou son état."
-    minimal_proof: "Onglet navigateur ou extrait title montrant un titre générique, dupliqué ou mal ordonné."
+    minimal_proof: "Onglet navigateur ou extrait title montrant un titre absent, générique, dupliqué ou mal ordonné."
     detection:
       - "Onglet navigateur"
       - "Code source"
       - "WAVE"
     inaccessible_errors:
-      - "Titre générique."
+      - "Titre non informatif de type Sans titre."
       - "Titre identique sur plusieurs pages de résultats."
       - "Information spécifique placée trop tard après le nom long du ministère."
     bonus_occurrences:
+      - "Titre absent ou intitulé Sans titre."
       - "Pagination absente du titre."
       - "Requête de recherche absente."
       - "Nom du ministère placé avant l'information spécifique."
     do_not_penalize:
       - "Titre long si l'information spécifique est présente en premier."
-    accessible_correction: "Titre unique, spécifique et ordonné du particulier vers le général, par exemple Recherche \"RGAA\" - Page 2 - Ministère de l'Accessibilité numérique."
+    accessible_correction: "Titre unique, spécifique et ordonné du particulier vers le général, par exemple Recherche \"RGAA\" - Page 2/3 - Ministère de l'Accessibilité numérique."
     help:
-      hint: "Regarder l'onglet du navigateur, le title HTML et le résultat WAVE."
-      problem: "L'utilisateur ne sait pas quelle page ou quel état est ouvert, ce qui gêne la navigation entre onglets, historique et résultats."
-      fix: "Rendre le titre unique, ajouter le contexte utile et placer l'information spécifique en premier."
+      hint: "Regarder l'onglet du navigateur, le title HTML et le résultat WAVE. La page affiche déjà la requête, le tri, la page courante et le nombre de résultats : ces informations doivent aussi guider le titre."
+      problem: "L'utilisateur ne sait pas quelle page ou quel état est ouvert, ce qui gêne la navigation entre onglets, historique et résultats. Sur une page de recherche, le titre doit reprendre la requête et la pagination utiles."
+      fix: "Rendre le titre unique, ajouter le contexte utile et placer l'information spécifique en premier : requête, page courante, nombre total de pages, puis nom du site."
     dsfr_components:
       - "Barre de recherche"
       - "Lien"
@@ -645,7 +646,7 @@ generation_targets:
 
 acceptance_checks:
   - "Le YAML contient 13 pages exactement."
-  - "Chaque page possède un id stable, un numéro, un titre, un Easy Check, une sévérité, un constat minimal, une preuve minimale, une correction accessible et une aide en trois niveaux."
+  - "Chaque page possède un id stable, un numéro, un titre, un Point de contrôle rapide, une sévérité, un constat minimal, une preuve minimale, une correction accessible et une aide en trois niveaux."
   - "Les pages média déclarent les placeholders en attendant les fichiers finaux."
   - "Les verdicts et sévérités utilisent strictement la terminologie de la grille."
   - "Les composants DSFR déclarés renvoient aux règles projet Code et Accessibilité."

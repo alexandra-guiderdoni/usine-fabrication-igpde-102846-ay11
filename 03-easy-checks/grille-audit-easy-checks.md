@@ -1,9 +1,9 @@
-# IGPDE - Formation 102638 - Grille d'audit 13 Easy Checks du W3C
+# IGPDE - Formation 102638 - Grille d'audit 13 points de contrôle rapides du W3C
 
-Grille opérationnelle pour la formation IGPDE 102638 « L'accessibilité numérique pour la bureautique et le web ». Inspirée méthodologiquement de la grille Easy Checks de beta.gouv.fr et alignée sur le RGAA 4.1.2.
+Grille opérationnelle pour la formation IGPDE 102638 « L'accessibilité numérique pour la bureautique et le web ». Inspirée méthodologiquement de la grille points de contrôle rapides de beta.gouv.fr et alignée sur le RGAA 4.1.2.
 
 > **Avertissement**
-> Cet outil est un **outil de sensibilisation et de pré-diagnostic**. Il ne remplace en aucun cas un audit RGAA formel (106 critères sur 13 thématiques) réalisé par un expert certifié. Le « Taux de conformité Easy Checks » calculé ici n'est PAS le taux de conformité RGAA officiel publié en déclaration d'accessibilité.
+> Cet outil est un **outil de sensibilisation et de pré-diagnostic**. Il ne remplace en aucun cas un audit RGAA formel (106 critères sur 13 thématiques) réalisé par un expert certifié. Le « Taux de conformité points de contrôle rapides » calculé ici n'est PAS le taux de conformité RGAA officiel publié en déclaration d'accessibilité.
 
 ---
 
@@ -32,7 +32,7 @@ La méthode technique du RGAA impose un échantillon minimal pour déclarer la c
 | 6 | Page « Aide » / FAQ | Obligatoire | Si présente ; sinon mentionner NA |
 | 7 | Page d'authentification / connexion | Obligatoire si existante | Auditée uniquement si espace personnel |
 | 8 | Page de résultats de recherche | Obligatoire si moteur | Auditée avec un jeu de résultats réel |
-| 9 | Document téléchargeable (PDF, DOCX, ODT) | Obligatoire si présent | Au moins un document représentatif. Pour un audit formel des documents, utiliser PAC 2024 (gratuit), Acrobat Pro ou Axes4 — les 13 Easy Checks web ne couvrent que partiellement les documents |
+| 9 | Document téléchargeable (PDF, DOCX, ODT) | Obligatoire si présent | Au moins un document représentatif. Pour un audit formel des documents, utiliser PAC 2024 (gratuit), Acrobat Pro ou Axes4 — les 13 points de contrôle rapides web ne couvrent que partiellement les documents |
 
 **Pages représentatives** (au moins une par type de gabarit du site) :
 
@@ -97,7 +97,7 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 
 | Champ | Valeur |
 |-------|--------|
-| Easy Check W3C | 1. Alternatives textuelles des images |
+| Point de contrôle rapide W3C | 1. Alternatives textuelles des images |
 | WCAG 2.2 | 1.1.1 Contenu non textuel |
 | RGAA 4.1.2 | 1.1, 1.2, 1.3, 1.6, 1.7, 1.8, 1.9 |
 | Méthode de test | Bookmarklet « Check images » OU clic droit « Inspecter » sur chaque image, examiner l'attribut `alt` |
@@ -113,7 +113,7 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 
 | Champ | Valeur |
 |-------|--------|
-| Easy Check W3C | 2. Titre de page |
+| Point de contrôle rapide W3C | 2. Titre de page |
 | WCAG 2.2 | 2.4.2 Titre de page |
 | RGAA 4.1.2 | 8.5, 8.6 |
 | Méthode de test | Survoler l'onglet du navigateur, lire la balise `<title>` via « Afficher le code source » |
@@ -129,7 +129,7 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 
 | Champ | Valeur |
 |-------|--------|
-| Easy Check W3C | 3. Titres (headings) |
+| Point de contrôle rapide W3C | 3. Titres (headings) |
 | WCAG 2.2 | 1.3.1 Information et relations, 2.4.6 En-têtes et étiquettes |
 | RGAA 4.1.2 | 9.1 Hiérarchie de titres |
 | Méthode de test | Extension HeadingsMap ou bookmarklet Check headings ; parcourir l'arbre des titres |
@@ -145,7 +145,7 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 
 | Champ | Valeur |
 |-------|--------|
-| Easy Check W3C | 4. Contraste |
+| Point de contrôle rapide W3C | 4. Contraste |
 | WCAG 2.2 | 1.4.3 Contraste (minimum), 1.4.11 Contraste non textuel |
 | RGAA 4.1.2 | 3.2, 3.3 |
 | Méthode de test | Pipette DevTools, WebAIM Contrast Checker, Colour Contrast Analyser (app desktop) |
@@ -161,7 +161,7 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 
 | Champ | Valeur |
 |-------|--------|
-| Easy Check W3C | 5. Lien d'évitement |
+| Point de contrôle rapide W3C | 5. Lien d'évitement |
 | WCAG 2.2 | 2.4.1 Contourner des blocs |
 | RGAA 4.1.2 | 12.7 |
 | Méthode de test | Charger la page, appuyer une fois sur `Tab` : un lien « Aller au contenu » doit apparaître |
@@ -173,11 +173,11 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 | Correctif suggéré | |
 | Preuve | |
 
-### 6. Focus et navigation clavier (Easy Check 6 élargi)
+### 6. Focus et navigation clavier (Point de contrôle rapide 6 élargi)
 
 | Champ | Valeur |
 |-------|--------|
-| Easy Check W3C | 6. Focus clavier visible (élargi à la navigation complète) |
+| Point de contrôle rapide W3C | 6. Focus clavier visible (élargi à la navigation complète) |
 | WCAG 2.2 | 2.4.7 Visibilité du focus, 2.1.1 Clavier, 2.1.2 Pas de piège au clavier, 2.4.3 Parcours du focus |
 | RGAA 4.1.2 | 10.7 Focus visible, 12.13 Fonctionnalités au clavier, 12.14 Pas de piège, 10.3 Ordre de tabulation |
 | Méthode de test | Cacher la souris ; naviguer uniquement au clavier (Tab, Shift+Tab, Entrée, Espace, flèches) sur un parcours complet |
@@ -193,7 +193,7 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 
 | Champ | Valeur |
 |-------|--------|
-| Easy Check W3C | 7. Langue de la page |
+| Point de contrôle rapide W3C | 7. Langue de la page |
 | WCAG 2.2 | 3.1.1 Langue de la page, 3.1.2 Langue d'un passage |
 | RGAA 4.1.2 | 8.3, 8.4 |
 | Méthode de test | Clic droit « Afficher le code source », chercher `<html lang="…">` |
@@ -209,7 +209,7 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 
 | Champ | Valeur |
 |-------|--------|
-| Easy Check W3C | 8. Redimensionnement du texte |
+| Point de contrôle rapide W3C | 8. Redimensionnement du texte |
 | WCAG 2.2 | 1.4.4 Redimensionnement du texte, 1.4.10 Redistribution |
 | RGAA 4.1.2 | 10.4, 10.11 |
 | Méthode de test | Ctrl + (ou Cmd +) jusqu'à 200 %, parcourir la page |
@@ -225,7 +225,7 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 
 | Champ | Valeur |
 |-------|--------|
-| Easy Check W3C | 9. Sous-titres |
+| Point de contrôle rapide W3C | 9. Sous-titres |
 | WCAG 2.2 | 1.2.2 Sous-titres (pré-enregistrés) |
 | RGAA 4.1.2 | 4.3, 4.4 |
 | Méthode de test | Lancer la vidéo, vérifier la présence d'un bouton CC ; couper le son et vérifier la compréhension |
@@ -241,7 +241,7 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 
 | Champ | Valeur |
 |-------|--------|
-| Easy Check W3C | 10. Transcriptions |
+| Point de contrôle rapide W3C | 10. Transcriptions |
 | WCAG 2.2 | 1.2.1 Contenus seulement audio et seulement vidéo pré-enregistrés |
 | RGAA 4.1.2 | 4.1, 4.2 |
 | Méthode de test | Chercher un lien « Transcription » ou « Lire le texte » visible près du média |
@@ -257,7 +257,7 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 
 | Champ | Valeur |
 |-------|--------|
-| Easy Check W3C | 11. Audiodescription |
+| Point de contrôle rapide W3C | 11. Audiodescription |
 | WCAG 2.2 | 1.2.3, 1.2.5 Audiodescription (pré-enregistrée) |
 | RGAA 4.1.2 | 4.5, 4.6 |
 | Méthode de test | Vérifier la présence d'une piste audiodécrite (bouton AD) ou d'une version décrite téléchargeable |
@@ -273,7 +273,7 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 
 | Champ | Valeur |
 |-------|--------|
-| Easy Check W3C | 12. Étiquettes et instructions de formulaire |
+| Point de contrôle rapide W3C | 12. Étiquettes et instructions de formulaire |
 | WCAG 2.2 | 3.3.2 Étiquettes ou instructions, 1.3.1 Information et relations, 2.5.3 Étiquette dans le nom |
 | RGAA 4.1.2 | 11.1, 11.2, 11.3 |
 | Méthode de test | Tester « clic sur le libellé » : le focus doit sauter dans le champ ; parcourir le formulaire au clavier ; activer VoiceOver ou NVDA |
@@ -289,7 +289,7 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 
 | Champ | Valeur |
 |-------|--------|
-| Easy Check W3C | 13. Champs obligatoires |
+| Point de contrôle rapide W3C | 13. Champs obligatoires |
 | WCAG 2.2 | 3.3.2 Étiquettes, 3.3.1 Identification des erreurs, 3.3.3 Suggestion après erreur |
 | RGAA 4.1.2 | 11.10, 11.11 |
 | Méthode de test | Soumettre un formulaire incomplet ; activer un lecteur d'écran et vérifier l'annonce ; zoomer à 200 % |
@@ -313,7 +313,7 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 | Non conforme (NC) | | / 13 |
 | Non applicable (NA) | | / 13 |
 
-**Taux de conformité Easy Checks** : (C) / (C + NC) × 100 = ___ %
+**Taux de conformité points de contrôle rapides** : (C) / (C + NC) × 100 = ___ %
 
 ### Répartition des non-conformités par sévérité
 
@@ -340,8 +340,8 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 
 ## Références
 
-- Easy Checks W3C WAI : https://www.w3.org/WAI/test-evaluate/easy-checks/
+- points de contrôle rapides W3C WAI : https://www.w3.org/WAI/test-evaluate/easy-checks/
 - Corpus traduit : `03-easy-checks/w3c-easy-checks-fr.md`
 - Correspondance WCAG / RGAA : `03-easy-checks/correspondance-wcag-rgaa.md`
-- Inspiration méthodologique : grille Easy Checks de beta.gouv.fr
+- Inspiration méthodologique : grille points de contrôle rapides de beta.gouv.fr
 - Boîte à outils a11y : https://a11y-tools.netlify.app/

@@ -1,4 +1,4 @@
-"""Slide de cadrage : remplir la grille Easy Checks.
+"""Slide de cadrage : remplir la grille points de contrôle rapides.
 
 Règles neuropédagogie appliquées :
 - R24 : action concrète - transformer le test en remontée exploitable
@@ -15,8 +15,8 @@ def build(prs, layouts, ctx):
         layouts,
         layout_name="titre_contenu",
         titre="Ce qu’on remonte dans la grille",
-        fil_ariane="3. Easy Checks | Grille d’audit",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Grille",
+        fil_ariane="3. points de contrôle rapides | Grille d’audit",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Grille",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

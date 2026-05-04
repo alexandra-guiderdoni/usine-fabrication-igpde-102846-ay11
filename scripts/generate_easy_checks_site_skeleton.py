@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the GitHub Pages skeleton for the Easy Checks exercise.
+"""Generate the GitHub Pages skeleton for the points de contrôle rapides exercise.
 
 The YAML contract is the source of truth for pages, expected findings,
 correction help, manifest and correction draft.
@@ -25,6 +25,10 @@ GRID_TARGET = DOCS_DIR / "assets" / "downloads" / "grille-audit-easy-checks.xlsx
 
 def esc(value: object) -> str:
     return html.escape(str(value), quote=True)
+
+
+def esc_text(value: object) -> str:
+    return html.escape(str(value), quote=False)
 
 
 def slug(value: str) -> str:
@@ -60,7 +64,7 @@ def dsfr_head(title: str, depth: int) -> str:
     return f"""<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{esc(title)}</title>
+  <title>{esc_text(title)}</title>
   <link rel="stylesheet" href="{assets}/dsfr/dsfr.min.css">
   <link rel="stylesheet" href="{assets}/dsfr/utility/utility.min.css">
   <link rel="stylesheet" href="{assets}/site.css">
@@ -138,7 +142,7 @@ def footer(depth: int) -> str:
         <p class="fr-logo">République<br>Française</p>
       </div>
       <div class="fr-footer__content">
-        <p class="fr-footer__content-desc">Exercice pédagogique IGPDE sur les Easy Checks du W3C.</p>
+        <p class="fr-footer__content-desc">Exercice pédagogique IGPDE sur les points de contrôle rapides du W3C.</p>
         <ul class="fr-footer__content-list">
           <li class="fr-footer__content-item"><a class="fr-footer__content-link" href="{home}">Accueil</a></li>
           <li class="fr-footer__content-item"><a class="fr-footer__content-link" href="{home}#apres-exercice">Après l'exercice</a></li>
@@ -148,7 +152,7 @@ def footer(depth: int) -> str:
     <div class="fr-footer__bottom">
       <ul class="fr-footer__bottom-list">
         <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{plan}">Plan du site</a></li>
-        <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{accessibility}">Accessibilité : non applicable - site pédagogique</a></li>
+        <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{accessibility}">Accessibilité : non conforme</a></li>
         <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{legal}">Mentions légales</a></li>
         <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{privacy}">Données personnelles</a></li>
       </ul>
@@ -161,6 +165,24 @@ def scripts(depth: int) -> str:
     assets = asset_prefix(depth)
     return f"""<script type="module" src="{assets}/dsfr/dsfr.module.min.js"></script>
 <script nomodule src="{assets}/dsfr/dsfr.nomodule.min.js"></script>"""
+
+
+def breadcrumb(links: list[tuple[str, str]], current_label: str, collapse_id: str) -> str:
+    items = "\n".join(
+        f"""        <li><a class="fr-breadcrumb__link" href="{esc(href)}">{esc_text(label)}</a></li>"""
+        for label, href in links
+    )
+    return f"""<div class="fr-container">
+  <nav role="navigation" class="fr-breadcrumb fr-mt-3w" aria-label="vous êtes ici :">
+    <button type="button" class="fr-breadcrumb__button" aria-expanded="false" aria-controls="{esc(collapse_id)}">Voir le fil d'Ariane</button>
+    <div class="fr-collapse" id="{esc(collapse_id)}">
+      <ol class="fr-breadcrumb__list">
+{items}
+        <li><a class="fr-breadcrumb__link" aria-current="page">{esc_text(current_label)}</a></li>
+      </ol>
+    </div>
+  </nav>
+</div>"""
 
 
 def page_shell(
@@ -200,7 +222,7 @@ def page_card(page: dict, href: str) -> str:
       <div class="fr-card__content">
         <h3 class="fr-card__title"><a href="{href}">{page['number']}. {esc(page['title'])}</a></h3>
         <p class="fr-card__desc">{esc(page['easy_check']['name'])}</p>
-        <p class="fr-card__detail">Easy Check {page['easy_check']['number']}</p>
+        <p class="fr-card__detail">Point de contrôle rapide {page['easy_check']['number']}</p>
       </div>
     </div>
   </div>
@@ -231,7 +253,7 @@ def generate_root(contract: dict) -> None:
 </div>"""
         for label, href, desc in versions
     )
-    content = f"""  <h1>Exercice - Les 13 Easy Checks du W3C</h1>
+    content = f"""  <h1>Exercice - Les 13 points de contrôle rapides du W3C</h1>
   <div class="fr-alert fr-alert--info fr-mb-4w">
     <h2 class="fr-alert__title">Pré-diagnostic pédagogique</h2>
     <p>Cet exercice ne constitue pas un audit RGAA et ne permet pas de publier un taux de conformité.</p>
@@ -247,7 +269,7 @@ def generate_root(contract: dict) -> None:
     <div class="fr-card fr-card--download fr-enlarge-link">
       <div class="fr-card__body">
         <div class="fr-card__content">
-          <h3 class="fr-card__title"><a href="assets/downloads/grille-audit-easy-checks.xlsx" download>Télécharger la grille d'audit Easy Checks</a></h3>
+          <h3 class="fr-card__title"><a href="assets/downloads/grille-audit-easy-checks.xlsx" download>Télécharger la grille d'audit des points de contrôle rapides</a></h3>
           <p class="fr-card__desc">Classeur à remplir pendant l'exercice.</p>
           <p class="fr-card__detail">XLSX - {grid_size}</p>
         </div>
@@ -264,22 +286,80 @@ def generate_root(contract: dict) -> None:
     <h2 id="after-title">Après l'exercice</h2>
     <ul>
       <li><a class="fr-link" href="manifest.md">Consulter le manifeste des erreurs injectées</a></li>
-      <li><a class="fr-link" href="corrige-easy-checks.md">Consulter le corrigé Easy Checks</a></li>
+      <li><a class="fr-link" href="corrige-easy-checks.md">Consulter le corrigé des points de contrôle rapides</a></li>
     </ul>
   </section>"""
-    main = f"""<main id="contenu" class="fr-container fr-py-6w">
+    page_breadcrumb = breadcrumb([], "Accueil", "breadcrumb-accueil")
+    main = f"""{page_breadcrumb}
+<main id="contenu" class="fr-container fr-py-6w">
 {content_column(content)}
 </main>"""
-    write_text(DOCS_DIR / "index.html", page_shell(contract, "Exercice Easy Checks - Ministère de l'Accessibilité numérique", 0, main, "home"))
+    write_text(DOCS_DIR / "index.html", page_shell(contract, "Exercice points de contrôle rapides - Ministère de l'Accessibilité numérique", 0, main, "home"))
 
 
 def generate_static_page(contract: dict, filename: str, title: str, body: str) -> None:
     content = f"""  <h1>{esc(title)}</h1>
   <p>{esc(body)}</p>"""
-    main = f"""<main id="contenu" class="fr-container fr-py-6w">
+    page_breadcrumb = breadcrumb([("Accueil", "index.html")], title, f"breadcrumb-{slug(title)}")
+    main = f"""{page_breadcrumb}
+<main id="contenu" class="fr-container fr-py-6w">
 {content_column(content)}
 </main>"""
     write_text(DOCS_DIR / filename, page_shell(contract, f"{title} - {contract['site']['name']}", 0, main, ""))
+
+
+def sitemap_items(pages: list[dict], prefix: str) -> str:
+    return "\n".join(
+        f"""      <li><a class="fr-link" href="{esc(prefix)}{page['id']}.html">{esc_text(page['title'])}</a></li>"""
+        for page in pages
+    )
+
+
+def generate_sitemap_page(contract: dict) -> None:
+    pages = contract["pages"]
+    sections = [
+        ("sitemap-inaccessible", "Site à auditer", "Accueil du site à auditer", "site-inaccessible/"),
+        ("sitemap-help", "Site d'aide à la correction", "Accueil du site d'aide à la correction", "site-aide-correction/"),
+        ("sitemap-accessible", "Site corrigé", "Accueil du site corrigé", "site-accessible/"),
+    ]
+    exercise_sections = "\n".join(
+        f"""  <section class="fr-mb-5w" aria-labelledby="{section_id}">
+    <h2 id="{section_id}">{esc_text(label)}</h2>
+    <p><a class="fr-link" href="{esc(path)}index.html">{esc_text(home_label)}</a></p>
+    <h3>Pages de l'exercice</h3>
+    <ol>
+{sitemap_items(pages, path)}
+    </ol>
+  </section>"""
+        for section_id, label, home_label, path in sections
+    )
+    content = f"""  <h1 id="sitemap-title">Plan du site</h1>
+  <p>Les pages sont regroupées selon les trois versions de l'exercice afin de retrouver rapidement la page à auditer, son aide ou sa version corrigée.</p>
+  <nav aria-labelledby="sitemap-title">
+    <section class="fr-mb-5w" aria-labelledby="sitemap-general">
+      <h2 id="sitemap-general">Pages générales</h2>
+      <ul>
+        <li><a class="fr-link" href="index.html">Accueil</a></li>
+        <li><a class="fr-link" href="plan-du-site.html">Plan du site</a></li>
+        <li><a class="fr-link" href="assets/downloads/grille-audit-easy-checks.xlsx">Grille d'audit des points de contrôle rapides</a></li>
+        <li><a class="fr-link" href="manifest.md">Manifeste des erreurs injectées</a></li>
+        <li><a class="fr-link" href="corrige-easy-checks.md">Corrigé des points de contrôle rapides</a></li>
+        <li><a class="fr-link" href="accessibilite.html">Accessibilité</a></li>
+        <li><a class="fr-link" href="mentions-legales.html">Mentions légales</a></li>
+        <li><a class="fr-link" href="donnees-personnelles.html">Données personnelles</a></li>
+      </ul>
+    </section>
+{exercise_sections}
+  </nav>"""
+    page_breadcrumb = breadcrumb([("Accueil", "index.html")], "Plan du site", "breadcrumb-plan-du-site")
+    main = f"""{page_breadcrumb}
+<main id="contenu" class="fr-container fr-py-6w">
+{content_column(content)}
+</main>"""
+    write_text(
+        DOCS_DIR / "plan-du-site.html",
+        page_shell(contract, f"Plan du site - {contract['site']['name']}", 0, main, ""),
+    )
 
 
 def generate_version_index(contract: dict, version_key: str, current: str) -> None:
@@ -287,11 +367,13 @@ def generate_version_index(contract: dict, version_key: str, current: str) -> No
     pages = contract["pages"]
     cards = "\n".join(page_card(page, f"{page['id']}.html") for page in pages)
     content = f"""  <h1>{esc(version['role'])}</h1>
-  <p>Index généré depuis le contrat d'évaluation. Chaque page cible un Easy Check et une erreur principale.</p>
+  <p>Index généré depuis le contrat d'évaluation. Chaque page cible un Point de contrôle rapide et une erreur principale.</p>
   <div class="fr-grid-row fr-grid-row--gutters">
 {cards}
   </div>"""
-    main = f"""<main id="contenu" class="fr-container fr-py-6w">
+    page_breadcrumb = breadcrumb([("Accueil", "../index.html")], version["role"], f"breadcrumb-{slug(version['role'])}")
+    main = f"""{page_breadcrumb}
+<main id="contenu" class="fr-container fr-py-6w">
 {content_column(content)}
 </main>"""
     write_text(DOCS_DIR / version["path"] / "index.html", page_shell(contract, version["role"], 1, main, current))
@@ -421,10 +503,25 @@ def transcript_component(identifier: str, title: str, paragraphs: list[str]) -> 
 
 
 def search_bar() -> str:
-    return """<form class="fr-search-bar fr-mb-4w" role="search" action="ec02-page-title.html" method="get">
-  <label class="fr-label" for="search-rgaa">Rechercher une ressource RGAA</label>
-  <input class="fr-input" placeholder="Exemple : contrastes" type="search" id="search-rgaa" name="q" value="RGAA">
-  <button class="fr-btn" type="submit" title="Rechercher une ressource RGAA">Rechercher</button>
+    return """<form class="demo-search-form fr-mb-4w" role="search" action="ec02-page-title.html" method="get" aria-labelledby="search-form-title">
+  <h3 id="search-form-title">Modifier la recherche</h3>
+  <div class="fr-search-bar fr-mb-3w">
+    <label class="fr-label" for="search-rgaa">Rechercher une ressource RGAA</label>
+    <input class="fr-input" placeholder="Exemple : contrastes" type="search" id="search-rgaa" name="q" value="RGAA">
+    <button class="fr-btn" type="submit" title="Rechercher une ressource RGAA">Rechercher</button>
+  </div>
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <div class="fr-col-12 fr-col-md-6">
+      <div class="fr-select-group">
+        <label class="fr-label" for="search-sort">Trier les résultats</label>
+        <select class="fr-select" id="search-sort" name="tri">
+          <option value="pertinence" selected>Par pertinence</option>
+          <option value="date">Par date de publication</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <input type="hidden" name="page" value="1">
 </form>"""
 
 
@@ -603,18 +700,25 @@ def content_ec01(version_key: str) -> str:
 def content_ec02(version_key: str) -> str:
     cards = "\n".join(
         [
-            card("Guide RGAA pour les contributeurs", "ec03-headings.html", "Comprendre la structure d'une page avant publication.", "Ressource"),
-            card("Contrastes et charte éditoriale", "ec04-contrast.html", "Repérer les textes difficiles à lire.", "Fiche pratique"),
-            card("Formulaires de contact", "ec12-form-labels.html", "Contrôler les étiquettes et les groupes de champs.", "Atelier"),
+            card("Guide RGAA pour les contributeurs", "ec03-headings.html", "Comprendre la structure d'une page avant publication.", "Résultat 4 sur 9"),
+            card("Contrastes et charte éditoriale", "ec04-contrast.html", "Repérer les textes difficiles à lire.", "Résultat 5 sur 9"),
+            card("Formulaires de contact", "ec12-form-labels.html", "Contrôler les étiquettes et les groupes de champs.", "Résultat 6 sur 9"),
         ]
     )
     return f"""<section aria-labelledby="content-title">
-  <h2 id="content-title">Recherche de ressources RGAA</h2>
+  <h2 id="content-title">Résultats de recherche pour « RGAA »</h2>
   {search_bar()}
-  <p>Résultats pour la recherche « RGAA », page 2.</p>
+  <p id="search-results-summary" role="status" aria-live="polite">9 résultats trouvés pour « RGAA ». Page 2 sur 3. 3 résultats affichés par page, résultats 4 à 6. Tri : pertinence.</p>
   <div class="fr-grid-row fr-grid-row--gutters">
 {cards}
   </div>
+  <nav role="navigation" class="fr-pagination fr-mt-4w" aria-label="Pagination des résultats de recherche">
+    <ul class="fr-pagination__list">
+      <li><a class="fr-pagination__link" href="ec02-page-title.html?q=RGAA&amp;tri=pertinence&amp;page=1">Page 1</a></li>
+      <li><a class="fr-pagination__link" aria-current="page">Page 2</a></li>
+      <li><a class="fr-pagination__link" href="ec02-page-title.html?q=RGAA&amp;tri=pertinence&amp;page=3">Page 3</a></li>
+    </ul>
+  </nav>
 </section>"""
 
 
@@ -834,8 +938,8 @@ def page_content(page: dict, version_key: str) -> str:
 def document_title(contract: dict, page: dict, version_key: str) -> str:
     if page["id"] == "ec02-page-title":
         if version_key == "accessible":
-            return f'Recherche "RGAA" - Page 2 - {contract["site"]["name"]}'
-        return "Recherche"
+            return f'Recherche "RGAA" - Page 2/3 - {contract["site"]["name"]}'
+        return "Sans titre"
     return f"{page['title']} - {contract['site']['name']}"
 
 
@@ -863,22 +967,15 @@ def generate_exercise_page(contract: dict, page: dict, version_key: str, current
   </div>
 </section>"""
     content = page_content(page, version_key)
-    breadcrumb = f"""<div class="fr-container">
-  <nav role="navigation" class="fr-breadcrumb fr-mt-3w" aria-label="vous êtes ici :">
-    <button type="button" class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb">Voir le fil d'Ariane</button>
-    <div class="fr-collapse" id="breadcrumb">
-      <ol class="fr-breadcrumb__list">
-        <li><a class="fr-breadcrumb__link" href="../index.html">Accueil</a></li>
-        <li><a class="fr-breadcrumb__link" href="index.html">{esc(version['role'])}</a></li>
-        <li><a class="fr-breadcrumb__link" aria-current="page">{esc(page['title'])}</a></li>
-      </ol>
-    </div>
-  </nav>
-</div>"""
+    page_breadcrumb = breadcrumb(
+        [("Accueil", "../index.html"), (version["role"], "index.html")],
+        page["title"],
+        f"breadcrumb-{version_key}-{page['id']}",
+    )
     main_body = f"{notice}\n  {content}" if version_key == "help" else f"{content}\n  "
     exercise_content = f"""  <h1>{page['number']}. {esc(page['title'])}</h1>
   {main_body}"""
-    main = f"""{breadcrumb}
+    main = f"""{page_breadcrumb}
 <main id="contenu" class="fr-container fr-py-6w">
 {content_column(exercise_content)}
 </main>"""
@@ -898,7 +995,7 @@ def generate_exercise_page(contract: dict, page: dict, version_key: str, current
 
 def generate_manifest(contract: dict) -> None:
     rows = [
-        "| Page | Easy Check | Erreur injectée | Outil de détection | Correction attendue | Aide associée |",
+        "| Page | Point de contrôle rapide | Erreur injectée | Outil de détection | Correction attendue | Aide associée |",
         "|---|---|---|---|---|---|",
     ]
     for page in contract["pages"]:
@@ -918,10 +1015,10 @@ def generate_manifest(contract: dict) -> None:
 
 
 def generate_correction(contract: dict) -> None:
-    parts = ["# Corrigé Easy Checks\n", "Généré depuis `03-easy-checks/evaluation_contract.yml`.\n"]
+    parts = ["# Corrigé points de contrôle rapides\n", "Généré depuis `03-easy-checks/evaluation_contract.yml`.\n"]
     for page in contract["pages"]:
         parts.append(f"## {page['number']}. {page['title']}\n")
-        parts.append(f"- Easy Check : {page['easy_check']['name']}")
+        parts.append(f"- Point de contrôle rapide : {page['easy_check']['name']}")
         parts.append(f"- Constat minimal attendu : {page['expected_minimal_finding']}")
         parts.append(f"- Sévérité indicative : {page['severity']}")
         parts.append(f"- Preuve possible : {page['minimal_proof']}")
@@ -1153,7 +1250,7 @@ def main() -> None:
     copy_grid()
     generate_media_readme(contract)
     generate_root(contract)
-    generate_static_page(contract, "plan-du-site.html", "Plan du site", "Cette page liste les accès principaux de l'exercice.")
+    generate_sitemap_page(contract)
     generate_static_page(contract, "accessibilite.html", "Accessibilité", "Ce site est un support pédagogique. La version accessible de l'exercice vise la conformité des composants utilisés.")
     generate_static_page(contract, "mentions-legales.html", "Mentions légales", "Site fictif créé pour une formation IGPDE.")
     generate_static_page(contract, "donnees-personnelles.html", "Données personnelles", "Aucune donnée personnelle réelle n'est collectée dans cet exercice.")

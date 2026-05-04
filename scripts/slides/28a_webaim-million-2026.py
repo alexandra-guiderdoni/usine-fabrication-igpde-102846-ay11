@@ -14,8 +14,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="WebAIM Million 2026 : le constat",
-        fil_ariane="3. Easy Checks | WebAIM Million 2026",
-        footer_text=f"{ctx.footer_base} / Easy Checks - WebAIM",
+        fil_ariane="3. points de contrôle rapides | WebAIM Million 2026",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - WebAIM",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
@@ -73,6 +73,6 @@ def build(prs, layouts, ctx):
         "Expliquer la limite méthodologique : WAVE détecte des erreurs probables et utiles à repérer, "
         "mais un résultat automatisé ne remplace pas un audit RGAA complet. "
         "Message pédagogique : l’objectif n’est pas de faire peur, mais de rendre visible un problème massif et mesurable. "
-        "La slide suivante montre pourquoi les Easy Checks sont un bon premier filtre.",
+        "La slide suivante montre pourquoi les points de contrôle rapides sont un bon premier filtre.",
     )
     return slide

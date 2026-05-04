@@ -1,4 +1,4 @@
-"""Slide 4 : Easy Check 1 - Texte alternatif, les 4 types d'images.
+"""Slide 4 : Point de contrôle rapide 1 - Texte alternatif, les 4 types d'images.
 
 Règles neuropédagogie appliquées :
 - R5 : chunking - 4 types exactement, pas plus
@@ -16,8 +16,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Texte alternatif : 4 types d’images, 4 décisions",
-        fil_ariane="3. Easy Checks | 1. Alternatives textuelles",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Texte alternatif",
+        fil_ariane="3. points de contrôle rapides | 1. Alternatives textuelles",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Texte alternatif",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

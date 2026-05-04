@@ -1,4 +1,4 @@
-"""Slide 12 : Easy Check 5 - Lien d'évitement.
+"""Slide 12 : Point de contrôle rapide 5 - Lien d'évitement.
 
 Règles neuropédagogie appliquées :
 - R8 : analogie - l'ascenseur qui évite les 3 étages de menu
@@ -18,8 +18,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Lien d’évitement : le raccourci vers le contenu",
-        fil_ariane="3. Easy Checks | 5. Lien d'évitement",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Lien d’évitement",
+        fil_ariane="3. points de contrôle rapides | 5. Lien d'évitement",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Lien d’évitement",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

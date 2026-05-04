@@ -28,7 +28,7 @@ def build(prs, layouts, ctx):
         ("Bureautique accessible",
          ["Documents Word et LibreOffice",
           "Export PDF accessible"],                              2, COL_R),
-        ("Easy Checks W3C",
+        ("points de contrôle rapides W3C",
          ["13 vérifications rapides W3C WAI",
           "Démonstration et exercice pratique"],                 3, MARGIN_L),
         ("Réseaux sociaux",

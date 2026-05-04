@@ -1,4 +1,4 @@
-"""Slide 7 : Easy Check 2 - Titre de page.
+"""Slide 7 : Point de contrôle rapide 2 - Titre de page.
 
 Règles neuropédagogie appliquées :
 - R8 : analogie - le titre de page est l'étiquette de l'onglet
@@ -18,8 +18,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Titre de page : l’étiquette qui oriente",
-        fil_ariane="3. Easy Checks | 2. Titre de page",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Titre de page",
+        fil_ariane="3. points de contrôle rapides | 2. Titre de page",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Titre de page",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

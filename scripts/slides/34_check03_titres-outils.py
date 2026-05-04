@@ -1,4 +1,4 @@
-"""Slide 9 : Easy Check 3 - Comment repérer les titres sans outil.
+"""Slide 9 : Point de contrôle rapide 3 - Comment repérer les titres sans outil.
 
 Règles neuropédagogie appliquées :
 - R16 : tableau visuel d'outils
@@ -14,8 +14,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Titres : 3 façons de vérifier",
-        fil_ariane="3. Easy Checks | 3. Titres de rubriques",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Titres",
+        fil_ariane="3. points de contrôle rapides | 3. Titres de rubriques",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Titres",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

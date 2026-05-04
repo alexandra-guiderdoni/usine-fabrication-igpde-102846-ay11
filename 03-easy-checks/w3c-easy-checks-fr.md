@@ -1,6 +1,6 @@
 # Vérifications simples — Un premier bilan de l'accessibilité Web
 
-Source : [W3C WAI — Easy Checks](https://www.w3.org/WAI/test-evaluate/easy-checks/) (traduit de l'anglais)  
+Source : [W3C WAI — points de contrôle rapides](https://www.w3.org/WAI/test-evaluate/easy-checks/) (traduit de l'anglais)
 Éditeurs : Kevin White, Andrew Arch, Shawn Lawton Henry
 
 ---

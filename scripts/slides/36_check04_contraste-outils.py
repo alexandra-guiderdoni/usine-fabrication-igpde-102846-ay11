@@ -1,4 +1,4 @@
-"""Slide 11 : Easy Check 4 - Outils de mesure du contraste.
+"""Slide 11 : Point de contrôle rapide 4 - Outils de mesure du contraste.
 
 Règles neuropédagogie appliquées :
 - R16 : tableau d'outils
@@ -14,8 +14,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Contraste : 3 outils à avoir sous la main",
-        fil_ariane="3. Easy Checks | 4. Contraste",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Contraste",
+        fil_ariane="3. points de contrôle rapides | 4. Contraste",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Contraste",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

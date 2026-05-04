@@ -5,7 +5,7 @@ Ce fichier adapte `CLAUDE.md` pour Codex. Les consignes globales Codex restent a
 ## Contexte
 
 - Formation accessibilité numérique, 1 jour, public communicants, pas développeurs
-- 91 slides PPTX DSFR, 4 modules : Introduction > Word accessible > Easy Checks W3C > Réseaux sociaux
+- 91 slides PPTX DSFR, 4 modules : Introduction > Word accessible > points de contrôle rapides W3C > Réseaux sociaux
 - Ordre impératif M1 > M2 > M3 > M4, jamais inverser
 - Exercice Sami : 21 critères à vérifier dans 3 DOCX, spec dans `_source/exercice-sami-spec.md`
 - Section 2 « Documents bureautiques accessibles » validée par Alex le 2026-05-04 : slides 20 à 49, livrables Sami, spec et diff associés
@@ -41,7 +41,7 @@ Si les skills ne sont pas automatiquement injectes dans la session, lire leurs a
 - Nouvelle slide : creer `scripts/slides/NN_nom.py`, suffixe lettre pour intercaler (`05a_`)
 - Tester : `python3 scripts/assemble.py --only NN`
 - Template absent : `python3 scripts/build_template.py`
-- Previsualiser le site Easy Checks : depuis `docs/`, lancer `python3 -m http.server 8765 --bind 127.0.0.1`, puis ouvrir `http://127.0.0.1:8765/index.html`
+- Previsualiser le site des points de contrôle rapides : depuis `docs/`, lancer `python3 -m http.server 8765 --bind 127.0.0.1`, puis ouvrir `http://127.0.0.1:8765/index.html`
 - Alternative fichier direct : ouvrir `file:///Users/alex/Claude/projets-formations/IGPDE-Carinne-C/docs/index.html`, mais preferer le serveur local si les composants DSFR interactifs ne reagissent pas
 - Arreter le serveur local : revenir dans le terminal qui execute `http.server` et faire `Ctrl+C`
 - Quarantine macOS : `xattr -d com.apple.quarantine formation-102638-juin-2026.pptx`
@@ -93,6 +93,6 @@ Composants : `add_callout`, `add_alert`, `add_highlight`, `add_quote`, `add_card
 | Spec exercice Sami | `_source/exercice-sami-spec.md` |
 | Diff des criteres Sami | `_source/exercice-sami-diff.md` |
 | Lecons techniques | `lessons.md` |
-| Easy Checks W3C | `03-easy-checks/w3c-easy-checks-fr.md` |
+| points de contrôle rapides W3C | `03-easy-checks/w3c-easy-checks-fr.md` |
 | Passation derniere session | `_source/passation-session-2026-05-03.md` |
 | Dependances | Python 3 + `python-pptx` + `lxml` + `openpyxl` + Marianne, fallback Arial |

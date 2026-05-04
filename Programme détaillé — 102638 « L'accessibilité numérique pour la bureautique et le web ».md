@@ -17,9 +17,9 @@
 - Mémo LibreOffice : correspondance des fonctionnalités clés
 - Principes de base pour l'exportation PDF accessible
 
-## Pratiquer les évaluations rapides d'accessibilité web (Easy Checks)
+## Pratiquer les évaluations rapides d'accessibilité web (points de contrôle rapides)
 
-- Introduction aux Easy Checks et leur importance
+- Introduction aux points de contrôle rapides et leur importance
 - Présentation et démonstration des principales évaluations rapides
 
 ## Améliorer l'accessibilité numérique des publications sur les réseaux sociaux

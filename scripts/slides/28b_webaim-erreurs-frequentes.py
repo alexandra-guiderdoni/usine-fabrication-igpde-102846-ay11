@@ -13,9 +13,9 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Six erreurs qui justifient les Easy Checks",
-        fil_ariane="3. Easy Checks | WebAIM Million 2026",
-        footer_text=f"{ctx.footer_base} / Easy Checks - WebAIM",
+        titre="Six erreurs qui justifient les points de contrôle rapides",
+        fil_ariane="3. points de contrôle rapides | WebAIM Million 2026",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - WebAIM",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
@@ -43,7 +43,7 @@ def build(prs, layouts, ctx):
         "À retenir",
         [
             "Ces six familles représentent 96 % des erreurs détectées par WebAIM.",
-            "Les Easy Checks donnent une méthode courte pour les repérer sans audit complet.",
+            "Les points de contrôle rapides donnent une méthode courte pour les repérer sans audit complet.",
         ],
         top=5.55,
         line_spacing=1.0,
@@ -55,7 +55,7 @@ def build(prs, layouts, ctx):
         "Les pourcentages indiquent la part des pages d’accueil concernées par chaque type d’erreur. "
         "Faire le lien avec le programme : les stagiaires vont maintenant apprendre à repérer ces familles "
         "par des gestes simples - contraste, images, titres, clavier, langue, formulaires. "
-        "Préciser que les liens et boutons vides ne sont pas un Easy Check autonome dans ce module, "
+        "Préciser que les liens et boutons vides ne sont pas un Point de contrôle rapide autonome dans ce module, "
         "mais qu’ils ressortent souvent via les tests images, clavier et formulaires. "
         "Insister sur la logique de pré-diagnostic : on ne remplace pas l’audit RGAA, on sait mieux quoi remonter.",
     )

@@ -1,4 +1,4 @@
-"""Slide 22 : Easy Check 11 - Audiodescription.
+"""Slide 22 : Point de contrôle rapide 11 - Audiodescription.
 
 Règles neuropédagogie appliquées :
 - R8 : analogie - la voix off qui décrit l'écran pour qui ne le voit pas
@@ -23,8 +23,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Audiodescription : la voix qui montre",
-        fil_ariane="3. Easy Checks | 11. Audiodescription",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Audiodescription",
+        fil_ariane="3. points de contrôle rapides | 11. Audiodescription",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Audiodescription",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

@@ -1,4 +1,4 @@
-# Premortem - PRD exercice site Easy Checks
+# Premortem - PRD exercice site des points de contrôle rapides
 
 Date : 2026-05-04 18:58:15
 
@@ -12,15 +12,15 @@ Le PRD `03-easy-checks/exercice-site-easy-checks-spec.md` décrit un exercice we
 - `site-aide-correction/` avec aides progressives en accordéons DSFR ;
 - `site-accessible/` sobre et corrigée.
 
-Le site comporte 13 pages, une par Easy Check du W3C. Les binômes se répartissent les pages, auditent un lot limité, remplissent la grille Excel et restituent collectivement.
+Le site comporte 13 pages, une par Point de contrôle rapide du W3C. Les binômes se répartissent les pages, auditent un lot limité, remplissent la grille Excel et restituent collectivement.
 
 ### Public concerné
 
-Communicants, agents publics et profils métier en initiation. Le public n'est pas développeur. La formation dure une journée et la séquence Easy Checks doit rester praticable en 30 minutes.
+Communicants, agents publics et profils métier en initiation. Le public n'est pas développeur. La formation dure une journée et la séquence points de contrôle rapides doit rester praticable en 30 minutes.
 
 ### Victoire attendue
 
-En 30 minutes, les binômes trouvent au moins un constat `NC` correctement prouvé sur les pages attribuées, utilisent la grille avec les bons verdicts/sévérités, comprennent la limite du pré-diagnostic Easy Checks, puis comparent utilement avec l'aide et la version accessible.
+En 30 minutes, les binômes trouvent au moins un constat `NC` correctement prouvé sur les pages attribuées, utilisent la grille avec les bons verdicts/sévérités, comprennent la limite du pré-diagnostic points de contrôle rapides, puis comparent utilement avec l'aide et la version accessible.
 
 ### Contraintes explicitement données
 
@@ -32,7 +32,7 @@ En 30 minutes, les binômes trouvent au moins un constat `NC` correctement prouv
 
 ## Cadrage premortem
 
-On est dans 6 mois. L'exercice site Easy Checks a échoué. La production a bien avancé, le site existe, mais la session n'a pas produit l'apprentissage attendu ou le livrable n'est pas maintenable. On remonte le fil pour comprendre pourquoi.
+On est dans 6 mois. L'exercice site des points de contrôle rapides a échoué. La production a bien avancé, le site existe, mais la session n'a pas produit l'apprentissage attendu ou le livrable n'est pas maintenable. On remonte le fil pour comprendre pourquoi.
 
 ## Raisons d'échec brutes
 
@@ -40,7 +40,7 @@ On est dans 6 mois. L'exercice site Easy Checks a échoué. La production a bien
 2. La version accessible contient une erreur DSFR/RGAA visible par un participant avancé, ce qui fragilise la crédibilité de toute la séquence.
 3. Le public non développeur passe trop de temps à comprendre les outils et les preuves techniques au lieu de produire des constats simples.
 4. Les pages médias arrivent tard, les placeholders structurent mal les pages 9 à 11, et les checks sous-titres/transcription/audiodescription deviennent artificiels.
-5. La page racine annonce trop clairement l'Easy Check ciblé : l'exercice devient un jeu de chasse à l'erreur annoncée plutôt qu'un entraînement au diagnostic.
+5. La page racine annonce trop clairement le Point de contrôle rapide ciblé : l'exercice devient un jeu de chasse à l'erreur annoncée plutôt qu'un entraînement au diagnostic.
 6. Le corrigé public et les trois versions sur GitHub Pages deviennent des spoilers ou créent une confusion entre exercice et site de référence.
 7. Le contrat d'évaluation est clair dans le PRD, mais il n'est pas transformé en source structurée : au moment de produire, chacun recopie à la main et des divergences apparaissent.
 
@@ -67,7 +67,7 @@ On suppose que plusieurs livrables pédagogiques peuvent rester synchronisés pa
 
 #### Histoire de l'échec
 
-La version accessible respecte visuellement le DSFR. Pourtant, un composant accordéon ou formulaire diffère légèrement de la fiche officielle. Un participant plus technique inspecte le code, remarque un attribut manquant, un état clavier incomplet ou un libellé de champ discutable. Le sujet quitte les Easy Checks et devient : "Votre corrigé est-il vraiment accessible ?"
+La version accessible respecte visuellement le DSFR. Pourtant, un composant accordéon ou formulaire diffère légèrement de la fiche officielle. Un participant plus technique inspecte le code, remarque un attribut manquant, un état clavier incomplet ou un libellé de champ discutable. Le sujet quitte les points de contrôle rapides et devient : "Votre corrigé est-il vraiment accessible ?"
 
 Le problème est amplifié par l'exigence affichée dans le PRD : 100 % DSFR/accessibilité non négociable. Plus la promesse est haute, plus le moindre écart devient coûteux.
 
@@ -118,13 +118,13 @@ On suppose que les médias pourront s'insérer tard sans changer la structure p�
 
 #### Histoire de l'échec
 
-La page racine affiche pour chaque carte le titre réaliste et l'Easy Check ciblé. Cela rend la répartition efficace, mais l'exercice se transforme en recherche d'une erreur connue : "Page contraste, je cherche du contraste". Les stagiaires réussissent la grille, mais transfèrent moins bien la méthode sur un vrai site où les défauts ne sont pas étiquetés.
+La page racine affiche pour chaque carte le titre réaliste et le Point de contrôle rapide ciblé. Cela rend la répartition efficace, mais l'exercice se transforme en recherche d'une erreur connue : "Page contraste, je cherche du contraste". Les stagiaires réussissent la grille, mais transfèrent moins bien la méthode sur un vrai site où les défauts ne sont pas étiquetés.
 
 La restitution couvre les 13 checks, mais le diagnostic transversal reste faible. Les participants savent reconnaître les défauts quand on leur donne le thème ; ils sont moins prêts à explorer une page inconnue.
 
 #### Hypothèse implicite
 
-On suppose que l'affichage de l'Easy Check ciblé accélère sans réduire la compétence diagnostique.
+On suppose que l'affichage du Point de contrôle rapide ciblé accélère sans réduire la compétence diagnostique.
 
 #### Signaux d'alerte précoces
 

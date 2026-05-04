@@ -1,6 +1,6 @@
 # Exercice « Ministère de l'Accessibilité numérique » - Spécification
 
-Formation 102638 - Support de la section 3 « Les 13 Easy Checks du W3C ».
+Formation 102638 - Support de la section 3 « Les 13 points de contrôle rapides du W3C ».
 
 Statut : cadrage fonctionnel et contrat d'évaluation prêts avant production.
 
@@ -8,13 +8,13 @@ Statut : cadrage fonctionnel et contrat d'évaluation prêts avant production.
 
 ## Contexte pédagogique
 
-L'exercice consiste à faire remplir la grille d'audit Easy Checks à partir d'un faux site public DSFR : le **Ministère de l'Accessibilité numérique**.
+L'exercice consiste à faire remplir la grille d'audit des points de contrôle rapides à partir d'un faux site public DSFR : le **Ministère de l'Accessibilité numérique**.
 
 Le site doit ressembler à un vrai site institutionnel, inspiré de l'univers éditorial RGAA et de `accessibilite.numerique.gouv.fr`, sans copier le site officiel. Il doit contenir des composants DSFR correctement stylés visuellement, mais volontairement mal implémentés dans la version inaccessible pour révéler les problèmes d'accessibilité numérique.
 
 - **Public** : communicants, agents publics, profils métier, niveau initiation.
 - **Format** : exercice en binôme, 30 minutes.
-- **Modalité** : chaque binôme audite 3 pages rapides, puis restitution collective pour couvrir les 13 Easy Checks.
+- **Modalité** : chaque binôme audite 3 pages rapides, puis restitution collective pour couvrir les 13 points de contrôle rapides.
 - **Livrable stagiaire** : grille `grille-audit-easy-checks.xlsx` remplie avec verdict, sévérité, constat, correctif et preuve.
 - **Niveau visé** : pré-diagnostic exploitable, pas audit RGAA complet.
 
@@ -63,7 +63,7 @@ La version intermédiaire contient, en haut de chaque page d'exercice, une zone 
 Le groupe d'accordéons doit fournir une aide progressive en trois niveaux :
 
 1. **Indice** : signe observable ou outil utile pour détecter l'erreur.
-2. **Ce qui pose problème** : défaut, impact utilisateur et lien avec l'Easy Check.
+2. **Ce qui pose problème** : défaut, impact utilisateur et lien avec le Point de contrôle rapide.
 3. **Comment corriger** : méthode de correction, preuve attendue et référence à renseigner dans la grille.
 
 ### Version accessible
@@ -92,9 +92,9 @@ Référence générale :
 
 La version inaccessible peut contenir des composants visuellement proches du DSFR mais volontairement mal implémentés, uniquement pour créer une erreur pédagogique claire.
 
-Des défauts visuels évidents sont acceptés lorsqu'ils servent directement l'apprentissage : contraste insuffisant, focus invisible, contenu tronqué au zoom, information portée uniquement par la couleur, etc. Ils doivent rester ciblés sur l'Easy Check concerné et ne pas transformer le site en caricature.
+Des défauts visuels évidents sont acceptés lorsqu'ils servent directement l'apprentissage : contraste insuffisant, focus invisible, contenu tronqué au zoom, information portée uniquement par la couleur, etc. Ils doivent rester ciblés sur le Point de contrôle rapide concerné et ne pas transformer le site en caricature.
 
-Les erreurs invisibles à l'oeil sont aussi autorisées et même souhaitables lorsque l'Easy Check l'exige : titre de page générique, langue absente ou erronée, label non associé, alternative absente dans le code, etc. L'exercice doit montrer que l'accessibilité ne se vérifie pas uniquement au rendu visuel.
+Les erreurs invisibles à l'oeil sont aussi autorisées et même souhaitables lorsque le Point de contrôle rapide l'exige : titre de page générique, langue absente ou erronée, label non associé, alternative absente dans le code, etc. L'exercice doit montrer que l'accessibilité ne se vérifie pas uniquement au rendu visuel.
 
 ### Skill DSFR à utiliser
 
@@ -162,7 +162,7 @@ Un composant ne doit pas être considéré comme conforme uniquement parce qu'il
 Le site doit utiliser une identité fictive :
 
 - Nom de site : **Ministère de l'Accessibilité numérique**
-- Baseline dans le header : **Formation IGPDE - Exercice Easy Checks**
+- Baseline dans le header : **Formation IGPDE - Exercice points de contrôle rapides**
 - Univers éditorial : RGAA, accessibilité numérique publique, démarches et ressources institutionnelles
 
 Le header DSFR doit rester cohérent avec un site d'État :
@@ -278,7 +278,7 @@ Chaque carte de page doit indiquer :
 
 - numéro de page ;
 - titre réaliste de la page ;
-- Easy Check ciblé, affiché clairement dès la page racine ;
+- Point de contrôle rapide ciblé, affiché clairement dès la page racine ;
 - lot de binôme recommandé si utile ;
 - lien explicite vers la page à auditer.
 
@@ -288,7 +288,7 @@ Le composant « Téléchargement de fichier » DSFR est déprécié. Il ne doit 
 
 La grille doit être présentée via une **carte DSFR de téléchargement** :
 
-- intitulé explicite : `Télécharger la grille d'audit Easy Checks` ;
+- intitulé explicite : `Télécharger la grille d'audit des points de contrôle rapides` ;
 - format visible : `XLSX` ;
 - poids visible ;
 - lien accessible ;
@@ -319,7 +319,7 @@ Organisation :
 | 7 min | Restitution collective des constats |
 | 5 min | Comparaison rapide avec la version aide/corrigée et choix de 3 actions prioritaires |
 
-Les binômes ne doivent pas auditer toutes les pages. Chaque binôme travaille sur un lot limité, puis la restitution collective permet de couvrir l'ensemble des 13 Easy Checks.
+Les binômes ne doivent pas auditer toutes les pages. Chaque binôme travaille sur un lot limité, puis la restitution collective permet de couvrir l'ensemble des 13 points de contrôle rapides.
 
 Répartition par défaut :
 
@@ -355,7 +355,7 @@ Principe de détection :
 
 ## Cartographie des pages
 
-Les pages visibles doivent porter des titres réalistes de ministère. La correspondance avec les Easy Checks apparaît dans l'accueil, l'aide à la correction, le manifeste et la grille, mais pas forcément comme titre principal de la page.
+Les pages visibles doivent porter des titres réalistes de ministère. La correspondance avec les points de contrôle rapides apparaît dans l'accueil, l'aide à la correction, le manifeste et la grille, mais pas forcément comme titre principal de la page.
 
 Chaque page contient une seule erreur principale. La même erreur peut être reproduite à plusieurs endroits sur la page pour créer un constat réaliste.
 
@@ -397,7 +397,7 @@ Le tableau ci-dessous est une vue lisible du contrat. En cas d'écart lors de la
 
 ### Vue d'ensemble
 
-| # | Page réaliste | Easy Check ciblé | Détection principale |
+| # | Page réaliste | Point de contrôle rapide ciblé | Détection principale |
 |---|---|---|---|
 | 1 | Actualité illustrée | Texte alternatif des images | WAVE / ANDI |
 | 2 | Résultats de recherche RGAA | Titre de page | Navigateur / code source / WAVE |
@@ -423,9 +423,9 @@ Le tableau ci-dessous est une vue lisible du contrat. En cas d'écart lors de la
 
 | Élément | Spécification |
 |---|---|
-| Easy Check | 1. Texte alternatif des images |
+| Point de contrôle rapide | 1. Texte alternatif des images |
 | Erreur inaccessible | Quatre cas complémentaires : image informative sans alternative ou avec `alt=""`, image décorative trop bavarde, image-lien courriel avec alternative visuelle, lien composite SMS dont l'icône décorative a une alternative redondante. |
-| Occurrences | Les quatre occurrences sont acceptées car elles relèvent du même Easy Check et permettent de distinguer contexte, fonction, décoration et lien composite. |
+| Occurrences | Les quatre occurrences sont acceptées car elles relèvent du même Point de contrôle rapide et permettent de distinguer contexte, fonction, décoration et lien composite. |
 | Détection | WAVE, ANDI, inspection HTML. |
 | Correction accessible | Image informative : alternative courte reprenant l'information. Image décorative : `alt=""`. Image-lien : alternative indiquant la cible ou l'action. Lien composite : si le texte visible indique déjà l'action, l'icône décorative doit avoir `alt=""`. |
 | Aide accordéon | Divulgation progressive en trois niveaux : méthode d'identification des 4 cas, indices par type de cas, puis messages de correction ciblés. L'aide distingue explicitement le lien image courriel et le lien composite SMS. |
@@ -436,9 +436,9 @@ Le tableau ci-dessous est une vue lisible du contrat. En cas d'écart lors de la
 
 | Élément | Spécification |
 |---|---|
-| Easy Check | 2. Titre de page |
+| Point de contrôle rapide | 2. Titre de page |
 | Erreur inaccessible | Trois cas complémentaires : titre générique, titre identique sur plusieurs pages de résultats, information spécifique placée trop tard après le nom long du ministère. |
-| Occurrences | Les trois cas peuvent être illustrés dans la même page de résultats ou dans le corrigé. Ils relèvent du même Easy Check : présence, unicité et pertinence du titre de page. |
+| Occurrences | Les trois cas peuvent être illustrés dans la même page de résultats ou dans le corrigé. Ils relèvent du même Point de contrôle rapide : présence, unicité et pertinence du titre de page. |
 | Détection | Onglet navigateur, code source, WAVE. |
 | Correction accessible | Titre unique, spécifique et ordonné du particulier vers le général, par exemple `Recherche "RGAA" - Page 2 - Ministère de l'Accessibilité numérique`. |
 | Aide accordéon | Problème : l'utilisateur ne sait pas quelle page ou quel état est ouvert. Impact : navigation difficile entre onglets, historique et pages de résultats. Méthode : rendre le titre unique, ajouter le contexte utile et placer l'information spécifique en premier. |
@@ -449,7 +449,7 @@ Le tableau ci-dessous est une vue lisible du contrat. En cas d'écart lors de la
 
 | Élément | Spécification |
 |---|---|
-| Easy Check | 3. Titres de rubriques |
+| Point de contrôle rapide | 3. Titres de rubriques |
 | Erreur inaccessible | Deux vraies erreurs et un faux-ami pédagogique : titre visuel non balisé, balise de titre détournée pour un effet visuel, puis saut de niveau ou plusieurs `h1` à analyser comme bonne pratique / faux-ami selon la cohérence réelle de la hiérarchie. |
 | Occurrences | Les trois cas sont présentés sur la page, mais le corrigé doit distinguer clairement les non-conformités des mauvaises pratiques tolérées par le RGAA. |
 | Détection | HeadingsMap, WAVE, DevTools. |
@@ -462,9 +462,9 @@ Le tableau ci-dessous est une vue lisible du contrat. En cas d'écart lors de la
 
 | Élément | Spécification |
 |---|---|
-| Easy Check | 4. Contraste |
+| Point de contrôle rapide | 4. Contraste |
 | Erreur inaccessible | Trois occurrences de contraste insuffisant : texte courant gris clair sur blanc, lien ou bouton d'action trop pâle, information de statut transmise par une couleur faible. |
-| Occurrences | Les trois occurrences sont acceptées car elles relèvent du même Easy Check. |
+| Occurrences | Les trois occurrences sont acceptées car elles relèvent du même Point de contrôle rapide. |
 | Détection | WebAIM Contrast Checker, Colour Contrast Analyser, WAVE. |
 | Correction accessible | Ratio conforme : 4,5:1 pour texte normal ; 3:1 pour texte large et composants. |
 | Aide accordéon | Problème : lecture ou identification difficile. Impact : malvoyance, luminosité forte, écran médiocre, perception des statuts. Méthode : mesurer, ne pas juger à l'oeil, et ne pas transmettre une information uniquement par une couleur peu contrastée. |
@@ -475,9 +475,9 @@ Le tableau ci-dessous est une vue lisible du contrat. En cas d'écart lors de la
 
 | Élément | Spécification |
 |---|---|
-| Easy Check | 5. Lien d'évitement |
+| Point de contrôle rapide | 5. Lien d'évitement |
 | Erreur inaccessible | Trois cas complémentaires : lien d'évitement absent, lien présent mais invisible au focus, lien présent mais cible d'ancre invalide ou inexistante. |
-| Occurrences | Les trois cas sont acceptés car ils relèvent du même Easy Check : présence, visibilité au focus et fonctionnement réel du lien. |
+| Occurrences | Les trois cas sont acceptés car ils relèvent du même Point de contrôle rapide : présence, visibilité au focus et fonctionnement réel du lien. |
 | Détection | Clavier, premier appui sur `Tab`, activation du lien, vérification du déplacement vers le contenu principal. |
 | Correction accessible | Utiliser le composant DSFR **Liens d'évitement** : bloc placé tout en haut de page, avant l'en-tête ; navigation `aria-label="Accès rapide"` ; liste de liens simples ; premier lien vers le contenu principal ; ancres valides. |
 | Aide accordéon | Problème : l'utilisateur clavier traverse toute la navigation ou croit avoir évité le menu sans y parvenir. Impact : perte de temps, fatigue, désorientation. Méthode : implémenter le composant DSFR Liens d'évitement sans personnalisation abusive, vérifier qu'il apparaît au focus et tester que chaque cible existe et fonctionne. |
@@ -493,9 +493,9 @@ Références DSFR obligatoires pour cette page :
 
 | Élément | Spécification |
 |---|---|
-| Easy Check | 6. Focus clavier visible |
+| Point de contrôle rapide | 6. Focus clavier visible |
 | Erreur inaccessible | Focus visible supprimé ou très peu perceptible sur trois types d'éléments : boutons, cartes cliquables et accordéons DSFR mal surchargés. |
-| Occurrences | Les trois occurrences sont acceptées car elles relèvent du même Easy Check. |
+| Occurrences | Les trois occurrences sont acceptées car elles relèvent du même Point de contrôle rapide. |
 | Détection | Clavier, `Tab`, `Shift+Tab`, ANDI en complément. |
 | Correction accessible | Focus visible DSFR conservé sur boutons, liens/cartes et accordéons ; ordre de tabulation logique ; aucun piège clavier ; comportement clavier des accordéons conforme à la fiche DSFR. |
 | Aide accordéon | Problème : on ne sait plus où l'on est. Impact : navigation impossible au clavier. Méthode : retirer les overrides qui masquent le focus, utiliser les styles DSFR et vérifier chaque composant interactif au clavier. |
@@ -506,9 +506,9 @@ Références DSFR obligatoires pour cette page :
 
 | Élément | Spécification |
 |---|---|
-| Easy Check | 7. Langue de la page |
+| Point de contrôle rapide | 7. Langue de la page |
 | Erreur inaccessible | Trois cas complémentaires : attribut `lang` absent ou vide sur `<html>`, code langue invalide ou erroné, passage en anglais non balisé dans une page française. |
-| Occurrences | Les trois occurrences sont acceptées car elles relèvent du même Easy Check et couvrent déclaration principale, validité du code et changement de langue. |
+| Occurrences | Les trois occurrences sont acceptées car elles relèvent du même Point de contrôle rapide et couvrent déclaration principale, validité du code et changement de langue. |
 | Détection | Web Developer, code source, WAVE. |
 | Correction accessible | `lang="fr"` sur la page ; code langue valide (`fr`, `en`, `es`, etc.) ; passages anglais avec `lang="en"` si nécessaire. Les noms propres et mots étrangers passés dans l'usage courant ne doivent pas être sur-balisés. |
 | Aide accordéon | Problème : la synthèse vocale ne sait pas quelle prononciation appliquer. Impact : compréhension dégradée, fatigue, mots étrangers mal prononcés. Méthode : déclarer la langue principale, utiliser un code valide et baliser seulement les vrais changements de langue utiles. |
@@ -519,7 +519,7 @@ Références DSFR obligatoires pour cette page :
 
 | Élément | Spécification |
 |---|---|
-| Easy Check | 8. Zoom 200 % |
+| Point de contrôle rapide | 8. Zoom 200 % |
 | Erreur inaccessible | Cartes de ressources avec hauteur fixe, largeur rigide ou `overflow` masqué provoquant texte tronqué, boutons sortis ou superposition au zoom 200 %. |
 | Occurrences | Plusieurs cartes peuvent reproduire la même erreur. |
 | Détection | Zoom navigateur à 200 %, fenêtre étroite. |
@@ -532,7 +532,7 @@ Références DSFR obligatoires pour cette page :
 
 | Élément | Spécification |
 |---|---|
-| Easy Check | 9. Sous-titres |
+| Point de contrôle rapide | 9. Sous-titres |
 | Erreur inaccessible | Vidéo sans sous-titres, ou sous-titres automatiques non relus. |
 | Assets | `video-demo.mp4`, `sous-titres-demo.vtt` à remplacer par les vrais médias fournis ultérieurement. |
 | Détection | Lecteur vidéo, bouton sous-titres, écoute sans son. |
@@ -545,7 +545,7 @@ Références DSFR obligatoires pour cette page :
 
 | Élément | Spécification |
 |---|---|
-| Easy Check | 10. Transcriptions |
+| Point de contrôle rapide | 10. Transcriptions |
 | Erreur inaccessible | Audio sans lien visible vers une transcription. |
 | Assets | `audio-demo.mp3`, `transcription-demo.html` à remplacer par les vrais médias fournis ultérieurement. |
 | Détection | Revue humaine de la page. |
@@ -558,7 +558,7 @@ Références DSFR obligatoires pour cette page :
 
 | Élément | Spécification |
 |---|---|
-| Easy Check | 11. Audiodescription |
+| Point de contrôle rapide | 11. Audiodescription |
 | Erreur inaccessible | Information visuelle essentielle non décrite dans l'audio principal et absence de piste ou version audiodécrite. |
 | Assets | Sources proposées : `Valentin Haüy - CAPTCHA : le retour au Moyen Âge` (`https://www.youtube.com/watch?v=nSZ0xeXapds`) comme version avec transcription, et `CAPTCHA : le retour au Moyen Âge (vidéo audiodécrite)` (`https://www.youtube.com/watch?v=trfLb7xlXjQ`) comme version audiodécrite. Ne pas télécharger ni réhéberger sans vérification des droits ; utiliser ces liens comme références pédagogiques ou remplacer par fichiers locaux autorisés. |
 | Détection | Revue humaine de la vidéo. |
@@ -571,9 +571,9 @@ Références DSFR obligatoires pour cette page :
 
 | Élément | Spécification |
 |---|---|
-| Easy Check | 12. Étiquettes de formulaire |
+| Point de contrôle rapide | 12. Étiquettes de formulaire |
 | Erreur inaccessible | Trois occurrences principales : placeholder utilisé comme seule étiquette, étiquette visible non associée au champ, groupe de boutons radio ou cases à cocher sans `fieldset`/`legend`. |
-| Occurrences | Les trois occurrences sont acceptées car elles relèvent du même Easy Check. Elles peuvent être complétées dans le corrigé par des exemples pédagogiques : étiquette orpheline, nom visible différent du nom accessible, aide à la saisie mal reliée, étiquette masquée avec `display:none`. |
+| Occurrences | Les trois occurrences sont acceptées car elles relèvent du même Point de contrôle rapide. Elles peuvent être complétées dans le corrigé par des exemples pédagogiques : étiquette orpheline, nom visible différent du nom accessible, aide à la saisie mal reliée, étiquette masquée avec `display:none`. |
 | Détection | ANDI, WAVE, clic sur le label, test au clavier, DevTools Accessibility Tree, lecteur d'écran si disponible. |
 | Correction accessible | Étiquette visible et persistante ; association `label for` / `id` ; placeholder utilisé seulement comme exemple ; nom accessible qui reprend le nom visible ; aide à la saisie reliée avec `aria-describedby` ; groupes structurés avec `fieldset` et `legend`. |
 | Aide accordéon | Problème : le champ ou le groupe n'a pas de nom fiable. Impact : lecteur d'écran muet, commande vocale fragile, mémoire sollicitée, contexte perdu sur les radios/checkboxes. Méthode : relier chaque étiquette au champ, ne pas remplacer le label par un placeholder, structurer les groupes et vérifier le nom accessible. |
@@ -584,7 +584,7 @@ Références DSFR obligatoires pour cette page :
 
 | Élément | Spécification |
 |---|---|
-| Easy Check | 13. Champs obligatoires |
+| Point de contrôle rapide | 13. Champs obligatoires |
 | Scénario | Parcours en deux temps : avant soumission pour vérifier la prévention, puis après soumission pour vérifier l'aide à la correction. |
 | Erreur inaccessible | Avant soumission : champs obligatoires indiqués uniquement par couleur, bordure rouge ou astérisque non expliqué, sans `required` ni `aria-required`. Après soumission : message trop vague, message non associé au champ et focus non ramené vers le récapitulatif ou le premier champ en erreur. |
 | Occurrences | Plusieurs champs requis peuvent reproduire l'erreur. Les défauts de prévention et de correction sont acceptés car ils décrivent le même parcours de formulaire. |
@@ -647,7 +647,7 @@ Le manifeste documente toutes les erreurs injectées.
 
 Format attendu :
 
-| Page | Easy Check | Erreur injectée | Outil de détection | Correction attendue | Aide associée |
+| Page | Point de contrôle rapide | Erreur injectée | Outil de détection | Correction attendue | Aide associée |
 |---|---|---|---|---|---|
 
 Le manifeste est public dans le dépôt GitHub Pages, mais il doit être présenté comme ressource « après l'exercice » pour ne pas donner les réponses trop tôt.
@@ -702,7 +702,7 @@ Les pages média doivent être conçues pour permettre le remplacement des asset
 
 ### Pédagogie
 
-- Les 13 Easy Checks sont représentés par 13 pages distinctes.
+- Les 13 points de contrôle rapides sont représentés par 13 pages distinctes.
 - Une page correspond à une erreur principale.
 - Le site inaccessible reste réaliste, pas caricatural.
 - La version aide à la correction expose l'aide immédiatement après le titre de page, avant le composant fautif.

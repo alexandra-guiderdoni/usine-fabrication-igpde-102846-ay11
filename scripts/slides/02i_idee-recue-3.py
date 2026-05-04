@@ -55,6 +55,6 @@ def build(prs, layouts, ctx):
         "Bonne nouvelle pour les stagiaires : on ne peut pas tout apprendre en 1 jour. "
         "L'objectif de cette formation, c'est d'ouvrir les yeux sur l'étendue du sujet "
         "et d'acquérir les réflexes sur les points les plus fréquents. "
-        "Le reste vient avec la pratique et les ressources (RGAA, Easy Checks W3C).",
+        "Le reste vient avec la pratique et les ressources (RGAA, points de contrôle rapides W3C).",
     )
     return slide

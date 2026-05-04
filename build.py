@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build generated training artifacts for the Easy Checks exercise."""
+"""Build generated training artifacts for the points de contrôle rapides exercise."""
 
 from scripts.generate_easy_checks_site_skeleton import main
 

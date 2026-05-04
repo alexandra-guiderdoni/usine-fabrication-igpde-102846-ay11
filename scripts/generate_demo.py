@@ -73,7 +73,7 @@ def main():
         ("Bureautique",
          "Word, Excel, PowerPoint accessibles : structure, styles, alt text"),
         ("Web et réseaux",
-         "Easy Checks, tests clavier, réseaux sociaux accessibles"),
+         "points de contrôle rapides, tests clavier, réseaux sociaux accessibles"),
     ])
     add_notes(s3,
               "Présenter l\u2019enchaînement des 3 parties sur 2 journées.")
@@ -228,9 +228,9 @@ def main():
     compose_chapitre(
         s11, numero=3,
         titre="Pratiquer les évaluations rapides d\u2019accessibilité web "
-              "(Easy Checks)",
+              "(points de contrôle rapides)",
     )
-    add_notes(s11, "Transition vers la partie 3, Easy Checks W3C.")
+    add_notes(s11, "Transition vers la partie 3, points de contrôle rapides W3C.")
 
     # --- SLIDE 12 : Section 4 ---
     s12 = new_slide(prs, layouts, layout_name="chapitre", titre="",

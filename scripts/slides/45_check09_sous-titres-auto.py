@@ -1,4 +1,4 @@
-"""Slide 20 : Easy Check 9 - Piège des sous-titres automatiques.
+"""Slide 20 : Point de contrôle rapide 9 - Piège des sous-titres automatiques.
 
 Règles neuropédagogie appliquées :
 - R18 : sécurité psychologique - l'auto est un point de départ, pas une arrivée
@@ -22,8 +22,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Sous-titres auto : brouillon utile, livrable à relire",
-        fil_ariane="3. Easy Checks | 9. Sous-titres",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Sous-titres",
+        fil_ariane="3. points de contrôle rapides | 9. Sous-titres",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Sous-titres",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

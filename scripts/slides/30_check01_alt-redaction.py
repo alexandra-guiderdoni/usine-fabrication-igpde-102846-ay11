@@ -1,4 +1,4 @@
-"""Slide 5 : Easy Check 1 - Règles de rédaction du texte alternatif.
+"""Slide 5 : Point de contrôle rapide 1 - Règles de rédaction du texte alternatif.
 
 Règles neuropédagogie appliquées :
 - R5 : chunking - 5 règles concrètes
@@ -17,8 +17,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Rédiger un texte alternatif qui sert vraiment",
-        fil_ariane="3. Easy Checks | 1. Alternatives textuelles",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Texte alternatif",
+        fil_ariane="3. points de contrôle rapides | 1. Alternatives textuelles",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Texte alternatif",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

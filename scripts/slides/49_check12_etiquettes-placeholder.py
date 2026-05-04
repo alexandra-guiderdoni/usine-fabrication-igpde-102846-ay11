@@ -1,4 +1,4 @@
-"""Slide 24 : Easy Check 12 - Piège du placeholder pris pour étiquette.
+"""Slide 24 : Point de contrôle rapide 12 - Piège du placeholder pris pour étiquette.
 
 Règles neuropédagogie appliquées :
 - R18 : sécurité psychologique - piège ultra-fréquent, on pardonne vite
@@ -21,8 +21,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Placeholder ≠ étiquette",
-        fil_ariane="3. Easy Checks | 12. Étiquettes de formulaire",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Étiquettes",
+        fil_ariane="3. points de contrôle rapides | 12. Étiquettes de formulaire",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Étiquettes",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

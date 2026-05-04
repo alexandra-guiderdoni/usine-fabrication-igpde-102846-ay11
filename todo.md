@@ -18,7 +18,7 @@
 
 ## Fait
 
-- [x] Slides 01-27 assemblées dans `formation-102638-juin-2026.pptx` (27 slides couvrant les 13 Easy Checks W3C)
+- [x] Slides 01-27 assemblées dans `formation-102638-juin-2026.pptx` (27 slides couvrant les 13 points de contrôle rapides W3C)
 - [x] Grille d'audit MD documentaire (`03-easy-checks/grille-audit-easy-checks.md`)
-- [x] **Grille d'audit XLSX validée** (`03-easy-checks/grille-audit-easy-checks.xlsx`) - 16 onglets, 12 pages pré-remplies, avertissement sensibilisation, mention PAC pour documents, renommage « Taux de conformité Easy Checks », évaluée 8/10 (adéquation Easy Checks 9, initiation 8, pédagogie 7,5). Validée par Alex le 2026-04-17.
+- [x] **Grille d'audit XLSX validée** (`03-easy-checks/grille-audit-easy-checks.xlsx`) - 16 onglets, 12 pages pré-remplies, avertissement sensibilisation, mention PAC pour documents, renommage « Taux de conformité points de contrôle rapides », évaluée 8/10 (adéquation points de contrôle rapides 9, initiation 8, pédagogie 7,5). Validée par Alex le 2026-04-17.
 - [x] Rattrapage typographique : remplacement des tirets cadratins par tirets simples dans tous les scripts Python (29 fichiers touchés + règle documentée dans CLAUDE.md)

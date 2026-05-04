@@ -1,4 +1,4 @@
-"""Slide 25 : Easy Check 12 - Groupes de champs (radios, cases à cocher).
+"""Slide 25 : Point de contrôle rapide 12 - Groupes de champs (radios, cases à cocher).
 
 Règles neuropédagogie appliquées :
 - R8 : analogie - fieldset est le cadre qui rassemble la famille de champs
@@ -13,8 +13,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Groupes de champs : l’étiquette commune",
-        fil_ariane="3. Easy Checks | 12. Étiquettes de formulaire",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Étiquettes",
+        fil_ariane="3. points de contrôle rapides | 12. Étiquettes de formulaire",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Étiquettes",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

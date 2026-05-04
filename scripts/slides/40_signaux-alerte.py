@@ -16,8 +16,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="3 signaux qui trahissent un défaut",
-        fil_ariane="3. Easy Checks | 6. Focus et navigation clavier",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Clavier",
+        fil_ariane="3. points de contrôle rapides | 6. Focus et navigation clavier",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Clavier",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

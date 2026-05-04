@@ -397,7 +397,7 @@ def new_slide(prs, layouts, layout_name="titre_contenu", titre=None,
                     # Neutraliser la numerotation automatique heritee du layout
                     # (lstStyle > lvl1pPr > buAutoNum type="arabicPeriod") qui,
                     # sans cette neutralisation, affiche « 1. » en prefixe du fil
-                    # d'Ariane et donne « 1.3. Easy Checks | ... » au rendu.
+                    # d'Ariane et donne « 1.3. points de contrôle rapides | ... » au rendu.
                     _neutralize_auto_numbering(tf._txBody)
                     fil_pose = True
                     continue

@@ -1,4 +1,4 @@
-"""Slide 27 : mission finale - audit groupé avec les 13 Easy Checks.
+"""Slide 27 : mission finale - audit groupé avec les 13 points de contrôle rapides.
 
 Règles neuropédagogie appliquées :
 - R24 : plan d'action concret (« Quelle est la 1re chose que vous ferez demain ? »)
@@ -14,15 +14,15 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Votre mission : audit en 30 minutes",
-        fil_ariane="3. Easy Checks | Mission finale",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Mission",
+        fil_ariane="3. points de contrôle rapides | Mission finale",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Mission",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
     add_callout(
         slide,
-        "Choisissez une page de votre site pro ou d’un site public et passez-la aux 13 Easy Checks :",
+        "Choisissez une page de votre site pro ou d’un site public et passez-la aux 13 points de contrôle rapides :",
         [
             "Renseignez pour chaque check : verdict, sévérité, constat, correctif, preuve",
             "Mesurez le contraste d’au moins 3 zones",
@@ -50,9 +50,9 @@ def build(prs, layouts, ctx):
         "Onglet Grille vierge à dupliquer par stagiaire, onglet Exemple pour s’orienter, onglet Synthèse pour consolider. "
         "Timing : 20 min audit individuel, 5 min binôme, 5 min restitution collective. "
         "Outils autorisés : DevTools, HeadingsMap, Colour Contrast Analyser, clavier + casque audio. "
-        "Rappeler que le taux Easy Checks n’est pas un taux de conformité RGAA publiable. "
+        "Rappeler que le taux points de contrôle rapides n’est pas un taux de conformité RGAA publiable. "
         "Clôture métacognitive (R25) : « Quel check vous a surpris ? Quel est le plus facile à faire adopter dans votre équipe ? » "
         "Engagement (R24) : chaque stagiaire annonce UNE action qu’il lancera dès demain 9 h. "
-        "Livrable individuel : grille Easy Checks remplie + 3 actions priorisées + 1 engagement personnel.",
+        "Livrable individuel : grille points de contrôle rapides remplie + 3 actions priorisées + 1 engagement personnel.",
     )
     return slide

@@ -1,4 +1,4 @@
-"""Slide 26 : Easy Check 13 - Champs obligatoires.
+"""Slide 26 : Point de contrôle rapide 13 - Champs obligatoires.
 
 Règles neuropédagogie appliquées :
 - R5 : chunking - 3 règles simples
@@ -23,8 +23,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Champs obligatoires : dits, pas juste marqués",
-        fil_ariane="3. Easy Checks | 13. Champs obligatoires",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Champs obligatoires",
+        fil_ariane="3. points de contrôle rapides | 13. Champs obligatoires",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Champs obligatoires",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

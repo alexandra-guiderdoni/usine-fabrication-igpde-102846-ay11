@@ -1,4 +1,4 @@
-"""Slide 17 : Easy Check 7 - Langue de la page.
+"""Slide 17 : Point de contrôle rapide 7 - Langue de la page.
 
 Règles neuropédagogie appliquées :
 - R8 : analogie - le lecteur d'écran est un comédien qui attend son script
@@ -23,8 +23,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Langue de la page : l’accent juste du lecteur d’écran",
-        fil_ariane="3. Easy Checks | 7. Langue",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Langue",
+        fil_ariane="3. points de contrôle rapides | 7. Langue",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Langue",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

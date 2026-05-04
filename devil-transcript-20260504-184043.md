@@ -1,4 +1,4 @@
-# Devil Council - PRD exercice site Easy Checks
+# Devil Council - PRD exercice site des points de contrôle rapides
 
 Date : 2026-05-04 18:40:43
 
@@ -14,7 +14,7 @@ La proposition à attaquer : produire un exercice web pour la session 3 de la fo
 - `site-aide-correction/` avec aides progressives en accordéons DSFR ;
 - `site-accessible/` sobre, corrigée et conforme DSFR/accessibilité.
 
-Le site contient 13 pages, une par Easy Check du W3C. Chaque page reste réaliste, courte, ciblée, et comporte une erreur principale, parfois déclinée en plusieurs occurrences. Les stagiaires, communicants ou agents publics débutants, travaillent en binômes pendant 30 minutes, auditent 3 pages chacun, remplissent la grille Excel Easy Checks avec `C`, `NC`, `NA`, sévérité, constat, correctif et preuve, puis restituent collectivement.
+Le site contient 13 pages, une par Point de contrôle rapide du W3C. Chaque page reste réaliste, courte, ciblée, et comporte une erreur principale, parfois déclinée en plusieurs occurrences. Les stagiaires, communicants ou agents publics débutants, travaillent en binômes pendant 30 minutes, auditent 3 pages chacun, remplissent la grille Excel points de contrôle rapides avec `C`, `NC`, `NA`, sévérité, constat, correctif et preuve, puis restituent collectivement.
 
 Contraintes majeures : DSFR local sans CDN, composants DSFR officiels vérifiés, architecture statique Python sans Node, sortie `docs/`, page racine avec cartes des 13 pages, grille téléchargeable, manifeste et corrigé publics après l'exercice.
 
@@ -25,7 +25,7 @@ Hypothèses implicites :
 - Les erreurs multiples par page ne brouilleront pas le principe pédagogique.
 - La version accessible peut atteindre un niveau DSFR/RGAA suffisamment solide.
 - Les outils WAVE, ANDI, clavier, HeadingsMap et CCA seront disponibles et utilisables par le public.
-- Le public comprendra la différence entre pré-diagnostic Easy Checks et audit RGAA.
+- Le public comprendra la différence entre pré-diagnostic points de contrôle rapides et audit RGAA.
 
 Enjeu : si ce PRD est mal calibré, l'exercice deviendra trop long, trop technique, fragile à maintenir, ou pédagogiquement confus.
 
@@ -37,7 +37,7 @@ Clarification apportée après l'attaque initiale : les stagiaires sont réparti
 
 Le test décisif est simple : donnez la page racine, la grille et 3 pages à deux binômes représentatifs du public cible, sans aide orale, avec 15 minutes strictes. Si chaque binôme ne produit pas au moins un constat correctement qualifié par page avec preuve, sévérité et correctif, le PRD est faux. Pas discutable : l'exercice n'est pas calibré pour sa cible.
 
-Deuxième test : prenez une seule page enrichie avec trois cas, par exemple images, titres, formulaires ou langue. Si les stagiaires remontent trois erreurs comme trois Easy Checks différents, ou s'ils confondent faute RGAA, mauvaise pratique et faux-ami, l'hypothèse "une page = une erreur principale" est invalidée. Le PRD dit une erreur principale, mais décrit parfois une mini-leçon complète.
+Deuxième test : prenez une seule page enrichie avec trois cas, par exemple images, titres, formulaires ou langue. Si les stagiaires remontent trois erreurs comme trois points de contrôle rapides différents, ou s'ils confondent faute RGAA, mauvaise pratique et faux-ami, l'hypothèse "une page = une erreur principale" est invalidée. Le PRD dit une erreur principale, mais décrit parfois une mini-leçon complète.
 
 Troisième test : auditez la version accessible avec clavier, WAVE, ANDI et revue DSFR composant par composant. Si une seule page accessible échoue sur un composant DSFR standard, la promesse "version corrigée conforme" devient dangereuse. Elle ne peut plus servir de référence pédagogique.
 
@@ -87,7 +87,7 @@ Ressources manquantes critiques :
 
 ## Le Second-Ordre
 
-Effet de deuxième ordre : parce que la racine affiche clairement l'Easy Check ciblé sur chaque carte, les stagiaires ne cherchent plus "quel problème d'accessibilité existe ici". Ils cherchent "l'erreur correspondant au libellé annoncé". Cela accélère l'exercice, mais réduit la compétence de diagnostic transversal. La grille devient un jeu d'association.
+Effet de deuxième ordre : parce que la racine affiche clairement le Point de contrôle rapide ciblé sur chaque carte, les stagiaires ne cherchent plus "quel problème d'accessibilité existe ici". Ils cherchent "l'erreur correspondant au libellé annoncé". Cela accélère l'exercice, mais réduit la compétence de diagnostic transversal. La grille devient un jeu d'association.
 
 Effet de troisième ordre : en enrichissant chaque page avec trois occurrences, la restitution collective se transforme en correction exhaustive. Le formateur doit arbitrer quels constats étaient attendus, lesquels étaient bonus, lesquels étaient faux-amis. Les participants retiennent que l'accessibilité est pleine d'exceptions et de pièges, pas qu'ils ont une méthode simple d'entrée.
 
@@ -119,7 +119,7 @@ Le Falsificationniste demande des tests réels avant décision. Le Contraintes-F
 
 Le principal angle mort est la gouvernance du corrigé. Le PRD dit quoi produire, mais pas qui arbitre les cas discutables RGAA, qui valide la sévérité indicative, et qui maintient la cohérence lorsque le référentiel, DSFR ou la grille évoluent.
 
-Deuxième angle mort : le risque de guidage excessif. La page racine affiche l'Easy Check ciblé. C'est pratique pour tenir 30 minutes, mais cela transforme l'audit en recherche d'une erreur annoncée. Le PRD ne dit pas comment compenser cela dans l'animation.
+Deuxième angle mort : le risque de guidage excessif. La page racine affiche le Point de contrôle rapide ciblé. C'est pratique pour tenir 30 minutes, mais cela transforme l'audit en recherche d'une erreur annoncée. Le PRD ne dit pas comment compenser cela dans l'animation.
 
 Troisième angle mort : la preuve attendue. La grille demande une preuve, mais la spec ne définit pas encore, page par page, la preuve minimale acceptable : sélecteur CSS, capture, extrait HTML, mesure de contraste, comportement clavier, résultat ANDI, etc.
 

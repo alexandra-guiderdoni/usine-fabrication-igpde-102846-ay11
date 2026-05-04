@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the Easy Checks exercise skeleton."""
+"""Validate the points de contrôle rapides exercise skeleton."""
 
 from __future__ import annotations
 
@@ -62,6 +62,7 @@ class LinkParser(HTMLParser):
             if value.startswith(("mailto:", "tel:", "sms:")):
                 continue
             target, _ = urldefrag(value)
+            target = urlparse(target).path
             if target:
                 self.local_refs.append(target)
 
@@ -184,7 +185,7 @@ def validate_docs() -> None:
 def main() -> None:
     validate_contract()
     validate_docs()
-    print("OK validation Easy Checks")
+    print("OK validation points de contrôle rapides")
 
 
 if __name__ == "__main__":

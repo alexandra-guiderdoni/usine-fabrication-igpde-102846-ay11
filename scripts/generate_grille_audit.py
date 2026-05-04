@@ -1,4 +1,4 @@
-"""Génère la grille d'audit d'accessibilité - 13 Easy Checks du W3C.
+"""Génère la grille d'audit d'accessibilité - 13 points de contrôle rapides du W3C.
 
 Sortie : 03-easy-checks/grille-audit-easy-checks.xlsx
 
@@ -60,7 +60,7 @@ SIZE_HEADER = 14
 SIZE_CELL = 14
 
 # ---------------------------------------------------------------------------
-# Données des 13 Easy Checks
+# Données des 13 points de contrôle rapides
 # ---------------------------------------------------------------------------
 
 CHECKS = [
@@ -204,7 +204,7 @@ ECHANTILLON = [
      "Auditée avec un jeu de résultats réel, pas une page vide.",
      "8. Recherche"),
     (9, "Document téléchargeable (PDF, DOCX, ODT)", "Obligatoire si présent",
-     "Au moins un document représentatif. Attention : les 13 Easy Checks web ne couvrent qu'en partie les documents. Pour un audit complet, utiliser PAC 2024 (gratuit), Acrobat Pro ou Axes4.",
+     "Au moins un document représentatif. Attention : les 13 points de contrôle rapides web ne couvrent qu'en partie les documents. Pour un audit complet, utiliser PAC 2024 (gratuit), Acrobat Pro ou Axes4.",
      "9. Document"),
     (10, "Page type : article, actualité ou contenu rédactionnel", "Représentative",
      "Une page représentative du gabarit éditorial le plus fréquent.",
@@ -315,19 +315,19 @@ def build_mode_emploi(wb):
     ws = wb.create_sheet("Mode d'emploi")
     set_widths(ws, [12, 130])
 
-    ws["A1"] = "IGPDE - Formation 102638 - Grille d'audit 13 Easy Checks du W3C"
+    ws["A1"] = "IGPDE - Formation 102638 - Grille d'audit 13 points de contrôle rapides du W3C"
     ws["A1"].font = FONT_TITLE
     ws.merge_cells("A1:B1")
 
     sections = [
         ("", ""),
         ("Objet", ""),
-        ("", "Grille de diagnostic rapide sur les 13 Easy Checks du W3C WAI, alignée sur le RGAA 4.1.2."),
+        ("", "Grille de diagnostic rapide sur les 13 points de contrôle rapides du W3C WAI, alignée sur le RGAA 4.1.2."),
         ("", ""),
         ("Avertissement", ""),
         ("", "Cet outil est un outil de SENSIBILISATION et de pré-diagnostic."),
         ("", "Il ne remplace en aucun cas un audit RGAA formel (106 critères sur 13 thématiques) réalisé par un expert certifié."),
-        ("", "Le « Taux de conformité Easy Checks » calculé ici n'est PAS le taux de conformité RGAA officiel publié en déclaration d'accessibilité."),
+        ("", "Le « Taux de conformité points de contrôle rapides » calculé ici n'est PAS le taux de conformité RGAA officiel publié en déclaration d'accessibilité."),
         ("", ""),
         ("Préparer l'audit", ""),
         ("1.", "Choisir 1 à 5 pages représentatives (accueil, formulaire, résultats de recherche, contact)."),
@@ -360,9 +360,9 @@ def build_mode_emploi(wb):
         ("", "Synthèse : décompte automatique et taux de conformité multi-pages."),
         ("", ""),
         ("Références", ""),
-        ("", "W3C Easy Checks : https://www.w3.org/WAI/test-evaluate/easy-checks/"),
+        ("", "points de contrôle rapides W3C : https://www.w3.org/WAI/test-evaluate/easy-checks/"),
         ("", "RGAA 4.1.2 : https://accessibilite.numerique.gouv.fr/"),
-        ("", "Inspiration méthodologique : grille Easy Checks de beta.gouv.fr."),
+        ("", "Inspiration méthodologique : grille points de contrôle rapides de beta.gouv.fr."),
     ]
 
     # Teinte rouge clair pour le bloc « Avertissement » (section + 3 lignes de texte)
@@ -458,7 +458,7 @@ def build_grille(wb, sheet_name, meta_values, rempli=False):
     if sheet_name.startswith("9."):
         note = ws.cell(
             row=7, column=1,
-            value="Attention : les 13 Easy Checks web ne couvrent que partiellement les documents. "
+            value="Attention : les 13 points de contrôle rapides web ne couvrent que partiellement les documents. "
                   "Pour un audit formel des PDF / DOCX / ODT, utiliser PAC 2024 (outil gratuit), Acrobat Pro ou Axes4.",
         )
         note.font = Font(name="Calibri", size=SIZE_CELL, bold=True, color="9F0000")
@@ -471,7 +471,7 @@ def build_grille(wb, sheet_name, meta_values, rempli=False):
     header_row = 8
     headers = [
         "N",
-        "Easy Check",
+        "Point de contrôle rapide",
         "WCAG 2.2",
         "RGAA 4.1.2",
         "Méthode de test",
@@ -569,7 +569,7 @@ def build_grille(wb, sheet_name, meta_values, rempli=False):
          f'=COUNTIF(G{header_row+1}:G{last_row},"NC")'),
         ("Non applicable (NA)",
          f'=COUNTIF(G{header_row+1}:G{last_row},"NA")'),
-        ("Taux de conformité Easy Checks",
+        ("Taux de conformité points de contrôle rapides",
          f'=IFERROR(COUNTIF(G{header_row+1}:G{last_row},"C")/(COUNTIF(G{header_row+1}:G{last_row},"C")+COUNTIF(G{header_row+1}:G{last_row},"NC")),0)'),
         ("Non-conformités bloquantes",
          f'=COUNTIFS(G{header_row+1}:G{last_row},"NC",H{header_row+1}:H{last_row},"Bloquant")'),
@@ -722,7 +722,7 @@ def build_synthese(wb):
     ws.row_dimensions[3].height = 60
 
     header_row = 5
-    headers = ["N", "Type de page", "Caractère", "Conforme", "Non conforme", "Non applicable", "Taux de conformité Easy Checks"]
+    headers = ["N", "Type de page", "Caractère", "Conforme", "Non conforme", "Non applicable", "Taux de conformité points de contrôle rapides"]
     for col, h in enumerate(headers, start=1):
         ws.cell(row=header_row, column=col, value=h)
     style_header_row(ws, header_row, len(headers))
@@ -848,10 +848,10 @@ def main():
 
     # Métadonnées du classeur (titre, auteur, sujet, mots-clés)
     cp = wb.properties
-    cp.title = "IGPDE - Formation 102638 - Grille d'audit 13 Easy Checks"
-    cp.subject = "Accessibilité numérique - 13 Easy Checks W3C alignés RGAA 4.1.2"
+    cp.title = "IGPDE - Formation 102638 - Grille d'audit 13 points de contrôle rapides"
+    cp.subject = "Accessibilité numérique - 13 points de contrôle rapides W3C alignés RGAA 4.1.2"
     cp.creator = "IGPDE - Institut de la Gestion publique et du Développement économique"
-    cp.keywords = "IGPDE, 102638, accessibilité, RGAA, WCAG, Easy Checks, audit"
+    cp.keywords = "IGPDE, 102638, accessibilité, RGAA, WCAG, points de contrôle rapides, audit"
     cp.language = "fr-FR"
 
     out = Path(__file__).resolve().parent.parent / "03-easy-checks" / "grille-audit-easy-checks.xlsx"

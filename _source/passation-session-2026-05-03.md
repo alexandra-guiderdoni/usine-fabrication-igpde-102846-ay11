@@ -70,4 +70,4 @@ Projet : Formation 102638 (IGPDE / Carinne C.) - 90 slides PPTX.
 - Eventuellement un 3e exercice pour les points non couverts
 - Nouvelles slides potentielles pour detailler les 4 derniers points (justifie, paragraphes vides, majuscules, filigrane)
 - Verifier que la checklist (slides 43-46) couvre bien les 21 erreurs
-- Relire les modules 3 (Easy Checks) et 4 (Reseaux sociaux) qui n'ont pas ete touches dans cette session
+- Relire les modules 3 (points de contrôle rapides) et 4 (Reseaux sociaux) qui n'ont pas ete touches dans cette session

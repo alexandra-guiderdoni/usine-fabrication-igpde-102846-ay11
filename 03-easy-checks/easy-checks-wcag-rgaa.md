@@ -1,6 +1,6 @@
-# Vérifications rapides d'accessibilité (Easy Checks)
+# Vérifications rapides d'accessibilité (points de contrôle rapides)
 
-Guide basé sur les Easy Checks du W3C WAI, traduit en français avec les équivalences RGAA 4.1.2.
+Guide basé sur les points de contrôle rapides du W3C WAI, traduit en français avec les équivalences RGAA 4.1.2.
 
 Source : https://www.w3.org/WAI/test-evaluate/easy-checks/
 

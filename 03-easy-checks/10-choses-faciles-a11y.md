@@ -35,7 +35,7 @@ Il existe de nombreux autres outils spécifiques, selon les préférences de cha
 | Les alternatives aux médias | x | | |
 | La structure des pages | | x | x |
 
-Pour aller plus loin : [Easy Checks – A First Review of Web Accessibility (W3C)](https://www.w3.org/WAI/test-evaluate/preliminary/)
+Pour aller plus loin : [points de contrôle rapides – A First Review of Web Accessibility (W3C)](https://www.w3.org/WAI/test-evaluate/preliminary/)
 
 ---
 
@@ -232,7 +232,7 @@ Intégrer l'accessibilité dans votre équipe :
 - **Auto-diagnostic régulier** pour chaque nouveau composant / fonctionnalité / sprint…
 - **Prise en compte en amont** : faire sa propre checklist, selon son métier
 
-Pour aller plus loin : [Easy Checks – A First Review of Web Accessibility (W3C)](https://www.w3.org/WAI/test-evaluate/preliminary/)
+Pour aller plus loin : [points de contrôle rapides – A First Review of Web Accessibility (W3C)](https://www.w3.org/WAI/test-evaluate/preliminary/)
 
 Envie d'être accompagné ? Faisons cet atelier ensemble avec votre équipe ! Contact : #domaine-accessibilité
 
@@ -245,4 +245,4 @@ Envie d'être accompagné ? Faisons cet atelier ensemble avec votre équipe ! Co
 | 1 | Grille d'évaluation (Google Sheets) | https://docs.google.com/spreadsheets/d/1nJxWgodGilWs5k9DOuYVwJi-CysSllgHImCTHOrH5hE/edit#gid=1758993411 |
 | 2 | ANDI (bookmarklet) | https://www.ssa.gov/accessibility/andi/help/install.html |
 | 3 | WAVE (service en ligne) | http://wave.webaim.org/ |
-| 4 | Easy Checks – W3C | https://www.w3.org/WAI/test-evaluate/preliminary/ |
+| 4 | points de contrôle rapides – W3C | https://www.w3.org/WAI/test-evaluate/preliminary/ |

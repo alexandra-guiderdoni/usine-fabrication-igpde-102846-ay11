@@ -31,7 +31,7 @@ Source : `igpde_dsfr_components.py` fonction `new_slide()` section titre.
 
 Le layout IGPDE « Titre et contenu » applique par défaut une numérotation automatique (`<a:buAutoNum type="arabicPeriod"/>`) sur le placeholder du fil d'Ariane. LibreOffice rend cette numérotation comme préfixe « 1. » devant le texte.
 
-**Symptôme** : le fil d'Ariane devient `1.3. Easy Checks | ...` au lieu de `3. Easy Checks | ...`.
+**Symptôme** : le fil d'Ariane devient `1.3. points de contrôle rapides | ...` au lieu de `3. points de contrôle rapides | ...`.
 
 **Fix** : fonction `_neutralize_auto_numbering(txBody)` qui injecte `<a:buNone/>` sur chaque `<a:pPr>` du placeholder après avoir posé le texte.
 

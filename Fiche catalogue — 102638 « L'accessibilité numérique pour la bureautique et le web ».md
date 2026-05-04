@@ -40,7 +40,7 @@ Formateurs Opquast certifiés et référents en Assurance Qualité Web et en acc
 
 - Comprendre l'accessibilité numérique et son cadre légal
 - Créer des documents bureautiques accessibles
-- Appliquer les évaluations rapides d'accessibilité web (Easy Checks)
+- Appliquer les évaluations rapides d'accessibilité web (points de contrôle rapides)
 - Améliorer l'accessibilité numérique des publications sur les réseaux sociaux
 
 ## Méthodes pédagogiques et d'évaluation

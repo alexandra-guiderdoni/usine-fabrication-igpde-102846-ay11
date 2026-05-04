@@ -1,4 +1,4 @@
-"""Slide 18 : Easy Check 8 - Zoom et redimensionnement du texte.
+"""Slide 18 : Point de contrôle rapide 8 - Zoom et redimensionnement du texte.
 
 Règles neuropédagogie appliquées :
 - R8 : analogie - zoomer à 200 % = lire avec des lunettes
@@ -23,8 +23,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Zoom 200 % : tout doit rester lisible",
-        fil_ariane="3. Easy Checks | 8. Zoom",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Zoom",
+        fil_ariane="3. points de contrôle rapides | 8. Zoom",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Zoom",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

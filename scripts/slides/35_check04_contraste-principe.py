@@ -1,4 +1,4 @@
-"""Slide 10 : Easy Check 4 - Contraste, le principe.
+"""Slide 10 : Point de contrôle rapide 4 - Contraste, le principe.
 
 Règles neuropédagogie appliquées :
 - R8 : analogie - lire à 3 h du matin sur un écran fatigué
@@ -14,8 +14,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Contraste : un seuil chiffré, pas une opinion",
-        fil_ariane="3. Easy Checks | 4. Contraste",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Contraste",
+        fil_ariane="3. points de contrôle rapides | 4. Contraste",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Contraste",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

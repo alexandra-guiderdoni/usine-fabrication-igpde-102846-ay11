@@ -1,10 +1,10 @@
-# Corrigé Easy Checks
+# Corrigé points de contrôle rapides
 
 Généré depuis `03-easy-checks/evaluation_contract.yml`.
 
 ## 1. Actualité illustrée
 
-- Easy Check : Texte alternatif des images
+- Point de contrôle rapide : Texte alternatif des images
 - Constat minimal attendu : Au moins une image n'a pas d'alternative adaptée à son rôle réel.
 - Sévérité indicative : Gênant
 - Preuve possible : Capture WAVE/ANDI ou extrait HTML montrant alt absent, vide ou inadapté sur l'image concernée.
@@ -14,17 +14,17 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 
 ## 2. Résultats de recherche RGAA
 
-- Easy Check : Titre de page
+- Point de contrôle rapide : Titre de page
 - Constat minimal attendu : Le titre de page ne permet pas d'identifier précisément la page ou son état.
 - Sévérité indicative : Gênant
-- Preuve possible : Onglet navigateur ou extrait title montrant un titre générique, dupliqué ou mal ordonné.
-- Correction : Titre unique, spécifique et ordonné du particulier vers le général, par exemple Recherche "RGAA" - Page 2 - Ministère de l'Accessibilité numérique.
-- Occurrences bonus : Pagination absente du titre. ; Requête de recherche absente. ; Nom du ministère placé avant l'information spécifique.
+- Preuve possible : Onglet navigateur ou extrait title montrant un titre absent, générique, dupliqué ou mal ordonné.
+- Correction : Titre unique, spécifique et ordonné du particulier vers le général, par exemple Recherche "RGAA" - Page 2/3 - Ministère de l'Accessibilité numérique.
+- Occurrences bonus : Titre absent ou intitulé Sans titre. ; Pagination absente du titre. ; Requête de recherche absente. ; Nom du ministère placé avant l'information spécifique.
 - À ne pas pénaliser : Titre long si l'information spécifique est présente en premier.
 
 ## 3. Guide du RGAA
 
-- Easy Check : Titres de rubriques
+- Point de contrôle rapide : Titres de rubriques
 - Constat minimal attendu : Un texte visuellement présenté comme titre n'est pas balisé comme titre, ou une balise de titre est utilisée pour un simple effet visuel.
 - Sévérité indicative : Gênant
 - Preuve possible : HeadingsMap/WAVE ou extrait HTML montrant un faux titre ou un titre décoratif.
@@ -34,7 +34,7 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 
 ## 4. Charte de publication
 
-- Easy Check : Contraste
+- Point de contrôle rapide : Contraste
 - Constat minimal attendu : Au moins un texte, lien, bouton ou statut présente un contraste insuffisant.
 - Sévérité indicative : Bloquant
 - Preuve possible : Mesure CCA/WebAIM/WAVE avec couleurs et ratio inférieur au seuil attendu.
@@ -44,7 +44,7 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 
 ## 5. Accès rapide aux contenus
 
-- Easy Check : Lien d'évitement
+- Point de contrôle rapide : Lien d'évitement
 - Constat minimal attendu : Le lien d'évitement vers le contenu principal est absent, invisible au focus ou non fonctionnel.
 - Sévérité indicative : Bloquant
 - Preuve possible : Test clavier au premier Tab, puis activation du lien et vérification de l'ancre cible.
@@ -54,7 +54,7 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 
 ## 6. Parcours clavier
 
-- Easy Check : Focus clavier visible
+- Point de contrôle rapide : Focus clavier visible
 - Constat minimal attendu : Le focus clavier n'est pas visible sur au moins un composant interactif.
 - Sévérité indicative : Bloquant
 - Preuve possible : Parcours Tab / Shift+Tab montrant le composant focusable sans indicateur visible.
@@ -64,7 +64,7 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 
 ## 7. Atelier international
 
-- Easy Check : Langue de la page
+- Point de contrôle rapide : Langue de la page
 - Constat minimal attendu : La langue principale ou un changement de langue utile n'est pas déclaré correctement.
 - Sévérité indicative : Gênant
 - Preuve possible : Extrait HTML montrant lang absent/vide/invalide ou passage anglais non balisé.
@@ -74,7 +74,7 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 
 ## 8. Ressources à zoomer
 
-- Easy Check : Zoom 200 %
+- Point de contrôle rapide : Zoom 200 %
 - Constat minimal attendu : À 200 % de zoom, une carte perd du contenu ou devient difficilement utilisable.
 - Sévérité indicative : Gênant
 - Preuve possible : Capture à 200 % montrant texte tronqué, bouton sorti, superposition ou défilement horizontal non nécessaire.
@@ -84,7 +84,7 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 
 ## 9. Vidéo de sensibilisation
 
-- Easy Check : Sous-titres
+- Point de contrôle rapide : Sous-titres
 - Constat minimal attendu : La vidéo ne propose pas de sous-titres exploitables pour le contenu oral.
 - Sévérité indicative : Bloquant
 - Preuve possible : Vérification du lecteur : absence de piste, bouton sous-titres absent, ou sous-titres automatiques non relus signalés.
@@ -94,7 +94,7 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 
 ## 10. Podcast RGAA
 
-- Easy Check : Transcriptions
+- Point de contrôle rapide : Transcriptions
 - Constat minimal attendu : Le contenu audio n'a pas de transcription accessible à proximité.
 - Sévérité indicative : Bloquant
 - Preuve possible : Revue de la page montrant absence de lien de transcription proche du média.
@@ -104,7 +104,7 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 
 ## 11. Démonstration vidéo
 
-- Easy Check : Audiodescription
+- Point de contrôle rapide : Audiodescription
 - Constat minimal attendu : Une information visuelle essentielle n'est pas disponible autrement que par l'image.
 - Sévérité indicative : Bloquant
 - Preuve possible : Revue humaine de la vidéo montrant une action ou information visuelle non décrite dans l'audio ni dans une version alternative.
@@ -114,7 +114,7 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 
 ## 12. Inscription à un webinaire
 
-- Easy Check : Étiquettes de formulaire
+- Point de contrôle rapide : Étiquettes de formulaire
 - Constat minimal attendu : Au moins un champ ou groupe de champs n'a pas de nom accessible fiable.
 - Sévérité indicative : Bloquant
 - Preuve possible : ANDI/WAVE, clic label ou extrait HTML montrant placeholder seul, label non associé ou groupe sans fieldset/legend.
@@ -124,7 +124,7 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 
 ## 13. Demande d'audit
 
-- Easy Check : Champs obligatoires
+- Point de contrôle rapide : Champs obligatoires
 - Constat minimal attendu : L'obligation ou l'erreur de saisie n'est pas annoncée et reliée de manière exploitable.
 - Sévérité indicative : Bloquant
 - Preuve possible : Soumission du formulaire et inspection HTML montrant obligation non balisée, message vague/non relié ou focus non accompagné.
