@@ -590,7 +590,7 @@ def content_ec01(version_key: str) -> str:
       <h3>Nous contacter</h3>
       <p>Moyens pour nous contacter :</p>
       <ul class="demo-contact-list">
-        <li>Par : {email_link}</li>
+        <li>Par courriel : {email_link}</li>
         <li>Par SMS : {sms_link}</li>
       </ul>
       <p>Utilisez ces liens pour poser une question sur cette méthodologie. Le courriel illustre un lien image pur. Le SMS illustre un lien composite avec une icône et un texte visible.</p>
