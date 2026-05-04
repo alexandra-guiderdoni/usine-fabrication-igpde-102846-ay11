@@ -745,16 +745,20 @@ def content_ec03(version_key: str) -> str:
     return """<section aria-labelledby="content-title">
   <h2 id="content-title">Guide du RGAA</h2>
   <p class="demo-fake-heading">Comprendre le RGAA</p>
-  <p>Le texte ci-dessus est visuellement présenté comme un titre, mais il reste un simple paragraphe dans le code. Un outil de plan de titres ne le proposera pas dans la navigation.</p>
-  <p>Le RGAA aide les équipes à vérifier qu'un service numérique reste utilisable par le plus grand nombre. Cette introduction devrait être rattachée à une vraie rubrique structurée.</p>
+  <p>Le RGAA aide les équipes à vérifier qu'un service numérique reste utilisable par le plus grand nombre. Les contributeurs peuvent l'utiliser pour préparer une publication avant sa mise en ligne.</p>
+  <p class="demo-fake-heading">Avant de publier</p>
+  <p>Cette page rassemble les premiers repères à contrôler sur une ressource ministérielle. Elle sert aussi à orienter les demandes vers les bons interlocuteurs.</p>
   <h3 class="demo-heading-as-emphasis">Publication urgente avant vendredi</h3>
-  <p>Cette phrase est une mise en valeur éditoriale, pas un vrai titre de rubrique. La balise de titre sert ici uniquement à obtenir un rendu plus visible.</p>
-  <p>La correction attendue consiste à utiliser un paragraphe, avec une mise en évidence si nécessaire, puis à réserver les titres aux vraies sections de contenu.</p>
+  <p>La ressource de référence doit être relue par l'équipe publication. Les remarques sont centralisées dans le tableau de suivi partagé.</p>
+  <p>Les équipes éditoriales signalent les points bloquants avant l'envoi en validation. Les corrections mineures peuvent être intégrées dans la prochaine mise à jour.</p>
   <h2>Ressources</h2>
+  <p class="demo-fake-heading">Ressources pour les contributeurs</p>
   <h4>Guides pratiques</h4>
-  <p>Le saut de niveau entre le titre Ressources et ce sous-titre sert de faux-ami à discuter pendant la restitution. Il peut gêner la qualité du plan, mais il ne doit pas être confondu avec les deux erreurs principales.</p>
-  <h4>Repères déjà présents</h4>
-  <p>Le gabarit contient des accès rapides, un en-tête, une navigation, un contenu principal et un pied de page. Ces repères sont utiles pour la navigation, mais ils ne corrigent pas les titres mal balisés dans le contenu.</p>
+  <p>Les guides pratiques décrivent les contrôles à réaliser avant publication. Ils présentent les points à vérifier sur les images, les formulaires et les contenus multimédias.</p>
+  <h1>Repères déjà présents</h1>
+  <p>La page propose des accès rapides, un fil d'Ariane, une navigation principale et un pied de page. Ces repères aident les utilisateurs à comprendre où ils se trouvent dans le site.</p>
+  <p class="demo-fake-heading">À retenir pour l'équipe</p>
+  <p>Les vérifications doivent rester simples à partager. Le responsable de publication conserve la trace des corrections effectuées avant la mise en ligne.</p>
 </section>"""
 
 

@@ -167,38 +167,38 @@ pages:
       number: 3
       name: "Titres de rubriques"
     severity: "Gênant"
-    expected_minimal_finding: "Un texte visuellement présenté comme titre n'est pas balisé comme titre, ou une balise de titre est utilisée pour une simple mise en valeur."
-    minimal_proof: "HeadingsMap/WAVE ou extrait HTML montrant le faux titre en paragraphe, ou le titre détourné pour la présentation."
+    expected_minimal_finding: "Un ou plusieurs textes visuellement présentés comme titres ne sont pas balisés comme titres, ou une balise de titre est utilisée pour une simple mise en valeur."
+    minimal_proof: "HeadingsMap/WAVE ou extrait HTML montrant les faux titres en paragraphes, ou le titre détourné pour la présentation."
     detection:
       - "HeadingsMap"
       - "WAVE"
       - "DevTools"
     inaccessible_errors:
-      - "Titre visuel non balisé."
+      - "Plusieurs titres visuels non balisés."
       - "Balise de titre détournée pour un effet visuel."
-      - "Faux-ami pédagogique : saut de niveau ou plusieurs h1 à analyser avec nuance."
+      - "Titre de niveau 1 utilisé au milieu du contenu, à analyser avec nuance."
     bonus_occurrences:
       - "Comparer le plan visuel et le plan technique."
       - "Repérer un titre non pertinent."
-      - "Qualifier le saut de niveau comme point qualité, sans le confondre avec la non-conformité principale."
+      - "Qualifier le h1 interne comme incohérence de plan, sans perdre les deux erreurs principales."
     do_not_penalize:
-      - "Saut de niveau ou plusieurs h1 si la hiérarchie reste cohérente au sens RGAA."
+      - "Plusieurs h1 si la hiérarchie reste cohérente au sens RGAA."
     accessible_correction: "Titre visuel balisé avec un élément de titre natif ou role heading/aria-level si nécessaire ; balise de titre réservée aux vrais titres ; hiérarchie globalement pertinente et niveaux continus par bonne pratique."
     help:
       hint: "Afficher le plan de titres avec HeadingsMap, puis le comparer au plan visuel. Chercher les titres visibles qui n'apparaissent pas dans le plan, et les titres du plan qui ne correspondent pas à une vraie rubrique."
-      problem: "Le plan technique peut être absent, pollué ou mal interprété ; la navigation par titres devient inefficace. Le saut de niveau est volontairement présent comme faux-ami : il se discute en qualité web, mais ne doit pas masquer les erreurs de sémantique."
+      problem: "Le plan technique peut être absent, pollué ou mal interprété ; la navigation par titres devient inefficace. Le h1 interne est volontairement très incohérent : il se discute dans le plan de titres, mais ne doit pas masquer les erreurs de sémantique."
       findings_intro: "Indices ciblés par cas :"
       findings:
-        - "Faux titre : « Comprendre le RGAA » est visuellement présenté comme un titre, mais codé avec un paragraphe."
+        - "Faux titres : « Comprendre le RGAA », « Avant de publier », « Ressources pour les contributeurs » et « À retenir pour l'équipe » sont visuellement présentés comme titres, mais codés avec des paragraphes."
         - "Titre détourné : « Publication urgente avant vendredi » est codé en h3 alors qu'il s'agit d'une mise en valeur éditoriale."
-        - "Faux-ami : le passage de h2 à h4 dans la rubrique Ressources n'est pas l'erreur principale RGAA, même s'il dégrade la qualité du plan."
+        - "Incohérence de plan : « Repères déjà présents » revient au niveau h1 au milieu du contenu, alors qu'il dépend visuellement de la rubrique Ressources."
         - "Bonnes pratiques déjà présentes : les accès rapides, le fil d'Ariane et les zones principales ne compensent pas les titres mal structurés."
       fix: "Identifier les vrais titres, vérifier leur sémantique, repérer les titres utilisés pour la présentation et qualifier les sauts de niveau avec nuance."
       fixes_intro: "Messages de correction ciblés :"
       fixes:
-        - "Faux titre : remplacer le paragraphe stylé par un vrai titre de rubrique adapté au niveau attendu."
+        - "Faux titres : remplacer chaque paragraphe stylé par un vrai titre de rubrique adapté au niveau attendu, ou retirer le style de titre si le texte n'ouvre pas une section."
         - "Titre détourné : remplacer le h3 de mise en valeur par un paragraphe, éventuellement avec strong et une classe CSS."
-        - "Saut de niveau : harmoniser les niveaux pour améliorer la qualité du plan, sans en faire la non-conformité principale si la hiérarchie reste compréhensible."
+        - "Niveau incohérent : redescendre « Repères déjà présents » au niveau attendu dans la rubrique Ressources."
     dsfr_components:
       - "Lien"
       - "Accordéon"
