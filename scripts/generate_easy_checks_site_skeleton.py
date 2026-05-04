@@ -309,19 +309,29 @@ def help_accordions(page: dict) -> str:
         findings = ""
         if title == "Ce qui pose problème" and page["help"].get("findings"):
             items = "\n".join(f"      <li>{esc(item)}</li>" for item in page["help"]["findings"])
+            intro = page["help"].get("findings_intro", "Les erreurs à trouver sont :")
             findings = f"""
-    <p>Les erreurs à trouver sont :</p>
+    <p>{esc(intro)}</p>
     <ul>
 {items}
     </ul>"""
+        fixes = ""
+        if title == "Comment corriger" and page["help"].get("fixes"):
+            items = "\n".join(f"      <li>{esc(item)}</li>" for item in page["help"]["fixes"])
+            intro = page["help"].get("fixes_intro", "Messages de correction ciblés :")
+            fixes = f"""
+    <p>{esc(intro)}</p>
+    <ul>
+{items}
+    </ul>"""
+        extra = f"{findings}{fixes}"
         sections.append(
             f"""<section class="fr-accordion">
   <h3 class="fr-accordion__title">
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="{panel_id}">{esc(title)}</button>
   </h3>
   <div class="fr-collapse" id="{panel_id}">
-    <p>{esc(text)}</p>
-{findings}
+    <p>{esc(text)}</p>{extra}
   </div>
 </section>"""
         )
@@ -555,11 +565,13 @@ def content_ec01(version_key: str) -> str:
     if accessible:
         informative = '<img class="demo-informative-image" src="../assets/shared/images/schema-rgaa.svg" alt="Schéma : vérifier, corriger puis publier une ressource accessible.">'
         decorative = '<img src="../assets/shared/images/motif-hexagones.svg" alt="">'
-        linked = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Envoyer un courriel au ministère"></a>'
+        email_link = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Envoyer un courriel au ministère"></a>'
+        sms_link = '<a class="fr-link demo-contact-link" href="sms:+33123456789"><img src="../assets/shared/images/sms.svg" alt=""> Envoyer un SMS</a>'
     else:
         informative = '<img class="demo-informative-image" src="../assets/shared/images/schema-rgaa.svg">'
         decorative = '<img src="../assets/shared/images/motif-hexagones.svg" alt="Long séparateur horizontal bleu composé de deux traits et d\'un losange central décoratif pour séparer la rubrique de contact du contenu précédent">'
-        linked = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Dessin d\'une enveloppe"></a>'
+        email_link = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Dessin d\'une enveloppe"></a>'
+        sms_link = '<a class="fr-link demo-contact-link" href="sms:+33123456789"><img src="../assets/shared/images/sms.svg" alt="Dessin d\'un téléphone"> Envoyer un SMS</a>'
     return f"""<section aria-labelledby="content-title">
   <h2 id="content-title">Vérifier l'accessibilité d'une page avant publication</h2>
   <p>Le ministère publie une méthodologie courte fondée sur le RGAA (Référentiel général d'amélioration de l'accessibilité). Elle s'adresse aux équipes qui contrôlent une page avant publication. La page présente les repères utiles pour vérifier rapidement une ressource.</p>
@@ -576,7 +588,12 @@ def content_ec01(version_key: str) -> str:
     </div>
     <div class="fr-col-12 demo-image-check__contact">
       <h3>Nous contacter</h3>
-      <p>Moyen pour nous contacter : {linked}. Utilisez ce lien pour poser une question sur cette méthodologie.</p>
+      <p>Moyens pour nous contacter :</p>
+      <ul class="demo-contact-list">
+        <li>Par : {email_link}</li>
+        <li>Par SMS : {sms_link}</li>
+      </ul>
+      <p>Utilisez ces liens pour poser une question sur cette méthodologie. Le courriel illustre un lien image pur. Le SMS illustre un lien composite avec une icône et un texte visible.</p>
       <p>Une réponse est apportée par l'équipe chargée de la ressource. Les demandes sont traitées pendant les jours ouvrés. Les informations transmises permettent d'orienter la demande vers le bon interlocuteur.</p>
     </div>
   </div>
@@ -976,6 +993,14 @@ def generate_site_css() -> None:
   max-width: 1.75rem;
 }
 
+.demo-contact-list {
+  margin-top: 0;
+}
+
+.demo-contact-list li + li {
+  margin-top: 0.5rem;
+}
+
 .demo-fake-heading {
   color: #161616;
   font-size: 1.5rem;
@@ -1071,6 +1096,12 @@ def generate_demo_assets() -> None:
   <rect x="42" y="48" width="156" height="96" rx="8" fill="#000091"/>
   <path d="M52 58l68 52 68-52" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
   <path d="M52 134l48-40M188 134l-48-40" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+</svg>""",
+        "sms.svg": """<svg xmlns="http://www.w3.org/2000/svg" width="240" height="180" viewBox="0 0 240 180" role="img">
+  <rect width="240" height="180" rx="8" fill="#f6f6f6"/>
+  <rect x="44" y="46" width="152" height="92" rx="12" fill="#000091"/>
+  <path d="M78 78h84M78 102h58" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
+  <path d="M92 138l-28 24v-36" fill="#000091"/>
 </svg>""",
     }
     image_dir = DOCS_DIR / "assets" / "shared" / "images"

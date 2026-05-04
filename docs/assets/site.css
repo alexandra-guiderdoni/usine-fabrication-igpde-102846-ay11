@@ -57,6 +57,14 @@ body {
   max-width: 1.75rem;
 }
 
+.demo-contact-list {
+  margin-top: 0;
+}
+
+.demo-contact-list li + li {
+  margin-top: 0.5rem;
+}
+
 .demo-fake-heading {
   color: #161616;
   font-size: 1.5rem;

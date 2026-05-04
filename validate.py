@@ -59,7 +59,7 @@ class LinkParser(HTMLParser):
             if value.startswith("#"):
                 self.fragments.append(value[1:])
                 continue
-            if value.startswith(("mailto:", "tel:")):
+            if value.startswith(("mailto:", "tel:", "sms:")):
                 continue
             target, _ = urldefrag(value)
             if target:

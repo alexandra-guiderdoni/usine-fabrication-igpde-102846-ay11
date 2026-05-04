@@ -88,21 +88,31 @@ pages:
     inaccessible_errors:
       - "Image informative sans alternative ou avec alt vide."
       - "Image décorative trop bavarde."
-      - "Image-lien avec alternative qui décrit l'image au lieu d'indiquer la destination ou l'action."
+      - "Image-lien courriel avec alternative qui décrit l'image au lieu d'indiquer l'action."
+      - "Lien composite SMS dont l'icône décorative a une alternative qui ajoute du bruit."
     bonus_occurrences:
       - "Image décorative bavarde."
       - "Image-lien dont l'alternative décrit l'image au lieu de l'action."
+      - "Lien composite dont l'icône ajoute du bruit dans le nom accessible."
     do_not_penalize:
       - "Image purement décorative avec alt vide."
-    accessible_correction: "Image informative : alternative courte reprenant l'information. Image décorative : alt vide. Image-lien seule : alternative indiquant la cible ou l'action, pas l'apparence de l'image."
+    accessible_correction: "Image informative : alternative courte reprenant l'information. Image décorative : alt vide. Image-lien courriel : alternative indiquant l'action. Lien composite SMS : icône décorative avec alt vide si le texte visible suffit."
     help:
-      hint: "Comparer le rôle réel de chaque image avec son alternative dans WAVE, ANDI ou le HTML. Vérifier séparément l'image informative, le séparateur décoratif et l'image-lien de contact."
-      problem: "L'image n'est pas décrite selon son rôle réel : information perdue, bruit inutile ou lien incompréhensible."
+      hint: "Niveau 1 - Observer le rôle de chaque image et la structure HTML des liens. Identifiez les 4 cas : image informative, image décorative, lien image pur et lien composite."
+      problem: "Niveau 2 - Appliquer la bonne règle. Une image informative doit porter l'information utile. Une image décorative doit être ignorée. Une image seule dans un lien doit donner l'action ou la destination du lien. Dans un lien composite, si le texte visible suffit, l'icône doit rester silencieuse."
+      findings_intro: "Indices ciblés par cas :"
       findings:
         - "Image informative : le schéma de méthodologie d'audit n'a pas d'attribut alt."
         - "Image décorative : le séparateur visuel a un alt trop long alors qu'il devrait être ignoré."
-        - "Image-lien : l'enveloppe est le seul contenu visible du lien, mais son alt décrit l'image au lieu d'indiquer l'action."
-      fix: "Quand une image est seule dans un lien, son alt doit indiquer l'action ou la destination, par exemple « Envoyer un courriel au ministère »."
+        - "Lien image courriel : l'enveloppe est le seul contenu du lien. Le test RGAA 6.1.2 attend un intitulé qui donne la fonction et la destination."
+        - "Lien composite SMS : le texte visible « Envoyer un SMS » donne déjà l'action. Dans le cas RGAA 6.1.3, l'icône n'apporte pas d'information supplémentaire."
+      fix: "Niveau 3 - Corriger chaque cas indépendamment. Les retours doivent isoler le cas fautif pour éviter de mélanger lien image et lien composite."
+      fixes_intro: "Messages de correction ciblés :"
+      fixes:
+        - "Image informative : le schéma n'a pas d'alternative. Ajouter un alt court qui reprend l'information portée par l'image, sans légende inutile."
+        - "Image décorative : le séparateur a un alt trop verbeux. Vider l'attribut alt pour qu'il soit ignoré par les technologies d'assistance."
+        - "Courriel : l'alternative du lien image décrit le visuel au lieu de donner la fonction du lien. Remplacer par un alt d'action, par exemple « Envoyer un courriel au ministère »."
+        - "SMS : l'icône est dans un lien composite dont le texte donne déjà l'action. Vider l'attribut alt de cette image décorative pour éviter une redondance vocale."
     dsfr_components:
       - "Carte"
       - "Lien"
