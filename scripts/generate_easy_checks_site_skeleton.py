@@ -535,29 +535,27 @@ def content_ec01(version_key: str) -> str:
     if accessible:
         informative = '<img src="../assets/shared/images/schema-rgaa.svg" alt="Schéma : vérifier, corriger puis publier une ressource accessible.">'
         decorative = '<img src="../assets/shared/images/motif-hexagones.svg" alt="">'
-        linked = '<a class="fr-link" href="ec12-form-labels.html"><img src="../assets/shared/images/contact.svg" alt="S\'inscrire au webinaire RGAA"></a>'
+        linked = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Envoyer un courriel au ministère"></a>'
     else:
         informative = '<img src="../assets/shared/images/schema-rgaa.svg">'
-        decorative = '<img src="../assets/shared/images/motif-hexagones.svg" alt="Motif bleu décoratif composé de petits hexagones">'
-        linked = '<a class="fr-link" href="ec12-form-labels.html"><img src="../assets/shared/images/contact.svg" alt="Dessin d\'une enveloppe"></a>'
+        decorative = '<img src="../assets/shared/images/motif-hexagones.svg" alt="Long séparateur horizontal bleu composé de deux traits et d\'un losange central décoratif pour séparer la rubrique de contact du contenu précédent">'
+        linked = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Dessin d\'une enveloppe"></a>'
     return f"""<section aria-labelledby="content-title">
   <h2 id="content-title">Nouvelle ressource RGAA</h2>
   <p>Le ministère publie un kit court pour préparer une première revue d'accessibilité.</p>
   <div class="fr-grid-row fr-grid-row--gutters">
-    <div class="fr-col-12 fr-col-md-6">
+    <div class="fr-col-12">
       <figure class="fr-content-media" role="group" aria-label="Schéma de la démarche RGAA">
         <div class="fr-content-media__img">{informative}</div>
         <figcaption class="fr-content-media__caption">Démarche de publication accessible.</figcaption>
       </figure>
     </div>
-    <div class="fr-col-12 fr-col-md-3">
-      <figure class="fr-content-media" role="group" aria-label="Décoration de rubrique">
-        <div class="fr-content-media__img demo-small-media">{decorative}</div>
-        <figcaption class="fr-content-media__caption">Séparateur visuel de la rubrique.</figcaption>
-      </figure>
+    <div class="fr-col-12">
+      <div class="demo-separator-image">{decorative}</div>
     </div>
-    <div class="fr-col-12 fr-col-md-3">
-      <p>{linked}</p>
+    <div class="fr-col-12">
+      <h3>Nous contacter</h3>
+      <p>Par mail : {linked}</p>
     </div>
   </div>
 </section>"""
@@ -913,8 +911,16 @@ def generate_site_css() -> None:
   max-width: 100%;
 }
 
-.demo-small-media img {
-  max-height: 9rem;
+.demo-separator-image img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.demo-contact-link img {
+  height: auto;
+  max-width: 3rem;
+  vertical-align: middle;
 }
 
 .demo-fake-heading {
@@ -1002,13 +1008,10 @@ def generate_demo_assets() -> None:
   <text x="360" y="165" fill="#fff" font-family="Arial" font-size="28" text-anchor="middle">Corriger</text>
   <text x="580" y="165" fill="#fff" font-family="Arial" font-size="28" text-anchor="middle">Publier</text>
 </svg>""",
-        "motif-hexagones.svg": """<svg xmlns="http://www.w3.org/2000/svg" width="240" height="180" viewBox="0 0 240 180" aria-hidden="true">
-  <rect width="240" height="180" fill="#f6f6f6"/>
-  <circle cx="55" cy="60" r="28" fill="#e3e3fd"/>
-  <circle cx="120" cy="90" r="28" fill="#ceceff"/>
-  <circle cx="185" cy="60" r="28" fill="#e3e3fd"/>
-  <circle cx="88" cy="130" r="22" fill="#ceceff"/>
-  <circle cx="152" cy="130" r="22" fill="#e3e3fd"/>
+        "motif-hexagones.svg": """<svg xmlns="http://www.w3.org/2000/svg" width="720" height="72" viewBox="0 0 720 72" aria-hidden="true">
+  <rect width="720" height="72" fill="#fff"/>
+  <path d="M40 36h260M420 36h260" stroke="#000091" stroke-width="4" stroke-linecap="round"/>
+  <path d="M360 18l18 18-18 18-18-18z" fill="#000091"/>
 </svg>""",
         "contact.svg": """<svg xmlns="http://www.w3.org/2000/svg" width="240" height="180" viewBox="0 0 240 180" role="img">
   <rect width="240" height="180" rx="8" fill="#f6f6f6"/>

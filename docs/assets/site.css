@@ -15,8 +15,16 @@ body {
   max-width: 100%;
 }
 
-.demo-small-media img {
-  max-height: 9rem;
+.demo-separator-image img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.demo-contact-link img {
+  height: auto;
+  max-width: 3rem;
+  vertical-align: middle;
 }
 
 .demo-fake-heading {
