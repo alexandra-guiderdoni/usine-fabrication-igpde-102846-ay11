@@ -88,21 +88,21 @@ pages:
     inaccessible_errors:
       - "Image informative sans alternative ou avec alt vide."
       - "Image décorative trop bavarde."
-      - "Lien composite dont l'icône décorative a une alternative qui décrit l'image."
+      - "Image-lien avec alternative qui décrit l'image au lieu d'indiquer la destination ou l'action."
     bonus_occurrences:
       - "Image décorative bavarde."
-      - "Lien composite dont l'icône ajoute du bruit dans le nom accessible."
+      - "Image-lien dont l'alternative décrit l'image au lieu de l'action."
     do_not_penalize:
       - "Image purement décorative avec alt vide."
-    accessible_correction: "Image informative : alternative courte reprenant l'information. Image décorative : alt vide. Lien composite : si le texte visible suffit, l'icône décorative doit avoir alt vide."
+    accessible_correction: "Image informative : alternative courte reprenant l'information. Image décorative : alt vide. Image-lien seule : alternative indiquant la cible ou l'action, pas l'apparence de l'image."
     help:
-      hint: "Comparer le rôle réel de chaque image avec son alternative dans WAVE, ANDI ou le HTML. Vérifier séparément l'image informative, le séparateur décoratif et le lien composite de contact."
-      problem: "Dans le lien composite, le lecteur d'écran combine l'alternative de l'icône et le texte visible. Si l'icône décrit seulement une enveloppe, elle ajoute un bruit redondant au nom du lien."
+      hint: "Comparer le rôle réel de chaque image avec son alternative dans WAVE, ANDI ou le HTML. Vérifier séparément l'image informative, le séparateur décoratif et l'image-lien de contact."
+      problem: "L'image n'est pas décrite selon son rôle réel : information perdue, bruit inutile ou lien incompréhensible."
       findings:
         - "Image informative : le schéma de méthodologie d'audit n'a pas d'attribut alt."
         - "Image décorative : le séparateur visuel a un alt trop long alors qu'il devrait être ignoré."
-        - "Lien composite : l'enveloppe est décorative à côté du texte visible « Envoyer un courriel au ministère », mais son alt ajoute « Dessin d'une enveloppe » au nom accessible."
-      fix: "Puisque le libellé textuel du lien se suffit à lui-même pour comprendre l'action, l'icône doit être considérée comme décorative et recevoir alt=\"\"."
+        - "Image-lien : l'enveloppe est le seul contenu visible du lien, mais son alt décrit l'image au lieu d'indiquer l'action."
+      fix: "Quand une image est seule dans un lien, son alt doit indiquer l'action ou la destination, par exemple « Envoyer un courriel au ministère »."
     dsfr_components:
       - "Carte"
       - "Lien"

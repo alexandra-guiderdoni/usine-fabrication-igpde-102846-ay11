@@ -555,11 +555,11 @@ def content_ec01(version_key: str) -> str:
     if accessible:
         informative = '<img class="demo-informative-image" src="../assets/shared/images/schema-rgaa.svg" alt="Schéma : vérifier, corriger puis publier une ressource accessible.">'
         decorative = '<img src="../assets/shared/images/motif-hexagones.svg" alt="">'
-        linked = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt=""> Envoyer un courriel au ministère</a>'
+        linked = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Envoyer un courriel au ministère"></a>'
     else:
         informative = '<img class="demo-informative-image" src="../assets/shared/images/schema-rgaa.svg">'
         decorative = '<img src="../assets/shared/images/motif-hexagones.svg" alt="Long séparateur horizontal bleu composé de deux traits et d\'un losange central décoratif pour séparer la rubrique de contact du contenu précédent">'
-        linked = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Dessin d\'une enveloppe"> Envoyer un courriel au ministère</a>'
+        linked = '<a class="fr-link demo-contact-link" href="mailto:contact@accessibilite-numerique.gouv.fr"><img src="../assets/shared/images/contact.svg" alt="Dessin d\'une enveloppe"></a>'
     return f"""<section aria-labelledby="content-title">
   <h2 id="content-title">Vérifier l'accessibilité d'une page avant publication</h2>
   <p>Le ministère publie une méthodologie courte fondée sur le RGAA (Référentiel général d'amélioration de l'accessibilité). Elle s'adresse aux équipes qui contrôlent une page avant publication. La page présente les repères utiles pour vérifier rapidement une ressource.</p>

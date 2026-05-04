@@ -381,7 +381,7 @@ Le tableau ci-dessous est une vue lisible du contrat. En cas d'écart lors de la
 
 | # | Page | Constat minimal attendu | Preuve minimale | Sévérité indicative | Occurrences bonus | À ne pas pénaliser |
 |---|---|---|---|---|---|---|
-| 1 | Actualité illustrée | Au moins une image n'a pas d'alternative adaptée à son rôle réel. | Capture WAVE/ANDI ou extrait HTML montrant `alt` absent, vide ou inadapté sur l'image concernée. | Gênant | Image décorative bavarde ; lien composite dont l'icône ajoute du bruit au nom accessible. | Image purement décorative avec `alt=""`. |
+| 1 | Actualité illustrée | Au moins une image n'a pas d'alternative adaptée à son rôle réel. | Capture WAVE/ANDI ou extrait HTML montrant `alt` absent, vide ou inadapté sur l'image concernée. | Gênant | Image décorative bavarde ; image-lien dont l'alternative décrit l'image au lieu de l'action. | Image purement décorative avec `alt=""`. |
 | 2 | Résultats de recherche RGAA | Le titre de page ne permet pas d'identifier précisément la page ou son état. | Onglet navigateur ou extrait `<title>` montrant un titre générique, dupliqué ou mal ordonné. | Gênant | Pagination absente du titre ; requête de recherche absente ; nom du ministère placé avant l'information spécifique. | Titre long si l'information spécifique est présente en premier. |
 | 3 | Guide du RGAA | Un texte qui est visuellement un titre n'est pas balisé comme titre, ou une balise de titre est utilisée pour un simple effet visuel. | HeadingsMap/WAVE ou extrait HTML montrant un faux titre ou un titre décoratif. | Gênant | Comparer le plan visuel et le plan technique ; repérer un titre non pertinent. | Saut de niveau ou plusieurs `h1` si la hiérarchie reste cohérente au sens RGAA. |
 | 4 | Charte de publication | Au moins un texte, lien, bouton ou statut présente un contraste insuffisant. | Mesure CCA/WebAIM/WAVE avec couleurs et ratio inférieur au seuil attendu. | Bloquant | Texte gris clair ; bouton pâle ; statut transmis par couleur faible. | Usage d'une couleur DSFR conforme et information de statut aussi disponible en texte ou icône nommée. |
@@ -424,11 +424,11 @@ Le tableau ci-dessous est une vue lisible du contrat. En cas d'écart lors de la
 | Élément | Spécification |
 |---|---|
 | Easy Check | 1. Texte alternatif des images |
-| Erreur inaccessible | Trois cas complémentaires : image informative sans alternative ou avec `alt=""`, image décorative trop bavarde, lien composite dont l'icône décorative a une alternative qui décrit l'image. |
+| Erreur inaccessible | Trois cas complémentaires : image informative sans alternative ou avec `alt=""`, image décorative trop bavarde, image-lien avec alternative qui décrit l'image au lieu d'indiquer la destination ou l'action. |
 | Occurrences | Les trois occurrences sont acceptées car elles relèvent du même Easy Check et permettent de distinguer contexte, fonction et décoration. |
 | Détection | WAVE, ANDI, inspection HTML. |
-| Correction accessible | Image informative : alternative courte reprenant l'information. Image décorative : `alt=""`. Lien composite : si le texte visible indique déjà l'action, l'icône décorative doit avoir `alt=""`. |
-| Aide accordéon | Problème : dans le lien composite, le lecteur d'écran combine l'alternative de l'icône et le texte visible. Impact : information perdue ou bruit inutile. Méthode : qualifier l'image dans son contexte, puis utiliser `alt=""` pour les images ou icônes décoratives. |
+| Correction accessible | Image informative : alternative courte reprenant l'information. Image décorative : `alt=""`. Image-lien : alternative indiquant la cible ou l'action, pas l'apparence de l'image. |
+| Aide accordéon | Problème : l'image n'est pas décrite selon son rôle réel. Impact : information perdue, bruit inutile ou lien incompréhensible. Méthode : qualifier l'image dans son contexte, puis choisir entre alternative informative, `alt=""` décoratif ou alternative de lien orientée action. |
 
 ### 2. Résultats de recherche RGAA
 
@@ -613,7 +613,7 @@ Cette cartographie est une première proposition. Avant implémentation, chaque 
 
 | # | Page | Composants DSFR pressentis | Erreur inaccessible simulée | Vigilance version accessible |
 |---|---|---|---|---|
-| 1 | Actualité illustrée | Carte, image, lien | Image informative muette, image décorative bavarde, icône décorative bavarde dans un lien composite | Alternative selon le rôle : informative ou décorative |
+| 1 | Actualité illustrée | Carte, image, lien | Image informative muette, image décorative bavarde, image-lien mal nommée | Alternative selon le rôle : informative, décorative ou fonctionnelle |
 | 2 | Résultats de recherche RGAA | Barre de recherche, liste de résultats, liens | Titre générique, titre dupliqué, information spécifique trop tardive | `<title>` unique, contexte utile, information spécifique en premier |
 | 3 | Guide du RGAA | Sommaire, sections de contenu, éventuellement accordéon | Faux titre, titre décoratif, faux-ami sur saut de niveau ou plusieurs `h1` | Titres sémantiques, titres pertinents, hiérarchie qualifiée avec nuance RGAA |
 | 4 | Charte de publication | Mise en avant, alerte, liens | Contraste insuffisant | Couleurs DSFR ou ratios vérifiés |
