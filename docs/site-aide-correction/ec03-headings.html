@@ -75,7 +75,7 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec03-headings-help-1">Indice</button>
   </h3>
   <div class="fr-collapse" id="ec03-headings-help-1">
-    <p>Afficher le plan de titres avec HeadingsMap, puis le comparer au plan visuel.</p>
+    <p>Afficher le plan de titres avec HeadingsMap, puis le comparer au plan visuel. Chercher les titres visibles qui n&#x27;apparaissent pas dans le plan, et les titres du plan qui ne correspondent pas à une vraie rubrique.</p>
   </div>
 </section>
 <section class="fr-accordion">
@@ -83,7 +83,14 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec03-headings-help-2">Ce qui pose problème</button>
   </h3>
   <div class="fr-collapse" id="ec03-headings-help-2">
-    <p>Le plan technique peut être absent, pollué ou mal interprété ; la navigation par titres devient inefficace.</p>
+    <p>Le plan technique peut être absent, pollué ou mal interprété ; la navigation par titres devient inefficace. Le saut de niveau est volontairement présent comme faux-ami : il se discute en qualité web, mais ne doit pas masquer les erreurs de sémantique.</p>
+    <p>Indices ciblés par cas :</p>
+    <ul>
+      <li>Faux titre : « Comprendre le RGAA » est visuellement présenté comme un titre, mais codé avec un paragraphe.</li>
+      <li>Titre détourné : « Publication urgente avant vendredi » est codé en h3 alors qu&#x27;il s&#x27;agit d&#x27;une mise en valeur éditoriale.</li>
+      <li>Faux-ami : le passage de h2 à h4 dans la rubrique Ressources n&#x27;est pas l&#x27;erreur principale RGAA, même s&#x27;il dégrade la qualité du plan.</li>
+      <li>Bonnes pratiques déjà présentes : les accès rapides, le fil d&#x27;Ariane et les zones principales ne compensent pas les titres mal structurés.</li>
+    </ul>
   </div>
 </section>
 <section class="fr-accordion">
@@ -91,7 +98,13 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec03-headings-help-3">Comment corriger</button>
   </h3>
   <div class="fr-collapse" id="ec03-headings-help-3">
-    <p>Identifier les vrais titres, vérifier leur sémantique, repérer les titres décoratifs et qualifier les sauts de niveau avec nuance.</p>
+    <p>Identifier les vrais titres, vérifier leur sémantique, repérer les titres utilisés pour la présentation et qualifier les sauts de niveau avec nuance.</p>
+    <p>Messages de correction ciblés :</p>
+    <ul>
+      <li>Faux titre : remplacer le paragraphe stylé par un vrai titre de rubrique adapté au niveau attendu.</li>
+      <li>Titre détourné : remplacer le h3 de mise en valeur par un paragraphe, éventuellement avec strong et une classe CSS.</li>
+      <li>Saut de niveau : harmoniser les niveaux pour améliorer la qualité du plan, sans en faire la non-conformité principale si la hiérarchie reste compréhensible.</li>
+    </ul>
   </div>
 </section>
   </div>
@@ -99,12 +112,16 @@
   <section aria-labelledby="content-title">
   <h2 id="content-title">Guide du RGAA</h2>
   <p class="demo-fake-heading">Comprendre le RGAA</p>
-  <p>Le RGAA aide les équipes à vérifier qu'un service numérique reste utilisable par le plus grand nombre.</p>
+  <p>Le texte ci-dessus est visuellement présenté comme un titre, mais il reste un simple paragraphe dans le code. Un outil de plan de titres ne le proposera pas dans la navigation.</p>
+  <p>Le RGAA aide les équipes à vérifier qu'un service numérique reste utilisable par le plus grand nombre. Cette introduction devrait être rattachée à une vraie rubrique structurée.</p>
   <h3 class="demo-heading-as-emphasis">Publication urgente avant vendredi</h3>
-  <p>Cette phrase est une mise en valeur éditoriale, pas un vrai titre de rubrique.</p>
+  <p>Cette phrase est une mise en valeur éditoriale, pas un vrai titre de rubrique. La balise de titre sert ici uniquement à obtenir un rendu plus visible.</p>
+  <p>La correction attendue consiste à utiliser un paragraphe, avec une mise en évidence si nécessaire, puis à réserver les titres aux vraies sections de contenu.</p>
   <h2>Ressources</h2>
   <h4>Guides pratiques</h4>
-  <p>Le saut de niveau sert ici de faux-ami à discuter pendant la restitution.</p>
+  <p>Le saut de niveau entre le titre Ressources et ce sous-titre sert de faux-ami à discuter pendant la restitution. Il peut gêner la qualité du plan, mais il ne doit pas être confondu avec les deux erreurs principales.</p>
+  <h4>Repères déjà présents</h4>
+  <p>Le gabarit contient des accès rapides, un en-tête, une navigation, un contenu principal et un pied de page. Ces repères sont utiles pour la navigation, mais ils ne corrigent pas les titres mal balisés dans le contenu.</p>
 </section>
   </div>
 </div>

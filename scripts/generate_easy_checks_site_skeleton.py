@@ -726,23 +726,35 @@ def content_ec03(version_key: str) -> str:
     if version_key == "accessible":
         return f"""<section aria-labelledby="content-title">
   <h2 id="content-title">Comprendre le RGAA</h2>
-  <p>Le RGAA aide les équipes à vérifier qu'un service numérique reste utilisable par le plus grand nombre.</p>
-  <h3>Ressources à consulter</h3>
+  <p>Le RGAA aide les équipes à vérifier qu'un service numérique reste utilisable par le plus grand nombre. Les titres structurent la page et permettent de parcourir rapidement ses grandes parties.</p>
+  <h3>Utiliser les titres pour parcourir la page</h3>
+  <p>Un texte qui introduit une nouvelle partie doit être balisé comme un vrai titre. Cette structuration sert autant aux lecteurs d'écran qu'aux outils qui affichent le plan de la page.</p>
+  <h3>Prioriser une publication urgente</h3>
+  <p><strong>Publication urgente avant vendredi :</strong> cette information est une mise en avant éditoriale. Elle reste dans un paragraphe, car elle ne titre pas une nouvelle rubrique.</p>
+  <h2>Ressources</h2>
+  <h3>Guides pratiques</h3>
+  <p>Les ressources ci-dessous aident les contributeurs à vérifier les titres, les images et les formulaires avant publication.</p>
   <ul>
     <li><a class="fr-link" href="ec01-images.html">Images et alternatives</a></li>
     <li><a class="fr-link" href="ec12-form-labels.html">Formulaires accessibles</a></li>
   </ul>
-  {callout("Point d'attention", "La publication est prioritaire, mais la structure des titres doit rester claire.", 3)}
+  <h3>Points de vigilance</h3>
+  <p>Le gabarit conserve ses repères de navigation : accès rapides, zones principales et fil d'Ariane. Ces éléments sont utiles, mais ils ne remplacent pas un plan de titres cohérent dans le contenu.</p>
+  {callout("Point d'attention", "Un saut de niveau peut dégrader la lisibilité du plan sans constituer à lui seul la non-conformité principale de cet exercice.", 3)}
 </section>"""
     return """<section aria-labelledby="content-title">
   <h2 id="content-title">Guide du RGAA</h2>
   <p class="demo-fake-heading">Comprendre le RGAA</p>
-  <p>Le RGAA aide les équipes à vérifier qu'un service numérique reste utilisable par le plus grand nombre.</p>
+  <p>Le texte ci-dessus est visuellement présenté comme un titre, mais il reste un simple paragraphe dans le code. Un outil de plan de titres ne le proposera pas dans la navigation.</p>
+  <p>Le RGAA aide les équipes à vérifier qu'un service numérique reste utilisable par le plus grand nombre. Cette introduction devrait être rattachée à une vraie rubrique structurée.</p>
   <h3 class="demo-heading-as-emphasis">Publication urgente avant vendredi</h3>
-  <p>Cette phrase est une mise en valeur éditoriale, pas un vrai titre de rubrique.</p>
+  <p>Cette phrase est une mise en valeur éditoriale, pas un vrai titre de rubrique. La balise de titre sert ici uniquement à obtenir un rendu plus visible.</p>
+  <p>La correction attendue consiste à utiliser un paragraphe, avec une mise en évidence si nécessaire, puis à réserver les titres aux vraies sections de contenu.</p>
   <h2>Ressources</h2>
   <h4>Guides pratiques</h4>
-  <p>Le saut de niveau sert ici de faux-ami à discuter pendant la restitution.</p>
+  <p>Le saut de niveau entre le titre Ressources et ce sous-titre sert de faux-ami à discuter pendant la restitution. Il peut gêner la qualité du plan, mais il ne doit pas être confondu avec les deux erreurs principales.</p>
+  <h4>Repères déjà présents</h4>
+  <p>Le gabarit contient des accès rapides, un en-tête, une navigation, un contenu principal et un pied de page. Ces repères sont utiles pour la navigation, mais ils ne corrigent pas les titres mal balisés dans le contenu.</p>
 </section>"""
 
 

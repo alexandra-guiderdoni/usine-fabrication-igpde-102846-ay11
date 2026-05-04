@@ -25,11 +25,11 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 ## 3. Guide du RGAA
 
 - Point de contrôle rapide : Titres de rubriques
-- Constat minimal attendu : Un texte visuellement présenté comme titre n'est pas balisé comme titre, ou une balise de titre est utilisée pour un simple effet visuel.
+- Constat minimal attendu : Un texte visuellement présenté comme titre n'est pas balisé comme titre, ou une balise de titre est utilisée pour une simple mise en valeur.
 - Sévérité indicative : Gênant
-- Preuve possible : HeadingsMap/WAVE ou extrait HTML montrant un faux titre ou un titre décoratif.
-- Correction : Titre visuel balisé avec un élément de titre natif ou role heading/aria-level si nécessaire ; balise de titre réservée aux vrais titres ; hiérarchie globalement pertinente.
-- Occurrences bonus : Comparer le plan visuel et le plan technique. ; Repérer un titre non pertinent.
+- Preuve possible : HeadingsMap/WAVE ou extrait HTML montrant le faux titre en paragraphe, ou le titre détourné pour la présentation.
+- Correction : Titre visuel balisé avec un élément de titre natif ou role heading/aria-level si nécessaire ; balise de titre réservée aux vrais titres ; hiérarchie globalement pertinente et niveaux continus par bonne pratique.
+- Occurrences bonus : Comparer le plan visuel et le plan technique. ; Repérer un titre non pertinent. ; Qualifier le saut de niveau comme point qualité, sans le confondre avec la non-conformité principale.
 - À ne pas pénaliser : Saut de niveau ou plusieurs h1 si la hiérarchie reste cohérente au sens RGAA.
 
 ## 4. Charte de publication
