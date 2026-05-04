@@ -474,7 +474,7 @@ def transcript_component(identifier: str, title: str, paragraphs: list[str]) -> 
     title_id = f"{identifier}-modal-title"
     body = "\n".join(f"              <p>{esc(paragraph)}</p>" for paragraph in paragraphs)
     return f"""<div class="fr-transcription fr-mt-3w">
-  <button type="button" class="fr-transcription__btn" aria-expanded="false" aria-controls="{collapse_id}">Transcription</button>
+  <button type="button" class="fr-transcription__btn" aria-expanded="false" aria-controls="{collapse_id}">Lire la transcription</button>
   <div class="fr-collapse" id="{collapse_id}">
     <div class="fr-transcription__footer">
       <div class="fr-transcription__actions-group">
@@ -917,13 +917,19 @@ def content_ec06(version_key: str) -> str:
 
 def content_ec07(version_key: str) -> str:
     if version_key == "accessible":
-        foreign = '<span lang="en">Fall / Winter accessibility workshop</span>'
+        workshop = '<span lang="en">Fall / Winter accessibility workshop</span>'
+        keynote = '<span lang="en">Accessibility for all</span>'
+        arabic = '<span lang="ar" dir="rtl">ورشة عمل دولية</span>'
     else:
-        foreign = "Fall / Winter accessibility workshop"
+        workshop = "Fall / Winter accessibility workshop"
+        keynote = '<span lang="us">Accessibility for all</span>'
+        arabic = "ورشة عمل دولية"
     return f"""<section aria-labelledby="content-title">
   <h2 id="content-title">Atelier international</h2>
-  <p>Le ministère invite les référents à participer au {foreign} consacré aux contrôles rapides.</p>
-  <p>La séance alterne retours d'expérience français et exemples internationaux.</p>
+  <p>Le ministère invite les référents à participer au {workshop} consacré aux contrôles rapides. Cette session rassemble des équipes françaises et européennes. Les supports seront relus avant diffusion pour éviter les ambiguïtés de prononciation.</p>
+  <p>Le discours d'ouverture de nos partenaires internationaux aura pour thème : {keynote}. Cette citation doit être comprise comme une expression anglaise complète. Elle ne relève pas d'un simple nom propre ni d'un mot passé dans l'usage courant.</p>
+  <p>La documentation de cette séance sera également traduite en arabe : {arabic}. Cette mention sert à montrer qu'un changement de langue peut aussi s'accompagner d'un changement de sens de lecture. Elle doit rester lisible et correctement restituée.</p>
+  <p>La séance alterne retours d'expérience et exemples internationaux. À l'issue du weekend, une newsletter récapitulative vous sera envoyée par e-mail. Ces mots d'usage courant ne doivent pas être sur-balisés.</p>
 </section>"""
 
 

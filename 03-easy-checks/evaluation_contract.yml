@@ -348,32 +348,48 @@ pages:
   - id: "ec07-language"
     number: 7
     title: "Atelier international"
-    realistic_context: "Annonce d'un atelier avec un passage en anglais."
+    realistic_context: "Annonce d'un atelier international avec plusieurs passages en langue étrangère."
     easy_check:
       number: 7
       name: "Langue de la page"
     severity: "Gênant"
-    expected_minimal_finding: "La langue principale ou un changement de langue utile n'est pas déclaré correctement."
-    minimal_proof: "Extrait HTML montrant lang absent/vide/invalide ou passage anglais non balisé."
+    expected_minimal_finding: "La langue principale, un changement de langue utile ou un changement de sens de lecture n'est pas déclaré correctement."
+    minimal_proof: "Extrait HTML montrant lang absent/vide/invalide, passage anglais non balisé, code langue invalide ou passage RTL non identifié."
     detection:
       - "Web Developer"
       - "Code source"
       - "WAVE"
     inaccessible_errors:
-      - "Attribut lang absent ou vide sur html."
-      - "Code langue invalide ou erroné."
+      - "Attribut lang invalide sur html."
       - "Passage en anglais non balisé dans une page française."
+      - "Code langue invalide sur un passage anglais."
+      - "Passage en arabe sans langue ni sens de lecture déclarés."
     bonus_occurrences:
       - "Code langue erroné."
       - "Expression anglaise non balisée."
       - "Mauvaise régionalisation."
+      - "Changement de sens de lecture non déclaré."
     do_not_penalize:
       - "Noms propres et mots étrangers passés dans l'usage courant non balisés."
-    accessible_correction: "lang fr sur la page ; code langue valide ; passages anglais avec lang en si nécessaire ; pas de sur-balisage des noms propres ou mots entrés dans l'usage courant."
+    accessible_correction: "lang fr sur la page ; codes langue ISO 639 valides ; passages anglais avec lang en si nécessaire ; passage arabe avec lang ar et dir rtl ; pas de sur-balisage des noms propres ou mots entrés dans l'usage courant."
     help:
-      hint: "Inspecter la balise html et les expressions en langue étrangère."
-      problem: "La synthèse vocale ne sait pas quelle prononciation appliquer."
-      fix: "Déclarer la langue principale, utiliser un code valide et baliser seulement les vrais changements de langue utiles."
+      hint: "Inspecter la balise html, puis les expressions réellement rédigées dans une autre langue. Vérifier aussi que les codes utilisés sont des codes de langue, pas des noms complets ou des codes pays."
+      problem: "La synthèse vocale ne sait pas quelle prononciation appliquer, ou applique une bascule de langue invalide. Quand un passage s'écrit de droite à gauche, l'absence de direction peut aussi perturber l'ordre de lecture."
+      findings_intro: "Les cinq cas à qualifier sont :"
+      findings:
+        - "Langue principale : la balise html utilise une valeur invalide au lieu de lang=\"fr\"."
+        - "Passage anglais non balisé : « Fall / Winter accessibility workshop » reste dans le flux français."
+        - "Code invalide : lang=\"us\" désigne un pays, pas une langue ; le code attendu est lang=\"en\"."
+        - "Sens de lecture : le passage en arabe n'indique ni sa langue ni son sens de lecture de droite à gauche."
+        - "Faux ami : weekend, newsletter et e-mail sont des mots passés dans l'usage courant et ne doivent pas être balisés en anglais."
+      fix: "Déclarer la langue principale avec lang=\"fr\", baliser les vrais passages étrangers avec des codes ISO 639 valides, gérer le sens de lecture quand il change et éviter le sur-balisage des mots courants."
+      fixes_intro: "Corrections attendues par cas :"
+      fixes:
+        - "Balise html : remplacer la valeur invalide par lang=\"fr\"."
+        - "Passages anglais : entourer les expressions anglaises utiles avec span lang=\"en\"."
+        - "Code langue : remplacer lang=\"us\" par lang=\"en\"."
+        - "Passage arabe : utiliser lang=\"ar\" et dir=\"rtl\" si ce cas est conservé dans l'exercice."
+        - "Mots courants : ne pas ajouter lang=\"en\" sur weekend, newsletter et e-mail."
     dsfr_components:
       - "Carte"
       - "Lien"

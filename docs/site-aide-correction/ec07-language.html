@@ -75,7 +75,7 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec07-language-help-1">Indice</button>
   </h3>
   <div class="fr-collapse" id="ec07-language-help-1">
-    <p>Inspecter la balise html et les expressions en langue étrangère.</p>
+    <p>Inspecter la balise html, puis les expressions réellement rédigées dans une autre langue. Vérifier aussi que les codes utilisés sont des codes de langue, pas des noms complets ou des codes pays.</p>
   </div>
 </section>
 <section class="fr-accordion">
@@ -83,7 +83,15 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec07-language-help-2">Ce qui pose problème</button>
   </h3>
   <div class="fr-collapse" id="ec07-language-help-2">
-    <p>La synthèse vocale ne sait pas quelle prononciation appliquer.</p>
+    <p>La synthèse vocale ne sait pas quelle prononciation appliquer, ou applique une bascule de langue invalide. Quand un passage s&#x27;écrit de droite à gauche, l&#x27;absence de direction peut aussi perturber l&#x27;ordre de lecture.</p>
+    <p>Les cinq cas à qualifier sont :</p>
+    <ul>
+      <li>Langue principale : la balise html utilise une valeur invalide au lieu de lang=&quot;fr&quot;.</li>
+      <li>Passage anglais non balisé : « Fall / Winter accessibility workshop » reste dans le flux français.</li>
+      <li>Code invalide : lang=&quot;us&quot; désigne un pays, pas une langue ; le code attendu est lang=&quot;en&quot;.</li>
+      <li>Sens de lecture : le passage en arabe n&#x27;indique ni sa langue ni son sens de lecture de droite à gauche.</li>
+      <li>Faux ami : weekend, newsletter et e-mail sont des mots passés dans l&#x27;usage courant et ne doivent pas être balisés en anglais.</li>
+    </ul>
   </div>
 </section>
 <section class="fr-accordion">
@@ -91,15 +99,25 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec07-language-help-3">Comment corriger</button>
   </h3>
   <div class="fr-collapse" id="ec07-language-help-3">
-    <p>Déclarer la langue principale, utiliser un code valide et baliser seulement les vrais changements de langue utiles.</p>
+    <p>Déclarer la langue principale avec lang=&quot;fr&quot;, baliser les vrais passages étrangers avec des codes ISO 639 valides, gérer le sens de lecture quand il change et éviter le sur-balisage des mots courants.</p>
+    <p>Corrections attendues par cas :</p>
+    <ul>
+      <li>Balise html : remplacer la valeur invalide par lang=&quot;fr&quot;.</li>
+      <li>Passages anglais : entourer les expressions anglaises utiles avec span lang=&quot;en&quot;.</li>
+      <li>Code langue : remplacer lang=&quot;us&quot; par lang=&quot;en&quot;.</li>
+      <li>Passage arabe : utiliser lang=&quot;ar&quot; et dir=&quot;rtl&quot; si ce cas est conservé dans l&#x27;exercice.</li>
+      <li>Mots courants : ne pas ajouter lang=&quot;en&quot; sur weekend, newsletter et e-mail.</li>
+    </ul>
   </div>
 </section>
   </div>
 </section>
   <section aria-labelledby="content-title">
   <h2 id="content-title">Atelier international</h2>
-  <p>Le ministère invite les référents à participer au Fall / Winter accessibility workshop consacré aux contrôles rapides.</p>
-  <p>La séance alterne retours d'expérience français et exemples internationaux.</p>
+  <p>Le ministère invite les référents à participer au Fall / Winter accessibility workshop consacré aux contrôles rapides. Cette session rassemble des équipes françaises et européennes. Les supports seront relus avant diffusion pour éviter les ambiguïtés de prononciation.</p>
+  <p>Le discours d'ouverture de nos partenaires internationaux aura pour thème : <span lang="us">Accessibility for all</span>. Cette citation doit être comprise comme une expression anglaise complète. Elle ne relève pas d'un simple nom propre ni d'un mot passé dans l'usage courant.</p>
+  <p>La documentation de cette séance sera également traduite en arabe : ورشة عمل دولية. Cette mention sert à montrer qu'un changement de langue peut aussi s'accompagner d'un changement de sens de lecture. Elle doit rester lisible et correctement restituée.</p>
+  <p>La séance alterne retours d'expérience et exemples internationaux. À l'issue du weekend, une newsletter récapitulative vous sera envoyée par e-mail. Ces mots d'usage courant ne doivent pas être sur-balisés.</p>
 </section>
   </div>
 </div>

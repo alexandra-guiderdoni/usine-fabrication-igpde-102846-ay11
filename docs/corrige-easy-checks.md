@@ -65,11 +65,11 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 ## 7. Atelier international
 
 - Point de contrôle rapide : Langue de la page
-- Constat minimal attendu : La langue principale ou un changement de langue utile n'est pas déclaré correctement.
+- Constat minimal attendu : La langue principale, un changement de langue utile ou un changement de sens de lecture n'est pas déclaré correctement.
 - Sévérité indicative : Gênant
-- Preuve possible : Extrait HTML montrant lang absent/vide/invalide ou passage anglais non balisé.
-- Correction : lang fr sur la page ; code langue valide ; passages anglais avec lang en si nécessaire ; pas de sur-balisage des noms propres ou mots entrés dans l'usage courant.
-- Occurrences bonus : Code langue erroné. ; Expression anglaise non balisée. ; Mauvaise régionalisation.
+- Preuve possible : Extrait HTML montrant lang absent/vide/invalide, passage anglais non balisé, code langue invalide ou passage RTL non identifié.
+- Correction : lang fr sur la page ; codes langue ISO 639 valides ; passages anglais avec lang en si nécessaire ; passage arabe avec lang ar et dir rtl ; pas de sur-balisage des noms propres ou mots entrés dans l'usage courant.
+- Occurrences bonus : Code langue erroné. ; Expression anglaise non balisée. ; Mauvaise régionalisation. ; Changement de sens de lecture non déclaré.
 - À ne pas pénaliser : Noms propres et mots étrangers passés dans l'usage courant non balisés.
 
 ## 8. Ressources à zoomer
