@@ -1,7 +1,7 @@
 """Slide 19 : Easy Check 9 - Sous-titres vidéo, le principe.
 
 Règles neuropédagogie appliquées :
-- R3 : WIIFM - 80 % des vidéos sociales sont regardées sans son
+- R3 : WIIFM - les sous-titres servent aussi quand le son est indisponible
 - R8 : analogie - les sous-titres servent aussi dans un train bruyant
 - R5 : chunking - 3 bénéficiaires clés
 """
@@ -32,8 +32,8 @@ def build(prs, layouts, ctx):
 
     add_highlight(
         slide,
-        "80 % des vidéos sociales sont regardées sans son - les sous-titres ne sont plus une option.",
-        top=stack.push(estimate_highlight_height('80 % des vidéos sociales sont regardées sans son - les sous-titres ne sont plus une option.')),
+        "Une vidéo sans sous-titres devient inutilisable dès que le son manque, est coupé ou ne peut pas être entendu.",
+        top=stack.push(estimate_highlight_height('Une vidéo sans sous-titres devient inutilisable dès que le son manque, est coupé ou ne peut pas être entendu.')),
     )
 
     add_callout(
@@ -50,9 +50,9 @@ def build(prs, layouts, ctx):
     add_notes(
         slide,
         "Analogie : dans un train bruyant, même un entendant lit les sous-titres. "
-        "Bénéficiaires (faire deviner) : sourds/malentendants (6 millions en France), "
+        "Bénéficiaires (faire deviner) : personnes sourdes ou malentendantes, "
         "utilisateurs en open space, apprenants d’une langue étrangère, personnes qui préfèrent lire. "
-        "Nuance capitale : une transcription écrite sur la page n’est PAS un sous-titre - les deux sont utiles, "
+        "Nuance capitale : une transcription écrite sur la page n’est pas un sous-titre - les deux sont utiles, "
         "pas interchangeables.",
     )
     return slide

@@ -1,4 +1,4 @@
-"""Slide 6 : Easy Check 1 - Exemples OK / KO d'alt text.
+"""Slide 6 : Easy Check 1 - Exemples OK / KO de texte alternatif.
 
 Règles neuropédagogie appliquées :
 - R11 : prédiction avant révélation
@@ -13,9 +13,9 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Alt text : passe ou échoue ?",
+        titre="Texte alternatif : passe ou échoue ?",
         fil_ariane="3. Easy Checks | 1. Alternatives textuelles",
-        footer_text=f"{ctx.footer_base} / Easy Checks - Alt text",
+        footer_text=f"{ctx.footer_base} / Easy Checks - Texte alternatif",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

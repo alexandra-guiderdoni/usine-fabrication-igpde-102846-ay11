@@ -4,7 +4,7 @@ Règles neuropédagogie appliquées :
 - R1 : casser la passivité par une question provocante (notes orateur)
 - R3 : WIIFM - 3 bénéfices concrets pour l'apprenant
 - R8 : analogie du GPS pour ancrer l'idée
-- R9 : émotion via chiffre choc (1 personne sur 5)
+- R9 : émotion via situation d’usage concrète
 """
 
 from igpde_dsfr_components import (
@@ -33,8 +33,8 @@ def build(prs, layouts, ctx):
 
     add_highlight(
         slide,
-        "1 personne sur 5 n’utilise jamais de souris pour naviguer sur le web.",
-        top=stack.push(estimate_highlight_height('1 personne sur 5 n’utilise jamais de souris pour naviguer sur le web.')),
+        "Quand on navigue au clavier, un focus invisible suffit à perdre toute la page.",
+        top=stack.push(estimate_highlight_height('Quand on navigue au clavier, un focus invisible suffit à perdre toute la page.')),
     )
 
     add_callout(

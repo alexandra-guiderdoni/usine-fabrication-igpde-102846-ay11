@@ -2,7 +2,7 @@
 
 Règles neuropédagogie appliquées :
 - R5 : chunking - 3 signaux exactement, pas plus
-- R11 : faire deviner (notes orateur : « devinez combien de sites échouent »)
+- R11 : faire deviner le signal le plus bloquant
 - R18 : sécurité psychologique - l'erreur est normale, on l'apprend à la détecter
 """
 
@@ -64,7 +64,7 @@ def build(prs, layouts, ctx):
         slide,
         "Avant de révéler les 3 cartes, demander : « Quel est le signal qui vous semble le plus grave ? » "
         "Laisser parler 2 stagiaires. "
-        "Rappel rassurant (R18) : détecter un de ces signaux n’est pas une faute du développeur, "
-        "c’est le signe qu’un test clavier n’a jamais été fait. Votre rôle : le faire.",
+        "Rappel rassurant (R18) : détecter un de ces signaux ne sert pas à désigner un coupable, "
+        "mais à prouver qu’un test clavier doit entrer dans la routine de publication.",
     )
     return slide

@@ -33,8 +33,8 @@ def build(prs, layouts, ctx):
 
     add_highlight(
         slide,
-        "Sans langue déclarée, un texte français est lu avec l’accent anglais : « beau-jore » pour « bonjour ».",
-        top=stack.push(estimate_highlight_height('Sans langue déclarée, un texte français est lu avec l’accent anglais : « beau-jore » pour « bonjour ».')),
+        "Sans langue déclarée, le lecteur d’écran peut choisir une mauvaise prononciation et rendre le texte pénible à écouter.",
+        top=stack.push(estimate_highlight_height('Sans langue déclarée, le lecteur d’écran peut choisir une mauvaise prononciation et rendre le texte pénible à écouter.')),
     )
 
     add_callout(
@@ -61,8 +61,8 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Démo : activer VoiceOver ou NVDA sur une page sans lang, écouter l’accent massacré. "
+        "Démo : activer VoiceOver ou NVDA sur une page sans lang et comparer la prononciation. "
         "Analogie : un comédien à qui on ne dit pas dans quelle langue jouer - il bute sur chaque mot. "
-        "Piège : les sites institutionnels français oublient souvent lang=\"fr\" par défaut sur le template.",
+        "Piège : un gabarit peut être visuellement français tout en oubliant lang=\"fr\" dans le code.",
     )
     return slide

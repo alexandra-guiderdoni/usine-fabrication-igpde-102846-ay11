@@ -1,0 +1,11 @@
+body {
+  min-height: 100vh;
+}
+
+.fr-card__detail {
+  word-break: normal;
+}
+
+.fr-breadcrumb {
+  margin-bottom: 2rem;
+}

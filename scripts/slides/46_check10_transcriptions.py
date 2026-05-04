@@ -2,7 +2,7 @@
 
 Règles neuropédagogie appliquées :
 - R8 : analogie - la transcription est le podcast en version imprimable
-- R3 : WIIFM - référencement SEO bonus
+- R3 : WIIFM - retrouver, citer et relire le contenu
 """
 
 from igpde_dsfr_components import (
@@ -42,8 +42,8 @@ def build(prs, layouts, ctx):
     callout_bullets = [
         "Toute vidéo / audio propose un lien visible « Lire la transcription »",
         "La transcription est complète : paroles + informations sonores essentielles",
-        "Elle est sur la même page ou à un clic, jamais cachée à deux étages de menu",
-        "Pour une vidéo : la transcription DESCRIPTIVE inclut aussi l'action visible",
+        "Elle est sur la même page ou à un clic, pas cachée à deux étages de menu",
+        "Pour une vidéo : la transcription descriptive inclut aussi l’action visible",
     ]
     add_callout(
         slide,
@@ -54,8 +54,8 @@ def build(prs, layouts, ctx):
 
     alert_titre = "Bonus souvent oublié"
     alert_bullets = [
-        "Les moteurs de recherche indexent les transcriptions - référencement gratuit",
-        "Les utilisateurs qui cherchent une citation précise vous remercient",
+        "La transcription rend le contenu plus facile à retrouver, relire et citer",
+        "Elle sert aussi aux personnes qui ne peuvent pas lancer la vidéo ou l’audio",
     ]
     add_alert(
         slide,
@@ -70,6 +70,6 @@ def build(prs, layouts, ctx):
         "Différence avec les sous-titres : sous-titres = synchronisés avec la vidéo, "
         "transcription = texte autonome lisible hors vidéo. "
         "Les deux coexistent pour une vidéo de référence. "
-        "Piège : publier une transcription brute générée par Whisper sans relecture - bourrée d'erreurs.",
+        "Piège : publier une transcription brute générée automatiquement sans relecture.",
     )
     return slide

@@ -2,7 +2,7 @@
 
 Règles neuropédagogie appliquées :
 - R8 : analogie - la voix off qui décrit l'écran pour qui ne le voit pas
-- R3 : WIIFM - obligation légale dès qu'il y a une vidéo informative
+- R3 : WIIFM - ne pas perdre l'information portée uniquement par l'image
 """
 
 from igpde_dsfr_components import (
@@ -54,9 +54,9 @@ def build(prs, layouts, ctx):
 
     add_quote(
         slide,
-        texte="Sans audiodescription, une vidéo reste une porte fermée pour 1,7 million de personnes aveugles ou malvoyantes en France.",
-        auteur="Fédération des Aveugles de France",
-        top=stack.push(estimate_quote_height('Sans audiodescription, une vidéo reste une porte fermée pour 1,7 million de personnes aveugles ou malvoyantes en France.', 'Fédération des Aveugles de France')),
+        texte="Quand l’image porte l’information, elle doit aussi être disponible autrement que par la vue.",
+        auteur="Principe d’accessibilité vidéo",
+        top=stack.push(estimate_quote_height('Quand l’image porte l’information, elle doit aussi être disponible autrement que par la vue.', 'Principe d’accessibilité vidéo')),
     )
 
     add_notes(

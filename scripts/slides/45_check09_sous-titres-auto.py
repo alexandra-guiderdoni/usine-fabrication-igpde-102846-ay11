@@ -3,7 +3,7 @@
 Règles neuropédagogie appliquées :
 - R18 : sécurité psychologique - l'auto est un point de départ, pas une arrivée
 - R19 : feedback par exemple OK/KO
-- R11 : faire deviner le taux d'erreur
+- R11 : faire deviner les erreurs typiques
 """
 
 from igpde_dsfr_components import (
@@ -21,7 +21,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Sous-titres auto : brouillon utile, livrable jamais",
+        titre="Sous-titres auto : brouillon utile, livrable à relire",
         fil_ariane="3. Easy Checks | 9. Sous-titres",
         footer_text=f"{ctx.footer_base} / Easy Checks - Sous-titres",
         date_text=ctx.date,
@@ -34,31 +34,31 @@ def build(prs, layouts, ctx):
         slide,
         "Pourquoi l’auto ne suffit pas :",
         [
-            "YouTube auto : 10 à 30 % d’erreurs sur un français soigné, pire avec un accent",
-            "Noms propres, acronymes, chiffres : souvent massacrés",
+            "Les sous-titres automatiques peuvent déformer les mots, surtout les noms propres et acronymes",
+            "Noms propres, acronymes, chiffres : souvent mal reconnus",
             "Ponctuation absente : « on mange les enfants » vs « on mange, les enfants »",
             "Pas d’indication sonore non verbale (musique, applaudissements)",
         ],
-        top=stack.push(estimate_callout_height('Pourquoi l’auto ne suffit pas :', ['YouTube auto : 10 à 30 % d’erreurs sur un français soigné, pire avec un accent', 'Noms propres, acronymes, chiffres : souvent massacrés', 'Ponctuation absente : « on mange les enfants » vs « on mange, les enfants »', 'Pas d’indication sonore non verbale (musique, applaudissements)'])),
+        top=stack.push(estimate_callout_height('Pourquoi l’auto ne suffit pas :', ['Les sous-titres automatiques peuvent déformer les mots, surtout les noms propres et acronymes', 'Noms propres, acronymes, chiffres : souvent mal reconnus', 'Ponctuation absente : « on mange les enfants » vs « on mange, les enfants »', 'Pas d’indication sonore non verbale (musique, applaudissements)'])),
     )
 
     add_alert(
         slide,
         titre="Méthode recommandée",
         bullets=[
-            "Étape 1 : générer l’auto (YouTube, Whisper, outil interne) pour gagner 80 % du temps",
+            "Étape 1 : générer l’auto (YouTube, Whisper, outil interne) pour accélérer le brouillon",
             "Étape 2 : relire, corriger, ajouter ponctuation et [indications sonores]",
             "Étape 3 : caler le timing sur les pauses naturelles (2 lignes max à l’écran)",
         ],
-        top=stack.push(estimate_alert_height('Méthode recommandée', ['Étape 1 : générer l’auto (YouTube, Whisper, outil interne) pour gagner 80 % du temps', 'Étape 2 : relire, corriger, ajouter ponctuation et [indications sonores]', 'Étape 3 : caler le timing sur les pauses naturelles (2 lignes max à l’écran)'])),
+        top=stack.push(estimate_alert_height('Méthode recommandée', ['Étape 1 : générer l’auto (YouTube, Whisper, outil interne) pour accélérer le brouillon', 'Étape 2 : relire, corriger, ajouter ponctuation et [indications sonores]', 'Étape 3 : caler le timing sur les pauses naturelles (2 lignes max à l’écran)'], line_spacing=1.0)),
         alert_type="success",
+        line_spacing=1.0,
     )
 
     add_notes(
         slide,
-        "Faire deviner : « Quel est le taux d’erreur moyen d’un sous-titrage auto en français ? » "
-        "(20 %, soit 1 mot sur 5). "
-        "Exemple concret à projeter : une vidéo ministérielle avec sous-titres auto - pointer 3 erreurs. "
-        "Règle d’or (R18) : l’automatique est un allié pour brouillonner, une faute s’il est publié tel quel.",
+        "Faire deviner : « Quels mots un sous-titrage auto rate le plus souvent ? » "
+        "Exemple concret à projeter : une vidéo ministérielle avec sous-titres automatiques - pointer 3 erreurs. "
+        "Règle d’or (R18) : l’automatique est un allié pour brouillonner, mais la publication demande une relecture humaine.",
     )
     return slide

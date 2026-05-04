@@ -54,7 +54,7 @@ def build(prs, layouts, ctx):
 
     alert_titre = "Pattern recommandé"
     alert_bullets = [
-        "Marquez les champs OPTIONNELS, pas les obligatoires - plus court sur un formulaire où 90 % des champs sont requis",
+        "Quand presque tous les champs sont requis, marquer les champs optionnels peut rendre le formulaire plus lisible",
     ]
     add_alert(
         slide,

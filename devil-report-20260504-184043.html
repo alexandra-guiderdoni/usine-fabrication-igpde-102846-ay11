@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Devil Council - PRD exercice site Easy Checks</title>
+  <style>
+    :root {
+      --red: #c50e16;
+      --dark: #2a2a2a;
+      --gray: #f4f4f4;
+      --line: #dddddd;
+      --orange: #b35c00;
+      --green: #18753c;
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--dark);
+      background: #ffffff;
+      line-height: 1.55;
+    }
+    header {
+      border-top: 10px solid var(--red);
+      padding: 2rem clamp(1rem, 4vw, 4rem);
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+    }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+    h1, h2, h3 {
+      line-height: 1.2;
+      margin-top: 0;
+    }
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      margin-bottom: .5rem;
+    }
+    h2 {
+      font-size: 1.55rem;
+      margin: 2.25rem 0 .75rem;
+      border-left: 6px solid var(--red);
+      padding-left: .75rem;
+    }
+    h3 {
+      font-size: 1.12rem;
+      margin-bottom: .25rem;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      max-width: 860px;
+    }
+    .target, .verdict {
+      border: 1px solid var(--line);
+      background: var(--gray);
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .verdict {
+      border-left: 8px solid var(--red);
+      background: #fff5f5;
+    }
+    .verdict strong {
+      color: var(--red);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0 2rem;
+    }
+    .card {
+      border: 1px solid var(--line);
+      padding: 1rem;
+      background: #fff;
+    }
+    .badge {
+      display: inline-block;
+      font-weight: 700;
+      padding: .2rem .5rem;
+      margin-bottom: .5rem;
+      color: #fff;
+      background: var(--red);
+    }
+    .badge.orange { background: var(--orange); }
+    .badge.green { background: var(--green); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 2rem;
+      font-size: .95rem;
+    }
+    caption {
+      text-align: left;
+      font-weight: 700;
+      margin-bottom: .5rem;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: .65rem;
+      vertical-align: top;
+    }
+    th {
+      background: var(--dark);
+      color: #fff;
+      text-align: left;
+    }
+    details {
+      border: 1px solid var(--line);
+      margin: .75rem 0;
+      background: #fff;
+    }
+    summary {
+      cursor: pointer;
+      padding: 1rem;
+      font-weight: 700;
+      background: var(--gray);
+    }
+    details div {
+      padding: 0 1rem 1rem;
+    }
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 1rem clamp(1rem, 4vw, 4rem);
+      color: #666;
+      font-size: .9rem;
+    }
+    code {
+      background: #f1f1f1;
+      padding: .1rem .25rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Devil Council</h1>
+    <p class="subtitle">Relecture adversariale du PRD de l'exercice web « Ministère de l'Accessibilité numérique ».</p>
+  </header>
+  <main>
+    <section class="target">
+      <h2>Proposition Attaquée</h2>
+      <p>Produire un faux site DSFR publié sur GitHub Pages, en trois versions, avec 13 pages correspondant aux 13 Easy Checks du W3C. Les stagiaires auditent la version inaccessible, s'appuient ensuite sur une version aide à la correction, puis comparent avec une version accessible sobre et conforme.</p>
+    </section>
+
+    <section class="verdict">
+      <h2>Verdict Du Procureur</h2>
+      <p><strong>L'idée résiste comme concept pédagogique. Avec la règle « une occurrence suffit » et la répartition par groupes, elle résiste mieux comme scénario de classe.</strong></p>
+      <p>Le format est pertinent, aligné avec l'exercice Sami et cohérent avec la session 3. La densité reste à cadrer dans le PRD pour éviter que les occurrences bonus soient perçues comme une exigence d'exhaustivité.</p>
+      <p><strong>Point de rupture :</strong> l'ambiguïté résiduelle entre constat minimal attendu et occurrences bonus. Si elle n'est pas résolue, certains binômes chercheront tout, d'autres s'arrêteront au premier défaut, et la restitution deviendra hétérogène.</p>
+    </section>
+
+    <h2>Convergence Des Attaques</h2>
+    <div class="grid">
+      <article class="card">
+        <span class="badge">Faille confirmée</span>
+        <h3>Règle d'arrêt à formaliser</h3>
+        <p>La répartition par groupes rend le temps plus crédible. Le risque restant est que le PRD ne dise pas assez clairement qu'une seule occurrence prouvée suffit.</p>
+      </article>
+      <article class="card">
+        <span class="badge">Faille confirmée</span>
+        <h3>Trois versions = dérive probable</h3>
+        <p>Site inaccessible, aide, accessible, manifeste, corrigé, grille et slides devront rester synchronisés. C'est la vraie dette.</p>
+      </article>
+      <article class="card">
+        <span class="badge orange">Risque pédagogique</span>
+        <h3>Erreur principale brouillée</h3>
+        <p>Trois cas par page améliorent la richesse, mais menacent la simplicité du diagnostic attendu par des débutants.</p>
+      </article>
+    </div>
+
+    <table>
+      <caption>Carte de convergence</caption>
+      <thead>
+        <tr>
+          <th scope="col">Faille</th>
+          <th scope="col">Attaquants convergents</th>
+          <th scope="col">Gravité</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Temps et densité</th>
+          <td>Falsificationniste, Pré-mortem, Contraintes-First</td>
+          <td>Élevée, atténuée par la répartition en groupes</td>
+        </tr>
+        <tr>
+          <th scope="row">Synchronisation des trois versions</th>
+          <td>Pré-mortem, Contraintes-First, Second-Ordre</td>
+          <td>Critique</td>
+        </tr>
+        <tr>
+          <th scope="row">Confusion entre cas attendu, bonus et faux-ami</th>
+          <td>Falsificationniste, Inverseur, Second-Ordre</td>
+          <td>Élevée</td>
+        </tr>
+        <tr>
+          <th scope="row">Validation insuffisante de la version accessible</th>
+          <td>Falsificationniste, Contraintes-First</td>
+          <td>Élevée</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Diagnostic</h2>
+    <p>Avant la production HTML, ajouter une table d'arbitrage page par page. Cette table doit définir : constat minimal attendu, occurrences bonus, nombre minimal de lignes attendues dans la grille, preuve minimale, sévérité indicative, temps cible, et ce qui ne doit pas être pénalisé.</p>
+
+    <h2>Actions De Durcissement</h2>
+    <div class="grid">
+      <article class="card">
+        <span class="badge green">Priorité 1</span>
+        <h3>Ajouter une table d'arbitrage</h3>
+        <p>Une ligne par page : constat minimal, bonus, faux-amis, preuve minimale, sévérité attendue.</p>
+      </article>
+      <article class="card">
+        <span class="badge green">Priorité 2</span>
+        <h3>Piloter avec 2 binômes</h3>
+        <p>Test strict : 3 pages en 15 minutes, sans aide orale. Mesurer si une occurrence prouvée par page est réaliste.</p>
+      </article>
+      <article class="card">
+        <span class="badge green">Priorité 3</span>
+        <h3>Renforcer `validate.py`</h3>
+        <p>Contrôler la cohérence des trois versions, les ancres, les titres, les assets DSFR locaux et la présence des aides attendues.</p>
+      </article>
+    </div>
+
+    <h2>Attaques Complètes</h2>
+    <details>
+      <summary>Le Falsificationniste</summary>
+      <div>
+        <p>Le test décisif est simple : donnez la page racine, la grille et 3 pages à deux binômes représentatifs du public cible, sans aide orale, avec 15 minutes strictes. Si chaque binôme ne produit pas au moins deux constats correctement qualifiés avec preuve, sévérité et correctif, le PRD est faux.</p>
+        <p>Si une seule page enrichie avec trois cas fait confondre faute RGAA, mauvaise pratique et faux-ami, l'hypothèse « une page = une erreur principale » est invalidée. Si la version accessible échoue sur un composant DSFR standard, elle ne peut plus servir de référence pédagogique.</p>
+      </div>
+    </details>
+    <details>
+      <summary>Le Pré-mortem</summary>
+      <div>
+        <p>Le jour de formation, les stagiaires perdent cinq minutes à comprendre les 13 cartes, les trois versions, la grille et les outils. Le temps d'audit réel tombe à 8 minutes. Les trois cas par page créent de la confusion : faut-il remonter une ligne, trois lignes, ou tout ce qui semble suspect ?</p>
+        <p>La production crée aussi une dette : 39 pages générées, DSFR local, médias placeholders, manifeste, corrigé, grille et slides à synchroniser. Une correction casse une ancre ou une association de champ.</p>
+      </div>
+    </details>
+    <details>
+      <summary>L'Inverseur</summary>
+      <div>
+        <p>L'opposé rigoureux serait meilleur : ne pas construire un faux site complet en 13 pages. Construire 5 pages très maîtrisées, puis couvrir les autres checks par restitution, corrigé et slides. L'objectif n'est pas de produire un site, mais d'entraîner à observer, prouver, qualifier et formuler un correctif.</p>
+        <p>L'inverse de « trois cas par page » serait « un cas central par page, un seul piège bonus en corrigé ». Les subtilités RGAA sont précieuses, mais pas toutes dans le temps d'audit.</p>
+      </div>
+    </details>
+    <details>
+      <summary>Le Contraintes-First</summary>
+      <div>
+        <p>Les vrais médias manquent. La validation automatique ne prouve pas la conformité DSFR. Les assets DSFR locaux ne sont pas cadrés précisément. Les composants par page sont encore pressentis. Le temps pédagogique est contradictoire avec le volume. La gouvernance GitHub Pages et la maintenance ne sont pas définies.</p>
+      </div>
+    </details>
+    <details>
+      <summary>Le Second-Ordre</summary>
+      <div>
+        <p>Afficher l'Easy Check ciblé sur chaque carte peut transformer l'audit en jeu d'association. Les trois occurrences par page peuvent transformer la restitution en correction exhaustive. La publication publique du corrigé peut affaiblir les futures sessions. Et si la version accessible contient une faille, c'est toute la crédibilité du module qui baisse.</p>
+      </div>
+    </details>
+  </main>
+  <footer>
+    Rapport généré le 2026-05-04 à 18:40:43 - Cible : PRD exercice site Easy Checks.
+  </footer>
+</body>
+</html>

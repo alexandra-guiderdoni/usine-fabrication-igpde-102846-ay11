@@ -28,9 +28,9 @@ def build(prs, layouts, ctx):
             "L’arbre complet des titres s’affiche, les anomalies en rouge.",
         ],
         [
-            "Mode lecture du navigateur",
-            "Firefox : icône livre dans la barre d’URL.",
-            "Si la page se simplifie correctement, la hiérarchie est probablement saine.",
+            "Plan de document",
+            "Extension Web Developer → Information → View Document Outline.",
+            "Le plan liste les titres réels et signale les niveaux manquants.",
         ],
         [
             "Clic droit « Inspecter »",

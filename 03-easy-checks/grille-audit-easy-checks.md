@@ -52,6 +52,10 @@ La méthode technique du RGAA impose un échantillon minimal pour déclarer la c
 4. **Correctif** : quelle action l'équipe web devra-t-elle mener ?
 5. **Preuve** : URL précise, capture d'écran, sélecteur CSS, extrait de code
 
+### Règle pour l'exercice en binômes
+
+Les pages sont réparties entre plusieurs groupes : chaque binôme audite uniquement les pages qui lui sont attribuées. Pour une page donnée, **une seule occurrence correctement prouvée suffit à renseigner `NC`** sur le critère ciblé. Les autres occurrences éventuelles sont des bonus utiles pour la restitution, mais elles ne sont pas exigées pour invalider le critère.
+
 ### Conventions de verdict
 
 | Code | Libellé | Définition |

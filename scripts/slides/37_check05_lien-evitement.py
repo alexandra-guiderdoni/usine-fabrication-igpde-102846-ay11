@@ -17,7 +17,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Lien d’évitement : le raccourci qui sauve 30 Tab",
+        titre="Lien d’évitement : le raccourci vers le contenu",
         fil_ariane="3. Easy Checks | 5. Lien d'évitement",
         footer_text=f"{ctx.footer_base} / Easy Checks - Lien d’évitement",
         date_text=ctx.date,
@@ -27,8 +27,8 @@ def build(prs, layouts, ctx):
     stack = Stack(top=2.10, gap=0.18)
 
     highlight_texte = (
-        "Sans lien d’évitement, un utilisateur clavier tabule 20 à 40 fois "
-        "par page juste pour franchir le menu."
+        "Sans lien d’évitement, un utilisateur clavier doit souvent traverser tout le menu "
+        "avant d’atteindre le contenu."
     )
     add_highlight(
         slide, highlight_texte,
@@ -37,7 +37,7 @@ def build(prs, layouts, ctx):
 
     callout_titre = "Ce qu’il faut vérifier :"
     callout_bullets = [
-        "Un lien « Aller au contenu » est le 1ᵉʳ élément reçu par Tab en haut de page",
+        "Le premier lien interactif permet d’aller directement au contenu principal",
         "Il devient visible dès qu’il a le focus, même s’il était masqué",
         "Il mène au bloc principal via une ancre (#contenu, #main)",
     ]
@@ -62,7 +62,6 @@ def build(prs, layouts, ctx):
         "Analogie : l’ascenseur dans un immeuble. Sans ascenseur, chacun monte les 10 étages à pied - "
         "y compris les personnes qui ne peuvent pas. "
         "Faire deviner : combien de tabulations sur la page de leur intranet pour arriver au contenu ? "
-        "(réponse typique : 15-30). "
         "Rappel : le lien d’évitement peut être masqué visuellement mais doit apparaître au focus clavier.",
     )
     return slide

@@ -31,14 +31,14 @@ def build(prs, layouts, ctx):
 
     add_callout(
         slide,
-        "Pourquoi le placeholder ne remplace jamais l’étiquette :",
+        "Pourquoi le placeholder ne remplace pas l’étiquette :",
         [
             "Il disparaît dès qu’on commence à saisir - on oublie ce qu’on remplit",
             "Son contraste est souvent trop faible pour passer le check 4",
-            "Les lecteurs d’écran l’ignorent ou l’annoncent comme « texte exemple »",
-            "Impossible d’y revenir : il est perdu dès la 1ʳᵉ lettre tapée",
+            "Il peut être annoncé comme exemple, pas comme nom fiable du champ",
+            "Il devient difficile d’y revenir dès que la saisie commence",
         ],
-        top=stack.push(estimate_callout_height('Pourquoi le placeholder ne remplace jamais l’étiquette :', ['Il disparaît dès qu’on commence à saisir - on oublie ce qu’on remplit', 'Son contraste est souvent trop faible pour passer le check 4', 'Les lecteurs d’écran l’ignorent ou l’annoncent comme « texte exemple »', 'Impossible d’y revenir : il est perdu dès la 1ʳᵉ lettre tapée'])),
+        top=stack.push(estimate_callout_height('Pourquoi le placeholder ne remplace pas l’étiquette :', ['Il disparaît dès qu’on commence à saisir - on oublie ce qu’on remplit', 'Son contraste est souvent trop faible pour passer le check 4', 'Il peut être annoncé comme exemple, pas comme nom fiable du champ', 'Il devient difficile d’y revenir dès que la saisie commence'])),
     )
 
     add_alert(
@@ -47,9 +47,9 @@ def build(prs, layouts, ctx):
         bullets=[
             "Étiquette visible au-dessus du champ (ou à gauche)",
             "Placeholder optionnel, pour donner un exemple de format : « JJ/MM/AAAA »",
-            "Ne JAMAIS mettre l’information essentielle uniquement dans le placeholder",
+            "Ne pas mettre l’information essentielle uniquement dans le placeholder",
         ],
-        top=stack.push(estimate_alert_height('Pattern recommandé', ['Étiquette visible au-dessus du champ (ou à gauche)', 'Placeholder optionnel, pour donner un exemple de format : « JJ/MM/AAAA »', 'Ne JAMAIS mettre l’information essentielle uniquement dans le placeholder'])),
+        top=stack.push(estimate_alert_height('Pattern recommandé', ['Étiquette visible au-dessus du champ (ou à gauche)', 'Placeholder optionnel, pour donner un exemple de format : « JJ/MM/AAAA »', 'Ne pas mettre l’information essentielle uniquement dans le placeholder'])),
         alert_type="success",
     )
 

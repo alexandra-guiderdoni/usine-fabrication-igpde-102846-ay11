@@ -24,10 +24,10 @@ def build(prs, layouts, ctx):
         slide,
         "Choisissez une page de votre site pro ou d’un site public et passez-la aux 13 Easy Checks :",
         [
-            "Notez pour chaque check : passe, échoue, ou doute",
+            "Renseignez pour chaque check : verdict, sévérité, constat, correctif, preuve",
             "Mesurez le contraste d’au moins 3 zones",
             "Testez clavier et zoom 200 % sur un parcours complet",
-            "Listez 3 non-conformités à remonter à votre équipe web",
+            "Sélectionnez 3 actions prioritaires à remonter à votre équipe web",
         ],
         top=2.3, height=2.85,
     )
@@ -50,6 +50,7 @@ def build(prs, layouts, ctx):
         "Onglet Grille vierge à dupliquer par stagiaire, onglet Exemple pour s’orienter, onglet Synthèse pour consolider. "
         "Timing : 20 min audit individuel, 5 min binôme, 5 min restitution collective. "
         "Outils autorisés : DevTools, HeadingsMap, Colour Contrast Analyser, clavier + casque audio. "
+        "Rappeler que le taux Easy Checks n’est pas un taux de conformité RGAA publiable. "
         "Clôture métacognitive (R25) : « Quel check vous a surpris ? Quel est le plus facile à faire adopter dans votre équipe ? » "
         "Engagement (R24) : chaque stagiaire annonce UNE action qu’il lancera dès demain 9 h. "
         "Livrable individuel : grille Easy Checks remplie + 3 actions priorisées + 1 engagement personnel.",

@@ -1,7 +1,7 @@
 """Slide 3 : chapitre d'ouverture du module Easy Checks.
 
 Règles neuropédagogie appliquées :
-- R1 : engagement immédiat par un chiffre d'impact (notes orateur)
+- R1 : engagement immédiat par un constat d'impact (notes orateur)
 - R2 : primauté - on annonce les 13 checks dès l'ouverture
 - R3 : WIIFM - « en 20 min vous évaluerez n'importe quelle page »
 """
@@ -23,10 +23,12 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Ouvrir par un chiffre : 97 % des pages web présentent au moins une violation WCAG détectable "
-        "(source WebAIM Million 2024). "
-        "Les Easy Checks sont la trousse de secours du W3C : 13 vérifications qu’un non-technicien peut faire "
-        "en 20 minutes pour savoir si une page mérite un audit approfondi. "
+        "Ouvrir par la source d’autorité : The WebAIM Million - Mise à jour 2026, "
+        "https://webaim.org/projects/million/. "
+        "WebAIM a évalué les pages d’accueil des 1 000 000 de sites web les plus visités avec l’API WAVE autonome "
+        "et des outils complémentaires de collecte technique. "
+        "Les Easy Checks sont la trousse de secours du W3C : 13 vérifications qu’un non-spécialiste peut faire "
+        "rapidement pour repérer les principaux signaux d’alerte avant un audit approfondi. "
         "Annoncer le plan : 13 checks, chacun traité sur 1 à 4 slides selon sa complexité. "
         "À la fin du module : mission d’audit groupé sur une page de votre choix.",
     )

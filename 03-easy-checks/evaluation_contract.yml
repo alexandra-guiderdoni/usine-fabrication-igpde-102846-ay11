@@ -1,0 +1,635 @@
+schema_version: "1.0"
+contract_id: "igpde-session-3-easy-checks"
+title: "Contrat d'évaluation - Exercice Les 13 Easy Checks du W3C"
+course:
+  code: "102638"
+  section: "3. Les 13 Easy Checks du W3C"
+site:
+  name: "Ministère de l'Accessibilité numérique"
+  baseline: "Formation IGPDE - Exercice Easy Checks"
+  root: "docs/"
+versions:
+  inaccessible:
+    path: "site-inaccessible/"
+    role: "Site à auditer"
+    visible_help: false
+  help:
+    path: "site-aide-correction/"
+    role: "Même site avec guidage pédagogique"
+    visible_help: true
+    help_position: "Bas de page"
+    help_component: "Groupe d'accordéons DSFR"
+  accessible:
+    path: "site-accessible/"
+    role: "Site corrigé et conforme DSFR/accessibilité"
+    visible_help: false
+verdicts:
+  C: "Conforme"
+  NC: "Non conforme"
+  NA: "Non applicable"
+severities:
+  - "Bloquant"
+  - "Gênant"
+  - "Mineur"
+  - "Info"
+exercise_rules:
+  format: "Binômes"
+  duration_minutes: 30
+  pages_per_group: 3
+  principle: "Pour une page donnée, une seule occurrence correctement prouvée suffit à renseigner NC."
+  bonus_principle: "Les occurrences supplémentaires sont optionnelles et servent à enrichir la restitution collective."
+  scope_warning: "Pré-diagnostic pédagogique, pas audit RGAA complet."
+tools:
+  automatic:
+    - "WAVE"
+    - "ANDI"
+    - "HeadingsMap"
+    - "Web Developer"
+  manual:
+    - "Clavier"
+    - "Zoom navigateur 200 %"
+    - "DevTools"
+    - "Revue humaine"
+  contrast:
+    - "WebAIM Contrast Checker"
+    - "Colour Contrast Analyser"
+  optional_screen_reader:
+    - "NVDA"
+    - "VoiceOver"
+shared_dsfr_components:
+  - "En-tête"
+  - "Navigation principale"
+  - "Liens d'évitement"
+  - "Pied de page"
+  - "Fil d'Ariane"
+  - "Lien"
+source_documents:
+  prd: "03-easy-checks/exercice-site-easy-checks-spec.md"
+  dsfr_links: "03-easy-checks/dsfr-component-links.md"
+  dsfr_rules: "03-easy-checks/dsfr-implementation-rules.md"
+  grid_md: "03-easy-checks/grille-audit-easy-checks.md"
+  grid_xlsx: "03-easy-checks/grille-audit-easy-checks.xlsx"
+
+pages:
+  - id: "ec01-images"
+    number: 1
+    title: "Actualité illustrée"
+    realistic_context: "Annonce d'une nouvelle ressource RGAA illustrée par une image informative."
+    easy_check:
+      number: 1
+      name: "Texte alternatif des images"
+    severity: "Gênant"
+    expected_minimal_finding: "Au moins une image n'a pas d'alternative adaptée à son rôle réel."
+    minimal_proof: "Capture WAVE/ANDI ou extrait HTML montrant alt absent, vide ou inadapté sur l'image concernée."
+    detection:
+      - "WAVE"
+      - "ANDI"
+      - "Inspection HTML"
+    inaccessible_errors:
+      - "Image informative sans alternative ou avec alt vide."
+      - "Image décorative trop bavarde."
+      - "Image-lien avec alternative qui décrit l'image au lieu d'indiquer la destination ou l'action."
+    bonus_occurrences:
+      - "Image décorative bavarde."
+      - "Image-lien dont l'alternative décrit l'image au lieu de l'action."
+    do_not_penalize:
+      - "Image purement décorative avec alt vide."
+    accessible_correction: "Image informative : alternative courte reprenant l'information. Image décorative : alt vide. Image-lien : alternative indiquant la cible ou l'action, pas l'apparence de l'image."
+    help:
+      hint: "Comparer le rôle réel de chaque image avec son alternative dans WAVE, ANDI ou le HTML."
+      problem: "L'image n'est pas décrite selon son rôle réel : information perdue, bruit inutile ou lien incompréhensible."
+      fix: "Qualifier l'image dans son contexte, puis choisir entre alternative informative, alt vide décoratif ou alternative de lien orientée action."
+    dsfr_components:
+      - "Carte"
+      - "Lien"
+      - "Contenu médias"
+    grid:
+      verdict: "NC"
+      severity: "Gênant"
+
+  - id: "ec02-page-title"
+    number: 2
+    title: "Résultats de recherche RGAA"
+    realistic_context: "Page de résultats de recherche pour des ressources RGAA."
+    easy_check:
+      number: 2
+      name: "Titre de page"
+    severity: "Gênant"
+    expected_minimal_finding: "Le titre de page ne permet pas d'identifier précisément la page ou son état."
+    minimal_proof: "Onglet navigateur ou extrait title montrant un titre générique, dupliqué ou mal ordonné."
+    detection:
+      - "Onglet navigateur"
+      - "Code source"
+      - "WAVE"
+    inaccessible_errors:
+      - "Titre générique."
+      - "Titre identique sur plusieurs pages de résultats."
+      - "Information spécifique placée trop tard après le nom long du ministère."
+    bonus_occurrences:
+      - "Pagination absente du titre."
+      - "Requête de recherche absente."
+      - "Nom du ministère placé avant l'information spécifique."
+    do_not_penalize:
+      - "Titre long si l'information spécifique est présente en premier."
+    accessible_correction: "Titre unique, spécifique et ordonné du particulier vers le général, par exemple Recherche \"RGAA\" - Page 2 - Ministère de l'Accessibilité numérique."
+    help:
+      hint: "Regarder l'onglet du navigateur, le title HTML et le résultat WAVE."
+      problem: "L'utilisateur ne sait pas quelle page ou quel état est ouvert, ce qui gêne la navigation entre onglets, historique et résultats."
+      fix: "Rendre le titre unique, ajouter le contexte utile et placer l'information spécifique en premier."
+    dsfr_components:
+      - "Barre de recherche"
+      - "Lien"
+      - "Carte"
+    grid:
+      verdict: "NC"
+      severity: "Gênant"
+
+  - id: "ec03-headings"
+    number: 3
+    title: "Guide du RGAA"
+    realistic_context: "Page explicative sur le RGAA et ses ressources."
+    easy_check:
+      number: 3
+      name: "Titres de rubriques"
+    severity: "Gênant"
+    expected_minimal_finding: "Un texte visuellement présenté comme titre n'est pas balisé comme titre, ou une balise de titre est utilisée pour un simple effet visuel."
+    minimal_proof: "HeadingsMap/WAVE ou extrait HTML montrant un faux titre ou un titre décoratif."
+    detection:
+      - "HeadingsMap"
+      - "WAVE"
+      - "DevTools"
+    inaccessible_errors:
+      - "Titre visuel non balisé."
+      - "Balise de titre détournée pour un effet visuel."
+      - "Faux-ami pédagogique : saut de niveau ou plusieurs h1 à analyser avec nuance."
+    bonus_occurrences:
+      - "Comparer le plan visuel et le plan technique."
+      - "Repérer un titre non pertinent."
+    do_not_penalize:
+      - "Saut de niveau ou plusieurs h1 si la hiérarchie reste cohérente au sens RGAA."
+    accessible_correction: "Titre visuel balisé avec un élément de titre natif ou role heading/aria-level si nécessaire ; balise de titre réservée aux vrais titres ; hiérarchie globalement pertinente."
+    help:
+      hint: "Afficher le plan de titres avec HeadingsMap, puis le comparer au plan visuel."
+      problem: "Le plan technique peut être absent, pollué ou mal interprété ; la navigation par titres devient inefficace."
+      fix: "Identifier les vrais titres, vérifier leur sémantique, repérer les titres décoratifs et qualifier les sauts de niveau avec nuance."
+    dsfr_components:
+      - "Lien"
+      - "Accordéon"
+      - "Mise en avant"
+    grid:
+      verdict: "NC"
+      severity: "Gênant"
+
+  - id: "ec04-contrast"
+    number: 4
+    title: "Charte de publication"
+    realistic_context: "Page décrivant les règles de publication des contenus accessibles."
+    easy_check:
+      number: 4
+      name: "Contraste"
+    severity: "Bloquant"
+    expected_minimal_finding: "Au moins un texte, lien, bouton ou statut présente un contraste insuffisant."
+    minimal_proof: "Mesure CCA/WebAIM/WAVE avec couleurs et ratio inférieur au seuil attendu."
+    detection:
+      - "WebAIM Contrast Checker"
+      - "Colour Contrast Analyser"
+      - "WAVE"
+    inaccessible_errors:
+      - "Texte courant gris clair sur blanc."
+      - "Lien ou bouton d'action trop pâle."
+      - "Information de statut transmise par une couleur faible."
+    bonus_occurrences:
+      - "Texte gris clair."
+      - "Bouton pâle."
+      - "Statut transmis par couleur faible."
+    do_not_penalize:
+      - "Usage d'une couleur DSFR conforme et information de statut aussi disponible en texte ou icône nommée."
+    accessible_correction: "Ratio conforme : 4,5:1 pour texte normal ; 3:1 pour texte large et composants."
+    help:
+      hint: "Mesurer un texte, un lien ou un bouton avec un outil de contraste."
+      problem: "La lecture ou l'identification devient difficile pour les personnes malvoyantes, en forte luminosité ou sur écran médiocre."
+      fix: "Mesurer, ne pas juger à l'oeil, et ne pas transmettre une information uniquement par une couleur peu contrastée."
+    dsfr_components:
+      - "Mise en avant"
+      - "Alerte"
+      - "Lien"
+      - "Bouton"
+      - "Badge"
+    grid:
+      verdict: "NC"
+      severity: "Bloquant"
+
+  - id: "ec05-skiplinks"
+    number: 5
+    title: "Accès rapide aux contenus"
+    realistic_context: "Page longue avec menu, recherche et contenu principal."
+    easy_check:
+      number: 5
+      name: "Lien d'évitement"
+    severity: "Bloquant"
+    expected_minimal_finding: "Le lien d'évitement vers le contenu principal est absent, invisible au focus ou non fonctionnel."
+    minimal_proof: "Test clavier au premier Tab, puis activation du lien et vérification de l'ancre cible."
+    detection:
+      - "Clavier"
+      - "Premier appui sur Tab"
+      - "Vérification de l'ancre cible"
+    inaccessible_errors:
+      - "Lien d'évitement absent."
+      - "Lien présent mais invisible au focus."
+      - "Lien présent mais cible d'ancre invalide ou inexistante."
+    bonus_occurrences:
+      - "Lien vers menu ou pied de page cassé."
+      - "Cible mal orthographiée."
+    do_not_penalize:
+      - "Composant DSFR masqué hors écran par défaut s'il apparaît bien au focus."
+    accessible_correction: "Utiliser le composant DSFR Liens d'évitement : bloc placé tout en haut de page, avant l'en-tête ; navigation aria-label Accès rapide ; liste de liens simples ; premier lien vers le contenu principal ; ancres valides."
+    help:
+      hint: "Appuyer une fois sur Tab au chargement de la page et vérifier ce qui apparaît."
+      problem: "L'utilisateur clavier traverse toute la navigation ou croit avoir évité le menu sans y parvenir."
+      fix: "Implémenter le composant DSFR Liens d'évitement, vérifier qu'il apparaît au focus et tester que chaque cible existe et fonctionne."
+    dsfr_components:
+      - "Liens d'évitement"
+      - "En-tête"
+      - "Navigation principale"
+      - "Pied de page"
+    dsfr_required_references:
+      code: "https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/liens-d-evitement/code-des-liens-d-evitement"
+      accessibility: "https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/liens-d-evitement/accessibilite-des-liens-d-evitement"
+    grid:
+      verdict: "NC"
+      severity: "Bloquant"
+
+  - id: "ec06-keyboard-focus"
+    number: 6
+    title: "Parcours clavier"
+    realistic_context: "Page avec cartes de ressources, boutons d'action et accordéons d'information."
+    easy_check:
+      number: 6
+      name: "Focus clavier visible"
+    severity: "Bloquant"
+    expected_minimal_finding: "Le focus clavier n'est pas visible sur au moins un composant interactif."
+    minimal_proof: "Parcours Tab / Shift+Tab montrant le composant focusable sans indicateur visible."
+    detection:
+      - "Clavier"
+      - "Tab"
+      - "Shift+Tab"
+      - "ANDI"
+    inaccessible_errors:
+      - "Focus visible supprimé sur un bouton."
+      - "Focus visible supprimé sur une carte cliquable."
+      - "Focus visible supprimé ou très peu perceptible sur un accordéon DSFR mal surchargé."
+    bonus_occurrences:
+      - "Bouton, carte cliquable ou accordéon touché par la même surcharge CSS."
+    do_not_penalize:
+      - "Variation visuelle DSFR du focus si elle reste perceptible et conforme."
+    accessible_correction: "Focus visible DSFR conservé sur boutons, liens/cartes et accordéons ; ordre de tabulation logique ; aucun piège clavier ; comportement clavier des accordéons conforme à la fiche DSFR."
+    help:
+      hint: "Parcourir la page avec Tab sans souris et observer chaque élément interactif."
+      problem: "On ne sait plus où l'on est ; la navigation devient impossible au clavier."
+      fix: "Retirer les surcharges CSS qui masquent le focus, utiliser les styles DSFR et vérifier chaque composant interactif au clavier."
+    dsfr_components:
+      - "Carte"
+      - "Bouton"
+      - "Accordéon"
+      - "Lien"
+    grid:
+      verdict: "NC"
+      severity: "Bloquant"
+
+  - id: "ec07-language"
+    number: 7
+    title: "Atelier international"
+    realistic_context: "Annonce d'un atelier avec un passage en anglais."
+    easy_check:
+      number: 7
+      name: "Langue de la page"
+    severity: "Gênant"
+    expected_minimal_finding: "La langue principale ou un changement de langue utile n'est pas déclaré correctement."
+    minimal_proof: "Extrait HTML montrant lang absent/vide/invalide ou passage anglais non balisé."
+    detection:
+      - "Web Developer"
+      - "Code source"
+      - "WAVE"
+    inaccessible_errors:
+      - "Attribut lang absent ou vide sur html."
+      - "Code langue invalide ou erroné."
+      - "Passage en anglais non balisé dans une page française."
+    bonus_occurrences:
+      - "Code langue erroné."
+      - "Expression anglaise non balisée."
+      - "Mauvaise régionalisation."
+    do_not_penalize:
+      - "Noms propres et mots étrangers passés dans l'usage courant non balisés."
+    accessible_correction: "lang fr sur la page ; code langue valide ; passages anglais avec lang en si nécessaire ; pas de sur-balisage des noms propres ou mots entrés dans l'usage courant."
+    help:
+      hint: "Inspecter la balise html et les expressions en langue étrangère."
+      problem: "La synthèse vocale ne sait pas quelle prononciation appliquer."
+      fix: "Déclarer la langue principale, utiliser un code valide et baliser seulement les vrais changements de langue utiles."
+    dsfr_components:
+      - "Carte"
+      - "Lien"
+      - "Mise en avant"
+    grid:
+      verdict: "NC"
+      severity: "Gênant"
+
+  - id: "ec08-zoom"
+    number: 8
+    title: "Ressources à zoomer"
+    realistic_context: "Page de ressources avec grille de cartes RGAA."
+    easy_check:
+      number: 8
+      name: "Zoom 200 %"
+    severity: "Gênant"
+    expected_minimal_finding: "À 200 % de zoom, une carte perd du contenu ou devient difficilement utilisable."
+    minimal_proof: "Capture à 200 % montrant texte tronqué, bouton sorti, superposition ou défilement horizontal non nécessaire."
+    detection:
+      - "Zoom navigateur 200 %"
+      - "Fenêtre étroite"
+    inaccessible_errors:
+      - "Cartes avec hauteur fixe."
+      - "Largeur rigide."
+      - "Overflow masqué provoquant texte tronqué, boutons sortis ou superposition au zoom 200 %."
+    bonus_occurrences:
+      - "Plusieurs cartes cassées."
+      - "Hauteur fixe."
+      - "overflow hidden."
+    do_not_penalize:
+      - "Reflow vertical normal et augmentation de hauteur des cartes."
+    accessible_correction: "Cartes DSFR fluides ; grille responsive ; contenu visible ; reflow sans perte ; composants utilisables."
+    help:
+      hint: "Passer le navigateur à 200 % et réduire la largeur de fenêtre."
+      problem: "Les cartes cassent au zoom ; les personnes malvoyantes ou sur petits écrans perdent du contenu."
+      fix: "Retirer les hauteurs et largeurs fixes, éviter overflow hidden, utiliser la grille DSFR et tester à 200 %."
+    dsfr_components:
+      - "Carte"
+      - "Lien"
+      - "Bouton"
+    grid:
+      verdict: "NC"
+      severity: "Gênant"
+
+  - id: "ec09-captions"
+    number: 9
+    title: "Vidéo de sensibilisation"
+    realistic_context: "Courte vidéo de sensibilisation à l'accessibilité numérique."
+    easy_check:
+      number: 9
+      name: "Sous-titres"
+    severity: "Bloquant"
+    expected_minimal_finding: "La vidéo ne propose pas de sous-titres exploitables pour le contenu oral."
+    minimal_proof: "Vérification du lecteur : absence de piste, bouton sous-titres absent, ou sous-titres automatiques non relus signalés."
+    detection:
+      - "Lecteur vidéo"
+      - "Bouton sous-titres"
+      - "Écoute sans son"
+    inaccessible_errors:
+      - "Vidéo sans sous-titres."
+      - "Sous-titres automatiques non relus."
+    bonus_occurrences:
+      - "Sous-titres non synchronisés."
+      - "Sons utiles non indiqués."
+    do_not_penalize:
+      - "Vidéo strictement décorative sans information orale utile, si elle est correctement ignorée ou décrite ailleurs."
+    accessible_correction: "Sous-titres synchronisés, relus, ponctués, avec sons utiles."
+    help:
+      hint: "Lire la vidéo sans le son et vérifier la présence d'une piste de sous-titres exploitable."
+      problem: "Le contenu oral est indisponible sans son."
+      fix: "Fournir un fichier VTT relu, synchronisé et activable depuis le lecteur."
+    dsfr_components:
+      - "Contenu médias"
+      - "Transcription"
+      - "Lien"
+    assets:
+      placeholders:
+        - "assets/shared/media/video-demo.mp4"
+        - "assets/shared/media/sous-titres-demo.vtt"
+      final_assets_pending: true
+    grid:
+      verdict: "NC"
+      severity: "Bloquant"
+
+  - id: "ec10-transcript"
+    number: 10
+    title: "Podcast RGAA"
+    realistic_context: "Extrait audio présentant une démarche RGAA."
+    easy_check:
+      number: 10
+      name: "Transcriptions"
+    severity: "Bloquant"
+    expected_minimal_finding: "Le contenu audio n'a pas de transcription accessible à proximité."
+    minimal_proof: "Revue de la page montrant absence de lien de transcription proche du média."
+    detection:
+      - "Revue humaine"
+      - "Inspection des liens proches du média"
+    inaccessible_errors:
+      - "Audio sans lien visible vers une transcription."
+    bonus_occurrences:
+      - "Transcription incomplète."
+      - "Lien peu explicite."
+      - "Transcription non structurée."
+    do_not_penalize:
+      - "Résumé éditorial court en complément, s'il existe aussi une transcription complète."
+    accessible_correction: "Lien proche du média vers une transcription structurée et complète."
+    help:
+      hint: "Chercher un lien de transcription immédiatement proche du lecteur audio."
+      problem: "Le contenu audio n'est pas disponible en texte."
+      fix: "Ajouter une transcription accessible, complète, structurée et liée près du média."
+    dsfr_components:
+      - "Contenu médias"
+      - "Transcription"
+      - "Lien"
+    assets:
+      placeholders:
+        - "assets/shared/media/audio-demo.mp3"
+        - "assets/shared/media/transcription-demo.html"
+      final_assets_pending: true
+    grid:
+      verdict: "NC"
+      severity: "Bloquant"
+
+  - id: "ec11-audio-description"
+    number: 11
+    title: "Démonstration vidéo"
+    realistic_context: "Vidéo montrant une interface avant/après ou un geste de correction."
+    easy_check:
+      number: 11
+      name: "Audiodescription"
+    severity: "Bloquant"
+    expected_minimal_finding: "Une information visuelle essentielle n'est pas disponible autrement que par l'image."
+    minimal_proof: "Revue humaine de la vidéo montrant une action ou information visuelle non décrite dans l'audio ni dans une version alternative."
+    detection:
+      - "Revue humaine de la vidéo"
+      - "Comparaison audio / information visuelle"
+    inaccessible_errors:
+      - "Information visuelle essentielle non décrite dans l'audio principal."
+      - "Absence de piste ou version audiodécrite."
+    bonus_occurrences:
+      - "Absence de version audiodécrite."
+      - "Description trop vague."
+      - "Lien vers version décrite absent."
+    do_not_penalize:
+      - "Vidéo où toutes les informations visuelles essentielles sont déjà dites dans l'audio."
+    accessible_correction: "Description intégrée, piste audiodécrite ou version alternative selon faisabilité."
+    help:
+      hint: "Regarder la vidéo en se demandant quelles informations seraient perdues sans l'image."
+      problem: "L'image porte une information non disponible autrement."
+      fix: "Décrire les informations visuelles essentielles dans l'audio, une piste dédiée ou une version alternative."
+    dsfr_components:
+      - "Contenu médias"
+      - "Transcription"
+      - "Lien"
+    assets:
+      placeholders:
+        - "assets/shared/media/video-demo.mp4"
+        - "assets/shared/media/audiodescription-demo.vtt"
+        - "assets/shared/media/video-demo-ad.mp4"
+      final_assets_pending: true
+      external_sources:
+        original:
+          title: "Valentin Haüy - CAPTCHA : le retour au Moyen Âge"
+          url: "https://www.youtube.com/watch?v=nSZ0xeXapds"
+          role: "Version non audiodécrite à utiliser pour illustrer l'information visuelle essentielle non disponible autrement."
+        audio_described:
+          title: "CAPTCHA : le retour au Moyen Âge (vidéo audiodécrite)"
+          url: "https://www.youtube.com/watch?v=trfLb7xlXjQ"
+          role: "Version audiodécrite de référence pour la correction accessible."
+      rights_note: "Ne pas télécharger ni réhéberger sans vérification des droits. Utiliser ces liens comme sources pédagogiques ou remplacer par fichiers locaux autorisés."
+    grid:
+      verdict: "NC"
+      severity: "Bloquant"
+
+  - id: "ec12-form-labels"
+    number: 12
+    title: "Inscription à un webinaire"
+    realistic_context: "Formulaire d'inscription à un webinaire RGAA."
+    easy_check:
+      number: 12
+      name: "Étiquettes de formulaire"
+    severity: "Bloquant"
+    expected_minimal_finding: "Au moins un champ ou groupe de champs n'a pas de nom accessible fiable."
+    minimal_proof: "ANDI/WAVE, clic label ou extrait HTML montrant placeholder seul, label non associé ou groupe sans fieldset/legend."
+    detection:
+      - "ANDI"
+      - "WAVE"
+      - "Clic sur le label"
+      - "Test clavier"
+      - "DevTools Accessibility Tree"
+      - "Lecteur d'écran si disponible"
+    inaccessible_errors:
+      - "Placeholder utilisé comme seule étiquette."
+      - "Étiquette visible non associée au champ."
+      - "Groupe de boutons radio ou cases à cocher sans fieldset/legend."
+    bonus_occurrences:
+      - "Nom visible différent du nom accessible."
+      - "Aide non reliée."
+      - "Label masqué avec display none."
+    do_not_penalize:
+      - "Placeholder utilisé comme exemple si une étiquette visible et associée existe."
+    accessible_correction: "Étiquette visible et persistante ; association label for/id ; placeholder utilisé seulement comme exemple ; nom accessible qui reprend le nom visible ; aide à la saisie reliée avec aria-describedby ; groupes structurés avec fieldset et legend."
+    help:
+      hint: "Vérifier le nom accessible des champs avec ANDI, WAVE ou l'arbre d'accessibilité."
+      problem: "Le champ ou le groupe n'a pas de nom fiable : lecteur d'écran muet, commande vocale fragile, mémoire sollicitée ou contexte perdu."
+      fix: "Relier chaque étiquette au champ, ne pas remplacer le label par un placeholder, structurer les groupes et vérifier le nom accessible."
+    dsfr_components:
+      - "Formulaire"
+      - "Champ de saisie"
+      - "Case à cocher"
+      - "Bouton radio"
+      - "Bouton"
+    grid:
+      verdict: "NC"
+      severity: "Bloquant"
+
+  - id: "ec13-required-errors"
+    number: 13
+    title: "Demande d'audit"
+    realistic_context: "Formulaire de demande d'accompagnement ou d'audit."
+    easy_check:
+      number: 13
+      name: "Champs obligatoires"
+    severity: "Bloquant"
+    expected_minimal_finding: "L'obligation ou l'erreur de saisie n'est pas annoncée et reliée de manière exploitable."
+    minimal_proof: "Soumission du formulaire et inspection HTML montrant obligation non balisée, message vague/non relié ou focus non accompagné."
+    detection:
+      - "Soumission du formulaire"
+      - "Clavier"
+      - "Lecteur d'écran"
+      - "Inspection HTML"
+      - "Vérification aria-describedby"
+      - "Vérification aria-invalid"
+      - "Vérification required"
+      - "Déplacement de focus"
+    scenario:
+      before_submit: "Vérifier la prévention : champs obligatoires indiqués de manière visible et technique."
+      after_submit: "Vérifier l'aide à la correction : message précis, relié au champ, et focus accompagné."
+    inaccessible_errors:
+      - "Champs obligatoires indiqués uniquement par couleur, bordure rouge ou astérisque non expliqué."
+      - "Absence de required ou aria-required."
+      - "Message d'erreur trop vague."
+      - "Message d'erreur non associé au champ."
+      - "Focus non ramené vers le récapitulatif ou le premier champ en erreur."
+    bonus_occurrences:
+      - "Absence de required/aria-required."
+      - "Erreur sans aria-describedby."
+      - "aria-invalid absent si pertinent."
+    do_not_penalize:
+      - "Astérisque utilisé s'il est expliqué et complété par une information technique et textuelle."
+    accessible_correction: "Mention textuelle obligatoire ou règle claire sur les champs optionnels ; required ou aria-required ; astérisque expliqué si utilisé ; message d'erreur précis avec exemple ou format attendu ; erreur associée au champ ; aria-invalid true si pertinent ; focus placé sur le récapitulatif d'erreurs ou le premier champ en erreur."
+    help:
+      hint: "Soumettre le formulaire vide, puis inspecter l'annonce des champs requis et des erreurs."
+      problem: "L'obligation n'est pas annoncée ou la correction n'est pas accompagnée : perte de contexte, erreurs répétées et abandon."
+      fix: "Prévenir avant soumission, expliquer après soumission, relier techniquement les erreurs et guider le focus."
+    dsfr_components:
+      - "Formulaire"
+      - "Champ de saisie"
+      - "Alerte"
+      - "Bouton"
+    grid:
+      verdict: "NC"
+      severity: "Bloquant"
+
+generation_targets:
+  manifest:
+    path: "docs/manifest.md"
+    fields:
+      - "number"
+      - "title"
+      - "easy_check"
+      - "inaccessible_errors"
+      - "detection"
+      - "accessible_correction"
+      - "help"
+  correction:
+    path: "docs/corrige-easy-checks.md"
+    fields:
+      - "number"
+      - "title"
+      - "expected_minimal_finding"
+      - "severity"
+      - "minimal_proof"
+      - "accessible_correction"
+      - "bonus_occurrences"
+      - "do_not_penalize"
+  help_accordions:
+    source_fields:
+      - "help.hint"
+      - "help.problem"
+      - "help.fix"
+  grid:
+    source_fields:
+      - "number"
+      - "title"
+      - "easy_check.name"
+      - "grid.verdict"
+      - "grid.severity"
+      - "expected_minimal_finding"
+      - "minimal_proof"
+      - "accessible_correction"
+
+acceptance_checks:
+  - "Le YAML contient 13 pages exactement."
+  - "Chaque page possède un id stable, un numéro, un titre, un Easy Check, une sévérité, un constat minimal, une preuve minimale, une correction accessible et une aide en trois niveaux."
+  - "Les pages média déclarent les placeholders en attendant les fichiers finaux."
+  - "Les verdicts et sévérités utilisent strictement la terminologie de la grille."
+  - "Les composants DSFR déclarés renvoient aux règles projet Code et Accessibilité."

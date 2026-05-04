@@ -2,7 +2,7 @@
 
 Règles neuropédagogie appliquées :
 - R8 : analogie - zoomer à 200 % = lire avec des lunettes
-- R3 : WIIFM - 1 Français sur 5 zoome au quotidien
+- R3 : WIIFM - le zoom révèle les interfaces fragiles
 """
 
 from igpde_dsfr_components import (
@@ -33,8 +33,8 @@ def build(prs, layouts, ctx):
 
     add_highlight(
         slide,
-        "1 Français sur 5 agrandit le texte en permanence - pour lui, votre site zoomé à 200 % est votre vrai site.",
-        top=stack.push(estimate_highlight_height('1 Français sur 5 agrandit le texte en permanence - pour lui, votre site zoomé à 200 % est votre vrai site.')),
+        "À 200 %, votre site doit rester le même service : lisible, navigable et utilisable.",
+        top=stack.push(estimate_highlight_height('À 200 %, votre site doit rester le même service : lisible, navigable et utilisable.')),
     )
 
     add_callout(
