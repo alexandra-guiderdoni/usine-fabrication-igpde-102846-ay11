@@ -545,17 +545,22 @@ def content_ec01(version_key: str) -> str:
   <p>Le ministère publie un kit court pour préparer une première revue d'accessibilité.</p>
   <div class="fr-grid-row fr-grid-row--gutters">
     <div class="fr-col-12">
+      <p>Le schéma ci-dessous présente les trois étapes proposées aux équipes éditoriales.</p>
       <figure class="fr-content-media" role="group" aria-label="Schéma de la démarche RGAA">
         <div class="fr-content-media__img">{informative}</div>
         <figcaption class="fr-content-media__caption">Démarche de publication accessible.</figcaption>
       </figure>
+      <p>Cette démarche sert de repère pour vérifier une ressource avant publication.</p>
     </div>
     <div class="fr-col-12">
+      <p>La rubrique suivante présente le contact utile pour les questions sur la ressource.</p>
       <div class="demo-separator-image">{decorative}</div>
+      <p>Le séparateur visuel marque le passage vers les informations de contact.</p>
     </div>
     <div class="fr-col-12">
       <h3>Nous contacter</h3>
-      <p>Par mail : {linked}</p>
+      <p>Moyen pour nous contacter : {linked}</p>
+      <p>Une réponse est apportée par l'équipe chargée de la ressource.</p>
     </div>
   </div>
 </section>"""
