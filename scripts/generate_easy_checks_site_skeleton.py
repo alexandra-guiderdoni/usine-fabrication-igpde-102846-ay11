@@ -815,24 +815,49 @@ def content_ec06(version_key: str) -> str:
     class_attr = ' class="demo-no-focus"' if version_key != "accessible" else ""
     cards = "\n".join(
         [
-            card("Guide des accordéons", "ec03-headings.html", "Ressource avec panneau ouvrant."),
-            card("Contrôler un formulaire", "ec12-form-labels.html", "Ressource avec champs et boutons."),
+            card("Guide des titres", "ec03-headings.html", "Repères pour structurer une page de publication."),
+            card("Formulaire d'inscription", "ec12-form-labels.html", "Contrôle des champs et des libellés avant mise en ligne."),
+            card("Accès rapides", "ec05-skiplinks.html", "Vérification des raccourcis placés en début de page."),
         ]
     )
     return f"""<section{class_attr} aria-labelledby="content-title">
-  <h2 id="content-title">Parcours clavier</h2>
-  <p>Les éléments ci-dessous doivent rester repérables au clavier.</p>
-  <p><button class="fr-btn" type="button">Démarrer le parcours</button></p>
-  <div class="fr-grid-row fr-grid-row--gutters fr-mb-4w">
+  <h2 id="content-title">Préparer une session de formation</h2>
+  <p>Cette page rassemble les actions utilisées par une équipe de publication avant l'ouverture d'une session. Les responsables doivent pouvoir vérifier les ressources, consulter les consignes et passer d'une action à l'autre sans perdre leur position dans la page.</p>
+  <section aria-labelledby="actions-title" class="fr-mt-4w">
+    <h3 id="actions-title">Actions prioritaires</h3>
+    <p>Les actions ci-dessous couvrent les étapes les plus fréquentes : publier la session, contrôler le formulaire d'inscription et prévenir les personnes inscrites. Elles sont placées en premier pour éviter de chercher les commandes utiles dans le reste de la page.</p>
+    <ul class="fr-btns-group fr-btns-group--inline-md">
+      <li><button class="fr-btn" type="button">Publier la session</button></li>
+      <li><a class="fr-btn fr-btn--secondary" href="ec12-form-labels.html">Vérifier le formulaire</a></li>
+      <li><button class="fr-btn fr-btn--tertiary" type="button">Prévenir les participants</button></li>
+    </ul>
+  </section>
+  <section aria-labelledby="resources-title" class="fr-mt-4w">
+    <h3 id="resources-title">Ressources à consulter</h3>
+    <p>Ces ressources servent de points de passage pendant la préparation. Une personne qui avance au clavier doit comprendre quel lien ou quelle carte est actif avant de valider son choix.</p>
+    <div class="fr-grid-row fr-grid-row--gutters fr-mb-4w">
 {cards}
-  </div>
-  <section class="fr-accordion">
-    <h3 class="fr-accordion__title">
-      <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="focus-panel">Conseils de test clavier</button>
-    </h3>
-    <div class="fr-collapse" id="focus-panel">
-      <p>Utiliser Tab, Maj + Tab, Entrée et Espace pour parcourir les composants.</p>
     </div>
+  </section>
+  <section aria-labelledby="details-title" class="fr-mt-4w">
+    <h3 id="details-title">Informations complémentaires</h3>
+    <section class="fr-accordion">
+      <h4 class="fr-accordion__title">
+        <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="session-panel">Organisation de la salle</button>
+      </h4>
+      <div class="fr-collapse" id="session-panel">
+        <p>La salle doit disposer d'un poste de démonstration, d'un accès réseau et d'un support de projection. Les consignes de circulation sont confirmées avec l'accueil avant l'arrivée des participants.</p>
+      </div>
+    </section>
+    <section class="fr-accordion">
+      <h4 class="fr-accordion__title">
+        <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="materials-panel">Documents à préparer</button>
+      </h4>
+      <div class="fr-collapse" id="materials-panel">
+        <p>Les supports de cours, la grille d'audit et les exemples corrigés sont mis à disposition dans l'espace documentaire. Chaque document doit être vérifié avant diffusion.</p>
+      </div>
+    </section>
+    <p class="fr-mt-3w"><a class="fr-link" href="ec04-contrast.html">Consulter la charte de publication</a></p>
   </section>
 </section>"""
 
