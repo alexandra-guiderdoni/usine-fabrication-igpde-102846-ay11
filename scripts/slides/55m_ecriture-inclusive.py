@@ -18,7 +18,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    top = 2.30
+    top = 1.75
 
     ok_titre = "3 stratégies accessibles"
     ok_bullets = [
@@ -50,7 +50,7 @@ def build(prs, layouts, ctx):
     )
     hl_h = estimate_highlight_height(message, CONTENT_W)
     add_highlight(slide, message,
-                  top=round(top + col_h + 0.25, 2), left=MARGIN_L, width=CONTENT_W)
+                  top=round(top + col_h + 0.10, 2), left=MARGIN_L, width=CONTENT_W)
 
     add_notes(
         slide,

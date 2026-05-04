@@ -29,7 +29,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.3, gap=0.25)
+    stack = Stack(top=2.05, gap=0.12)
 
     hl_texte = "Un astérisque rouge est un signal visuel - il doit être doublé d'une information textuelle pour tous."
     add_highlight(

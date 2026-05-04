@@ -1,7 +1,7 @@
 """Slide 54 : réseaux sociaux - enjeux et annonce des 4 gestes."""
 
 from igpde_dsfr_components import (
-    CONTENT_W, GAP, MARGIN_L, Stack,
+    COL_R, COL_W, CONTENT_W, MARGIN_L, Stack,
     add_callout, add_alert, add_highlight, add_notes,
     estimate_highlight_height, estimate_callout_height, estimate_alert_height, new_slide,
 )
@@ -18,7 +18,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.30, gap=0.35)
+    stack = Stack(top=1.95, gap=0.15)
 
     texte_hl = (
         "Les réseaux sociaux sont devenus un canal officiel de communication "
@@ -33,9 +33,16 @@ def build(prs, layouts, ctx):
         "Moteurs de recherche et outils d'IA qui analysent vos contenus",
         "Collègues et citoyens qui lisent sans images activées",
     ]
-    ph = estimate_callout_height(public_titre, public_bullets, CONTENT_W)
+    ph = estimate_callout_height(public_titre, public_bullets, COL_W, line_spacing=1.2)
+    gh = estimate_alert_height("4 gestes, 2 minutes par post", [
+        "Geste 1 - Texte alternatif : décrire chaque image en 1 phrase",
+        "Geste 2 - Émojis : 1 ou 2 maximum, en fin de message",
+        "Geste 3 - Hashtags : CamelCase et regroupés en fin de post",
+        "Geste 4 - Texte natif : jamais de faux gras ou faux italique",
+    ], COL_W, line_spacing=1.2)
+    col_top = stack.push(max(ph, gh))
     add_callout(slide, public_titre, public_bullets,
-                top=stack.push(ph), left=MARGIN_L, width=CONTENT_W)
+                top=col_top, left=MARGIN_L, width=COL_W, line_spacing=1.2)
 
     gestes_titre = "4 gestes, 2 minutes par post"
     gestes_bullets = [
@@ -45,7 +52,8 @@ def build(prs, layouts, ctx):
         "Geste 4 - Texte natif : jamais de faux gras ou faux italique",
     ]
     add_alert(slide, gestes_titre, gestes_bullets,
-              top=stack.push(0), left=MARGIN_L, width=CONTENT_W, alert_type="success")
+              top=col_top, left=COL_R, width=COL_W, alert_type="success",
+              line_spacing=1.2)
 
     add_notes(
         slide,

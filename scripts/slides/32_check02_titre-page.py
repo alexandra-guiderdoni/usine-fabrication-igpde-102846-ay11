@@ -24,7 +24,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.3, gap=0.25)
+    stack = Stack(top=2.05, gap=0.12)
 
     highlight_texte = (
         "Le titre de page est la 1ʳᵉ chose que lit un lecteur d’écran "

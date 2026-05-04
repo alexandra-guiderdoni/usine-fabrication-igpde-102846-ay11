@@ -5,9 +5,9 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 ## Contexte
 
 - Formation accessibilité numérique, 1 jour, public communicants (pas développeurs)
-- 90 slides PPTX DSFR, 4 modules : Introduction > Word accessible > Easy Checks W3C > Réseaux sociaux
+- 91 slides PPTX DSFR, 4 modules : Introduction > Word accessible > Easy Checks W3C > Réseaux sociaux
 - Ordre impératif M1 > M2 > M3 > M4, jamais inverser
-- Exercice Sami : 21 erreurs dans 2 DOCX (inaccessible/accessible), spec dans `_source/exercice-sami-spec.md`
+- Exercice Sami : 21 critères à vérifier dans 2 DOCX (inaccessible/accessible), spec dans `_source/exercice-sami-spec.md`
 
 ## Comment je travaille
 
@@ -25,6 +25,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 - **Template absent** : `python3 scripts/build_template.py`
 - **Quarantine** : `xattr -d com.apple.quarantine formation-102638-juin-2026.pptx`
 - **Contrôle tirets** : `grep -rn $'—\|–' scripts/` doit retourner vide
+- **Warnings footer** : diagnostiquer par slide, corriger le positionnement source, puis régénérer le deck complet
 
 **Grille IGPDE-DSFR (13,33" x 7,5")** :
 
@@ -56,18 +57,20 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 - `add_alert`/`add_callout` avec une string au lieu d'une liste : itère sur chaque caractère, slide pétée
 - Changement typographique global (taille, espacement) sans recalibrer `_estimate_height` : 50+ slides débordent
 - `add_image` sans `height=` à côté d'un autre composant : l'image déborde sur le composant suivant
+- Estimation additive texte + image : ne pas supposer que `_estimate_height(text) + image_height` garantit l'absence de chevauchement ; vérifier le rendu et contraindre les hauteurs
 - `layout_name="titre_soustitre"` sur une slide de contenu : affiche les logos institutionnels par erreur
 - Accent `accent_w` différent de 0,08" (sauf chapitre 0,16") : perçu comme défaut d'alignement
 - Placeholder Title : copier les 4 dimensions `(top, left, width, height)` sinon `left` et `width` tombent à 0
 - Quiz : questions + réponses sur la même slide. Toujours séparer (suffixe `b`)
-- `Stack` : le `_safe_top` interne remonte les composants quand l'estimation dépasse `BOTTOM_CONTENT`
+- `Stack` / `_safe_top` : `_safe_top` évite le débordement bas en remontant le composant, mais peut créer un chevauchement avec le bloc précédent si le `top` initial est trop optimiste
+- Warning footer : ne jamais le traiter comme un simple bruit console. Vérifier l'écart avec le bloc précédent, resserrer ou recomposer la slide, puis viser `TOTAL_WARNINGS 0`
 
 ## Références
 
 | Ressource | Fichier |
 |-----------|---------|
 | Spec exercice Sami | `_source/exercice-sami-spec.md` |
-| Diff 21 erreurs | `_source/exercice-sami-diff.md` |
+| Diff des critères Sami | `_source/exercice-sami-diff.md` |
 | Leçons techniques | `lessons.md` |
 | Easy Checks W3C | `03-easy-checks/w3c-easy-checks-fr.md` |
 | Passation dernière session | `_source/passation-session-2026-05-03.md` |

@@ -17,7 +17,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.30, gap=0.30)
+    stack = Stack(top=2.15, gap=0.18)
 
     headers = ["Plateforme", "Accès", "Moment"]
     rows = [
@@ -40,7 +40,7 @@ def build(prs, layouts, ctx):
     col_widths = [2.2, 7.0, 3.0]
     tbl_h = add_tableau(slide, headers, rows,
                         top=stack.push(0), left=MARGIN_L, width=CONTENT_W,
-                        col_widths=col_widths)
+                        col_widths=col_widths, row_h=0.40)
     stack.push(tbl_h)
 
     astuce_titre = "Astuce : activez-le par défaut"

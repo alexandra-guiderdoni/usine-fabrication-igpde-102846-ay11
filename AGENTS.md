@@ -5,9 +5,9 @@ Ce fichier adapte `CLAUDE.md` pour Codex. Les consignes globales Codex restent a
 ## Contexte
 
 - Formation accessibilite numerique, 1 jour, public communicants, pas developpeurs
-- 90 slides PPTX DSFR, 4 modules : Introduction > Word accessible > Easy Checks W3C > Reseaux sociaux
+- 91 slides PPTX DSFR, 4 modules : Introduction > Word accessible > Easy Checks W3C > Reseaux sociaux
 - Ordre imperatif M1 > M2 > M3 > M4, jamais inverser
-- Exercice Sami : 21 erreurs dans 2 DOCX, spec dans `_source/exercice-sami-spec.md`
+- Exercice Sami : 21 criteres a verifier dans 2 DOCX, spec dans `_source/exercice-sami-spec.md`
 
 ## Pipeline
 
@@ -42,6 +42,7 @@ Si les skills ne sont pas automatiquement injectes dans la session, lire leurs a
 - Template absent : `python3 scripts/build_template.py`
 - Quarantine macOS : `xattr -d com.apple.quarantine formation-102638-juin-2026.pptx`
 - Controle tirets dans les scripts : `grep -rn $'—\|–' scripts/` doit retourner vide
+- Warnings footer : diagnostiquer par slide, corriger le positionnement source, puis regenerer le deck complet
 
 ## Grille IGPDE-DSFR
 
@@ -73,18 +74,20 @@ Composants : `add_callout`, `add_alert`, `add_highlight`, `add_quote`, `add_card
 - `add_alert` ou `add_callout` avec une string au lieu d'une liste : itere sur chaque caractere
 - Changement typographique global sans recalibrer `_estimate_height` : risque de debordement massif
 - `add_image` sans `height=` pres d'un autre composant : risque de debordement
+- Estimation additive texte + image : ne pas supposer que `_estimate_height(text) + image_height` garantit l'absence de chevauchement ; verifier le rendu et contraindre les hauteurs
 - `layout_name="titre_soustitre"` sur une slide de contenu : logos institutionnels affiches par erreur
 - `accent_w` different de `0,08"` sauf chapitre `0,16"` : defaut d'alignement visible
 - Placeholder Title : copier les 4 dimensions `(top, left, width, height)` sinon `left` et `width` tombent a 0
 - Quiz : questions et reponses doivent etre separees, souvent avec suffixe `b`
-- `Stack` : `_safe_top` remonte les composants quand l'estimation depasse `BOTTOM_CONTENT`
+- `Stack` / `_safe_top` : `_safe_top` evite le debordement bas en remontant le composant, mais peut creer un chevauchement avec le bloc precedent si le `top` initial est trop optimiste
+- Warning footer : ne jamais le traiter comme un simple bruit console. Verifier l'ecart avec le bloc precedent, resserrer ou recomposer la slide, puis viser `TOTAL_WARNINGS 0`
 
 ## References
 
 | Ressource | Fichier |
 |-----------|---------|
 | Spec exercice Sami | `_source/exercice-sami-spec.md` |
-| Diff 21 erreurs | `_source/exercice-sami-diff.md` |
+| Diff des criteres Sami | `_source/exercice-sami-diff.md` |
 | Lecons techniques | `lessons.md` |
 | Easy Checks W3C | `03-easy-checks/w3c-easy-checks-fr.md` |
 | Passation derniere session | `_source/passation-session-2026-05-03.md` |

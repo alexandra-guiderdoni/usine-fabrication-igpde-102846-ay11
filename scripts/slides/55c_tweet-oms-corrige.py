@@ -18,7 +18,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    top = 2.30
+    top = 2.10
 
     avant_titre = "Version originale - problématique"
     avant_bullets = [
@@ -51,8 +51,9 @@ def build(prs, layouts, ctx):
         "Hashtag conservé mais seul, séparé du texte informatif",
     ]
     add_alert(slide, changements_titre, changements_bullets,
-              top=round(top + col_h + 0.25, 2),
-              left=MARGIN_L, width=COL_W, alert_type="success")
+              top=round(top + col_h + 0.15, 2),
+              left=MARGIN_L, width=COL_W + COL_R - MARGIN_L,
+              alert_type="success", line_spacing=1.15)
 
     add_notes(
         slide,

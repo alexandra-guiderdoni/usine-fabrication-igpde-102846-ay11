@@ -67,8 +67,8 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Effet de surprise : les stagiaires pensaient avoir trouvé toutes les "
-        "erreurs visibles à ce stade. Révéler les 2 dernières erreurs montre que "
+        "Effet de surprise : les stagiaires pensaient avoir repéré toutes les "
+        "catégories visibles à ce stade. Révéler les 2 derniers critères montre que "
         "l'accessibilité a des dimensions qu'on ne voit pas sans formation.\n\n"
         "Proposer aux stagiaires de rouvrir sami-doc-inaccessible.docx et de "
         "corriger ces 2 erreurs en 2 minutes. Le passage anglais est dans la "

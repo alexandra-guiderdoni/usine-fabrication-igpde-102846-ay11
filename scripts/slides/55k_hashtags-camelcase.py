@@ -18,7 +18,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    top = 2.30
+    top = 1.70
 
     pourquoi_titre = "Pourquoi le CamelCase ?"
     pourquoi_bullets = [
@@ -49,7 +49,7 @@ def build(prs, layouts, ctx):
     )
     hl_h = estimate_highlight_height(anecdote, CONTENT_W)
     add_highlight(slide, anecdote,
-                  top=round(top + col_h + 0.25, 2), left=MARGIN_L, width=CONTENT_W)
+                  top=round(top + col_h + 0.12, 2), left=MARGIN_L, width=CONTENT_W)
 
     add_notes(
         slide,

@@ -24,7 +24,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.3, gap=0.25)
+    stack = Stack(top=2.10, gap=0.18)
 
     highlight_texte = (
         "Sans lien d’évitement, un utilisateur clavier tabule 20 à 40 fois "

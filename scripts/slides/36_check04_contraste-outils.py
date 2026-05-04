@@ -52,7 +52,7 @@ def build(prs, layouts, ctx):
             "Texte gris clair sur fond blanc (#999 sur #FFF) : 2,85:1 - échec même en texte large",
             "Bouton bleu avec texte bleu marine « moderne » : souvent sous le seuil",
         ],
-        top=5.25, height=1.05,
+        top=5.00, height=1.05,
         alert_type="warning",
     )
 

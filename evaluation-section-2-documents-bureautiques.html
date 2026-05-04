@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Alex Guiderdoni" />
+  <meta name="dcterms.date" content="2026-05-04" />
+  <meta name="keywords" content="accessibilité numérique, Word, PDF
+accessible, formation, IGPDE" />
+  <title>Evaluation de la section 2 - Documents bureautiques accessibles</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+<style>
+/* accessible-html — Template: dsfr
+   Design System de l'Etat Francais. Bleu Republique (#000091),
+   typographie Marianne, tableaux zebres, style gouvernemental.
+   Standalone HTML — pas de dependance CDN. */
+
+:root {
+  --blue-france: #000091;
+  --blue-france-hover: #1212ff;
+  --grey-1000: #161616;
+  --grey-950: #1a1a1a;
+  --grey-800: #3a3a3a;
+  --grey-625: #666666;
+  --grey-200: #e5e5e5;
+  --grey-100: #eeeeee;
+  --grey-50: #f6f6f6;
+  --blue-france-bg: #f5f5fe;
+  --success: #18753c;
+  --warning: #b34000;
+  --error: #ce0500;
+  --info: #0063cb;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Marianne", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--grey-950);
+  background: #fff;
+  max-width: 78rem;
+  margin: 0 auto;
+  padding: 2rem 3rem;
+}
+
+/* --- Skip link (a11y) --- */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: var(--blue-france);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  z-index: 9999;
+  font-weight: 700;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* --- Headings --- */
+h1 {
+  font-size: 2rem;
+  color: var(--blue-france);
+  border-bottom: 3px solid var(--blue-france);
+  padding-bottom: 0.5rem;
+  margin: 0 0 1.5rem 0;
+  font-weight: 700;
+  line-height: 1.25;
+}
+h2 {
+  font-size: 1.5rem;
+  color: var(--blue-france);
+  border-bottom: 1px solid var(--blue-france);
+  padding-bottom: 0.25rem;
+  margin: 2.5rem 0 1rem 0;
+  font-weight: 700;
+  line-height: 1.3;
+}
+h3 {
+  font-size: 1.25rem;
+  color: var(--grey-950);
+  font-weight: 700;
+  margin: 2rem 0 0.75rem 0;
+  line-height: 1.35;
+}
+h4, h5, h6 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--grey-800);
+  margin: 1.5rem 0 0.5rem 0;
+}
+
+/* --- Paragraphs --- */
+p {
+  margin: 0.5rem 0;
+}
+
+/* --- Links --- */
+a {
+  color: var(--blue-france);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+a:hover {
+  color: var(--blue-france-hover);
+}
+a:focus-visible {
+  outline: 2px solid var(--blue-france);
+  outline-offset: 4px;
+}
+
+/* --- Strong (accent) --- */
+strong {
+  color: var(--blue-france);
+  font-weight: 700;
+}
+
+/* --- Blockquotes --- */
+blockquote {
+  background: var(--blue-france-bg);
+  border-left: 4px solid var(--blue-france);
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+}
+blockquote p {
+  margin: 0.25rem 0;
+  font-style: normal;
+}
+
+/* --- Tables --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+  font-size: 0.9375rem;
+}
+thead {
+  position: sticky;
+  top: 0;
+}
+th {
+  background-color: var(--blue-france);
+  color: #fff;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.625rem 0.75rem;
+}
+td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--grey-200);
+  vertical-align: top;
+}
+tr:nth-child(even) td {
+  background-color: var(--blue-france-bg);
+}
+caption {
+  font-weight: 700;
+  text-align: left;
+  margin-bottom: 0.5rem;
+  color: var(--grey-800);
+}
+
+/* --- Lists --- */
+ul, ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+li {
+  margin-bottom: 0.25rem;
+}
+
+/* --- Dividers --- */
+hr {
+  border: none;
+  border-top: 1px solid var(--grey-200);
+  margin: 2rem 0;
+}
+
+/* --- Code --- */
+code {
+  background: var(--grey-50);
+  padding: 0.125rem 0.375rem;
+  border-radius: 3px;
+  font-family: "Fira Code", "Menlo", "Consolas", monospace;
+  font-size: 0.875rem;
+}
+pre {
+  background: var(--blue-france-bg);
+  padding: 1rem;
+  border-left: 3px solid var(--blue-france);
+  font-size: 0.85rem;
+  font-family: "Fira Code", "Menlo", "Consolas", monospace;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+pre code {
+  background: none;
+  padding: 0;
+}
+
+/* --- TOC --- */
+nav#TOC {
+  padding: 1rem 0;
+  margin: 1.5rem 0 2.5rem 0;
+  border-top: 2px solid var(--blue-france);
+  border-bottom: 1px solid var(--grey-200);
+}
+nav#TOC > ul {
+  list-style: none;
+  padding-left: 0;
+}
+nav#TOC ul ul {
+  padding-left: 1.25rem;
+}
+nav#TOC a {
+  text-decoration: none;
+}
+nav#TOC a:hover {
+  text-decoration: underline;
+}
+nav#TOC li {
+  margin: 0.35rem 0;
+  line-height: 1.4;
+}
+
+/* --- Title block --- */
+header#title-block-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 4px solid var(--blue-france);
+}
+header#title-block-header h1.title {
+  font-size: 2.25rem;
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0.5rem;
+}
+header#title-block-header .subtitle,
+header#title-block-header p.subtitle {
+  font-size: 1.125rem;
+  color: var(--grey-800);
+  margin-top: 0.5rem;
+}
+
+/* --- Badges DSFR-style --- */
+.badge, .tag {
+  display: inline-block;
+  background: var(--blue-france);
+  color: #fff;
+  padding: 0.125rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.badge--success { background: var(--success); }
+.badge--warning { background: var(--warning); }
+.badge--error { background: var(--error); }
+.badge--info { background: var(--info); }
+
+/* --- Print --- */
+@media print {
+  body {
+    max-width: none;
+    padding: 0;
+    font-size: 11pt;
+  }
+  nav#TOC {
+    break-after: page;
+  }
+  h2 {
+    break-before: page;
+  }
+  table, blockquote, pre {
+    break-inside: avoid;
+  }
+  a {
+    color: var(--grey-950);
+    text-decoration: none;
+  }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: var(--grey-625);
+  }
+}
+
+/* --- Responsive --- */
+@media (max-width: 48rem) {
+  body {
+    padding: 1rem;
+  }
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.25rem; }
+  table {
+    font-size: 0.8125rem;
+  }
+  th, td {
+    padding: 0.375rem 0.5rem;
+  }
+}
+
+</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<a class="skip-link" href="#content">Aller au contenu</a>
+<header id="title-block-header">
+<h1 class="title">Evaluation de la section 2 - Documents bureautiques
+accessibles</h1>
+<p class="subtitle">Verdict global</p>
+<p class="author">Alex Guiderdoni</p>
+<p class="date">2026-05-04</p>
+</header>
+<nav id="TOC" role="doc-toc" aria-label="Table des matieres">
+<ul>
+<li><a
+href="#evaluation-de-la-section-2---documents-bureautiques-accessibles"
+id="toc-evaluation-de-la-section-2---documents-bureautiques-accessibles">Evaluation
+de la section 2 - Documents bureautiques accessibles</a>
+<ul>
+<li><a href="#verdict-global" id="toc-verdict-global">Verdict
+global</a></li>
+<li><a href="#ce-qui-fonctionne-très-bien"
+id="toc-ce-qui-fonctionne-très-bien">Ce qui fonctionne très bien</a>
+<ul>
+<li><a href="#progression-pédagogique"
+id="toc-progression-pédagogique">Progression pédagogique</a></li>
+<li><a href="#couverture-des-gestes-critiques-word"
+id="toc-couverture-des-gestes-critiques-word">Couverture des gestes
+critiques Word</a></li>
+<li><a href="#cohérence-visuelle" id="toc-cohérence-visuelle">Cohérence
+visuelle</a></li>
+</ul></li>
+<li><a href="#points-assumés" id="toc-points-assumés">Points assumés</a>
+<ul>
+<li><a href="#densité-des-checklists"
+id="toc-densité-des-checklists">Densité des checklists</a></li>
+<li><a href="#correction-finale-détaillée"
+id="toc-correction-finale-détaillée">Correction finale
+détaillée</a></li>
+</ul></li>
+<li><a href="#risques-restants" id="toc-risques-restants">Risques
+restants</a>
+<ul>
+<li><a href="#rythme-oral" id="toc-rythme-oral">Rythme oral</a></li>
+<li><a href="#vérification-native-powerpoint"
+id="toc-vérification-native-powerpoint">Vérification native
+PowerPoint</a></li>
+</ul></li>
+<li><a href="#note-détaillée" id="toc-note-détaillée">Note
+détaillée</a></li>
+<li><a href="#note-globale" id="toc-note-globale">Note globale</a></li>
+<li><a href="#synthèse-insight-forge"
+id="toc-synthèse-insight-forge">Synthèse Insight Forge</a>
+<ul>
+<li><a href="#enseignement-principal-pour-cette-section"
+id="toc-enseignement-principal-pour-cette-section">Enseignement
+principal pour cette section</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<main id="content" role="main">
+<section
+id="evaluation-de-la-section-2---documents-bureautiques-accessibles"
+class="level1">
+<h1>Evaluation de la section 2 - Documents bureautiques accessibles</h1>
+<section id="verdict-global" class="level2">
+<h2>Verdict global</h2>
+<p>La section <strong>2. Documents bureautiques accessibles</strong>,
+slides <strong>20 à 49</strong>, est maintenant très solide, exploitable
+en formation et cohérente avec le public cible : des communicants, non
+développeurs, qui doivent repartir avec des gestes Word et DOCX
+immédiatement applicables.</p>
+<p><strong>Note réévaluée : 19 / 20.</strong></p>
+<p>Cette note tient compte du fait que la densité de certaines slides,
+notamment les checklists et la correction finale, est volontaire. Ce
+n’est donc pas un défaut : c’est un choix pédagogique assumé pour
+fournir un support de référence après la formation. La réévaluation
+intègre aussi la passe technique globale : la section et l’assemblage
+complet ne produisent plus de warning footer.</p>
+</section>
+<section id="ce-qui-fonctionne-très-bien" class="level2">
+<h2>Ce qui fonctionne très bien</h2>
+<section id="progression-pédagogique" class="level3">
+<h3>Progression pédagogique</h3>
+<p>La progression est claire et mieux verrouillée qu’à la première
+évaluation :</p>
+<ol type="1">
+<li>Ouverture empathique avec le lecteur d’écran.</li>
+<li>Quiz de perception entre document visuellement correct et document
+réellement accessible.</li>
+<li>Vue d’ensemble des 5 thèmes.</li>
+<li>Apprentissage par critères actionnables dans Word.</li>
+<li>Exercice Sami pour mobiliser les acquis.</li>
+<li>Finalisation, vérificateur Word et export PDF accessible.</li>
+<li>Retour différé, quiz final, rappel actif et engagement.</li>
+</ol>
+<p>La section n’est pas seulement informative : elle force les
+stagiaires à juger, comparer, vérifier, puis s’engager.</p>
+</section>
+<section id="couverture-des-gestes-critiques-word" class="level3">
+<h3>Couverture des gestes critiques Word</h3>
+<p>Les points essentiels sont couverts :</p>
+<ul>
+<li>styles de titre ;</li>
+<li>listes natives ;</li>
+<li>tableaux et objets flottants ;</li>
+<li>contraste ;</li>
+<li>couleur non porteuse de sens seule ;</li>
+<li>texte alternatif ;</li>
+<li>liens descriptifs ;</li>
+<li>informations essentielles hors en-têtes, pieds de page et filigranes
+;</li>
+<li>langue, majuscules et lisibilité ;</li>
+<li>espaces parasites et objets clignotants ;</li>
+<li>propriétés du document ;</li>
+<li>vérificateur d’accessibilité ;</li>
+<li>export Word vers PDF accessible.</li>
+</ul>
+<p>L’ajout de la slide sur l’export PDF ferme un trou important : elle
+rappelle qu’un Word accessible peut perdre son accessibilité si l’export
+PDF est mal fait.</p>
+</section>
+<section id="cohérence-visuelle" class="level3">
+<h3>Cohérence visuelle</h3>
+<p>La mise en page DSFR est homogène :</p>
+<ul>
+<li>titres cohérents ;</li>
+<li>fil d’Ariane présent ;</li>
+<li>composants récurrents mais variés ;</li>
+<li>alternance entre highlights, tableaux, cartes, stepper et callouts
+;</li>
+<li>footer stable ;</li>
+<li>progression lisible.</li>
+</ul>
+<p>Les corrections récentes améliorent notamment :</p>
+<ul>
+<li>la slide 25, dont les cartes sont mieux espacées ;</li>
+<li>la slide 33, qui ne chevauche plus les blocs ;</li>
+<li>la slide 39, dont le message est plus juste ;</li>
+<li>la slide 40, dont la liste numérotée n’a plus de puces doublons
+;</li>
+<li>la slide 42, également nettoyée des puces doublons ;</li>
+<li>les warnings footer de la section 2, désormais éliminés ;</li>
+<li>les warnings footer du deck complet, également éliminés, ce qui
+réduit le risque de remontées automatiques non vues.</li>
+</ul>
+</section>
+</section>
+<section id="points-assumés" class="level2">
+<h2>Points assumés</h2>
+<section id="densité-des-checklists" class="level3">
+<h3>Densité des checklists</h3>
+<p>Les slides de checklist sont denses, mais c’est volontaire. Elles ont
+une double fonction :</p>
+<ul>
+<li>support d’animation pendant la formation ;</li>
+<li>aide-mémoire réutilisable après la journée.</li>
+</ul>
+<p>Il ne faut donc pas les alléger automatiquement. Leur densité est
+acceptable parce qu’elles arrivent après l’exercice et après la
+consolidation.</p>
+</section>
+<section id="correction-finale-détaillée" class="level3">
+<h3>Correction finale détaillée</h3>
+<p>La correction finale est également dense, mais elle joue le rôle de
+synthèse structurante :</p>
+<ul>
+<li>erreur ;</li>
+<li>impact utilisateur ;</li>
+<li>correction concrète dans Word.</li>
+</ul>
+<p>Elle sert de référence. Le niveau de détail est justifié.</p>
+</section>
+</section>
+<section id="risques-restants" class="level2">
+<h2>Risques restants</h2>
+<section id="rythme-oral" class="level3">
+<h3>Rythme oral</h3>
+<p>Le principal risque n’est plus la mise en page, mais le rythme
+d’animation. La section couvre beaucoup de gestes en peu de temps. Le
+formateur devra :</p>
+<ul>
+<li>annoncer que tout ne sera pas mémorisé immédiatement ;</li>
+<li>insister sur les 3 premiers réflexes ;</li>
+<li>utiliser les checklists comme support de référence, pas comme liste
+à réciter ;</li>
+<li>laisser du temps à l’exercice Sami.</li>
+</ul>
+</section>
+<section id="vérification-native-powerpoint" class="level3">
+<h3>Vérification native PowerPoint</h3>
+<p>Le deck a été régénéré et contrôlé via rendu PDF. Une dernière
+vérification dans PowerPoint reste utile avant diffusion officielle, car
+PowerPoint et LibreOffice peuvent rendre certains espacements légèrement
+différemment.</p>
+</section>
+</section>
+<section id="note-détaillée" class="level2">
+<h2>Note détaillée</h2>
+<table>
+<caption>
+Notes détaillées de l’évaluation de la section Documents bureautiques
+accessibles
+</caption>
+<tr>
+<th scope="col">
+Dimension
+</th>
+<th scope="col">
+Note
+</th>
+<th scope="col">
+Commentaire
+</th>
+</tr>
+<tr>
+<th scope="row">
+Cohérence pédagogique
+</th>
+<td>
+19 / 20
+</td>
+<td>
+Progression claire, rappels actifs, exercice structurant et export PDF
+ajouté au bon endroit.
+</td>
+</tr>
+<tr>
+<th scope="row">
+Couverture des critères Word
+</th>
+<td>
+19 / 20
+</td>
+<td>
+Les gestes essentiels sont couverts, y compris l’export PDF.
+</td>
+</tr>
+<tr>
+<th scope="row">
+Mise en page
+</th>
+<td>
+19 / 20
+</td>
+<td>
+Cohérente, stable, sans warning footer sur la section.
+</td>
+</tr>
+<tr>
+<th scope="row">
+Actionnabilité
+</th>
+<td>
+19 / 20
+</td>
+<td>
+Les stagiaires savent quoi faire dans Word dès le lendemain.
+</td>
+</tr>
+<tr>
+<th scope="row">
+Robustesse technique
+</th>
+<td>
+19 / 20
+</td>
+<td>
+Zéro warning footer sur la section 2 et sur l’assemblage complet du
+deck.
+</td>
+</tr>
+</table>
+</section>
+<section id="note-globale" class="level2">
+<h2>Note globale</h2>
+<p><strong>19 / 20</strong></p>
+<p>La section est prête pour une utilisation en formation. Le dernier
+point qui empêche de parler d’un 20 / 20 est la validation native
+PowerPoint sur le fichier final, car PowerPoint peut rendre certains
+espacements légèrement différemment de la chaîne de génération.</p>
+</section>
+<section id="synthèse-insight-forge" class="level2">
+<h2>Synthèse Insight Forge</h2>
+<p>Dernière relance <code>insight-forge</code> :</p>
+<ul>
+<li>7 sessions Codex traitées ;</li>
+<li>2 observations stagées ;</li>
+<li>4 cristallisations ;</li>
+<li>proposition générée :
+<code>.insight-forge/proposals/2026-05-04.md</code>.</li>
+</ul>
+<section id="enseignement-principal-pour-cette-section" class="level3">
+<h3>Enseignement principal pour cette section</h3>
+<p>Le point le plus utile extrait des cristallisations est le suivant :
+le mécanisme <code>_safe_top</code> protège contre le débordement bas,
+mais peut créer des chevauchements si le positionnement initial est trop
+optimiste.</p>
+<p>Conséquence pratique pour les prochaines passes :</p>
+<ul>
+<li>ne pas se contenter de l’absence de débordement ;</li>
+<li>vérifier que les composants n’ont pas été remontés au point de
+toucher le bloc précédent ;</li>
+<li>traiter les warnings par slide, pas globalement ;</li>
+<li>garder les corrections ciblées sur le module évalué.</li>
+</ul>
+</section>
+</section>
+</section>
+</main>
+</body>
+</html>

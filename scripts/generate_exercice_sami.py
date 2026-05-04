@@ -341,6 +341,75 @@ def _add_toc(doc):
     run5._r.append(fldChar_end)
 
 
+def _add_simple_field(paragraph, instr):
+    """Ajoute un champ Word simple dans un paragraphe."""
+    run_begin = paragraph.add_run()
+    run_begin._r.append(
+        parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="begin"/>')
+    )
+    run_instr = paragraph.add_run()
+    run_instr._r.append(
+        parse_xml(
+            f'<w:instrText {nsdecls("w")} xml:space="preserve"> {instr} </w:instrText>'
+        )
+    )
+    run_sep = paragraph.add_run()
+    run_sep._r.append(
+        parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="separate"/>')
+    )
+    run_result = paragraph.add_run("1")
+    run_end = paragraph.add_run()
+    run_end._r.append(
+        parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="end"/>')
+    )
+    return run_result
+
+
+DOCUMENT_TITLE = "Rapport trimestriel - Bilan T1 2025"
+HEADER_TEXT = "Direction des affaires juridiques - Rapport trimestriel T1 2025"
+
+
+def _format_header_footer_run(run):
+    """Applique le style explicite aux textes d'en-tete et pied de page."""
+    run.font.name = "Arial"
+    run.font.size = Pt(9)
+    run.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
+
+
+def _format_header_paragraph(paragraph):
+    for run in paragraph.runs:
+        _format_header_footer_run(run)
+
+
+def _add_page_footer(doc, document_name=DOCUMENT_TITLE):
+    """Ajoute un pied de page Page X / Y avec champs Word natifs."""
+    footer = doc.sections[0].footer
+    footer.is_linked_to_previous = False
+    p = footer.paragraphs[0] if footer.paragraphs else footer.add_paragraph()
+    p.clear()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    if document_name:
+        p.add_run(document_name)
+        p.add_run(" - ")
+    p.add_run("Page ")
+    _add_simple_field(p, "PAGE")
+    p.add_run(" / ")
+    _add_simple_field(p, "NUMPAGES")
+    for run in p.runs:
+        _format_header_footer_run(run)
+
+
+def _add_fake_list_item(doc, marker, text):
+    """Ajoute un item tape manuellement mais aligne comme une vraie liste."""
+    p = doc.add_paragraph()
+    p.paragraph_format.left_indent = Inches(0.35)
+    p.paragraph_format.first_line_indent = Inches(-0.18)
+    run = p.add_run(f"{marker}\t{text}")
+    run.font.name = "Arial"
+    run.font.size = Pt(11)
+    return p
+
+
 def build_inaccessible(chart_path: Path, icon_path: Path = None,
                        organigramme_path: Path = None,
                        texte_image_path: Path = None):
@@ -358,10 +427,12 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     # En-tete fictif
     header = doc.sections[0].header
     hp = header.paragraphs[0]
-    hp.text = "Direction des affaires juridiques"
+    hp.text = HEADER_TEXT
     hp.style.font.name = "Arial"
     hp.style.font.size = Pt(9)
     hp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    _format_header_paragraph(hp)
+    _add_page_footer(doc)
 
     # Erreur 18 : filigrane invisible au lecteur d'ecran
     _add_watermark(doc, "CONFIDENTIEL")
@@ -440,23 +511,23 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     for _ in range(4):
         doc.add_paragraph()
 
-    # Erreur 11 : fausse liste a puces (tirets manuels)
+    # Erreur 11 : fausse liste a puces (puces tapees et indentees manuellement)
     doc.add_paragraph("Objectifs du trimestre :")
     for item in [
-        "- Augmenter le trafic de 10 %",
-        "- Publier 3 articles par semaine",
-        "- Reduire le taux de rebond sous 40 %",
+        "Augmenter le trafic de 10 %",
+        "Publier 3 articles par semaine",
+        "Reduire le taux de rebond sous 40 %",
     ]:
-        doc.add_paragraph(item)
+        _add_fake_list_item(doc, "\u2022", item)
 
-    # Erreur 12 : fausse liste numerotee (numeros tapes a la main)
+    # Erreur 12 : fausse liste numerotee (numeros tapes et indentes manuellement)
     doc.add_paragraph("Priorites pour le prochain trimestre :")
-    for item in [
-        "1. Refonte de la page d'accueil",
-        "2. Mise en conformite accessibilite",
-        "3. Deploiement de la newsletter",
-    ]:
-        doc.add_paragraph(item)
+    for numero, item in enumerate([
+        "Refonte de la page d'accueil",
+        "Mise en conformite accessibilite",
+        "Deploiement de la newsletter",
+    ], start=1):
+        _add_fake_list_item(doc, f"{numero}.", item)
 
     doc.add_paragraph()
 
@@ -519,7 +590,7 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
         doc.add_picture(str(texte_image_path), width=Inches(4.5))
         doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
 
-    # Erreur 21 : tableau avec cellules fusionnees
+    # Erreur 21 : tableau avec cellules fusionnees et en-tetes seulement visuels
     doc.add_paragraph()
     p = doc.add_paragraph()
     run = p.add_run("Répartition par service")
@@ -527,20 +598,29 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     run.font.name = "Arial"
     run.font.size = Pt(12)
     run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
-    table = doc.add_table(rows=4, cols=3)
+    table = doc.add_table(rows=4, cols=3, style="Table Grid")
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     # Fusionner la premiere ligne sur 3 colonnes
     table.cell(0, 0).merge(table.cell(0, 2))
-    table.cell(0, 0).text = "Direction des affaires juridiques"
-    table.cell(1, 0).text = "Service"
-    table.cell(1, 1).text = "Effectif"
-    table.cell(1, 2).text = "Budget"
-    table.cell(2, 0).text = "Communication"
-    table.cell(2, 1).text = "12"
-    table.cell(2, 2).text = "45 000"
-    table.cell(3, 0).text = "Juridique"
-    table.cell(3, 1).text = "28"
-    table.cell(3, 2).text = "120 000"
+    data = [
+        ["Direction des affaires juridiques", "", ""],
+        ["Service", "Effectif", "Budget"],
+        ["Communication", "12", "45 000"],
+        ["Juridique", "28", "120 000"],
+    ]
+    for i, row_data in enumerate(data):
+        for j, cell_text in enumerate(row_data):
+            if i == 0 and j > 0:
+                continue
+            cell = table.cell(i, j)
+            cell.text = cell_text
+            for paragraph in cell.paragraphs:
+                for cell_run in paragraph.runs:
+                    cell_run.font.name = "Arial"
+                    cell_run.font.size = Pt(10)
+                    if i in (0, 1):
+                        cell_run.bold = True
+    # Pas de tblHeader : les libelles sont visuels, pas declares comme en-tetes Word.
 
     doc.add_paragraph()
 
@@ -606,10 +686,12 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     # En-tete
     header = doc.sections[0].header
     hp = header.paragraphs[0]
-    hp.text = "Direction des affaires juridiques"
+    hp.text = HEADER_TEXT
     hp.style.font.name = "Arial"
     hp.style.font.size = Pt(9)
     hp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    _format_header_paragraph(hp)
+    _add_page_footer(doc)
 
     # Mention confidentiel dans le corps (pas en filigrane)
     p = doc.add_paragraph()
@@ -816,10 +898,14 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     run.font.name = "Arial"
 
     # Proprietes du document
-    doc.core_properties.title = "Rapport trimestriel - Bilan T1 2025"
+    doc.core_properties.title = DOCUMENT_TITLE
     doc.core_properties.author = "Sami Dupont"
     doc.core_properties.language = "fr-FR"
     doc.core_properties.subject = "Bilan communication numérique T1 2025"
+    doc.core_properties.keywords = (
+        "accessibilite, document bureautique, Word, rapport trimestriel, "
+        "communication numerique"
+    )
 
     output = PROJECT / "_source" / "sami-doc-accessible.docx"
     doc.save(str(output))

@@ -21,7 +21,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    top = 2.30
+    top = 1.75
 
     probleme_titre = "Le problème"
     probleme_bullets = [
@@ -54,7 +54,7 @@ def build(prs, layouts, ctx):
     )
     hl_h = estimate_highlight_height(regle, CONTENT_W)
     add_highlight(slide, regle,
-                  top=round(top + col_h + 0.25, 2), left=MARGIN_L, width=CONTENT_W,
+                  top=round(top + col_h + 0.10, 2), left=MARGIN_L, width=CONTENT_W,
                   url=URL_OPQUAST)
 
     add_notes(

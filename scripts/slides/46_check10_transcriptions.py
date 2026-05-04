@@ -29,7 +29,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.3, gap=0.25)
+    stack = Stack(top=2.05, gap=0.12)
 
     hl_texte = "La transcription est au podcast ce que le script est au film : la version lisible, indexable, citable."
     add_highlight(

@@ -18,7 +18,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.30, gap=0.25)
+    stack = Stack(top=1.90, gap=0.08)
 
     rappel = "Un lecteur d'écran lit le nom officiel de chaque émoji. En série, c'est incompréhensible."
     hl_h = estimate_highlight_height(rappel, CONTENT_W)
@@ -29,7 +29,7 @@ def build(prs, layouts, ctx):
         "En fin de message uniquement - jamais en milieu de phrase",
         "Le texte doit avoir du sens sans eux - testez en retirant l'émoji",
     ]
-    stepper_h = 2.5
+    stepper_h = 2.05
     add_stepper(slide, regles, top=stack.push(stepper_h),
                 left=MARGIN_L, width=CONTENT_W, height=stepper_h)
 
@@ -40,7 +40,8 @@ def build(prs, layouts, ctx):
         "Si non : l'émoji porte du sens - remplacez-le par le mot correspondant",
     ]
     add_alert(slide, test_titre, test_bullets,
-              top=stack.push(0), left=MARGIN_L, width=CONTENT_W, alert_type="info")
+              top=stack.push(0), left=MARGIN_L, width=CONTENT_W, alert_type="info",
+              line_spacing=1.2)
 
     add_notes(
         slide,

@@ -24,13 +24,13 @@ def build(prs, layouts, ctx):
     card1_contenu = (
         "Sami, chargé de communication, envoie son rapport trimestriel "
         "à 40 personnes.\n\n"
-        "1. Quelles erreurs trouvez-vous ?\n"
+        "1. Quels critères posent problème ?\n"
         "2. Quelles corrections proposez-vous ?"
     )
 
     card2_titre = "Le document contient"
     card2_contenu = [
-        "Titres en gras, fausses listes, faux sommaire, tableau fusionné",
+        "Titres en gras, fausses listes, faux sommaire, tableaux sans en-tête",
         "Mention Urgent en rouge, note en gris insuffisant",
         "Graphique et organigramme sans alt, icône redondante",
         "Texte en image, lien cliquez ici, filigrane invisible",
@@ -49,22 +49,22 @@ def build(prs, layouts, ctx):
              left=COL_R, width=COL_W, height=card_h)
 
     stack.gap = 0.30
-    accroche = "30 minutes en binôme : trouvez les erreurs, puis corrigez-les."
+    accroche = "30 minutes en binôme : repérez les problèmes, puis corrigez-les."
     add_highlight(slide, accroche,
                   top=stack.push(estimate_highlight_height(accroche, CONTENT_W)))
 
     add_notes(
         slide,
         "Distribuer sami-doc-inaccessible.docx aux binômes.\n\n"
-        "Phase 1 - Identification (10 min) : « Trouvez toutes les erreurs "
-        "d'accessibilité. Notez-les sans corriger. » Pas de checklist.\n\n"
-        "Phase 2 - Correction (15 min) : afficher la liste des erreurs repérables à ce stade. "
+        "Phase 1 - Identification (10 min) : « Identifiez les critères "
+        "d'accessibilité qui posent problème. Notez-les sans corriger. » Pas de checklist.\n\n"
+        "Phase 2 - Correction (15 min) : afficher la liste des critères repérables à ce stade. "
         "Les binômes corrigent dans l'ordre structure > couleurs > contenus. "
         "Le vérificateur Word sert d'outil de découverte : « Que détecte-t-il ? "
         "Que rate-t-il ? »\n\n"
         "Phase 3 - Restitution (5 min) : débriefer l'erreur de contraste "
         "(gris #767676, ratio 4,48:1) avec le Colour Contrast Analyser. "
-        "Question de transfert : « Sur votre dernier document, laquelle de "
-        "ces erreurs avez-vous probablement faite ? » Tour de table rapide.",
+        "Question de transfert : « Sur votre dernier document, lequel de "
+        "ces critères avez-vous probablement oublié ? » Tour de table rapide.",
     )
     return slide
