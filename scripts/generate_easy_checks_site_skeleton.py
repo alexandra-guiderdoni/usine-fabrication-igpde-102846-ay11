@@ -207,7 +207,7 @@ def generate_root(contract: dict) -> None:
     cards = "\n".join(page_card(page, f"site-inaccessible/{page['id']}.html") for page in pages)
     versions = [
         ("Site à auditer", "site-inaccessible/index.html", "Version inaccessible utilisée pendant l'exercice."),
-        ("Aide à la correction", "site-aide-correction/index.html", "Même site avec indices en bas de page."),
+        ("Aide à la correction", "site-aide-correction/index.html", "Même site avec indices en haut de page."),
         ("Site corrigé", "site-accessible/index.html", "Version accessible sobre, sans pédagogie visible."),
     ]
     version_cards = "\n".join(
@@ -822,7 +822,7 @@ def generate_exercise_page(contract: dict, page: dict, version_key: str, current
     title = document_title(contract, page, version_key)
     notice = ""
     if version_key == "help":
-        notice = f"""<section class="fr-mt-6w" aria-labelledby="help-title">
+        notice = f"""<section class="fr-mb-6w" aria-labelledby="help-title">
   <h2 id="help-title">Aide à la correction</h2>
   <div class="fr-accordions-group">
 {help_accordions(page)}
@@ -841,11 +841,11 @@ def generate_exercise_page(contract: dict, page: dict, version_key: str, current
     </div>
   </nav>
 </div>"""
+    main_body = f"{notice}\n  {content}" if version_key == "help" else f"{content}\n  "
     main = f"""{breadcrumb}
 <main id="contenu" class="fr-container fr-py-6w">
   <h1>{page['number']}. {esc(page['title'])}</h1>
-  {content}
-  {notice}
+  {main_body}
 </main>"""
     write_text(
         DOCS_DIR / version["path"] / f"{page['id']}.html",

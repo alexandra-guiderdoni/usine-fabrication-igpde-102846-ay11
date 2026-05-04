@@ -165,6 +165,21 @@ def validate_docs() -> None:
         details = "\n".join(accessible_errors[:30])
         raise ValueError(f"Contrôles version accessible en échec:\n{details}")
 
+    help_errors: list[str] = []
+    for file in sorted((DOCS / "site-aide-correction").glob("ec*.html")):
+        text = file.read_text(encoding="utf-8")
+        help_pos = text.find('id="help-title"')
+        content_pos = text.find('id="content-title"')
+        if help_pos == -1:
+            help_errors.append(f"{file}: bloc Aide à la correction absent")
+        elif content_pos == -1:
+            help_errors.append(f"{file}: contenu principal de l'exercice absent")
+        elif help_pos > content_pos:
+            help_errors.append(f"{file}: l'aide doit être placée avant le contenu d'exercice")
+    if help_errors:
+        details = "\n".join(help_errors[:30])
+        raise ValueError(f"Contrôles version aide à la correction en échec:\n{details}")
+
 
 def main() -> None:
     validate_contract()

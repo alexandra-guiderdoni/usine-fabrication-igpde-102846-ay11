@@ -53,12 +53,12 @@ Les trois versions doivent avoir le même contenu éditorial et la même structu
 | Version | Rôle | Aides visibles |
 |---|---|---|
 | `site-inaccessible/` | Site à auditer | Non |
-| `site-aide-correction/` | Même site avec guidage pédagogique | Oui, en bas de page |
+| `site-aide-correction/` | Même site avec guidage pédagogique | Oui, en haut de page |
 | `site-accessible/` | Site corrigé et conforme DSFR/accessibilité | Non |
 
 ### Version aide à la correction
 
-La version intermédiaire contient, en bas de chaque page d'exercice, une zone **Aide à la correction** sous forme de groupe d'accordéons DSFR.
+La version intermédiaire contient, en haut de chaque page d'exercice, une zone **Aide à la correction** sous forme de groupe d'accordéons DSFR.
 
 Le groupe d'accordéons doit fournir une aide progressive en trois niveaux :
 
@@ -705,7 +705,7 @@ Les pages média doivent être conçues pour permettre le remplacement des asset
 - Les 13 Easy Checks sont représentés par 13 pages distinctes.
 - Une page correspond à une erreur principale.
 - Le site inaccessible reste réaliste, pas caricatural.
-- La version aide à la correction garde la recherche active : l'aide est en bas de page, pas avant le composant fautif.
+- La version aide à la correction expose l'aide immédiatement après le titre de page, avant le composant fautif.
 - La mission permet de remplir la grille en 30 minutes en binômes.
 
 ### Accessibilité

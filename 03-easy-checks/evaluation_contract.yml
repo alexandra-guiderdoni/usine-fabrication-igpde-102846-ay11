@@ -17,7 +17,7 @@ versions:
     path: "site-aide-correction/"
     role: "Même site avec guidage pédagogique"
     visible_help: true
-    help_position: "Bas de page"
+    help_position: "Haut de page"
     help_component: "Groupe d'accordéons DSFR"
   accessible:
     path: "site-accessible/"
