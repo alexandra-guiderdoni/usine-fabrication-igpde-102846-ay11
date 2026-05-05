@@ -21,6 +21,15 @@ Ce fichier adapte `CLAUDE.md` pour Codex. Les consignes globales Codex restent a
 - Valider le site d'exercice avec `python3 validate.py`
 - `finalize_pptx()` est obligatoire avant livraison, via les scripts du projet
 
+## Règles validées manuellement
+
+- Les decks PPTX ont deux régimes : les slides générées par script et les slides figées ou retouchées manuellement dans PowerPoint. Avant toute régénération, identifier le régime des slides concernées afin de ne pas écraser des corrections manuelles.
+- Un skill destiné à être publié doit être auto-suffisant : `SKILL.md`, références, scripts, templates et modules nécessaires doivent être inclus dans le dépôt ou explicitement documentés. Avant publication, vérifier les imports, chemins relatifs et dépendances externes.
+- Chaque skill publié ou stabilisé doit avoir une fiche opérationnelle dans le wiki : objectif, cas d'usage, commande ou déclencheur, fichiers clés, limites connues et exemples d'utilisation.
+- La version accessible du site d'exercice doit rester sobre, comme un vrai site corrigé, sans pédagogie visible.
+- Les erreurs de formulaire ne doivent apparaître qu'après une tentative de soumission ou après interaction avec le champ concerné.
+- Les documents accessibles doivent déclarer des métadonnées cohérentes avec leur langue réelle, notamment `fr` pour les documents en français. Les versions volontairement inaccessibles peuvent conserver des défauts pédagogiques explicites.
+
 ## Competences a utiliser
 
 Pour une nouvelle slide ou une restructuration pedagogique :
