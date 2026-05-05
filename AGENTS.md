@@ -5,10 +5,11 @@ Ce fichier adapte `CLAUDE.md` pour Codex. Les consignes globales Codex restent a
 ## Contexte
 
 - Formation accessibilité numérique, 1 jour, public communicants, pas développeurs
-- 91 slides PPTX DSFR, 4 modules : Introduction > Word accessible > points de contrôle rapides W3C > Réseaux sociaux
+- 106 slides PPTX DSFR, 4 modules : Introduction communication accessible et cadre légal > Word accessible > points de contrôle rapides W3C > Réseaux sociaux
 - Ordre impératif M1 > M2 > M3 > M4, jamais inverser
 - Exercice Sami : 21 critères à vérifier dans 3 DOCX, spec dans `_source/exercice-sami-spec.md`
-- Section 2 « Documents bureautiques accessibles » validée par Alex le 2026-05-04 : slides 20 à 49, livrables Sami, spec et diff associés
+- Site d'exercice points de contrôle rapides dans `docs/`, avec versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/` et grille XLSX téléchargeable
+- Dernier état livré : PR #1 mergée sur `main` le 2026-05-05, deck `formation-102638-juin-2026.pptx` à 106 slides
 
 ## Pipeline
 
@@ -17,6 +18,7 @@ Ce fichier adapte `CLAUDE.md` pour Codex. Les consignes globales Codex restent a
 - Regenerer avec `python3 scripts/assemble.py`
 - Tester une slide avec `python3 scripts/assemble.py --only NN`
 - Regenerer les DOCX Sami avec `python3 scripts/generate_exercice_sami.py`
+- Valider le site d'exercice avec `python3 validate.py`
 - `finalize_pptx()` est obligatoire avant livraison, via les scripts du projet
 
 ## Competences a utiliser
@@ -46,6 +48,7 @@ Si les skills ne sont pas automatiquement injectes dans la session, lire leurs a
 - Arreter le serveur local : revenir dans le terminal qui execute `http.server` et faire `Ctrl+C`
 - Quarantine macOS : `xattr -d com.apple.quarantine formation-102638-juin-2026.pptx`
 - Controle tirets dans les scripts : `grep -rn $'—\|–' scripts/` doit retourner vide
+- Controle PPTX : `unzip -t formation-102638-juin-2026.pptx`
 - Warnings footer : diagnostiquer par slide, corriger le positionnement source, puis regenerer le deck complet
 
 ## Grille IGPDE-DSFR
@@ -94,5 +97,9 @@ Composants : `add_callout`, `add_alert`, `add_highlight`, `add_quote`, `add_card
 | Diff des criteres Sami | `_source/exercice-sami-diff.md` |
 | Lecons techniques | `lessons.md` |
 | points de contrôle rapides W3C | `03-easy-checks/w3c-easy-checks-fr.md` |
+| Guide accessibiliser sa communication | `Guide-2026-Accessibiliser-sa-communication-police-14-coul.md` |
+| Notes reseaux sociaux | `04-reseaux-sociaux/md-reseaux-sociaux.md` |
+| Notes FALC | `05-falc/md-falc.md` |
+| Notes medias | `06-medias/md-medias.md` |
 | Passation derniere session | `_source/passation-session-2026-05-03.md` |
 | Dependances | Python 3 + `python-pptx` + `lxml` + `openpyxl` + Marianne, fallback Arial |
