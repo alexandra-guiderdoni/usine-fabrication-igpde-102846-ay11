@@ -8,7 +8,7 @@ Source : https://www.w3.org/WAI/test-evaluate/easy-checks/
 
 ## Vérifications de base
 
-### 1. Alternatives textuelles des images
+### 1. Texte alternatif des images
 
 **Résumé** : Le texte alternatif (« alt text ») est une courte description qui communique la finalité d'une image. Il est utilisé par les personnes qui ne voient pas l'image.
 
@@ -77,7 +77,7 @@ Source : https://www.w3.org/WAI/test-evaluate/easy-checks/
 
 ---
 
-### 3. Titres (headings)
+### 3. Titres et hiérarchie
 
 **Résumé** : Les titres organisent le contenu de la page comme une table des matières. Ils doivent être imbriqués par niveau : le titre principal est généralement `<h1>`, suivi des niveaux 2 à 6. Les niveaux ne doivent pas être sautés.
 
@@ -165,7 +165,7 @@ Source : https://www.w3.org/WAI/test-evaluate/easy-checks/
 
 ---
 
-### 6. Visibilité du focus clavier
+### 6. Focus et navigation clavier
 
 **Résumé** : Le focus clavier est un indicateur visuel qui identifie l'élément ayant le focus lorsqu'on navigue avec la touche Tab. Pour les personnes qui utilisent le clavier pour naviguer, il est essentiel de savoir quel lien ou champ de formulaire a le focus.
 
@@ -224,7 +224,7 @@ Source : https://www.w3.org/WAI/test-evaluate/easy-checks/
 
 ---
 
-### 8. Zoom
+### 8. Zoom à 200 %
 
 **Résumé** : Le zoom est utilisé pour agrandir le texte et les images des pages web afin de les rendre plus lisibles. Certaines personnes ont besoin d'agrandir le contenu pour pouvoir le lire. Le contenu agrandi doit rester lisible et utilisable.
 
@@ -255,7 +255,7 @@ Source : https://www.w3.org/WAI/test-evaluate/easy-checks/
 
 ## Vérifications audio/vidéo
 
-### 9. Sous-titres
+### 9. Sous-titres vidéo
 
 **Résumé** : Les sous-titres sont une version textuelle de la parole et des informations sonores non vocales nécessaires pour comprendre la vidéo. Ils sont affichés dans le lecteur média et synchronisés avec l'audio. Les sous-titres peuvent être activables (closed) ou permanents (open).
 
@@ -283,7 +283,7 @@ Source : https://www.w3.org/WAI/test-evaluate/easy-checks/
 
 ---
 
-### 10. Transcriptions
+### 10. Transcriptions audio et vidéo
 
 **Résumé** : Les transcriptions sont une version textuelle de la parole et des informations sonores non vocales dans un contenu audio, disponibles séparément de la vidéo. Les transcriptions descriptives pour les vidéos incluent en plus les informations visuelles nécessaires à la compréhension.
 
@@ -367,7 +367,7 @@ Source : https://www.w3.org/WAI/test-evaluate/easy-checks/
 
 ---
 
-### 13. Champs obligatoires
+### 13. Champs obligatoires et erreurs
 
 **Résumé** : Un champ de formulaire obligatoire doit être rempli avant la soumission du formulaire. La bonne pratique consiste à inclure le mot « obligatoire » dans l'étiquette. Beaucoup de formulaires utilisent un astérisque rouge (*), mais celui-ci peut ne pas être annoncé par les lecteurs d'écran ou visible pour les personnes malvoyantes en raison de sa petite taille. Certains formulaires indiquent que tous les champs sont obligatoires sauf ceux marqués « facultatif ».
 
@@ -382,9 +382,11 @@ Source : https://www.w3.org/WAI/test-evaluate/easy-checks/
 
 - Les champs marqués comme obligatoires affichent un indicateur visible
 - Si l'approche « facultatif » est utilisée, un message indique que tous les champs sont obligatoires sauf mention contraire
-- Soumettre le formulaire et vérifier que les champs marqués déclenchent une validation
+- Avant soumission, aucune erreur n'est affichée prématurément
+- Soumettre le formulaire et vérifier que les champs obligatoires déclenchent une validation exploitable
+- Après soumission, chaque message d'erreur nomme le champ, explique la correction, est relié au champ et accompagne le focus
 
-**Critère WCAG** : 3.3.2 Étiquettes ou instructions
+**Critères WCAG** : 3.3.2 Étiquettes ou instructions, 3.3.1 Identification des erreurs, 3.3.3 Suggestion après erreur
 
 **Équivalences RGAA** :
 
@@ -397,16 +399,16 @@ Source : https://www.w3.org/WAI/test-evaluate/easy-checks/
 
 | # | Vérification | WCAG | RGAA |
 |---|---|---|---|
-| 1 | Alternatives textuelles des images | 1.1.1 | 1.1 à 1.9 |
+| 1 | Texte alternatif des images | 1.1.1 | 1.1 à 1.9 |
 | 2 | Titre de page | 2.4.2 | 8.5, 8.6 |
-| 3 | Titres (headings) | 2.4.6 | 9.1, 9.2 |
+| 3 | Titres et hiérarchie | 2.4.6 | 9.1, 9.2 |
 | 4 | Contraste des couleurs | 1.4.3, 1.4.11 | 3.2, 3.3 |
 | 5 | Lien d'évitement | 2.4.1 | 12.7 |
-| 6 | Visibilité du focus clavier | 2.4.7 | 10.7 |
+| 6 | Focus et navigation clavier | 2.4.7 | 10.7 |
 | 7 | Langue de la page | 3.1.1, 3.1.2 | 8.3, 8.4, 8.7, 8.8 |
-| 8 | Zoom | 1.4.4 | 10.4, 10.11 |
-| 9 | Sous-titres | 1.2.2 | 4.3, 4.4 |
-| 10 | Transcriptions | 1.2.1 | 4.1, 4.2 |
+| 8 | Zoom à 200 % | 1.4.4 | 10.4, 10.11 |
+| 9 | Sous-titres vidéo | 1.2.2 | 4.3, 4.4 |
+| 10 | Transcriptions audio et vidéo | 1.2.1 | 4.1, 4.2 |
 | 11 | Audiodescription | 1.2.5 | 4.5, 4.6 |
 | 12 | Étiquettes de formulaire | 3.3.2 | 11.1, 11.2, 11.3 |
-| 13 | Champs obligatoires | 3.3.2 | 11.10, 11.11 |
+| 13 | Champs obligatoires et erreurs | 3.3.2 | 11.10, 11.11 |

@@ -66,7 +66,7 @@
 <main id="contenu" class="fr-container fr-py-6w">
 <div class="fr-grid-row">
   <div class="fr-col-12 fr-col-md-8">
-  <h1>6. Parcours clavier</h1>
+  <h1>#6 Parcours clavier</h1>
   <section class="fr-mb-6w" aria-labelledby="help-title">
   <h2 id="help-title">Aide à la correction</h2>
   <div class="fr-accordions-group">
@@ -87,8 +87,9 @@
     <p>Les trois vérifications à mener sont :</p>
     <ul>
       <li>Visibilité : le focus doit être perceptible sur les boutons d&#x27;action, les cartes cliquables, les liens et les boutons d&#x27;accordéon.</li>
+      <li>Atteignabilité : les actions visibles et activables à la souris doivent être atteignables au clavier.</li>
       <li>Ordre : le parcours Tab doit suivre l&#x27;ordre visuel et éditorial de la page, sans saut inattendu.</li>
-      <li>Interaction : Entrée et Espace doivent permettre d&#x27;activer les boutons et d&#x27;ouvrir ou fermer les accordéons sans piéger le clavier.</li>
+      <li>Interaction : Entrée et Espace doivent permettre d&#x27;activer les boutons, d&#x27;ouvrir ou fermer les accordéons et de sortir d&#x27;une modale sans piéger le clavier.</li>
     </ul>
   </div>
 </section>
@@ -97,12 +98,13 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec06-keyboard-focus-help-3">Comment corriger</button>
   </h3>
   <div class="fr-collapse" id="ec06-keyboard-focus-help-3">
-    <p>Retirer les surcharges CSS qui masquent le focus, conserver les styles de focus DSFR et tester chaque famille de composant au clavier.</p>
+    <p>Retirer les surcharges CSS qui masquent le focus, remettre les actions prioritaires dans l&#x27;ordre de tabulation, conserver le comportement DSFR de la modale et tester chaque famille de composant au clavier.</p>
     <p>Corrections attendues par type de cas :</p>
     <ul>
-      <li>Boutons : aucun outline ou box-shadow de focus ne doit être supprimé par une règle locale.</li>
+      <li>Boutons : les actions visibles doivent être focusables au clavier et aucun outline ou box-shadow de focus ne doit être supprimé par une règle locale.</li>
       <li>Cartes et liens : le lien actif doit afficher un état de focus visible et cohérent avec le DSFR.</li>
       <li>Accordéons : le bouton d&#x27;accordéon doit rester focusable, visible au focus et pilotable avec Entrée ou Espace.</li>
+      <li>Modale : le bouton d&#x27;ouverture doit être un bouton focusable ; Échap doit refermer la modale ; Tab et Maj+Tab doivent circuler entre les éléments focusables internes sans bloquer la sortie par fermeture.</li>
     </ul>
   </div>
 </section>
@@ -114,11 +116,17 @@
   <section aria-labelledby="actions-title" class="fr-mt-4w">
     <h3 id="actions-title">Actions prioritaires</h3>
     <p>Les actions ci-dessous couvrent les étapes les plus fréquentes : publier la session, contrôler le formulaire d'inscription et prévenir les personnes inscrites. Elles sont placées en premier pour éviter de chercher les commandes utiles dans le reste de la page.</p>
-    <ul class="fr-btns-group fr-btns-group--inline-md">
-      <li><button class="fr-btn" type="button">Publier la session</button></li>
-      <li><a class="fr-btn fr-btn--secondary" href="ec12-form-labels.html">Vérifier le formulaire</a></li>
-      <li><button class="fr-btn fr-btn--tertiary" type="button">Prévenir les participants</button></li>
+    <ul class="fr-btns-group">
+      <li><button data-fr-opened="false" aria-expanded="false" aria-controls="publish-session-modal" class="fr-btn demo-modal-trigger" type="button" tabindex="0">Publier la session</button></li>
     </ul>
+    <ul class="fr-links-group fr-mt-2w">
+      <li><a class="fr-link" href="ec12-form-labels.html" tabindex="-1">Vérifier le formulaire</a></li>
+      <li><a class="fr-link" href="#participants-notification" tabindex="-1">Prévenir les participants</a></li>
+    </ul>
+  </section>
+  <section id="participants-notification" aria-labelledby="participants-notification-title" class="fr-mt-4w">
+    <h3 id="participants-notification-title">Prévenir les participants</h3>
+    <p>Le message de notification rappelle l'horaire, le lieu, les supports à consulter et les consignes de préparation avant l'atelier.</p>
   </section>
   <section aria-labelledby="resources-title" class="fr-mt-4w">
     <h3 id="resources-title">Ressources à consulter</h3>
@@ -177,6 +185,72 @@
     <p class="fr-mt-3w"><a class="fr-link" href="ec04-contrast.html">Consulter la charte de publication</a></p>
   </section>
 </section>
+<dialog id="publish-session-modal" class="fr-modal demo-modal-keyboard-trap" aria-labelledby="publish-session-modal-title" aria-modal="true" data-fr-concealing-backdrop="false">
+  <div class="fr-container fr-container--fluid fr-container-md">
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+        <div class="fr-modal__body">
+          <div class="fr-modal__header">
+            <button aria-controls="publish-session-modal" title="Fermer" type="button" class="fr-btn--close fr-btn" tabindex="-1">Fermer</button>
+          </div>
+          <div class="fr-modal__content">
+            <h2 id="publish-session-modal-title" class="fr-modal__title">
+              <span class="fr-icon-arrow-right-line fr-icon--lg" aria-hidden="true"></span>
+              Publier la session
+            </h2>
+            <p>La publication rendrait la session visible dans le catalogue de formation et notifierait les personnes inscrites.</p>
+            <p>Assurez-vous qu'il n'y a pas de piège à la navigation clavier.</p>
+          </div>
+          <div class="fr-modal__footer">
+            <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg">
+              <button type="button" class="fr-btn demo-modal-trap-target">Confirmer la publication</button>
+              <button type="button" class="fr-btn fr-btn--secondary" aria-controls="publish-session-modal">Revenir à la page</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var modal = document.getElementById("publish-session-modal");
+  var opener = document.querySelector('[aria-controls="publish-session-modal"][data-fr-opened]');
+  var target = modal ? modal.querySelector(".demo-modal-trap-target") : null;
+  if (!modal || !opener || !target) {
+    return;
+  }
+
+  function isOpen() {
+    return modal.open || modal.hasAttribute("open") || modal.classList.contains("fr-modal--opened");
+  }
+
+  function syncExpandedState() {
+    opener.setAttribute("aria-expanded", isOpen() ? "true" : "false");
+  }
+
+  function trapFocus() {
+    window.setTimeout(function () {
+      syncExpandedState();
+      target.focus();
+    }, 50);
+  }
+
+  opener && opener.addEventListener("click", trapFocus);
+  modal.addEventListener("dsfr.disclose", trapFocus);
+  modal.addEventListener("dsfr.conceal", syncExpandedState);
+  syncExpandedState();
+  document.addEventListener("keydown", function (event) {
+    if (!isOpen() || (event.key !== "Escape" && event.key !== "Tab")) {
+      return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    opener.setAttribute("aria-expanded", "true");
+    target.focus();
+  }, true);
+});
+</script>
   </div>
 </div>
 </main>

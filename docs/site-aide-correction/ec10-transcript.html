@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Podcast RGAA - Ministère de l'Accessibilité numérique</title>
+  <title>Écouter un podcast - Ministère de l'Accessibilité numérique</title>
   <link rel="stylesheet" href="../assets/dsfr/dsfr.min.css">
   <link rel="stylesheet" href="../assets/dsfr/utility/utility.min.css">
   <link rel="stylesheet" href="../assets/site.css">
@@ -58,7 +58,7 @@
       <ol class="fr-breadcrumb__list">
         <li><a class="fr-breadcrumb__link" href="../index.html">Accueil</a></li>
         <li><a class="fr-breadcrumb__link" href="index.html">Même site avec guidage pédagogique</a></li>
-        <li><a class="fr-breadcrumb__link" aria-current="page">Podcast RGAA</a></li>
+        <li><a class="fr-breadcrumb__link" aria-current="page">Écouter un podcast</a></li>
       </ol>
     </div>
   </nav>
@@ -66,7 +66,7 @@
 <main id="contenu" class="fr-container fr-py-6w">
 <div class="fr-grid-row">
   <div class="fr-col-12 fr-col-md-8">
-  <h1>10. Podcast RGAA</h1>
+  <h1>#10 Écouter un podcast</h1>
   <section class="fr-mb-6w" aria-labelledby="help-title">
   <h2 id="help-title">Aide à la correction</h2>
   <div class="fr-accordions-group">
@@ -109,12 +109,57 @@
   </div>
 </section>
   <section aria-labelledby="content-title">
-  <h2 id="content-title">Podcast RGAA</h2>
-  <figure class="fr-content-media" role="group" aria-label="Extrait audio sur une démarche RGAA">
-    <figcaption class="fr-content-media__caption">Extrait audio présentant une démarche RGAA.</figcaption>
-    <audio controls aria-label="Écouter le podcast RGAA"></audio>
+  <h2 id="content-title">Écouter un podcast</h2>
+  <div class="fr-callout fr-mb-4w">
+  <h3 class="fr-callout__title">Contrôle guidé</h3>
+  <p class="fr-callout__text">Avec l&#x27;aide, distinguez la présence de la transcription et la qualité du niveau choisi.</p>
+</div>
+  <figure class="fr-content-media demo-podcast-media" role="group" aria-label="Podcast court sur les réflexes à adopter avant de publier un contenu accessible.">
+    <audio controls preload="metadata" aria-describedby="podcast-caption">
+      <source src="../assets/audio/narration-complete.mp3" type="audio/mpeg">
+      Votre navigateur ne peut pas lire ce fichier audio.
+    </audio>
+    <figcaption class="fr-content-media__caption" id="podcast-caption">Podcast court sur les réflexes à adopter avant de publier un contenu accessible.</figcaption>
   </figure>
-
+  <div class="fr-transcription fr-mt-3w">
+  <button type="button" class="fr-transcription__btn" aria-expanded="false" aria-controls="podcast-rgaa-collapse">Lire la transcription</button>
+  <div class="fr-collapse" id="podcast-rgaa-collapse">
+    <div class="fr-transcription__footer">
+      <div class="fr-transcription__actions-group">
+        <button aria-controls="podcast-rgaa-modal" aria-label="Agrandir la transcription" data-fr-opened="false" type="button" class="fr-btn fr-btn--fullscreen">Agrandir</button>
+      </div>
+    </div>
+    <dialog id="podcast-rgaa-modal" class="fr-modal" aria-labelledby="podcast-rgaa-modal-title">
+      <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+          <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
+            <div class="fr-modal__body">
+              <div class="fr-modal__header">
+                <button aria-controls="podcast-rgaa-modal" title="Fermer" type="button" class="fr-btn fr-btn--close">Fermer</button>
+              </div>
+              <div class="fr-modal__content">
+                <h1 id="podcast-rgaa-modal-title" class="fr-modal__title">Transcription du podcast</h1>
+              <p>Un contenu audio doit proposer une alternative textuelle proche du lecteur. Pour un podcast, le plus utile est une transcription structurée, lisible et suffisamment complète pour comprendre le propos sans lancer l&#x27;audio.</p>
+              <p>Plusieurs niveaux existent : un résumé détaillé avec citations, une transcription intégrale éditée qui corrige les hésitations de l&#x27;oral, ou un verbatim fidèle qui conserve répétitions, hésitations, sons et musiques. Le choix dépend de l&#x27;usage, mais il doit être annoncé clairement.</p>
+              <p>Une transcription produite par intelligence artificielle reste un brouillon : noms propres, acronymes, chiffres et contresens doivent être relus par une personne avant diffusion.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </dialog>
+  </div>
+</div>
+  <section aria-labelledby="transcription-levels-title" class="fr-mt-4w">
+    <h3 id="transcription-levels-title">Choisir le bon niveau de transcription</h3>
+    <p>Le niveau choisi doit être annoncé clairement pour que la personne sache ce qu'elle va lire.</p>
+    <ul>
+      <li><strong>Semi-intégrale</strong> : résumé détaillé du contenu, avec les idées principales et quelques citations utiles.</li>
+      <li><strong>Intégrale éditée</strong> : transcription complète, relue, qui supprime les hésitations et rend le texte fluide.</li>
+      <li><strong>Verbatim</strong> : transcription mot à mot qui conserve répétitions, hésitations, sons et musiques.</li>
+    </ul>
+    <p>Une transcription générée automatiquement doit être relue par une personne avant publication.</p>
+  </section>
 </section>
   </div>
 </div>

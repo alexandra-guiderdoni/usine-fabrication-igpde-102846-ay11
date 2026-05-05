@@ -13,17 +13,17 @@ Cette page vous aide à commencer à évaluer l'accessibilité d'une page Web. G
 
 1. [Texte alternatif des images](#1-texte-alternatif-des-images)
 2. [Titre de page](#2-titre-de-page)
-3. [Titres de rubriques](#3-titres-de-rubriques)
+3. [Titres et hiérarchie](#3-titres-et-hiérarchie)
 4. [Contraste des couleurs](#4-contraste-des-couleurs)
 5. [Lien d'évitement](#5-lien-dévitement)
-6. [Focus clavier visible](#6-focus-clavier-visible)
+6. [Focus et navigation clavier](#6-focus-et-navigation-clavier)
 7. [Langue de la page](#7-langue-de-la-page)
-8. [Zoom](#8-zoom)
-9. [Sous-titres](#9-sous-titres)
-10. [Transcriptions](#10-transcriptions)
+8. [Zoom à 200 %](#8-zoom-à-200-)
+9. [Sous-titres vidéo](#9-sous-titres-vidéo)
+10. [Transcriptions audio et vidéo](#10-transcriptions-audio-et-vidéo)
 11. [Audiodescription](#11-audiodescription)
 12. [Étiquettes de champs de formulaire](#12-étiquettes-de-champs-de-formulaire)
-13. [Champs obligatoires](#13-champs-obligatoires)
+13. [Champs obligatoires et erreurs](#13-champs-obligatoires-et-erreurs)
 14. [Index des liens](#index-des-liens)
 
 ---
@@ -99,15 +99,15 @@ Un bon titre de page place les informations importantes et uniques en premier (�
 
 ---
 
-### 3. Titres de rubriques
+### 3. Titres et hiérarchie
 
-#### Que sont les titres de rubriques ?
+#### Que sont les titres et la hiérarchie ?
 
-Les titres de rubriques communiquent l'organisation du contenu sur la page, comme une table des matières. Ils doivent être imbriqués par leur rang ou niveau, ce qui fournit un résumé de la structure et du contenu de la page.
+Les titres communiquent l'organisation du contenu sur la page, comme une table des matières. Ils doivent être imbriqués par leur rang ou niveau, ce qui fournit un résumé de la structure et du contenu de la page.
 
 Les titres peuvent avoir 6 niveaux (`<h1>` à `<h6>`) et doivent être imbriqués sans sauter de niveaux, comme la table des matières d'un livre. Les titres doivent être succincts et décrire la section de la page qui suit.
 
-#### Pourquoi les titres de rubriques sont-ils importants ?
+#### Pourquoi les titres et la hiérarchie sont-ils importants ?
 
 Les titres servent de navigation dans la page pour de nombreuses personnes :
 
@@ -194,13 +194,13 @@ Un lien d'évitement en début de page permet aux personnes navigant au clavier 
 
 ---
 
-### 6. Focus clavier visible
+### 6. Focus et navigation clavier
 
-#### Qu'est-ce que le focus clavier ?
+#### Que sont le focus et la navigation clavier ?
 
-Le focus clavier visible est un indicateur qui identifie l'élément interactif (lien, bouton, champ de formulaire) sur lequel on se trouve en utilisant la touche Tab.
+Le focus clavier visible est un indicateur qui identifie l'élément interactif (lien, bouton, champ de formulaire) sur lequel on se trouve en utilisant la touche Tab. Le contrôle rapide couvre aussi le parcours au clavier : ordre logique, activation possible et absence de piège.
 
-#### Pourquoi le focus clavier est-il important ?
+#### Pourquoi le focus et la navigation clavier sont-ils importants ?
 
 Les personnes qui naviguent au clavier ou à la voix ont besoin d'une indication sur l'élément qui a le focus. De nombreux utilisateurs voyants ayant des handicaps physiques utilisent le clavier pour naviguer, notamment :
 
@@ -245,7 +245,7 @@ Note : cette vérification ne détecte pas les changements de langue au sein d'u
 
 ---
 
-### 8. Zoom
+### 8. Zoom à 200 %
 
 #### Qu'est-ce que le zoom ?
 
@@ -273,7 +273,7 @@ Le zoom est utilisé pour agrandir le texte et les autres éléments afin qu'ils
 
 ## Vérifications audio/vidéo
 
-### 9. Sous-titres
+### 9. Sous-titres vidéo
 
 #### Que sont les sous-titres ?
 
@@ -308,7 +308,7 @@ Les sous-titres fournissent une version texte à l'écran des dialogues et autre
 
 ---
 
-### 10. Transcriptions
+### 10. Transcriptions audio et vidéo
 
 #### Que sont les transcriptions ?
 
@@ -400,7 +400,7 @@ Les étiquettes correctement codées sont importantes pour que les personnes uti
 
 ---
 
-### 13. Champs obligatoires
+### 13. Champs obligatoires et erreurs
 
 #### Qu'est-ce qu'un champ obligatoire ?
 

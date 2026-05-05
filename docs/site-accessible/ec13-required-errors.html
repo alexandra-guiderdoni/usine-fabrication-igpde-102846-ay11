@@ -66,17 +66,17 @@
 <main id="contenu" class="fr-container fr-py-6w">
 <div class="fr-grid-row">
   <div class="fr-col-12 fr-col-md-8">
-  <h1>13. Formulaire de contact</h1>
+  <h1>#13 Formulaire de contact</h1>
   <section aria-labelledby="content-title">
   <h2 id="content-title">Contacter le ministère</h2>
   <p>Utilisez ce formulaire pour poser une question sur l'accessibilité numérique, signaler une difficulté ou demander une orientation vers le bon service. Tous les champs sont obligatoires, sauf le téléphone.</p>
   <div id="contact-errors" class="fr-alert fr-alert--error fr-mb-3w" role="alert" tabindex="-1" hidden>
-    <h3 class="fr-alert__title">Erreur : trois champs sont à corriger</h3>
-    <ul>
-      <li><a class="fr-link" href="#contact-name">Indiquer votre nom</a></li>
-      <li><a class="fr-link" href="#contact-email">Saisir une adresse électronique valide</a></li>
-      <li><a class="fr-link" href="#contact-message">Décrire votre demande</a></li>
-    </ul>
+    <h3 class="fr-alert__title">Erreur : des champs sont à corriger</h3>
+    <ul id="contact-errors-list"></ul>
+  </div>
+  <div id="contact-success" class="fr-alert fr-alert--success fr-mb-3w" role="status" tabindex="-1" hidden>
+    <h3 class="fr-alert__title">Votre message est prêt à être envoyé</h3>
+    <p>Le formulaire ne présente plus d'erreur détectée.</p>
   </div>
   <form action="ec13-required-errors.html" method="get" class="demo-form" data-demo-contact-form data-mode="accessible" data-error-summary="contact-errors" data-required-fields="contact-name contact-email contact-message" novalidate>
     <div class="fr-input-group">
@@ -113,24 +113,89 @@
     var form = document.querySelector("[data-demo-contact-form]");
     if (!form) return;
     var summary = document.getElementById(form.getAttribute("data-error-summary"));
-    var fields = form.getAttribute("data-required-fields").split(" ");
+    var success = document.getElementById("contact-success");
+    var errorList = document.getElementById("contact-errors-list");
+    var checks = [
+      {
+        id: "contact-name",
+        link: "Indiquer votre nom",
+        message: "Erreur : le nom est obligatoire.",
+        invalid: function (field) { return !field.value.trim(); }
+      },
+      {
+        id: "contact-email",
+        link: "Saisir une adresse électronique valide",
+        message: "Erreur : l'adresse électronique doit respecter le format nom@domaine.fr.",
+        invalid: function (field) { return !field.value.trim() || !field.validity.valid; }
+      },
+      {
+        id: "contact-message",
+        link: "Décrire votre demande",
+        message: "Erreur : le message est obligatoire.",
+        invalid: function (field) { return !field.value.trim(); }
+      }
+    ];
+    checks.forEach(function (check) {
+      var field = document.getElementById(check.id);
+      if (field) field.setAttribute("data-describedby-default", field.getAttribute("aria-describedby") || "");
+    });
+    function clearError(check) {
+      var field = document.getElementById(check.id);
+      if (!field) return;
+      var group = field.closest(".fr-input-group");
+      var error = document.getElementById(check.id + "-error");
+      if (group) group.classList.remove("fr-input-group--error");
+      field.classList.remove("fr-input--error");
+      field.removeAttribute("aria-invalid");
+      field.setAttribute("aria-describedby", field.getAttribute("data-describedby-default"));
+      if (error) error.hidden = true;
+    }
+    function setError(check) {
+      var field = document.getElementById(check.id);
+      if (!field) return;
+      var group = field.closest(".fr-input-group");
+      var error = document.getElementById(check.id + "-error");
+      if (group) group.classList.add("fr-input-group--error");
+      field.classList.add("fr-input--error");
+      field.setAttribute("aria-invalid", "true");
+      field.setAttribute("aria-describedby", field.getAttribute("data-describedby-error"));
+      if (error) {
+        error.textContent = check.message;
+        error.hidden = false;
+      }
+    }
     form.addEventListener("submit", function (event) {
       event.preventDefault();
-      if (summary) {
-        summary.hidden = false;
-        summary.focus();
-      }
-      fields.forEach(function (id) {
-        var field = document.getElementById(id);
+      var errors = [];
+      checks.forEach(function (check) {
+        var field = document.getElementById(check.id);
         if (!field) return;
-        var group = field.closest(".fr-input-group");
-        var error = document.getElementById(id + "-error");
-        if (group) group.classList.add("fr-input-group--error");
-        field.classList.add("fr-input--error");
-        field.setAttribute("aria-invalid", "true");
-        field.setAttribute("aria-describedby", field.getAttribute("data-describedby-error"));
-        if (error) error.hidden = false;
+        if (check.invalid(field)) {
+          setError(check);
+          errors.push(check);
+        } else {
+          clearError(check);
+        }
       });
+      if (errorList) {
+        errorList.innerHTML = "";
+        errors.forEach(function (check) {
+          var item = document.createElement("li");
+          var link = document.createElement("a");
+          link.className = "fr-link";
+          link.href = "#" + check.id;
+          link.textContent = check.link;
+          item.appendChild(link);
+          errorList.appendChild(item);
+        });
+      }
+      if (summary) summary.hidden = errors.length === 0;
+      if (success) success.hidden = errors.length > 0;
+      if (errors.length > 0 && summary) {
+        summary.focus();
+      } else if (success) {
+        success.focus();
+      }
     });
   }());
   </script>

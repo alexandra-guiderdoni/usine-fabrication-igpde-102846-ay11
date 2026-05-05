@@ -7,11 +7,14 @@ Règles neuropédagogie appliquées :
 """
 
 from igpde_dsfr_components import (
-    add_stepper, add_pave_chiffre, add_image, add_notes, new_slide,
+    add_stepper, add_pave_chiffre, add_qrcode, add_notes, new_slide,
     MARGIN_L, CONTENT_W, GAP
 )
 
-KPI_W = (CONTENT_W - GAP) / 2
+KPI_W = 3.25
+QR_SIZE = 1.10
+QR_LEFT = MARGIN_L + 2 * (KPI_W + GAP)
+QR_LABEL_W = MARGIN_L + CONTENT_W - (QR_LEFT + QR_SIZE + 0.14)
 
 
 def build(prs, layouts, ctx):
@@ -35,14 +38,14 @@ def build(prs, layouts, ctx):
             ">= 3:1 pour le grand texte (18 pt+ ou 14 pt gras)",
         ],
         top=2.3,
-        height=2.8
+        height=2.4
     )
 
     add_pave_chiffre(
         slide,
         valeur="4,5:1",
-        label="Texte normal (sous 18 pt)",
-        top=4.7,
+        label="Texte normal",
+        top=5.05,
         left=MARGIN_L,
         width=KPI_W,
         height=1.5
@@ -51,18 +54,21 @@ def build(prs, layouts, ctx):
     add_pave_chiffre(
         slide,
         valeur="3:1",
-        label="Texte large (18 pt+ ou 14 pt gras)",
-        top=4.7,
+        label="Grand texte",
+        top=5.05,
         left=MARGIN_L + KPI_W + GAP,
         width=KPI_W,
         height=1.5
     )
 
-    add_image(
+    add_qrcode(
         slide,
         "_assets/qrcode-vispero-contrast.png",
-        top=5.40, left=MARGIN_L + 2 * (KPI_W + GAP) - 1.5, width=1.3, height=1.3,
-        alt_text="QR code : https://vispero.com/lp/color-contrast-checker/",
+        url="https://vispero.com/lp/color-contrast-checker/",
+        top=5.12,
+        left=QR_LEFT,
+        size=QR_SIZE,
+        label_width=QR_LABEL_W,
     )
 
     add_notes(

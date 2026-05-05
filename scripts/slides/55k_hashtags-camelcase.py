@@ -18,34 +18,35 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    top = 1.70
+    top = 2.05
 
     pourquoi_titre = "Pourquoi le CamelCase ?"
     pourquoi_bullets = [
-        "#ServicePublic : le lecteur d'écran lit 'Service Public' - correct",
-        "#servicepublic : lu 'servicepublic' - un seul mot sans sens",
-        "#SERVICEPUBLIC : lu lettre par lettre S-E-R-V-I-C-E-P-U-B-L-I-C",
-        "La majuscule en début de chaque mot = découpage naturel pour le lecteur d'écran",
+        "#ServicePublic : les mots sont séparés naturellement",
+        "#servicepublic : un seul bloc, plus difficile à comprendre",
+        "#SERVICEPUBLIC : risque de lecture lettre par lettre",
     ]
-    ph = estimate_callout_height(pourquoi_titre, pourquoi_bullets, COL_W)
+    ph = estimate_callout_height(pourquoi_titre, pourquoi_bullets, COL_W, line_spacing=1.15)
 
-    regles_titre = "3 règles pour les hashtags"
+    regles_titre = "3 règles avant publication"
     regles_bullets = [
-        "CamelCase obligatoire : #AccessibilitéNumerique pas #accessibilitenumerique",
-        "En fin de post, regroupés - jamais insérés dans la phrase",
-        "2 à 3 maximum - au-delà on perd le sens et l'engagement baisse",
+        "Majuscule au début de chaque mot",
+        "Hashtags regroupés à la fin du post",
+        "2 à 3 maximum, courts et utiles",
     ]
-    rh = estimate_alert_height(regles_titre, regles_bullets, COL_W)
+    rh = estimate_alert_height(regles_titre, regles_bullets, COL_W, line_spacing=1.15)
 
     col_h = max(ph, rh)
     add_callout(slide, pourquoi_titre, pourquoi_bullets,
-                top=top, left=MARGIN_L, width=COL_W, height=col_h)
+                top=top, left=MARGIN_L, width=COL_W, height=col_h,
+                line_spacing=1.15)
     add_alert(slide, regles_titre, regles_bullets,
-              top=top, left=COL_R, width=COL_W, alert_type="success")
+              top=top, left=COL_R, width=COL_W, alert_type="success",
+              line_spacing=1.15)
 
     anecdote = (
-        "#SusanAlbumParty (2012) : sans CamelCase, lu 'Susan album party'. "
-        "Avec majuscules, ça aurait été encore plus clair - et moins ... ambigu."
+        "Mini-test : relisez le hashtag à voix haute. Si vous hésitez sur les mots, "
+        "raccourcissez-le ou ajoutez les majuscules."
     )
     hl_h = estimate_highlight_height(anecdote, CONTENT_W)
     add_highlight(slide, anecdote,
@@ -57,6 +58,8 @@ def build(prs, layouts, ctx):
         "#susanalbumparty pour son album. Sans CamelCase, le lecteur d'écran "
         "(et les humains !) lisaient quelque chose de très différent. "
         "Depuis, le CamelCase est la norme sur toutes les plateformes. "
+        "Ajouter le critère de longueur : un hashtag trop long devient difficile "
+        "à lire, à mémoriser et à comprendre à l'écoute. "
         "C'est une des rares règles d'accessibilité qui est aussi devenue "
         "la norme éditoriale standard - bon exemple que l'accessibilité "
         "améliore la communication pour tout le monde.",

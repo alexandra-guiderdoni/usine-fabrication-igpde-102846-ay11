@@ -1,4 +1,4 @@
-"""Slide 8 : Point de contrôle rapide 3 - Titres de rubriques, la hiérarchie.
+"""Slide 8 : Point de contrôle rapide 3 - Titres et hiérarchie.
 
 Règles neuropédagogie appliquées :
 - R8 : analogie - la hiérarchie des titres est le sommaire automatique du document
@@ -17,8 +17,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Titres : la hiérarchie qui structure",
-        fil_ariane="3. points de contrôle rapides | 3. Titres de rubriques",
-        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Titres",
+        fil_ariane="3. points de contrôle rapides | 3. Titres et hiérarchie",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Titres et hiérarchie",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

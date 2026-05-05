@@ -23,8 +23,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Langue de la page : l’accent juste du lecteur d’écran",
-        fil_ariane="3. points de contrôle rapides | 7. Langue",
-        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Langue",
+        fil_ariane="3. points de contrôle rapides | 7. Langue de la page",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Langue de la page",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

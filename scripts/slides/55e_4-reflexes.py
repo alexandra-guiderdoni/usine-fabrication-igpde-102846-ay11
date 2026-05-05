@@ -14,7 +14,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="4 réflexes avant chaque publication",
+        titre="4 réflexes, puis une checklist complète",
         fil_ariane="4. Réseaux sociaux | Réflexes",
         footer_text=f"{ctx.footer_base} / Réseaux sociaux",
         date_text=ctx.date,
@@ -56,6 +56,9 @@ def build(prs, layouts, ctx):
         slide,
         "Cette slide sert de boussole pour tout le module. Y revenir à la fin. "
         "Chaque réflexe sera détaillé dans les slides suivantes. "
-        "Le message clé : 4 actions, 2 minutes par publication, zéro compétence technique requise.",
+        "Le message clé : 4 actions, 2 minutes par publication, zéro compétence technique requise. "
+        "Verbaliser la transition : ces 4 réflexes sont le noyau dur. "
+        "En fin de module, ils seront replacés dans une checklist plus complète "
+        "en 3 temps : anticiper, rédiger, publier.",
     )
     return slide

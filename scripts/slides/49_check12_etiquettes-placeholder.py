@@ -22,7 +22,7 @@ def build(prs, layouts, ctx):
         layout_name="titre_contenu",
         titre="Placeholder ≠ étiquette",
         fil_ariane="3. points de contrôle rapides | 12. Étiquettes de formulaire",
-        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Étiquettes",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Étiquettes de formulaire",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

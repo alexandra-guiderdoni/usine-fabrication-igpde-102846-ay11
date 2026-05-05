@@ -1016,6 +1016,77 @@ def add_image(slide, image_path, top, left, width, height=None, alt_text=""):
     return pic
 
 
+def _set_run_hyperlink(slide, run, url):
+    """Ajoute un lien cliquable sur un run de texte."""
+    run.font.underline = True
+    rId = slide.part.relate_to(
+        url,
+        "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+        is_external=True,
+    )
+    rPr = run._r.get_or_add_rPr()
+    hlinkClick = etree.SubElement(
+        rPr,
+        f"{{{NSMAP_A}}}hlinkClick",
+        {"{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id": rId},
+    )
+    return hlinkClick
+
+
+def add_qrcode(slide, image_path, url, top, left, size=1.10,
+               label=None, label_width=2.80, label_position="right"):
+    """QR code imprime avec alternative visible : CTA + URL lisible."""
+    pic = add_image(
+        slide,
+        image_path,
+        top=top,
+        left=left,
+        width=size,
+        height=size,
+        alt_text=f"QR code : {url}",
+    )
+    pic.name = "DSFR-qrcode"
+
+    label = label or url
+    gap = 0.14
+    if label_position == "left":
+        text_left = left - label_width - gap
+    else:
+        text_left = left + size + gap
+
+    cta_box = slide.shapes.add_textbox(
+        Inches(text_left), Inches(top + 0.08),
+        Inches(label_width), Inches(0.28),
+    )
+    cta_box.name = "DSFR-qrcode-cta"
+    _apply_text(
+        cta_box.text_frame,
+        "Scannez-moi !",
+        font=FONT,
+        size=11,
+        bold=True,
+        color=BLEU_FRANCE,
+    )
+
+    url_box = slide.shapes.add_textbox(
+        Inches(text_left), Inches(top + 0.40),
+        Inches(label_width), Inches(max(size - 0.30, 0.55)),
+    )
+    url_box.name = "DSFR-qrcode-url-visible"
+    p = _apply_text(
+        url_box.text_frame,
+        label,
+        font=FONT,
+        size=8.5,
+        bold=False,
+        color=BLEU_FRANCE,
+    )
+    if p.runs:
+        _set_run_hyperlink(slide, p.runs[0], url)
+
+    return pic
+
+
 def add_fleche(slide, top, left, width=0.8):
     """Fleche verte d'evolution (entre 2 KPI)."""
     fleche = slide.shapes.add_shape(

@@ -1,4 +1,4 @@
-"""Slide 02c : définition de l'accessibilité numérique + 3 KPI."""
+"""Slide 02q : point sur l'accessibilité numérique + 3 repères."""
 
 from igpde_dsfr_components import (
     CONTENT_W, MARGIN_L, TOP_CONTENT,
@@ -11,7 +11,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Pourquoi l'accessibilité numérique ?",
+        titre="Point sur l'accessibilité numérique",
         fil_ariane="1. Introduction | Cadre légal",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,
@@ -19,8 +19,8 @@ def build(prs, layouts, ctx):
     )
 
     texte_hl = (
-        "Un site accessible, c'est un site que tout le monde peut utiliser - "
-        "avec ou sans handicap, avec ou sans outil d'assistance."
+        "L'accessibilité numérique permet d'accéder à l'information "
+        "quel que soit le support, l'outil ou la situation."
     )
     stack = Stack(top=TOP_CONTENT, gap=0.40)
     add_highlight(slide, texte_hl, top=stack.push(estimate_highlight_height(texte_hl)))
@@ -28,9 +28,9 @@ def build(prs, layouts, ctx):
     kpi_top = stack.cursor
     item_w = (CONTENT_W - GAP * 2) / 3
     kpis = [
-        ("12 millions", "de personnes en situation\nde handicap en France."),
-        ("80 %", "des sites publics non\nconformes au RGAA."),
-        ("2005", "loi Handicap : obligation\nd'accessibilité numérique."),
+        ("WCAG", "référence internationale\ndu W3C."),
+        ("RGAA", "référentiel français\npublié par la DINUM."),
+        ("106", "critères regroupés\nen 13 thèmes."),
     ]
     for i, (valeur, label) in enumerate(kpis):
         left = MARGIN_L + i * (item_w + GAP)
@@ -39,8 +39,8 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Poser la question : avez-vous déjà été bloqué par un site mal conçu ? "
-        "Les 12 millions incluent les handicaps permanents ET temporaires. "
-        "Insister : 80 % de non-conformité, c'est aussi 80 % de risque juridique.",
+        "Cette slide fait la transition entre l'approche communication et le cadre de conformité. "
+        "Ne pas détailler les 106 critères maintenant : expliquer que la formation donnera des clés utilisables, "
+        "puis les points de contrôle rapides permettront de repérer les problèmes les plus fréquents.",
     )
     return slide

@@ -14,8 +14,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Contraste : 3 outils à avoir sous la main",
-        fil_ariane="3. points de contrôle rapides | 4. Contraste",
-        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Contraste",
+        fil_ariane="3. points de contrôle rapides | 4. Contraste des couleurs",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Contraste des couleurs",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
@@ -40,7 +40,7 @@ def build(prs, layouts, ctx):
     ]
     add_tableau(
         slide, headers, rows,
-        top=2.4,
+        top=2.05,
         col_widths=[3.20, 4.58, 4.50],
         row_h=0.72,
     )

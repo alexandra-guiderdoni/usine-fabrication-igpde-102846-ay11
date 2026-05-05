@@ -66,7 +66,7 @@
 <main id="contenu" class="fr-container fr-py-6w">
 <div class="fr-grid-row">
   <div class="fr-col-12 fr-col-md-8">
-  <h1>12. Inscription à un webinaire</h1>
+  <h1>#12 Inscription à un webinaire</h1>
   <section class="fr-mb-6w" aria-labelledby="help-title">
   <h2 id="help-title">Aide à la correction</h2>
   <div class="fr-accordions-group">
@@ -75,7 +75,7 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec12-form-labels-help-1">Indice</button>
   </h3>
   <div class="fr-collapse" id="ec12-form-labels-help-1">
-    <p>Vérifier le nom accessible des champs avec ANDI, WAVE ou l&#x27;arbre d&#x27;accessibilité. Tester aussi le clic sur les libellés visibles.</p>
+    <p>Vérifier uniquement le nom accessible des champs et des groupes avec ANDI, WAVE ou l&#x27;arbre d&#x27;accessibilité. Tester aussi le clic sur les libellés visibles. Les champs obligatoires et les erreurs seront traités dans le point 13.</p>
   </div>
 </section>
 <section class="fr-accordion">
@@ -83,7 +83,7 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec12-form-labels-help-2">Ce qui pose problème</button>
   </h3>
   <div class="fr-collapse" id="ec12-form-labels-help-2">
-    <p>Le champ ou le groupe n&#x27;a pas de nom fiable : lecteur d&#x27;écran muet, commande vocale fragile, mémoire sollicitée ou contexte perdu.</p>
+    <p>Le champ ou le groupe n&#x27;a pas de nom fiable : lecteur d&#x27;écran muet, commande vocale fragile, mémoire sollicitée ou contexte perdu. L&#x27;objectif est de distinguer l&#x27;étiquette du champ de la validation du formulaire.</p>
     <p>Les trois familles d&#x27;erreurs à repérer sont :</p>
     <ul>
       <li>Champ de saisie : le nom de famille utilise le placeholder comme seule étiquette.</li>
@@ -97,7 +97,7 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec12-form-labels-help-3">Comment corriger</button>
   </h3>
   <div class="fr-collapse" id="ec12-form-labels-help-3">
-    <p>Relier chaque étiquette au champ, ne pas remplacer le label par un placeholder, structurer les groupes avec les composants DSFR natifs et vérifier le nom accessible.</p>
+    <p>Relier chaque étiquette au champ, ne pas remplacer le label par un placeholder, structurer les groupes avec les composants DSFR natifs et vérifier le nom accessible avant de traiter les erreurs de saisie.</p>
     <p>Corrections DSFR attendues :</p>
     <ul>
       <li>Utiliser div.fr-input-group, label.fr-label for/id, input.fr-input et fr-messages-group relié par aria-describedby.</li>

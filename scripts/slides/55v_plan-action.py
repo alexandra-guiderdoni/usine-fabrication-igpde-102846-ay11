@@ -1,9 +1,8 @@
-"""Slide rs_15 : plan d'action - 3 gestes concrets + encadré 'dans 7 jours'."""
+"""Slide rs_21 : plan d'action - 3 gestes concrets + encadre 'dans 7 jours'."""
 
 from igpde_dsfr_components import (
     CONTENT_W, COL_W, COL_R, MARGIN_L, Stack,
-    add_stepper, add_alert, add_highlight, add_notes, new_slide,
-    estimate_highlight_height,
+    add_stepper, add_alert, add_notes, new_slide,
 )
 
 
@@ -21,9 +20,9 @@ def build(prs, layouts, ctx):
     stack = Stack(top=2.30, gap=0.15)
 
     gestes = [
-        "Avant votre prochain post : activez l'alt text sur votre plateforme principale",
-        "Relisez votre dernière publication : comptez les émojis et testez le texte sans eux",
-        "Vérifiez vos 3 derniers hashtags : sont-ils en CamelCase ?",
+        "Avant votre prochain post : passez la checklist Anticiper / Rédiger / Publier",
+        "Relisez votre dernière publication : qui est représenté, qui est absent ?",
+        "Vérifiez un post avec QR code : lien visible + « Scannez-moi ! »",
     ]
     stepper_h = 2.0
     add_stepper(slide, gestes, top=stack.push(stepper_h),
@@ -31,20 +30,19 @@ def build(prs, layouts, ctx):
 
     sept_jours_titre = "Dans 7 jours"
     sept_jours_bullets = [
-        "Publiez un post en appliquant les 4 réflexes",
-        "Vérifiez que vos collègues de direction savent où trouver l'alt text",
-        "Partagez ce mémo à votre équipe de communication",
+        "Publiez un post en appliquant les 3 temps de la checklist",
+        "Faites relire une publication par un binôme avant mise en ligne",
+        "Partagez le mémo à votre équipe de communication",
     ]
     add_alert(slide, sept_jours_titre, sept_jours_bullets,
               top=stack.push(0), left=MARGIN_L, width=COL_W,
               alert_type="success", line_spacing=1.0)
 
-    rappel_titre = "Mémo : les 4 réflexes"
+    rappel_titre = "Mémo : les 3 temps"
     rappel_bullets = [
-        "Alt text : 1 phrase par image",
-        "Émojis : 1-2, en fin de message",
-        "Hashtags : CamelCase, 2-3 en fin de post",
-        "Texte : pas de faux gras ni italique",
+        "Anticiper : médias, représentations, contraste",
+        "Rédiger : texte natif, émojis, hashtags, langage inclusif",
+        "Publier : alt text, sous-titres, transcription, QR code",
     ]
     add_alert(slide, rappel_titre, rappel_bullets,
               top=stack.cursor, left=COL_R, width=COL_W,
@@ -57,7 +55,8 @@ def build(prs, layouts, ctx):
         "La restitution orale de ces engagements crée une responsabilisation sociale "
         "(R24 neuropédagogie - plan d'action + pair learning). "
         "Annoncer : un mémo PDF 'Réseaux sociaux accessibles' sera envoyé "
-        "par mail après la formation avec les 4 réflexes et le tableau des plateformes. "
+        "par mail après la formation avec la checklist, le tableau des plateformes "
+        "et les points de vigilance sur la communication inclusive. "
         "Remercier les stagiaires pour leur participation et leur attention "
         "sur un sujet qui impacte directement les millions d'usagers de leurs services.",
     )

@@ -1,0 +1,23 @@
+1
+00:00:03,000 --> 00:00:04,000
+Bonjour
+
+2
+00:00:04,200 --> 00:00:05,600
+Bonjour, ce sera tout ?
+
+3
+00:00:06,000 --> 00:00:07,099
+Oui, je vous dois combien ?
+
+4
+00:00:07,099 --> 00:00:13,080
+Mon petit monsieur, avant, il va falloir d'abord sélectionner tous les carreaux avec des vaches que vous voyez juste là !
+
+5
+00:00:14,080 --> 00:00:16,200
+En plus là vous avez de la chance, elles bougent pas !
+
+6
+00:00:21,200 --> 00:00:22,424
+Sélectionnez les cases contenant des vaches.

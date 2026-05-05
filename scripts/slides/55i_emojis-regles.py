@@ -26,8 +26,8 @@ def build(prs, layouts, ctx):
 
     regles = [
         "1 ou 2 émojis par post maximum - au-delà, le sens se perd à l'écoute",
-        "En fin de message uniquement - jamais en milieu de phrase",
-        "Le texte doit avoir du sens sans eux - testez en retirant l'émoji",
+        "En fin de message - jamais au début ni à la place d'un mot",
+        "Vérifier leur sens réel - puis tester le texte sans eux",
     ]
     stepper_h = 2.05
     add_stepper(slide, regles, top=stack.push(stepper_h),
@@ -46,6 +46,8 @@ def build(prs, layouts, ctx):
     add_notes(
         slide,
         "La règle du test : retirer l'émoji et voir si le message tient. "
+        "Ajouter : vérifier le sens réel de l'émoji avant publication, car certains "
+        "symboles n'ont pas le même sens selon les publics ou les plateformes. "
         "Exemple : 'Rejoignez-nous mardi prochain !' vs 'Rejoignez-nous mardi prochain !\U0001f4c5' "
         "- le calendrier ne porte pas de sens supplémentaire ici, c'est décoratif. "
         "Mais '\U0001f6a8 Fermeture exceptionnelle' : l'émoji alerte sert vraiment de signal. "

@@ -93,11 +93,11 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 
 ## Grille détaillée - 13 critères
 
-### 1. Alternatives textuelles des images
+### 1. Texte alternatif des images
 
 | Champ | Valeur |
 |-------|--------|
-| Point de contrôle rapide W3C | 1. Alternatives textuelles des images |
+| Point de contrôle rapide W3C | 1. Texte alternatif des images |
 | WCAG 2.2 | 1.1.1 Contenu non textuel |
 | RGAA 4.1.2 | 1.1, 1.2, 1.3, 1.6, 1.7, 1.8, 1.9 |
 | Méthode de test | Bookmarklet « Check images » OU clic droit « Inspecter » sur chaque image, examiner l'attribut `alt` |
@@ -129,7 +129,7 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 
 | Champ | Valeur |
 |-------|--------|
-| Point de contrôle rapide W3C | 3. Titres (headings) |
+| Point de contrôle rapide W3C | 3. Titres et hiérarchie |
 | WCAG 2.2 | 1.3.1 Information et relations, 2.4.6 En-têtes et étiquettes |
 | RGAA 4.1.2 | 9.1 Hiérarchie de titres |
 | Méthode de test | Extension HeadingsMap ou bookmarklet Check headings ; parcourir l'arbre des titres |
@@ -145,7 +145,7 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 
 | Champ | Valeur |
 |-------|--------|
-| Point de contrôle rapide W3C | 4. Contraste |
+| Point de contrôle rapide W3C | 4. Contraste des couleurs |
 | WCAG 2.2 | 1.4.3 Contraste (minimum), 1.4.11 Contraste non textuel |
 | RGAA 4.1.2 | 3.2, 3.3 |
 | Méthode de test | Pipette DevTools, WebAIM Contrast Checker, Colour Contrast Analyser (app desktop) |
@@ -173,11 +173,11 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 | Correctif suggéré | |
 | Preuve | |
 
-### 6. Focus et navigation clavier (Point de contrôle rapide 6 élargi)
+### 6. Focus et navigation clavier
 
 | Champ | Valeur |
 |-------|--------|
-| Point de contrôle rapide W3C | 6. Focus clavier visible (élargi à la navigation complète) |
+| Point de contrôle rapide W3C | 6. Focus et navigation clavier |
 | WCAG 2.2 | 2.4.7 Visibilité du focus, 2.1.1 Clavier, 2.1.2 Pas de piège au clavier, 2.4.3 Parcours du focus |
 | RGAA 4.1.2 | 10.7 Focus visible, 12.13 Fonctionnalités au clavier, 12.14 Pas de piège, 10.3 Ordre de tabulation |
 | Méthode de test | Cacher la souris ; naviguer uniquement au clavier (Tab, Shift+Tab, Entrée, Espace, flèches) sur un parcours complet |
@@ -205,11 +205,11 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 | Correctif suggéré | |
 | Preuve | |
 
-### 8. Zoom 200 %
+### 8. Zoom à 200 %
 
 | Champ | Valeur |
 |-------|--------|
-| Point de contrôle rapide W3C | 8. Redimensionnement du texte |
+| Point de contrôle rapide W3C | 8. Zoom à 200 % |
 | WCAG 2.2 | 1.4.4 Redimensionnement du texte, 1.4.10 Redistribution |
 | RGAA 4.1.2 | 10.4, 10.11 |
 | Méthode de test | Ctrl + (ou Cmd +) jusqu'à 200 %, parcourir la page |
@@ -221,11 +221,11 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 | Correctif suggéré | |
 | Preuve | |
 
-### 9. Sous-titres (vidéos préenregistrées)
+### 9. Sous-titres vidéo
 
 | Champ | Valeur |
 |-------|--------|
-| Point de contrôle rapide W3C | 9. Sous-titres |
+| Point de contrôle rapide W3C | 9. Sous-titres vidéo |
 | WCAG 2.2 | 1.2.2 Sous-titres (pré-enregistrés) |
 | RGAA 4.1.2 | 4.3, 4.4 |
 | Méthode de test | Lancer la vidéo, vérifier la présence d'un bouton CC ; couper le son et vérifier la compréhension |
@@ -241,7 +241,7 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 
 | Champ | Valeur |
 |-------|--------|
-| Point de contrôle rapide W3C | 10. Transcriptions |
+| Point de contrôle rapide W3C | 10. Transcriptions audio et vidéo |
 | WCAG 2.2 | 1.2.1 Contenus seulement audio et seulement vidéo pré-enregistrés |
 | RGAA 4.1.2 | 4.1, 4.2 |
 | Méthode de test | Chercher un lien « Transcription » ou « Lire le texte » visible près du média |
@@ -285,16 +285,16 @@ Les pages sont réparties entre plusieurs groupes : chaque binôme audite unique
 | Correctif suggéré | |
 | Preuve | |
 
-### 13. Champs obligatoires et erreurs de saisie
+### 13. Champs obligatoires et erreurs
 
 | Champ | Valeur |
 |-------|--------|
-| Point de contrôle rapide W3C | 13. Champs obligatoires |
+| Point de contrôle rapide W3C | 13. Champs obligatoires et erreurs |
 | WCAG 2.2 | 3.3.2 Étiquettes, 3.3.1 Identification des erreurs, 3.3.3 Suggestion après erreur |
 | RGAA 4.1.2 | 11.10, 11.11 |
-| Méthode de test | Soumettre un formulaire incomplet ; activer un lecteur d'écran et vérifier l'annonce ; zoomer à 200 % |
+| Méthode de test | Observer l'état initial, puis soumettre un formulaire incomplet ; vérifier au clavier et au lecteur d'écran |
 | Outils recommandés | Lecteur d'écran, clavier, DevTools |
-| Ce qu'il faut vérifier | (a) champs obligatoires indiqués textuellement (pas uniquement par astérisque rouge) ; (b) légende « * champ obligatoire » présente ; (c) attribut `required` ou `aria-required="true"` ; (d) messages d'erreur identifient le champ par son libellé (« Votre adresse électronique est obligatoire », pas « Erreur champ 3 ») ; (e) erreurs annoncées par le lecteur d'écran (via `aria-live` ou focus) |
+| Ce qu'il faut vérifier | (a) avant envoi, champs obligatoires indiqués textuellement, pas uniquement par couleur ou astérisque rouge ; (b) astérisque expliqué si utilisé ou règle « tous les champs sont obligatoires sauf mention contraire » ; (c) attribut `required` ou `aria-required="true"` ; (d) aucune erreur affichée avant soumission ; (e) après soumission, messages précis reliés aux champs avec `aria-describedby`, `aria-invalid` si erreur, et focus guidé vers le récapitulatif ou le premier champ en erreur |
 | Verdict | ☐ C ☐ NC ☐ NA |
 | Sévérité | ☐ Bloquant ☐ Gênant ☐ Mineur ☐ Info |
 | Constat | |

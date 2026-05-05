@@ -1,0 +1,19 @@
+1
+00:00:00,070 --> 00:00:05,850
+Bonjour
+Bonjour, ce sera tout ?
+
+2
+00:00:05,850 --> 00:00:09,450
+Oui, je vous dois combien ?
+Mon petit monsieur, avant, il va falloir sélectionner
+
+3
+00:00:09,450 --> 00:00:11,900
+tous les carreaux avec des vaches que vous
+voyez juste là !
+
+4
+00:00:11,900 --> 00:00:25,410
+En plus là vous avez de la chance, elle bouge
+pas.

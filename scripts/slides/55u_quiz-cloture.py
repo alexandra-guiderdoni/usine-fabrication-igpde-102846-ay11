@@ -1,4 +1,4 @@
-"""Slide rs_14 : quiz de clôture - vrai/faux interleaving 4 questions."""
+"""Slide rs_20 : quiz de cloture - vrai/faux interleaving 4 questions."""
 
 from igpde_dsfr_components import (
     CONTENT_W, COL_W, COL_R, MARGIN_L, GAP,
@@ -25,13 +25,13 @@ def build(prs, layouts, ctx):
         ("Émojis : 1 ou 2, en fin de message",
          ["VRAI"],
          1, MARGIN_L),
-        ("#publicservice = #PublicService",
+        ("Un QR code peut remplacer le lien visible",
          ["FAUX"],
          2, MARGIN_L + card_w + GAP),
         ("Alt text vide = toujours une erreur",
          ["FAUX"],
          3, MARGIN_L),
-        ("Faux gras InstaFont lu comme gras",
+        ("Visuel inclusif = événement accessible",
          ["FAUX"],
          4, MARGIN_L + card_w + GAP),
     ]
@@ -45,7 +45,7 @@ def build(prs, layouts, ctx):
         add_card(slide, titre, contenu,
                  top=card_top, left=left, width=card_w, height=card_h, numero=numero)
 
-    message = "4 réflexes = 4 questions. Vous avez toutes les réponses depuis le début du module."
+    message = "Récupération active : vous testez les 3 temps de la checklist, pas seulement la dernière slide."
     hl_h = estimate_highlight_height(message, CONTENT_W)
     add_highlight(slide, message,
                   top=round(row2_top + card_h + 0.08, 2), left=MARGIN_L, width=CONTENT_W)
@@ -55,10 +55,13 @@ def build(prs, layouts, ctx):
         "Quiz à main levée - poser chaque question, laisser les réponses s'exprimer "
         "avant de révéler. Ne pas lire les réponses inscrites sur les cartes "
         "pendant la question. "
-        "Interleaving (R14 neuropédagogie) : les 4 questions couvrent les 4 réflexes "
-        "du module, pas uniquement le dernier thème. "
+        "Interleaving (R14 neuropédagogie) : les 4 questions couvrent la rédaction, "
+        "les alternatives, les QR codes et la communication inclusive. "
         "Si des stagiaires se trompent sur Q3 (alt vide) : "
         "c'est normal, c'est le point le plus contre-intuitif. "
-        "Prendre 1 minute pour expliquer la distinction image décorative vs informative.",
+        "Prendre 1 minute pour expliquer la distinction image décorative vs informative. "
+        "Pour Q2, rappeler que le QR code aide, mais ne peut jamais être le seul accès. "
+        "Pour Q4, rappeler qu'une représentation inclusive doit être cohérente "
+        "avec les espaces, événements et pratiques réels.",
     )
     return slide

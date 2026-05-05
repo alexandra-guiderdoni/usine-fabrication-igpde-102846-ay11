@@ -66,7 +66,7 @@
 <main id="contenu" class="fr-container fr-py-6w">
 <div class="fr-grid-row">
   <div class="fr-col-12 fr-col-md-8">
-  <h1>13. Formulaire de contact</h1>
+  <h1>#13 Formulaire de contact</h1>
   <section class="fr-mb-6w" aria-labelledby="help-title">
   <h2 id="help-title">Aide à la correction</h2>
   <div class="fr-accordions-group">
@@ -75,7 +75,7 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec13-required-errors-help-1">Indice</button>
   </h3>
   <div class="fr-collapse" id="ec13-required-errors-help-1">
-    <p>Observer d&#x27;abord le formulaire avant envoi, puis le soumettre vide. Comparer l&#x27;état initial et l&#x27;état après soumission.</p>
+    <p>Observer d&#x27;abord le formulaire avant envoi, puis le soumettre vide. Comparer l&#x27;état initial et l&#x27;état après soumission. Ici, les libellés doivent déjà être compréhensibles : le test porte sur l&#x27;obligation, les messages et le guidage après erreur.</p>
   </div>
 </section>
 <section class="fr-accordion">
@@ -147,18 +147,31 @@
     if (!form) return;
     var summary = document.getElementById(form.getAttribute("data-error-summary"));
     var fields = form.getAttribute("data-required-fields").split(" ");
+    function isInvalid(field) {
+      if (!field.value.trim()) return true;
+      if (field.type === "email" && !field.validity.valid) return true;
+      return false;
+    }
     form.addEventListener("submit", function (event) {
       event.preventDefault();
-      if (summary) summary.hidden = false;
+      var hasError = false;
       fields.forEach(function (id) {
         var field = document.getElementById(id);
         if (!field) return;
         var group = field.closest(".fr-input-group");
         var error = document.getElementById(id + "-error");
-        if (group) group.classList.add("fr-input-group--error");
-        field.classList.add("fr-input--error");
-        if (error) error.hidden = false;
+        if (isInvalid(field)) {
+          hasError = true;
+          if (group) group.classList.add("fr-input-group--error");
+          field.classList.add("fr-input--error");
+          if (error) error.hidden = false;
+        } else {
+          if (group) group.classList.remove("fr-input-group--error");
+          field.classList.remove("fr-input--error");
+          if (error) error.hidden = true;
+        }
       });
+      if (summary) summary.hidden = !hasError;
     });
   }());
   </script>

@@ -14,8 +14,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Texte alternatif : passe ou échoue ?",
-        fil_ariane="3. points de contrôle rapides | 1. Alternatives textuelles",
-        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Texte alternatif",
+        fil_ariane="3. points de contrôle rapides | 1. Texte alternatif des images",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Texte alternatif des images",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

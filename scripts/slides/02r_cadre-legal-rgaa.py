@@ -1,4 +1,4 @@
-"""Slide 02d : jalons législatifs RGAA - stepper 4 étapes."""
+"""Slide 02r : jalons législatifs RGAA - stepper 4 étapes."""
 
 from igpde_dsfr_components import (
     CONTENT_W, MARGIN_L, Stack,

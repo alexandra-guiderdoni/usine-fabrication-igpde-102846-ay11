@@ -21,36 +21,35 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    top = 1.75
+    top = 2.05
 
-    probleme_titre = "Le problème"
+    probleme_titre = "À éviter"
     probleme_bullets = [
-        "InstaFont, LingoJam ... proposent du 'faux gras' et 'faux italique'",
-        "Exemple : \U0001d57b\U0001d578\U0001d568\U0001d573 \U0001d56c\U0001d56e\U0001d56a\U0001d574 "
-        "(rendu visuel identique à du gras)",
-        "Ces caractères sont des symboles mathématiques, pas du texte",
-        "NVDA les lit : 'MATHEMATICAL BOLD CAPITAL B, O, N, J, O, U, R'",
-        "Ou les ignore complètement - le message disparaît",
+        "InstaFont, LingoJam ... transforment les lettres en symboles",
+        "Le lecteur d'écran peut épeler, déformer ou ignorer le message",
+        "Le texte devient moins fiable à copier, indexer ou traduire",
     ]
-    ph = estimate_alert_height(probleme_titre, probleme_bullets, COL_W)
+    ph = estimate_alert_height(probleme_titre, probleme_bullets, COL_W, line_spacing=1.15)
 
-    triple_impact_titre = "Triple impact négatif"
+    triple_impact_titre = "À faire"
     triple_impact_bullets = [
-        "Accessibilité : incompréhensible pour les lecteurs d'écran",
-        "SEO : Google n'indexe pas ces caractères comme du texte normal",
-        "IA générative : les outils d'analyse et de traduction échouent",
+        "Utiliser le gras natif de la plateforme quand il existe",
+        "Sinon : écrire en texte simple",
+        "Mettre les mots importants au début du post",
     ]
-    th = estimate_callout_height(triple_impact_titre, triple_impact_bullets, COL_W)
+    th = estimate_callout_height(triple_impact_titre, triple_impact_bullets, COL_W, line_spacing=1.15)
 
     col_h = max(ph, th)
     add_alert(slide, probleme_titre, probleme_bullets,
-              top=top, left=MARGIN_L, width=COL_W, alert_type="error")
+              top=top, left=MARGIN_L, width=COL_W, alert_type="error",
+              line_spacing=1.15)
     add_callout(slide, triple_impact_titre, triple_impact_bullets,
-                top=top, left=COL_R, width=COL_W, height=col_h)
+                top=top, left=COL_R, width=COL_W, height=col_h,
+                line_spacing=1.15)
 
     regle = (
-        f"Règle qualité web : {URL_LABEL}. "
-        "La mise en forme appartient au CSS, pas au contenu."
+        "Test express : si le texte vient d'un générateur de style, ne le collez pas. "
+        f"Référence : {URL_LABEL}."
     )
     hl_h = estimate_highlight_height(regle, CONTENT_W)
     add_highlight(slide, regle,
