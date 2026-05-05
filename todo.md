@@ -2,18 +2,24 @@
 
 ## En cours
 
+- [ ] **Passe visuelle humaine PowerPoint avant diffusion** :
+  - Vérifier en priorité les slides 16 à 22, 36, 75 à 76, 82 à 106
+  - Objectif : repérer les chevauchements visuels fins que les contrôles XML ne voient pas
+  - État technique actuel : génération 106 slides OK, stderr vide, `unzip -t` OK
 - [ ] **Distribuer la grille d'audit aux stagiaires pour la mission finale** (slide `scripts/slides/52_mission-13-checks.py`) :
-  - Fichier source : `03-easy-checks/grille-audit-easy-checks.xlsx` (16 onglets)
+  - Fichier source : `03-easy-checks/grille-audit-easy-checks.xlsx`
   - Version téléchargeable depuis le site : `docs/assets/downloads/grille-audit-easy-checks.xlsx`
   - Point d'entrée site : `docs/index.html`
-  - Structure : 12 onglets pré-remplis, un par page obligatoire de l'échantillon RGAA (Accueil, Mentions légales, Déclaration a11y, Plan du site, Contact, Aide, Authentification, Recherche, Document, Article, Formulaire, Liste)
-  - Chaque stagiaire saisit les URL et remplit les verdicts C/NC/NA sur chaque onglet
-  - L'onglet Synthèse agrège automatiquement les 12 pages et calcule le taux global
-  - 20 min audit individuel + 5 min binôme + 5 min restitution
-  - Livrable stagiaire : classeur rempli + 3 actions priorisées + 1 engagement personnel
+  - Consigne pédagogique : chaque binôme choisit des points, une seule non-conformité prouvée invalide le critère
+  - Répartition conseillée : certains binômes commencent par le début, d'autres par la fin, puis restitution orale
+
 ## Fait
 
-- [x] Slides 01-27 assemblées dans `formation-102638-juin-2026.pptx` (27 slides couvrant les 13 points de contrôle rapides W3C)
+- [x] **Support PPTX principal livré** : `formation-102638-juin-2026.pptx`, 106 slides, PR #1 mergée sur `main` le 2026-05-05.
+- [x] **Module 1 élargi** : accessibiliser sa communication, handicap/validisme, règles transversales, WCAG/RGAA et déclaration d'accessibilité.
+- [x] **Module Word renforcé** : lisibilité, alignement à gauche, paragraphes aérés, contraste mesuré et fonds non dégradés.
+- [x] **Module Web easy checks renforcé** : bonus médias, VSME, niveaux de transcription, liens et PDF.
+- [x] **Module réseaux sociaux renforcé** : communication inclusive, checklist en binôme, QR code avec lien visible, quiz et plan d'action.
 - [x] Grille d'audit MD documentaire (`03-easy-checks/grille-audit-easy-checks.md`)
 - [x] **Grille d'audit XLSX validée** (`03-easy-checks/grille-audit-easy-checks.xlsx`) - 16 onglets, 12 pages pré-remplies, avertissement sensibilisation, mention PAC pour documents, renommage « Taux de conformité points de contrôle rapides », évaluée 8/10 (adéquation points de contrôle rapides 9, initiation 8, pédagogie 7,5). Validée par Alex le 2026-04-17.
 - [x] **Site d'entraînement des points de contrôle rapides fabriqué** (`docs/index.html`) - support de la mission clavier (`scripts/slides/41_mission-clavier.py`) et de la mission 13 points (`scripts/slides/52_mission-13-checks.py`).
