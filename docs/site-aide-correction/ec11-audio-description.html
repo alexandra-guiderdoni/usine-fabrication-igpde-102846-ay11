@@ -66,7 +66,7 @@
 <main id="contenu" class="fr-container fr-py-6w">
 <div class="fr-grid-row">
   <div class="fr-col-12 fr-col-md-8">
-  <h1>11. Démonstration vidéo</h1>
+  <h1>#11 Démonstration vidéo</h1>
   <section class="fr-mb-6w" aria-labelledby="help-title">
   <h2 id="help-title">Aide à la correction</h2>
   <div class="fr-accordions-group">
@@ -75,7 +75,7 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec11-audio-description-help-1">Indice</button>
   </h3>
   <div class="fr-collapse" id="ec11-audio-description-help-1">
-    <p>Regarder la vidéo en se demandant quelles informations seraient perdues sans l&#x27;image.</p>
+    <p>Commencer par la présence : la vidéo propose-t-elle une piste de sous-titres, une transcription proche du lecteur et une version ou piste audiodécrite ? Ensuite seulement, juger leur pertinence.</p>
   </div>
 </section>
 <section class="fr-accordion">
@@ -83,12 +83,12 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec11-audio-description-help-2">Ce qui pose problème</button>
   </h3>
   <div class="fr-collapse" id="ec11-audio-description-help-2">
-    <p>L&#x27;image porte une information non disponible autrement.</p>
-    <p>Les trois pertes d&#x27;information à rechercher sont :</p>
+    <p>La page à auditer publie une vidéo sans les trois alternatives attendues. La présence est donc non conforme ; la pertinence des alternatives absentes devient non applicable pour cette occurrence.</p>
+    <p>Les trois contrôles à mener sont :</p>
     <ul>
-      <li>Action visuelle : une manipulation, un changement d&#x27;écran ou un résultat visible n&#x27;est pas dit dans l&#x27;audio.</li>
-      <li>Version alternative : aucune piste, version audiodécrite ou description textuelle équivalente n&#x27;est proposée.</li>
-      <li>Description insuffisante : la description existe mais reste trop vague pour comprendre l&#x27;information portée par l&#x27;image.</li>
+      <li>Sous-titres : la piste doit exister dans le lecteur, puis son contenu doit être relu, synchronisé et utile.</li>
+      <li>Transcription : l&#x27;accès doit être placé près de la vidéo, puis le texte doit permettre de comprendre le contenu sans lancer le média.</li>
+      <li>Audiodescription : une version ou piste dédiée doit exister si l&#x27;image porte une information essentielle, puis elle doit décrire précisément ce qui est nécessaire à la compréhension.</li>
     </ul>
   </div>
 </section>
@@ -97,12 +97,13 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec11-audio-description-help-3">Comment corriger</button>
   </h3>
   <div class="fr-collapse" id="ec11-audio-description-help-3">
-    <p>Décrire les informations visuelles essentielles dans l&#x27;audio, une piste dédiée ou une version alternative.</p>
+    <p>Ajouter les alternatives manquantes, puis vérifier leur pertinence une par une. Ne pas juger la qualité d&#x27;une alternative qui n&#x27;existe pas : le critère de pertinence associé est non applicable.</p>
     <p>Corrections attendues :</p>
     <ul>
-      <li>Identifier uniquement les informations visuelles nécessaires à la compréhension.</li>
-      <li>Fournir une version audiodécrite ou une piste dédiée quand l&#x27;image porte l&#x27;information.</li>
-      <li>Proposer une description textuelle équivalente si elle suffit pour le type de vidéo.</li>
+      <li>Ajouter une piste de sous-titres WebVTT en français issue de la source vidéo.</li>
+      <li>Placer un composant de transcription immédiatement après la vidéo.</li>
+      <li>Fournir la version audiodécrite locale quand l&#x27;image porte une information essentielle.</li>
+      <li>Contrôler séparément présence et pertinence pour éviter de noter deux fois la même absence.</li>
     </ul>
   </div>
 </section>
@@ -111,32 +112,106 @@
   <section aria-labelledby="content-title">
   <h2 id="content-title">CAPTCHA : le retour au Moyen Âge</h2>
   <p>Cette page présente une vidéo de sensibilisation aux difficultés posées par les CAPTCHA visuels.</p>
-</section>
-<section class="fr-mb-4w" aria-labelledby="video-avec-transcription">
-  <h2 id="video-avec-transcription">Vidéo avec transcription</h2>
-  <figure class="fr-content-media" role="group" aria-label="Valentin Haüy - CAPTCHA : le retour au Moyen Âge">
+  <div class="fr-callout fr-mb-4w">
+  <h3 class="fr-callout__title">Contrôle guidé</h3>
+  <p class="fr-callout__text">Avec l&#x27;aide, concentrez-vous d&#x27;abord sur ce que l&#x27;image apporte, puis vérifiez les autres alternatives en complément.</p>
+</div>
+
+  <section aria-labelledby="video-audiodecrite-title" class="fr-mt-4w">
+    <h3 id="video-audiodecrite-title">Version audiodécrite</h3>
+    <p>Correction principale : les informations visuelles nécessaires sont portées par l'audio, et la piste VSME distingue les dialogues, l'audiodescription et la voix off.</p>
+    <figure class="fr-content-media" role="group" aria-label="Version audiodécrite de la vidéo de sensibilisation avec sous-titres français enrichis selon la logique VSME. Crédit : association Valentin Haüy. Face au nombre élevé de sites encore inaccessibles pour les personnes malvoyantes, l&#x27;association a diffusé ce spot à l&#x27;humour grinçant et percutant lors de la Journée mondiale de sensibilisation à l&#x27;accessibilité, le 19 mai 2022.">
     <div class="fr-content-media__img">
-      <iframe class="fr-responsive-vid" src="https://www.youtube-nocookie.com/embed/nSZ0xeXapds" title="Valentin Haüy - CAPTCHA : le retour au Moyen Âge" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <video controls preload="metadata" class="fr-responsive-vid" aria-describedby="captcha-video-audiodecrite-caption">
+        <source src="../assets/video/captcha-le-retour-au-moyen-age-audiodecrite.mp4" type="video/mp4">
+      <track kind="captions" src="../assets/shared/media/captcha-audiodecrite-sous-titres.vtt" srclang="fr" label="Français VSME" default>
+        <p>Votre navigateur ne peut pas lire cette vidéo : CAPTCHA : le retour au Moyen Âge (vidéo audiodécrite).</p>
+      </video>
     </div>
-    <figcaption class="fr-content-media__caption">
-      Vidéo de sensibilisation avec transcription disponible sur YouTube.
-      <br>
-      <a class="fr-link" href="https://www.youtube.com/watch?v=nSZ0xeXapds" rel="external">Ouvrir la vidéo sur YouTube</a>
-    </figcaption>
+    <figcaption class="fr-content-media__caption" id="captcha-video-audiodecrite-caption">Version audiodécrite de la vidéo de sensibilisation avec sous-titres français enrichis selon la logique VSME.<br><span>Crédit : association Valentin Haüy. Face au nombre élevé de sites encore inaccessibles pour les personnes malvoyantes, l&#x27;association a diffusé ce spot à l&#x27;humour grinçant et percutant lors de la Journée mondiale de sensibilisation à l&#x27;accessibilité, le 19 mai 2022.</span></figcaption>
   </figure>
-</section>
-<section class="fr-mb-4w" aria-labelledby="video-audiodecrite">
-  <h2 id="video-audiodecrite">Vidéo audiodécrite</h2>
-  <figure class="fr-content-media" role="group" aria-label="CAPTCHA : le retour au Moyen Âge (vidéo audiodécrite)">
+  </section>
+  <div class="fr-transcription fr-mt-3w">
+  <button type="button" class="fr-transcription__btn" aria-expanded="false" aria-controls="captcha-video-transcript-collapse">Lire la transcription</button>
+  <div class="fr-collapse" id="captcha-video-transcript-collapse">
+    <div class="fr-transcription__footer">
+      <div class="fr-transcription__actions-group">
+        <button aria-controls="captcha-video-transcript-modal" aria-label="Agrandir la transcription" data-fr-opened="false" type="button" class="fr-btn fr-btn--fullscreen">Agrandir</button>
+      </div>
+    </div>
+    <dialog id="captcha-video-transcript-modal" class="fr-modal" aria-labelledby="captcha-video-transcript-modal-title">
+      <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+          <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
+            <div class="fr-modal__body">
+              <div class="fr-modal__header">
+                <button aria-controls="captcha-video-transcript-modal" title="Fermer" type="button" class="fr-btn fr-btn--close">Fermer</button>
+              </div>
+              <div class="fr-modal__content">
+                <h1 id="captcha-video-transcript-modal-title" class="fr-modal__title">Transcription de la vidéo CAPTCHA</h1>
+              <p>Un homme s&#x27;avance devant un épicier, tous deux habillés façon « Kaamelott », la série humoristique médiévale.</p>
+              <p>Le client est manifestement aveugle et, pour régler son panier de courses, le vendeur lui indique qu&#x27;il doit résoudre une énigme : une sorte de « captcha » grandeur nature.</p>
+              <p>Il lui montre une fenêtre, divisée en neuf carreaux laissant apparaître deux vaches qui broutent. « Pour régler, il va falloir sélectionner tous les carreaux avec des vaches », explique-t-il au client incrédule, qui ne sait où donner de la tête.</p>
+              <p>Un bond de plusieurs siècles plus tard, revoilà le client face, cette fois, à son ordinateur, passant commande. Même problème en version numérique.</p>
+              <p>Un captcha, soit un test en images, est requis pour accéder à certains services sur internet afin de différencier les utilisateurs humains d&#x27;éventuels robots malveillants.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </dialog>
+  </div>
+</div>
+  <section aria-labelledby="ec11-complements-title" class="fr-mt-4w">
+    <h3 id="ec11-complements-title">Compléments de vérification</h3>
+    <p>Ces éléments complètent l'audiodescription sans déplacer le point de contrôle principal.</p>
+    <div class="fr-accordions-group">
+<section class="fr-accordion">
+  <h4 class="fr-accordion__title">
+    <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec11-standard-video-panel">Comparer avec la version standard sous-titrée</button>
+  </h4>
+  <div class="fr-collapse" id="ec11-standard-video-panel">
+<figure class="fr-content-media" role="group" aria-label="Vidéo de sensibilisation avec sous-titres français issus de la piste YouTube. Crédit : association Valentin Haüy. Face au nombre élevé de sites encore inaccessibles pour les personnes malvoyantes, l&#x27;association a diffusé ce spot à l&#x27;humour grinçant et percutant lors de la Journée mondiale de sensibilisation à l&#x27;accessibilité, le 19 mai 2022.">
     <div class="fr-content-media__img">
-      <iframe class="fr-responsive-vid" src="https://www.youtube-nocookie.com/embed/trfLb7xlXjQ" title="CAPTCHA : le retour au Moyen Âge (vidéo audiodécrite)" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <video controls preload="metadata" class="fr-responsive-vid" aria-describedby="captcha-video-caption">
+        <source src="../assets/video/captcha-le-retour-au-moyen-age.mp4" type="video/mp4">
+      <track kind="captions" src="../assets/shared/media/captcha-sous-titres.vtt" srclang="fr" label="Français" default>
+        <p>Votre navigateur ne peut pas lire cette vidéo : CAPTCHA : le retour au Moyen Âge.</p>
+      </video>
     </div>
-    <figcaption class="fr-content-media__caption">
-      Version audiodécrite de la vidéo de sensibilisation.
-      <br>
-      <a class="fr-link" href="https://www.youtube.com/watch?v=trfLb7xlXjQ" rel="external">Ouvrir la vidéo sur YouTube</a>
-    </figcaption>
+    <figcaption class="fr-content-media__caption" id="captcha-video-caption">Vidéo de sensibilisation avec sous-titres français issus de la piste YouTube.<br><span>Crédit : association Valentin Haüy. Face au nombre élevé de sites encore inaccessibles pour les personnes malvoyantes, l&#x27;association a diffusé ce spot à l&#x27;humour grinçant et percutant lors de la Journée mondiale de sensibilisation à l&#x27;accessibilité, le 19 mai 2022.</span></figcaption>
   </figure>
+  </div>
+</section>
+<section class="fr-accordion">
+  <h4 class="fr-accordion__title">
+    <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec11-media-rule-panel">Rappeler la règle d&#x27;or des médias</button>
+  </h4>
+  <div class="fr-collapse" id="ec11-media-rule-panel">
+    <p>Un média en ligne doit pouvoir être compris par au moins deux chemins. L'utilisateur ne doit pas dépendre d'un seul sens, d'un seul format ou d'un seul lecteur.</p>
+    <ul>
+      <li><strong>Image, schéma ou plan</strong> : ajouter une alternative ou une description si l'image transmet une information.</li>
+      <li><strong>Vidéo</strong> : fournir des sous-titres, puis une audiodescription ou une alternative textuelle quand l'image porte une information utile.</li>
+      <li><strong>Son seul</strong> : proposer une transcription structurée, proche du lecteur et suffisamment complète.</li>
+    </ul>
+  </div>
+</section>
+<section class="fr-accordion">
+  <h4 class="fr-accordion__title">
+    <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec11-presence-pertinence-panel">Noter présence puis pertinence</button>
+  </h4>
+  <div class="fr-collapse" id="ec11-presence-pertinence-panel">
+    <p>Pour chaque alternative, l'audit se fait en deux temps : vérifier qu'elle existe, puis vérifier qu'elle restitue réellement l'information utile.</p>
+    <ul>
+      <li><strong>Sous-titres</strong> : la piste doit être présente, puis relue, synchronisée et utile pour comprendre les paroles et les sons importants.</li>
+      <li><strong>Transcription</strong> : l'accès doit être proche de la vidéo, puis le texte doit permettre de comprendre le contenu sans lancer le média.</li>
+      <li><strong>Audiodescription</strong> : une piste ou une version dédiée doit exister si l'image porte une information essentielle, puis cette description doit être précise sans être bavarde.</li>
+    </ul>
+    <p>Si l'alternative est absente, on ne peut pas évaluer sa pertinence : le critère associé devient non applicable pour cette occurrence.</p>
+  </div>
+</section>
+    </div>
+  </section>
 </section>
   </div>
 </div>

@@ -23,8 +23,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Transcription : la version texte qui accompagne",
-        fil_ariane="3. points de contrôle rapides | 10. Transcriptions",
-        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Transcriptions",
+        fil_ariane="3. points de contrôle rapides | 10. Transcriptions audio et vidéo",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Transcriptions audio et vidéo",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

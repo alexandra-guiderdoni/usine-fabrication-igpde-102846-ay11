@@ -45,7 +45,7 @@ def build(prs, layouts, ctx):
             "Ces six familles représentent 96 % des erreurs détectées par WebAIM.",
             "Les points de contrôle rapides donnent une méthode courte pour les repérer sans audit complet.",
         ],
-        top=5.55,
+        top=5.35,
         line_spacing=1.0,
     )
 

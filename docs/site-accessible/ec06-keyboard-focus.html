@@ -66,18 +66,24 @@
 <main id="contenu" class="fr-container fr-py-6w">
 <div class="fr-grid-row">
   <div class="fr-col-12 fr-col-md-8">
-  <h1>6. Parcours clavier</h1>
+  <h1>#6 Parcours clavier</h1>
   <section aria-labelledby="content-title">
   <h2 id="content-title">Préparer une session de formation</h2>
   <p>Cette page rassemble les actions utilisées par une équipe de publication avant l'ouverture d'une session. Les responsables doivent pouvoir vérifier les ressources, consulter les consignes et passer d'une action à l'autre sans perdre leur position dans la page.</p>
   <section aria-labelledby="actions-title" class="fr-mt-4w">
     <h3 id="actions-title">Actions prioritaires</h3>
     <p>Les actions ci-dessous couvrent les étapes les plus fréquentes : publier la session, contrôler le formulaire d'inscription et prévenir les personnes inscrites. Elles sont placées en premier pour éviter de chercher les commandes utiles dans le reste de la page.</p>
-    <ul class="fr-btns-group fr-btns-group--inline-md">
-      <li><button class="fr-btn" type="button">Publier la session</button></li>
-      <li><a class="fr-btn fr-btn--secondary" href="ec12-form-labels.html">Vérifier le formulaire</a></li>
-      <li><button class="fr-btn fr-btn--tertiary" type="button">Prévenir les participants</button></li>
+    <ul class="fr-btns-group">
+      <li><button data-fr-opened="false" aria-expanded="false" aria-controls="publish-session-modal" class="fr-btn demo-modal-trigger" type="button" tabindex="0">Publier la session</button></li>
     </ul>
+    <ul class="fr-links-group fr-mt-2w">
+      <li><a class="fr-link" href="ec12-form-labels.html">Vérifier le formulaire</a></li>
+      <li><a class="fr-link" href="#participants-notification">Prévenir les participants</a></li>
+    </ul>
+  </section>
+  <section id="participants-notification" aria-labelledby="participants-notification-title" class="fr-mt-4w">
+    <h3 id="participants-notification-title">Prévenir les participants</h3>
+    <p>Le message de notification rappelle l'horaire, le lieu, les supports à consulter et les consignes de préparation avant l'atelier.</p>
   </section>
   <section aria-labelledby="resources-title" class="fr-mt-4w">
     <h3 id="resources-title">Ressources à consulter</h3>
@@ -136,6 +142,57 @@
     <p class="fr-mt-3w"><a class="fr-link" href="ec04-contrast.html">Consulter la charte de publication</a></p>
   </section>
 </section>
+<dialog id="publish-session-modal" class="fr-modal" aria-labelledby="publish-session-modal-title" aria-modal="true" data-fr-concealing-backdrop="false">
+  <div class="fr-container fr-container--fluid fr-container-md">
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+        <div class="fr-modal__body">
+          <div class="fr-modal__header">
+            <button aria-controls="publish-session-modal" title="Fermer" type="button" class="fr-btn--close fr-btn">Fermer</button>
+          </div>
+          <div class="fr-modal__content">
+            <h2 id="publish-session-modal-title" class="fr-modal__title">
+              <span class="fr-icon-arrow-right-line fr-icon--lg" aria-hidden="true"></span>
+              Publier la session
+            </h2>
+            <p>La publication rendrait la session visible dans le catalogue de formation et notifierait les personnes inscrites.</p>
+            <p>Assurez-vous qu'il n'y a pas de piège à la navigation clavier.</p>
+          </div>
+          <div class="fr-modal__footer">
+            <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg">
+              <button type="button" class="fr-btn demo-modal-trap-target">Confirmer la publication</button>
+              <button type="button" class="fr-btn fr-btn--secondary" aria-controls="publish-session-modal">Revenir à la page</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var modal = document.getElementById("publish-session-modal");
+  var opener = document.querySelector('[aria-controls="publish-session-modal"][data-fr-opened]');
+  if (!modal || !opener) {
+    return;
+  }
+
+  function isOpen() {
+    return modal.open || modal.hasAttribute("open") || modal.classList.contains("fr-modal--opened");
+  }
+
+  function syncExpandedState() {
+    opener.setAttribute("aria-expanded", isOpen() ? "true" : "false");
+  }
+
+  opener.addEventListener("click", function () {
+    window.setTimeout(syncExpandedState, 50);
+  });
+  modal.addEventListener("dsfr.disclose", syncExpandedState);
+  modal.addEventListener("dsfr.conceal", syncExpandedState);
+  syncExpandedState();
+});
+</script>
 
   </div>
 </div>

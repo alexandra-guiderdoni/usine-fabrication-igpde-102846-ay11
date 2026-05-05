@@ -1,4 +1,4 @@
-"""Slide 02f : synthèse Module 1 - 3 points clés + plan d'action."""
+"""Slide 02t : synthèse Module 1 - 3 points clés + plan d'action."""
 
 from copy import deepcopy
 from pptx.util import Pt
@@ -47,16 +47,16 @@ def build(prs, layouts, ctx):
         slide,
         "3 points à retenir",
         [
-            "L'accessibilité est une obligation légale - pas une option",
-            "Le RGAA 4.1.2 est votre référentiel de conformité",
-            "La déclaration d'accessibilité est publiée sur chaque site",
+            "L'accessibilité relève de l'équité et du droit, pas de la bonne volonté",
+            "Les WCAG et le RGAA donnent un cadre pour vérifier ce qui est conforme",
+            "Les premiers réflexes : texte lisible, contraste testé, alternative disponible",
         ],
         top=stack.push(1.7),
         alert_type="info",
     )
 
     _bold_substring(slide, "DSFR-alert-info-body",
-                    "• L'accessibilité est une obligation légale", "obligation légale")
+                    "• L'accessibilité relève de l'équité", "équité")
 
     encadre_top = stack.cursor
     encadre_h = 6.75 - encadre_top
@@ -69,9 +69,9 @@ def build(prs, layouts, ctx):
         height=encadre_h,
         titre="Dès demain matin",
         bullets=[
-            "Vérifier votre déclaration d'accessibilité",
-            "Noter le taux de conformité",
-            "Faire réaliser un audit si celui-ci n'existe pas",
+            "Relire une communication récente",
+            "Vérifier texte, contraste, QR code et lien visible",
+            "Chercher la déclaration d'accessibilité du site",
         ],
     )
 
@@ -83,14 +83,15 @@ def build(prs, layouts, ctx):
         height=encadre_h,
         titre="Cette semaine",
         bullets=[
-            "Partager le taux à l'équipe projet et à votre supérieur hiérarchique",
-            "Identifier les pages obligatoires de l'échantillon",
+            "Partager les constats avec l'équipe",
+            "Choisir 3 règles transversales à appliquer à chaque publication",
         ],
     )
 
     add_notes(
         slide,
         "Récupération active : demander à 2-3 stagiaires de citer un point retenu. "
-        "Annoncer la suite : maintenant on passe à la pratique - Module 2 bureautique.",
+        "Faire le lien avec la suite : on part de ce cadrage général, puis on descend dans les gestes concrets "
+        "sur les documents bureautiques, le web et les réseaux sociaux.",
     )
     return slide

@@ -8,6 +8,10 @@ Chaque section décrit une page de l'exercice, le Point de contrôle rapide vis�
 
 **Point de contrôle rapide :** Texte alternatif des images
 
+### Repère pédagogique
+
+Niveau 1 - Observer le rôle de chaque image et la structure HTML des liens. Identifiez les 4 cas : image informative, image décorative, lien image pur et lien composite.
+
 ### Erreurs injectées
 
 - Image informative sans alternative ou avec alt vide.
@@ -33,6 +37,10 @@ La page d'aide reprend les trois niveaux : indice, ce qui pose problème, commen
 
 **Point de contrôle rapide :** Titre de page
 
+### Repère pédagogique
+
+Regarder l'onglet du navigateur, le title HTML et le résultat WAVE. La page affiche déjà la requête, le tri, la page courante et le nombre de résultats : ces informations doivent aussi guider le titre.
+
 ### Erreurs injectées
 
 - Titre non informatif de type Sans titre.
@@ -55,7 +63,11 @@ La page d'aide reprend les trois niveaux : indice, ce qui pose problème, commen
 
 ## 3. Guide du RGAA
 
-**Point de contrôle rapide :** Titres de rubriques
+**Point de contrôle rapide :** Titres et hiérarchie
+
+### Repère pédagogique
+
+Afficher le plan de titres avec HeadingsMap, puis le comparer au plan visuel. Chercher les titres visibles qui n'apparaissent pas dans le plan, et les titres du plan qui ne correspondent pas à une vraie rubrique.
 
 ### Erreurs injectées
 
@@ -79,7 +91,11 @@ La page d'aide reprend les trois niveaux : indice, ce qui pose problème, commen
 
 ## 4. Charte de publication
 
-**Point de contrôle rapide :** Contraste
+**Point de contrôle rapide :** Contraste des couleurs
+
+### Repère pédagogique
+
+Mesurer un texte, un lien ou un bouton avec un outil de contraste.
 
 ### Erreurs injectées
 
@@ -107,6 +123,10 @@ La page d'aide reprend les trois niveaux : indice, ce qui pose problème, commen
 
 **Point de contrôle rapide :** Lien d'évitement
 
+### Repère pédagogique
+
+Appuyer une fois sur Tab au chargement de la page. Vérifier ensuite que le lien affiché est visible, compréhensible et activable sans souris.
+
 ### Erreurs injectées
 
 - Lien d'évitement absent.
@@ -129,13 +149,19 @@ La page d'aide reprend les trois niveaux : indice, ce qui pose problème, commen
 
 ## 6. Parcours clavier
 
-**Point de contrôle rapide :** Focus clavier visible
+**Point de contrôle rapide :** Focus et navigation clavier
+
+### Repère pédagogique
+
+Laisser la souris de côté et parcourir toute la page avec Tab, Shift+Tab, Entrée et Espace. À chaque arrêt, demander : où suis-je, quelle action puis-je lancer, puis-je revenir en arrière ?
 
 ### Erreurs injectées
 
+- Liens d'action secondaires activables à la souris mais absents de l'ordre de tabulation.
 - Focus visible supprimé sur un bouton.
 - Focus visible supprimé sur une carte cliquable.
 - Focus visible supprimé ou très peu perceptible sur un accordéon DSFR mal surchargé.
+- Bouton Publier la session atteignable au clavier, mais la modale de publication piège ensuite le clavier : Tab reste bloqué et Échap ne referme pas la fenêtre.
 
 ### Outils de détection
 
@@ -146,7 +172,7 @@ La page d'aide reprend les trois niveaux : indice, ce qui pose problème, commen
 
 ### Correction attendue
 
-Focus visible DSFR conservé sur boutons, liens/cartes et accordéons ; ordre de tabulation logique ; aucun piège clavier ; comportement clavier des accordéons conforme à la fiche DSFR.
+Focus visible DSFR conservé sur boutons, liens/cartes, accordéons et modale ; ordre de tabulation logique ; aucun piège clavier ; comportement clavier des accordéons et de la modale conforme aux fiches DSFR.
 
 ### Aide associée
 
@@ -155,6 +181,10 @@ La page d'aide reprend les trois niveaux : indice, ce qui pose problème, commen
 ## 7. Atelier international
 
 **Point de contrôle rapide :** Langue de la page
+
+### Repère pédagogique
+
+Inspecter la balise html, puis les expressions réellement rédigées dans une autre langue. Vérifier aussi que les codes utilisés sont des codes de langue, pas des noms complets ou des codes pays.
 
 ### Erreurs injectées
 
@@ -179,7 +209,11 @@ La page d'aide reprend les trois niveaux : indice, ce qui pose problème, commen
 
 ## 8. Ressources à zoomer
 
-**Point de contrôle rapide :** Zoom 200 %
+**Point de contrôle rapide :** Zoom à 200 %
+
+### Repère pédagogique
+
+Passer le navigateur à 200 % et réduire la largeur de fenêtre.
 
 ### Erreurs injectées
 
@@ -202,7 +236,11 @@ La page d'aide reprend les trois niveaux : indice, ce qui pose problème, commen
 
 ## 9. Vidéo de sensibilisation
 
-**Point de contrôle rapide :** Sous-titres
+**Point de contrôle rapide :** Sous-titres vidéo
+
+### Repère pédagogique
+
+Lire la vidéo sans le son et vérifier la présence d'une piste de sous-titres exploitable.
 
 ### Erreurs injectées
 
@@ -223,9 +261,13 @@ Sous-titres synchronisés, relus, ponctués, avec sons utiles.
 
 La page d'aide reprend les trois niveaux : indice, ce qui pose problème, comment corriger.
 
-## 10. Podcast RGAA
+## 10. Écouter un podcast
 
-**Point de contrôle rapide :** Transcriptions
+**Point de contrôle rapide :** Transcriptions audio et vidéo
+
+### Repère pédagogique
+
+Chercher un lien de transcription immédiatement proche du lecteur audio.
 
 ### Erreurs injectées
 
@@ -248,6 +290,10 @@ La page d'aide reprend les trois niveaux : indice, ce qui pose problème, commen
 
 **Point de contrôle rapide :** Audiodescription
 
+### Repère pédagogique
+
+Commencer par la présence : la vidéo propose-t-elle une piste de sous-titres, une transcription proche du lecteur et une version ou piste audiodécrite ? Ensuite seulement, juger leur pertinence.
+
 ### Erreurs injectées
 
 - Information visuelle essentielle non décrite dans l'audio principal.
@@ -269,6 +315,10 @@ La page d'aide reprend les trois niveaux : indice, ce qui pose problème, commen
 ## 12. Inscription à un webinaire
 
 **Point de contrôle rapide :** Étiquettes de formulaire
+
+### Repère pédagogique
+
+Vérifier uniquement le nom accessible des champs et des groupes avec ANDI, WAVE ou l'arbre d'accessibilité. Tester aussi le clic sur les libellés visibles. Les champs obligatoires et les erreurs seront traités dans le point 13.
 
 ### Erreurs injectées
 
@@ -295,7 +345,11 @@ La page d'aide reprend les trois niveaux : indice, ce qui pose problème, commen
 
 ## 13. Formulaire de contact
 
-**Point de contrôle rapide :** Champs obligatoires
+**Point de contrôle rapide :** Champs obligatoires et erreurs
+
+### Repère pédagogique
+
+Observer d'abord le formulaire avant envoi, puis le soumettre vide. Comparer l'état initial et l'état après soumission. Ici, les libellés doivent déjà être compréhensibles : le test porte sur l'obligation, les messages et le guidage après erreur.
 
 ### Erreurs injectées
 
@@ -304,6 +358,11 @@ La page d'aide reprend les trois niveaux : indice, ce qui pose problème, commen
 - Message d'erreur trop vague.
 - Message d'erreur non associé au champ.
 - Focus non ramené vers le récapitulatif ou le premier champ en erreur.
+
+### Scénario de test
+
+- Avant soumission : Vérifier l'état initial : les champs obligatoires du formulaire de contact doivent être annoncés avant l'envoi, sans afficher d'erreur prématurée.
+- Après soumission : Soumettre le formulaire vide, puis vérifier l'aide à la correction : message précis, relié au champ, et focus accompagné.
 
 ### Outils de détection
 

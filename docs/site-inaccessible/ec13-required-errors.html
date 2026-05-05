@@ -66,7 +66,7 @@
 <main id="contenu" class="fr-container fr-py-6w">
 <div class="fr-grid-row">
   <div class="fr-col-12 fr-col-md-8">
-  <h1>13. Formulaire de contact</h1>
+  <h1>#13 Formulaire de contact</h1>
   <section aria-labelledby="content-title">
   <h2 id="content-title">Contacter le ministère</h2>
   <p>Utilisez ce formulaire pour poser une question sur l'accessibilité numérique, signaler une difficulté ou demander une orientation vers le bon service. Une réponse est apportée pendant les jours ouvrés.</p>
@@ -102,18 +102,31 @@
     if (!form) return;
     var summary = document.getElementById(form.getAttribute("data-error-summary"));
     var fields = form.getAttribute("data-required-fields").split(" ");
+    function isInvalid(field) {
+      if (!field.value.trim()) return true;
+      if (field.type === "email" && !field.validity.valid) return true;
+      return false;
+    }
     form.addEventListener("submit", function (event) {
       event.preventDefault();
-      if (summary) summary.hidden = false;
+      var hasError = false;
       fields.forEach(function (id) {
         var field = document.getElementById(id);
         if (!field) return;
         var group = field.closest(".fr-input-group");
         var error = document.getElementById(id + "-error");
-        if (group) group.classList.add("fr-input-group--error");
-        field.classList.add("fr-input--error");
-        if (error) error.hidden = false;
+        if (isInvalid(field)) {
+          hasError = true;
+          if (group) group.classList.add("fr-input-group--error");
+          field.classList.add("fr-input--error");
+          if (error) error.hidden = false;
+        } else {
+          if (group) group.classList.remove("fr-input-group--error");
+          field.classList.remove("fr-input--error");
+          if (error) error.hidden = true;
+        }
       });
+      if (summary) summary.hidden = !hasError;
     });
   }());
   </script>

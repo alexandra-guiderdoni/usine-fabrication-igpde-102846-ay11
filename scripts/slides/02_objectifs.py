@@ -1,7 +1,7 @@
 """Slide 2 : objectifs pédagogiques - 3 objectifs du catalogue 102638."""
 
 from igpde_dsfr_components import (
-    add_callout, add_image, add_notes, new_slide,
+    add_callout, add_image, add_notes, add_qrcode, new_slide,
     MARGIN_L, COL_W, COL_R,
 )
 
@@ -39,11 +39,14 @@ def build(prs, layouts, ctx):
         alt_text="Affiche du SIG pour les 20 ans de la loi handicap. Imaginez un quotidien où rien n'est vraiment pensé pour vous. Ordinateur avec un écran inversé.",
     )
 
-    add_image(
+    add_qrcode(
         slide,
         "_assets/qrcode-info-gouv-accessibilite.png",
-        top=5.30, left=9.50, width=1.30, height=1.30,
-        alt_text="QR code : https://www.info.gouv.fr/accessibilite",
+        url="https://www.info.gouv.fr/accessibilite",
+        top=5.18,
+        left=MARGIN_L,
+        size=1.12,
+        label_width=COL_W - 1.26,
     )
 
     add_notes(

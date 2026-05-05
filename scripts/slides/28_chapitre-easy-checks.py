@@ -2,7 +2,7 @@
 
 Règles neuropédagogie appliquées :
 - R1 : engagement immédiat par un constat d'impact (notes orateur)
-- R2 : primauté - on annonce les 13 checks dès l'ouverture
+- R2 : primauté - on annonce les 13 points dès l'ouverture
 - R3 : WIIFM - « en 20 min vous évaluerez n'importe quelle page »
 """
 
@@ -29,7 +29,7 @@ def build(prs, layouts, ctx):
         "et des outils complémentaires de collecte technique. "
         "Les points de contrôle rapides sont la trousse de secours du W3C : 13 vérifications qu’un non-spécialiste peut faire "
         "rapidement pour repérer les principaux signaux d’alerte avant un audit approfondi. "
-        "Annoncer le plan : 13 checks, chacun traité sur 1 à 4 slides selon sa complexité. "
+        "Annoncer le plan : 13 points de contrôle rapides, chacun traité sur 1 à 4 slides selon sa complexité. "
         "À la fin du module : mission d’audit groupé sur une page de votre choix.",
     )
     return slide

@@ -1,7 +1,8 @@
-"""Slide 26 : Point de contrôle rapide 13 - Champs obligatoires.
+"""Slide 75 : Point de contrôle rapide 13 - Champs obligatoires et erreurs.
 
 Règles neuropédagogie appliquées :
-- R5 : chunking - 3 règles simples
+- R5 : chunking - deux temps de test
+- R11 : prédiction - l'apprenant compare avant/après soumission
 - R18 : sécurité psychologique - les erreurs doivent guider, pas punir
 """
 
@@ -22,28 +23,27 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Champs obligatoires : dits, pas juste marqués",
-        fil_ariane="3. points de contrôle rapides | 13. Champs obligatoires",
-        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Champs obligatoires",
+        titre="Champs obligatoires : prévenir puis guider",
+        fil_ariane="3. points de contrôle rapides | 13. Champs obligatoires et erreurs",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Champs obligatoires et erreurs",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.05, gap=0.12)
+    stack = Stack(top=1.95, gap=0.08)
 
-    hl_texte = "Un astérisque rouge est un signal visuel - il doit être doublé d'une information textuelle pour tous."
+    hl_texte = "Test #13 = avant envoi + après soumission vide : l'obligation prévient, l'erreur guide."
     add_highlight(
         slide,
         hl_texte,
         top=stack.push(estimate_highlight_height(hl_texte)),
     )
 
-    callout_titre = "Ce qu'il faut vérifier :"
+    callout_titre = "Avant soumission"
     callout_bullets = [
-        "Les champs obligatoires sont indiqués en texte : « obligatoire » ou « requis »",
-        "La légende « * champ obligatoire » est présente en début de formulaire",
-        'Techniquement : attribut required ou aria-required="true" sur le champ',
-        "En cas d'erreur : le message pointe le champ par son étiquette, pas « champ 3 »",
+        "Obligation écrite : « obligatoire » ou règle « tous sauf téléphone »",
+        "Astérisque expliqué s'il est utilisé",
+        'Attribut required ou aria-required="true" présent',
     ]
     add_callout(
         slide,
@@ -52,22 +52,26 @@ def build(prs, layouts, ctx):
         top=stack.push(estimate_callout_height(callout_titre, callout_bullets)),
     )
 
-    alert_titre = "Pattern recommandé"
+    alert_titre = "Après soumission"
     alert_bullets = [
-        "Quand presque tous les champs sont requis, marquer les champs optionnels peut rendre le formulaire plus lisible",
+        "Aucune erreur ne doit apparaître avant l'envoi",
+        "Message précis relié au champ, avec aria-invalid si erreur",
+        "Focus vers le récapitulatif ou le premier champ en erreur",
     ]
     add_alert(
         slide,
         titre=alert_titre,
         bullets=alert_bullets,
-        top=stack.push(estimate_alert_height(alert_titre, alert_bullets)),
+        top=stack.push(estimate_alert_height(alert_titre, alert_bullets, line_spacing=1.25)),
         alert_type="info",
+        line_spacing=1.25,
     )
 
     add_notes(
         slide,
-        "Règle d'or : couleur seule = information perdue pour les aveugles et les daltoniens. "
-        "Exemple à tester : un champ obligatoire marqué uniquement par astérisque rouge - lecteur d'écran n'annonce rien. "
-        "Message d'erreur à éviter : « Erreur champ 3 » → préférer « Votre adresse électronique est obligatoire ».",
+        "Règle d'or : le contrôle 13 ne commence pas par les erreurs. "
+        "D'abord, vérifier que l'obligation est comprise avant l'envoi. "
+        "Ensuite, soumettre volontairement un formulaire vide : le message doit nommer le champ, être relié au champ et guider le focus. "
+        "Message à éviter : « Erreur champ 3 ». Préférer : « L'adresse électronique doit respecter le format nom@domaine.fr ».",
     )
     return slide

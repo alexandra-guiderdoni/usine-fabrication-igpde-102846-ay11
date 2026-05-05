@@ -220,7 +220,7 @@ def page_card(page: dict, href: str) -> str:
   <div class="fr-card fr-enlarge-link">
     <div class="fr-card__body">
       <div class="fr-card__content">
-        <h3 class="fr-card__title"><a href="{href}">{page['number']}. {esc(page['title'])}</a></h3>
+        <h3 class="fr-card__title"><a href="{href}">#{page['number']} {esc(page['title'])}</a></h3>
         <p class="fr-card__desc">{esc(page['easy_check']['name'])}</p>
         <p class="fr-card__detail">Point de contrôle rapide {page['easy_check']['number']}</p>
       </div>
@@ -253,7 +253,7 @@ def generate_root(contract: dict) -> None:
 </div>"""
         for label, href, desc in versions
     )
-    content = f"""  <h1>Exercice - Les 13 points de contrôle rapides du W3C</h1>
+    content = f"""  <h1>Les 13 points de contrôle rapides du W3C</h1>
   <div class="fr-alert fr-alert--info fr-mb-4w">
     <h2 class="fr-alert__title">Pré-diagnostic pédagogique</h2>
     <p>Cet exercice ne constitue pas un audit RGAA et ne permet pas de publier un taux de conformité.</p>
@@ -575,6 +575,17 @@ def help_accordions(page: dict) -> str:
     return "\n".join(sections)
 
 
+def accordion_panel(panel_id: str, title: str, body: str, heading_level: int = 4) -> str:
+    return f"""<section class="fr-accordion">
+  <h{heading_level} class="fr-accordion__title">
+    <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="{esc(panel_id)}">{esc(title)}</button>
+  </h{heading_level}>
+  <div class="fr-collapse" id="{esc(panel_id)}">
+{body}
+  </div>
+</section>"""
+
+
 def youtube_media_block(source: dict, heading: str) -> str:
     title = source["title"]
     url = source["url"]
@@ -583,7 +594,7 @@ def youtube_media_block(source: dict, heading: str) -> str:
     heading_id = slug(heading)
     return f"""<section class="fr-mb-4w" aria-labelledby="{heading_id}">
   <h2 id="{heading_id}">{esc(heading)}</h2>
-  <figure class="fr-content-media" role="group" aria-label="{esc(title)}">
+  <figure class="fr-content-media" role="group" aria-label="{esc(role or title)}">
     <div class="fr-content-media__img">
       <iframe class="fr-responsive-vid" src="{esc(embed_url)}" title="{esc(title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
@@ -594,6 +605,116 @@ def youtube_media_block(source: dict, heading: str) -> str:
     </figcaption>
   </figure>
 </section>"""
+
+
+def video_track(kind: str, src: str, label: str, default: bool = False) -> str:
+    default_attr = " default" if default else ""
+    return f'      <track kind="{esc(kind)}" src="{esc(src)}" srclang="fr" label="{esc(label)}"{default_attr}>'
+
+
+def local_video_media_block(identifier: str, title: str, source: str, caption: str, tracks: list[str] | None = None, credit: str = "") -> str:
+    caption_id = f"{identifier}-caption"
+    tracks_html = ""
+    if tracks:
+        tracks_html = "\n" + "\n".join(tracks)
+    accessible_caption = f"{caption} {credit}".strip()
+    credit_html = f"<br><span>{esc(credit)}</span>" if credit else ""
+    return f"""<figure class="fr-content-media" role="group" aria-label="{esc(accessible_caption)}">
+    <div class="fr-content-media__img">
+      <video controls preload="metadata" class="fr-responsive-vid" aria-describedby="{caption_id}">
+        <source src="{esc(source)}" type="video/mp4">{tracks_html}
+        <p>Votre navigateur ne peut pas lire cette vidéo : {esc(title)}.</p>
+      </video>
+    </div>
+    <figcaption class="fr-content-media__caption" id="{caption_id}">{esc(caption)}{credit_html}</figcaption>
+  </figure>"""
+
+
+CAPTCHA_CREDIT = "Crédit : association Valentin Haüy. Face au nombre élevé de sites encore inaccessibles pour les personnes malvoyantes, l'association a diffusé ce spot à l'humour grinçant et percutant lors de la Journée mondiale de sensibilisation à l'accessibilité, le 19 mai 2022."
+
+
+CAPTCHA_TRANSCRIPTION = [
+    "Un homme s'avance devant un épicier, tous deux habillés façon « Kaamelott », la série humoristique médiévale.",
+    "Le client est manifestement aveugle et, pour régler son panier de courses, le vendeur lui indique qu'il doit résoudre une énigme : une sorte de « captcha » grandeur nature.",
+    "Il lui montre une fenêtre, divisée en neuf carreaux laissant apparaître deux vaches qui broutent. « Pour régler, il va falloir sélectionner tous les carreaux avec des vaches », explique-t-il au client incrédule, qui ne sait où donner de la tête.",
+    "Un bond de plusieurs siècles plus tard, revoilà le client face, cette fois, à son ordinateur, passant commande. Même problème en version numérique.",
+    "Un captcha, soit un test en images, est requis pour accéder à certains services sur internet afin de différencier les utilisateurs humains d'éventuels robots malveillants.",
+]
+
+
+def video_presence_pertinence_body() -> str:
+    return """    <p>Pour chaque alternative, l'audit se fait en deux temps : vérifier qu'elle existe, puis vérifier qu'elle restitue réellement l'information utile.</p>
+    <ul>
+      <li><strong>Sous-titres</strong> : la piste doit être présente, puis relue, synchronisée et utile pour comprendre les paroles et les sons importants.</li>
+      <li><strong>Transcription</strong> : l'accès doit être proche de la vidéo, puis le texte doit permettre de comprendre le contenu sans lancer le média.</li>
+      <li><strong>Audiodescription</strong> : une piste ou une version dédiée doit exister si l'image porte une information essentielle, puis cette description doit être précise sans être bavarde.</li>
+    </ul>
+    <p>Si l'alternative est absente, on ne peut pas évaluer sa pertinence : le critère associé devient non applicable pour cette occurrence.</p>"""
+
+
+def video_presence_pertinence_section() -> str:
+    return f"""<section aria-labelledby="presence-pertinence-title" class="fr-mt-4w">
+    <h3 id="presence-pertinence-title">Vérifier présence puis pertinence</h3>
+{video_presence_pertinence_body()}
+  </section>"""
+
+
+def media_golden_rule_body() -> str:
+    return """    <p>Un média en ligne doit pouvoir être compris par au moins deux chemins. L'utilisateur ne doit pas dépendre d'un seul sens, d'un seul format ou d'un seul lecteur.</p>
+    <ul>
+      <li><strong>Image, schéma ou plan</strong> : ajouter une alternative ou une description si l'image transmet une information.</li>
+      <li><strong>Vidéo</strong> : fournir des sous-titres, puis une audiodescription ou une alternative textuelle quand l'image porte une information utile.</li>
+      <li><strong>Son seul</strong> : proposer une transcription structurée, proche du lecteur et suffisamment complète.</li>
+    </ul>"""
+
+
+def media_golden_rule_section() -> str:
+    return f"""<section aria-labelledby="media-golden-rule-title" class="fr-mt-4w">
+    <h3 id="media-golden-rule-title">La règle d'or des médias</h3>
+{media_golden_rule_body()}
+  </section>"""
+
+
+def ec11_complementary_checks(media: str) -> str:
+    return f"""<section aria-labelledby="ec11-complements-title" class="fr-mt-4w">
+    <h3 id="ec11-complements-title">Compléments de vérification</h3>
+    <p>Ces éléments complètent l'audiodescription sans déplacer le point de contrôle principal.</p>
+    <div class="fr-accordions-group">
+{accordion_panel("ec11-standard-video-panel", "Comparer avec la version standard sous-titrée", media, 4)}
+{accordion_panel("ec11-media-rule-panel", "Rappeler la règle d'or des médias", media_golden_rule_body(), 4)}
+{accordion_panel("ec11-presence-pertinence-panel", "Noter présence puis pertinence", video_presence_pertinence_body(), 4)}
+    </div>
+  </section>"""
+
+
+def vsme_section() -> str:
+    return """<section aria-labelledby="vsme-title" class="fr-mt-4w">
+    <h3 id="vsme-title">VSME : restituer ce que le son apporte</h3>
+    <p>La VSME, pour voix, sons, musiques et éléments sonores, complète les dialogues avec les informations utiles normalement transmises par le son.</p>
+    <ul>
+      <li><strong>Blanc</strong> : dialogues des personnes visibles à l'écran.</li>
+      <li><strong>Jaune</strong> : paroles hors champ.</li>
+      <li><strong>Rouge</strong> : bruit ou effet sonore important.</li>
+      <li><strong>Magenta</strong> : musique ou paroles chantées.</li>
+      <li><strong>Cyan</strong> : voix off, narration ou pensée intérieure.</li>
+      <li><strong>Vert</strong> : langue étrangère.</li>
+      <li><strong>Astérisque</strong> : son provenant d'un haut-parleur, d'un téléphone ou d'une radio.</li>
+    </ul>
+    <p>Les sous-titres automatiques ou produits par intelligence artificielle restent un brouillon : les noms propres, acronymes, chiffres et contresens doivent être relus avant diffusion.</p>
+  </section>"""
+
+
+def transcription_levels_section() -> str:
+    return """<section aria-labelledby="transcription-levels-title" class="fr-mt-4w">
+    <h3 id="transcription-levels-title">Choisir le bon niveau de transcription</h3>
+    <p>Le niveau choisi doit être annoncé clairement pour que la personne sache ce qu'elle va lire.</p>
+    <ul>
+      <li><strong>Semi-intégrale</strong> : résumé détaillé du contenu, avec les idées principales et quelques citations utiles.</li>
+      <li><strong>Intégrale éditée</strong> : transcription complète, relue, qui supprime les hésitations et rend le texte fluide.</li>
+      <li><strong>Verbatim</strong> : transcription mot à mot qui conserve répétitions, hésitations, sons et musiques.</li>
+    </ul>
+    <p>Une transcription générée automatiquement doit être relue par une personne avant publication.</p>
+  </section>"""
 
 
 def card(title: str, href: str, desc: str, detail: str = "") -> str:
@@ -615,6 +736,14 @@ def callout(title: str, text: str, heading_level: int = 2) -> str:
   <h{heading_level} class="fr-callout__title">{esc(title)}</h{heading_level}>
   <p class="fr-callout__text">{esc(text)}</p>
 </div>"""
+
+
+def audit_prompt(version_key: str, inaccessible_text: str, help_text: str, accessible_text: str) -> str:
+    if version_key == "inaccessible":
+        return callout("Question d'audit", inaccessible_text, 3)
+    if version_key == "help":
+        return callout("Contrôle guidé", help_text, 3)
+    return callout("Contrôle de la correction", accessible_text, 3)
 
 
 def placeholder_media(label: str) -> str:
@@ -832,18 +961,31 @@ def required_errors_content(accessible: bool) -> str:
     if (!form) return;
     var summary = document.getElementById(form.getAttribute("data-error-summary"));
     var fields = form.getAttribute("data-required-fields").split(" ");
+    function isInvalid(field) {
+      if (!field.value.trim()) return true;
+      if (field.type === "email" && !field.validity.valid) return true;
+      return false;
+    }
     form.addEventListener("submit", function (event) {
       event.preventDefault();
-      if (summary) summary.hidden = false;
+      var hasError = false;
       fields.forEach(function (id) {
         var field = document.getElementById(id);
         if (!field) return;
         var group = field.closest(".fr-input-group");
         var error = document.getElementById(id + "-error");
-        if (group) group.classList.add("fr-input-group--error");
-        field.classList.add("fr-input--error");
-        if (error) error.hidden = false;
+        if (isInvalid(field)) {
+          hasError = true;
+          if (group) group.classList.add("fr-input-group--error");
+          field.classList.add("fr-input--error");
+          if (error) error.hidden = false;
+        } else {
+          if (group) group.classList.remove("fr-input-group--error");
+          field.classList.remove("fr-input--error");
+          if (error) error.hidden = true;
+        }
       });
+      if (summary) summary.hidden = !hasError;
     });
   }());
   </script>
@@ -852,12 +994,12 @@ def required_errors_content(accessible: bool) -> str:
   <h2 id="content-title">Contacter le ministère</h2>
   <p>Utilisez ce formulaire pour poser une question sur l'accessibilité numérique, signaler une difficulté ou demander une orientation vers le bon service. Tous les champs sont obligatoires, sauf le téléphone.</p>
   <div id="contact-errors" class="fr-alert fr-alert--error fr-mb-3w" role="alert" tabindex="-1" hidden>
-    <h3 class="fr-alert__title">Erreur : trois champs sont à corriger</h3>
-    <ul>
-      <li><a class="fr-link" href="#contact-name">Indiquer votre nom</a></li>
-      <li><a class="fr-link" href="#contact-email">Saisir une adresse électronique valide</a></li>
-      <li><a class="fr-link" href="#contact-message">Décrire votre demande</a></li>
-    </ul>
+    <h3 class="fr-alert__title">Erreur : des champs sont à corriger</h3>
+    <ul id="contact-errors-list"></ul>
+  </div>
+  <div id="contact-success" class="fr-alert fr-alert--success fr-mb-3w" role="status" tabindex="-1" hidden>
+    <h3 class="fr-alert__title">Votre message est prêt à être envoyé</h3>
+    <p>Le formulaire ne présente plus d'erreur détectée.</p>
   </div>
   <form action="ec13-required-errors.html" method="get" class="demo-form" data-demo-contact-form data-mode="accessible" data-error-summary="contact-errors" data-required-fields="contact-name contact-email contact-message" novalidate>
     <div class="fr-input-group">
@@ -894,24 +1036,89 @@ def required_errors_content(accessible: bool) -> str:
     var form = document.querySelector("[data-demo-contact-form]");
     if (!form) return;
     var summary = document.getElementById(form.getAttribute("data-error-summary"));
-    var fields = form.getAttribute("data-required-fields").split(" ");
+    var success = document.getElementById("contact-success");
+    var errorList = document.getElementById("contact-errors-list");
+    var checks = [
+      {
+        id: "contact-name",
+        link: "Indiquer votre nom",
+        message: "Erreur : le nom est obligatoire.",
+        invalid: function (field) { return !field.value.trim(); }
+      },
+      {
+        id: "contact-email",
+        link: "Saisir une adresse électronique valide",
+        message: "Erreur : l'adresse électronique doit respecter le format nom@domaine.fr.",
+        invalid: function (field) { return !field.value.trim() || !field.validity.valid; }
+      },
+      {
+        id: "contact-message",
+        link: "Décrire votre demande",
+        message: "Erreur : le message est obligatoire.",
+        invalid: function (field) { return !field.value.trim(); }
+      }
+    ];
+    checks.forEach(function (check) {
+      var field = document.getElementById(check.id);
+      if (field) field.setAttribute("data-describedby-default", field.getAttribute("aria-describedby") || "");
+    });
+    function clearError(check) {
+      var field = document.getElementById(check.id);
+      if (!field) return;
+      var group = field.closest(".fr-input-group");
+      var error = document.getElementById(check.id + "-error");
+      if (group) group.classList.remove("fr-input-group--error");
+      field.classList.remove("fr-input--error");
+      field.removeAttribute("aria-invalid");
+      field.setAttribute("aria-describedby", field.getAttribute("data-describedby-default"));
+      if (error) error.hidden = true;
+    }
+    function setError(check) {
+      var field = document.getElementById(check.id);
+      if (!field) return;
+      var group = field.closest(".fr-input-group");
+      var error = document.getElementById(check.id + "-error");
+      if (group) group.classList.add("fr-input-group--error");
+      field.classList.add("fr-input--error");
+      field.setAttribute("aria-invalid", "true");
+      field.setAttribute("aria-describedby", field.getAttribute("data-describedby-error"));
+      if (error) {
+        error.textContent = check.message;
+        error.hidden = false;
+      }
+    }
     form.addEventListener("submit", function (event) {
       event.preventDefault();
-      if (summary) {
-        summary.hidden = false;
-        summary.focus();
-      }
-      fields.forEach(function (id) {
-        var field = document.getElementById(id);
+      var errors = [];
+      checks.forEach(function (check) {
+        var field = document.getElementById(check.id);
         if (!field) return;
-        var group = field.closest(".fr-input-group");
-        var error = document.getElementById(id + "-error");
-        if (group) group.classList.add("fr-input-group--error");
-        field.classList.add("fr-input--error");
-        field.setAttribute("aria-invalid", "true");
-        field.setAttribute("aria-describedby", field.getAttribute("data-describedby-error"));
-        if (error) error.hidden = false;
+        if (check.invalid(field)) {
+          setError(check);
+          errors.push(check);
+        } else {
+          clearError(check);
+        }
       });
+      if (errorList) {
+        errorList.innerHTML = "";
+        errors.forEach(function (check) {
+          var item = document.createElement("li");
+          var link = document.createElement("a");
+          link.className = "fr-link";
+          link.href = "#" + check.id;
+          link.textContent = check.link;
+          item.appendChild(link);
+          errorList.appendChild(item);
+        });
+      }
+      if (summary) summary.hidden = errors.length === 0;
+      if (success) success.hidden = errors.length > 0;
+      if (errors.length > 0 && summary) {
+        summary.focus();
+      } else if (success) {
+        success.focus();
+      }
     });
   }());
   </script>
@@ -1094,6 +1301,73 @@ def content_ec05(version_key: str) -> str:
 
 def content_ec06(version_key: str) -> str:
     class_attr = ' class="demo-no-focus"' if version_key != "accessible" else ""
+    secondary_action_tabindex = ' tabindex="-1"' if version_key != "accessible" else ""
+    modal_trap_class = " demo-modal-keyboard-trap" if version_key != "accessible" else ""
+    close_tabindex = ' tabindex="-1"' if version_key != "accessible" else ""
+    modal_script = """<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var modal = document.getElementById("publish-session-modal");
+  var opener = document.querySelector('[aria-controls="publish-session-modal"][data-fr-opened]');
+  if (!modal || !opener) {
+    return;
+  }
+
+  function isOpen() {
+    return modal.open || modal.hasAttribute("open") || modal.classList.contains("fr-modal--opened");
+  }
+
+  function syncExpandedState() {
+    opener.setAttribute("aria-expanded", isOpen() ? "true" : "false");
+  }
+
+  opener.addEventListener("click", function () {
+    window.setTimeout(syncExpandedState, 50);
+  });
+  modal.addEventListener("dsfr.disclose", syncExpandedState);
+  modal.addEventListener("dsfr.conceal", syncExpandedState);
+  syncExpandedState();
+});
+</script>"""
+    if version_key != "accessible":
+        modal_script = """<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var modal = document.getElementById("publish-session-modal");
+  var opener = document.querySelector('[aria-controls="publish-session-modal"][data-fr-opened]');
+  var target = modal ? modal.querySelector(".demo-modal-trap-target") : null;
+  if (!modal || !opener || !target) {
+    return;
+  }
+
+  function isOpen() {
+    return modal.open || modal.hasAttribute("open") || modal.classList.contains("fr-modal--opened");
+  }
+
+  function syncExpandedState() {
+    opener.setAttribute("aria-expanded", isOpen() ? "true" : "false");
+  }
+
+  function trapFocus() {
+    window.setTimeout(function () {
+      syncExpandedState();
+      target.focus();
+    }, 50);
+  }
+
+  opener && opener.addEventListener("click", trapFocus);
+  modal.addEventListener("dsfr.disclose", trapFocus);
+  modal.addEventListener("dsfr.conceal", syncExpandedState);
+  syncExpandedState();
+  document.addEventListener("keydown", function (event) {
+    if (!isOpen() || (event.key !== "Escape" && event.key !== "Tab")) {
+      return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    opener.setAttribute("aria-expanded", "true");
+    target.focus();
+  }, true);
+});
+</script>"""
     cards = "\n".join(
         [
             card("Guide des titres", "ec03-headings.html", "Repères pour structurer une page de publication."),
@@ -1107,11 +1381,17 @@ def content_ec06(version_key: str) -> str:
   <section aria-labelledby="actions-title" class="fr-mt-4w">
     <h3 id="actions-title">Actions prioritaires</h3>
     <p>Les actions ci-dessous couvrent les étapes les plus fréquentes : publier la session, contrôler le formulaire d'inscription et prévenir les personnes inscrites. Elles sont placées en premier pour éviter de chercher les commandes utiles dans le reste de la page.</p>
-    <ul class="fr-btns-group fr-btns-group--inline-md">
-      <li><button class="fr-btn" type="button">Publier la session</button></li>
-      <li><a class="fr-btn fr-btn--secondary" href="ec12-form-labels.html">Vérifier le formulaire</a></li>
-      <li><button class="fr-btn fr-btn--tertiary" type="button">Prévenir les participants</button></li>
+    <ul class="fr-btns-group">
+      <li><button data-fr-opened="false" aria-expanded="false" aria-controls="publish-session-modal" class="fr-btn demo-modal-trigger" type="button" tabindex="0">Publier la session</button></li>
     </ul>
+    <ul class="fr-links-group fr-mt-2w">
+      <li><a class="fr-link" href="ec12-form-labels.html"{secondary_action_tabindex}>Vérifier le formulaire</a></li>
+      <li><a class="fr-link" href="#participants-notification"{secondary_action_tabindex}>Prévenir les participants</a></li>
+    </ul>
+  </section>
+  <section id="participants-notification" aria-labelledby="participants-notification-title" class="fr-mt-4w">
+    <h3 id="participants-notification-title">Prévenir les participants</h3>
+    <p>Le message de notification rappelle l'horaire, le lieu, les supports à consulter et les consignes de préparation avant l'atelier.</p>
   </section>
   <section aria-labelledby="resources-title" class="fr-mt-4w">
     <h3 id="resources-title">Ressources à consulter</h3>
@@ -1140,7 +1420,35 @@ def content_ec06(version_key: str) -> str:
     </section>
     <p class="fr-mt-3w"><a class="fr-link" href="ec04-contrast.html">Consulter la charte de publication</a></p>
   </section>
-</section>"""
+</section>
+<dialog id="publish-session-modal" class="fr-modal{modal_trap_class}" aria-labelledby="publish-session-modal-title" aria-modal="true" data-fr-concealing-backdrop="false">
+  <div class="fr-container fr-container--fluid fr-container-md">
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+        <div class="fr-modal__body">
+          <div class="fr-modal__header">
+            <button aria-controls="publish-session-modal" title="Fermer" type="button" class="fr-btn--close fr-btn"{close_tabindex}>Fermer</button>
+          </div>
+          <div class="fr-modal__content">
+            <h2 id="publish-session-modal-title" class="fr-modal__title">
+              <span class="fr-icon-arrow-right-line fr-icon--lg" aria-hidden="true"></span>
+              Publier la session
+            </h2>
+            <p>La publication rendrait la session visible dans le catalogue de formation et notifierait les personnes inscrites.</p>
+            <p>Assurez-vous qu'il n'y a pas de piège à la navigation clavier.</p>
+          </div>
+          <div class="fr-modal__footer">
+            <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg">
+              <button type="button" class="fr-btn demo-modal-trap-target">Confirmer la publication</button>
+              <button type="button" class="fr-btn fr-btn--secondary" aria-controls="publish-session-modal">Revenir à la page</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+{modal_script}"""
 
 
 def content_ec07(version_key: str) -> str:
@@ -1198,69 +1506,134 @@ def content_ec08(version_key: str) -> str:
 
 def content_ec09(version_key: str) -> str:
     if version_key == "accessible":
-        track = '\n      <track kind="captions" src="../assets/shared/media/sous-titres-demo.vtt" srclang="fr" label="Français" default>'
-        caption = "Vidéo de sensibilisation avec sous-titres français relus et synchronisés."
+        tracks = [video_track("captions", "../assets/shared/media/captcha-sous-titres.vtt", "Français", True)]
+        caption = "Vidéo de sensibilisation avec sous-titres français issus de la piste YouTube."
     else:
-        track = ""
+        tracks = []
         caption = "Vidéo de sensibilisation."
+    media = local_video_media_block(
+        "captions-video",
+        "Vidéo de sensibilisation à l'accessibilité numérique",
+        "../assets/video/captcha-le-retour-au-moyen-age.mp4",
+        caption,
+        tracks,
+        CAPTCHA_CREDIT,
+    )
+    prompt = audit_prompt(
+        version_key,
+        "Avant de regarder l'aide, lancez quelques secondes de vidéo sans le son : que manque-t-il pour comprendre les paroles et les sons utiles ?",
+        "Avec l'aide, vérifiez d'abord la présence d'une piste de sous-titres, puis seulement la qualité du contenu proposé.",
+        "Dans la version corrigée, retrouvez la piste de sous-titres et vérifiez qu'elle donne accès aux paroles sans le son, puis repérez ce qui resterait à enrichir côté VSME.",
+    )
     return f"""<section aria-labelledby="content-title">
   <h2 id="content-title">Vidéo de sensibilisation</h2>
-  <figure class="fr-content-media" role="group" aria-label="Vidéo de sensibilisation à l'accessibilité numérique">
-    <div class="fr-content-media__img">
-      <video controls class="fr-responsive-vid" aria-describedby="video-caption">{track}
-      </video>
-      {placeholder_media("Vidéo à intégrer")}
-    </div>
-    <figcaption class="fr-content-media__caption" id="video-caption">{esc(caption)}</figcaption>
-  </figure>
+  {prompt}
+  {media}
+  <section aria-labelledby="video-rules-title" class="fr-mt-4w">
+    <h3 id="video-rules-title">Ce qu'une vidéo doit rendre accessible</h3>
+    <p>Une vidéo publiée en ligne doit transmettre son contenu par plusieurs canaux. Les paroles doivent être disponibles sans le son, et les informations visuelles essentielles doivent être compréhensibles sans l'image.</p>
+    <p>Les sous-titres ne se limitent pas aux dialogues : ils doivent être relus, synchronisés, lisibles sur l'image et intégrer les sons utiles à la compréhension. Les sous-titres générés automatiquement peuvent servir de base, mais ils doivent être vérifiés humainement avant publication.</p>
+    <p>Avant de publier la même vidéo sur un réseau social ou dans un autre lecteur, vérifiez que le format ne masque pas les sous-titres.</p>
+  </section>
+  {vsme_section()}
 </section>"""
 
 
 def content_ec10(version_key: str) -> str:
     transcription = ""
-    if version_key == "accessible":
+    guidance = ""
+    if version_key in {"help", "accessible"}:
         transcription = transcript_component(
             "podcast-rgaa",
-            "Transcription du podcast RGAA",
+            "Transcription du podcast",
             [
-                "Bienvenue dans ce court podcast consacré aux premiers contrôles RGAA.",
-                "Nous commençons par vérifier le titre de page, les alternatives d'images, le clavier, puis les formulaires.",
-                "La transcription finale reprendra mot pour mot le fichier audio fourni.",
+                "Un contenu audio doit proposer une alternative textuelle proche du lecteur. Pour un podcast, le plus utile est une transcription structurée, lisible et suffisamment complète pour comprendre le propos sans lancer l'audio.",
+                "Plusieurs niveaux existent : un résumé détaillé avec citations, une transcription intégrale éditée qui corrige les hésitations de l'oral, ou un verbatim fidèle qui conserve répétitions, hésitations, sons et musiques. Le choix dépend de l'usage, mais il doit être annoncé clairement.",
+                "Une transcription produite par intelligence artificielle reste un brouillon : noms propres, acronymes, chiffres et contresens doivent être relus par une personne avant diffusion.",
             ],
         )
+        guidance = transcription_levels_section()
+    prompt = audit_prompt(
+        version_key,
+        "Avant de regarder l'aide, essayez de comprendre le podcast sans lancer l'audio : quelle alternative textuelle manque près du lecteur ?",
+        "Avec l'aide, distinguez la présence de la transcription et la qualité du niveau choisi.",
+        "Dans la version corrigée, ouvrez la transcription et vérifiez si elle permet de comprendre le propos sans écouter le podcast.",
+    )
     return f"""<section aria-labelledby="content-title">
-  <h2 id="content-title">Podcast RGAA</h2>
-  <figure class="fr-content-media" role="group" aria-label="Extrait audio sur une démarche RGAA">
-    <figcaption class="fr-content-media__caption">Extrait audio présentant une démarche RGAA.</figcaption>
-    <audio controls aria-label="Écouter le podcast RGAA"></audio>
+  <h2 id="content-title">Écouter un podcast</h2>
+  {prompt}
+  <figure class="fr-content-media demo-podcast-media" role="group" aria-label="Podcast court sur les réflexes à adopter avant de publier un contenu accessible.">
+    <audio controls preload="metadata" aria-describedby="podcast-caption">
+      <source src="../assets/audio/narration-complete.mp3" type="audio/mpeg">
+      Votre navigateur ne peut pas lire ce fichier audio.
+    </audio>
+    <figcaption class="fr-content-media__caption" id="podcast-caption">Podcast court sur les réflexes à adopter avant de publier un contenu accessible.</figcaption>
   </figure>
   {transcription}
+  {guidance}
 </section>"""
 
 
 def content_ec11(page: dict, version_key: str) -> str:
-    sources = page.get("assets", {}).get("external_sources", {})
-    with_transcription = sources.get("with_transcription")
-    audio_described = sources.get("audio_described")
-    blocks: list[str] = []
-    if version_key == "accessible":
-        if audio_described:
-            blocks.append(youtube_media_block(audio_described, "Vidéo audiodécrite"))
-        if with_transcription:
-            blocks.append(youtube_media_block(with_transcription, "Vidéo avec transcription"))
-    elif version_key == "help":
-        if with_transcription:
-            blocks.append(youtube_media_block(with_transcription, "Vidéo avec transcription"))
-        if audio_described:
-            blocks.append(youtube_media_block(audio_described, "Vidéo audiodécrite"))
+    if version_key == "inaccessible":
+        media = local_video_media_block(
+            "captcha-video",
+            "CAPTCHA : le retour au Moyen Âge",
+            "../assets/video/captcha-le-retour-au-moyen-age.mp4",
+            "Vidéo de sensibilisation publiée sans sous-titres, sans transcription et sans version audiodécrite.",
+            credit=CAPTCHA_CREDIT,
+        )
+        main_media = media
+        extra = """<section aria-labelledby="publication-title" class="fr-mt-4w">
+    <h3 id="publication-title">Informations de publication</h3>
+    <p>La vidéo est prévue pour accompagner une page de sensibilisation aux obstacles rencontrés avec les CAPTCHA visuels.</p>
+    <p>Le contenu est compréhensible pour une personne qui voit l'image et entend le son, mais aucune alternative n'est proposée à proximité du lecteur.</p>
+  </section>"""
     else:
-        if with_transcription:
-            blocks.append(youtube_media_block(with_transcription, "Vidéo avec transcription"))
+        caption_tracks = [
+            video_track("captions", "../assets/shared/media/captcha-sous-titres.vtt", "Français", True),
+        ]
+        media = local_video_media_block(
+            "captcha-video",
+            "CAPTCHA : le retour au Moyen Âge",
+            "../assets/video/captcha-le-retour-au-moyen-age.mp4",
+            "Vidéo de sensibilisation avec sous-titres français issus de la piste YouTube.",
+            caption_tracks,
+            CAPTCHA_CREDIT,
+        )
+        main_media = ""
+        transcript = transcript_component("captcha-video-transcript", "Transcription de la vidéo CAPTCHA", CAPTCHA_TRANSCRIPTION)
+        audio_description_caption_tracks = [
+            video_track("captions", "../assets/shared/media/captcha-audiodecrite-sous-titres.vtt", "Français VSME", True),
+        ]
+        audio_described_media = local_video_media_block(
+            "captcha-video-audiodecrite",
+            "CAPTCHA : le retour au Moyen Âge (vidéo audiodécrite)",
+            "../assets/video/captcha-le-retour-au-moyen-age-audiodecrite.mp4",
+            "Version audiodécrite de la vidéo de sensibilisation avec sous-titres français enrichis selon la logique VSME.",
+            audio_description_caption_tracks,
+            CAPTCHA_CREDIT,
+        )
+        extra = f"""<section aria-labelledby="video-audiodecrite-title" class="fr-mt-4w">
+    <h3 id="video-audiodecrite-title">Version audiodécrite</h3>
+    <p>Correction principale : les informations visuelles nécessaires sont portées par l'audio, et la piste VSME distingue les dialogues, l'audiodescription et la voix off.</p>
+    {audio_described_media}
+  </section>
+  {transcript}
+  {ec11_complementary_checks(media)}"""
+    prompt = audit_prompt(
+        version_key,
+        "Avant de regarder l'aide, listez les informations qui restent perdues sans l'image, sans le son ou sans alternative textuelle.",
+        "Avec l'aide, concentrez-vous d'abord sur ce que l'image apporte, puis vérifiez les autres alternatives en complément.",
+        "Dans la version corrigée, commencez par la version audiodécrite : quelles informations visuelles sont maintenant disponibles sans voir l'image ?",
+    )
     return f"""<section aria-labelledby="content-title">
   <h2 id="content-title">CAPTCHA : le retour au Moyen Âge</h2>
   <p>Cette page présente une vidéo de sensibilisation aux difficultés posées par les CAPTCHA visuels.</p>
-</section>
-{'\n'.join(blocks)}"""
+  {prompt}
+  {main_media}
+  {extra}
+</section>"""
 
 
 def page_content(page: dict, version_key: str) -> str:
@@ -1332,7 +1705,7 @@ def generate_exercise_page(contract: dict, page: dict, version_key: str, current
         f"breadcrumb-{version_key}-{page['id']}",
     )
     main_body = f"{notice}\n  {content}" if version_key == "help" else f"{content}\n  "
-    exercise_content = f"""  <h1>{page['number']}. {esc(page['title'])}</h1>
+    exercise_content = f"""  <h1>#{page['number']} {esc(page['title'])}</h1>
   {main_body}"""
     main = f"""{page_breadcrumb}
 <main id="contenu" class="fr-container fr-py-6w">
@@ -1368,11 +1741,22 @@ def generate_manifest(contract: dict) -> None:
                 "",
                 f"**Point de contrôle rapide :** {page['easy_check']['name']}",
                 "",
+                "### Repère pédagogique",
+                "",
+                page["help"]["hint"],
+                "",
                 "### Erreurs injectées",
                 "",
             ]
         )
         parts.extend(f"- {error}" for error in page["inaccessible_errors"])
+        if page.get("scenario"):
+            parts.extend(["", "### Scénario de test", ""])
+            scenario_labels = {
+                "before_submit": "Avant soumission",
+                "after_submit": "Après soumission",
+            }
+            parts.extend(f"- {scenario_labels.get(label, label.replace('_', ' '))} : {text}" for label, text in page["scenario"].items())
         parts.extend(["", "### Outils de détection", ""])
         parts.extend(f"- {tool}" for tool in page["detection"])
         parts.extend(
@@ -1400,6 +1784,14 @@ def generate_correction(contract: dict) -> None:
         parts.append(f"- Sévérité indicative : {page['severity']}")
         parts.append(f"- Preuve possible : {page['minimal_proof']}")
         parts.append(f"- Correction : {page['accessible_correction']}")
+        parts.append(f"- Repère pédagogique : {page['help']['hint']}")
+        if page.get("scenario"):
+            scenario_labels = {
+                "before_submit": "Avant soumission",
+                "after_submit": "Après soumission",
+            }
+            scenario = " ; ".join(f"{scenario_labels.get(label, label.replace('_', ' '))} : {text}" for label, text in page["scenario"].items())
+            parts.append(f"- Scénario de test : {scenario}")
         parts.append(f"- Occurrences bonus : {' ; '.join(page['bonus_occurrences'])}")
         parts.append(f"- À ne pas pénaliser : {' ; '.join(page['do_not_penalize'])}\n")
     write_text(DOCS_DIR / "corrige-easy-checks.md", "\n".join(parts))
@@ -1410,6 +1802,10 @@ def generate_site_css() -> None:
         DOCS_DIR / "assets" / "site.css",
         """body {
   min-height: 100vh;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 .fr-card__detail {
@@ -1423,6 +1819,19 @@ def generate_site_css() -> None:
 .fr-content-media__img img {
   height: auto;
   max-width: 100%;
+}
+
+.demo-podcast-media {
+  text-align: left;
+}
+
+.demo-podcast-media audio {
+  display: block;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  margin-bottom: 1rem;
+  max-width: 32rem;
+  width: 100%;
 }
 
 .demo-image-check {
@@ -1506,10 +1915,17 @@ def generate_site_css() -> None:
 }
 
 .demo-no-focus a:focus,
-.demo-no-focus button:focus,
+.demo-no-focus button:focus:not([aria-controls="publish-session-modal"]),
 .demo-no-focus input:focus {
   outline: none !important;
   box-shadow: none !important;
+}
+
+.demo-no-focus .demo-modal-trigger:focus,
+.demo-no-focus .demo-modal-trigger:focus-visible {
+  outline: 3px solid #161616 !important;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px #ffffff !important;
 }
 
 .demo-fixed-cards .fr-card {
@@ -1550,6 +1966,36 @@ def generate_site_css() -> None:
 
 .demo-red-border {
   border: 2px solid #ce0500;
+}
+
+video::cue {
+  background-color: rgba(0, 0, 0, 0.88);
+  color: #ffffff;
+}
+
+video::cue(.vsme-dialogue-visible) {
+  color: #ffffff;
+}
+
+video::cue(.vsme-dialogue-offscreen) {
+  color: #ffff00;
+}
+
+video::cue(.vsme-sound) {
+  color: #ff6b6b;
+}
+
+video::cue(.vsme-music) {
+  color: #ff8cff;
+}
+
+video::cue(.vsme-audiodescription),
+video::cue(.vsme-voiceover) {
+  color: #80e7ff;
+}
+
+video::cue(.vsme-foreign) {
+  color: #80ff80;
 }
 """,
     )
@@ -1597,6 +2043,14 @@ def generate_demo_assets() -> None:
     write_text(
         DOCS_DIR / "assets" / "shared" / "media" / "sous-titres-demo.vtt",
         "WEBVTT\n\n00:00:00.000 --> 00:00:03.000\nBienvenue dans cette vidéo de sensibilisation.\n\n00:00:03.000 --> 00:00:06.000\nLes sous-titres finaux seront fournis avec la vidéo.\n",
+    )
+    write_text(
+        DOCS_DIR / "assets" / "shared" / "media" / "captcha-sous-titres.vtt",
+        "WEBVTT\nKind: captions\nLanguage: fr\n\n00:00:03.000 --> 00:00:04.000\nBonjour\n\n00:00:04.200 --> 00:00:05.600\nBonjour, ce sera tout ?\n\n00:00:06.000 --> 00:00:07.099\nOui, je vous dois combien ?\n\n00:00:07.099 --> 00:00:13.080\nMon petit monsieur, avant, il va falloir d'abord sélectionner tous les carreaux avec des vaches que vous voyez juste là !\n\n00:00:14.080 --> 00:00:16.200\nEn plus là vous avez de la chance, elles bougent pas !\n\n00:00:21.200 --> 00:00:22.424\nSélectionnez les cases contenant des vaches.\n",
+    )
+    write_text(
+        DOCS_DIR / "assets" / "shared" / "media" / "captcha-audiodecrite-sous-titres.vtt",
+        "WEBVTT\nKind: captions\nLanguage: fr\n\n00:00:00.000 --> 00:00:02.900\n<c.vsme-audiodescription>[Audiodescription] Une échoppe au Moyen Âge. Un homme aveugle pose ses courses sur le comptoir.</c>\n\n00:00:02.900 --> 00:00:03.700\n<c.vsme-dialogue-visible>Bonjour.</c>\n\n00:00:04.200 --> 00:00:05.850\n<c.vsme-dialogue-visible>Bonjour, ce sera tout ?</c>\n\n00:00:05.850 --> 00:00:06.900\n<c.vsme-dialogue-visible>Oui, je vous dois combien ?</c>\n\n00:00:06.900 --> 00:00:11.700\n<c.vsme-dialogue-visible>Mon petit monsieur, avant, il va falloir d'abord sélectionner tous les carreaux avec des vaches que vous voyez juste là !</c>\n\n00:00:11.700 --> 00:00:15.200\n<c.vsme-audiodescription>[Audiodescription] Le marchand montre à l'homme une fenêtre avec neuf cases. L'homme ne réagit pas.</c>\n\n00:00:15.200 --> 00:00:17.980\n<c.vsme-dialogue-visible>En plus là, vous avez de la chance, elles bougent pas !</c>\n\n00:00:17.980 --> 00:00:22.140\n<c.vsme-audiodescription>[Audiodescription] Nous passons du Moyen Âge à aujourd'hui. Le même homme aveugle est devant son ordinateur.</c>\n\n00:00:22.140 --> 00:00:25.500\n<c.vsme-audiodescription>[Audiodescription] Il est bloqué sur un site internet par un CAPTCHA.</c>\n\n00:00:25.500 --> 00:00:28.939\n<c.vsme-voiceover>[Voix off] Ne pas rendre son site accessible, c'est renvoyer les aveugles au Moyen Âge.</c>\n\n00:00:28.939 --> 00:00:33.120\n<c.vsme-voiceover>[Voix off] Faisons du numérique responsable une opportunité pour tous.</c>\n\n00:00:33.120 --> 00:00:35.050\n<c.vsme-audiodescription>[Audiodescription] Logo de l'association Valentin Haüy.</c>\n",
     )
     write_text(
         DOCS_DIR / "assets" / "shared" / "media" / "audiodescription-demo.vtt",

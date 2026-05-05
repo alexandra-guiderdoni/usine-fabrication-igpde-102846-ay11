@@ -18,14 +18,14 @@ def build(prs, layouts, ctx):
         layout_name="titre_contenu",
         titre="5 touches, 3 intentions",
         fil_ariane="3. points de contrôle rapides | 6. Focus et navigation clavier",
-        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Clavier",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Focus et navigation clavier",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
-    # Gap genereux (0,55) car l'ombre portee du highlight et le header bleu
-    # du tableau creent un effet de chevauchement visuel avec un gap serre.
-    stack = Stack(top=2.3, gap=0.55)
+    # Gap resserre pour garder le tableau hors du pied de page,
+    # tout en laissant une respiration visible sous le highlight.
+    stack = Stack(top=2.3, gap=0.15)
 
     highlight_texte = "Naviguer → Tab / Shift+Tab    Agir → Entrée / Espace    Lire → Flèches ↑ ↓"
     add_highlight(

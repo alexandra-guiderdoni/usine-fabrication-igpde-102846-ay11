@@ -50,9 +50,10 @@ def build(prs, layouts, ctx):
     )
 
     lisibilite_bullets = [
-        "Police sans serif : Arial ou Marianne",
-        "12 pt minimum, interligne 1,15",
-        "Ne pas justifier le texte",
+        "Police sans serif, 12 pt minimum",
+        "Interligne 1,15, paragraphes aérés",
+        "Alignement à gauche, pas de justification",
+        "Contraste mesuré, fond non dégradé",
     ]
     add_callout(
         slide,
@@ -61,6 +62,7 @@ def build(prs, layouts, ctx):
         top=4.55,
         left=COL_R,
         width=COL_W,
+        line_spacing=1.05,
     )
 
     add_notes(
@@ -68,6 +70,8 @@ def build(prs, layouts, ctx):
         "Exemple concret de balisage : un document français avec un titre en anglais "
         "Annual Report. Sans balisage, le lecteur d'écran français prononce les mots "
         "anglais avec un accent français incompréhensible. Majuscules : UN INTERNE TUE - "
-        "donne le ton d'une phrase choc en majuscules, pas d'un texte en majuscules."
+        "donne le ton d'une phrase choc en majuscules, pas d'un texte en majuscules. "
+        "Pour la lisibilité, faire le lien avec les règles transversales vues en module 1 : "
+        "police simple, texte aligné à gauche, paragraphes aérés, contraste mesuré et fonds non dégradés."
     )
     return slide

@@ -2,6 +2,10 @@ body {
   min-height: 100vh;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 .fr-card__detail {
   word-break: normal;
 }
@@ -13,6 +17,19 @@ body {
 .fr-content-media__img img {
   height: auto;
   max-width: 100%;
+}
+
+.demo-podcast-media {
+  text-align: left;
+}
+
+.demo-podcast-media audio {
+  display: block;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  margin-bottom: 1rem;
+  max-width: 32rem;
+  width: 100%;
 }
 
 .demo-image-check {
@@ -96,10 +113,17 @@ body {
 }
 
 .demo-no-focus a:focus,
-.demo-no-focus button:focus,
+.demo-no-focus button:focus:not([aria-controls="publish-session-modal"]),
 .demo-no-focus input:focus {
   outline: none !important;
   box-shadow: none !important;
+}
+
+.demo-no-focus .demo-modal-trigger:focus,
+.demo-no-focus .demo-modal-trigger:focus-visible {
+  outline: 3px solid #161616 !important;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px #ffffff !important;
 }
 
 .demo-fixed-cards .fr-card {
@@ -140,4 +164,34 @@ body {
 
 .demo-red-border {
   border: 2px solid #ce0500;
+}
+
+video::cue {
+  background-color: rgba(0, 0, 0, 0.88);
+  color: #ffffff;
+}
+
+video::cue(.vsme-dialogue-visible) {
+  color: #ffffff;
+}
+
+video::cue(.vsme-dialogue-offscreen) {
+  color: #ffff00;
+}
+
+video::cue(.vsme-sound) {
+  color: #ff6b6b;
+}
+
+video::cue(.vsme-music) {
+  color: #ff8cff;
+}
+
+video::cue(.vsme-audiodescription),
+video::cue(.vsme-voiceover) {
+  color: #80e7ff;
+}
+
+video::cue(.vsme-foreign) {
+  color: #80ff80;
 }

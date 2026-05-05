@@ -1,4 +1,4 @@
-"""Slide 02e : la déclaration d'accessibilité - tableau + exercice."""
+"""Slide 02s : la déclaration d'accessibilité - tableau + exercice."""
 
 from igpde_dsfr_components import (
     CONTENT_W, MARGIN_L, Stack,

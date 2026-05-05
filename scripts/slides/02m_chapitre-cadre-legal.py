@@ -1,4 +1,4 @@
-"""Slide 02b : chapitre d'ouverture - Module 1 cadre légal."""
+"""Slide 02m : chapitre d'ouverture - Module 1."""
 
 from igpde_dsfr_components import add_notes, compose_chapitre, new_slide
 
@@ -16,13 +16,13 @@ def build(prs, layouts, ctx):
     compose_chapitre(
         slide,
         numero="1",
-        titre="Accessibilité numérique et cadre légal",
+        titre="Accessibiliser sa communication",
     )
 
     add_notes(
         slide,
         "Ouverture du module 1. Poser la question : "
-        "Qui a déjà entendu parler du RGAA ? "
-        "Laisser 30 secondes de silence.",
+        "Quand une communication est-elle vraiment accessible ? "
+        "Laisser 30 secondes de silence avant de basculer vers les supports concernés.",
     )
     return slide

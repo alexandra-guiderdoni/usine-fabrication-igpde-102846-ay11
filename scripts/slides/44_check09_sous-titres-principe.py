@@ -22,8 +22,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Sous-titres : le son que tout le monde lit",
-        fil_ariane="3. points de contrôle rapides | 9. Sous-titres",
-        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Sous-titres",
+        fil_ariane="3. points de contrôle rapides | 9. Sous-titres vidéo",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Sous-titres vidéo",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

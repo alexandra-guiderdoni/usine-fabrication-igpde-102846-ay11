@@ -175,7 +175,7 @@ pages:
     realistic_context: "Page explicative sur le RGAA et ses ressources."
     easy_check:
       number: 3
-      name: "Titres de rubriques"
+      name: "Titres et hiérarchie"
     severity: "Gênant"
     expected_minimal_finding: "Un ou plusieurs textes visuellement présentés comme titres ne sont pas balisés comme titres, ou une balise de titre est utilisée pour une simple mise en valeur."
     minimal_proof: "HeadingsMap/WAVE ou extrait HTML montrant les faux titres en paragraphes, ou le titre détourné pour la présentation."
@@ -223,7 +223,7 @@ pages:
     realistic_context: "Page décrivant les règles de publication des contenus accessibles."
     easy_check:
       number: 4
-      name: "Contraste"
+      name: "Contraste des couleurs"
     severity: "Bloquant"
     expected_minimal_finding: "Au moins un texte, lien, bouton ou statut présente un contraste insuffisant."
     minimal_proof: "Mesure CCA/WebAIM/WAVE avec couleurs et ratio inférieur au seuil attendu."
@@ -324,38 +324,44 @@ pages:
     realistic_context: "Page avec cartes de ressources, boutons d'action et accordéons d'information."
     easy_check:
       number: 6
-      name: "Focus clavier visible"
+      name: "Focus et navigation clavier"
     severity: "Bloquant"
-    expected_minimal_finding: "Le focus clavier n'est pas visible sur au moins un composant interactif."
-    minimal_proof: "Parcours Tab / Shift+Tab montrant le composant focusable sans indicateur visible."
+    expected_minimal_finding: "Le focus clavier n'est pas visible sur au moins un composant interactif, ou la modale de publication ouverte au clavier piège l'utilisateur."
+    minimal_proof: "Parcours Tab / Shift+Tab montrant le composant focusable sans indicateur visible, les liens d'action secondaires sautés par le clavier, ou la modale ouverte sans sortie clavier standard."
     detection:
       - "Clavier"
       - "Tab"
       - "Shift+Tab"
       - "ANDI"
     inaccessible_errors:
+      - "Liens d'action secondaires activables à la souris mais absents de l'ordre de tabulation."
       - "Focus visible supprimé sur un bouton."
       - "Focus visible supprimé sur une carte cliquable."
       - "Focus visible supprimé ou très peu perceptible sur un accordéon DSFR mal surchargé."
+      - "Bouton Publier la session atteignable au clavier, mais la modale de publication piège ensuite le clavier : Tab reste bloqué et Échap ne referme pas la fenêtre."
     bonus_occurrences:
       - "Bouton, carte cliquable ou accordéon touché par la même surcharge CSS."
+      - "Liens visibles mais absents du parcours Tab."
+      - "Modale non refermable au clavier alors que le motif DSFR attend Échap et une fermeture focusable."
     do_not_penalize:
       - "Variation visuelle DSFR du focus si elle reste perceptible et conforme."
-    accessible_correction: "Focus visible DSFR conservé sur boutons, liens/cartes et accordéons ; ordre de tabulation logique ; aucun piège clavier ; comportement clavier des accordéons conforme à la fiche DSFR."
+    accessible_correction: "Focus visible DSFR conservé sur boutons, liens/cartes, accordéons et modale ; ordre de tabulation logique ; aucun piège clavier ; comportement clavier des accordéons et de la modale conforme aux fiches DSFR."
     help:
       hint: "Laisser la souris de côté et parcourir toute la page avec Tab, Shift+Tab, Entrée et Espace. À chaque arrêt, demander : où suis-je, quelle action puis-je lancer, puis-je revenir en arrière ?"
       problem: "Le focus disparaît sur plusieurs composants interactifs. La personne qui navigue au clavier ne sait plus quelle commande, quelle carte ou quel accordéon est actif."
       findings_intro: "Les trois vérifications à mener sont :"
       findings:
         - "Visibilité : le focus doit être perceptible sur les boutons d'action, les cartes cliquables, les liens et les boutons d'accordéon."
+        - "Atteignabilité : les actions visibles et activables à la souris doivent être atteignables au clavier."
         - "Ordre : le parcours Tab doit suivre l'ordre visuel et éditorial de la page, sans saut inattendu."
-        - "Interaction : Entrée et Espace doivent permettre d'activer les boutons et d'ouvrir ou fermer les accordéons sans piéger le clavier."
-      fix: "Retirer les surcharges CSS qui masquent le focus, conserver les styles de focus DSFR et tester chaque famille de composant au clavier."
+        - "Interaction : Entrée et Espace doivent permettre d'activer les boutons, d'ouvrir ou fermer les accordéons et de sortir d'une modale sans piéger le clavier."
+      fix: "Retirer les surcharges CSS qui masquent le focus, remettre les actions prioritaires dans l'ordre de tabulation, conserver le comportement DSFR de la modale et tester chaque famille de composant au clavier."
       fixes_intro: "Corrections attendues par type de cas :"
       fixes:
-        - "Boutons : aucun outline ou box-shadow de focus ne doit être supprimé par une règle locale."
+        - "Boutons : les actions visibles doivent être focusables au clavier et aucun outline ou box-shadow de focus ne doit être supprimé par une règle locale."
         - "Cartes et liens : le lien actif doit afficher un état de focus visible et cohérent avec le DSFR."
         - "Accordéons : le bouton d'accordéon doit rester focusable, visible au focus et pilotable avec Entrée ou Espace."
+        - "Modale : le bouton d'ouverture doit être un bouton focusable ; Échap doit refermer la modale ; Tab et Maj+Tab doivent circuler entre les éléments focusables internes sans bloquer la sortie par fermeture."
     dsfr_components:
       - "Carte"
       - "Bouton"
@@ -424,7 +430,7 @@ pages:
     realistic_context: "Page de ressources avec grille de cartes RGAA."
     easy_check:
       number: 8
-      name: "Zoom 200 %"
+      name: "Zoom à 200 %"
     severity: "Gênant"
     expected_minimal_finding: "À 200 % de zoom, une carte perd du contenu ou devient difficilement utilisable."
     minimal_proof: "Capture à 200 % montrant texte tronqué, bouton sorti, superposition ou défilement horizontal non nécessaire."
@@ -470,7 +476,7 @@ pages:
     realistic_context: "Courte vidéo de sensibilisation à l'accessibilité numérique."
     easy_check:
       number: 9
-      name: "Sous-titres"
+      name: "Sous-titres vidéo"
     severity: "Bloquant"
     expected_minimal_finding: "La vidéo ne propose pas de sous-titres exploitables pour le contenu oral."
     minimal_proof: "Vérification du lecteur : absence de piste, bouton sous-titres absent, ou sous-titres automatiques non relus signalés."
@@ -507,7 +513,7 @@ pages:
       - "Lien"
     assets:
       placeholders:
-        - "assets/shared/media/video-demo.mp4"
+        - "assets/video/captcha-le-retour-au-moyen-age.mp4"
         - "assets/shared/media/sous-titres-demo.vtt"
       final_assets_pending: true
     grid:
@@ -516,11 +522,11 @@ pages:
 
   - id: "ec10-transcript"
     number: 10
-    title: "Podcast RGAA"
+    title: "Écouter un podcast"
     realistic_context: "Extrait audio présentant une démarche RGAA."
     easy_check:
       number: 10
-      name: "Transcriptions"
+      name: "Transcriptions audio et vidéo"
     severity: "Bloquant"
     expected_minimal_finding: "Le contenu audio n'a pas de transcription accessible à proximité."
     minimal_proof: "Revue de la page montrant absence de lien de transcription proche du média."
@@ -556,7 +562,7 @@ pages:
       - "Lien"
     assets:
       placeholders:
-        - "assets/shared/media/audio-demo.mp3"
+        - "assets/audio/narration-complete.mp3"
         - "assets/shared/media/transcription-demo.html"
       final_assets_pending: true
     grid:
@@ -587,28 +593,32 @@ pages:
       - "Vidéo où toutes les informations visuelles essentielles sont déjà dites dans l'audio."
     accessible_correction: "Description intégrée, piste audiodécrite ou version alternative selon faisabilité."
     help:
-      hint: "Regarder la vidéo en se demandant quelles informations seraient perdues sans l'image."
-      problem: "L'image porte une information non disponible autrement."
-      findings_intro: "Les trois pertes d'information à rechercher sont :"
+      hint: "Commencer par la présence : la vidéo propose-t-elle une piste de sous-titres, une transcription proche du lecteur et une version ou piste audiodécrite ? Ensuite seulement, juger leur pertinence."
+      problem: "La page à auditer publie une vidéo sans les trois alternatives attendues. La présence est donc non conforme ; la pertinence des alternatives absentes devient non applicable pour cette occurrence."
+      findings_intro: "Les trois contrôles à mener sont :"
       findings:
-        - "Action visuelle : une manipulation, un changement d'écran ou un résultat visible n'est pas dit dans l'audio."
-        - "Version alternative : aucune piste, version audiodécrite ou description textuelle équivalente n'est proposée."
-        - "Description insuffisante : la description existe mais reste trop vague pour comprendre l'information portée par l'image."
-      fix: "Décrire les informations visuelles essentielles dans l'audio, une piste dédiée ou une version alternative."
+        - "Sous-titres : la piste doit exister dans le lecteur, puis son contenu doit être relu, synchronisé et utile."
+        - "Transcription : l'accès doit être placé près de la vidéo, puis le texte doit permettre de comprendre le contenu sans lancer le média."
+        - "Audiodescription : une version ou piste dédiée doit exister si l'image porte une information essentielle, puis elle doit décrire précisément ce qui est nécessaire à la compréhension."
+      fix: "Ajouter les alternatives manquantes, puis vérifier leur pertinence une par une. Ne pas juger la qualité d'une alternative qui n'existe pas : le critère de pertinence associé est non applicable."
       fixes_intro: "Corrections attendues :"
       fixes:
-        - "Identifier uniquement les informations visuelles nécessaires à la compréhension."
-        - "Fournir une version audiodécrite ou une piste dédiée quand l'image porte l'information."
-        - "Proposer une description textuelle équivalente si elle suffit pour le type de vidéo."
+        - "Ajouter une piste de sous-titres WebVTT en français issue de la source vidéo."
+        - "Placer un composant de transcription immédiatement après la vidéo."
+        - "Fournir la version audiodécrite locale quand l'image porte une information essentielle."
+        - "Contrôler séparément présence et pertinence pour éviter de noter deux fois la même absence."
     dsfr_components:
       - "Contenu médias"
       - "Transcription"
       - "Lien"
     assets:
       placeholders:
-        - "assets/shared/media/video-demo.mp4"
+        - "assets/video/captcha-le-retour-au-moyen-age.mp4"
+        - "assets/shared/media/captcha-sous-titres.vtt"
+        - "assets/shared/media/captcha-le-retour-au-moyen-age-youtube.fr.srt"
+        - "assets/shared/media/captcha-le-retour-au-moyen-age-youtube.fr.vtt"
         - "assets/shared/media/audiodescription-demo.vtt"
-        - "assets/shared/media/video-demo-ad.mp4"
+        - "assets/video/captcha-le-retour-au-moyen-age-audiodecrite.mp4"
       final_assets_pending: true
       external_sources:
         with_transcription:
@@ -655,14 +665,14 @@ pages:
       - "Placeholder utilisé comme exemple si une étiquette visible et associée existe."
     accessible_correction: "Étiquette visible et persistante ; association label for/id ; placeholder utilisé seulement comme exemple ; nom accessible qui reprend le nom visible ; aide à la saisie reliée avec aria-describedby ; groupes DSFR structurés avec fieldset.fr-fieldset, legend.fr-fieldset__legend, fr-fieldset__element et fr-messages-group."
     help:
-      hint: "Vérifier le nom accessible des champs avec ANDI, WAVE ou l'arbre d'accessibilité. Tester aussi le clic sur les libellés visibles."
-      problem: "Le champ ou le groupe n'a pas de nom fiable : lecteur d'écran muet, commande vocale fragile, mémoire sollicitée ou contexte perdu."
+      hint: "Vérifier uniquement le nom accessible des champs et des groupes avec ANDI, WAVE ou l'arbre d'accessibilité. Tester aussi le clic sur les libellés visibles. Les champs obligatoires et les erreurs seront traités dans le point 13."
+      problem: "Le champ ou le groupe n'a pas de nom fiable : lecteur d'écran muet, commande vocale fragile, mémoire sollicitée ou contexte perdu. L'objectif est de distinguer l'étiquette du champ de la validation du formulaire."
       findings_intro: "Les trois familles d'erreurs à repérer sont :"
       findings:
         - "Champ de saisie : le nom de famille utilise le placeholder comme seule étiquette."
         - "Champ de saisie : l'étiquette de l'adresse électronique est visible, mais son attribut for ne cible pas l'id du champ."
         - "Choix : les boutons radio et les cases à cocher sont présentés visuellement comme des groupes DSFR, mais sans fieldset et legend natifs."
-      fix: "Relier chaque étiquette au champ, ne pas remplacer le label par un placeholder, structurer les groupes avec les composants DSFR natifs et vérifier le nom accessible."
+      fix: "Relier chaque étiquette au champ, ne pas remplacer le label par un placeholder, structurer les groupes avec les composants DSFR natifs et vérifier le nom accessible avant de traiter les erreurs de saisie."
       fixes_intro: "Corrections DSFR attendues :"
       fixes:
         - "Utiliser div.fr-input-group, label.fr-label for/id, input.fr-input et fr-messages-group relié par aria-describedby."
@@ -684,7 +694,7 @@ pages:
     realistic_context: "Formulaire de contact pour poser une question sur l'accessibilité numérique ou signaler une difficulté."
     easy_check:
       number: 13
-      name: "Champs obligatoires"
+      name: "Champs obligatoires et erreurs"
     severity: "Bloquant"
     expected_minimal_finding: "L'obligation ou l'erreur de saisie n'est pas annoncée et reliée de manière exploitable."
     minimal_proof: "Soumission du formulaire et inspection HTML montrant obligation non balisée, message vague/non relié ou focus non accompagné."
@@ -714,7 +724,7 @@ pages:
       - "Astérisque utilisé s'il est expliqué et complété par une information technique et textuelle."
     accessible_correction: "Mention textuelle obligatoire ou règle claire sur les champs optionnels ; required ou aria-required ; astérisque expliqué si utilisé ; message d'erreur précis avec exemple ou format attendu ; erreur associée au champ ; aria-invalid true si pertinent ; focus placé sur le récapitulatif d'erreurs ou le premier champ en erreur."
     help:
-      hint: "Observer d'abord le formulaire avant envoi, puis le soumettre vide. Comparer l'état initial et l'état après soumission."
+      hint: "Observer d'abord le formulaire avant envoi, puis le soumettre vide. Comparer l'état initial et l'état après soumission. Ici, les libellés doivent déjà être compréhensibles : le test porte sur l'obligation, les messages et le guidage après erreur."
       problem: "L'obligation n'est pas annoncée ou la correction n'est pas accompagnée : perte de contexte, erreurs répétées et abandon."
       findings_intro: "Les cinq points à vérifier sont :"
       findings:

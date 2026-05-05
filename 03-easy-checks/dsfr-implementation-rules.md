@@ -398,6 +398,6 @@ Version accessible :
 - Tous les groupes de choix ont `fieldset` et `legend`.
 - Aucun focus visible n'est supprimé dans `site-accessible/`.
 - Aucun message important n'est porté uniquement par la couleur, la forme ou l'icône.
-- Zoom 200 % : pas de perte de contenu ni de superposition bloquante.
+- Zoom à 200 % : pas de perte de contenu ni de superposition bloquante.
 - Version accessible : pas de texte pédagogique visible.
 - Version inaccessible : l'erreur principale reste détectable par la grille, mais le site reste crédible.

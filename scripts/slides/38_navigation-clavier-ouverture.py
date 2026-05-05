@@ -24,7 +24,7 @@ def build(prs, layouts, ctx):
         layout_name="titre_contenu",
         titre="Naviguer sans souris : le test qui change tout",
         fil_ariane="3. points de contrôle rapides | 6. Focus et navigation clavier",
-        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Clavier",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Focus et navigation clavier",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
@@ -50,8 +50,8 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Annoncer le rattachement : cette séquence correspond à le Point de contrôle rapide n° 6 du W3C "
-        "« Focus clavier visible » (WCAG 2.4.7), qu’on élargit ici à la navigation clavier complète "
+        "Annoncer le rattachement : cette séquence correspond au point de contrôle rapide n° 6 du W3C, "
+        "focus et navigation clavier : visibilité du focus, parcours, activation et absence de piège "
         "(tabulation, activation, lecture). Corpus de référence local : 03-easy-checks/w3c-easy-checks-fr.md. "
         "Ouvrir par une question : « Posez la main loin de la souris. "
         "Combien de temps tenez-vous sur votre site préféré ? » "

@@ -186,6 +186,34 @@ def validate_docs() -> None:
         details = "\n".join(help_errors[:30])
         raise ValueError(f"Contrôles version aide à la correction en échec:\n{details}")
 
+    ec06_errors: list[str] = []
+    ec06_bad_snippets = (
+        'data-fr-opened="false" aria-expanded="false" aria-controls="publish-session-modal" class="fr-btn demo-modal-trigger" type="button" tabindex="0">Publier la session',
+        'class="fr-link" href="ec12-form-labels.html" tabindex="-1">Vérifier le formulaire',
+        'class="fr-link" href="#participants-notification" tabindex="-1">Prévenir les participants',
+        'class="fr-modal demo-modal-keyboard-trap"',
+        'class="fr-btn--close fr-btn" tabindex="-1">Fermer',
+        'class="fr-btn demo-modal-trap-target">Confirmer la publication',
+    )
+    for variant in ("site-inaccessible", "site-aide-correction"):
+        text = (DOCS / variant / "ec06-keyboard-focus.html").read_text(encoding="utf-8")
+        for snippet in ec06_bad_snippets:
+            if snippet not in text:
+                ec06_errors.append(f"{variant}/ec06-keyboard-focus.html: piège clavier attendu absent: {snippet}")
+
+    accessible_ec06 = (DOCS / "site-accessible" / "ec06-keyboard-focus.html").read_text(encoding="utf-8")
+    if 'tabindex="-1">Publier la session' in accessible_ec06:
+        ec06_errors.append("site-accessible/ec06-keyboard-focus.html: le bouton Publier ne doit pas être retiré de l'ordre de tabulation")
+    if 'href="ec12-form-labels.html" tabindex="-1"' in accessible_ec06:
+        ec06_errors.append("site-accessible/ec06-keyboard-focus.html: le lien Vérifier le formulaire doit rester dans l'ordre de tabulation")
+    if 'href="#participants-notification" tabindex="-1"' in accessible_ec06:
+        ec06_errors.append("site-accessible/ec06-keyboard-focus.html: le lien Prévenir les participants doit rester dans l'ordre de tabulation")
+    if "demo-modal-keyboard-trap" in accessible_ec06:
+        ec06_errors.append("site-accessible/ec06-keyboard-focus.html: la modale corrigée ne doit pas contenir le piège clavier")
+    if ec06_errors:
+        details = "\n".join(ec06_errors[:30])
+        raise ValueError(f"Contrôles spécifiques EC06 en échec:\n{details}")
+
 
 def main() -> None:
     validate_contract()

@@ -2,9 +2,11 @@
 
 Sortie : 03-easy-checks/grille-audit-easy-checks.xlsx
 
-Classeur à 4 onglets :
+Classeur à 17 onglets :
 - Mode d'emploi : conventions, verdicts, sévérité, outils
-- Grille vierge : 13 critères à auditer avec validation de données
+- Exercice - 13 pages : correspondance slides, site d'exercice et lignes de grille
+- Échantillon RGAA : rappel des pages obligatoires et représentatives
+- 12 grilles de page : 13 critères à auditer avec validation de données
 - Exemple : audit fictif sur une page type service public
 - Synthèse : décompte automatique et taux de conformité
 
@@ -66,7 +68,7 @@ SIZE_CELL = 14
 CHECKS = [
     {
         "id": 1,
-        "titre": "Alternatives textuelles des images",
+        "titre": "Texte alternatif des images",
         "wcag": "1.1.1",
         "rgaa": "1.1, 1.2, 1.3, 1.6, 1.7, 1.8, 1.9",
         "methode": "Bookmarklet « Check images », ou clic droit Inspecter sur chaque image.",
@@ -165,8 +167,102 @@ CHECKS = [
         "titre": "Champs obligatoires et erreurs",
         "wcag": "3.3.2, 3.3.1, 3.3.3",
         "rgaa": "11.10, 11.11",
-        "methode": "Soumettre un formulaire incomplet. Écouter l'annonce par le lecteur d'écran.",
-        "verifier": "Obligatoires indiqués textuellement et par astérisque. Légende « * champ obligatoire » présente. Messages d'erreur qui identifient le champ par son libellé.",
+        "methode": "Observer l'état initial, puis soumettre un formulaire incomplet. Vérifier au clavier et au lecteur d'écran.",
+        "verifier": "Avant envoi : obligatoires indiqués textuellement, astérisque expliqué si utilisé, required ou aria-required présent. Après envoi : pas d'erreur prématurée, message précis relié au champ avec aria-describedby, aria-invalid si erreur, focus guidé vers le récapitulatif ou le premier champ en erreur.",
+    },
+]
+
+EXERCICE_PAGES = [
+    {
+        "id": "ec01-images",
+        "title": "Actualité illustrée",
+        "slides": "53-55",
+        "recommended_sheet": "10. Article",
+        "minimal_task": "Qualifier le rôle de chaque image puis vérifier si l'alternative transmet l'information ou l'action utile.",
+    },
+    {
+        "id": "ec02-page-title",
+        "title": "Résultats de recherche RGAA",
+        "slides": "56",
+        "recommended_sheet": "8. Recherche",
+        "minimal_task": "Vérifier que le titre de page identifie la requête, la pagination et le site dans un ordre utile.",
+    },
+    {
+        "id": "ec03-headings",
+        "title": "Guide du RGAA",
+        "slides": "57-58",
+        "recommended_sheet": "10. Article",
+        "minimal_task": "Comparer le plan visuel et le plan technique des titres.",
+    },
+    {
+        "id": "ec04-contrast",
+        "title": "Charte de publication",
+        "slides": "59-60",
+        "recommended_sheet": "10. Article",
+        "minimal_task": "Mesurer le contraste d'un texte, d'un lien, d'un bouton ou d'un statut.",
+    },
+    {
+        "id": "ec05-skiplinks",
+        "title": "Accès rapide aux contenus",
+        "slides": "61",
+        "recommended_sheet": "1. Accueil",
+        "minimal_task": "Appuyer sur Tab au chargement et vérifier la présence, la visibilité et la cible du lien d'évitement.",
+    },
+    {
+        "id": "ec06-keyboard-focus",
+        "title": "Parcours clavier",
+        "slides": "62-65",
+        "recommended_sheet": "11. Formulaire",
+        "minimal_task": "Parcourir la page au clavier : focus visible, ordre logique, activation clavier, absence de piège.",
+    },
+    {
+        "id": "ec07-language",
+        "title": "Atelier international",
+        "slides": "66",
+        "recommended_sheet": "10. Article",
+        "minimal_task": "Vérifier la langue principale et les changements de langue ou de sens de lecture.",
+    },
+    {
+        "id": "ec08-zoom",
+        "title": "Ressources à zoomer",
+        "slides": "67",
+        "recommended_sheet": "12. Liste",
+        "minimal_task": "Zoomer à 200 % et vérifier qu'aucun contenu utile n'est coupé, masqué ou inutilisable.",
+    },
+    {
+        "id": "ec09-captions",
+        "title": "Vidéo de sensibilisation",
+        "slides": "68-69",
+        "recommended_sheet": "10. Article",
+        "minimal_task": "Couper le son et vérifier la présence de sous-titres synchronisés et relus.",
+    },
+    {
+        "id": "ec10-transcript",
+        "title": "Écouter un podcast",
+        "slides": "70",
+        "recommended_sheet": "10. Article",
+        "minimal_task": "Vérifier qu'une transcription proche du lecteur permet de comprendre le contenu sans écouter l'audio.",
+    },
+    {
+        "id": "ec11-audio-description",
+        "title": "Démonstration vidéo",
+        "slides": "71",
+        "recommended_sheet": "10. Article",
+        "minimal_task": "Commencer par la version audiodécrite et vérifier quelles informations visuelles deviennent disponibles sans voir l'image.",
+    },
+    {
+        "id": "ec12-form-labels",
+        "title": "Inscription à un webinaire",
+        "slides": "72-74",
+        "recommended_sheet": "11. Formulaire",
+        "minimal_task": "Vérifier l'étiquette visible, son association au champ et les légendes des groupes.",
+    },
+    {
+        "id": "ec13-required-errors",
+        "title": "Formulaire de contact",
+        "slides": "75",
+        "recommended_sheet": "5. Contact",
+        "minimal_task": "Soumettre le formulaire et vérifier l'annonce des champs obligatoires et des erreurs.",
     },
 ]
 
@@ -239,7 +335,7 @@ EXEMPLE = {
     10: ("NA", "", "Pas de média nécessitant une transcription.", "", ""),
     11: ("NA", "", "Pas de vidéo informative.", "", ""),
     12: ("NC", "Bloquant", "Formulaire de contact : placeholder utilisé comme seule étiquette.", "Ajouter un <label> visible au-dessus de chaque champ.", "contact.html, form#contact"),
-    13: ("NC", "Mineur", "Pas de légende « * champ obligatoire » en tête de formulaire.", "Ajouter la légende et un attribut aria-required sur les champs concernés.", "contact.html, form#contact"),
+    13: ("NC", "Bloquant", "Après soumission, les erreurs ne sont pas reliées aux champs et le focus reste sans guidage.", "Relier chaque erreur avec aria-describedby, poser aria-invalid=\"true\" et déplacer le focus vers le récapitulatif d'erreurs.", "contact.html, form#contact"),
 }
 
 # ---------------------------------------------------------------------------
@@ -257,6 +353,7 @@ FONT_TITLE = Font(name="Calibri", size=SIZE_TITLE, bold=True, color=BLEU_FRANCE)
 FONT_SECTION = Font(name="Calibri", size=SIZE_SECTION, bold=True, color=BLEU_FRANCE)
 FONT_CELL = Font(name="Calibri", size=SIZE_CELL)
 FONT_CELL_BOLD = Font(name="Calibri", size=SIZE_CELL, bold=True)
+FONT_LINK = Font(name="Calibri", size=SIZE_CELL, color=BLEU_FRANCE, underline="single")
 FONT_VERDICT = Font(name="Calibri", size=SIZE_CELL, bold=True)
 ALIGN_WRAP = Alignment(horizontal="left", vertical="top", wrap_text=True)
 ALIGN_CENTER = Alignment(horizontal="center", vertical="center", wrap_text=True)
@@ -355,7 +452,8 @@ def build_mode_emploi(wb):
         ("", ""),
         ("Onglets du classeur", ""),
         ("", "Mode d'emploi : ce document."),
-        ("", "Grille vierge : 13 critères à remplir pour la page auditée."),
+        ("", "Exercice - 13 pages : correspondance entre les slides, les pages du site d'exercice et les lignes à remplir dans la grille."),
+        ("", "Onglets de page : 13 critères à remplir pour la page auditée."),
         ("", "Exemple : audit illustratif sur une page type."),
         ("", "Synthèse : décompte automatique et taux de conformité multi-pages."),
         ("", ""),
@@ -402,6 +500,98 @@ def build_mode_emploi(wb):
         ws.row_dimensions[r].height = 26
 
     configure_print(ws, orientation="portrait")
+    return ws
+
+
+# ---------------------------------------------------------------------------
+# Onglet Exercice - 13 pages
+# ---------------------------------------------------------------------------
+
+def build_exercice_pages(wb):
+    """Onglet de liaison entre slides, site d'exercice et grille XLSX."""
+    ws = wb.create_sheet("Exercice - 13 pages")
+    set_widths(ws, [5, 36, 18, 18, 28, 28, 28, 22, 14, 58])
+
+    ws["A1"] = "Exercice - correspondance entre slides, site et grille"
+    ws["A1"].font = FONT_TITLE
+    ws.merge_cells("A1:J1")
+    ws.row_dimensions[1].height = 38
+
+    intro = ws.cell(
+        row=3, column=1,
+        value="Utilisez cet onglet pendant l'exercice : partez de la slide, ouvrez la page à auditer, puis renseignez la ligne correspondante dans l'onglet de grille conseillé. Les pages d'aide et corrigées servent après la recherche en autonomie.",
+    )
+    intro.font = FONT_CELL
+    intro.alignment = ALIGN_WRAP
+    ws.merge_cells("A3:J3")
+    ws.row_dimensions[3].height = 58
+
+    header_row = 5
+    headers = [
+        "#",
+        "Page d'exercice",
+        "Point rapide",
+        "Slides",
+        "Page à auditer",
+        "Aide",
+        "Correction",
+        "Onglet conseillé",
+        "Ligne",
+        "Mission minimale",
+    ]
+    for col, h in enumerate(headers, start=1):
+        ws.cell(row=header_row, column=col, value=h)
+    style_header_row(ws, header_row, len(headers))
+    ws.row_dimensions[header_row].height = 42
+
+    base_url = "http://127.0.0.1:8765"
+    for idx, (check, page) in enumerate(zip(CHECKS, EXERCICE_PAGES), start=1):
+        r = header_row + idx
+        urls = {
+            "audit": f"{base_url}/site-inaccessible/{page['id']}.html",
+            "help": f"{base_url}/site-aide-correction/{page['id']}.html",
+            "corrected": f"{base_url}/site-accessible/{page['id']}.html",
+        }
+        values = [
+            check["id"],
+            page["title"],
+            check["titre"],
+            page["slides"],
+            "Ouvrir",
+            "Ouvrir",
+            "Ouvrir",
+            page["recommended_sheet"],
+            check["id"],
+            page["minimal_task"],
+        ]
+        for col, val in enumerate(values, start=1):
+            cell = ws.cell(row=r, column=col, value=val)
+            cell.font = FONT_CELL
+            cell.alignment = ALIGN_CENTER if col in (1, 4, 5, 6, 7, 9) else ALIGN_WRAP
+            cell.border = BORDER_ALL
+
+        for col, key in ((5, "audit"), (6, "help"), (7, "corrected")):
+            link_cell = ws.cell(row=r, column=col)
+            link_cell.hyperlink = urls[key]
+            link_cell.font = FONT_LINK
+
+        ws.cell(row=r, column=1).font = FONT_CELL_BOLD
+        ws.cell(row=r, column=8).fill = PatternFill(fill_type="solid", start_color=BLEU_CLAIR, end_color=BLEU_CLAIR)
+        ws.cell(row=r, column=9).fill = PatternFill(fill_type="solid", start_color=BLEU_CLAIR, end_color=BLEU_CLAIR)
+        ws.row_dimensions[r].height = 78
+
+    note_row = header_row + len(EXERCICE_PAGES) + 2
+    note = ws.cell(
+        row=note_row, column=1,
+        value="Rappel : une seule occurrence correctement prouvée suffit pour renseigner NC sur le point ciblé. Les autres occurrences servent à enrichir la restitution collective.",
+    )
+    note.font = Font(name="Calibri", size=SIZE_CELL, bold=True, color=BLEU_FRANCE)
+    note.alignment = ALIGN_WRAP
+    note.fill = PatternFill(fill_type="solid", start_color=BLEU_CLAIR, end_color=BLEU_CLAIR)
+    ws.merge_cells(start_row=note_row, start_column=1, end_row=note_row, end_column=10)
+    ws.row_dimensions[note_row].height = 48
+
+    configure_print(ws, orientation="landscape")
     return ws
 
 
@@ -811,6 +1001,7 @@ def main():
     wb.remove(wb.active)  # supprime la feuille par défaut
 
     build_mode_emploi(wb)
+    build_exercice_pages(wb)
     build_echantillon_rgaa(wb)
 
     # 12 onglets de page : un par ligne de l'échantillon RGAA.

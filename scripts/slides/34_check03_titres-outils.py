@@ -14,8 +14,8 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Titres : 3 façons de vérifier",
-        fil_ariane="3. points de contrôle rapides | 3. Titres de rubriques",
-        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Titres",
+        fil_ariane="3. points de contrôle rapides | 3. Titres et hiérarchie",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Titres et hiérarchie",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

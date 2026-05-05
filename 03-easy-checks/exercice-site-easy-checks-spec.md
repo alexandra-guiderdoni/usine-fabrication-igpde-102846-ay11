@@ -209,15 +209,18 @@ exercice-easy-checks/
   ressources/
     grille-audit-easy-checks.xlsx
   assets/
+    audio/
+      narration-complete.mp3
+    video/
+      captcha-le-retour-au-moyen-age.mp4
+      captcha-le-retour-au-moyen-age-audiodecrite.mp4
     dsfr/
     shared/
       media/
-        video-demo.mp4
-        audio-demo.mp3
         sous-titres-demo.vtt
+        captcha-sous-titres.vtt
         transcription-demo.html
         audiodescription-demo.vtt
-        video-demo-ad.mp4
   src/
     partials/
       header.html
@@ -401,17 +404,17 @@ Le tableau ci-dessous est une vue lisible du contrat. En cas d'écart lors de la
 |---|---|---|---|
 | 1 | Actualité illustrée | Texte alternatif des images | WAVE / ANDI |
 | 2 | Résultats de recherche RGAA | Titre de page | Navigateur / code source / WAVE |
-| 3 | Guide du RGAA | Titres de rubriques | HeadingsMap / WAVE |
-| 4 | Charte de publication | Contraste | CCA / WebAIM Contrast Checker / WAVE |
+| 3 | Guide du RGAA | Titres et hiérarchie | HeadingsMap / WAVE |
+| 4 | Charte de publication | Contraste des couleurs | CCA / WebAIM Contrast Checker / WAVE |
 | 5 | Accès rapide aux contenus | Lien d'évitement | Clavier |
-| 6 | Parcours clavier | Focus clavier visible | Clavier / ANDI |
+| 6 | Parcours clavier | Focus et navigation clavier | Clavier / ANDI |
 | 7 | Atelier international | Langue de la page | Web Developer / code source / WAVE |
-| 8 | Ressources à zoomer | Zoom 200 % | Navigateur |
-| 9 | Vidéo de sensibilisation | Sous-titres | Lecteur vidéo |
-| 10 | Podcast RGAA | Transcription | Revue humaine |
+| 8 | Ressources à zoomer | Zoom à 200 % | Navigateur |
+| 9 | Vidéo de sensibilisation | Sous-titres vidéo | Lecteur vidéo |
+| 10 | Podcast RGAA | Transcriptions audio et vidéo | Revue humaine |
 | 11 | Démonstration vidéo | Audiodescription | Revue humaine |
 | 12 | Inscription à un webinaire | Étiquettes de formulaire | ANDI / WAVE / clavier |
-| 13 | Formulaire de contact | Champs obligatoires | Formulaire / lecteur d'écran / clavier |
+| 13 | Formulaire de contact | Champs obligatoires et erreurs | Formulaire / lecteur d'écran / clavier |
 
 ---
 
@@ -449,7 +452,7 @@ Le tableau ci-dessous est une vue lisible du contrat. En cas d'écart lors de la
 
 | Élément | Spécification |
 |---|---|
-| Point de contrôle rapide | 3. Titres de rubriques |
+| Point de contrôle rapide | 3. Titres et hiérarchie |
 | Erreur inaccessible | Deux vraies erreurs et un faux-ami pédagogique : titre visuel non balisé, balise de titre détournée pour un effet visuel, puis saut de niveau ou plusieurs `h1` à analyser comme bonne pratique / faux-ami selon la cohérence réelle de la hiérarchie. |
 | Occurrences | Les trois cas sont présentés sur la page, mais le corrigé doit distinguer clairement les non-conformités des mauvaises pratiques tolérées par le RGAA. |
 | Détection | HeadingsMap, WAVE, DevTools. |
@@ -462,7 +465,7 @@ Le tableau ci-dessous est une vue lisible du contrat. En cas d'écart lors de la
 
 | Élément | Spécification |
 |---|---|
-| Point de contrôle rapide | 4. Contraste |
+| Point de contrôle rapide | 4. Contraste des couleurs |
 | Erreur inaccessible | Trois occurrences de contraste insuffisant : texte courant gris clair sur blanc, lien ou bouton d'action trop pâle, information de statut transmise par une couleur faible. |
 | Occurrences | Les trois occurrences sont acceptées car elles relèvent du même Point de contrôle rapide. |
 | Détection | WebAIM Contrast Checker, Colour Contrast Analyser, WAVE. |
@@ -493,7 +496,7 @@ Références DSFR obligatoires pour cette page :
 
 | Élément | Spécification |
 |---|---|
-| Point de contrôle rapide | 6. Focus clavier visible |
+| Point de contrôle rapide | 6. Focus et navigation clavier |
 | Erreur inaccessible | Focus visible supprimé ou très peu perceptible sur trois types d'éléments : boutons, cartes cliquables et accordéons DSFR mal surchargés. |
 | Occurrences | Les trois occurrences sont acceptées car elles relèvent du même Point de contrôle rapide. |
 | Détection | Clavier, `Tab`, `Shift+Tab`, ANDI en complément. |
@@ -519,7 +522,7 @@ Références DSFR obligatoires pour cette page :
 
 | Élément | Spécification |
 |---|---|
-| Point de contrôle rapide | 8. Zoom 200 % |
+| Point de contrôle rapide | 8. Zoom à 200 % |
 | Erreur inaccessible | Cartes de ressources avec hauteur fixe, largeur rigide ou `overflow` masqué provoquant texte tronqué, boutons sortis ou superposition au zoom 200 %. |
 | Occurrences | Plusieurs cartes peuvent reproduire la même erreur. |
 | Détection | Zoom navigateur à 200 %, fenêtre étroite. |
@@ -532,9 +535,9 @@ Références DSFR obligatoires pour cette page :
 
 | Élément | Spécification |
 |---|---|
-| Point de contrôle rapide | 9. Sous-titres |
+| Point de contrôle rapide | 9. Sous-titres vidéo |
 | Erreur inaccessible | Vidéo sans sous-titres, ou sous-titres automatiques non relus. |
-| Assets | `video-demo.mp4`, `sous-titres-demo.vtt` à remplacer par les vrais médias fournis ultérieurement. |
+| Assets | `assets/video/captcha-le-retour-au-moyen-age.mp4`, `sous-titres-demo.vtt` à remplacer par les vrais sous-titres. |
 | Détection | Lecteur vidéo, bouton sous-titres, écoute sans son. |
 | Correction accessible | Sous-titres synchronisés, relus, ponctués, avec sons utiles. |
 | Aide accordéon | Problème : contenu oral indisponible sans son. Impact : personnes sourdes/malentendantes et usages sans audio. Méthode : fournir un fichier VTT relu. |
@@ -545,9 +548,9 @@ Références DSFR obligatoires pour cette page :
 
 | Élément | Spécification |
 |---|---|
-| Point de contrôle rapide | 10. Transcriptions |
+| Point de contrôle rapide | 10. Transcriptions audio et vidéo |
 | Erreur inaccessible | Audio sans lien visible vers une transcription. |
-| Assets | `audio-demo.mp3`, `transcription-demo.html` à remplacer par les vrais médias fournis ultérieurement. |
+| Assets | `assets/audio/narration-complete.mp3`, `transcription-demo.html` à remplacer par la transcription finale si nécessaire. |
 | Détection | Revue humaine de la page. |
 | Correction accessible | Lien proche du média vers une transcription structurée et complète. |
 | Aide accordéon | Problème : contenu audio non disponible en texte. Impact : personnes sourdes, sourdaveugles, recherche/citation impossible. Méthode : ajouter une transcription accessible. |
@@ -584,7 +587,7 @@ Références DSFR obligatoires pour cette page :
 
 | Élément | Spécification |
 |---|---|
-| Point de contrôle rapide | 13. Champs obligatoires |
+| Point de contrôle rapide | 13. Champs obligatoires et erreurs |
 | Scénario | Parcours en deux temps : état initial sans erreur affichée, puis soumission du formulaire vide pour vérifier l'aide à la correction. |
 | Erreur inaccessible | Avant soumission : les champs nom, courriel et message sont signalés par astérisque non expliqué, sans `required` ni `aria-required`. Après soumission : message trop vague, message non associé au champ et focus non ramené vers le récapitulatif ou le premier champ en erreur. |
 | Occurrences | Plusieurs champs requis peuvent reproduire l'erreur. Les défauts de prévention et de correction sont acceptés car ils décrivent le même parcours de formulaire. |
@@ -685,13 +688,16 @@ Ces liens ne doivent pas être téléchargés ni réhébergés sans vérificatio
 En attendant, prévoir des placeholders légers :
 
 ```text
+assets/audio/
+  narration-complete.mp3
+assets/video/
+  captcha-le-retour-au-moyen-age.mp4
+  captcha-le-retour-au-moyen-age-audiodecrite.mp4
 assets/shared/media/
-  video-demo.mp4
-  audio-demo.mp3
   sous-titres-demo.vtt
+  captcha-sous-titres.vtt
   transcription-demo.html
   audiodescription-demo.vtt
-  video-demo-ad.mp4
 ```
 
 Les pages média doivent être conçues pour permettre le remplacement des assets sans modifier la structure HTML.

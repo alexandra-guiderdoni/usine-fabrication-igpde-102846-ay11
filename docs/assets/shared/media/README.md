@@ -2,12 +2,15 @@
 
 Les vrais fichiers vidéo/audio remplaceront ces placeholders déclaratifs.
 
-- `assets/shared/media/audio-demo.mp3`
+- `assets/audio/narration-complete.mp3`
 - `assets/shared/media/audiodescription-demo.vtt`
+- `assets/shared/media/captcha-le-retour-au-moyen-age-youtube.fr.srt`
+- `assets/shared/media/captcha-le-retour-au-moyen-age-youtube.fr.vtt`
+- `assets/shared/media/captcha-sous-titres.vtt`
 - `assets/shared/media/sous-titres-demo.vtt`
 - `assets/shared/media/transcription-demo.html`
-- `assets/shared/media/video-demo-ad.mp4`
-- `assets/shared/media/video-demo.mp4`
+- `assets/video/captcha-le-retour-au-moyen-age-audiodecrite.mp4`
+- `assets/video/captcha-le-retour-au-moyen-age.mp4`
 
 ## Sources externes de référence
 

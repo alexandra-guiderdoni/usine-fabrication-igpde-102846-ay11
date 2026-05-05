@@ -22,9 +22,9 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Zoom 200 % : tout doit rester lisible",
-        fil_ariane="3. points de contrôle rapides | 8. Zoom",
-        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Zoom",
+        titre="Zoom à 200 % : tout doit rester lisible",
+        fil_ariane="3. points de contrôle rapides | 8. Zoom à 200 %",
+        footer_text=f"{ctx.footer_base} / points de contrôle rapides - Zoom à 200 %",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
