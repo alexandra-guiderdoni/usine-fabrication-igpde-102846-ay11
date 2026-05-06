@@ -29,6 +29,7 @@ Ce fichier adapte `CLAUDE.md` pour Codex. Les consignes globales Codex restent a
 - La version accessible du site d'exercice doit rester sobre, comme un vrai site corrigé, sans pédagogie visible.
 - Les erreurs de formulaire ne doivent apparaître qu'après une tentative de soumission ou après interaction avec le champ concerné.
 - Les documents accessibles doivent déclarer des métadonnées cohérentes avec leur langue réelle, notamment `fr` pour les documents en français. Les versions volontairement inaccessibles peuvent conserver des défauts pédagogiques explicites.
+- Exercice pédagogique : ne pas distribuer la checklist au moment de l'identification. Les stagiaires doivent d'abord diagnostiquer sans filet ; la checklist sert ensuite à consolider, pas à court-circuiter le jugement.
 
 ## Competences a utiliser
 

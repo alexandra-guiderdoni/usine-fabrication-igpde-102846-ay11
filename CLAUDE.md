@@ -4,11 +4,11 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 
 ## Contexte
 
-- Formation accessibilité numérique, 1 jour, public communicants (pas développeurs)
+- Formation accessibilité numérique, 1 jour, public communicants, pas développeurs
 - 106 slides PPTX DSFR, 4 modules : Introduction communication accessible et cadre légal > Word accessible > points de contrôle rapides W3C > Réseaux sociaux
 - Ordre impératif M1 > M2 > M3 > M4, jamais inverser
 - Exercice Sami : 21 critères à vérifier dans 3 DOCX (inaccessible/aide correction/accessible), spec dans `_source/exercice-sami-spec.md`
-- Site d'exercice points de contrôle rapides dans `docs/`, avec versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible` et grille XLSX téléchargeable
+- Site d'exercice points de contrôle rapides dans `docs/`, avec versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/` et grille XLSX téléchargeable
 - Dernier état livré : PR #1 mergée sur `main` le 2026-05-05, deck `formation-102638-juin-2026.pptx` à 106 slides
 
 ## Comment je travaille
@@ -29,6 +29,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 - La version accessible du site d'exercice doit rester sobre, comme un vrai site corrigé, sans pédagogie visible.
 - Les erreurs de formulaire ne doivent apparaître qu'après une tentative de soumission ou après interaction avec le champ concerné.
 - Les documents accessibles doivent déclarer des métadonnées cohérentes avec leur langue réelle, notamment `fr` pour les documents en français. Les versions volontairement inaccessibles peuvent conserver des défauts pédagogiques explicites.
+- Exercice pédagogique : ne pas distribuer la checklist au moment de l'identification. Les stagiaires doivent d'abord diagnostiquer sans filet ; la checklist sert ensuite à consolider, pas à court-circuiter le jugement.
 
 ## Playbooks
 

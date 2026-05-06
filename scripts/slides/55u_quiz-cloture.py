@@ -23,16 +23,16 @@ def build(prs, layouts, ctx):
 
     questions = [
         ("Émojis : 1 ou 2, en fin de message",
-         ["VRAI"],
+         ["Vrai ou faux ?"],
          1, MARGIN_L),
         ("Un QR code peut remplacer le lien visible",
-         ["FAUX"],
+         ["Vrai ou faux ?"],
          2, MARGIN_L + card_w + GAP),
         ("Alt text vide = toujours une erreur",
-         ["FAUX"],
+         ["Vrai ou faux ?"],
          3, MARGIN_L),
         ("Visuel inclusif = événement accessible",
-         ["FAUX"],
+         ["Vrai ou faux ?"],
          4, MARGIN_L + card_w + GAP),
     ]
 
@@ -53,8 +53,7 @@ def build(prs, layouts, ctx):
     add_notes(
         slide,
         "Quiz à main levée - poser chaque question, laisser les réponses s'exprimer "
-        "avant de révéler. Ne pas lire les réponses inscrites sur les cartes "
-        "pendant la question. "
+        "avant de révéler. La slide doit rester une slide-question, sans correction visible. "
         "Interleaving (R14 neuropédagogie) : les 4 questions couvrent la rédaction, "
         "les alternatives, les QR codes et la communication inclusive. "
         "Si des stagiaires se trompent sur Q3 (alt vide) : "

@@ -36,15 +36,23 @@ def build(prs, layouts, ctx):
         top=stack.push(estimate_highlight_height('Une vidéo sans sous-titres devient inutilisable dès que le son manque, est coupé ou ne peut pas être entendu.')),
     )
 
+    check_bullets = [
+        "La vidéo propose des sous-titres synchronisés (pas seulement une transcription)",
+        "Les sous-titres incluent les paroles ET les informations sonores importantes : « (rires) », « (sonnerie) »",
+        "Ils sont activables/désactivables par l’utilisateur (bouton CC)",
+    ]
     add_callout(
         slide,
         "Ce qu’il faut vérifier :",
-        [
-            "La vidéo propose des sous-titres synchronisés (pas seulement une transcription)",
-            "Les sous-titres incluent les paroles ET les informations sonores importantes : « (rires) », « (sonnerie) »",
-            "Ils sont activables/désactivables par l’utilisateur (bouton CC)",
-        ],
-        top=stack.push(estimate_callout_height('Ce qu’il faut vérifier :', ['La vidéo propose des sous-titres synchronisés (pas seulement une transcription)', 'Les sous-titres incluent les paroles ET les informations sonores importantes : « (rires) », « (sonnerie) »', 'Ils sont activables/désactivables par l’utilisateur (bouton CC)'])),
+        check_bullets,
+        top=stack.push(
+            estimate_callout_height(
+                "Ce qu’il faut vérifier :",
+                check_bullets,
+                line_spacing=1.0,
+            )
+        ),
+        line_spacing=1.0,
     )
 
     add_notes(

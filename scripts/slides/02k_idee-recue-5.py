@@ -2,12 +2,11 @@
 
 from igpde_dsfr_components import (
     COL_R, COL_W, MARGIN_L,
-    add_card, add_callout, add_highlight, add_qrcode, add_notes, new_slide,
+    add_card, add_callout, add_qrcode, add_notes, new_slide,
     estimate_card_height, estimate_callout_height,
 )
 
 URL_SOURCE = "https://ideance.net/blog/4602/idees-recues-a11y"
-URL_LABEL = "ideance.net/blog/4602/idees-recues-a11y"
 NUMERO = 5
 
 
@@ -46,7 +45,6 @@ def build(prs, layouts, ctx):
     )
 
     url_top = round(top_cols + col_h + 0.10, 2)
-    add_highlight(slide, f"Source : {URL_LABEL}", top=url_top, left=MARGIN_L, width=COL_W, url=URL_SOURCE)
     add_qrcode(slide, "_assets/qrcode-ideance-idees-recues.png",
                url=URL_SOURCE, top=url_top, left=COL_R, size=0.95,
                label=URL_SOURCE, label_width=COL_W - 1.10)
