@@ -18,7 +18,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="La couleur ne doit pas porter l'information seule",
+        titre="La couleur ne doit pas porter l'information à elle seule",
         fil_ariane="2. Documents accessibles | 2. Couleurs",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Couleurs",
         date_text=ctx.date,

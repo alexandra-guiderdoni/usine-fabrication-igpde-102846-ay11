@@ -28,7 +28,7 @@ def build(prs, layouts, ctx):
         prs,
         layouts,
         layout_name="titre_contenu",
-        titre="Accessibiliser sa communication : le cap",
+        titre="Mettre en accessibilité sa communication : le cap",
         fil_ariane="1. Introduction | Communication accessible",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,
@@ -38,7 +38,7 @@ def build(prs, layouts, ctx):
     stack = Stack(top=2.05, gap=0.18)
 
     message = (
-        "But de la formation : transformer une intention d'inclusion en contenus "
+        "Transformer une intention d'inclusion en contenus "
         "que les publics peuvent lire, comprendre et utiliser."
     )
     add_highlight(

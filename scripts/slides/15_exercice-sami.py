@@ -28,7 +28,7 @@ def build(prs, layouts, ctx):
         "2. Quelles corrections proposez-vous ?"
     )
 
-    card2_titre = "Le document contient"
+    card2_titre = "Le document de Sami contient"
     card2_contenu = [
         "Titres en gras, fausses listes, faux sommaire, tableaux sans en-tête",
         "Mention Urgent en rouge, note en gris insuffisant",

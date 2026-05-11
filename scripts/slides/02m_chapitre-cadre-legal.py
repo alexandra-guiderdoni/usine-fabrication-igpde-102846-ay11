@@ -16,7 +16,7 @@ def build(prs, layouts, ctx):
     compose_chapitre(
         slide,
         numero="1",
-        titre="Accessibiliser sa communication",
+        titre="Mise en accessibilité de sa communication",
     )
 
     add_notes(

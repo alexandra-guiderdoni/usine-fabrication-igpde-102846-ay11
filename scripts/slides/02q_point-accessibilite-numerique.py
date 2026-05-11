@@ -30,7 +30,7 @@ def build(prs, layouts, ctx):
     kpis = [
         ("WCAG", "référence internationale\ndu W3C."),
         ("RGAA", "référentiel français\npublié par la DINUM."),
-        ("106", "critères regroupés\nen 13 thèmes."),
+        ("106", "critères regroupés\nen 13 thématiques."),
     ]
     for i, (valeur, label) in enumerate(kpis):
         left = MARGIN_L + i * (item_w + GAP)
