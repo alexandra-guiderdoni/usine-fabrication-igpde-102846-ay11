@@ -23,7 +23,7 @@ def build(prs, layouts, ctx):
         ["Statut global", "Partiellement conforme"],
         ["Technologies utilisées", "HTML5, CSS3, JavaScript"],
         ["Environnements de test", "Chrome + NVDA, Safari + VoiceOver"],
-        ["Contact et voie de recours", "accessibilite@ministere.fr"],
+        ["Contact et voie de recours", "accessibilite@mon-ministere.gouv.fr"],
     ]
 
     stack = Stack(top=2.30, gap=0.35)

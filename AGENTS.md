@@ -5,15 +5,17 @@ Ce fichier adapte `CLAUDE.md` pour Codex. Les consignes globales Codex restent a
 ## Contexte
 
 - Formation accessibilité numérique, 1 jour, public communicants, pas développeurs
-- 106 slides PPTX DSFR, 4 modules : Introduction communication accessible et cadre légal > Word accessible > points de contrôle rapides W3C > Réseaux sociaux
+- 112 slides PPTX DSFR, 4 modules : Introduction communication accessible et cadre légal > Word accessible > points de contrôle rapides W3C > Réseaux sociaux
 - Ordre impératif M1 > M2 > M3 > M4, jamais inverser
 - Exercice Sami : 21 critères à vérifier dans 3 DOCX, spec dans `_source/exercice-sami-spec.md`
 - Site d'exercice points de contrôle rapides dans `docs/`, avec versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/` et grille XLSX téléchargeable
-- Dernier état livré : PR #1 mergée sur `main` le 2026-05-05, deck `formation-102638-juin-2026.pptx` à 106 slides
+- Dernier état livré : deck `formation-102638-juin-2026.pptx` à 112 slides (2026-05-12)
+- Deck WCAG condensé : `WCAG en langage clair - condensé.pptx` (13 slides), généré par `scripts/generate_wcag_langage_clair.py --condensed`
 
 ## Pipeline
 
-- Editer `scripts/slides/NN_*.py`, jamais le PPTX livre directement
+- **Toujours modifier les scripts Python, jamais le PPTX directement** : editer `scripts/slides/NN_*.py` puis regenerer avec `python3 scripts/assemble.py`
+- Pattern de nommage : `NN_nom.py` ou `NNxx_nom.py` (suffixe multi-lettres accepte, ex. `02ma_`, `02rb_`)
 - Chaque module expose `build(prs, layouts, ctx)` avec `ctx.page_num`, `ctx.date`, `ctx.footer_base`
 - Regenerer avec `python3 scripts/assemble.py`
 - Tester une slide avec `python3 scripts/assemble.py --only NN`
@@ -50,7 +52,7 @@ Si les skills ne sont pas automatiquement injectes dans la session, lire leurs a
 
 ## Playbooks
 
-- Nouvelle slide : creer `scripts/slides/NN_nom.py`, suffixe lettre pour intercaler (`05a_`)
+- Nouvelle slide : creer `scripts/slides/NN_nom.py`, suffixe lettre(s) pour intercaler (`05a_`, `02ma_`)
 - Tester : `python3 scripts/assemble.py --only NN`
 - Template absent : `python3 scripts/build_template.py`
 - Previsualiser le site des points de contrôle rapides : depuis `docs/`, lancer `python3 -m http.server 8765 --bind 127.0.0.1`, puis ouvrir `http://127.0.0.1:8765/index.html`
@@ -107,7 +109,7 @@ Composants : `add_callout`, `add_alert`, `add_highlight`, `add_quote`, `add_card
 | Diff des criteres Sami | `_source/exercice-sami-diff.md` |
 | Lecons techniques | `lessons.md` |
 | points de contrôle rapides W3C | `03-easy-checks/w3c-easy-checks-fr.md` |
-| Guide accessibiliser sa communication | `Guide-2026-Accessibiliser-sa-communication-police-14-coul.md` |
+| Guide accessibiliser sa communication | `_source/references/Guide-2026-Accessibiliser-sa-communication-police-14-coul.md` |
 | Notes reseaux sociaux | `04-reseaux-sociaux/md-reseaux-sociaux.md` |
 | Notes FALC | `05-falc/md-falc.md` |
 | Notes medias | `06-medias/md-medias.md` |

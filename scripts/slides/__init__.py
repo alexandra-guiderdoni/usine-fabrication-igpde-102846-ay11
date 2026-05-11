@@ -22,7 +22,7 @@ from types import ModuleType
 
 
 SLIDES_DIR = Path(__file__).parent
-SLIDE_PATTERN = re.compile(r"^(\d+)[a-z]?_.+\.py$")
+SLIDE_PATTERN = re.compile(r"^(\d+)[a-z]*_.+\.py$")
 
 
 @dataclass

@@ -1,4 +1,4 @@
-"""Slide rs_15 : langage inclusif - clarte et accessibilite."""
+"""Slide rs_15 : langage inclusif - clarté et accessibilité."""
 
 from igpde_dsfr_components import (
     CONTENT_W, COL_W, COL_R, MARGIN_L,

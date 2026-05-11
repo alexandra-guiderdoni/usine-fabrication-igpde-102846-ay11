@@ -85,7 +85,7 @@ LAYOUT_3_COLONNES = 4
 LAYOUT_TITRE_CONTENU = 5
 
 PROJECT_ROOT = Path(__file__).parent.parent
-TEMPLATE_PATH = PROJECT_ROOT / "PPT-IGPDE-DSFR-base-intervenant.pptx"
+TEMPLATE_PATH = PROJECT_ROOT / "_source" / "presentations-source" / "PPT-IGPDE-DSFR-base-intervenant.pptx"
 
 
 # ----------------------------------------------------------------------
