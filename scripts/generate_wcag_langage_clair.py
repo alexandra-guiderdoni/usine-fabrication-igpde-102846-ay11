@@ -4,6 +4,11 @@ Source éditoriale principale :
 AAArdvark, "WCAG in Plain English", CC BY-SA 4.0.
 https://aaardvarkaccessibility.com/wcag-plain-english/
 
+Source d'inspiration secondaire :
+WCAG 2.2 Card Deck, Johannes Lehner et contributeurs, version française,
+CC BY-SA 4.0.
+https://github.com/johanneslehner/wcag2.2-card-deck
+
 Le contenu ci-dessous est une adaptation pédagogique en français, pas une
 traduction littérale. La référence normative reste WCAG 2.2 du W3C/WAI.
 """
@@ -16,7 +21,9 @@ from dataclasses import dataclass
 from math import ceil
 from pathlib import Path
 
+from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import PP_ALIGN
+from pptx.util import Inches
 
 SCRIPTS_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPTS_DIR.parent
@@ -35,6 +42,7 @@ from igpde_dsfr_components import (  # noqa: E402
     add_callout,
     add_card,
     add_highlight,
+    add_image,
     add_notes,
     add_pave_chiffre,
     add_stepper,
@@ -45,6 +53,7 @@ from igpde_dsfr_components import (  # noqa: E402
     estimate_card_height,
     estimate_highlight_height,
     finalize_pptx,
+    GRIS_CLAIR,
     new_slide,
 )
 
@@ -54,6 +63,379 @@ OUTPUT_CONDENSED = PROJECT_ROOT / "WCAG en langage clair - condensé.pptx"
 DATE_DEFAULT = "juin 2026"
 FOOTER_BASE = "WCAG en langage clair"
 AUTHOR = "Alex Guiderdoni"
+
+PRINCIPLE_DESCRIPTIONS = {
+    "Percevoir l’information": (
+        "Les contenus doivent rester disponibles sous plusieurs formes : "
+        "texte, audio, image, structure, contraste."
+    ),
+    "Utiliser sans obstacle": (
+        "Toutes les actions doivent rester possibles sans piège : clavier, "
+        "temps suffisant, navigation claire, gestes alternatifs."
+    ),
+    "Comprendre sans effort inutile": (
+        "Les textes, parcours et formulaires doivent rester prévisibles, "
+        "explicites et réparables en cas d’erreur."
+    ),
+    "Rester compatible": (
+        "L’interface doit pouvoir être comprise par les aides techniques, "
+        "les navigateurs et les outils de lecture."
+    ),
+}
+
+PERCEVOIR_CARDS = [
+    (
+        "Contenu non textuel",
+        "Toutes les images et contenus non textuels (icônes, graphiques, sons, "
+        "CAPTCHA, commandes) doivent être accompagnés d'une alternative textuelle "
+        "décrivant leur signification. Le contenu purement esthétique peut être "
+        "masqué pour les technologies d'assistance (par exemple, en utilisant un "
+        "attribut alt vide).",
+    ),
+    (
+        "Contenus seulement audio et seulement vidéo (pré-enregistré)",
+        "Les contenus seulement audio pré-enregistrés doivent disposer d'une "
+        "transcription.\nLes contenus seulement vidéo pré-enregistrés doivent "
+        "disposer d'une description textuelle ou d'une audiodescription.",
+    ),
+    (
+        "Sous-titres (pré-enregistré)",
+        "Les contenus vidéo pré-enregistrés contenant de l'audio doivent disposer "
+        "de sous-titres synchronisés comprenant l'intégralité des paroles, et les "
+        "sons pertinents (la musique, les alarmes ou les rires, entre autres).",
+    ),
+    (
+        "Audio-description ou version de remplacement (pré-enregistré)",
+        "Les éléments visuels importants apparaissant dans des contenus vidéo "
+        "pré-enregistrés doivent être décrits via une audiodescription, ou une "
+        "alternative textuelle.",
+    ),
+    (
+        "Sous-titres (en direct)",
+        "Les contenus vidéo diffusés en direct contenant de l'audio doivent "
+        "disposer d'un sous-titrage en temps réel reprenant les paroles, et les "
+        "sons importants (la musique, les alarmes ou les rires, entre autres).",
+    ),
+    (
+        "Audio-description (pré-enregistré)",
+        "Les éléments visuels importants apparaissant dans des contenus vidéo "
+        "pré-enregistrés contenant de l'audio doivent être décrits via une "
+        "audio-description, sauf s'ils sont déjà explicités dans la bande sonore "
+        "principale.",
+    ),
+    (
+        "Langue des signes (pré-enregistré)",
+        "Tous les contenus vidéo pré-enregistrés contenant de l'audio doivent "
+        "disposer d'une interprétation en langue des signes.",
+    ),
+    (
+        "Audio-description étendue (pré-enregistré)",
+        "Les contenus vidéo pré-enregistrés doivent disposer d'une "
+        "audio-description étendue s'ils possèdent des éléments visuels "
+        "importants tels que des détails visuels essentiels, du texte "
+        "apparaissant à l'écran sans être prononcé à voix haute, ou des scènes "
+        "dépourvues de pauses sonores et qui ne peuvent donc pas être décrites "
+        "durant la lecture.",
+    ),
+    (
+        "Texte sous forme d'image",
+        "Le contenu textuel doit être codé comme du texte, et non comme des "
+        "images, sauf si une représentation visuelle spécifique est indispensable "
+        "(par exemple, un logo).",
+    ),
+    (
+        "Contraste (amélioré)",
+        "Le contraste du texte par rapport à son arrière-plan doit être d'au "
+        "moins 7:1 pour un texte classique, ou 4,5:1 pour un texte de grande "
+        "taille (supérieur à 24px, ou en gras et supérieur à 19px).",
+    ),
+    (
+        "Texte sous forme d'image (sans exception)",
+        "Le contenu textuel doit toujours être codé comme du texte, et non comme "
+        "des images (sans exception, même pour des raisons esthétiques).",
+    ),
+    (
+        "Redistribution",
+        "Le contenu doit rester fonctionnel et lisible lorsqu'il est zoomé à "
+        "400 %, ou affiché sur une largeur de 320 px, sans recourir à aucun "
+        "défilement, qu'il soit vertical ou horizontal (sauf pour les tableaux, "
+        "les cartes et les contenus similaires).",
+    ),
+    (
+        "Arrière-plan sonore de faible volume ou absent",
+        "Pour les contenus audio pré-enregistrés contenant des paroles, tout "
+        "bruit de fond doit être au minimum 20 dB plus faible que les dialogues, "
+        "ou pouvoir être désactivé.",
+    ),
+    (
+        "Présentation visuelle",
+        "Les blocs de textes (tels que les paragraphes) doivent avoir une hauteur "
+        "de ligne d'au moins 1.5, ne pas être justifiés, rester limités à 80 "
+        "caractères par ligne (ou 40 pour des scripts CJK), et permettre aux "
+        "utilisateurs d'ajuster l'espacement et les couleurs du texte à l'aide de "
+        "styles personnalisés.",
+    ),
+    (
+        "Contraste du contenu non textuel",
+        "Les éléments interactifs (boutons, champs de saisie, indicateurs de "
+        "focus, par exemple) et graphiques porteurs de sens (icônes, tableaux, "
+        "courbes graphiques, par exemple) doivent présenter un rapport de "
+        "contraste d'au moins 3:1 avec les couleurs adjacentes.",
+    ),
+    (
+        "Espacement du texte",
+        "Le texte doit rester lisible et fonctionnel lorsque l'espacement est "
+        "modifié à l'aide de styles personnalisés, pour au moins 1,5x la hauteur "
+        "de ligne, 2x l'espacement entre les paragraphes, 0,12x l'espacement des "
+        "lettres, 0,16x l'espacement entre les mots, sans que le contenu ne soit "
+        "caché ou coupé.",
+    ),
+]
+
+UTILISER_CARDS = [
+    (
+        "Trois flashs",
+        "Le contenu ne doit pas clignoter plus de trois fois par seconde "
+        "(sans exception, même s'il respecte les seuils de sécurité).",
+    ),
+    (
+        "Animation résultant d'interactions",
+        "Les animations déclenchées par une interaction (par exemple, un clic, "
+        "un survol, un tapotement) doivent pouvoir être désactivées via les "
+        "paramètres système (par exemple, \"réduire les mouvements\") ou "
+        "désactivées via une option disponible sur le site.",
+    ),
+    (
+        "Parcours du focus",
+        "Le focus doit suivre un ordre logique qui préserve les relations et "
+        "qui correspond à la façon dont la page se lit naturellement, "
+        "indépendamment de la mise en page ou du sens de lecture.",
+    ),
+    (
+        "Fonction du lien (selon le contexte)",
+        "La fonction de chaque lien doit être compréhensible à partir du texte "
+        "du lien, ou du contexte environnant.",
+    ),
+    (
+        "Contourner des blocs",
+        "Les blocs de contenu répétés sur plusieurs pages doivent pouvoir être "
+        "ignorés (par exemple, la navigation, l'en-tête) pour accéder "
+        "directement à la partie principale de la page.",
+    ),
+    (
+        "Titre de page",
+        "Chaque page doit posséder un attribut <title> unique et explicite qui "
+        "reflète sa thématique ou son objectif.",
+    ),
+    (
+        "Accès multiples",
+        "Il est essentiel de proposer au moins deux méthodes différentes pour "
+        "accéder aux pages ou au contenu (par exemple, via des menus de "
+        "navigation, des liens sur la page ou une recherche sur le site).",
+    ),
+    (
+        "En-têtes et étiquettes",
+        "Les en-têtes doivent décrire le contenu qui suit.\nLes étiquettes et "
+        "les boutons doivent permettre d'identifier sans ambiguïté l'information "
+        "à saisir ou l'action déclenchée.",
+    ),
+    (
+        "Modalités d'entrées concurrentes",
+        "Il doit être possible de passer d'une méthode de saisie à une autre "
+        "(souris, clavier, écran tactile, commande vocale) tout en conservant "
+        "l'accès à toutes les fonctionnalités.",
+    ),
+    (
+        "Mouvements de glissement",
+        "Les actions nécessitant un glissement (comme le réarrangement "
+        "d'éléments) doivent également être réalisables à l'aide de boutons ou "
+        "d'une autre méthode qui ne nécessite pas de glissement.",
+    ),
+]
+
+COMPRENDRE_CARDS = [
+    (
+        "Langue de la page",
+        "Chaque page doit comporter un attribut <html lang=\"\"> correspondant "
+        "à la langue principale de la page.",
+    ),
+    (
+        "Langue d'un passage",
+        "Chaque passage d'un contenu rédigé dans une autre langue doit être "
+        "notifié à l'aide de l'attribut lang approprié. Les expressions "
+        "empruntées à une autre langue (comme \"week-end\", par exemple) n'ont "
+        "pas besoin de cet attribut, sauf si la prononciation ou la "
+        "compréhension est affectée.",
+    ),
+    (
+        "Mots rares",
+        "Les termes utilisés de manière inhabituelle, le jargon et les "
+        "expressions idiomatiques doivent être évités dans la mesure du "
+        "possible, ou être expliqués dès leur première occurrence.",
+    ),
+    (
+        "Prononciation",
+        "Lorsque la prononciation d'un mot peut varier et changer sa "
+        "signification, il est nécessaire de clarifier le sens voulu pour "
+        "éviter toute confusion ou ambiguïté.",
+    ),
+    (
+        "Au focus",
+        "Lorsqu'un élément reçoit le focus, aucun changement imprévu ne doit "
+        "se produire (comme l'ouverture d'une fenêtre contextuelle, le "
+        "déplacement du focus ou la validation d'un formulaire).",
+    ),
+    (
+        "Abréviations",
+        "Les abréviations et acronymes doivent être évités dans la mesure du "
+        "possible, ou être expliqués lors de leur première occurrence.",
+    ),
+    (
+        "Lisibilité du texte",
+        "Si le contenu nécessite une capacité de lecture plus avancée que le "
+        "premier cycle de l'enseignement secondaire (autrement dit la classe "
+        "de 3e), il est essentiel de fournir une version simplifiée, un résumé, "
+        "un support visuel ou une version audio pour faciliter la compréhension.",
+    ),
+    (
+        "Prévention des erreurs (toutes)",
+        "Avant de valider l'envoi d'un formulaire, il doit être possible de "
+        "vérifier les informations saisies et corriger les erreurs.",
+    ),
+    (
+        "Saisie redondante",
+        "Ne demandez pas les mêmes informations deux fois au cours d'un même "
+        "processus. Proposez des champs préremplis ou des options de sélection "
+        "si les informations ont déjà été fournies au préalable.",
+    ),
+    (
+        "Authentification accessible (minimum)",
+        "L'authentification ne doit pas reposer uniquement sur la mémoire. "
+        "Elle doit autoriser le copier-coller, les gestionnaires de mots de "
+        "passe ou d'autres options (comme la vérification par e-mail).",
+    ),
+    (
+        "Authentification accessible (améliorée)",
+        "L'authentification ne doit pas reposer sur la mémoire ou la "
+        "reconnaissance (comme résoudre des énigmes, se souvenir d'images "
+        "ou utiliser des CAPTCHA).",
+    ),
+]
+
+COMPATIBLE_CARDS = [
+    (
+        "Analyse syntaxique (obsolète et supprimé)",
+        "Ce critère nécessitait un code HTML correctement structuré et sans "
+        "erreurs critiques (telles que des balises manquantes ou des "
+        "identifiants en double). Bien que cette exigence ait été supprimée, "
+        "elle reste utile en termes de compatibilité.",
+    ),
+    (
+        "Nom, rôle et valeur",
+        "Les éléments interactifs doivent disposer d'un nom clair (ce qu'ils "
+        "sont), d'un rôle approprié (ce qu'ils font), et de toute valeur ou "
+        "état actuel, afin que les technologies d'assistance puissent les "
+        "interpréter et interagir correctement avec eux.",
+    ),
+    (
+        "Messages d'état",
+        "Les mises à jour d'état (telles que \"formulaire envoyé\" ou "
+        "\"5 articles dans le panier\") doivent être codées avec des rôles "
+        "appropriés (tels que role=\"status\" ou role=\"alert\"), être "
+        "détectables par les technologies d'assistance, et ne pas nécessiter "
+        "de déplacement du focus.",
+    ),
+]
+
+CARD_DECK_FR_TITLES = {
+    "1.1.1": "Contenu non textuel",
+    "1.2.1": "Contenus seulement audio et seulement vidéo (pré-enregistré)",
+    "1.2.2": "Sous-titres (pré-enregistré)",
+    "1.2.3": "Audio-description ou version de remplacement pour un média temporel (pré-enregistré)",
+    "1.2.4": "Sous-titres (en direct)",
+    "1.2.5": "Audio-description (pré-enregistré)",
+    "1.2.6": "Langue des signes (pré-enregistré)",
+    "1.2.7": "Audio-description étendue (pré-enregistré)",
+    "1.2.8": "Version de remplacement pour un média temporel (pré-enregistré)",
+    "1.2.9": "Contenu seulement audio (en direct)",
+    "1.3.1": "Informations et relations",
+    "1.3.2": "Ordre séquentiel logique",
+    "1.3.3": "Caractéristiques sensorielles",
+    "1.3.4": "Orientation",
+    "1.3.5": "Identifier la finalité de la saisie",
+    "1.3.6": "Identifier la fonction",
+    "1.4.1": "Utilisation de la couleur",
+    "1.4.2": "Contrôle du son",
+    "1.4.3": "Contraste (minimum)",
+    "1.4.4": "Redimensionnement du texte",
+    "1.4.5": "Texte sous forme d’image",
+    "1.4.6": "Contraste (amélioré)",
+    "1.4.7": "Arrière-plan sonore de faible volume ou absent",
+    "1.4.8": "Présentation visuelle",
+    "1.4.9": "Texte sous forme d’image (sans exception)",
+    "1.4.10": "Redistribution",
+    "1.4.11": "Contraste du contenu non textuel",
+    "1.4.12": "Espacement du texte",
+    "1.4.13": "Contenu au survol ou au focus",
+    "2.1.1": "Clavier",
+    "2.1.2": "Pas de piège au clavier",
+    "2.1.3": "Clavier (pas d’exception)",
+    "2.1.4": "Raccourcis clavier utilisant des caractères",
+    "2.2.1": "Réglage du délai",
+    "2.2.2": "Mettre en pause, arrêter, masquer",
+    "2.2.3": "Pas de délai d’exécution",
+    "2.2.4": "Interruptions",
+    "2.2.5": "Nouvelle authentification",
+    "2.2.6": "Délais d’expiration",
+    "2.3.1": "Pas plus de trois flashs ou sous le seuil critique",
+    "2.3.2": "Trois flashs",
+    "2.3.3": "Animation résultant d’interactions",
+    "2.4.1": "Contourner des blocs",
+    "2.4.2": "Titre de page",
+    "2.4.3": "Parcours du focus",
+    "2.4.4": "Fonction du lien (selon le contexte)",
+    "2.4.5": "Accès multiples",
+    "2.4.6": "En-têtes et étiquettes",
+    "2.4.7": "Visibilité du focus",
+    "2.4.8": "Localisation",
+    "2.4.9": "Fonction du lien (lien uniquement)",
+    "2.4.10": "En-têtes de section",
+    "2.4.11": "Focus non masqué (minimum)",
+    "2.4.12": "Focus non masqué (amélioré)",
+    "2.4.13": "Apparence du focus",
+    "2.5.1": "Gestes pour le contrôle du pointeur",
+    "2.5.2": "Annulation de l’action du pointeur",
+    "2.5.3": "Étiquette dans le nom",
+    "2.5.4": "Activation par le mouvement",
+    "2.5.5": "Taille de la cible (amélioré)",
+    "2.5.6": "Modalités d’entrées concurrentes",
+    "2.5.7": "Mouvements de glissement",
+    "2.5.8": "Taille de la cible (minimum)",
+    "3.1.1": "Langue de la page",
+    "3.1.2": "Langue d’un passage",
+    "3.1.3": "Mots rares",
+    "3.1.4": "Abréviations",
+    "3.1.5": "Lisibilité du texte",
+    "3.1.6": "Prononciation",
+    "3.2.1": "Au focus",
+    "3.2.2": "À la saisie",
+    "3.2.3": "Navigation cohérente",
+    "3.2.4": "Identification cohérente",
+    "3.2.5": "Changement à la demande",
+    "3.2.6": "Aide cohérente",
+    "3.3.1": "Identification des erreurs",
+    "3.3.2": "Étiquettes ou instructions",
+    "3.3.3": "Suggestion après une erreur",
+    "3.3.4": "Prévention des erreurs (juridiques, financières, de données)",
+    "3.3.5": "Aide",
+    "3.3.6": "Prévention des erreurs (toutes)",
+    "3.3.7": "Saisie redondante",
+    "3.3.8": "Authentification accessible (minimum)",
+    "3.3.9": "Authentification accessible (améliorée)",
+    "4.1.1": "Analyse syntaxique (obsolète et supprimé)",
+    "4.1.2": "Nom, rôle et valeur",
+    "4.1.3": "Messages d’état",
+}
 
 
 @dataclass(frozen=True)
@@ -558,34 +940,44 @@ def add_title_suffix(slide, text):
     add_texte_libre(
         slide,
         text,
-        top=2.12,
+        top=1.85,
         left=MARGIN_L,
         width=CONTENT_W,
         height=0.28,
         size=12,
         bold=True,
-        color=ROUGE_MARIANNE,
+        color=BLEU_FRANCE,
     )
 
 
-def add_card_grid(slide, cards, top=2.45, cols=2):
+def add_card_grid(slide, cards, top=2.45, cols=2, strict=False):
     rows = ceil(len(cards) / cols)
     card_w = (CONTENT_W - GAP * (cols - 1)) / cols
-    row_gap = 0.26
+    row_gap = 0.22 if strict else 0.26
     available_h = 6.76 - top - row_gap * (rows - 1)
     card_h = available_h / rows
-    card_h = min(card_h, 2.12)
+    if strict:
+        card_h = min(card_h, 2.30)
+    else:
+        card_h = min(card_h, 2.12)
     card_h = max(card_h, 1.50)
+    extra = {}
+    if strict:
+        extra = {"title_size": 12, "body_size": 12}
     for index, (title, body) in enumerate(cards):
         row = index // cols
         col = index % cols
         left = MARGIN_L + col * (card_w + GAP)
         y = top + row * (card_h + row_gap)
-        needed = estimate_card_height(title, body, card_w)
-        height = max(card_h, needed)
-        if y + height > 6.76:
+        if strict:
             height = card_h
-        add_card(slide, title, body, top=y, left=left, width=card_w, height=height)
+        else:
+            needed = estimate_card_height(title, body, card_w)
+            height = max(card_h, needed)
+            if y + height > 6.76:
+                height = card_h
+        add_card(slide, title, body, top=y, left=left, width=card_w,
+                 height=height, **extra)
 
 
 def slide_cover(ctx, subtitle="Adaptation pédagogique DSFR d’après AAArdvark",
@@ -656,6 +1048,7 @@ def slide_source(ctx):
         "Corpus principal",
         [
             "AAArdvark, WCAG in Plain English, licence CC BY-SA 4.0",
+            "WCAG 2.2 Card Deck, version française, licence CC BY-SA 4.0",
             "Adaptation française pédagogique, non littérale",
             "Référence normative : WCAG 2.2 du W3C/WAI",
         ],
@@ -676,7 +1069,7 @@ def slide_source(ctx):
     )
     add_texte_libre(
         slide,
-        "Licence visible en fin de deck : attribution AAArdvark et partage CC BY-SA 4.0 pour les contenus adaptés.",
+        "Licence visible en fin de deck : attribution AAArdvark, WCAG 2.2 Card Deck et partage CC BY-SA 4.0 pour les contenus adaptés.",
         top=5.55,
         height=0.70,
         size=14,
@@ -686,15 +1079,16 @@ def slide_source(ctx):
     add_notes(
         slide,
         "Source : https://aaardvarkaccessibility.com/wcag-plain-english/. "
+        "WCAG 2.2 Card Deck : https://github.com/johanneslehner/wcag2.2-card-deck. "
         "Licence : https://creativecommons.org/licenses/by-sa/4.0/. "
         "Référence W3C : https://www.w3.org/WAI/standards-guidelines/wcag/.",
     )
 
 
-def slide_structure(ctx):
+def slide_structure(ctx, fil_ariane="Mode d’emploi", qr_code=False):
     slide = ctx.slide(
-        titre="Comment lire les WCAG",
-        fil_ariane="Mode d’emploi",
+        titre="Comment comprendre les principes WCAG",
+        fil_ariane=fil_ariane,
         footer_suffix="Carte mentale",
     )
     add_stepper(
@@ -708,27 +1102,110 @@ def slide_structure(ctx):
         top=2.40,
         height=1.75,
     )
-    add_callout(
-        slide,
-        "Le bon réflexe",
-        [
-            "Ne pas apprendre la liste par cœur.",
-            "Savoir transformer un critère en question : que doit pouvoir faire la personne ?",
-            "Chercher la preuve : exemple, capture, test clavier, mesure ou contenu corrigé.",
-        ],
-        top=4.65,
-    )
+    if qr_code:
+        callout_w = COL_W + GAP + COL_W * 0.35
+        add_callout(
+            slide,
+            "Le bon réflexe",
+            [
+                "Ne pas apprendre la liste par cœur.",
+                "Savoir transformer un critère en question : "
+                "que doit pouvoir faire la personne ?",
+            ],
+            top=4.65,
+            left=MARGIN_L,
+            width=callout_w,
+        )
+        qr_left = MARGIN_L + callout_w + GAP
+        qr_w = CONTENT_W - callout_w - GAP
+        qr_img_size = 1.30
+        qr_img_left = qr_left + (qr_w - qr_img_size) / 2
+        add_image(
+            slide,
+            str(PROJECT_ROOT / "_assets" / "qr-wcag-plain-english.png"),
+            top=4.55,
+            left=qr_img_left,
+            width=qr_img_size,
+            height=qr_img_size,
+            alt_text="QR code vers WCAG in Plain English par AAArdvark",
+        )
+        add_texte_libre(
+            slide,
+            "WCAG 2.2 - Mise en FALC",
+            top=5.88,
+            left=qr_left,
+            width=qr_w,
+            height=0.22,
+            size=11,
+            bold=True,
+            color=BLEU_FRANCE,
+            align=PP_ALIGN.CENTER,
+        )
+        add_texte_libre(
+            slide,
+            "Scannez-moi !",
+            top=6.10,
+            left=qr_left,
+            width=qr_w,
+            height=0.20,
+            size=10,
+            bold=False,
+            color=BLEU_FRANCE,
+            align=PP_ALIGN.CENTER,
+        )
+        add_texte_libre(
+            slide,
+            "aaardvarkaccessibility.com/wcag-plain-english",
+            top=6.30,
+            left=qr_left,
+            width=qr_w,
+            height=0.18,
+            size=8,
+            bold=False,
+            color=BLEU_FRANCE,
+            align=PP_ALIGN.CENTER,
+        )
+        add_texte_libre(
+            slide,
+            "WCAG 2.2 Card Deck - Johannes Lehner - CC BY-SA 4.0",
+            top=6.48,
+            left=qr_left,
+            width=qr_w,
+            height=0.18,
+            size=7,
+            bold=False,
+            color=BLEU_FRANCE,
+            align=PP_ALIGN.CENTER,
+        )
+    else:
+        add_callout(
+            slide,
+            "Le bon réflexe",
+            [
+                "Ne pas apprendre la liste par cœur.",
+                "Savoir transformer un critère en question : "
+                "que doit pouvoir faire la personne ?",
+                "Chercher la preuve : exemple, capture, test clavier, "
+                "mesure ou contenu corrigé.",
+            ],
+            top=4.65,
+        )
     add_notes(
         slide,
         "D’après le W3C, WCAG 2.2 compte 13 lignes directrices organisées sous 4 principes. "
-        "Les critères de succès déterminent la conformité.",
+        "Les critères de succès déterminent la conformité.\n\n"
+        "Sources :\n"
+        "- AAArdvark, WCAG in Plain English : https://aaardvarkaccessibility.com/wcag-plain-english/\n"
+        "- WCAG 2.2 Card Deck (Figma), Johannes Lehner, CC BY-SA 4.0 : "
+        "https://www.figma.com/design/jz3JeECjm0KbH3Z2ztA2bv/WCAG-2.2-Card-Deck--Community-"
+        "?node-id=191-244960&t=qOThv51tj0Arkga8-0",
     )
 
 
-def slide_summary(ctx):
+def slide_summary(ctx, fil_ariane="Mode d’emploi"):
     slide = ctx.slide(
         titre="Les 4 grandes questions",
-        fil_ariane="Mode d’emploi",
+        fil_ariane=fil_ariane,
         footer_suffix="Questions",
     )
     add_card_grid(
@@ -748,13 +1225,17 @@ def slide_summary(ctx):
     )
 
 
-def add_chapter(ctx, number, title):
+def add_chapter(ctx, number, title, description=None):
     slide = ctx.slide(
         layout_name="chapitre",
         footer_suffix=title,
     )
     compose_chapitre(slide, number, title)
-    add_notes(slide, f"Ouverture de section : {title}.")
+    if description:
+        add_highlight(slide, description, top=5.15)
+        add_notes(slide, f"Ouverture de section : {title}. Descriptif : {description}")
+    else:
+        add_notes(slide, f"Ouverture de section : {title}.")
 
 
 def add_guideline_slides(ctx, guideline):
@@ -806,6 +1287,56 @@ def iter_principle_blocks():
         yield current_section, tuple(current_criteria)
 
 
+def condensed_criterion_title(criterion):
+    return CARD_DECK_FR_TITLES.get(criterion.code, criterion.title).strip()
+
+
+def add_condensed_title_card(slide, title, top, left, width, height):
+    card = slide.shapes.add_shape(
+        MSO_SHAPE.RECTANGLE,
+        Inches(left),
+        Inches(top),
+        Inches(width),
+        Inches(height),
+    )
+    card.name = "DSFR-condensed-card"
+    card.fill.solid()
+    card.fill.fore_color.rgb = GRIS_CLAIR
+    card.line.fill.background()
+    card.shadow.inherit = False
+
+    accent = slide.shapes.add_shape(
+        MSO_SHAPE.RECTANGLE,
+        Inches(left),
+        Inches(top),
+        Inches(0.08),
+        Inches(height),
+    )
+    accent.name = "DSFR-condensed-card-accent"
+    accent.fill.solid()
+    accent.fill.fore_color.rgb = BLEU_FRANCE
+    accent.line.fill.background()
+    accent.shadow.inherit = False
+
+    size = 12
+    if len(title) <= 34:
+        size = 14
+    elif len(title) <= 58:
+        size = 13
+
+    add_texte_libre(
+        slide,
+        title,
+        top=top + 0.20,
+        left=left + 0.26,
+        width=width - 0.42,
+        height=height - 0.40,
+        size=size,
+        bold=True,
+        color=BLEU_FRANCE,
+    )
+
+
 def add_condensed_criterion_grid(slide, criteria, top=2.55):
     cols = 3
     rows = 2
@@ -817,10 +1348,9 @@ def add_condensed_criterion_grid(slide, criteria, top=2.55):
         col = index % cols
         left = MARGIN_L + col * (card_w + GAP)
         y = top + row * (card_h + row_gap)
-        add_card(
+        add_condensed_title_card(
             slide,
-            criterion.title,
-            "",
+            condensed_criterion_title(criterion),
             top=y,
             left=left,
             width=card_w,
@@ -828,7 +1358,7 @@ def add_condensed_criterion_grid(slide, criteria, top=2.55):
         )
 
 
-def add_principle_criterion_slides(ctx, section, criteria):
+def add_principle_criterion_slides(ctx, section, criteria, description=None):
     title = principle_title(section)
     chunks = [
         criteria[i:i + 6]
@@ -838,15 +1368,58 @@ def add_principle_criterion_slides(ctx, section, criteria):
         suffix = f" ({idx}/{len(chunks)})" if len(chunks) > 1 else ""
         slide = ctx.slide(
             titre=f"{title} - critères{suffix}",
-            fil_ariane="Critères condensés",
+            fil_ariane="Principes WCAG et critères condensés",
             footer_suffix=title,
         )
+        if idx == 1 and description:
+            add_title_suffix(slide, description)
         add_condensed_criterion_grid(slide, chunk)
-        criterion_titles = ", ".join(item.title for item in chunk)
+        criterion_titles = ", ".join(condensed_criterion_title(item) for item in chunk)
         add_notes(
             slide,
-            f"Version condensée : titres des critères, sans numérotation visible. "
+            f"Version condensée inspirée du WCAG 2.2 Card Deck français : titres des critères, sans numérotation visible. "
             f"Critères couverts : {criterion_titles}.",
+        )
+
+
+def add_percevoir_description_slides(ctx, description=None):
+    _add_description_slides(ctx, "Percevoir l'information", PERCEVOIR_CARDS, description)
+
+
+def add_utiliser_description_slides(ctx, description=None):
+    _add_description_slides(ctx, "Utiliser sans obstacle", UTILISER_CARDS, description)
+
+
+def add_comprendre_description_slides(ctx, description=None):
+    _add_description_slides(ctx, "Comprendre sans effort inutile", COMPRENDRE_CARDS, description)
+
+
+def add_compatible_description_slides(ctx, description=None):
+    _add_description_slides(ctx, "Rester compatible", COMPATIBLE_CARDS, description)
+
+
+def _add_description_slides(ctx, title, cards, description=None):
+    chunks = [
+        cards[i:i + 4]
+        for i in range(0, len(cards), 4)
+    ]
+    for idx, chunk in enumerate(chunks, start=1):
+        suffix = f" ({idx}/{len(chunks)})" if len(chunks) > 1 else ""
+        slide = ctx.slide(
+            titre=f"{title} - critères{suffix}",
+            fil_ariane="Principes WCAG et critères condensés",
+            footer_suffix=title,
+        )
+        has_desc = idx == 1 and description
+        if has_desc:
+            add_title_suffix(slide, description)
+        grid_top = 2.25 if has_desc else 2.15
+        add_card_grid(slide, chunk, top=grid_top, strict=True)
+        card_titles = ", ".join(t for t, _ in chunk)
+        add_notes(
+            slide,
+            f"Descriptions inspirées du WCAG 2.2 Card Deck français. "
+            f"Critères couverts : {card_titles}.",
         )
 
 
@@ -956,6 +1529,10 @@ def slide_sources(ctx):
                 "Corpus principal adapté en français, licence CC BY-SA 4.0",
             ],
             [
+                "WCAG 2.2 Card Deck - Johannes Lehner et contributeurs",
+                "Inspiration cartes et libellés français, licence CC BY-SA 4.0",
+            ],
+            [
                 "W3C/WAI - WCAG 2 Overview et WCAG 2.2",
                 "Référence normative pour les principes, lignes directrices et critères",
             ],
@@ -966,21 +1543,22 @@ def slide_sources(ctx):
         ],
         top=2.35,
         col_widths=[4.8, 7.48],
-        row_h=0.62,
+        row_h=0.52,
     )
     add_alert(
         slide,
         "Attribution",
         [
             "Adaptation française : WCAG en langage clair.",
-            "Source AAArdvark : aaardvarkaccessibility.com/wcag-plain-english/",
+            "Sources : AAArdvark et WCAG 2.2 Card Deck.",
             "Licence des contenus dérivés : CC BY-SA 4.0.",
         ],
-        top=4.95,
+        top=5.00,
     )
     add_notes(
         slide,
         "AAArdvark WCAG in Plain English : https://aaardvarkaccessibility.com/wcag-plain-english/. "
+        "WCAG 2.2 Card Deck : https://github.com/johanneslehner/wcag2.2-card-deck. "
         "Licence : https://creativecommons.org/licenses/by-sa/4.0/. "
         "W3C WCAG : https://www.w3.org/WAI/standards-guidelines/wcag/. "
         "RGAA : https://accessibilite.numerique.gouv.fr/methode/introduction/.",
@@ -1027,21 +1605,22 @@ def build_deck(output=OUTPUT_DEFAULT, date=DATE_DEFAULT):
 def build_condensed_deck(output=OUTPUT_CONDENSED, date=DATE_DEFAULT):
     prs, layouts = create_presentation()
     ctx = DeckContext(prs, layouts, date=date)
+    fil = "Principes WCAG et critères condensés"
 
-    slide_cover(
-        ctx,
-        subtitle="Version condensée - 4 principes et critères",
-        note_suffix=(
-            "Cette variante garde le focus sur la lecture des 4 principes et sur les titres "
-            "des critères, regroupés par pages de 6."
-        ),
-    )
-    slide_structure(ctx)
-    slide_summary(ctx)
+    slide_structure(ctx, fil_ariane=fil, qr_code=True)
+    slide_summary(ctx, fil_ariane=fil)
 
-    for chapter_number, (section, criteria) in enumerate(iter_principle_blocks(), start=1):
-        add_chapter(ctx, str(chapter_number), principle_title(section))
-        add_principle_criterion_slides(ctx, section, criteria)
+    for _chapter_number, (section, criteria) in enumerate(iter_principle_blocks(), start=1):
+        title = principle_title(section)
+        description = PRINCIPLE_DESCRIPTIONS.get(title)
+        if title == "Percevoir l’information":
+            add_percevoir_description_slides(ctx, description=description)
+        elif title == "Utiliser sans obstacle":
+            add_utiliser_description_slides(ctx, description=description)
+        elif title == "Comprendre sans effort inutile":
+            add_comprendre_description_slides(ctx, description=description)
+        elif title == "Rester compatible":
+            add_compatible_description_slides(ctx, description=description)
 
     finalize_pptx(
         prs,
