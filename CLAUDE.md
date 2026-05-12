@@ -5,15 +5,17 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 ## Contexte
 
 - Formation accessibilité numérique, 1 jour, public communicants, pas développeurs
-- 106 slides PPTX DSFR, 4 modules : Introduction communication accessible et cadre légal > Word accessible > points de contrôle rapides W3C > Réseaux sociaux
+- 112 slides PPTX DSFR, 4 modules : Introduction communication accessible et cadre légal > Word accessible > points de contrôle rapides W3C > Réseaux sociaux
 - Ordre impératif M1 > M2 > M3 > M4, jamais inverser
 - Exercice Sami : 21 critères à vérifier dans 3 DOCX (inaccessible/aide correction/accessible), spec dans `_source/exercice-sami-spec.md`
 - Site d'exercice points de contrôle rapides dans `docs/`, avec versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/` et grille XLSX téléchargeable
-- Dernier état livré : PR #1 mergée sur `main` le 2026-05-05, deck `formation-102638-juin-2026.pptx` à 106 slides
+- Dernier état livré : deck `formation-102638-juin-2026.pptx` à 112 slides (2026-05-12)
+- Deck WCAG condensé : `WCAG en langage clair - condensé.pptx` (13 slides), généré par `scripts/generate_wcag_langage_clair.py --condensed`
 
 ## Comment je travaille
 
-- Éditer `scripts/slides/NN_*.py`, jamais le PPTX livré directement
+- **Toujours modifier les scripts Python, jamais le PPTX directement** : éditer `scripts/slides/NN_*.py` puis régénérer avec `python3 scripts/assemble.py`
+- Pattern de nommage : `NN_nom.py` ou `NNxx_nom.py` (suffixe multi-lettres accepté, ex. `02ma_`, `02rb_`)
 - Chaque module expose `build(prs, layouts, ctx)` avec `ctx.page_num`, `ctx.date`, `ctx.footer_base`
 - `python3 scripts/assemble.py` pour régénérer, `--only NN` pour tester en isolation
 - `python3 scripts/generate_exercice_sami.py` pour régénérer les DOCX
@@ -33,7 +35,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 
 ## Playbooks
 
-- **Nouvelle slide** : créer `scripts/slides/NN_nom.py`, suffixe lettre pour intercaler (`05a_`)
+- **Nouvelle slide** : créer `scripts/slides/NN_nom.py`, suffixe lettre(s) pour intercaler (`05a_`, `02ma_`)
 - **Tester** : `python3 scripts/assemble.py --only NN`
 - **Template absent** : `python3 scripts/build_template.py`
 - **Quarantine** : `xattr -d com.apple.quarantine formation-102638-juin-2026.pptx`
@@ -87,7 +89,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 | Diff des critères Sami | `_source/exercice-sami-diff.md` |
 | Leçons techniques | `lessons.md` |
 | points de contrôle rapides W3C | `03-easy-checks/w3c-easy-checks-fr.md` |
-| Guide accessibiliser sa communication | `Guide-2026-Accessibiliser-sa-communication-police-14-coul.md` |
+| Guide accessibiliser sa communication | `_source/references/Guide-2026-Accessibiliser-sa-communication-police-14-coul.md` |
 | Notes réseaux sociaux | `04-reseaux-sociaux/md-reseaux-sociaux.md` |
 | Notes FALC | `05-falc/md-falc.md` |
 | Notes médias | `06-medias/md-medias.md` |

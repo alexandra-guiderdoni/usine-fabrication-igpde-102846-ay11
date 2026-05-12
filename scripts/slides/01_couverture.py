@@ -4,7 +4,7 @@ from pptx.enum.text import PP_ALIGN
 from pptx.util import Inches
 
 from igpde_dsfr_components import (
-    FONT, ROUGE_MARIANNE,
+    BLEU_FRANCE, FONT,
     _apply_text, add_notes, new_slide,
 )
 
@@ -26,7 +26,7 @@ def build(prs, layouts, ctx):
     _apply_text(
         sub_box.text_frame,
         "Formation 102638 | Bureautique et web",
-        font=FONT, size=14, bold=True, color=ROUGE_MARIANNE,
+        font=FONT, size=14, bold=True, color=BLEU_FRANCE,
         align=PP_ALIGN.RIGHT,
     )
 

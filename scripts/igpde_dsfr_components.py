@@ -85,7 +85,7 @@ LAYOUT_3_COLONNES = 4
 LAYOUT_TITRE_CONTENU = 5
 
 PROJECT_ROOT = Path(__file__).parent.parent
-TEMPLATE_PATH = PROJECT_ROOT / "PPT-IGPDE-DSFR-base-intervenant.pptx"
+TEMPLATE_PATH = PROJECT_ROOT / "_source" / "presentations-source" / "PPT-IGPDE-DSFR-base-intervenant.pptx"
 
 
 # ----------------------------------------------------------------------
@@ -805,7 +805,7 @@ def add_quote(slide, texte, auteur="", top=TOP_CONTENT, left=MARGIN_L,
 
 
 def add_card(slide, titre, contenu, top, left, width=3.78, height=None,
-             numero=None):
+             numero=None, title_size=14, body_size=14):
     """Carte DSFR : accent bleu + fond gris clair + titre + contenu.
 
     Si numero est fourni (1, 2, 3...), affiche une pastille ronde bleue en haut.
@@ -820,7 +820,6 @@ def add_card(slide, titre, contenu, top, left, width=3.78, height=None,
               fill_color=GRIS_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.08)
     y_titre = top + 0.15
     if numero is not None:
-        # Pastille ronde bleue avec le numero
         pastille = slide.shapes.add_shape(
             MSO_SHAPE.OVAL,
             Inches(left + 0.25), Inches(top + 0.15),
@@ -835,24 +834,25 @@ def add_card(slide, titre, contenu, top, left, width=3.78, height=None,
                     bold=True, color=BLANC, align=PP_ALIGN.CENTER,
                     anchor=MSO_ANCHOR.MIDDLE)
         y_titre = top + 0.75
+    title_h = 0.35 if title_size <= 12 else 0.45
     t_box = slide.shapes.add_textbox(
         Inches(left + 0.25), Inches(y_titre),
-        Inches(width - 0.4), Inches(0.45),
+        Inches(width - 0.4), Inches(title_h),
     )
     t_box.name = "DSFR-card-titre"
-    _apply_text(t_box.text_frame, titre, font=FONT, size=14, bold=True,
+    _apply_text(t_box.text_frame, titre, font=FONT, size=title_size, bold=True,
                 color=BLEU_FRANCE)
     if contenu:
-        c_top = y_titre + 0.5
+        c_top = y_titre + title_h + 0.05
         c_box = slide.shapes.add_textbox(
             Inches(left + 0.25), Inches(c_top),
-            Inches(width - 0.4), Inches(height - (c_top - top) - 0.15),
+            Inches(width - 0.4), Inches(height - (c_top - top) - 0.10),
         )
         c_box.name = "DSFR-card-contenu"
         if isinstance(contenu, list):
-            _add_bullets(c_box.text_frame, contenu, font=FONT, size=14, color=NOIR)
+            _add_bullets(c_box.text_frame, contenu, font=FONT, size=body_size, color=NOIR)
         else:
-            _apply_text(c_box.text_frame, contenu, font=FONT, size=14, color=NOIR)
+            _apply_text(c_box.text_frame, contenu, font=FONT, size=body_size, color=NOIR)
     return slide
 
 
