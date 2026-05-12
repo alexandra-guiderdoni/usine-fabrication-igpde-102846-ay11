@@ -103,6 +103,8 @@ Composants : `add_callout`, `add_alert`, `add_highlight`, `add_quote`, `add_card
 
 ## References
 
+- `contraintes.md` pour les dependances, limitations et features existantes.
+
 | Ressource | Fichier |
 |-----------|---------|
 | Spec exercice Sami | `_source/exercice-sami-spec.md` |

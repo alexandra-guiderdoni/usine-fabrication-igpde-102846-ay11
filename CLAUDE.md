@@ -83,6 +83,8 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 
 ## Références
 
+- `contraintes.md` pour les dépendances, limitations et features existantes.
+
 | Ressource | Fichier |
 |-----------|---------|
 | Spec exercice Sami | `_source/exercice-sami-spec.md` |
