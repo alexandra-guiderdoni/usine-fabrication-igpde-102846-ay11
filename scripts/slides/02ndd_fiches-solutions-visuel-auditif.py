@@ -59,8 +59,8 @@ def build(prs, layouts, ctx):
     rows_a = [
         [
             "Difficultés",
-            "Inaccessibilité a l'audio",
-            "Inaccessibilité partielle a l'audio",
+            "Inaccessibilité à l'audio",
+            "Inaccessibilité partielle à l'audio",
         ],
         [
             "Solutions",
@@ -70,7 +70,7 @@ def build(prs, layouts, ctx):
         [
             "Technologies",
             "Sous-titrage, velotypie, LSF",
-            "Appareil auditif, boucle magnetique",
+            "Appareil auditif, boucle magnétique",
         ],
     ]
     add_tableau(
