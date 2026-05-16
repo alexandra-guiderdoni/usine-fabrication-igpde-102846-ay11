@@ -9,6 +9,7 @@ Ce fichier adapte `CLAUDE.md` pour Codex. Les consignes globales Codex restent a
 - Ordre impératif M1 > M2 > M3 > M4, jamais inverser
 - Exercice Sami : 21 critères à vérifier dans 3 DOCX, spec dans `_source/exercice-sami-spec.md`
 - Site d'exercice points de contrôle rapides dans `docs/`, avec versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/` et grille XLSX téléchargeable
+- Site publié sur GitHub Pages via dépôt standalone `easy-check-igpde` : https://alexmacapple.github.io/easy-check-igpde/
 - Dernier état livré : deck `formation-102638-juin-2026.pptx` à 112 slides (2026-05-12)
 - Deck WCAG condensé : `WCAG en langage clair - condensé.pptx` (13 slides), généré par `scripts/generate_wcag_langage_clair.py --condensed`
 
@@ -62,6 +63,7 @@ Si les skills ne sont pas automatiquement injectes dans la session, lire leurs a
 - Controle tirets dans les scripts : `grep -rn $'—\|–' scripts/` doit retourner vide
 - Controle PPTX : `unzip -t formation-102638-juin-2026.pptx`
 - Warnings footer : diagnostiquer par slide, corriger le positionnement source, puis regenerer le deck complet
+- Publier le site : `rsync -a --delete --exclude='.DS_Store' --exclude='*.md' --exclude='.git' docs/ /tmp/easy-check-igpde/ && cd /tmp/easy-check-igpde && git add -A && git commit -m "Mise a jour du site" && git push`
 
 ## Grille IGPDE-DSFR
 
@@ -107,6 +109,7 @@ Composants : `add_callout`, `add_alert`, `add_highlight`, `add_quote`, `add_card
 
 | Ressource | Fichier |
 |-----------|---------|
+| Architecture C4 slides | `architecture-c4-slides.md` |
 | Spec exercice Sami | `_source/exercice-sami-spec.md` |
 | Diff des criteres Sami | `_source/exercice-sami-diff.md` |
 | Lecons techniques | `lessons.md` |
@@ -116,4 +119,7 @@ Composants : `add_callout`, `add_alert`, `add_highlight`, `add_quote`, `add_card
 | Notes FALC | `05-falc/md-falc.md` |
 | Notes medias | `06-medias/md-medias.md` |
 | Passation derniere session | `_source/passation-session-2026-05-03.md` |
+| Publication site | `docs-publication.md` |
+| Depot site standalone | `git@github.com:Alexmacapple/easy-check-igpde.git` |
+| URL publique site | https://alexmacapple.github.io/easy-check-igpde/ |
 | Dependances | Python 3 + `python-pptx` + `lxml` + `openpyxl` + Marianne, fallback Arial |

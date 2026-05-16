@@ -9,6 +9,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 - Ordre impératif M1 > M2 > M3 > M4, jamais inverser
 - Exercice Sami : 21 critères à vérifier dans 3 DOCX (inaccessible/aide correction/accessible), spec dans `_source/exercice-sami-spec.md`
 - Site d'exercice points de contrôle rapides dans `docs/`, avec versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/` et grille XLSX téléchargeable
+- Site publié sur GitHub Pages via dépôt standalone `easy-check-igpde` : https://alexmacapple.github.io/easy-check-igpde/
 - Dernier état livré : deck `formation-102638-juin-2026.pptx` à 112 slides (2026-05-12)
 - Deck WCAG condensé : `WCAG en langage clair - condensé.pptx` (13 slides), généré par `scripts/generate_wcag_langage_clair.py --condensed`
 
@@ -42,6 +43,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 - **Contrôle tirets** : `grep -rn $'—\|–' scripts/` doit retourner vide
 - **Contrôle PPTX** : `unzip -t formation-102638-juin-2026.pptx`
 - **Warnings footer** : diagnostiquer par slide, corriger le positionnement source, puis régénérer le deck complet
+- **Publier le site** : `rsync -a --delete --exclude='.DS_Store' --exclude='*.md' --exclude='.git' docs/ /tmp/easy-check-igpde/ && cd /tmp/easy-check-igpde && git add -A && git commit -m "Mise à jour du site" && git push`
 
 **Grille IGPDE-DSFR (13,33" x 7,5")** :
 
@@ -87,6 +89,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 
 | Ressource | Fichier |
 |-----------|---------|
+| Architecture C4 slides | `architecture-c4-slides.md` |
 | Spec exercice Sami | `_source/exercice-sami-spec.md` |
 | Diff des critères Sami | `_source/exercice-sami-diff.md` |
 | Leçons techniques | `lessons.md` |
@@ -96,4 +99,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 | Notes FALC | `05-falc/md-falc.md` |
 | Notes médias | `06-medias/md-medias.md` |
 | Passation dernière session | `_source/passation-session-2026-05-03.md` |
+| Publication site | `docs-publication.md` |
+| Dépôt site standalone | `git@github.com:Alexmacapple/easy-check-igpde.git` |
+| URL publique site | https://alexmacapple.github.io/easy-check-igpde/ |
 | Dépendances | Python 3 + `python-pptx` + `lxml` + `openpyxl` + Marianne (fallback Arial) |
