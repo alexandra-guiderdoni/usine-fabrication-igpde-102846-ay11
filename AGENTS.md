@@ -54,6 +54,7 @@ Si les skills ne sont pas automatiquement injectes dans la session, lire leurs a
 ## Playbooks
 
 - Nouvelle slide : creer `scripts/slides/NN_nom.py`, suffixe lettre(s) pour intercaler (`05a_`, `02ma_`)
+- Tests unitaires : `python3 -m pytest tests/ -v` (51 tests, couvre helpers + composants + a11y)
 - Tester : `python3 scripts/assemble.py --only NN`
 - Template absent : `python3 scripts/build_template.py`
 - Previsualiser le site des points de contrôle rapides : depuis `docs/`, lancer `python3 -m http.server 8765 --bind 127.0.0.1`, puis ouvrir `http://127.0.0.1:8765/index.html`
@@ -72,7 +73,7 @@ Si les skills ne sont pas automatiquement injectes dans la session, lire leurs a
 | `MARGIN_L` | 0,52" |
 | `CONTENT_W` | 12,28" |
 | `COL_W` / `COL_R` | 5,98" / 6,83" |
-| `TOP` contenu | 2,30" |
+| `TOP` contenu | 2,68" |
 | `BOTTOM_CONTENT` | 6,80" |
 | `FOOTER_Y` | 6,98" |
 

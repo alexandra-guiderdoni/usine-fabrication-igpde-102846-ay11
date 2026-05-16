@@ -20,8 +20,8 @@ Ces memos sont distribues apres la formation comme reference. Ils ne remplacent 
 
 | Fichier | Slides | Images | Role |
 |---------|--------|--------|------|
-| `Fiche-Pratique/IGPDE-2024-11-25_Charges_Com-Seq6-Bureautique-v2.pptx` | 57 | 64 PNG dans `/tmp/pptx-bureautique-images/` | Support cours Word+Writer, 11 exercices |
-| `Fiche-Pratique/L'accessibilite numerique - Travaux pratique - deuxieme partie.pptx` | 24 | 50 PNG dans `/tmp/pptx-tp-images/` | Pas-a-pas visuel Word+Writer |
+| `fiche-pratique/IGPDE-2024-11-25_Charges_Com-Seq6-Bureautique-v2.pptx` | 57 | 64 PNG dans `/tmp/pptx-bureautique-images/` | Support cours Word+Writer, 11 exercices |
+| `fiche-pratique/L'accessibilite numerique - Travaux pratique - deuxieme partie.pptx` | 24 | 50 PNG dans `/tmp/pptx-tp-images/` | Pas-a-pas visuel Word+Writer |
 
 ### Exercice de Sami (alignement pédagogique)
 
@@ -197,8 +197,8 @@ Les deux memos suivent la meme structure mais les procedures different :
 
 ### Etape 1 : Preparation du contenu Markdown
 
-1. Creer `Fiche-Pratique/memo-word.md` avec la structure des 5 themes
-2. Creer `Fiche-Pratique/memo-libreoffice-writer.md` avec la meme structure
+1. Creer `fiche-pratique/memo-word.md` avec la structure des 5 themes
+2. Creer `fiche-pratique/memo-libreoffice-writer.md` avec la meme structure
 3. Pour chaque critere Sami (1 a 21) :
    - Lire la spec dans `_source/exercice-sami-spec.md`
    - Lire les slides sources correspondantes (voir cartographie ci-dessus)
@@ -213,7 +213,7 @@ Les deux memos suivent la meme structure mais les procedures different :
 2. Verifier visuellement chaque capture selectionnee
 3. Recadrer si necessaire (ne garder que la zone pertinente)
 4. Nommer les images de facon descriptive (ex : `word-proprietes-titre.png`)
-5. Copier dans `Fiche-Pratique/images-memo-word/` et `Fiche-Pratique/images-memo-writer/`
+5. Copier dans `fiche-pratique/images-memo-word/` et `fiche-pratique/images-memo-writer/`
 
 ### Etape 3 : Generation PDF accessible
 
@@ -282,7 +282,7 @@ Voir checklist ci-dessous.
 
 Le livrable est considere comme termine quand :
 
-1. **Deux fichiers PDF** existent dans `Fiche-Pratique/` :
+1. **Deux fichiers PDF** existent dans `fiche-pratique/` :
    - `memo-word-accessibilite.pdf`
    - `memo-libreoffice-writer-accessibilite.pdf`
 
@@ -296,7 +296,7 @@ Le livrable est considere comme termine quand :
 
 6. **Validation checklist** : toutes les cases de la checklist ci-dessus sont cochees
 
-7. **Sources Markdown** conservees : `memo-word.md` et `memo-libreoffice-writer.md` sont versionnees dans `Fiche-Pratique/` pour maintenance future
+7. **Sources Markdown** conservees : `memo-word.md` et `memo-libreoffice-writer.md` sont versionnees dans `fiche-pratique/` pour maintenance future
 
 8. **todo.md mis a jour** : la tache "Fiche Memo LibreOffice" est cochee, une nouvelle ligne "Fiche Memo Word" ajoutee et cochee
 

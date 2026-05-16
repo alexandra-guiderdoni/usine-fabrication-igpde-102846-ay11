@@ -26,7 +26,7 @@ La structure permet aux lecteurs d'écran de naviguer dans le document. Sans ell
 
 **Vérifier** : appuyer sur **F5** pour ouvrir le **Navigateur** et visualiser la hiérarchie des titres.
 
-![Panneau Propriétés et Navigateur dans LibreOffice Writer](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-writer/writer-navigateur.png)
+![Panneau Propriétés et Navigateur dans LibreOffice Writer](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-writer/writer-navigateur.png)
 
 ### Listes natives
 
@@ -34,7 +34,7 @@ La structure permet aux lecteurs d'écran de naviguer dans le document. Sans ell
 
 **Procédure** : sélectionner les paragraphes > barre de formatage > bouton **Puces** ou **Numérotation**.
 
-![Barre d'outils des listes dans LibreOffice Writer](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-writer/writer-listes-toolbar.png)
+![Barre d'outils des listes dans LibreOffice Writer](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-writer/writer-listes-toolbar.png)
 
 **Numérotation des titres** : **Outils** > **Numérotation des chapitres** pour associer un schéma de numérotation aux styles de titre.
 
@@ -44,7 +44,7 @@ La structure permet aux lecteurs d'écran de naviguer dans le document. Sans ell
 
 **Procédure** : **Insertion** > **Table des matières et index** > **Table des matières, index ou bibliographie**.
 
-![Boîte de dialogue Table des matières dans LibreOffice Writer](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-writer/writer-table-matieres.png)
+![Boîte de dialogue Table des matières dans LibreOffice Writer](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-writer/writer-table-matieres.png)
 
 ### En-têtes de tableau
 
@@ -96,7 +96,7 @@ La structure permet aux lecteurs d'écran de naviguer dans le document. Sans ell
 
 **Procédure** : clic droit sur l'image > **Propriétés** > onglet **Options** > remplir le champ **Alternative (texte seul)** avec 1 à 2 phrases décrivant l'information portée par l'image.
 
-![Menu contextuel Propriétés dans LibreOffice Writer](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-writer/writer-menu-proprietes.png)
+![Menu contextuel Propriétés dans LibreOffice Writer](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-writer/writer-menu-proprietes.png)
 
 Ne jamais laisser le nom de fichier par défaut comme alternative (ex : "image.png" n'apporte aucune information).
 
@@ -106,7 +106,7 @@ Ne jamais laisser le nom de fichier par défaut comme alternative (ex : "image.p
 
 **Bonne pratique** : remplir **Alternative** avec un texte court (~80 caractères) et utiliser le champ **Description** pour le détail, ou ajouter la description dans le corps du texte sous l'image. Exemple : Alternative="Organigramme de la direction (description ci-dessous)."
 
-![Boîte de dialogue Propriétés de l'image avec champs Alternative et Description](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-writer/writer-alt-text-dialog.png)
+![Boîte de dialogue Propriétés de l'image avec champs Alternative et Description](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-writer/writer-alt-text-dialog.png)
 
 ### Images décoratives
 
@@ -158,7 +158,7 @@ Writer n'a pas d'option "Marquer comme décoratif" comme Word. Laisser le champ 
 
 **Vérifier** : **Affichage** > cocher **Marques de formatage** (ou **Ctrl+F10**) pour visualiser les paragraphes vides, sauts de ligne, tabulations et espaces.
 
-![Bouton marques de formatage dans LibreOffice Writer](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-writer/writer-marques-formatage.png)
+![Bouton marques de formatage dans LibreOffice Writer](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-writer/writer-marques-formatage.png)
 
 ### Majuscules par la mise en forme
 
@@ -176,13 +176,13 @@ Writer n'a pas d'option "Marquer comme décoratif" comme Word. Laisser le champ 
 
 **Procédure** : **Fichier** > **Propriétés** > onglet **Description** > renseigner **Titre**. Onglet **Général** > renseigner **Auteur**. Vérifier aussi que la langue du document est définie en **Français** (barre d'état).
 
-![Propriétés du document dans Writer - onglet Description](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-writer/writer-proprietes-titre.png)
+![Propriétés du document dans Writer - onglet Description](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-writer/writer-proprietes-titre.png)
 
 ### Vérification de l'accessibilité
 
 **Procédure** : **Outils** > **Vérification de l'accessibilité**. L'outil est un guide, pas une preuve de conformité : il détecte les problèmes courants (images sans alt, textes flottants) mais peut rater certaines erreurs (contraste, faux titres visuels, fausses listes).
 
-![Fenêtre de vérification de l'accessibilité dans Writer](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-writer/writer-verification-a11y.png)
+![Fenêtre de vérification de l'accessibilité dans Writer](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-writer/writer-verification-a11y.png)
 
 ### Export PDF accessible (PDF/UA)
 
@@ -191,7 +191,7 @@ Writer n'a pas d'option "Marquer comme décoratif" comme Word. Laisser le champ 
    - **Accessibilité Universelle (PDF/UA)**
    - **Exporter le plan et autres éléments de structure**
 
-![Options d'export PDF dans Writer - PDF/UA et structure](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-writer/writer-export-pdf-ua.png)
+![Options d'export PDF dans Writer - PDF/UA et structure](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-writer/writer-export-pdf-ua.png)
 
 ### Ancrage des images
 
@@ -201,7 +201,7 @@ Writer n'a pas d'option "Marquer comme décoratif" comme Word. Laisser le champ 
 
 Utiliser **PAC** (PDF Accessibility Checker), outil gratuit, pour vérifier la conformité PDF/UA du document exporté.
 
-![Interface de PAC 2024](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-writer/pac-interface.png)
+![Interface de PAC 2024](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-writer/pac-interface.png)
 
 ---
 

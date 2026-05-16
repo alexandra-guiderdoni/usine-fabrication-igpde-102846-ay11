@@ -26,7 +26,7 @@ La structure permet aux lecteurs d'écran de naviguer dans le document. Sans ell
 
 **Vérifier** : onglet **Affichage** > cocher **Volet de navigation** > onglet **Titres** pour visualiser la hiérarchie.
 
-![Volet de navigation Word montrant la hiérarchie des titres](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-word/word-volet-navigation.png)
+![Volet de navigation Word montrant la hiérarchie des titres](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-word/word-volet-navigation.png)
 
 ### Listes natives
 
@@ -34,7 +34,7 @@ La structure permet aux lecteurs d'écran de naviguer dans le document. Sans ell
 
 **Procédure** : sélectionner les paragraphes > **Accueil** > bouton **Puces** ou **Numérotation**.
 
-![Barre d'outils des listes dans Word](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-word/word-listes-toolbar.png)
+![Barre d'outils des listes dans Word](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-word/word-listes-toolbar.png)
 
 ### Table des matières automatique
 
@@ -42,7 +42,7 @@ La structure permet aux lecteurs d'écran de naviguer dans le document. Sans ell
 
 **Procédure** : onglet **Références** > **Table des matières** > **Table des matières personnalisée**.
 
-![Boîte de dialogue Table des matières dans Word](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-word/word-table-matieres.png)
+![Boîte de dialogue Table des matières dans Word](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-word/word-table-matieres.png)
 
 ### En-têtes de tableau
 
@@ -53,7 +53,7 @@ La structure permet aux lecteurs d'écran de naviguer dans le document. Sans ell
 1. Cliquer dans le tableau > onglet **Création** > cocher **Ligne d'en-tête**
 2. Clic droit > **Propriétés du tableau** > onglet **Ligne** > cocher **Répéter en haut de chaque page en tant que ligne d'en-tête**
 
-![Option Répéter la ligne d'en-tête dans les propriétés du tableau Word](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-word/word-tableau-entete.png)
+![Option Répéter la ligne d'en-tête dans les propriétés du tableau Word](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-word/word-tableau-entete.png)
 
 ### Cellules fusionnées
 
@@ -97,7 +97,7 @@ La structure permet aux lecteurs d'écran de naviguer dans le document. Sans ell
 
 **Procédure** : clic droit sur l'image > **Modifier le texte de remplacement** > saisir 1 à 2 phrases décrivant l'information portée par l'image.
 
-![Menu contextuel Word pour modifier le texte de remplacement](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-word/word-menu-alt-text.png)
+![Menu contextuel Word pour modifier le texte de remplacement](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-word/word-menu-alt-text.png)
 
 Ne jamais utiliser la génération automatique de description (rarement pertinente). Ne jamais laisser le nom de fichier par défaut comme alternative (ex : "image.png" n'apporte aucune information).
 
@@ -113,7 +113,7 @@ Ne jamais utiliser la génération automatique de description (rarement pertinen
 
 **Procédure** : clic droit > **Modifier le texte de remplacement** > cocher **Marquer comme décoratif**.
 
-![Boîte de dialogue alt text Word avec option Marquer comme décoratif](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-word/word-alt-text-dialog.png)
+![Boîte de dialogue alt text Word avec option Marquer comme décoratif](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-word/word-alt-text-dialog.png)
 
 ### Liens explicites
 
@@ -143,7 +143,7 @@ Ne jamais utiliser la génération automatique de description (rarement pertinen
 
 **Procédure** : sélectionner le passage > onglet **Révision** > **Langue** > **Définir la langue de vérification** > choisir la langue (ex : Anglais). Alternative rapide : cliquer sur la langue affichée dans la barre d'état (en bas) et choisir la langue.
 
-![Sélection de la langue dans la barre d'état Word](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-word/word-selection-langue.png)
+![Sélection de la langue dans la barre d'état Word](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-word/word-selection-langue.png)
 
 ### Alignement à gauche
 
@@ -159,7 +159,7 @@ Ne jamais utiliser la génération automatique de description (rarement pertinen
 
 **Vérifier** : **Accueil** > bouton **Afficher tout** pour visualiser les marques de formatage (paragraphes vides, sauts de ligne, tabulations, espaces).
 
-![Bouton Afficher tout dans la barre d'outils Word](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-word/word-marques-formatage.png)
+![Bouton Afficher tout dans la barre d'outils Word](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-word/word-marques-formatage.png)
 
 ### Majuscules par la mise en forme
 
@@ -177,13 +177,13 @@ Ne jamais utiliser la génération automatique de description (rarement pertinen
 
 **Procédure** : **Fichier** > **Informations** > **Propriétés** > renseigner **Titre** et **Auteur**. Vérifier aussi que la langue du document est définie en **Français** (barre d'état).
 
-![Propriétés du document dans Word - champ Titre](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-word/word-proprietes-titre.png)
+![Propriétés du document dans Word - champ Titre](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-word/word-proprietes-titre.png)
 
 ### Vérification de l'accessibilité
 
 **Procédure** : onglet **Révision** > **Vérifier l'accessibilité**. L'outil est un guide, pas une preuve de conformité : il détecte les problèmes courants (images sans alt, tableaux sans en-tête) mais peut rater certaines erreurs (contraste, faux titres visuels, fausses listes).
 
-![Volet de vérification de l'accessibilité dans Word](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-word/word-verification-a11y.png)
+![Volet de vérification de l'accessibilité dans Word](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-word/word-verification-a11y.png)
 
 ### Export PDF accessible
 
@@ -193,13 +193,13 @@ Ne jamais utiliser la génération automatique de description (rarement pertinen
    - **Propriétés du document**
    - **Balises de structure de document pour l'accessibilité**
 
-![Options d'export PDF dans Word](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-word/word-export-pdf.png)
+![Options d'export PDF dans Word](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-word/word-export-pdf.png)
 
 ### Vérification post-export
 
 Utiliser **PAC** (PDF Accessibility Checker), outil gratuit, pour vérifier la conformité PDF/UA du document exporté.
 
-![Interface de PAC 2024](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique/images-memo-word/pac-interface.png)
+![Interface de PAC 2024](/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique/images-memo-word/pac-interface.png)
 
 ---
 

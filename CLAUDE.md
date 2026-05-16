@@ -41,6 +41,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 - **Tester** : `python3 scripts/assemble.py --only NN`
 - **Template absent** : `python3 scripts/build_template.py`
 - **Quarantine** : `xattr -d com.apple.quarantine formation-102638-juin-2026.pptx`
+- **Tests unitaires** : `python3 -m pytest tests/ -v` (51 tests, couvre helpers + composants + a11y)
 - **Contrôle tirets** : `grep -rn $'—\|–' scripts/` doit retourner vide
 - **Contrôle PPTX** : `unzip -t formation-102638-juin-2026.pptx`
 - **Warnings footer** : diagnostiquer par slide, corriger le positionnement source, puis régénérer le deck complet

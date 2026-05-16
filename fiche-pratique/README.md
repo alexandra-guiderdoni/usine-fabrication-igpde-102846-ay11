@@ -24,7 +24,7 @@ Mémos accessibilité distribués aux stagiaires après la formation. Deux versi
 ### Commandes
 
 ```bash
-cd /Users/alex/Claude/projets-formations/IGPDE-Carinne-C/Fiche-Pratique
+cd /Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique
 
 # Mémo Word
 python3 ~/.claude/skills/accessible-pdf/scripts/md2pdf.py \
@@ -81,7 +81,7 @@ Le script `md2pdf.py` exécute 6 étapes :
 ## Structure du dossier
 
 ```
-Fiche-Pratique/
+fiche-pratique/
   memo-word.md                          # Source Markdown du mémo Word
   memo-libreoffice-writer.md            # Source Markdown du mémo Writer
   memo-word-accessibilite.pdf           # PDF généré

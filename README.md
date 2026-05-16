@@ -10,6 +10,93 @@ Support de formation accessibilité numérique d'une journée, destiné aux comm
 
 ---
 
+## Démarrage rapide
+
+### Prérequis
+
+- **Python 3.12+** (vérifier avec `python3 --version`)
+- **Police Marianne** installée sur le système (police officielle de l'État, fallback sur Arial si absente — mais le rendu DSFR ne sera pas conforme)
+- **Terminal** : savoir lancer une commande dans un terminal (aucune connaissance Python requise pour régénérer)
+
+### Commandes
+
+```bash
+# 1. Installer les dépendances Python
+pip install -r requirements.txt
+
+# 2. Régénérer le deck complet (131 slides)
+python3 scripts/assemble.py
+
+# 3. Tester une seule slide en isolation (ex. slide 05)
+python3 scripts/assemble.py --only 05
+
+# 4. Régénérer les DOCX de l'exercice Sami
+python3 scripts/generate_exercice_sami.py
+
+# 5. Régénérer le site d'exercice (3 variantes HTML)
+python3 scripts/generate_easy_checks_site_skeleton.py
+
+# 6. Valider le site d'exercice easy checks (liens, assets, contrat YAML)
+# Note : ne valide PAS le deck PPTX — pour le deck, utiliser unzip -t + passe visuelle PowerPoint
+python3 validate.py
+
+# 7. Lancer les tests unitaires (51 tests sur igpde_dsfr_components.py)
+python3 -m pytest tests/ -v
+```
+
+Le fichier de sortie est `formation-102638-juin-2026.pptx` (nom et date centralisés dans `config.yml`).
+
+Sur macOS, après génération, retirer la quarantine Gatekeeper si PowerPoint refuse d'ouvrir le fichier :
+
+```bash
+xattr -d com.apple.quarantine formation-102638-juin-2026.pptx
+```
+
+### Workflow de création (nouvelles slides ou modifications)
+
+La création de contenu passe par **Claude Code** et trois skills enchaînés :
+
+1. **`/pedagogie-neuro`** — conçoit le contenu pédagogique (règles de neuropédagogie, charge cognitive, taxonomie de Bloom)
+2. **`/composition-dsfr-pptx`** — compose la slide selon les composants DSFR disponibles (callout, stepper, alert, tableau, etc.)
+3. **`/accessible-pptx`** — vérifie et corrige l'accessibilité du résultat (ordre de lecture, langue, alt text)
+
+Ensuite le script Python correspondant (`scripts/slides/NN_nom.py`) est créé ou modifié, et le deck est régénéré avec `python3 scripts/assemble.py`.
+
+**Sans Claude Code**, on peut toujours modifier les scripts Python directement — chaque fichier `scripts/slides/NN_*.py` est un module autonome lisible. Mais la chaîne de skills garantit la cohérence pédagogique et l'accessibilité dès la conception.
+
+---
+
+## État du projet et prochaines étapes
+
+**Statut** : livrable technique prêt, en relecture finale avant diffusion.
+
+| Jalon | État |
+|-------|------|
+| Deck PPTX 131 slides | Généré, 0 warning, `unzip -t` OK |
+| Exercice Sami (3 DOCX + PNG) | Livré |
+| Site d'exercice points de contrôle rapides | Publié sur [GitHub Pages](https://alexmacapple.github.io/easy-check-igpde/) |
+| Grille d'audit XLSX (16 onglets) | Validée |
+| Fiches mémo Word / LibreOffice (PDF/UA-1) | Livrées |
+| Deck WCAG condensé (13 slides) | Livré |
+
+**Prochaines étapes** (avant le 20 mai 2026) :
+
+1. Passe visuelle humaine slide par slide dans PowerPoint (priorité : slides 16-22, 36, 75-76, 82-131)
+2. Corrections et ajustements au fil de la relecture
+3. Régénération finale (`python3 scripts/assemble.py` + `finalize_pptx()`)
+4. Transmission des supports à l'IGPDE
+
+**Échéance de livraison** : 20 mai 2026 (cadre qualité IGPDE — supports transmis 15 jours avant la session).
+
+**Date de formation** : 4 juin 2026 (IGPDE, 1 journée).
+
+**Qui fait quoi** :
+
+- **Alex** (formateur, développeur du pipeline) — conçoit le contenu, maintient les scripts, livre le support
+- **Carinne C.** (référente formation IGPDE) — commanditaire, validation administrative, logistique salle/convocations
+
+---
+
 ## Pourquoi ce projet existe
 
 L'IGPDE (institut de formation du ministère des Finances) programme une formation d'une journée sur l'accessibilité numérique pour des agents communicants. La commande vient de Carinne C., référente formation. Le public ne code pas : il produit des documents Word, des PDF, des visuels pour les réseaux sociaux, des newsletters.
@@ -106,3 +193,4 @@ Ces 5 contraintes simultanées excluent les alternatives : un générateur Markd
 | Tâches en cours | `todo.md` |
 | Spec exercice Sami | `_source/exercice-sami-spec.md` |
 | Passation derniere session | `_source/passation-session-2026-05-03.md` |
+| Publication du site exercice | `docs-publication.md` |

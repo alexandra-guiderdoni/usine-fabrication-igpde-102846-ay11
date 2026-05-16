@@ -14,7 +14,7 @@
 
 ## Fait
 
-- [x] **Fiches Mémo Word et LibreOffice Writer** : deux PDF accessibles (PDF/UA-1, template formation, 14 pages chacun) couvrant les 21 bonnes pratiques Sami organisées par thème. Captures d'écran extraites des PPTX sources. Générées via `/accessible-pdf` + script `md2pdf.py`. Livrables dans `Fiche-Pratique/`. Le 2026-05-16.
+- [x] **Fiches Mémo Word et LibreOffice Writer** : deux PDF accessibles (PDF/UA-1, template formation, 14 pages chacun) couvrant les 21 bonnes pratiques Sami organisées par thème. Captures d'écran extraites des PPTX sources. Générées via `/accessible-pdf` + script `md2pdf.py`. Livrables dans `fiche-pratique/`. Le 2026-05-16.
 - [x] **Grille d'audit distribuée aux stagiaires** (slide `scripts/slides/52_mission-13-checks.py`) : grille XLSX téléchargeable depuis `docs/assets/downloads/grille-audit-easy-checks.xlsx`, consigne binômes en place.
 - [x] **Documentation projet complète** : architecture C4 (`architecture-c4-slides.md`), README causal (`README.md`), contraintes (`contraintes.md`), 21 leçons techniques (`lessons.md`). Le 2026-05-16.
 - [x] **Support PPTX principal livré** : `formation-102638-juin-2026.pptx`, 131 slides, dernière mise à jour le 2026-05-16.
