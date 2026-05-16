@@ -45,7 +45,7 @@
 - **Contrainte** : le projet s'execute comme une suite de scripts Python locaux, sans orchestration Docker ni pipeline de boot declare.
 - **Impact** : l'environnement de regeneration depend directement du poste local et de ses dependances Python.
 - **Decision / prochaine verification** : si un mode de build reproductible est ajoute, le documenter ici et dans `AGENTS.md`.
-- **Composants affectes** : `build.py`, `validate.py`, `scripts/*.py`
+- **Composants affectes** : `validate.py`, `scripts/*.py`
 
 ### Generation PPTX via scripts uniquement
 

@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Validate the points de contrôle rapides exercise skeleton."""
+"""Validation du site d'exercice points de controle rapides.
+
+Vérifie le contrat YAML, les assets DSFR, les liens locaux et ancres,
+la liste blanche d'hôtes externes, les attributs lang et alt, et des
+cas specifiques (EC06, version accessible).
+"""
 
 from __future__ import annotations
 

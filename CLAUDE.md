@@ -10,6 +10,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 - Exercice Sami : 21 critères à vérifier dans 3 DOCX (inaccessible/aide correction/accessible), spec dans `_source/exercice-sami-spec.md`
 - Site d'exercice points de contrôle rapides dans `docs/`, avec versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/` et grille XLSX téléchargeable
 - Site publié sur GitHub Pages via dépôt standalone `easy-check-igpde` : https://alexmacapple.github.io/easy-check-igpde/
+- Date, footer et nom du fichier de sortie centralisés dans `config.yml` (source unique)
 - Dernier état livré : deck `formation-102638-juin-2026.pptx` à 131 slides (2026-05-16)
 - Deck WCAG condensé : `wcag/WCAG en langage clair - condensé.pptx` (13 slides), généré par `scripts/generate_wcag_langage_clair.py --condensed`
 
@@ -26,7 +27,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 
 ## Règles validées manuellement
 
-- Les decks PPTX ont deux régimes : les slides générées par script et les slides figées ou retouchées manuellement dans PowerPoint. Avant toute régénération, identifier le régime des slides concernées afin de ne pas écraser des corrections manuelles.
+- Les decks PPTX ont deux régimes : les slides générées par script et les slides figées ou retouchées manuellement dans PowerPoint. Avant toute régénération, identifier le régime des slides concernées afin de ne pas écraser des corrections manuelles. **État actuel (2026-05-17) : 100 % des 131 slides sont en régime script. Aucune slide manuelle pour l'instant.**
 - Un skill destiné à être publié doit être auto-suffisant : `SKILL.md`, références, scripts, templates et modules nécessaires doivent être inclus dans le dépôt ou explicitement documentés. Avant publication, vérifier les imports, chemins relatifs et dépendances externes.
 - Chaque skill publié ou stabilisé doit avoir une fiche opérationnelle dans le wiki : objectif, cas d'usage, commande ou déclencheur, fichiers clés, limites connues et exemples d'utilisation.
 - La version accessible du site d'exercice doit rester sobre, comme un vrai site corrigé, sans pédagogie visible.
@@ -52,7 +53,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 | `MARGIN_L` | 0,52" |
 | `CONTENT_W` | 12,28" |
 | `COL_W` / `COL_R` | 5,98" / 6,83" |
-| `TOP` contenu | 2,30" |
+| `TOP` contenu | 2,68" |
 | `BOTTOM_CONTENT` | 6,80" |
 | `FOOTER_Y` | 6,98" |
 
@@ -69,6 +70,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 - Jamais de jargon développeur dans le contenu des slides (ARIA, DOM, CSS)
 - Jamais livrer sans `finalize_pptx()`
 - Pas de mot « pilier » — remplacé par « thème »
+- Jamais importer depuis le skill global `~/.claude/skills/accessible-pptx/` — utiliser exclusivement `scripts/igpde_dsfr_components.py` (grille IGPDE 13,33", copie divergente)
 
 ## Modes d'échec connus
 
@@ -89,6 +91,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 
 | Ressource | Fichier |
 |-----------|---------|
+| Index slides ↔ modules | `scripts/slides/README.md` |
 | Architecture C4 slides | `architecture-c4-slides.md` |
 | Spec exercice Sami | `_source/exercice-sami-spec.md` |
 | Diff des critères Sami | `_source/exercice-sami-diff.md` |

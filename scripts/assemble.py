@@ -21,7 +21,10 @@ import argparse
 import sys
 from pathlib import Path
 
+import yaml
+
 SCRIPTS_DIR = Path(__file__).parent
+PROJECT_ROOT = SCRIPTS_DIR.parent
 sys.path.insert(0, str(SCRIPTS_DIR))
 
 from igpde_dsfr_components import create_presentation, finalize_pptx  # noqa: E402
@@ -29,10 +32,10 @@ from slides import (  # noqa: E402
     SlideContext, discover_slides, load_slide_module,
 )
 
-
-DATE_DEFAULT = "4 juin 2026"
-FOOTER_BASE_DEFAULT = "Formation 102638"
-OUTPUT_DEFAULT = SCRIPTS_DIR.parent / "formation-102638-juin-2026.pptx"
+_config = yaml.safe_load((PROJECT_ROOT / "config.yml").read_text())["formation"]
+DATE_DEFAULT = _config["date"]
+FOOTER_BASE_DEFAULT = _config["footer"]
+OUTPUT_DEFAULT = PROJECT_ROOT / _config["output"]
 
 
 def _slide_number(path: Path) -> str:

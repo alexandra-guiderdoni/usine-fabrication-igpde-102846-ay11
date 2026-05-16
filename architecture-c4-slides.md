@@ -41,7 +41,7 @@
 +--------+---------------------------------------+--------+
 |                                                         |
 |   Pipeline de generation des slides PPTX DSFR           |
-|   (113 modules Python -> 1 PPTX accessible)             |
+|   (131 modules Python -> 1 PPTX accessible)             |
 |                                                         |
 +---+---------------------+-------------------+-----------+
     |                     |                   |
@@ -78,7 +78,7 @@ Le formateur Alex edite les modules Python et lance la generation. Le deck PPTX 
 |              v                                          v            |
 |  +-----------+-------------+   +------------------------+---------+  |
 |  | scripts/slides/         |   | igpde_dsfr_components.py        |  |
-|  | NN_*.py (113 modules)   |   | (bibliotheque DSFR)             |  |
+|  | NN_*.py (131 modules)   |   | (bibliotheque DSFR)             |  |
 |  |                         |   |                                 |  |
 |  | Chacun expose :         |   | create_presentation()           |  |
 |  |   build(prs,layouts,ctx)|   | new_slide()                     |  |

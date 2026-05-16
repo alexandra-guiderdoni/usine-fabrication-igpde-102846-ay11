@@ -1,7 +1,13 @@
 .DS_Store
 ~$*.pptx
 ~$*.docx
+__pycache__/
+tmp/
+
 easy-check-igpde/
 IGPDE-102638/
 IGPDE-102638-livrables/outils/
 IGPDE-102638-livrables/Formateur/tp-easy-check-igpde/
+IGPDE-102638-livrables-juin-2026/outils/*
+!IGPDE-102638-livrables-juin-2026/outils/MANIFEST.md
+IGPDE-102638-livrables-juin-2026/Formateur/tp-easy-check-igpde/
