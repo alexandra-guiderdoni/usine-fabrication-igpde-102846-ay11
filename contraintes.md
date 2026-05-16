@@ -55,7 +55,7 @@
 - **Contrainte** : le deck principal doit etre regenere via `python3 scripts/assemble.py`, avec `finalize_pptx()` obligatoire avant livraison.
 - **Impact** : une modification directe du PPTX contourne le flux de production et risque d'etre ecrasee a la regeneration.
 - **Decision / prochaine verification** : toute evolution du support doit passer par `scripts/slides/NN_*.py` puis une regeneration.
-- **Composants affectes** : `scripts/assemble.py`, `scripts/slides/` (113 modules), `formation-102638-juin-2026.pptx` (112 slides)
+- **Composants affectes** : `scripts/assemble.py`, `scripts/slides/` (131 modules), `formation-102638-juin-2026.pptx` (131 slides)
 
 ## 3. Indexation et donnees
 
@@ -94,13 +94,13 @@
 | Feature | Fichier | Depuis quand |
 |---------|---------|--------------|
 | Assemblage du deck principal numerote automatiquement | `scripts/assemble.py` | constate le 2026-05-12 |
-| Generation d'un deck distinct `WCAG en langage clair` et de sa version condensee | `scripts/generate_wcag_langage_clair.py` | constate le 2026-05-12 |
+| Generation d'un deck distinct `WCAG en langage clair` et de sa version condensee (dans `wcag/`) | `scripts/generate_wcag_langage_clair.py` | constate le 2026-05-12 |
 | Generation des trois DOCX Sami et de leurs medias PNG | `scripts/generate_exercice_sami.py` | constate le 2026-05-12 |
 | Generation du site d'exercice easy checks en trois variantes | `scripts/generate_easy_checks_site_skeleton.py` | constate le 2026-05-12 |
 | Validation automatisee du contrat, des assets et des pages HTML | `validate.py` | constate le 2026-05-12 |
 | Generation de la grille d'audit XLSX | `scripts/generate_grille_audit.py` | constate le 2026-05-12 |
 | Bibliotheque de composants PPTX DSFR IGPDE | `scripts/igpde_dsfr_components.py` | constate le 2026-05-12 |
-| Jeu de slides modulaires par fichiers `NN_*.py` | `scripts/slides/` (113 modules) | constate le 2026-05-12 |
+| Jeu de slides modulaires par fichiers `NN_*.py` | `scripts/slides/` (131 modules) | constate le 2026-05-16 |
 | Post-traitement accessibilite PPTX (ordre de lecture, lang, alt text, metadonnees, quarantine) | `scripts/igpde_dsfr_components.py` (`finalize_pptx()`) | constate le 2026-05-12 |
 | Documentation architecture C4 du pipeline de slides | `architecture-c4-slides.md` | 2026-05-16 |
 | README causal du projet | `README.md` | 2026-05-16 |

@@ -20,14 +20,14 @@ def build(prs, layouts, ctx):
 
     stack = Stack(top=2.30, gap=0.25)
 
-    etapes = [
+    étapes = [
         "Ouvrir le post problématique préparé (avec émojis en série)",
         "Activer NVDA : Ctrl+Alt+N - une voix démarre",
         "Naviguer sur le texte : flèches ou Tab",
         "Écouter la restitution - ne pas regarder l'écran",
     ]
     stepper_h = 2.0
-    add_stepper(slide, etapes, top=stack.push(stepper_h),
+    add_stepper(slide, étapes, top=stack.push(stepper_h),
                 left=MARGIN_L, width=CONTENT_W, height=stepper_h)
 
     consigne_titre = "Pour les stagiaires pendant la démo"

@@ -9,7 +9,7 @@
 - `scripts/build_template.py`
 - `scripts/slides/02ma_definition-a11y.py` (module type)
 
-**Systeme en scope** : pipeline de generation du deck PPTX principal `formation-102638-juin-2026.pptx` (112 slides DSFR accessibles).
+**Systeme en scope** : pipeline de generation du deck PPTX principal `formation-102638-juin-2026.pptx` (131 slides DSFR accessibles).
 
 **Audiences** : Alex (formateur/developpeur), Carinne C. (commanditaire IGPDE, non-technique).
 
@@ -92,7 +92,7 @@ Le formateur Alex edite les modules Python et lance la generation. Le deck PPTX 
 +---------------------------+     +------------------------------+
 | PPT-IGPDE-DSFR-base-      |     | formation-102638-juin-2026   |
 | intervenant.pptx          |     | .pptx                        |
-| (template avec layouts    |     | (artefact final, 112 slides) |
+| (template avec layouts    |     | (artefact final, 131 slides) |
 |  et master)               |     +------------------------------+
 +---------------------------+
 ```
@@ -100,11 +100,11 @@ Le formateur Alex edite les modules Python et lance la generation. Le deck PPTX 
 | Container | Technologie | Responsabilite | Donnees |
 |-----------|-------------|----------------|---------|
 | `assemble.py` | Python 3 | Orchestre la decouverte, le tri, le chargement et l'execution sequentielle des modules de slides. Produit le PPTX final | Lit les modules `NN_*.py`, ecrit le `.pptx` |
-| `scripts/slides/NN_*.py` (113 fichiers) | Python 3 | Chaque module definit le contenu d'une ou plusieurs slides. Expose `build(prs, layouts, ctx)` | Importe les composants depuis `igpde_dsfr_components` |
+| `scripts/slides/NN_*.py` (131 fichiers) | Python 3 | Chaque module definit le contenu d'une ou plusieurs slides. Expose `build(prs, layouts, ctx)` | Importe les composants depuis `igpde_dsfr_components` |
 | `igpde_dsfr_components.py` (55 Ko) | Python 3 + python-pptx + lxml | Bibliotheque de composants DSFR : grille, palette, 16 helpers de composition, post-traitement a11y | Charge le template PPTX, manipule le XML OOXML |
 | `build_template.py` | Python 3 + python-pptx | Genere le template DSFR 13,33"x7,5" a partir du source IGPDE 10"x5,62" (rescaling + DSFRisation) | Lit `PPT-IGPDE-base-intervenant.pptx`, ecrit le template DSFR |
 | Template PPTX | OOXML | 6 layouts natifs IGPDE : couverture, titre_soustitre, sommaire, chapitre, 3_colonnes, titre_contenu | Fichier binaire PPTX |
-| Artefact final | PPTX | Deck complet livre a la formatrice | 112 slides, ~5 Mo |
+| Artefact final | PPTX | Deck complet livre a la formatrice | 131 slides, ~5 Mo |
 
 ---
 

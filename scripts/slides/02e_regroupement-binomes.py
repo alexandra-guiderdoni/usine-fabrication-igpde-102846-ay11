@@ -1,4 +1,4 @@
-"""Slide 02e : organisation des activites - binomes idees recues + ateliers."""
+"""Slide 02e : organisation des activités - binomes idees recues + ateliers."""
 
 from igpde_dsfr_components import (
     CONTENT_W, COL_W, COL_R, MARGIN_L,

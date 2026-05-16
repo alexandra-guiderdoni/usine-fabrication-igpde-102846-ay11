@@ -4,7 +4,7 @@
 
 ## En bref
 
-Support de formation accessibilité numérique d'une journée, destiné aux communicants de l'administration (pas aux développeurs). Le projet produit un deck PPTX de 112 slides conformes au Design System de l'État (DSFR), un site d'exercices « points de contrôle rapides » W3C, un exercice sur document Word (Sami, 21 critères) et une grille d'audit XLSX. Tout est généré par des scripts Python — on n'édite jamais le PPTX à la main.
+Support de formation accessibilité numérique d'une journée, destiné aux communicants de l'administration (pas aux développeurs). Le projet produit un deck PPTX de 131 slides conformes au Design System de l'État (DSFR), un site d'exercices « points de contrôle rapides » W3C, un exercice sur document Word (Sami, 21 critères) et une grille d'audit XLSX. Tout est généré par des scripts Python — on n'édite jamais le PPTX à la main.
 
 **Commande principale** : `python3 scripts/assemble.py`
 
@@ -16,7 +16,7 @@ L'IGPDE (institut de formation du ministère des Finances) programme une formati
 
 Le point de départ est un template PowerPoint IGPDE natif au format 10" x 5,62", sans composants DSFR, sans accessibilité (pas d'ordre de lecture XML, pas de langue déclarée sur les runs, pas d'alt text). Les slides existantes sont construites à la main dans PowerPoint — chaque modification oblige à retoucher manuellement la mise en forme, les pieds de page, la numérotation.
 
-À 112 slides, ce modèle artisanal ne tient plus : les corrections typographiques en cascade (remplacement « pilier » par « thème » sur 21 fichiers), les ajustements de grille après un changement de calibration, le maintien de la cohérence DSFR sur chaque slide — tout ça exige un pipeline programmatique ou une équipe dédiée. L'équipe n'existe pas.
+À 131 slides, ce modèle artisanal ne tient plus : les corrections typographiques en cascade (remplacement « pilier » par « thème » sur 21 fichiers), les ajustements de grille après un changement de calibration, le maintien de la cohérence DSFR sur chaque slide — tout ça exige un pipeline programmatique ou une équipe dédiée. L'équipe n'existe pas.
 
 *Sources : commits initiaux `d5cd1693`, `7cbb3483`, `474152ff` ; `CLAUDE.md` section Contexte ; `lessons.md` ; `_source/passation-session-2026-05-03.md`.*
 
@@ -28,7 +28,7 @@ Le point de départ est un template PowerPoint IGPDE natif au format 10" x 5,62"
 
 **Nécessitation** : la chaîne de contraintes qui rend cette architecture inévitable :
 
-1. **112 slides** avec cohérence visuelle obligatoire → génération manuelle = dérive certaine
+1. **131 slides** avec cohérence visuelle obligatoire → génération manuelle = dérive certaine
 2. **Accessibilité PPTX** (ordre de lecture, `lang=fr-FR`, alt text, métadonnées) → impossible à garantir manuellement sur chaque slide
 3. **Modifications fréquentes** (retours pédagogiques entre sessions, ajouts de contenu) → chaque modification doit être rejouable sans re-formater
 4. **Template IGPDE imposé** (logos, grille, footer institutionnel) → la solution doit hériter du template, pas le remplacer
@@ -48,7 +48,7 @@ Ces 5 contraintes simultanées excluent les alternatives : un générateur Markd
 
 - **`scripts/assemble.py`** (orchestrateur) — résout la contrainte de reproductibilité. Découvre les modules `NN_*.py` par tri alphabétique, les exécute séquentiellement avec un contexte injecté (`page_num`, `date`, `footer_base`), appelle `finalize_pptx()` en sortie. Supporte `--only NN` pour tester une slide en isolation.
 
-- **`scripts/slides/NN_*.py`** (113 modules) — résout la contrainte de modularité. Chaque module expose `build(prs, layouts, ctx)` et contient le contenu pédagogique d'une slide. Le nommage `NN` + suffixe alphabétique (`02ma_`, `05a_`) permet d'insérer des slides sans renuméroter.
+- **`scripts/slides/NN_*.py`** (131 modules) — résout la contrainte de modularité. Chaque module expose `build(prs, layouts, ctx)` et contient le contenu pédagogique d'une slide. Le nommage `NN` + suffixe alphabétique (`02ma_`, `05a_`) permet d'insérer des slides sans renuméroter.
 
 - **`scripts/igpde_dsfr_components.py`** (55 Ko, 16 composants) — résout la contrainte de cohérence DSFR. Palette de couleurs, grille IGPDE (13,33" x 7,5"), helpers de composition (`add_callout`, `add_alert`, `add_stepper`, etc.), système de positionnement vertical (`Stack`, `_safe_top`, estimateurs de hauteur).
 
@@ -65,7 +65,7 @@ Ces 5 contraintes simultanées excluent les alternatives : un générateur Markd
 - `generate_exercice_sami.py` → 3 DOCX Word (inaccessible / aide / accessible) + PNG
 - `generate_easy_checks_site_skeleton.py` → site d'exercice HTML DSFR en 3 variantes
 - `generate_grille_audit.py` → grille XLSX 16 onglets
-- `generate_wcag_langage_clair.py` → deck WCAG condensé (13 slides)
+- `generate_wcag_langage_clair.py` → deck WCAG condensé (13 slides, dans `wcag/`)
 - `validate.py` → validation automatisée du site d'exercice (contrat YAML, assets, liens)
 
 *Sources : `scripts/assemble.py`, `scripts/slides/__init__.py`, `scripts/igpde_dsfr_components.py` (lignes 1-200, 302, 445-580, 631-1408), `architecture-c4-slides.md`.*

@@ -17,7 +17,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    etapes = [
+    étapes = [
         "Loi Handicap 2005 : 1re obligation d'accessibilité",
         "Directive européenne 2016 : extension au secteur public",
         "RGAA 4.1.2 (décret 2019-768) : référentiel opposable",
@@ -33,7 +33,7 @@ def build(prs, layouts, ctx):
 
     stepper_h = 2.0
     stack = Stack(top=2.30, gap=0.20)
-    add_stepper(slide, etapes, top=stack.push(stepper_h),
+    add_stepper(slide, étapes, top=stack.push(stepper_h),
                 left=MARGIN_L, width=CONTENT_W, height=stepper_h)
 
     add_alert(

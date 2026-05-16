@@ -185,6 +185,31 @@ def _add_bullets(tf, items, font=FONT, size=14, color=NOIR, bold_first=False,
 # ----------------------------------------------------------------------
 # Presentation et slides
 # ----------------------------------------------------------------------
+def _fix_couverture_logos(layout):
+    """Redimensionne les logos du layout Couverture pour eviter le rendu baveux."""
+    from pptx.enum.shapes import MSO_SHAPE_TYPE
+
+    for shape in layout.shapes:
+        if shape.is_placeholder:
+            continue
+        if shape.shape_type != MSO_SHAPE_TYPE.PICTURE:
+            continue
+        w_in = shape.width / 914400
+        # Logo RF : trop grand apres rescale, reduire a 2.8" de large
+        if w_in > 4.0:
+            ratio = shape.height / shape.width
+            shape.width = Inches(2.8)
+            shape.height = Inches(2.8 * ratio)
+            shape.left = Inches(0.52)
+            shape.top = Inches(0.35)
+        # Logo IGPDE : reduire a 2.0" et repositionner
+        elif w_in > 2.5:
+            shape.width = Inches(2.0)
+            shape.height = Inches(2.0)
+            shape.left = Inches(10.8)
+            shape.top = Inches(0.85)
+
+
 def create_presentation():
     """Charge le template IGPDE-DSFR. Retourne (prs, layouts_dict)."""
     if not TEMPLATE_PATH.exists():
@@ -201,6 +226,7 @@ def create_presentation():
         "3_colonnes": prs.slide_layouts[LAYOUT_3_COLONNES],
         "titre_contenu": prs.slide_layouts[LAYOUT_TITRE_CONTENU],
     }
+    _fix_couverture_logos(layouts["couverture"])
     return prs, layouts
 
 
@@ -1233,7 +1259,7 @@ def compose_sommaire(slide, titre, parties):
     return slide
 
 
-def compose_chapitre(slide, numero, titre):
+def compose_chapitre(slide, numero, titre, sous_titre=None):
     """Compose une slide de section DSFR : composant Highlight centre avec numero + titre.
 
     Accent Bleu France a gauche + fond gris clair + texte « N. Titre » en 32pt Bleu France.
@@ -1246,9 +1272,8 @@ def compose_chapitre(slide, numero, titre):
             sp.getparent().remove(sp)
 
     # Highlight DSFR centre verticalement dans la zone libre (y=0.9 -> 6.95)
-    # Zone : CONTENT_W de large, ~1.8" de haut, centre a y=3.85
     top = 3.0
-    height = 1.8
+    height = 2.2 if sous_titre else 1.8
     _make_box(slide, top, MARGIN_L, CONTENT_W, height,
               fill_color=GRIS_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.16)
 
@@ -1259,9 +1284,41 @@ def compose_chapitre(slide, numero, titre):
         Inches(CONTENT_W - 0.6), Inches(height - 0.3),
     )
     t_box.name = "DSFR-section-titre"
-    _apply_text(t_box.text_frame, texte, font=FONT, size=32, bold=True,
-                color=BLEU_FRANCE, anchor=MSO_ANCHOR.MIDDLE,
-                align=PP_ALIGN.LEFT)
+    tf = t_box.text_frame
+    tf.word_wrap = True
+    p = tf.paragraphs[0]
+    p.alignment = PP_ALIGN.LEFT
+    run = p.add_run()
+    run.text = texte
+    run.font.name = FONT
+    run.font.size = Pt(32)
+    run.font.bold = True
+    run.font.color.rgb = RGBColor(*BLEU_FRANCE)
+
+    if sous_titre:
+        from pptx.util import Pt as _Pt
+        p2 = tf.add_paragraph()
+        p2.alignment = PP_ALIGN.LEFT
+        p2.space_before = _Pt(8)
+        run2 = p2.add_run()
+        run2.text = sous_titre
+        run2.font.name = FONT
+        run2.font.size = Pt(22)
+        run2.font.bold = False
+        run2.font.color.rgb = RGBColor(*BLEU_FRANCE)
+
+    tf.paragraphs[0].space_before = Pt(0)
+    from pptx.enum.text import MSO_ANCHOR as _A
+    tf.word_wrap = True
+    t_box.text_frame.auto_size = None
+    # Centrage vertical manuel
+    total_text_h = 0.6 + (0.45 if sous_titre else 0)
+    pad_top = (height - total_text_h) / 2
+    t_box.top = Inches(top + pad_top)
+    t_box.left = Inches(MARGIN_L + 0.45)
+    t_box.width = Inches(CONTENT_W - 0.6)
+    t_box.height = Inches(total_text_h + 0.2)
+
     return slide
 
 

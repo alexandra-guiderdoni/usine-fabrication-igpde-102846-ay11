@@ -1,6 +1,6 @@
 """Slide 46 : Par ou commencer ?
 
-Regles neuropedagogie appliquees :
+Règles neuropedagogie appliquees :
 - R2 : Priorisation par facilite (pas par importance - tout est important)
 - R9 : Deconstruction (3 reflexes, pas 50)
 - R12 : Ordre d'action clair et immediat

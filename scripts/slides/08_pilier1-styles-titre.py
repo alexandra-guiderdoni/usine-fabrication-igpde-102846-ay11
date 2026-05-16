@@ -1,9 +1,9 @@
 """Slide 33 : Les styles de titre : le fondement de tout.
 
-Regles neuropedagogie appliquees :
-- R5 : Perspective utilisateur (comment un lecteur d'ecran voit les titres)
+Règles neuropedagogie appliquees :
+- R5 : Perspective utilisateur (comment un lecteur d'écran voit les titres)
 - R10 : Avant/Apres contrastant pour memorisation
-- R19 : Procedure d'action detaillee + verification
+- R19 : Procedure d'action detaillee + vérification
 """
 
 from igpde_dsfr_components import (

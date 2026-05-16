@@ -24,17 +24,17 @@ def build(prs, layouts, ctx):
 
     add_image(
         slide,
-        "images-coi/personas-extraites/anatole-1.png",
+        "scripts/images/personas-extraites/anatole-1.png",
         top=2.20, left=MARGIN_L, width=PHOTO_W, height=PHOTO_W,
         alt_text="Portrait illustratif - Anatole",
     )
 
     titre_besoin = "Ses besoins au quotidien"
     bullets_besoin = [
-        "Phrases courtes et simples, sans double negation",
-        "Mise en page aeree, une idee par paragraphe",
+        "Phrases courtes et simples, sans double négation",
+        "Mise en page aérée, une idee par paragraphe",
         "Pictogrammes pour accompagner le texte",
-        "Navigation previsible, sans changements inattendus",
+        "Navigation prévisible, sans changements inattendus",
     ]
     add_callout(
         slide, titre_besoin, bullets_besoin,
@@ -57,16 +57,16 @@ def build(prs, layouts, ctx):
             "Il comprend mieux les phrases simples et courtes",
             "Le langage clair et le FALC lui sont indispensables",
         ],
-        top=5.20, left=MARGIN_L, width=CONTENT_W,
-        line_spacing=1.3,
+        top=4.92, left=MARGIN_L, width=CONTENT_W,
+        line_spacing=1.2,
     )
 
     add_notes(
         slide,
-        "Anatole illustre la deficience cognitive. Pour les communicants : "
-        "les regles du FALC et du langage clair ne profitent pas qu'aux "
+        "Anatole illustre la déficience cognitive. Pour les communicants : "
+        "les règles du FALC et du langage clair ne profitent pas qu'aux "
         "personnes handicapees mentales - elles aident aussi les personnes "
-        "agees, fatiguees, en situation de stress ou dont le francais "
+        "agees, fatiguees, en situation de stress ou dont le français "
         "n'est pas la langue maternelle. Faire le lien avec les slides FALC.",
     )
     return slide

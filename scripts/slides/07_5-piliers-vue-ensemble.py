@@ -1,7 +1,7 @@
 """Slide 32 : 5 themes, vue d'ensemble.
 
-Regles neuropedagogie appliquees :
-- R2 : Schema global du parcours pour creer un cadre mental
+Règles neuropedagogie appliquees :
+- R2 : Schema global du parcours pour créer un cadre mental
 - R14 : Tableau structurant pour memorisation
 - R17 : Parcours avant listes - ordre chronologique, pas alphabetique
 """

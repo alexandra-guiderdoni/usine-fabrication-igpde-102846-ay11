@@ -1,4 +1,4 @@
-"""Slide 02nac : persona Amir - cecite (aveugle de naissance)."""
+"""Slide 02nac : persona Amir - cécité (aveugle de naissance)."""
 
 from igpde_dsfr_components import (
     BLEU_INFO, BLEU_INFO_CLAIR, CONTENT_W, GAP, MARGIN_L,
@@ -19,7 +19,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Amir, charge d'etudes - cecite",
+        titre="Amir, charge d'études - cécité",
         fil_ariane="1. Q2 - Pour qui | Amir",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,
@@ -28,7 +28,7 @@ def build(prs, layouts, ctx):
 
     add_image(
         slide,
-        "images-coi/personas-extraites/amir-1.png",
+        "scripts/images/personas-extraites/amir-1.png",
         top=2.20, left=MARGIN_L, width=PHOTO_W, height=PHOTO_W,
         alt_text="Portrait illustratif - Amir",
     )
@@ -38,7 +38,7 @@ def build(prs, layouts, ctx):
         "Alternative textuelle sur chaque image (attribut alt)",
         "Structure logique du document (titres, listes, tableaux)",
         "Liens explicites (pas de « cliquez ici »)",
-        "Formulaires avec des etiquettes associees aux champs",
+        "Formulaires avec des étiquettes associées aux champs",
     ]
     add_callout(
         slide, titre_besoin, bullets_besoin,
@@ -56,9 +56,9 @@ def build(prs, layouts, ctx):
     item_w = (CONTENT_W - GAP * 2) / 3
 
     outils = [
-        ("images-coi/personas-extraites/amir-3.png", "Lecteurs d'ecran", 1.81),
-        ("images-coi/personas-extraites/amir-2.png", "Plage braille", 0.58),
-        ("images-coi/image9.png", "Synthese vocale", 1.00),
+        ("scripts/images/personas-extraites/amir-3.png", "Lecteurs d'écran", 1.81),
+        ("scripts/images/personas-extraites/amir-2.png", "Plage braille", 0.58),
+        ("scripts/images/image9.png", "Synthèse vocale", 1.00),
     ]
     for i, (img_path, label, ratio) in enumerate(outils):
         left = MARGIN_L + i * (item_w + GAP)
@@ -78,11 +78,11 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Amir est aveugle de naissance et utilise un lecteur d'ecran "
+        "Amir est aveugle de naissance et utilise un lecteur d'écran "
         "(NVDA ou JAWS) pour tout son travail. Ce profil est central "
         "pour les communicants : chaque image sans alt, chaque tableau "
         "sans structure, chaque lien « cliquez ici » est un mur pour lui. "
-        "Faire la demo du lecteur d'ecran sur un document mal structure "
+        "Faire la demo du lecteur d'écran sur un document mal structure "
         "vs bien structure pour marquer les esprits.",
     )
     return slide

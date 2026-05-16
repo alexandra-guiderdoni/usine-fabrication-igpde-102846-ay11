@@ -88,7 +88,7 @@ def build(prs, layouts, ctx):
     qr_top = stack.cursor - alert_h
     add_image(
         slide,
-        "images-coi/qr-obligally.png",
+        "scripts/images/qr-obligally.png",
         top=qr_top,
         left=qr_left,
         width=qr_w,
@@ -140,6 +140,6 @@ def build(prs, layouts, ctx):
         "soumises au RGAA ; les communicants produisent des contenus "
         "concernés (PDF, vidéos, réseaux sociaux). "
         "Fallback si pas de réseau : distribuer le PDF de l'arbre "
-        "de décision Idéance (dans _source/references/).",
+        "de décision Idéance (dans _source/références/).",
     )
     return slide

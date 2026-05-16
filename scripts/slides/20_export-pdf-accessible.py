@@ -1,7 +1,7 @@
 """Slide 45 : Exporter Word vers PDF accessible.
 
-Regles neuropedagogie appliquees :
-- R12 : Procedure objective en 3 etapes
+Règles neuropedagogie appliquees :
+- R12 : Procedure objective en 3 étapes
 - R11 : Alerte sur le point de rupture critique
 - R19 : Options d'action directement retrouvables dans Word bureau Windows
 """

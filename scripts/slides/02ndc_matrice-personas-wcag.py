@@ -13,7 +13,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="6 profils, 4 questions - votre boussole WCAG",
-        fil_ariane="1. Q2 - Pour qui | Synthese",
+        fil_ariane="1. Q2 - Pour qui | Synthèse",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,
         page_num=ctx.page_num,
@@ -21,7 +21,7 @@ def build(prs, layouts, ctx):
 
     headers = ["Persona", "Percevoir", "Utiliser", "Comprendre", "Compatible"]
     rows = [
-        ["Amir (aveugle)", "Alt text, structure", "", "", "Lecteur d'ecran"],
+        ["Amir (aveugle)", "Alt text, structure", "", "", "Lecteur d'écran"],
         ["Anais (malvoyante)", "Contrastes, taille", "", "", ""],
         ["Justine (sourde)", "Sous-titres, transcription", "", "", ""],
         ["Agathe (motrice)", "", "Clavier, cibles 44px", "", ""],
@@ -36,11 +36,11 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Slide de synthese qui fait le lien entre les personas et les "
+        "Slide de synthèse qui fait le lien entre les personas et les "
         "4 principes WCAG. Distribuer la fiche stagiaire a ce moment-la. "
         "Dire : « Vous n'avez pas besoin de retenir tout WCAG. Gardez les "
         "4 questions sous la main. A chaque anomalie Word ou web, "
-        "demandez-vous : est-ce un probleme pour percevoir, utiliser, "
-        "comprendre ou etre lu par les outils ? »",
+        "demandez-vous : est-ce un problème pour percevoir, utiliser, "
+        "comprendre ou être lu par les outils ? »",
     )
     return slide

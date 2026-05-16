@@ -18,7 +18,8 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    compose_chapitre(slide, numero="2", titre="Documents bureautiques accessibles")
+    compose_chapitre(slide, numero="2", titre="Documents bureautiques accessibles",
+                     sous_titre="Mise en pratique")
 
     add_notes(
         slide,

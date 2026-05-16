@@ -1,4 +1,4 @@
-"""Slide rs_17 : checklist reseaux sociaux - anticiper."""
+"""Slide rs_17 : checklist réseaux sociaux - anticiper."""
 
 from igpde_dsfr_components import (
     CONTENT_W, MARGIN_L,

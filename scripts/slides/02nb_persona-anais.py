@@ -28,7 +28,7 @@ def build(prs, layouts, ctx):
 
     add_image(
         slide,
-        "images-coi/image10.png",
+        "scripts/images/image10.png",
         top=2.20, left=MARGIN_L, width=PHOTO_W, height=PHOTO_W,
         alt_text="Portrait illustratif - Anaïs",
     )
@@ -55,9 +55,9 @@ def build(prs, layouts, ctx):
     item_w = (CONTENT_W - GAP * 2) / 3
 
     outils = [
-        ("images-coi/image2.png", "Clavier adapté", 0.75),
-        ("images-coi/image8.png", "Clavier guide-doigts", 0.31),
-        ("images-coi/image15.png", "Paramètres accessibilité", 0.47),
+        ("scripts/images/image2.png", "Clavier adapté", 0.75),
+        ("scripts/images/image8.png", "Clavier guide-doigts", 0.31),
+        ("scripts/images/image15.png", "Paramètres accessibilité", 0.47),
     ]
     for i, (img_path, label, ratio) in enumerate(outils):
         left = MARGIN_L + i * (item_w + GAP)

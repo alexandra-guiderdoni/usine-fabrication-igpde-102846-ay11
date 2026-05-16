@@ -38,7 +38,7 @@ def build(prs, layouts, ctx):
     img_top = stack.push(2.8)
     add_image(
         slide,
-        "images-coi/image19.jpeg",
+        "scripts/images/image19.jpeg",
         top=img_top, left=MARGIN_L, width=IMG_W, height=2.8,
         alt_text=(
             "Escalier avec rampe intégrée dès la conception : "
@@ -61,7 +61,7 @@ def build(prs, layouts, ctx):
 
     add_image(
         slide,
-        "images-coi/image21.png",
+        "scripts/images/image21.png",
         top=img_top + 2.8 + 0.15,
         left=MARGIN_L + (CONTENT_W - 3.5) / 2,
         width=3.5,

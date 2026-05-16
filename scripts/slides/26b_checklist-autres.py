@@ -1,4 +1,4 @@
-"""Slide : Checklist autres - Securite et semantique."""
+"""Slide : Checklist autres - Sécurité et semantique."""
 
 from igpde_dsfr_components import (
     add_checklist, add_highlight, add_notes, new_slide,

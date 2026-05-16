@@ -66,7 +66,7 @@ def build(prs, layouts, ctx):
 
     add_image(
         slide,
-        "images-coi/image17.jpeg",
+        "scripts/images/image17.jpeg",
         top=top_cols + col_h + 0.15,
         left=MARGIN_L + (CONTENT_W - LOGO_FALC_W) / 2,
         width=LOGO_FALC_W,

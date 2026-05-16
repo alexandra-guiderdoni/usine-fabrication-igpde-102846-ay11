@@ -1,6 +1,6 @@
 """Slide 37 : La couleur ne suffit jamais.
 
-Regles neuropedagogie appliquees :
+Règles neuropedagogie appliquees :
 - R13 : Chiffre-cle personnalise (8 % = 1 sur 12 = 16 sur 200)
 - R10 : Tableau inaccessible vs accessible pour discrimination
 - R6 : Simulation de la vision daltonienne pour empathie

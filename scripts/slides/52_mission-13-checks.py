@@ -32,7 +32,7 @@ def build(prs, layouts, ctx):
         top=2.3, height=2.85,
     )
 
-    etapes = [
+    étapes = [
         "Choisir vos points",
         "Prouver 1 NC",
         "Début / fin",
@@ -40,7 +40,7 @@ def build(prs, layouts, ctx):
     ]
     add_stepper(
         slide,
-        etapes,
+        étapes,
         top=5.3, height=1.00,
     )
 

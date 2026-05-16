@@ -47,12 +47,12 @@ def build(prs, layouts, ctx):
                 top=top, left=COL_R, width=COL_W, height=col_h,
                 line_spacing=1.15)
 
-    regle = (
+    règle = (
         "Test express : si le texte vient d'un générateur de style, ne le collez pas. "
         f"Référence : {URL_LABEL}."
     )
-    hl_h = estimate_highlight_height(regle, CONTENT_W)
-    add_highlight(slide, regle,
+    hl_h = estimate_highlight_height(règle, CONTENT_W)
+    add_highlight(slide, règle,
                   top=round(top + col_h + 0.10, 2), left=MARGIN_L, width=CONTENT_W,
                   url=URL_OPQUAST)
 

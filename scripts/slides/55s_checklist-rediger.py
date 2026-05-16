@@ -1,4 +1,4 @@
-"""Slide rs_18 : checklist reseaux sociaux - rediger."""
+"""Slide rs_18 : checklist réseaux sociaux - rédiger."""
 
 from igpde_dsfr_components import (
     CONTENT_W, MARGIN_L,

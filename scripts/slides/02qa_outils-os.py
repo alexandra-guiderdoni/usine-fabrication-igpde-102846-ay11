@@ -67,7 +67,7 @@ def build(prs, layouts, ctx):
 
     add_image(
         slide,
-        "images-coi/image12.png",
+        "scripts/images/image12.png",
         top=top_cols + col_h + 0.15,
         left=MARGIN_L + (CONTENT_W - LOGO_NVDA_W) / 2,
         width=LOGO_NVDA_W,

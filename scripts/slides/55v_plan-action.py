@@ -17,14 +17,14 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.30, gap=0.15)
+    stack = Stack(top=2.20, gap=0.12)
 
     gestes = [
         "Avant votre prochain post : passez la checklist Anticiper / Rédiger / Publier",
         "Relisez votre dernière publication : qui est représenté, qui est absent ?",
         "Vérifiez un post avec QR code : lien visible + « Scannez-moi ! »",
     ]
-    stepper_h = 2.0
+    stepper_h = 1.90
     add_stepper(slide, gestes, top=stack.push(stepper_h),
                 left=MARGIN_L, width=CONTENT_W, height=stepper_h)
 

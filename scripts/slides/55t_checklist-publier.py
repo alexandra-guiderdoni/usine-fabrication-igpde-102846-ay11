@@ -1,4 +1,4 @@
-"""Slide rs_19 : checklist reseaux sociaux - publier."""
+"""Slide rs_19 : checklist réseaux sociaux - publier."""
 
 from igpde_dsfr_components import (
     CONTENT_W, MARGIN_L,

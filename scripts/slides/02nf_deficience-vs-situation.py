@@ -38,7 +38,7 @@ def build(prs, layouts, ctx):
     img_top = stack.push(3.2)
     add_image(
         slide,
-        "images-coi/image4.png",
+        "scripts/images/image4.png",
         top=img_top, left=MARGIN_L, width=IMG_W, height=3.0,
         alt_text=(
             "Schéma montrant 3 situations : une personne en fauteuil "

@@ -39,7 +39,7 @@ def build(prs, layouts, ctx):
         "Exercice pratique",
         [
             "Cherchez la déclaration d'accessibilité de votre site",
-            "URL type : /declaration-accessibilite",
+            "URL type : /déclaration-accessibilité",
             "Notez le taux de conformité affiché",
         ],
         top=stack.cursor,

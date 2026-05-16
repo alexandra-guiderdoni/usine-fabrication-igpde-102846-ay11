@@ -36,7 +36,7 @@ def build(prs, layouts, ctx):
     img_h = img_w * 0.784
     add_image(
         slide,
-        "images-coi/image6.png",
+        "scripts/images/image6.png",
         top=stack.push(img_h),
         left=MARGIN_L + (CONTENT_W - img_w) / 2,
         width=img_w,

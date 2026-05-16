@@ -24,13 +24,13 @@ def build(prs, layouts, ctx):
     hl_h = estimate_highlight_height(rappel, CONTENT_W)
     add_highlight(slide, rappel, top=stack.push(hl_h), left=MARGIN_L, width=CONTENT_W)
 
-    regles = [
+    règles = [
         "1 ou 2 émojis par post maximum - au-delà, le sens se perd à l'écoute",
         "En fin de message - jamais au début ni à la place d'un mot",
         "Vérifier leur sens réel - puis tester le texte sans eux",
     ]
     stepper_h = 2.05
-    add_stepper(slide, regles, top=stack.push(stepper_h),
+    add_stepper(slide, règles, top=stack.push(stepper_h),
                 left=MARGIN_L, width=CONTENT_W, height=stepper_h)
 
     test_titre = "Test rapide avant publication"

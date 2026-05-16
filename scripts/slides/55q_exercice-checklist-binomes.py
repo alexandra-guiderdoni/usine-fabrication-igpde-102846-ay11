@@ -1,4 +1,4 @@
-"""Slide rs_16 : exercice en binome - checklist reseaux sociaux."""
+"""Slide rs_16 : exercice en binome - checklist réseaux sociaux."""
 
 from igpde_dsfr_components import (
     CONTENT_W, COL_W, COL_R, MARGIN_L, Stack,
@@ -18,7 +18,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.15, gap=0.12)
+    stack = Stack(top=2.10, gap=0.10)
 
     mission = (
         "Choisissez un post réel ou un exemple fourni. Objectif : trouver "
@@ -30,14 +30,14 @@ def build(prs, layouts, ctx):
         left=MARGIN_L, width=CONTENT_W,
     )
 
-    etapes = [
+    étapes = [
         "Choisir 1 publication",
         "Cocher Anticiper / Rédiger / Publier",
         "Retenir 2 risques prioritaires",
         "Préparer 1 min de restitution",
     ]
-    stepper_h = 1.75
-    add_stepper(slide, etapes, top=stack.push(stepper_h),
+    stepper_h = 1.65
+    add_stepper(slide, étapes, top=stack.push(stepper_h),
                 left=MARGIN_L, width=CONTENT_W, height=stepper_h)
 
     timing_titre = "Déroulé"

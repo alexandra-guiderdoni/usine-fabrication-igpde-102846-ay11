@@ -1,4 +1,4 @@
-"""Slide : Faites le point - Reponses."""
+"""Slide : Faites le point - Réponses."""
 
 from igpde_dsfr_components import (
     Stack, MARGIN_L, CONTENT_W,
