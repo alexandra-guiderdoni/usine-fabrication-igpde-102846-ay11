@@ -41,8 +41,8 @@ def build(prs, layouts, ctx):
         "Un tableau flottant (Autour) est lu au mauvais moment",
     ]
     add_callout(slide, callout1_titre, callout1_bullets,
-                top=stack.push(estimate_callout_height(callout1_titre, callout1_bullets, line_spacing=1.0)),
-                left=MARGIN_L, width=CONTENT_W, line_spacing=1.0)
+                top=stack.push(estimate_callout_height(callout1_titre, callout1_bullets, line_spacing=1.15)),
+                left=MARGIN_L, width=CONTENT_W, line_spacing=1.15)
 
     alert_titre = "Objets flottants : zones de texte et images"
     alert_bullets = [
@@ -51,7 +51,7 @@ def build(prs, layouts, ctx):
     add_alert(slide, alert_titre, alert_bullets,
               top=5.75,
               left=MARGIN_L, width=CONTENT_W,
-              alert_type="warning", line_spacing=1.0)
+              alert_type="warning", line_spacing=1.15)
 
     add_notes(
         slide,

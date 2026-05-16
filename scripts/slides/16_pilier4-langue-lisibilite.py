@@ -62,7 +62,7 @@ def build(prs, layouts, ctx):
         top=4.55,
         left=COL_R,
         width=COL_W,
-        line_spacing=1.05,
+        line_spacing=1.2,
     )
 
     add_notes(

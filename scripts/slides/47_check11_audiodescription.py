@@ -48,8 +48,8 @@ def build(prs, layouts, ctx):
         slide,
         callout_titre,
         callout_bullets,
-        top=stack.push(estimate_callout_height(callout_titre, callout_bullets, line_spacing=1.0)),
-        line_spacing=1.0,
+        top=stack.push(estimate_callout_height(callout_titre, callout_bullets, line_spacing=1.15)),
+        line_spacing=1.15,
     )
 
     add_quote(

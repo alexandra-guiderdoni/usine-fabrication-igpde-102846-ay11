@@ -36,20 +36,20 @@ def build(prs, layouts, ctx):
     ]
 
     col_h = max(
-        estimate_callout_height(titre_droit, bullets_droit, COL_W, line_spacing=1.05),
-        estimate_alert_height(titre_charte, bullets_charte, COL_W, line_spacing=1.05),
+        estimate_callout_height(titre_droit, bullets_droit, COL_W, line_spacing=1.2),
+        estimate_alert_height(titre_charte, bullets_charte, COL_W, line_spacing=1.2),
     )
     top_cols = stack.push(col_h)
     add_callout(
         slide, titre_droit, bullets_droit,
         top=top_cols, left=MARGIN_L, width=COL_W,
-        line_spacing=1.05,
+        line_spacing=1.2,
     )
     add_alert(
         slide, titre_charte, bullets_charte,
         top=top_cols, left=COL_R, width=COL_W,
         alert_type="success",
-        line_spacing=1.05,
+        line_spacing=1.2,
     )
 
     add_notes(

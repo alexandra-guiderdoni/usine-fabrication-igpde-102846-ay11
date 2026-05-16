@@ -46,7 +46,7 @@ def build(prs, layouts, ctx):
             "Les points de contrôle rapides donnent une méthode courte pour les repérer sans audit complet.",
         ],
         top=5.35,
-        line_spacing=1.0,
+        line_spacing=1.15,
     )
 
     add_notes(

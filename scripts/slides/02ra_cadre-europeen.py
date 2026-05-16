@@ -46,20 +46,20 @@ def build(prs, layouts, ctx):
         "Élargit l'obligation au-delà du secteur public",
     ]
     col_h = max(
-        estimate_callout_height(titre_d1, bullets_d1, COL_W, line_spacing=1.05),
-        estimate_alert_height(titre_d2, bullets_d2, COL_W, line_spacing=1.05),
+        estimate_callout_height(titre_d1, bullets_d1, COL_W, line_spacing=1.2),
+        estimate_alert_height(titre_d2, bullets_d2, COL_W, line_spacing=1.2),
     )
     top_cols = stack.push(col_h)
     add_callout(
         slide, titre_d1, bullets_d1,
         top=top_cols, left=MARGIN_L, width=COL_W,
-        line_spacing=1.05,
+        line_spacing=1.2,
     )
     add_alert(
         slide, titre_d2, bullets_d2,
         top=top_cols, left=COL_R, width=COL_W,
         alert_type="warning",
-        line_spacing=1.05,
+        line_spacing=1.2,
     )
 
     add_notes(

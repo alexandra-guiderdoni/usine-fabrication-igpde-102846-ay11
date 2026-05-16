@@ -62,8 +62,8 @@ def build(prs, layouts, ctx):
         "PDF : texte sélectionnable, pas une image scannée",
     ]
     col_h = max(
-        estimate_callout_height(acces_titre, acces_bullets, COL_W, line_spacing=1.05),
-        estimate_alert_height(qualite_titre, qualite_bullets, COL_W, line_spacing=1.05),
+        estimate_callout_height(acces_titre, acces_bullets, COL_W, line_spacing=1.2),
+        estimate_alert_height(qualite_titre, qualite_bullets, COL_W, line_spacing=1.2),
     )
     top_cols = stack.push(col_h)
     add_callout(
@@ -73,7 +73,7 @@ def build(prs, layouts, ctx):
         top=top_cols,
         left=MARGIN_L,
         width=COL_W,
-        line_spacing=1.05,
+        line_spacing=1.2,
     )
     add_alert(
         slide,
@@ -83,7 +83,7 @@ def build(prs, layouts, ctx):
         left=COL_R,
         width=COL_W,
         alert_type="info",
-        line_spacing=1.05,
+        line_spacing=1.2,
     )
 
     add_notes(

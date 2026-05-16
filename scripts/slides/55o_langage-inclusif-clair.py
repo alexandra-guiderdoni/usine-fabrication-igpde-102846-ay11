@@ -27,7 +27,7 @@ def build(prs, layouts, ctx):
         "Double flexion si nécessaire : 'les utilisateurs et utilisatrices'",
         "Mots-valises si le public les comprend : 'iels', 'amateurices'",
     ]
-    oh = estimate_callout_height(ok_titre, ok_bullets, COL_W, line_spacing=1.05)
+    oh = estimate_callout_height(ok_titre, ok_bullets, COL_W, line_spacing=1.2)
 
     eviter_titre = "À éviter ou tester"
     eviter_bullets = [
@@ -35,15 +35,15 @@ def build(prs, layouts, ctx):
         "Formes trop compressées : elles ralentissent aussi la lecture visuelle",
         "Formes ambiguës à l'oral si le message doit être lu à voix haute",
     ]
-    eh = estimate_alert_height(eviter_titre, eviter_bullets, COL_W, line_spacing=1.05)
+    eh = estimate_alert_height(eviter_titre, eviter_bullets, COL_W, line_spacing=1.2)
 
     col_h = max(oh, eh)
     add_callout(slide, ok_titre, ok_bullets,
                 top=top, left=MARGIN_L, width=COL_W, height=col_h,
-                line_spacing=1.05)
+                line_spacing=1.2)
     add_alert(slide, eviter_titre, eviter_bullets,
               top=top, left=COL_R, width=COL_W, alert_type="warning",
-              line_spacing=1.05)
+              line_spacing=1.2)
 
     message = (
         "Recommandation : choisir la forme la plus inclusive qui reste claire, lisible et prononçable."

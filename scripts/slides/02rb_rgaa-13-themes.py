@@ -50,9 +50,9 @@ def build(prs, layouts, ctx):
     ]
     add_alert(
         slide, titre_oblig, bullets_oblig,
-        top=stack.push(estimate_alert_height(titre_oblig, bullets_oblig, CONTENT_W, line_spacing=1.05)),
+        top=stack.push(estimate_alert_height(titre_oblig, bullets_oblig, CONTENT_W, line_spacing=1.2)),
         alert_type="warning",
-        line_spacing=1.05,
+        line_spacing=1.2,
     )
 
     add_notes(

@@ -53,16 +53,16 @@ def build(prs, layouts, ctx):
         "La règle à garder pour vos prochains posts",
     ]
     col_h = max(
-        estimate_alert_height(timing_titre, timing_bullets, COL_W, line_spacing=1.0),
-        estimate_alert_height(restitution_titre, restitution_bullets, COL_W, line_spacing=1.0),
+        estimate_alert_height(timing_titre, timing_bullets, COL_W, line_spacing=1.15),
+        estimate_alert_height(restitution_titre, restitution_bullets, COL_W, line_spacing=1.15),
     )
     col_top = stack.push(col_h)
     add_alert(slide, timing_titre, timing_bullets,
               top=col_top, left=MARGIN_L, width=COL_W,
-              alert_type="info", line_spacing=1.0)
+              alert_type="info", line_spacing=1.15)
     add_alert(slide, restitution_titre, restitution_bullets,
               top=col_top, left=COL_R, width=COL_W,
-              alert_type="success", line_spacing=1.0)
+              alert_type="success", line_spacing=1.15)
 
     add_notes(
         slide,

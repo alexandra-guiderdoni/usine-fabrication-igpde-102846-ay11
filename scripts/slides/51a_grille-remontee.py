@@ -46,7 +46,7 @@ def build(prs, layouts, ctx):
             "Une preuve sans sévérité est difficile à prioriser.",
         ],
         top=5.45,
-        line_spacing=1.0,
+        line_spacing=1.15,
     )
 
     add_notes(

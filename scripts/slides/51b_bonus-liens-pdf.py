@@ -64,8 +64,8 @@ def build(prs, layouts, ctx):
         "Si possible : proposer aussi un format éditable ou OpenDocument",
     ]
     col_h = max(
-        estimate_callout_height(liens_titre, liens_bullets, COL_W, line_spacing=1.05),
-        estimate_alert_height(pdf_titre, pdf_bullets, COL_W, line_spacing=1.05),
+        estimate_callout_height(liens_titre, liens_bullets, COL_W, line_spacing=1.2),
+        estimate_alert_height(pdf_titre, pdf_bullets, COL_W, line_spacing=1.2),
     )
     top_cols = stack.push(col_h)
     add_callout(
@@ -76,7 +76,7 @@ def build(prs, layouts, ctx):
         left=MARGIN_L,
         width=COL_W,
         height=col_h,
-        line_spacing=1.05,
+        line_spacing=1.2,
     )
     add_alert(
         slide,
@@ -86,7 +86,7 @@ def build(prs, layouts, ctx):
         left=COL_R,
         width=COL_W,
         alert_type="info",
-        line_spacing=1.05,
+        line_spacing=1.2,
     )
 
     add_notes(

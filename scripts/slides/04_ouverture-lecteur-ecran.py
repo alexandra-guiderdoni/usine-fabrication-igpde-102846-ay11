@@ -37,7 +37,7 @@ def build(prs, layouts, ctx):
         ],
         top=5.35,
         alert_type="warning",
-        line_spacing=1.0,
+        line_spacing=1.15,
     )
 
     add_notes(

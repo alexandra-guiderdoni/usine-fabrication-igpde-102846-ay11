@@ -56,7 +56,7 @@ def build(prs, layouts, ctx):
         left=MARGIN_L,
         width=COL_W,
         alert_type="warning",
-        line_spacing=1.0,
+        line_spacing=1.15,
     )
 
     add_callout(
@@ -69,7 +69,7 @@ def build(prs, layouts, ctx):
         top=4.4,
         left=COL_R,
         width=COL_W,
-        line_spacing=1.0,
+        line_spacing=1.15,
     )
 
     add_notes(

@@ -50,9 +50,9 @@ def build(prs, layouts, ctx):
             "Relire : noms, chiffres, ponctuation et [indications sonores]",
             "Tester le rendu : 2 lignes max, contraste fort, sous-titres non masqués",
         ],
-        top=stack.push(estimate_alert_height('Méthode recommandée', ['Générer l’auto (YouTube, Whisper, outil interne) pour accélérer le brouillon', 'Relire : noms, chiffres, ponctuation et [indications sonores]', 'Tester le rendu : 2 lignes max, contraste fort, sous-titres non masqués'], line_spacing=1.0)),
+        top=stack.push(estimate_alert_height('Méthode recommandée', ['Générer l’auto (YouTube, Whisper, outil interne) pour accélérer le brouillon', 'Relire : noms, chiffres, ponctuation et [indications sonores]', 'Tester le rendu : 2 lignes max, contraste fort, sous-titres non masqués'], line_spacing=1.15)),
         alert_type="success",
-        line_spacing=1.0,
+        line_spacing=1.15,
     )
 
     add_notes(

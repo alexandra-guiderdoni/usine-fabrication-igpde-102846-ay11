@@ -37,7 +37,7 @@ def build(prs, layouts, ctx):
         "IA et outils d'analyse d'image",
         "Contexte défavorable (luminosité, etc.)",
     ]
-    bh = estimate_callout_height(beneficiaires_titre, beneficiaires_bullets, COL_W, line_spacing=1.0)
+    bh = estimate_callout_height(beneficiaires_titre, beneficiaires_bullets, COL_W, line_spacing=1.15)
 
     exemples_titre = "Concrètement sur les réseaux"
     exemples_bullets = [
@@ -47,13 +47,13 @@ def build(prs, layouts, ctx):
         "Instagram : Paramètres avancés → Alt text",
         "Canva : Clic droit → Texte alternatif",
     ]
-    eh = estimate_callout_height(exemples_titre, exemples_bullets, COL_W, line_spacing=1.0)
+    eh = estimate_callout_height(exemples_titre, exemples_bullets, COL_W, line_spacing=1.15)
 
     col_h = max(bh, eh)
     add_callout(slide, beneficiaires_titre, beneficiaires_bullets,
-                top=top2, left=MARGIN_L, width=COL_W, height=col_h, line_spacing=1.0)
+                top=top2, left=MARGIN_L, width=COL_W, height=col_h, line_spacing=1.15)
     add_alert(slide, exemples_titre, exemples_bullets,
-              top=top2, left=COL_R, width=COL_W, alert_type="info", line_spacing=1.0)
+              top=top2, left=COL_R, width=COL_W, alert_type="info", line_spacing=1.15)
 
     add_notes(
         slide,

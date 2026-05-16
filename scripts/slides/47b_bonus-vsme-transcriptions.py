@@ -62,8 +62,8 @@ def build(prs, layouts, ctx):
         "Verbatim : mot à mot, hésitations et sons inclus",
     ]
     col_h = max(
-        estimate_callout_height(vsme_titre, vsme_bullets, COL_W, line_spacing=1.0),
-        estimate_alert_height(transcript_titre, transcript_bullets, COL_W, line_spacing=1.0),
+        estimate_callout_height(vsme_titre, vsme_bullets, COL_W, line_spacing=1.15),
+        estimate_alert_height(transcript_titre, transcript_bullets, COL_W, line_spacing=1.15),
     )
     top_cols = stack.push(col_h)
     add_callout(
@@ -73,7 +73,7 @@ def build(prs, layouts, ctx):
         top=top_cols,
         left=MARGIN_L,
         width=COL_W,
-        line_spacing=1.0,
+        line_spacing=1.15,
     )
     add_alert(
         slide,
@@ -83,7 +83,7 @@ def build(prs, layouts, ctx):
         left=COL_R,
         width=COL_W,
         alert_type="info",
-        line_spacing=1.0,
+        line_spacing=1.15,
     )
 
     rappel = "IA utile pour brouillonner. Publication seulement après relecture humaine."

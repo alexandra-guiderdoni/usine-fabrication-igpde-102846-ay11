@@ -61,7 +61,7 @@ def build(prs, layouts, ctx):
             "Mais la présence d’erreurs détectées révèle des barrières très probables pour les utilisateurs.",
         ],
         top=3.90,
-        line_spacing=1.0,
+        line_spacing=1.15,
     )
 
     add_notes(

@@ -47,19 +47,19 @@ def build(prs, layouts, ctx):
         "Langue étrangère, faible littératie numérique",
     ]
     col_h = max(
-        estimate_callout_height(titre_quoi, bullets_quoi, COL_W, line_spacing=1.05),
-        estimate_callout_height(titre_qui, bullets_qui, COL_W, line_spacing=1.05),
+        estimate_callout_height(titre_quoi, bullets_quoi, COL_W, line_spacing=1.2),
+        estimate_callout_height(titre_qui, bullets_qui, COL_W, line_spacing=1.2),
     )
     top_cols = stack.push(col_h)
     add_callout(
         slide, titre_quoi, bullets_quoi,
         top=top_cols, left=MARGIN_L, width=COL_W,
-        line_spacing=1.05,
+        line_spacing=1.2,
     )
     add_callout(
         slide, titre_qui, bullets_qui,
         top=top_cols, left=COL_R, width=COL_W,
-        line_spacing=1.05,
+        line_spacing=1.2,
     )
 
     add_notes(

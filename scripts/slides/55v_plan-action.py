@@ -36,7 +36,7 @@ def build(prs, layouts, ctx):
     ]
     add_alert(slide, sept_jours_titre, sept_jours_bullets,
               top=stack.push(0), left=MARGIN_L, width=COL_W,
-              alert_type="success", line_spacing=1.0)
+              alert_type="success", line_spacing=1.15)
 
     rappel_titre = "Mémo : les 3 temps"
     rappel_bullets = [
@@ -46,7 +46,7 @@ def build(prs, layouts, ctx):
     ]
     add_alert(slide, rappel_titre, rappel_bullets,
               top=stack.cursor, left=COL_R, width=COL_W,
-              alert_type="info", line_spacing=1.0)
+              alert_type="info", line_spacing=1.15)
 
     add_notes(
         slide,

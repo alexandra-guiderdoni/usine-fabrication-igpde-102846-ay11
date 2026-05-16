@@ -74,8 +74,8 @@ def build(prs, layouts, ctx):
         slide,
         titre,
         bullets,
-        top=stack.push(estimate_callout_height(titre, bullets, CONTENT_W, line_spacing=1.05)),
-        line_spacing=1.05,
+        top=stack.push(estimate_callout_height(titre, bullets, CONTENT_W, line_spacing=1.2)),
+        line_spacing=1.2,
     )
 
     add_notes(

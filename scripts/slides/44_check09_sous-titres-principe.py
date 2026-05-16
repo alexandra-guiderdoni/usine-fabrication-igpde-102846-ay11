@@ -49,10 +49,10 @@ def build(prs, layouts, ctx):
             estimate_callout_height(
                 "Ce qu’il faut vérifier :",
                 check_bullets,
-                line_spacing=1.0,
+                line_spacing=1.15,
             )
         ),
-        line_spacing=1.0,
+        line_spacing=1.15,
     )
 
     add_notes(

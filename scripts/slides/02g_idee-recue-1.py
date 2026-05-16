@@ -31,7 +31,7 @@ def build(prs, layouts, ctx):
         "Et chacun sera concerné un jour : âge, accident, maladie temporaire",
     ]
 
-    callout_h = estimate_callout_height("Décryptage", decrypt_bullets, COL_W, line_spacing=1.0)
+    callout_h = estimate_callout_height("Décryptage", decrypt_bullets, COL_W, line_spacing=1.15)
     card_h = estimate_card_height("Idée reçue", [idee_text], COL_W, numero=NUMERO)
     col_h = max(card_h, callout_h)
 
@@ -41,7 +41,7 @@ def build(prs, layouts, ctx):
     )
     add_callout(
         slide, "Décryptage", decrypt_bullets,
-        top=top_cols, left=COL_R, width=COL_W, line_spacing=1.0,
+        top=top_cols, left=COL_R, width=COL_W, line_spacing=1.15,
     )
 
     url_top = round(top_cols + col_h + 0.10, 2)
