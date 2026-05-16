@@ -28,7 +28,7 @@ def build(prs, layouts, ctx):
         prs,
         layouts,
         layout_name="titre_contenu",
-        titre="Mettre en accessibilité sa communication : le cap",
+        titre="Accessibiliser sa communication : de quoi parle-t-on ?",
         fil_ariane="1. Introduction | Communication accessible",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,
@@ -60,11 +60,11 @@ def build(prs, layouts, ctx):
         "Web : site, application, newsletter, mails",
         "Médias : vidéo, podcast, visuel animé",
         "Documents : PDF, bureautique, formulaires",
-        "Imprimés : affiche, flyer, plan, QR code",
+        "Imprimés : affiche, flyer, plan, QR code...",
     ]
     col_h = max(
-        estimate_callout_height(questions_titre, questions_bullets, COL_W, line_spacing=1.05),
-        estimate_alert_height(supports_titre, supports_bullets, COL_W, line_spacing=1.05),
+        estimate_callout_height(questions_titre, questions_bullets, COL_W, line_spacing=1.25),
+        estimate_alert_height(supports_titre, supports_bullets, COL_W, line_spacing=1.25),
     )
     top_cols = stack.push(col_h)
     add_callout(
@@ -74,7 +74,7 @@ def build(prs, layouts, ctx):
         top=top_cols,
         left=MARGIN_L,
         width=COL_W,
-        line_spacing=1.05,
+        line_spacing=1.25,
     )
     add_alert(
         slide,
@@ -84,7 +84,7 @@ def build(prs, layouts, ctx):
         left=COL_R,
         width=COL_W,
         alert_type="info",
-        line_spacing=1.05,
+        line_spacing=1.25,
     )
 
     add_notes(

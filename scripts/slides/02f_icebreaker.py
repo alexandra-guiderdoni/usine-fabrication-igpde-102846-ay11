@@ -1,4 +1,4 @@
-"""Slide 02f : icebreaker - introduction aux idées reçues sur l'accessibilité numérique."""
+"""Slide 02f : icebreaker - lancement du debat idees recues en binomes."""
 
 from igpde_dsfr_components import (
     CONTENT_W, MARGIN_L,
@@ -29,9 +29,9 @@ def build(prs, layouts, ctx):
 
     consigne_titre = "Activité : vrai ou faux ?"
     consigne_bullets = [
-        "Vous avez chacun une carte avec une idée reçue",
-        "Lisez-la, décidez : vrai ou faux ?",
-        "On révèle ensemble le décryptage, carte par carte",
+        "En binôme, confrontez vos cartes : vrai ou faux ?",
+        "Échangez vos arguments, préparez votre position",
+        "Chaque binôme présente sa carte au groupe - débat ouvert",
     ]
     ah = estimate_alert_height(consigne_titre, consigne_bullets, CONTENT_W)
     add_alert(
@@ -46,9 +46,11 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Les cartes ont été distribuées au moment du regroupement en binômes. "
-        "Laisser 30 secondes de réflexion silencieuse, puis demander qui dit 'vrai' et qui dit 'faux' "
-        "avant d'afficher la slide de décryptage. Ne pas corriger immédiatement - laisser le groupe débattre. "
+        "Les cartes ont été piochées au moment de la constitution des binômes. "
+        "Laisser 2-3 minutes aux binômes pour discuter entre eux de leurs cartes. "
+        "Puis chaque binôme présente sa carte et dit ce qu'il en pense - le reste du groupe "
+        "réagit librement. Ne pas corriger immédiatement - laisser le débat s'installer "
+        "avant d'afficher la slide de décryptage. "
         "Objectif : casser les freins avant même de commencer la théorie.",
     )
     return slide

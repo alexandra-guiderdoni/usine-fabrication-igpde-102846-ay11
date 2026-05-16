@@ -1,4 +1,4 @@
-"""Slide 02e : regroupement par binômes - constitution des paires de travail."""
+"""Slide 02e : organisation des activites - binomes idees recues + ateliers."""
 
 from igpde_dsfr_components import (
     CONTENT_W, COL_W, COL_R, MARGIN_L,
@@ -12,7 +12,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         fil_ariane="1. Introduction",
-        titre="Regroupement par binômes",
+        titre="Organisation des activités",
         footer_text=f"{ctx.footer_base} / Accueil",
         date_text=ctx.date,
         page_num=ctx.page_num,
@@ -20,34 +20,36 @@ def build(prs, layouts, ctx):
 
     top_cols = 2.30
 
-    consigne_titre = "Comment ça marche ?"
+    consigne_titre = "Activité idées reçues"
     consigne_bullets = [
-        "12 stagiaires - 6 binômes de 2 personnes",
-        "Chaque binôme pioche 1 carte idée reçue : vous en êtes les gardiens",
-        "Pendant la journée : les exercices pratiques se font en binôme",
+        "Mettez-vous par deux et piochez une carte idée reçue",
+        "Présentez-vous et échangez sur votre quotidien",
+        "Confrontez vos cartes : qu'en pensez-vous ?",
+        "Présentez vos réflexions au groupe - débat ouvert",
     ]
     consigne_h = estimate_callout_height(consigne_titre, consigne_bullets, COL_W)
 
-    pourquoi_titre = "Pourquoi en binôme ?"
-    pourquoi_bullets = [
-        "L'apprentissage est plus solide quand on explique à quelqu'un d'autre",
-        "Deux regards valent mieux qu'un sur un document à corriger",
+    ateliers_titre = "Pour les ateliers Word et Web"
+    ateliers_bullets = [
+        "N'hésitez pas à travailler en binôme",
+        "Deux regards repèrent ce qu'un seul ne voit pas",
+        "Expliquer à quelqu'un consolide l'apprentissage",
     ]
-    pourquoi_h = estimate_alert_height(pourquoi_titre, pourquoi_bullets, COL_W)
+    ateliers_h = estimate_alert_height(ateliers_titre, ateliers_bullets, COL_W)
 
-    col_h = max(consigne_h, pourquoi_h)
+    col_h = max(consigne_h, ateliers_h)
 
     add_callout(
         slide, consigne_titre, consigne_bullets,
         top=top_cols, left=MARGIN_L, width=COL_W, height=col_h,
     )
     add_alert(
-        slide, pourquoi_titre, pourquoi_bullets,
+        slide, ateliers_titre, ateliers_bullets,
         top=top_cols, left=COL_R, width=COL_W,
         alert_type="info",
     )
 
-    accroche = "Prenez 1 minute : échangez avec votre binôme ce que vous faites au quotidien."
+    accroche = "Première étape : trouvez votre binôme et piochez votre carte !"
     hl_h = estimate_highlight_height(accroche, CONTENT_W)
     add_highlight(
         slide, accroche,
@@ -59,9 +61,12 @@ def build(prs, layouts, ctx):
     add_notes(
         slide,
         "Constituer les binômes en mélangeant les directions si possible - éviter que deux "
-        "personnes du même bureau soient ensemble (trop de connivence, moins d'échanges riches). "
-        "Si nombre impair : un trinôme. Distribuer les cartes idées reçues maintenant : "
-        "chaque binôme conserve sa carte comme support de l'engagement de fin de journée. "
-        "Laisser 2 minutes d'échange avant de commencer le programme.",
+        "personnes du même bureau soient ensemble (échanges plus riches entre services "
+        "différents). Si nombre impair : un trinôme. Chaque binôme pioche une carte idée "
+        "reçue puis prend 2-3 minutes pour se présenter et échanger sur leur quotidien. "
+        "Ensuite ils confrontent leurs cartes et préparent une courte restitution au groupe. "
+        "Lancer le débat ouvert après chaque présentation - laisser circuler la parole. "
+        "Les binômes ne sont pas imposés pour les ateliers Word/Web mais encouragés : "
+        "insister sur le bénéfice mutuel (relecture croisée, explication = ancrage).",
     )
     return slide
