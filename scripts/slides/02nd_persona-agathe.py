@@ -51,7 +51,7 @@ def build(prs, layouts, ctx):
         couleur_fond=VERT_CLAIR, couleur_accent=VERT_SUCCES,
     )
 
-    img_top = 4.95
+    img_top = 5.05
     item_w = (CONTENT_W - GAP * 2) / 3
 
     outils = [

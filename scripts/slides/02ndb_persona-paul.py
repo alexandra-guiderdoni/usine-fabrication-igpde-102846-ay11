@@ -56,7 +56,7 @@ def build(prs, layouts, ctx):
             "Trouble de l'attention : les animations non controlables le deconcentrent",
             "Dyslexie : le texte justifie et les polices a empattement ralentissent sa lecture",
         ],
-        top=4.80, left=MARGIN_L, width=CONTENT_W,
+        top=5.20, left=MARGIN_L, width=CONTENT_W,
         line_spacing=1.3,
     )
 

@@ -1185,13 +1185,22 @@ def add_encadre(slide, top, left, width, height, titre="", bullets=None,
               fill_color=couleur_fond, accent_color=couleur_accent, accent_w=0.08)
     y = top + 0.15
     if titre:
-        t_box = slide.shapes.add_textbox(
-            Inches(left + 0.25), Inches(y),
-            Inches(width - 0.4), Inches(0.45),
-        )
-        t_box.name = "DSFR-encadre-titre"
-        _apply_text(t_box.text_frame, titre, font=FONT, size=14, bold=True,
-                    color=couleur_accent)
+        if not bullets:
+            t_box = slide.shapes.add_textbox(
+                Inches(left + 0.25), Inches(top),
+                Inches(width - 0.4), Inches(height),
+            )
+            t_box.name = "DSFR-encadre-titre"
+            _apply_text(t_box.text_frame, titre, font=FONT, size=14, bold=True,
+                        color=couleur_accent, anchor=MSO_ANCHOR.MIDDLE)
+        else:
+            t_box = slide.shapes.add_textbox(
+                Inches(left + 0.25), Inches(y),
+                Inches(width - 0.4), Inches(0.45),
+            )
+            t_box.name = "DSFR-encadre-titre"
+            _apply_text(t_box.text_frame, titre, font=FONT, size=14, bold=True,
+                        color=couleur_accent)
         y += 0.5
     if bullets:
         b_box = slide.shapes.add_textbox(

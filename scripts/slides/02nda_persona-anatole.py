@@ -57,7 +57,7 @@ def build(prs, layouts, ctx):
             "Il comprend mieux les phrases simples et courtes",
             "Le langage clair et le FALC lui sont indispensables",
         ],
-        top=4.80, left=MARGIN_L, width=CONTENT_W,
+        top=5.20, left=MARGIN_L, width=CONTENT_W,
         line_spacing=1.3,
     )
 
