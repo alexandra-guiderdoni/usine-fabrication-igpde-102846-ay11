@@ -7,7 +7,7 @@ Amendé suite au Devil Council du 2026-05-02.
 
 ## Contexte pédagogique
 
-Sami, chargé de communication à la Direction des affaires juridiques, envoie son rapport trimestriel « Bilan T1 2025 » à 40 destinataires. Le document mobilise 21 critères d'accessibilité couvrant les 5 piliers, avec parfois plusieurs occurrences d'un même problème. Une erreur ambiguë force le jugement. Les critères des piliers 4 et 5 sont révélés après l'enseignement de ces piliers (slide 37, effet Zeigarnik).
+Sami, chargé de communication à la Direction des affaires juridiques, envoie son rapport trimestriel « Bilan T1 2025 » à 40 destinataires. Le document mobilise 21 critères d'accessibilité couvrant les 5 thèmes, avec parfois plusieurs occurrences d'un même problème. Une erreur ambiguë force le jugement. Les critères des thèmes 4 et 5 sont révélés après l'enseignement de ces thèmes (slide 37, effet Zeigarnik).
 
 - **Public** : communicants, niveau initiation
 - **Format** : exercice en binôme, 25 minutes (3 phases)
@@ -20,9 +20,9 @@ Sami, chargé de communication à la Direction des affaires juridiques, envoie s
 
 Les 21 entrées ci-dessous sont des **critères à vérifier**, pas un comptage strict d'occurrences. Un même critère peut apparaître plusieurs fois dans le document, par exemple les faux titres visuels. En animation, on valorise donc la bonne catégorie d'erreur et la correction proposée, sans piéger les stagiaires sur un nombre exact d'anomalies.
 
-Ordre de correction prescrit : Structure (Pilier 1) puis Couleurs (Pilier 2) puis Contenus (Pilier 3).
+Ordre de correction prescrit : Structure (thème 1) puis Couleurs (thème 2) puis Contenus (thème 3).
 
-### Critère 1 - Faux Titre 1 (Pilier 1 - Structure)
+### Critère 1 - Faux Titre 1 (Thème 1 - Structure)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -30,7 +30,7 @@ Ordre de correction prescrit : Structure (Pilier 1) puis Couleurs (Pilier 2) pui
 
 Pourquoi : sans style, le lecteur d'écran voit un bloc plat sans repère de navigation.
 
-### Critère 2 - Faux Titre 2 (Pilier 1 - Structure)
+### Critère 2 - Faux Titre 2 (Thème 1 - Structure)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -38,7 +38,7 @@ Pourquoi : sans style, le lecteur d'écran voit un bloc plat sans repère de nav
 
 Pourquoi : la hiérarchie ne se limite pas au titre principal. Un sous-titre non balisé casse la navigation par niveaux.
 
-### Critère 3 - Faux Titre 3 (Pilier 1 - Structure)
+### Critère 3 - Faux Titre 3 (Thème 1 - Structure)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -46,7 +46,7 @@ Pourquoi : la hiérarchie ne se limite pas au titre principal. Un sous-titre non
 
 Pourquoi : le soulignement donne un indice visuel mais aucun indice sémantique. Le lecteur d'écran ne distingue pas ce sous-titre du texte courant.
 
-### Critère 4 - Tableau sans en-tête (Pilier 1 - Structure)
+### Critère 4 - Tableau sans en-tête (Thème 1 - Structure)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -62,7 +62,7 @@ Contenu du tableau :
 
 Pourquoi : sans en-tête balisé, le lecteur d'écran ne peut pas associer chaque cellule à sa colonne.
 
-### Critère 5 - Couleur seule (Pilier 2 - Couleurs)
+### Critère 5 - Couleur seule (Thème 2 - Couleurs)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -70,7 +70,7 @@ Pourquoi : sans en-tête balisé, le lecteur d'écran ne peut pas associer chaqu
 
 Pourquoi : sans gras et sans texte complémentaire, la seule distinction est la couleur rouge. Une personne daltonienne ou utilisant un écran monochrome ne perçoit aucune urgence — le mot se fond dans le texte courant. Illustration pure du critère WCAG 1.4.1.
 
-### Critère 6 - Contraste ambigu (Pilier 2 - Couleurs)
+### Critère 6 - Contraste ambigu (Thème 2 - Couleurs)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -80,7 +80,7 @@ Pourquoi : le ratio 4,48:1 est en dessous du seuil 4,5:1 pour le texte normal (W
 
 **Rôle pédagogique** : cette erreur n'a pas de réponse évidente visuellement. Elle oblige à utiliser un outil de mesure (CCA ou vérificateur) et à trancher sous incertitude. C'est la seule erreur que le formateur doit explicitement débriefer.
 
-### Critère 7 - Image sans alternative + couleurs seules (Pilier 3 + Pilier 2)
+### Critère 7 - Image sans alternative + couleurs seules (Thème 3 + Thème 2)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -90,7 +90,7 @@ Pourquoi : double erreur. (1) Le lecteur d'écran annonce « image » sans descr
 
 **Rôle pédagogique** : montre que l'accessibilité d'une image ne se limite pas à l'alt text — le contenu visuel lui-même doit être lisible sans couleur.
 
-### Critère 8 - Lien non descriptif (Pilier 3 - Contenus)
+### Critère 8 - Lien non descriptif (Thème 3 - Contenus)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -98,7 +98,7 @@ Pourquoi : double erreur. (1) Le lecteur d'écran annonce « image » sans descr
 
 Pourquoi : « cliquez ici » ne donne aucune information hors contexte visuel. Le lecteur d'écran liste les liens par intitulé.
 
-### Critère 9 - Organigramme avec alt inadapté (Pilier 3 - Contenus)
+### Critère 9 - Organigramme avec alt inadapté (Thème 3 - Contenus)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -108,7 +108,7 @@ Pourquoi : le nom de fichier ne donne aucune information. Pour une image complex
 
 **Rôle pédagogique** : montre la différence entre image simple (alt descriptif) et image complexe (alt court + description adjacente). Illustre aussi le piège du nom de fichier automatique.
 
-### Critère 10 - Icône redondante avec alt non vide (Pilier 3 - Contenus)
+### Critère 10 - Icône redondante avec alt non vide (Thème 3 - Contenus)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -118,7 +118,7 @@ Pourquoi : l'icône est placée juste à côté du mot « e-mail ». Si on écri
 
 **Rôle pédagogique** : montre que l'accessibilité des images ne se limite pas à « mettre un alt text partout ». Certaines images doivent être explicitement ignorées.
 
-### Critère 11 - Fausse liste à puces (Pilier 1 - Structure)
+### Critère 11 - Fausse liste à puces (Thème 1 - Structure)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -128,7 +128,7 @@ Texte : « Objectifs du trimestre : augmenter le trafic de 10 %, publier 3 artic
 
 Pourquoi : les puces tapées et les retraits manuels donnent l'illusion visuelle d'une vraie liste, mais ne sont pas reconnus comme une liste par le lecteur d'écran. Il lit chaque ligne comme un paragraphe ordinaire au lieu de « liste de 3 éléments, élément 1 sur 3 ».
 
-### Critère 12 - Fausse liste numérotée (Pilier 1 - Structure)
+### Critère 12 - Fausse liste numérotée (Thème 1 - Structure)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -138,7 +138,7 @@ Texte : « Priorités pour le prochain trimestre : refonte de la page d'accueil,
 
 Pourquoi : même problème que les fausses puces. La numérotation semble correcte visuellement, mais la structure de liste est invisible pour le lecteur d'écran et la navigation par élément est impossible.
 
-### Critère 13 - Passage anglais sans balisage de langue (pilier 4 - langue)
+### Critère 13 - Passage anglais sans balisage de langue (thème 4 - langue)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -148,9 +148,9 @@ Texte : « The quarterly report is available upon request. Please contact the co
 
 Pourquoi : sans balisage, le lecteur d'écran lit le passage anglais avec la prononciation française, ce qui le rend incompréhensible.
 
-**Rôle pédagogique** : critère révélé uniquement après l'enseignement du pilier 4 (slide 37). Crée un effet Zeigarnik : les stagiaires pensaient avoir trouvé toutes les catégories de problèmes.
+**Rôle pédagogique** : critère révélé uniquement après l'enseignement du thème 4 (slide 37). Crée un effet Zeigarnik : les stagiaires pensaient avoir trouvé toutes les catégories de problèmes.
 
-### Critère 14 - Propriétés du document vides (pilier 5 - finalisation)
+### Critère 14 - Propriétés du document vides (thème 5 - finalisation)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -158,9 +158,9 @@ Pourquoi : sans balisage, le lecteur d'écran lit le passage anglais avec la pro
 
 Pourquoi : les propriétés du document sont la première information lue par un lecteur d'écran. Sans titre, l'utilisateur ne sait pas ce qu'il ouvre.
 
-**Rôle pédagogique** : erreur révélée en même temps que l'erreur 13 après le pilier 5. Correction en 30 secondes (Fichier > Informations).
+**Rôle pédagogique** : erreur révélée en même temps que l'erreur 13 après le thème 5. Correction en 30 secondes (Fichier > Informations).
 
-### Critère 15 - Texte justifié (pilier 4 - lisibilité)
+### Critère 15 - Texte justifié (thème 4 - lisibilité)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -168,7 +168,7 @@ Pourquoi : les propriétés du document sont la première information lue par un
 
 Pourquoi : le texte justifié crée des espaces inégaux entre les mots (lézardes) qui rendent la lecture difficile pour les personnes dyslexiques ou malvoyantes.
 
-### Critère 16 - Paragraphes vides (pilier 4 - lisibilité)
+### Critère 16 - Paragraphes vides (thème 4 - lisibilité)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -176,7 +176,7 @@ Pourquoi : le texte justifié crée des espaces inégaux entre les mots (lézard
 
 Pourquoi : le lecteur d'écran lit « vide, vide, vide, vide » à chaque paragraphe vide. L'espacement doit être géré par les propriétés Avant/Après du style de paragraphe.
 
-### Critère 17 - Majuscules tapées au clavier (pilier 4 - lisibilité)
+### Critère 17 - Majuscules tapées au clavier (thème 4 - lisibilité)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -184,7 +184,7 @@ Pourquoi : le lecteur d'écran lit « vide, vide, vide, vide » à chaque paragr
 
 Pourquoi : le lecteur d'écran peut épeler lettre par lettre les mots en majuscules. La propriété CSS/Word « Tout en majuscules » affiche visuellement en majuscules mais le lecteur lit le mot normalement.
 
-### Critère 18 - Filigrane invisible (pilier 3 - contenus)
+### Critère 18 - Filigrane invisible (thème 3 - contenus)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -192,7 +192,7 @@ Pourquoi : le lecteur d'écran peut épeler lettre par lettre les mots en majusc
 
 Pourquoi : les filigranes sont des objets graphiques dans l'en-tête, non lus par les lecteurs d'écran. Un utilisateur aveugle ne sait pas que le document est confidentiel.
 
-### Critère 19 - Faux sommaire tapé à la main (pilier 1 - structure)
+### Critère 19 - Faux sommaire tapé à la main (thème 1 - structure)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -200,7 +200,7 @@ Pourquoi : les filigranes sont des objets graphiques dans l'en-tête, non lus pa
 
 Pourquoi : un sommaire tapé à la main n'est pas lié aux titres du document. Il ne se met pas à jour, n'est pas navigable et le lecteur d'écran ne peut pas sauter directement à une section.
 
-### Critère 20 - Texte sous forme d'image (pilier 3 - contenus)
+### Critère 20 - Texte sous forme d'image (thème 3 - contenus)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -210,7 +210,7 @@ Texte : « Avis important : les indicateurs du T2 2025 seront transmis avant le 
 
 Pourquoi : le texte dans une image ne peut pas être lu par la synthèse vocale, ni agrandi proprement, ni sélectionné, ni recherché. Il faut toujours saisir le texte directement dans Word, sauf pour les logos.
 
-### Critère 21 - Tableau avec cellules fusionnées (pilier 1 - structure)
+### Critère 21 - Tableau avec cellules fusionnées (thème 1 - structure)
 
 | Inaccessible | Accessible |
 |---|---|
@@ -271,7 +271,7 @@ Pas de checklist distribuée à cette phase. Les stagiaires doivent mobiliser ce
 | Temps | Action |
 |---|---|
 | 10-12 min | Le formateur peut distribuer `sami-doc-aide-correction.docx` si le groupe a besoin d'un guidage. Les commentaires Word expliquent le problème, l'impact et la méthode, sans corriger le document. |
-| 12-20 min | Chaque binôme corrige les problèmes dans l'ordre prescrit (Pilier 1 puis 2 puis 3) |
+| 12-20 min | Chaque binôme corrige les problèmes dans l'ordre prescrit (thème 1 puis 2 puis 3) |
 
 Le vérificateur Word est utilisé comme **outil de découverte** (« que détecte-t-il ? que rate-t-il ? »), pas comme preuve de conformité.
 La version d'aide à la correction reste volontairement fautive : elle sert de support de remédiation guidée, pas de corrigé.

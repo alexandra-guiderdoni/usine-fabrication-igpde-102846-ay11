@@ -158,6 +158,104 @@ Erreur fréquente : hardcoder `TOP_CARDS = 2.45"` sans vérifier que `row2_top +
 
 ---
 
+## add_callout / add_alert : string au lieu de liste = slide cassee
+
+Passer une string unique au lieu d'une liste de bullets a `add_callout` ou `add_alert` itere sur chaque caractere de la string. Chaque lettre devient un bullet.
+
+**Symptome** : la slide affiche des dizaines de lignes d'un caractere chacune.
+
+**Cause** : `_add_bullets(tf, items, ...)` itere sur `items`. Si `items` est une string `"Texte"`, Python itere sur `['T', 'e', 'x', 't', 'e']`.
+
+**Fix** : toujours passer une liste, meme pour un seul bullet : `["Mon texte"]`, jamais `"Mon texte"`.
+
+Source : `CLAUDE.md` section Modes d'echec connus.
+
+---
+
+## Changement typographique global : recalibrer _estimate_height
+
+Modifier la taille de police, l'interligne ou l'espacement sur l'ensemble du deck sans recalibrer les constantes de `_estimate_height` provoque des debordements en cascade sur 50+ slides.
+
+**Symptome** : texte coupe ou chevauchement massif apres un changement de taille de police apparemment mineur.
+
+**Regle** : tout changement typographique global (taille, interligne, espacement) impose une passe de recalibration de `_estimate_height` et des `h_padding` avant regeneration.
+
+Source : `CLAUDE.md` section Modes d'echec connus.
+
+---
+
+## add_image sans height= : debordement sur le composant suivant
+
+`add_image` sans parametre `height=` laisse python-pptx calculer la hauteur a partir du ratio natif de l'image. Si l'image est haute, elle deborde sur le composant empile en dessous.
+
+**Regle** : toujours passer `height=` a `add_image` quand un autre composant suit sur la meme slide. Verifier visuellement que `image_top + image_height` reste au-dessus du composant suivant.
+
+Source : `CLAUDE.md` section Modes d'echec connus.
+
+---
+
+## Estimation additive texte + image : ne pas additionner
+
+Ne pas supposer que `_estimate_height(text) + image_height` garantit l'absence de chevauchement. L'estimation de texte est heuristique et les marges internes des composants ajoutent des pouces invisibles.
+
+**Regle** : contraindre les hauteurs explicitement et verifier le rendu dans PowerPoint. Ne pas se fier a un calcul purement additif.
+
+Source : `CLAUDE.md` section Modes d'echec connus.
+
+---
+
+## Layout titre_soustitre sur une slide de contenu : logos parasites
+
+Utiliser `layout_name="titre_soustitre"` sur une slide de contenu normal affiche les logos institutionnels (Republique francaise, IGPDE) en plein milieu de la slide, au-dessus du contenu.
+
+**Regle** : `titre_soustitre` est reserve a la page de couverture et a la slide de cloture. Pour le contenu, utiliser `titre_contenu`.
+
+Source : `CLAUDE.md` section Modes d'echec connus ; incident slide 21 (`_source/passation-session-2026-05-03.md`).
+
+---
+
+## Accent accent_w : 0,08" sauf chapitre
+
+L'accent bleu vertical a gauche du titre doit mesurer 0,08" de large. Toute autre valeur (0,05", 0,10") est percue comme un defaut d'alignement par rapport aux autres slides.
+
+**Exception** : les slides de chapitre utilisent `accent_w=0,16"` (bandeau plus large, voulu).
+
+Source : `CLAUDE.md` section Modes d'echec connus.
+
+---
+
+## Quiz : separer questions et reponses
+
+Les questions et reponses d'un quiz ne doivent jamais figurer sur la meme slide. Le stagiaire voit la reponse avant de reflechir, ce qui annule l'effet pedagogique.
+
+**Regle** : creer deux modules : `NN_quiz.py` (question) et `NNb_quiz.py` (reponse, suffixe `b`).
+
+Source : `CLAUDE.md` section Modes d'echec connus.
+
+---
+
+## _safe_top : chevauchement silencieux avec le bloc precedent
+
+`_safe_top(top, height)` remonte le composant si `top + height > BOTTOM_CONTENT`. Cela evite le debordement bas mais peut creer un chevauchement avec le composant precedent si le `top` initial etait deja trop bas.
+
+**Symptome** : deux composants superposes visuellement, mais aucune erreur dans la console.
+
+**Regle** : ne pas compter sur `_safe_top` comme filet de securite. Calibrer les hauteurs et les gaps en amont via `Stack` + estimateurs. Si `_safe_top` se declenche, c'est un signal que la slide est trop chargee — la recomposer.
+
+Source : `CLAUDE.md` section Modes d'echec connus.
+
+---
+
+## Warning footer : jamais du bruit
+
+Le warning `footer overlap` en console signale qu'un composant empiete sur la zone footer (y > 6,80"). Ne jamais le traiter comme du bruit console.
+
+**Regle** : verifier l'ecart entre le dernier composant et le footer, resserrer les gaps ou recomposer la slide. Objectif : `TOTAL_WARNINGS 0` avant livraison.
+
+Source : `CLAUDE.md` section Modes d'echec connus.
+
+---
+
 ## Refactoring massif via AST
 
 Pour patcher 14 slides en une opération (remplacer `top=X.XX, height=Y.YY` par `top=stack.push(estimate_*(args))`), un script Python utilisant `ast` + `ast.unparse` a été efficace. Préservation des args de chaque composant via `ast.unparse(arg_node)` pour regénérer le code source fidèlement.

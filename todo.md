@@ -3,19 +3,20 @@
 ## En cours
 
 - [ ] **Passe visuelle humaine PowerPoint avant diffusion** :
-  - Vérifier en priorité les slides 16 à 22, 36, 75 à 76, 82 à 106
+  - Vérifier en priorité les slides 16 à 22, 36, 75 à 76, 82 à 112
   - Objectif : repérer les chevauchements visuels fins que les contrôles XML ne voient pas
-  - État technique actuel : génération 106 slides OK, stderr vide, `unzip -t` OK
-- [ ] **Distribuer la grille d'audit aux stagiaires pour la mission finale** (slide `scripts/slides/52_mission-13-checks.py`) :
-  - Fichier source : `03-easy-checks/grille-audit-easy-checks.xlsx`
-  - Version téléchargeable depuis le site : `docs/assets/downloads/grille-audit-easy-checks.xlsx`
-  - Point d'entrée site : `docs/index.html`
-  - Consigne pédagogique : chaque binôme choisit des points, une seule non-conformité prouvée invalide le critère
-  - Répartition conseillée : certains binômes commencent par le début, d'autres par la fin, puis restitution orale
+  - État technique actuel : génération 112 slides OK (113 modules), stderr vide, `unzip -t` OK
+- [ ] **Finalisation du deck pour livraison lundi 19 mai** :
+  - Relecture complète slide par slide par Alex
+  - Corrections et modifications au fil de la relecture
+  - Régénération finale via `python3 scripts/assemble.py` + `finalize_pptx()`
+  - Livrable : `formation-102638-juin-2026.pptx` prêt à rendre
 
 ## Fait
 
-- [x] **Support PPTX principal livré** : `formation-102638-juin-2026.pptx`, 106 slides, PR #1 mergée sur `main` le 2026-05-05.
+- [x] **Grille d'audit distribuée aux stagiaires** (slide `scripts/slides/52_mission-13-checks.py`) : grille XLSX téléchargeable depuis `docs/assets/downloads/grille-audit-easy-checks.xlsx`, consigne binômes en place.
+- [x] **Documentation projet complète** : architecture C4 (`architecture-c4-slides.md`), README causal (`README.md`), contraintes (`contraintes.md`), 21 leçons techniques (`lessons.md`). Le 2026-05-16.
+- [x] **Support PPTX principal livré** : `formation-102638-juin-2026.pptx`, 112 slides, dernière mise à jour le 2026-05-12.
 - [x] **Module 1 élargi** : accessibiliser sa communication, handicap/validisme, règles transversales, WCAG/RGAA et déclaration d'accessibilité.
 - [x] **Module Word renforcé** : lisibilité, alignement à gauche, paragraphes aérés, contraste mesuré et fonds non dégradés.
 - [x] **Module Web easy checks renforcé** : bonus médias, VSME, niveaux de transcription, liens et PDF.

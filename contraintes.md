@@ -1,6 +1,6 @@
 # Contraintes — Formation 102638 (IGPDE / Carinne C.)
 
-- **Compile le** : 2026-05-12
+- **Compile le** : 2026-05-16
 - **Compilateur** : contraintes-vivantes v1
 
 ## 1. Dépendances externes
@@ -55,7 +55,7 @@
 - **Contrainte** : le deck principal doit etre regenere via `python3 scripts/assemble.py`, avec `finalize_pptx()` obligatoire avant livraison.
 - **Impact** : une modification directe du PPTX contourne le flux de production et risque d'etre ecrasee a la regeneration.
 - **Decision / prochaine verification** : toute evolution du support doit passer par `scripts/slides/NN_*.py` puis une regeneration.
-- **Composants affectes** : `scripts/assemble.py`, `scripts/slides/`, `formation-102638-juin-2026.pptx`
+- **Composants affectes** : `scripts/assemble.py`, `scripts/slides/` (113 modules), `formation-102638-juin-2026.pptx` (112 slides)
 
 ## 3. Indexation et donnees
 
@@ -100,7 +100,10 @@
 | Validation automatisee du contrat, des assets et des pages HTML | `validate.py` | constate le 2026-05-12 |
 | Generation de la grille d'audit XLSX | `scripts/generate_grille_audit.py` | constate le 2026-05-12 |
 | Bibliotheque de composants PPTX DSFR IGPDE | `scripts/igpde_dsfr_components.py` | constate le 2026-05-12 |
-| Jeu de slides modulaires par fichiers `NN_*.py` | `scripts/slides/` | constate le 2026-05-12 |
+| Jeu de slides modulaires par fichiers `NN_*.py` | `scripts/slides/` (113 modules) | constate le 2026-05-12 |
+| Post-traitement accessibilite PPTX (ordre de lecture, lang, alt text, metadonnees, quarantine) | `scripts/igpde_dsfr_components.py` (`finalize_pptx()`) | constate le 2026-05-12 |
+| Documentation architecture C4 du pipeline de slides | `architecture-c4-slides.md` | 2026-05-16 |
+| README causal du projet | `README.md` | 2026-05-16 |
 
 ## 5. Securite et secrets
 
@@ -180,13 +183,23 @@
 
 ### Passe visuelle PPTX non automatisee
 
-- **Date** : 2026-05-12
+- **Date** : 2026-05-16
 - **Source** : `todo.md`
 - **Statut** : confirmee
 - **Contrainte** : une passe visuelle humaine PowerPoint reste necessaire avant diffusion pour detecter les chevauchements fins que les controles XML ne voient pas.
 - **Impact** : une generation sans revue visuelle peut laisser passer des defauts de rendu sur certaines slides.
-- **Decision / prochaine verification** : conserver une passe manuelle de livraison, en priorite sur les slides signalees dans `todo.md`.
+- **Decision / prochaine verification** : conserver une passe manuelle de livraison, en priorite sur les slides 16 a 22, 36, 75 a 76 et 82 a 106 (signalees dans `todo.md`).
 - **Composants affectes** : `todo.md`, `formation-102638-juin-2026.pptx`, `scripts/slides/`
+
+### Modes d'echec documentes dans lessons.md
+
+- **Date** : 2026-05-16
+- **Source** : `lessons.md`, `CLAUDE.md` section Modes d'echec connus
+- **Statut** : confirmee
+- **Contrainte** : 21 lecons techniques sont documentees dans `lessons.md`, couvrant les pieges python-pptx, les erreurs de positionnement, les debordements et les choix pedagogiques. A relire avant toute nouvelle session.
+- **Impact** : ignorer ces lecons conduit a repeter les memes erreurs (string/liste, layout parasite, debordement _safe_top, estimation additive).
+- **Decision / prochaine verification** : mettre a jour `lessons.md` a chaque nouveau piege decouvert.
+- **Composants affectes** : `lessons.md`, `CLAUDE.md`, `scripts/igpde_dsfr_components.py`, `scripts/slides/`
 
 ### Controles de livraison documentes
 
