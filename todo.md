@@ -2,10 +2,14 @@
 
 ## En cours
 
+- [ ] **Impressions papier avant la session** :
+  - Imprimer les cartes idées reçues (ice-breaker)
+  - Imprimer les cartes WCAG langage clair
+
 - [ ] **Passe visuelle humaine PowerPoint avant diffusion** :
-  - Vérifier en priorité les slides 16 à 22, 36, 75 à 76, 82 à 131
+  - Vérifier en priorité les slides 16 à 22, 36, 75 à 76, 82 à 138
   - Objectif : repérer les chevauchements visuels fins que les contrôles XML ne voient pas
-  - État technique actuel : génération 131 slides OK (131 modules), 0 warnings, `unzip -t` OK
+  - État technique actuel : génération 138 slides OK, 0 warnings, `unzip -t` OK
 - [ ] **Finalisation du deck pour livraison lundi 19 mai** :
   - Relecture complète slide par slide par Alex
   - Corrections et modifications au fil de la relecture
