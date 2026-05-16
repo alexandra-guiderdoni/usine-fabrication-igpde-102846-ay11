@@ -14,7 +14,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="L'accessibilité numérique, c'est quoi ?",
-        fil_ariane="1. Introduction | Quoi",
+        fil_ariane="1. Q1 - C'est quoi | Définition",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,
         page_num=ctx.page_num,

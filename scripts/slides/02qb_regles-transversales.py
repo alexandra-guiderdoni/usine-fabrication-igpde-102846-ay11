@@ -24,7 +24,7 @@ def build(prs, layouts, ctx):
         layouts,
         layout_name="titre_contenu",
         titre="Règles transversales : texte, contraste, QR",
-        fil_ariane="1. Introduction | Communication accessible",
+        fil_ariane="1. Q5 - Comment | Règles transversales",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,
         page_num=ctx.page_num,

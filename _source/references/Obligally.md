@@ -20,7 +20,7 @@ Vous souhaitez connaître vos obligations ?
 
 Répondez au questionnaire et découvrez les obligations légales qui s’appliquent à votre situation ou à celle de votre entreprise.
 
-Accès : [simulation](https://obligations-legales-accessibilite-numerique.fr/fr/simulation/)
+Accès : <https://obligations-legales-accessibilite-numerique.fr/fr/simulation/>
 
 ---
 
@@ -30,7 +30,7 @@ Vous voulez étudier le sujet en profondeur ?
 
 Un article détaillé permet de comprendre l’historique des obligations légales en France et le détail du cadre légal actuel.
 
-Accès : [comprendre](https://obligations-legales-accessibilite-numerique.fr/fr/comprendre/)
+Accès : <https://obligations-legales-accessibilite-numerique.fr/fr/comprendre/>
 
 ---
 

@@ -14,7 +14,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Le cadre européen",
-        fil_ariane="1. Introduction | Cadre légal",
+        fil_ariane="1. Q3 - Cadre légal | Directives européennes",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,
         page_num=ctx.page_num,

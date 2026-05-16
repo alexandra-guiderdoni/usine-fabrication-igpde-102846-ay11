@@ -3,10 +3,12 @@
 from igpde_dsfr_components import (
     CONTENT_W, COL_W, COL_R, MARGIN_L,
     Stack,
-    add_alert, add_callout, add_highlight, add_notes,
+    add_alert, add_callout, add_highlight, add_image, add_notes,
     estimate_alert_height, estimate_callout_height, estimate_highlight_height,
     new_slide,
 )
+
+LOGO_FALC_W = 1.2
 
 
 def build(prs, layouts, ctx):
@@ -14,7 +16,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="FALC et langage clair",
-        fil_ariane="1. Introduction | Comment",
+        fil_ariane="1. Q5 - Comment | FALC et langage clair",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,
         page_num=ctx.page_num,
@@ -60,6 +62,15 @@ def build(prs, layouts, ctx):
         top=top_cols, left=COL_R, width=COL_W,
         alert_type="info",
         line_spacing=1.2,
+    )
+
+    add_image(
+        slide,
+        "images-coi/image17.jpeg",
+        top=top_cols + col_h + 0.15,
+        left=MARGIN_L + (CONTENT_W - LOGO_FALC_W) / 2,
+        width=LOGO_FALC_W,
+        alt_text="Logo FALC - Facile à lire et à comprendre",
     )
 
     add_notes(

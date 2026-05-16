@@ -1,4 +1,4 @@
-"""Slide 02m : chapitre Q1 - c'est quoi l'accessibilité numérique ?"""
+"""Slide 02n : chapitre Q2 - c'est pour qui ?"""
 
 from igpde_dsfr_components import add_notes, compose_chapitre, new_slide
 
@@ -15,14 +15,14 @@ def build(prs, layouts, ctx):
 
     compose_chapitre(
         slide,
-        numero="1",
-        titre="L'accessibilité numérique, c'est quoi ?",
+        numero="2",
+        titre="L'accessibilité numérique, c'est pour qui ?",
     )
 
     add_notes(
         slide,
-        "Ouverture du module 1. Poser la question : "
-        "si je vous dis accessibilité numérique, à quoi pensez-vous ? "
-        "Laisser 30 secondes de silence avant de basculer vers la définition.",
+        "Transition vers les publics concernés. Avant de montrer les 4 familles, "
+        "demander au groupe : à votre avis, combien de personnes "
+        "sont concernées par l'accessibilité numérique en France ?",
     )
     return slide

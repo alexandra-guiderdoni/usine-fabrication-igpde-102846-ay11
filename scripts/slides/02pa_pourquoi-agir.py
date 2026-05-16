@@ -14,7 +14,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="Pourquoi agir ?",
-        fil_ariane="1. Introduction | Pourquoi",
+        fil_ariane="1. Q4 - Pourquoi | Droit et charte",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,
         page_num=ctx.page_num,

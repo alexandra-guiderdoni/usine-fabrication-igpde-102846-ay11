@@ -14,7 +14,7 @@ def build(prs, layouts, ctx):
         prs, layouts,
         layout_name="titre_contenu",
         titre="C'est pour qui ? 4 familles de besoins",
-        fil_ariane="1. Introduction | Qui",
+        fil_ariane="1. Q2 - Pour qui | 4 familles",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,
         page_num=ctx.page_num,

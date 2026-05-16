@@ -27,7 +27,7 @@ def build(prs, layouts, ctx):
         layouts,
         layout_name="titre_contenu",
         titre="Handicap : sortir de l'angle mort",
-        fil_ariane="1. Introduction | Communication accessible",
+        fil_ariane="1. Q2 - Pour qui | Chiffres",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,
         page_num=ctx.page_num,

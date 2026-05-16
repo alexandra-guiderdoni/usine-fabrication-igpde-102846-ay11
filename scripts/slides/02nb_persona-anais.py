@@ -1,0 +1,79 @@
+"""Slide 02nb : persona Anaïs - malvoyance (DMLA précoce)."""
+
+from igpde_dsfr_components import (
+    CONTENT_W, GAP, MARGIN_L,
+    Stack,
+    add_callout, add_image, add_notes, add_texte_libre,
+    new_slide,
+)
+
+PHOTO_W = 2.2
+BIO_LEFT = round(MARGIN_L + PHOTO_W + 0.30, 2)
+BIO_W = round(CONTENT_W - PHOTO_W - 0.30, 2)
+
+IMG_H = 1.3
+LABEL_H = 0.35
+
+
+def build(prs, layouts, ctx):
+    slide = new_slide(
+        prs, layouts,
+        layout_name="titre_contenu",
+        titre="Anaïs, gestionnaire RH - malvoyance",
+        fil_ariane="1. Q2 - Pour qui | Anaïs",
+        footer_text=f"{ctx.footer_base} / Module 1",
+        date_text=ctx.date,
+        page_num=ctx.page_num,
+    )
+
+    add_image(
+        slide,
+        "images-coi/image10.png",
+        top=2.20, left=MARGIN_L, width=PHOTO_W, height=PHOTO_W,
+        alt_text="Portrait illustratif - Anaïs",
+    )
+
+    titre_besoin = "Ses besoins au quotidien"
+    bullets_besoin = [
+        "Agrandir la taille des textes et des interfaces",
+        "Contraste suffisant entre texte et fond (ratio 4.5:1 minimum)",
+        "Pouvoir naviguer sans dépendre uniquement des couleurs",
+    ]
+    add_callout(
+        slide, titre_besoin, bullets_besoin,
+        top=2.20, left=BIO_LEFT, width=BIO_W,
+        line_spacing=1.3,
+    )
+
+    img_top = 4.70
+    item_w = (CONTENT_W - GAP * 2) / 3
+
+    outils = [
+        ("images-coi/image2.png", "Clavier adapté", 0.75),
+        ("images-coi/image8.png", "Clavier guide-doigts", 0.31),
+        ("images-coi/image15.png", "Paramètres accessibilité", 0.47),
+    ]
+    for i, (img_path, label, ratio) in enumerate(outils):
+        left = MARGIN_L + i * (item_w + GAP)
+        img_w = min(item_w - 0.2, IMG_H / ratio)
+        img_left = left + (item_w - img_w) / 2
+        add_image(
+            slide, img_path,
+            top=img_top, left=img_left, width=img_w,
+            alt_text=label,
+        )
+        add_texte_libre(
+            slide, label,
+            top=img_top + IMG_H + 0.05,
+            left=left, width=item_w, height=LABEL_H,
+            size=12, bold=True,
+        )
+
+    add_notes(
+        slide,
+        "Anaïs a une DMLA précoce diagnostiquée il y a 10 ans. "
+        "Ce profil illustre la déficience visuelle. Insister sur le fait "
+        "que le contraste et la taille de texte sont des leviers que "
+        "le communicant maîtrise directement dans ses documents.",
+    )
+    return slide

@@ -1,4 +1,4 @@
-"""Slide 02m : chapitre Q1 - c'est quoi l'accessibilité numérique ?"""
+"""Slide 02o : chapitre Q3 - quel cadre légal ?"""
 
 from igpde_dsfr_components import add_notes, compose_chapitre, new_slide
 
@@ -15,14 +15,14 @@ def build(prs, layouts, ctx):
 
     compose_chapitre(
         slide,
-        numero="1",
-        titre="L'accessibilité numérique, c'est quoi ?",
+        numero="3",
+        titre="L'accessibilité numérique, quel cadre légal ?",
     )
 
     add_notes(
         slide,
-        "Ouverture du module 1. Poser la question : "
-        "si je vous dis accessibilité numérique, à quoi pensez-vous ? "
-        "Laisser 30 secondes de silence avant de basculer vers la définition.",
+        "Transition vers le cadre juridique. Rappeler que l'accessibilité "
+        "n'est pas seulement une bonne pratique, c'est une obligation légale "
+        "avec des sanctions.",
     )
     return slide

@@ -29,7 +29,7 @@ def build(prs, layouts, ctx):
         layouts,
         layout_name="titre_contenu",
         titre="Accessibiliser sa communication : de quoi parle-t-on ?",
-        fil_ariane="1. Introduction | Communication accessible",
+        fil_ariane="1. Q4 - Pourquoi | Communication accessible",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,
         page_num=ctx.page_num,
