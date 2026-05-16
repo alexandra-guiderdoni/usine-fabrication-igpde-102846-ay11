@@ -1,9 +1,9 @@
 """Slide 02nb : persona Anaïs - malvoyance (DMLA précoce)."""
 
 from igpde_dsfr_components import (
-    CONTENT_W, GAP, MARGIN_L,
+    BLEU_INFO, BLEU_INFO_CLAIR, CONTENT_W, GAP, MARGIN_L,
     Stack,
-    add_callout, add_image, add_notes, add_texte_libre,
+    add_callout, add_encadre, add_image, add_notes, add_texte_libre,
     new_slide,
 )
 
@@ -45,7 +45,13 @@ def build(prs, layouts, ctx):
         line_spacing=1.3,
     )
 
-    img_top = 4.70
+    add_encadre(
+        slide, top=4.42, left=MARGIN_L, width=PHOTO_W, height=0.45,
+        titre="Percevoir",
+        couleur_fond=BLEU_INFO_CLAIR, couleur_accent=BLEU_INFO,
+    )
+
+    img_top = 4.95
     item_w = (CONTENT_W - GAP * 2) / 3
 
     outils = [
