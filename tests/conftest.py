@@ -14,6 +14,20 @@ from igpde_dsfr_components import (  # noqa: E402
 )
 
 
+@pytest.fixture(scope="session")
+def deck():
+    """Charge le PPTX final assemble depuis le disque (lecture seule)."""
+    from pptx import Presentation as PrsLoad
+
+    pptx_path = Path(__file__).parent.parent / "formation-102638-juin-2026.pptx"
+    if not pptx_path.exists():
+        pytest.skip(
+            f"PPTX final non trouve : {pptx_path}. "
+            "Lancer d'abord : python3 scripts/assemble.py"
+        )
+    return PrsLoad(str(pptx_path))
+
+
 @pytest.fixture
 def prs():
     """Presentation IGPDE chargee depuis le template reel."""
