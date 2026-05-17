@@ -1,6 +1,6 @@
-# Architecture C4 — Pipeline de generation des slides PPTX DSFR
+# Architecture C4 — Pipeline de génération des slides PPTX DSFR
 
-## Contraintes et hypotheses
+## Contraintes et hypothèses
 
 **Sources locales lues** :
 - `CLAUDE.md`, `AGENTS.md`, `contraintes.md`
@@ -9,18 +9,18 @@
 - `scripts/build_template.py`
 - `scripts/slides/02ma_definition-a11y.py` (module type)
 
-**Systeme en scope** : pipeline de generation du deck PPTX principal `formation-102638-juin-2026.pptx` (131 slides DSFR accessibles).
+**Système en scope** : pipeline de génération du deck PPTX principal `formation-102638-juin-2026.pptx` (138 slides DSFR accessibles).
 
-**Audiences** : Alex (formateur/developpeur), Carinne C. (commanditaire IGPDE, non-technique).
+**Audiences** : Alex (formateur/développeur), Carinne C. (commanditaire IGPDE, non-technique).
 
-**Contraintes non negociables** :
+**Contraintes non négociables** :
 - Python 3.12 + python-pptx + lxml (pas de Docker, pas de CI)
-- Template IGPDE rescale 13,33" x 7,5" avec grille DSFR figee
+- Template IGPDE rescalé 13,33" x 7,5" avec grille DSFR figée
 - Police Marianne (fallback Arial)
-- Accessibilite : ordre de lecture, `lang=fr-FR`, alt text, metadonnees
-- macOS : quarantine Gatekeeper a retirer sur le PPTX genere
+- Accessibilité : ordre de lecture, `lang=fr-FR`, alt text, métadonnées
+- macOS : quarantine Gatekeeper à retirer sur le PPTX généré
 - Pas de modification directe du PPTX — tout passe par les scripts Python
-- Deux regimes de slides : generees par script vs retouchees manuellement
+- Deux régimes de slides : générées par script vs retouchées manuellement
 
 ---
 
@@ -30,31 +30,31 @@
 +------------------+                    +------------------+
 |   Alex           |                    |  Carinne C.      |
 |  (formateur /    |                    |  (commanditaire  |
-|   developpeur)   |                    |   IGPDE)         |
+|   développeur)   |                    |   IGPDE)         |
 +--------+---------+                    +--------+---------+
          |                                       |
-         | edite les scripts Python               | recoit le PPTX final
+         | édite les scripts Python               | reçoit le PPTX final
          | lance assemble.py                      | ouvre dans PowerPoint
          | valide le rendu visuel                 | anime la formation
          |                                       |
          v                                       v
 +--------+---------------------------------------+--------+
 |                                                         |
-|   Pipeline de generation des slides PPTX DSFR           |
-|   (131 modules Python -> 1 PPTX accessible)             |
+|   Pipeline de génération des slides PPTX DSFR           |
+|   (138 modules Python -> 1 PPTX accessible)             |
 |                                                         |
 +---+---------------------+-------------------+-----------+
     |                     |                   |
     v                     v                   v
 +---+------+     +--------+------+    +-------+--------+
 | python-  |     | Template      |    | PowerPoint     |
-| pptx     |     | IGPDE-DSFR    |    | (verification  |
+| pptx     |     | IGPDE-DSFR    |    | (vérification  |
 | (biblio- |     | (.pptx base)  |    |  manuelle)     |
 | theque)  |     +---------------+    +----------------+
 +----------+
 ```
 
-Le formateur Alex edite les modules Python et lance la generation. Le deck PPTX produit est livre a Carinne C. qui l'utilise dans PowerPoint pour animer la formation. PowerPoint sert aussi de verification manuelle (debordements, rendu visuel) car le pipeline ne couvre pas le rendu pixel.
+Le formateur Alex édite les modules Python et lance la génération. Le deck PPTX produit est livré à Carinne C. qui l'utilise dans PowerPoint pour animer la formation. PowerPoint sert aussi de vérification manuelle (débordements, rendu visuel) car le pipeline ne couvre pas le rendu pixel.
 
 ---
 
@@ -62,7 +62,7 @@ Le formateur Alex edite les modules Python et lance la generation. Le deck PPTX 
 
 ```text
 +----------------------------------------------------------------------+
-|  Pipeline de generation des slides                                   |
+|  Pipeline de génération des slides                                   |
 |                                                                      |
 |  +------------------+     +-------------------+                      |
 |  | build_template   |     | assemble.py       |                      |
@@ -78,12 +78,12 @@ Le formateur Alex edite les modules Python et lance la generation. Le deck PPTX 
 |              v                                          v            |
 |  +-----------+-------------+   +------------------------+---------+  |
 |  | scripts/slides/         |   | igpde_dsfr_components.py        |  |
-|  | NN_*.py (131 modules)   |   | (bibliotheque DSFR)             |  |
+|  | NN_*.py (138 modules)   |   | (bibliothèque DSFR)             |  |
 |  |                         |   |                                 |  |
 |  | Chacun expose :         |   | create_presentation()           |  |
 |  |   build(prs,layouts,ctx)|   | new_slide()                     |  |
 |  |                         |   | 16 composants (add_*)           |  |
-|  | Contenu pedagogique +   |   | Stack, _safe_top, _estimate_h   |  |
+|  | Contenu pédagogique +   |   | Stack, _safe_top, _estimate_h   |  |
 |  | appels aux composants   |   | finalize_pptx() (a11y)          |  |
 |  +-------------------------+   +---------------------------------+  |
 |                                                                      |
@@ -110,7 +110,7 @@ Le formateur Alex edite les modules Python et lance la generation. Le deck PPTX 
 
 ## C3 — Composants de `igpde_dsfr_components.py`
 
-Le container central merite un zoom car il porte toute la logique de composition et d'accessibilite.
+Le container central mérite un zoom car il porte toute la logique de composition et d'accessibilité.
 
 ```text
 +-----------------------------------------------------------------------+
@@ -178,8 +178,8 @@ Le container central merite un zoom car il porte toute la logique de composition
 | Composant | Interface | Responsabilite | Source locale |
 |-----------|-----------|----------------|--------------|
 | `create_presentation()` | `() -> (prs, layouts)` | Charge le template PPTX, construit le dict des 6 layouts | L.188 |
-| `new_slide()` | `(prs, layouts, layout_name, titre, ...) -> slide` | Cree une slide avec layout, titre, footer, fil d'ariane, accent couleur | L.302 |
-| `Stack` | `.push(h) -> top` | Curseur vertical qui empile les composants avec gap constant (evite le calcul manuel des `top`) | L.555 |
+| `new_slide()` | `(prs, layouts, layout_name, titre, ...) -> slide` | Crée une slide avec layout, titre, footer, fil d'ariane, accent couleur | L.302 |
+| `Stack` | `.push(h) -> top` | Curseur vertical qui empile les composants avec gap constant (évite le calcul manuel des `top`) | L.555 |
 | `_safe_top()` | `(top, height) -> top` | Garde-fou : remonte le composant si `top+height > BOTTOM_CONTENT` | L.478 |
 | `_estimate_height()` | `(content, width, ...) -> float` | Estime la hauteur en pouces d'un texte pour le positionnement | L.496 |
 | `add_callout` | `(slide, titre, bullets, top, ...) -> shape` | Boite d'information bleue DSFR avec titre + bullets | L.631 |
@@ -197,7 +197,7 @@ Le container central merite un zoom car il porte toute la logique de composition
 | `add_fleche` | `(slide, top, left, ...) -> shape` | Fleche decorative entre elements | L.1090 |
 | `compose_sommaire` | `(slide, titre, parties) -> None` | Compose un sommaire avec cards numerotees | L.1209 |
 | `compose_chapitre` | `(slide, numero, titre) -> None` | Compose une slide de chapitre avec bandeau bleu | L.1227 |
-| `finalize_pptx` | `(prs, output, ...) -> path` | Post-traitement a11y complet : ordre de lecture, langue, decoratifs, metadonnees, quarantine macOS | L.1368 |
+| `finalize_pptx` | `(prs, output, ...) -> path` | Post-traitement a11y complet : ordre de lecture, langue, décoratifs, métadonnées, quarantine macOS | L.1368 |
 
 ---
 
@@ -243,25 +243,25 @@ Le container central merite un zoom car il porte toute la logique de composition
 
 ---
 
-## Limites a dire en presentation
+## Limites à dire en présentation
 
-- **Pas de rendu pixel** : le pipeline genere du XML OOXML, pas un rendu visuel. Les debordements fins ne sont detectables que dans PowerPoint (passe manuelle obligatoire).
-- **`_estimate_height` est heuristique** : l'estimation de hauteur repose sur un calcul approximatif (caracteres par pouce), pas sur un moteur de rendu texte. Les cas limites (texte long, polices variables) peuvent deborder.
-- **`_safe_top` est un garde-fou de dernier recours** : il remonte un composant pour eviter de sortir de la zone utile, mais peut creer un chevauchement avec le composant precedent si le `top` initial etait deja trop bas.
-- **Deux regimes de slides** : certaines slides sont retouchees manuellement dans PowerPoint apres generation. La regeneration ecrase ces corrections. Il faut identifier le regime avant de relancer `assemble.py`.
-- **Pas de CI/CD** : la generation est locale, sur le poste d'Alex. Pas de pipeline de build automatise.
-- **Pas de tests unitaires** : la bibliotheque de composants n'a pas de suite de tests. La validation repose sur `validate.py` (site easy checks uniquement) et la passe visuelle manuelle.
+- **Pas de rendu pixel** : le pipeline génère du XML OOXML, pas un rendu visuel. Les débordements fins ne sont détectables que dans PowerPoint (passe manuelle obligatoire).
+- **`_estimate_height` est heuristique** : l'estimation de hauteur repose sur un calcul approximatif (caractères par pouce), pas sur un moteur de rendu texte. Les cas limites (texte long, polices variables) peuvent déborder.
+- **`_safe_top` est un garde-fou de dernier recours** : il remonte un composant pour éviter de sortir de la zone utile, mais peut créer un chevauchement avec le composant précédent si le `top` initial était déjà trop bas.
+- **Deux régimes de slides** : certaines slides sont retouchées manuellement dans PowerPoint après génération. La régénération écrase ces corrections. Il faut identifier le régime avant de relancer `assemble.py`.
+- **Pas de CI/CD** : la génération est locale, sur le poste d'Alex. Pas de pipeline de build automatisé.
+- **55 tests pytest** : la bibliothèque de composants a une suite de tests (helpers, composants, a11y, géométrie deck). La validation repose aussi sur `validate.py` (site easy checks) et la passe visuelle manuelle.
 
 ---
 
 ## Checklist de conformité C4
 
-- [x] Systeme en scope et systemes externes distingues
+- [x] Système en scope et systèmes externes distingués
 - [x] Personnes/roles visibles en C1
 - [x] Containers C2 sont des applications ou data stores en runtime
 - [x] Chaque element a type, responsabilite et technologie
 - [x] Chaque relation est orientee et labellisee
-- [x] Contraintes et hypotheses documentees avant les recommandations
+- [x] Contraintes et hypothèses documentées avant les recommandations
 - [x] C3 present uniquement pour le container critique (igpde_dsfr_components.py)
 - [x] Sources locales lues citees
 - [x] Chaque vue a un titre lisible indiquant son niveau

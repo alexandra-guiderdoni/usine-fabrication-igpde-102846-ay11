@@ -192,5 +192,5 @@ Ces 5 contraintes simultanées excluent les alternatives : un générateur Markd
 | Leçons techniques | `lessons.md` |
 | Tâches en cours | `todo.md` |
 | Spec exercice Sami | `_source/exercice-sami-spec.md` |
-| Passation derniere session | `_source/passation-session-2026-05-03.md` |
+| Passation dernière session | `_source/passation-session-2026-05-03.md` |
 | Publication du site exercice | `docs-publication.md` |
