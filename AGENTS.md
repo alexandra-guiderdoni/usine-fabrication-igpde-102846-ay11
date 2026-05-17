@@ -5,22 +5,22 @@ Ce fichier adapte `CLAUDE.md` pour Codex. Les consignes globales Codex restent a
 ## Contexte
 
 - Formation accessibilité numérique, 1 jour, public communicants, pas développeurs
-- 131 slides PPTX DSFR, 4 modules : Introduction communication accessible et cadre légal > Word accessible > points de contrôle rapides W3C > Réseaux sociaux
+- 138 slides PPTX DSFR, 4 modules : Introduction communication accessible et cadre légal > Word accessible > points de contrôle rapides W3C > Réseaux sociaux
 - Ordre impératif M1 > M2 > M3 > M4, jamais inverser
 - Exercice Sami : 21 critères à vérifier dans 3 DOCX, spec dans `_source/exercice-sami-spec.md`
 - Site d'exercice points de contrôle rapides dans `docs/`, avec versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/` et grille XLSX téléchargeable
 - Site publié sur GitHub Pages via dépôt standalone `easy-check-igpde` : https://alexmacapple.github.io/easy-check-igpde/
-- Dernier état livré : deck `formation-102638-juin-2026.pptx` à 131 slides (2026-05-16)
+- Dernier état livré : deck `formation-102638-juin-2026.pptx` à 138 slides (2026-05-17)
 - Deck WCAG condensé : `wcag/WCAG en langage clair - condensé.pptx` (13 slides), généré par `scripts/generate_wcag_langage_clair.py --condensed`
 
 ## Pipeline
 
-- **Toujours modifier les scripts Python, jamais le PPTX directement** : editer `scripts/slides/NN_*.py` puis regenerer avec `python3 scripts/assemble.py`
-- Pattern de nommage : `NN_nom.py` ou `NNxx_nom.py` (suffixe multi-lettres accepte, ex. `02ma_`, `02rb_`)
+- **Toujours modifier les scripts Python, jamais le PPTX directement** : éditer `scripts/slides/NN_*.py` puis régénérer avec `python3 scripts/assemble.py`
+- Pattern de nommage : `NN_nom.py` ou `NNxx_nom.py` (suffixe multi-lettres accepté, ex. `02ma_`, `02rb_`)
 - Chaque module expose `build(prs, layouts, ctx)` avec `ctx.page_num`, `ctx.date`, `ctx.footer_base`
-- Regenerer avec `python3 scripts/assemble.py`
+- Régénérer avec `python3 scripts/assemble.py`
 - Tester une slide avec `python3 scripts/assemble.py --only NN`
-- Regenerer les DOCX Sami avec `python3 scripts/generate_exercice_sami.py`
+- Régénérer les DOCX Sami avec `python3 scripts/generate_exercice_sami.py`
 - Valider le site d'exercice avec `python3 validate.py`
 - `finalize_pptx()` est obligatoire avant livraison, via les scripts du projet
 
@@ -34,37 +34,38 @@ Ce fichier adapte `CLAUDE.md` pour Codex. Les consignes globales Codex restent a
 - Les documents accessibles doivent déclarer des métadonnées cohérentes avec leur langue réelle, notamment `fr` pour les documents en français. Les versions volontairement inaccessibles peuvent conserver des défauts pédagogiques explicites.
 - Exercice pédagogique : ne pas distribuer la checklist au moment de l'identification. Les stagiaires doivent d'abord diagnostiquer sans filet ; la checklist sert ensuite à consolider, pas à court-circuiter le jugement.
 
-## Competences a utiliser
+## Compétences à utiliser
 
-Pour une nouvelle slide ou une restructuration pedagogique :
+Pour une nouvelle slide ou une restructuration pédagogique :
 
 1. `pedagogie-neuro`
 2. `composition-dsfr-pptx`
 3. `accessible-pptx`
 
-Pour transformer un corpus en presentation avant composition :
+Pour transformer un corpus en présentation avant composition :
 
 1. `pedagogie-neuro`
 2. `slides-pedagogiques`
 3. `composition-dsfr-pptx`
 4. `accessible-pptx`
 
-Si les skills ne sont pas automatiquement injectes dans la session, lire leurs aliases dans `~/.codex/skills/<nom>/SKILL.md`. Ces aliases pointent vers les sources Claude dans `/Users/alex/Claude/.claude/skills`.
+Si les skills ne sont pas automatiquement injectés dans la session, lire leurs aliases dans `~/.codex/skills/<nom>/SKILL.md`. Ces aliases pointent vers les sources Claude dans `/Users/alex/Claude/.claude/skills`.
 
 ## Playbooks
 
-- Nouvelle slide : creer `scripts/slides/NN_nom.py`, suffixe lettre(s) pour intercaler (`05a_`, `02ma_`)
-- Tests unitaires : `python3 -m pytest tests/ -v` (51 tests, couvre helpers + composants + a11y)
+- Nouvelle slide : créer `scripts/slides/NN_nom.py`, suffixe lettre(s) pour intercaler (`05a_`, `02ma_`)
+- Tests unitaires : `python3 -m pytest tests/ -v` (55 tests, couvre helpers + composants + a11y + géométrie deck)
+- Tests géométrie : `python3 scripts/assemble.py && python3 -m pytest tests/test_deck_geometry.py -v`
 - Tester : `python3 scripts/assemble.py --only NN`
 - Template absent : `python3 scripts/build_template.py`
-- Previsualiser le site des points de contrôle rapides : depuis `docs/`, lancer `python3 -m http.server 8765 --bind 127.0.0.1`, puis ouvrir `http://127.0.0.1:8765/index.html`
-- Alternative fichier direct : ouvrir `file:///Users/alex/Claude/projets-formations/IGPDE-Carinne-C/docs/index.html`, mais preferer le serveur local si les composants DSFR interactifs ne reagissent pas
-- Arreter le serveur local : revenir dans le terminal qui execute `http.server` et faire `Ctrl+C`
+- Prévisualiser le site des points de contrôle rapides : depuis `docs/`, lancer `python3 -m http.server 8765 --bind 127.0.0.1`, puis ouvrir `http://127.0.0.1:8765/index.html`
+- Alternative fichier direct : ouvrir `file:///Users/alex/Claude/projets-formations/IGPDE-Carinne-C/docs/index.html`, mais préférer le serveur local si les composants DSFR interactifs ne réagissent pas
+- Arrêter le serveur local : revenir dans le terminal qui exécute `http.server` et faire `Ctrl+C`
 - Quarantine macOS : `xattr -d com.apple.quarantine formation-102638-juin-2026.pptx`
 - Controle tirets dans les scripts : `grep -rn $'—\|–' scripts/` doit retourner vide
 - Controle PPTX : `unzip -t formation-102638-juin-2026.pptx`
-- Warnings footer : diagnostiquer par slide, corriger le positionnement source, puis regenerer le deck complet
-- Publier le site : `rsync -a --delete --exclude='.DS_Store' --exclude='*.md' --exclude='.git' docs/ /tmp/easy-check-igpde/ && cd /tmp/easy-check-igpde && git add -A && git commit -m "Mise a jour du site" && git push`
+- Warnings footer : diagnostiquer par slide, corriger le positionnement source, puis régénérer le deck complet
+- Publier le site : `rsync -a --delete --exclude='.DS_Store' --exclude='*.md' --exclude='.git' docs/ /tmp/easy-check-igpde/ && cd /tmp/easy-check-igpde && git add -A && git commit -m "Mise à jour du site" && git push`
 
 ## Grille IGPDE-DSFR
 
@@ -81,46 +82,47 @@ Layouts : `couverture`, `titre_soustitre`, `titre_contenu`, `chapitre`, `sommair
 
 Composants : `add_callout`, `add_alert`, `add_highlight`, `add_quote`, `add_card`, `add_pave_chiffre`, `add_stepper`, `add_tableau`, `add_image`, `add_texte_libre`, `add_notes`, `add_encadre`, `add_fleche`, `compose_sommaire`, `compose_chapitre`.
 
-## A ne pas faire
+## À ne pas faire
 
-- Ne jamais hardcoder `page_num` - toujours `ctx.page_num`
-- Ne jamais utiliser `slide.shapes.add_textbox()` directement - utiliser `add_texte_libre`
-- Ne jamais introduire de tiret cadratin ni demi-cadratin dans les scripts - tiret simple `-`
-- Ne jamais modifier la ligne separatrice IGPDE a `y=6,98"` ni la disposition des logos
-- Ne jamais mettre de jargon developpeur dans le contenu des slides : ARIA, DOM, CSS
-- Ne jamais livrer sans regeneration et `finalize_pptx()`
-- Ne pas utiliser le mot "pilier" dans les slides - remplacer par "theme"
+- Ne jamais écrire du français sans accents (é, è, ê, à, ç, ô, etc.) — dans les slides, les scripts, les docs et lessons.md. Vérifier : `grep -rn 'debordement\|Regle\b\|Symptome\b\|echec\b' lessons.md scripts/`
+- Ne jamais hardcoder `page_num` — toujours `ctx.page_num`
+- Ne jamais utiliser `slide.shapes.add_textbox()` directement — utiliser `add_texte_libre`
+- Ne jamais introduire de tiret cadratin ni demi-cadratin dans les scripts — tiret simple `-`
+- Ne jamais modifier la ligne séparatrice IGPDE à `y=6,98"` ni la disposition des logos
+- Ne jamais mettre de jargon développeur dans le contenu des slides : ARIA, DOM, CSS
+- Ne jamais livrer sans régénération et `finalize_pptx()`
+- Ne pas utiliser le mot « pilier » dans les slides — remplacer par « thème »
 
-## Modes d'echec connus
+## Modes d'échec connus
 
-- `add_alert` ou `add_callout` avec une string au lieu d'une liste : itere sur chaque caractere
-- Changement typographique global sans recalibrer `_estimate_height` : risque de debordement massif
-- `add_image` sans `height=` pres d'un autre composant : risque de debordement
-- Estimation additive texte + image : ne pas supposer que `_estimate_height(text) + image_height` garantit l'absence de chevauchement ; verifier le rendu et contraindre les hauteurs
-- `layout_name="titre_soustitre"` sur une slide de contenu : logos institutionnels affiches par erreur
-- `accent_w` different de `0,08"` sauf chapitre `0,16"` : defaut d'alignement visible
-- Placeholder Title : copier les 4 dimensions `(top, left, width, height)` sinon `left` et `width` tombent a 0
-- Quiz : questions et reponses doivent etre separees, souvent avec suffixe `b`
-- `Stack` / `_safe_top` : `_safe_top` evite le debordement bas en remontant le composant, mais peut creer un chevauchement avec le bloc precedent si le `top` initial est trop optimiste
-- Warning footer : ne jamais le traiter comme un simple bruit console. Verifier l'ecart avec le bloc precedent, resserrer ou recomposer la slide, puis viser `TOTAL_WARNINGS 0`
+- `add_alert` ou `add_callout` avec une string au lieu d'une liste : itère sur chaque caractère
+- Changement typographique global sans recalibrer `_estimate_height` : risque de débordement massif
+- `add_image` sans `height=` près d'un autre composant : risque de débordement
+- Estimation additive texte + image : ne pas supposer que `_estimate_height(text) + image_height` garantit l'absence de chevauchement ; vérifier le rendu et contraindre les hauteurs
+- `layout_name="titre_soustitre"` sur une slide de contenu : logos institutionnels affichés par erreur
+- `accent_w` différent de `0,08"` sauf chapitre `0,16"` : défaut d'alignement visible
+- Placeholder Title : copier les 4 dimensions `(top, left, width, height)` sinon `left` et `width` tombent à 0
+- Quiz : questions et réponses doivent être séparées, souvent avec suffixe `b`
+- `Stack` / `_safe_top` : `_safe_top` évite le débordement bas en remontant le composant, mais peut créer un chevauchement avec le bloc précédent si le `top` initial est trop optimiste
+- Warning footer : ne jamais le traiter comme un simple bruit console. Vérifier l'écart avec le bloc précédent, resserrer ou recomposer la slide, puis viser `TOTAL_WARNINGS 0`
 
-## References
+## Références
 
-- `contraintes.md` pour les dependances, limitations et features existantes.
+- `contraintes.md` pour les dépendances, limitations et features existantes.
 
 | Ressource | Fichier |
 |-----------|---------|
 | Architecture C4 slides | `architecture-c4-slides.md` |
 | Spec exercice Sami | `_source/exercice-sami-spec.md` |
-| Diff des criteres Sami | `_source/exercice-sami-diff.md` |
-| Lecons techniques | `lessons.md` |
-| points de contrôle rapides W3C | `03-easy-checks/w3c-easy-checks-fr.md` |
+| Diff des critères Sami | `_source/exercice-sami-diff.md` |
+| Leçons techniques | `lessons.md` |
+| Points de contrôle rapides W3C | `03-easy-checks/w3c-easy-checks-fr.md` |
 | Guide accessibiliser sa communication | `_source/references/Guide-2026-Accessibiliser-sa-communication-police-14-coul.md` |
-| Notes reseaux sociaux | `04-reseaux-sociaux/md-reseaux-sociaux.md` |
+| Notes réseaux sociaux | `04-reseaux-sociaux/md-reseaux-sociaux.md` |
 | Notes FALC | `05-falc/md-falc.md` |
-| Notes medias | `06-medias/md-medias.md` |
-| Passation derniere session | `_source/passation-session-2026-05-03.md` |
+| Notes médias | `06-medias/md-medias.md` |
+| Passation dernière session | `_source/passation-session-2026-05-03.md` |
 | Publication site | `docs-publication.md` |
-| Depot site standalone | `git@github.com:Alexmacapple/easy-check-igpde.git` |
+| Dépôt site standalone | `git@github.com:Alexmacapple/easy-check-igpde.git` |
 | URL publique site | https://alexmacapple.github.io/easy-check-igpde/ |
-| Dependances | Python 3 + `python-pptx` + `lxml` + `openpyxl` + Marianne, fallback Arial |
+| Dépendances | Python 3 + `python-pptx` + `lxml` + `openpyxl` + Marianne, fallback Arial |

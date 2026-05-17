@@ -65,6 +65,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 
 ## À ne pas faire
 
+- Jamais écrire du français sans accents (é, è, ê, à, ç, ô, etc.) — dans les slides, les scripts, les docs et lessons.md. Vérifier en fin de session : `grep -rn 'debordement\|Regle\b\|Symptome\b\|echec\b' lessons.md scripts/`
 - Jamais hardcoder `page_num` — toujours `ctx.page_num`
 - Jamais `slide.shapes.add_textbox()` direct — utiliser `add_texte_libre` (EMU vs pouces)
 - Jamais de tiret cadratin ni demi-cadratin dans les scripts — tiret simple `-`
