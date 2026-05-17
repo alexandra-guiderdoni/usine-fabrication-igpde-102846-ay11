@@ -158,39 +158,39 @@ Erreur fréquente : hardcoder `TOP_CARDS = 2.45"` sans vérifier que `row2_top +
 
 ---
 
-## add_callout / add_alert : string au lieu de liste = slide cassee
+## add_callout / add_alert : string au lieu de liste = slide cassée
 
-Passer une string unique au lieu d'une liste de bullets a `add_callout` ou `add_alert` itere sur chaque caractere de la string. Chaque lettre devient un bullet.
+Passer une string unique au lieu d'une liste de bullets à `add_callout` ou `add_alert` itère sur chaque caractère de la string. Chaque lettre devient un bullet.
 
-**Symptome** : la slide affiche des dizaines de lignes d'un caractere chacune.
+**Symptôme** : la slide affiche des dizaines de lignes d'un caractère chacune.
 
-**Cause** : `_add_bullets(tf, items, ...)` itere sur `items`. Si `items` est une string `"Texte"`, Python itere sur `['T', 'e', 'x', 't', 'e']`.
+**Cause** : `_add_bullets(tf, items, ...)` itère sur `items`. Si `items` est une string `"Texte"`, Python itère sur `['T', 'e', 'x', 't', 'e']`.
 
-**Fix** : toujours passer une liste, meme pour un seul bullet : `["Mon texte"]`, jamais `"Mon texte"`.
+**Fix** : toujours passer une liste, même pour un seul bullet : `["Mon texte"]`, jamais `"Mon texte"`.
 
-Source : `CLAUDE.md` section Modes d'echec connus.
+Source : `CLAUDE.md` section Modes d'échec connus.
 
 ---
 
 ## Changement typographique global : recalibrer _estimate_height
 
-Modifier la taille de police, l'interligne ou l'espacement sur l'ensemble du deck sans recalibrer les constantes de `_estimate_height` provoque des debordements en cascade sur 50+ slides.
+Modifier la taille de police, l'interligne ou l'espacement sur l'ensemble du deck sans recalibrer les constantes de `_estimate_height` provoque des débordements en cascade sur 50+ slides.
 
-**Symptome** : texte coupe ou chevauchement massif apres un changement de taille de police apparemment mineur.
+**Symptôme** : texte coupé ou chevauchement massif après un changement de taille de police apparemment mineur.
 
-**Regle** : tout changement typographique global (taille, interligne, espacement) impose une passe de recalibration de `_estimate_height` et des `h_padding` avant regeneration.
+**Règle** : tout changement typographique global (taille, interligne, espacement) impose une passe de recalibration de `_estimate_height` et des `h_padding` avant régénération.
 
-Source : `CLAUDE.md` section Modes d'echec connus.
+Source : `CLAUDE.md` section Modes d'échec connus.
 
 ---
 
-## add_image sans height= : debordement sur le composant suivant
+## add_image sans height= : débordement sur le composant suivant
 
-`add_image` sans parametre `height=` laisse python-pptx calculer la hauteur a partir du ratio natif de l'image. Si l'image est haute, elle deborde sur le composant empile en dessous.
+`add_image` sans paramètre `height=` laisse python-pptx calculer la hauteur à partir du ratio natif de l'image. Si l'image est haute, elle déborde sur le composant empilé en dessous.
 
-**Regle** : toujours passer `height=` a `add_image` quand un autre composant suit sur la meme slide. Verifier visuellement que `image_top + image_height` reste au-dessus du composant suivant.
+**Règle** : toujours passer `height=` à `add_image` quand un autre composant suit sur la même slide. Vérifier visuellement que `image_top + image_height` reste au-dessus du composant suivant.
 
-Source : `CLAUDE.md` section Modes d'echec connus.
+Source : `CLAUDE.md` section Modes d'échec connus.
 
 ---
 
@@ -198,61 +198,61 @@ Source : `CLAUDE.md` section Modes d'echec connus.
 
 Ne pas supposer que `_estimate_height(text) + image_height` garantit l'absence de chevauchement. L'estimation de texte est heuristique et les marges internes des composants ajoutent des pouces invisibles.
 
-**Regle** : contraindre les hauteurs explicitement et verifier le rendu dans PowerPoint. Ne pas se fier a un calcul purement additif.
+**Règle** : contraindre les hauteurs explicitement et vérifier le rendu dans PowerPoint. Ne pas se fier à un calcul purement additif.
 
-Source : `CLAUDE.md` section Modes d'echec connus.
+Source : `CLAUDE.md` section Modes d'échec connus.
 
 ---
 
 ## Layout titre_soustitre sur une slide de contenu : logos parasites
 
-Utiliser `layout_name="titre_soustitre"` sur une slide de contenu normal affiche les logos institutionnels (Republique francaise, IGPDE) en plein milieu de la slide, au-dessus du contenu.
+Utiliser `layout_name="titre_soustitre"` sur une slide de contenu normal affiche les logos institutionnels (République française, IGPDE) en plein milieu de la slide, au-dessus du contenu.
 
-**Regle** : `titre_soustitre` est reserve a la page de couverture et a la slide de cloture. Pour le contenu, utiliser `titre_contenu`.
+**Règle** : `titre_soustitre` est réservé à la page de couverture et à la slide de clôture. Pour le contenu, utiliser `titre_contenu`.
 
-Source : `CLAUDE.md` section Modes d'echec connus ; incident slide 21 (`_source/passation-session-2026-05-03.md`).
+Source : `CLAUDE.md` section Modes d'échec connus ; incident slide 21 (`_source/passation-session-2026-05-03.md`).
 
 ---
 
 ## Accent accent_w : 0,08" sauf chapitre
 
-L'accent bleu vertical a gauche du titre doit mesurer 0,08" de large. Toute autre valeur (0,05", 0,10") est percue comme un defaut d'alignement par rapport aux autres slides.
+L'accent bleu vertical à gauche du titre doit mesurer 0,08" de large. Toute autre valeur (0,05", 0,10") est perçue comme un défaut d'alignement par rapport aux autres slides.
 
 **Exception** : les slides de chapitre utilisent `accent_w=0,16"` (bandeau plus large, voulu).
 
-Source : `CLAUDE.md` section Modes d'echec connus.
+Source : `CLAUDE.md` section Modes d'échec connus.
 
 ---
 
-## Quiz : separer questions et reponses
+## Quiz : séparer questions et réponses
 
-Les questions et reponses d'un quiz ne doivent jamais figurer sur la meme slide. Le stagiaire voit la reponse avant de reflechir, ce qui annule l'effet pedagogique.
+Les questions et réponses d'un quiz ne doivent jamais figurer sur la même slide. Le stagiaire voit la réponse avant de réfléchir, ce qui annule l'effet pédagogique.
 
-**Regle** : creer deux modules : `NN_quiz.py` (question) et `NNb_quiz.py` (reponse, suffixe `b`).
+**Règle** : créer deux modules : `NN_quiz.py` (question) et `NNb_quiz.py` (réponse, suffixe `b`).
 
-Source : `CLAUDE.md` section Modes d'echec connus.
+Source : `CLAUDE.md` section Modes d'échec connus.
 
 ---
 
-## _safe_top : chevauchement silencieux avec le bloc precedent
+## _safe_top : chevauchement silencieux avec le bloc précédent
 
-`_safe_top(top, height)` remonte le composant si `top + height > BOTTOM_CONTENT`. Cela evite le debordement bas mais peut creer un chevauchement avec le composant precedent si le `top` initial etait deja trop bas.
+`_safe_top(top, height)` remonte le composant si `top + height > BOTTOM_CONTENT`. Cela évite le débordement bas mais peut créer un chevauchement avec le composant précédent si le `top` initial était déjà trop bas.
 
-**Symptome** : deux composants superposes visuellement, mais aucune erreur dans la console.
+**Symptôme** : deux composants superposés visuellement, mais aucune erreur dans la console.
 
-**Regle** : ne pas compter sur `_safe_top` comme filet de securite. Calibrer les hauteurs et les gaps en amont via `Stack` + estimateurs. Si `_safe_top` se declenche, c'est un signal que la slide est trop chargee — la recomposer.
+**Règle** : ne pas compter sur `_safe_top` comme filet de sécurité. Calibrer les hauteurs et les gaps en amont via `Stack` + estimateurs. Si `_safe_top` se déclenche, c'est un signal que la slide est trop chargée — la recomposer.
 
-Source : `CLAUDE.md` section Modes d'echec connus.
+Source : `CLAUDE.md` section Modes d'échec connus.
 
 ---
 
 ## Warning footer : jamais du bruit
 
-Le warning `footer overlap` en console signale qu'un composant empiete sur la zone footer (y > 6,80"). Ne jamais le traiter comme du bruit console.
+Le warning `footer overlap` en console signale qu'un composant empiète sur la zone footer (y > 6,80"). Ne jamais le traiter comme du bruit console.
 
-**Regle** : verifier l'ecart entre le dernier composant et le footer, resserrer les gaps ou recomposer la slide. Objectif : `TOTAL_WARNINGS 0` avant livraison.
+**Règle** : vérifier l'écart entre le dernier composant et le footer, resserrer les gaps ou recomposer la slide. Objectif : `TOTAL_WARNINGS 0` avant livraison.
 
-Source : `CLAUDE.md` section Modes d'echec connus.
+Source : `CLAUDE.md` section Modes d'échec connus.
 
 ---
 
