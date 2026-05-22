@@ -32,6 +32,8 @@ from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from lxml import etree
 
+import qa_source_map
+
 
 # Namespaces OOXML
 NSMAP_P = "http://schemas.openxmlformats.org/presentationml/2006/main"
@@ -667,6 +669,7 @@ def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, heig
     # le rendu (ni vide a la fin, ni debordement). Pour forcer une hauteur
     # specifique (alignement entre plusieurs composants), utiliser add_card
     # qui respecte max(height, auto).
+    qa_start = qa_source_map.shape_count(slide)
     h_titre_box = max(_estimate_height(titre, width - 0.35, size=14), 0.35) if titre else 0
     h_titre = (0.10 + h_titre_box + 0.10) if titre else 0.15
     adjusted_lhm = 1.35 * (line_spacing / 1.25)
@@ -697,6 +700,10 @@ def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, heig
         b_box.name = "DSFR-callout-body"
         _add_bullets(b_box.text_frame, bullets, font=FONT, size=14, color=NOIR,
                      line_spacing=line_spacing, bullet_prefix=bullet_prefix)
+    qa_source_map.record_component(
+        "add_callout", slide, qa_start,
+        {"titre": str(titre)[:80], "top": top, "left": left, "width": width, "height": height},
+    )
     return slide
 
 
@@ -713,6 +720,7 @@ def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height
     Hauteur calculee automatiquement a partir du contenu.
     """
     # Palette unifiee : gris clair + accent Bleu France pour toutes les alerts
+    qa_start = qa_source_map.shape_count(slide)
     fond, accent = GRIS_CLAIR, BLEU_FRANCE
     # Calcul auto TOUJOURS (voir add_callout pour le rationnel)
     h_titre_box = max(_estimate_height(titre, width - 0.35, size=14), 0.35) if titre else 0
@@ -742,6 +750,17 @@ def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height
         b_box.name = f"DSFR-alert-{alert_type}-body"
         _add_bullets(b_box.text_frame, bullets, font=FONT, size=14, color=NOIR,
                      line_spacing=line_spacing)
+    qa_source_map.record_component(
+        "add_alert", slide, qa_start,
+        {
+            "titre": str(titre)[:80],
+            "alert_type": alert_type,
+            "top": top,
+            "left": left,
+            "width": width,
+            "height": height,
+        },
+    )
     return slide
 
 
@@ -752,6 +771,7 @@ def add_highlight(slide, texte, top, left=MARGIN_L, width=CONTENT_W, height=None
     sauf si passe explicitement et superieur).
     Si `url` est fourni, le texte devient un lien cliquable.
     """
+    qa_start = qa_source_map.shape_count(slide)
     h_text = _estimate_height(texte, width - 0.4, size=18)
     # Calcul auto TOUJOURS
     height = max(h_text + 0.3, 0.70)
@@ -789,12 +809,17 @@ def add_highlight(slide, texte, top, left=MARGIN_L, width=CONTENT_W, height=None
             f"{{{NSMAP_A}}}hlinkClick",
             {"{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id": rId},
         )
+    qa_source_map.record_component(
+        "add_highlight", slide, qa_start,
+        {"texte": str(texte)[:80], "top": top, "left": left, "width": width, "height": height},
+    )
     return slide
 
 
 def add_quote(slide, texte, auteur="", top=TOP_CONTENT, left=MARGIN_L,
               width=CONTENT_W, height=None):
     """Citation italique + auteur. Hauteur calculee automatiquement."""
+    qa_start = qa_source_map.shape_count(slide)
     h_text = _estimate_height(texte, width - 0.4, size=16)
     h_auteur = 0.50 if auteur else 0
     auto_h = max(h_text + h_auteur + 0.30, 0.90)
@@ -827,6 +852,10 @@ def add_quote(slide, texte, auteur="", top=TOP_CONTENT, left=MARGIN_L,
         a_box.name = "DSFR-quote-auteur"
         _apply_text(a_box.text_frame, auteur, font=FONT, size=14,
                     bold=True, color=BLEU_FRANCE)
+    qa_source_map.record_component(
+        "add_quote", slide, qa_start,
+        {"texte": str(texte)[:80], "auteur": str(auteur)[:80], "top": top, "left": left, "width": width, "height": height},
+    )
     return slide
 
 
@@ -840,6 +869,7 @@ def add_card(slide, titre, contenu, top, left, width=3.78, height=None,
     garantir l'absence de debordement tout en respectant une hauteur
     imposee (utile pour aligner plusieurs cartes cote a cote).
     """
+    qa_start = qa_source_map.shape_count(slide)
     auto_h = estimate_card_height(titre, contenu, width, numero)
     height = auto_h if height is None else height
     _make_box(slide, top, left, width, height,
@@ -879,11 +909,23 @@ def add_card(slide, titre, contenu, top, left, width=3.78, height=None,
             _add_bullets(c_box.text_frame, contenu, font=FONT, size=body_size, color=NOIR)
         else:
             _apply_text(c_box.text_frame, contenu, font=FONT, size=body_size, color=NOIR)
+    qa_source_map.record_component(
+        "add_card", slide, qa_start,
+        {
+            "titre": str(titre)[:80],
+            "numero": numero,
+            "top": top,
+            "left": left,
+            "width": width,
+            "height": height,
+        },
+    )
     return slide
 
 
 def add_pave_chiffre(slide, valeur, label, top, left, width=3.78, height=1.5):
     """KPI pave : valeur 36pt blanc sur bleu + label en-dessous."""
+    qa_start = qa_source_map.shape_count(slide)
     pave = slide.shapes.add_shape(
         MSO_SHAPE.RECTANGLE,
         Inches(left), Inches(top),
@@ -904,11 +946,16 @@ def add_pave_chiffre(slide, valeur, label, top, left, width=3.78, height=1.5):
     l_box.name = "DSFR-kpi-label"
     _apply_text(l_box.text_frame, label, font=FONT, size=14, bold=False,
                 color=NOIR, align=PP_ALIGN.CENTER)
+    qa_source_map.record_component(
+        "add_pave_chiffre", slide, qa_start,
+        {"valeur": str(valeur)[:80], "label": str(label)[:80], "top": top, "left": left, "width": width, "height": height},
+    )
     return slide
 
 
 def add_stepper(slide, etapes, top, left=MARGIN_L, width=CONTENT_W, height=2.5):
     """Stepper : pastilles numerotees + texte sous chaque pastille."""
+    qa_start = qa_source_map.shape_count(slide)
     n = len(etapes)
     if n == 0:
         return slide
@@ -951,12 +998,17 @@ def add_stepper(slide, etapes, top, left=MARGIN_L, width=CONTENT_W, height=2.5):
         t_box.name = f"DSFR-stepper-texte-{i+1}"
         _apply_text(t_box.text_frame, etape, font=FONT, size=14, bold=False,
                     color=NOIR, align=PP_ALIGN.CENTER)
+    qa_source_map.record_component(
+        "add_stepper", slide, qa_start,
+        {"nb_etapes": n, "top": top, "left": left, "width": width, "height": height},
+    )
     return slide
 
 
 def add_tableau(slide, headers, rows, top, left=MARGIN_L, width=CONTENT_W,
                 col_widths=None, row_h=0.45):
     """Tableau DSFR : en-tetes bleu fonce + lignes alternees."""
+    qa_start = qa_source_map.shape_count(slide)
     ncols = len(headers)
     nrows = len(rows) + 1
     if col_widths is None:
@@ -1004,6 +1056,10 @@ def add_tableau(slide, headers, rows, top, left=MARGIN_L, width=CONTENT_W,
     if tblPr is not None:
         tblPr.set("firstRow", "1")
         tblPr.set("bandRow", "1")
+    qa_source_map.record_component(
+        "add_tableau", slide, qa_start,
+        {"headers": [str(h)[:40] for h in headers], "rows": len(rows), "top": top, "left": left, "width": width},
+    )
     return Emu(table_shape.height).inches
 
 
@@ -1011,6 +1067,7 @@ def add_texte_libre(slide, texte, top, left=MARGIN_L, width=CONTENT_W,
                     height=0.6, size=14, bold=False, color=NOIR,
                     align=PP_ALIGN.LEFT):
     """Zone de texte positionnee librement."""
+    qa_start = qa_source_map.shape_count(slide)
     box = slide.shapes.add_textbox(
         Inches(left), Inches(top),
         Inches(width), Inches(height),
@@ -1018,11 +1075,16 @@ def add_texte_libre(slide, texte, top, left=MARGIN_L, width=CONTENT_W,
     box.name = "DSFR-texte-libre"
     _apply_text(box.text_frame, texte, font=FONT, size=size, bold=bold,
                 color=color, align=align)
+    qa_source_map.record_component(
+        "add_texte_libre", slide, qa_start,
+        {"texte": str(texte)[:80], "top": top, "left": left, "width": width, "height": height, "size": size},
+    )
     return slide
 
 
 def add_image(slide, image_path, top, left, width, height=None, alt_text=""):
     """Image positionnee librement avec alt text accessible."""
+    qa_start = qa_source_map.shape_count(slide)
     from pathlib import Path
     img_path = Path(image_path)
     if not img_path.is_absolute():
@@ -1039,6 +1101,10 @@ def add_image(slide, image_path, top, left, width, height=None, alt_text=""):
         ).set("descr", alt_text)
     else:
         pic.name = "DSFR-image-decoratif"
+    qa_source_map.record_component(
+        "add_image", slide, qa_start,
+        {"image_path": str(image_path), "top": top, "left": left, "width": width, "height": height, "has_alt": bool(alt_text)},
+    )
     return pic
 
 
@@ -1062,6 +1128,7 @@ def _set_run_hyperlink(slide, run, url):
 def add_qrcode(slide, image_path, url, top, left, size=1.10,
                label=None, label_width=2.80, label_position="right"):
     """QR code imprime avec alternative visible : CTA + URL lisible."""
+    qa_start = qa_source_map.shape_count(slide)
     pic = add_image(
         slide,
         image_path,
@@ -1110,11 +1177,23 @@ def add_qrcode(slide, image_path, url, top, left, size=1.10,
     if p.runs:
         _set_run_hyperlink(slide, p.runs[0], url)
 
+    qa_source_map.record_component(
+        "add_qrcode", slide, qa_start,
+        {
+            "image_path": str(image_path),
+            "url": url,
+            "top": top,
+            "left": left,
+            "size": size,
+            "label_position": label_position,
+        },
+    )
     return pic
 
 
 def add_fleche(slide, top, left, width=0.8):
     """Fleche verte d'evolution (entre 2 KPI)."""
+    qa_start = qa_source_map.shape_count(slide)
     fleche = slide.shapes.add_shape(
         MSO_SHAPE.RIGHT_ARROW,
         Inches(left), Inches(top),
@@ -1125,6 +1204,10 @@ def add_fleche(slide, top, left, width=0.8):
     fleche.fill.fore_color.rgb = VERT_SUCCES
     fleche.line.fill.background()
     fleche.shadow.inherit = False
+    qa_source_map.record_component(
+        "add_fleche", slide, qa_start,
+        {"top": top, "left": left, "width": width},
+    )
     return slide
 
 
@@ -1136,6 +1219,7 @@ def add_checklist(slide, items, top, left=MARGIN_L, width=CONTENT_W,
       - une string (case non cochee par defaut)
       - un tuple (texte, checked: bool) pour controler l'etat
     """
+    qa_start = qa_source_map.shape_count(slide)
     if height is None:
         height = len(items) * 0.45 + 0.3
     box = slide.shapes.add_textbox(
@@ -1172,6 +1256,10 @@ def add_checklist(slide, items, top, left=MARGIN_L, width=CONTENT_W,
         run_text.font.name = FONT
         run_text.font.size = Pt(size)
         run_text.font.color.rgb = NOIR
+    qa_source_map.record_component(
+        "add_checklist", slide, qa_start,
+        {"items": len(items), "top": top, "left": left, "width": width, "height": height, "size": size},
+    )
     return slide
 
 
@@ -1207,6 +1295,7 @@ def add_exemple_contre_exemple(slide, bon_titre, bon_bullets,
 def add_encadre(slide, top, left, width, height, titre="", bullets=None,
                 couleur_fond=GRIS_CLAIR, couleur_accent=BLEU_FRANCE):
     """Encadre parametrable (titre + bullets)."""
+    qa_start = qa_source_map.shape_count(slide)
     _make_box(slide, top, left, width, height,
               fill_color=couleur_fond, accent_color=couleur_accent, accent_w=0.08)
     y = top + 0.15
@@ -1235,6 +1324,10 @@ def add_encadre(slide, top, left, width, height, titre="", bullets=None,
         )
         b_box.name = "DSFR-encadre-bullets"
         _add_bullets(b_box.text_frame, bullets, font=FONT, size=14, color=NOIR)
+    qa_source_map.record_component(
+        "add_encadre", slide, qa_start,
+        {"titre": str(titre)[:80], "top": top, "left": left, "width": width, "height": height},
+    )
     return slide
 
 

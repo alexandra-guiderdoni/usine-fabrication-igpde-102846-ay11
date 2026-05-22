@@ -35,6 +35,7 @@ EMU_TOLERANCE = 0.01
 
 BASELINE_PATH = Path("tests/baselines/known-geometry-violations.json")
 REPORT_PATH = Path(".qa/qa-report.json")
+SOURCE_MAP_PATH = Path(".qa/source-map.json")
 
 ACCENT_TERMS = {
     "accessibilite": "accessibilité",
@@ -353,10 +354,19 @@ def load_baseline(project_root: Path) -> set[str]:
     return set(data.get("fingerprints", []))
 
 
+def load_source_map(project_root: Path) -> dict[str, Any] | None:
+    path = project_root / SOURCE_MAP_PATH
+    if not path.exists():
+        return None
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
 def build_report(deck: Any, project_root: Path) -> dict[str, Any]:
     """Construit le rapport QA sans l'écrire sur disque."""
     known_fingerprints = load_baseline(project_root)
     violations = collect_violations(deck)
+    source_map = load_source_map(project_root)
+    source_mapped = _enrich_with_source_map(violations, source_map)
     current_fingerprints = {violation["fingerprint"] for violation in violations}
 
     for violation in violations:
@@ -382,7 +392,9 @@ def build_report(deck: Any, project_root: Path) -> dict[str, Any]:
             "ignored": 0,
             "by_type": dict(sorted(by_type.items())),
             "new_by_type": dict(sorted(new_by_type.items())),
+            "source_mapped": source_mapped,
         },
+        "source_map": str(SOURCE_MAP_PATH) if source_map is not None else None,
         "violations": violations,
         "resolved": resolved,
         "ignored": [],
@@ -399,3 +411,46 @@ def write_report(deck: Any, project_root: Path, report_path: Path | None = None)
         encoding="utf-8",
     )
     return report
+
+
+def _enrich_with_source_map(violations: list[dict[str, Any]], source_map: dict[str, Any] | None) -> int:
+    if not source_map:
+        return 0
+    components = source_map.get("components", [])
+    mapped = 0
+    for violation in violations:
+        component = _find_component_for_violation(violation, components)
+        if component is None:
+            continue
+        violation["source"] = {
+            "source_file": component.get("source_file"),
+            "call_lineno": component.get("call_lineno"),
+            "component_type": component.get("component_type"),
+            "component_id": component.get("component_id"),
+            "call_order": component.get("call_order"),
+        }
+        mapped += 1
+    return mapped
+
+
+def _find_component_for_violation(
+    violation: dict[str, Any],
+    components: list[dict[str, Any]],
+) -> dict[str, Any] | None:
+    slide_index = violation["slide_index"]
+    shape_name = violation["shape_name"]
+    rect = violation["rect"]
+    for component in components:
+        if component.get("slide_index") != slide_index:
+            continue
+        for shape in component.get("shapes", []):
+            if shape.get("name") != shape_name:
+                continue
+            if _rect_close(shape.get("rect", {}), rect):
+                return component
+    return None
+
+
+def _rect_close(a: dict[str, float], b: dict[str, float], tolerance: float = 0.011) -> bool:
+    keys = ("top", "left", "height", "width")
+    return all(abs(float(a.get(key, 0)) - float(b.get(key, 0))) <= tolerance for key in keys)

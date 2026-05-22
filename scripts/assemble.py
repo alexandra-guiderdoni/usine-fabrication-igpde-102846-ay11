@@ -28,6 +28,7 @@ PROJECT_ROOT = SCRIPTS_DIR.parent
 sys.path.insert(0, str(SCRIPTS_DIR))
 
 from igpde_dsfr_components import create_presentation, finalize_pptx  # noqa: E402
+import qa_source_map  # noqa: E402
 from slides import (  # noqa: E402
     SlideContext, discover_slides, load_slide_module,
 )
@@ -68,6 +69,20 @@ def _filter_slides(
     return kept
 
 
+def _slide_title(slide) -> str | None:
+    """Retourne le premier titre visible trouvé sur la slide."""
+    for shape in slide.shapes:
+        name = (shape.name or "").lower()
+        if "title" not in name and "titre" not in name:
+            continue
+        if not getattr(shape, "has_text_frame", False):
+            continue
+        text = shape.text_frame.text.strip()
+        if text:
+            return text
+    return None
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--only", help="Numéro de slide à générer seule (ex. 05)")
@@ -85,6 +100,10 @@ def main() -> None:
         "--footer-base", default=FOOTER_BASE_DEFAULT,
         help="Préfixe de pied de page transmis dans ctx.footer_base",
     )
+    parser.add_argument(
+        "--qa-map", action="store_true",
+        help="Écrit .qa/source-map.json avec la provenance des composants DSFR",
+    )
     args = parser.parse_args()
 
     all_slides = discover_slides()
@@ -94,22 +113,38 @@ def main() -> None:
     selected = _filter_slides(all_slides, args.only, args.frm, args.to)
 
     prs, layouts = create_presentation()
-    for page_num, path in enumerate(selected, start=1):
-        module = load_slide_module(path)
-        ctx = SlideContext(
-            page_num=page_num,
-            date=args.date,
-            footer_base=args.footer_base,
-        )
-        module.build(prs, layouts, ctx)
-        print(f"  [{page_num:02d}] {path.name}")
+    if args.qa_map:
+        qa_source_map.enable(PROJECT_ROOT)
+    try:
+        for page_num, path in enumerate(selected, start=1):
+            module = load_slide_module(path)
+            ctx = SlideContext(
+                page_num=page_num,
+                date=args.date,
+                footer_base=args.footer_base,
+            )
+            qa_source_map.start_slide(
+                slide_index=page_num,
+                slide_number=_slide_number(path),
+                source_file=str(path.relative_to(PROJECT_ROOT)),
+                page_num=page_num,
+            )
+            module.build(prs, layouts, ctx)
+            if args.qa_map and prs.slides:
+                qa_source_map.finish_slide(_slide_title(prs.slides[-1]))
+            print(f"  [{page_num:02d}] {path.name}")
 
-    finalize_pptx(
-        prs, str(args.output),
-        title="Formation 102638 - Accessibilité numérique",
-        author="Alex Guiderdoni",
-        subject="Support de formation IGPDE - DSFR accessible",
-    )
+        finalize_pptx(
+            prs, str(args.output),
+            title="Formation 102638 - Accessibilité numérique",
+            author="Alex Guiderdoni",
+            subject="Support de formation IGPDE - DSFR accessible",
+        )
+        if args.qa_map:
+            source_map_path = qa_source_map.write()
+            print(f"[QA] Source map : {source_map_path.relative_to(PROJECT_ROOT)}")
+    finally:
+        qa_source_map.disable()
     print(f"[OK] {args.output.name} généré ({len(selected)} slides)")
 
 
