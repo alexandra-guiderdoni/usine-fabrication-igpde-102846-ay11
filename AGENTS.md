@@ -54,8 +54,10 @@ Si les skills ne sont pas automatiquement injectés dans la session, lire leurs 
 ## Playbooks
 
 - Nouvelle slide : créer `scripts/slides/NN_nom.py`, suffixe lettre(s) pour intercaler (`05a_`, `02ma_`)
-- Tests unitaires : `python3 -m pytest tests/ -v` (55 tests, couvre helpers + composants + a11y + géométrie deck)
-- Tests géométrie : `python3 scripts/assemble.py && python3 -m pytest tests/test_deck_geometry.py -v`
+- Tests unitaires : `python3 -m pytest tests/ -v` (suite complète helpers + composants + a11y + QA deck)
+- Tests géométrie : `python3 scripts/assemble.py --qa-map -o .qa/formation-test-qa.pptx && QA_PPTX_PATH=.qa/formation-test-qa.pptx python3 -m pytest tests/test_deck_geometry.py -v`
+- Boucle QA PPTX PRD-119 : `python3 scripts/qa_pptx.py . --max-iterations 5 --clean`
+- Correcteur accents QA : utiliser `python3 scripts/qa_pptx.py . --max-iterations 5 --apply-accents` seulement si les patchs d'accents sûrs doivent être appliqués
 - Tester : `python3 scripts/assemble.py --only NN`
 - Template absent : `python3 scripts/build_template.py`
 - Prévisualiser le site des points de contrôle rapides : depuis `docs/`, lancer `python3 -m http.server 8765 --bind 127.0.0.1`, puis ouvrir `http://127.0.0.1:8765/index.html`
