@@ -92,7 +92,7 @@ Le formateur Alex édite les modules Python et lance la génération. Le deck PP
 +---------------------------+     +------------------------------+
 | PPT-IGPDE-DSFR-base-      |     | formation-102638-juin-2026   |
 | intervenant.pptx          |     | .pptx                        |
-| (template avec layouts    |     | (artefact final, 131 slides) |
+| (template avec layouts    |     | (artefact final, 138 slides) |
 |  et master)               |     +------------------------------+
 +---------------------------+
 ```
@@ -100,11 +100,11 @@ Le formateur Alex édite les modules Python et lance la génération. Le deck PP
 | Container | Technologie | Responsabilite | Donnees |
 |-----------|-------------|----------------|---------|
 | `assemble.py` | Python 3 | Orchestre la decouverte, le tri, le chargement et l'execution sequentielle des modules de slides. Produit le PPTX final | Lit les modules `NN_*.py`, ecrit le `.pptx` |
-| `scripts/slides/NN_*.py` (131 fichiers) | Python 3 | Chaque module definit le contenu d'une ou plusieurs slides. Expose `build(prs, layouts, ctx)` | Importe les composants depuis `igpde_dsfr_components` |
+| `scripts/slides/NN_*.py` (138 fichiers) | Python 3 | Chaque module definit le contenu d'une ou plusieurs slides. Expose `build(prs, layouts, ctx)` | Importe les composants depuis `igpde_dsfr_components` |
 | `igpde_dsfr_components.py` (55 Ko) | Python 3 + python-pptx + lxml | Bibliotheque de composants DSFR : grille, palette, 16 helpers de composition, post-traitement a11y | Charge le template PPTX, manipule le XML OOXML |
 | `build_template.py` | Python 3 + python-pptx | Genere le template DSFR 13,33"x7,5" a partir du source IGPDE 10"x5,62" (rescaling + DSFRisation) | Lit `PPT-IGPDE-base-intervenant.pptx`, ecrit le template DSFR |
 | Template PPTX | OOXML | 6 layouts natifs IGPDE : couverture, titre_soustitre, sommaire, chapitre, 3_colonnes, titre_contenu | Fichier binaire PPTX |
-| Artefact final | PPTX | Deck complet livre a la formatrice | 131 slides, ~5 Mo |
+| Artefact final | PPTX | Deck complet livre a la formatrice | 138 slides, ~5 Mo |
 
 ---
 
@@ -250,7 +250,7 @@ Le container central mérite un zoom car il porte toute la logique de compositio
 - **`_safe_top` est un garde-fou de dernier recours** : il remonte un composant pour éviter de sortir de la zone utile, mais peut créer un chevauchement avec le composant précédent si le `top` initial était déjà trop bas.
 - **Deux régimes de slides** : certaines slides sont retouchées manuellement dans PowerPoint après génération. La régénération écrase ces corrections. Il faut identifier le régime avant de relancer `assemble.py`.
 - **Pas de CI/CD** : la génération est locale, sur le poste d'Alex. Pas de pipeline de build automatisé.
-- **55 tests pytest** : la bibliothèque de composants a une suite de tests (helpers, composants, a11y, géométrie deck). La validation repose aussi sur `validate.py` (site easy checks) et la passe visuelle manuelle.
+- **69 tests pytest** : la bibliothèque de composants, les contrats a11y, la géométrie deck et la boucle QA PRD-119 sont couverts par pytest. La validation repose aussi sur `validate.py` (site easy checks) et la passe visuelle manuelle.
 
 ---
 

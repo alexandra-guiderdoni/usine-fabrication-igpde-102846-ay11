@@ -20,6 +20,7 @@ Ce fichier adapte `CLAUDE.md` pour Codex. Les consignes globales Codex restent a
 - Chaque module expose `build(prs, layouts, ctx)` avec `ctx.page_num`, `ctx.date`, `ctx.footer_base`
 - Régénérer avec `python3 scripts/assemble.py`
 - Tester une slide avec `python3 scripts/assemble.py --only NN`
+- Réexporter le deck complet : suivre `REEXPORTER-DECK-PPTX.md` avant livraison
 - Régénérer les DOCX Sami avec `python3 scripts/generate_exercice_sami.py`
 - Valider le site d'exercice avec `python3 validate.py`
 - `finalize_pptx()` est obligatoire avant livraison, via les scripts du projet
@@ -54,10 +55,13 @@ Si les skills ne sont pas automatiquement injectés dans la session, lire leurs 
 ## Playbooks
 
 - Nouvelle slide : créer `scripts/slides/NN_nom.py`, suffixe lettre(s) pour intercaler (`05a_`, `02ma_`)
+- Réexport deck stable : lire `REEXPORTER-DECK-PPTX.md`, puis lancer `python3 scripts/qa_pptx.py . --max-iterations 5 --clean` avant `python3 scripts/assemble.py`
 - Tests unitaires : `python3 -m pytest tests/ -v` (suite complète helpers + composants + a11y + QA deck)
 - Tests géométrie : `python3 scripts/assemble.py --qa-map -o .qa/formation-test-qa.pptx && QA_PPTX_PATH=.qa/formation-test-qa.pptx python3 -m pytest tests/test_deck_geometry.py -v`
 - Boucle QA PPTX PRD-119 : `python3 scripts/qa_pptx.py . --max-iterations 5 --clean`
 - Correcteur accents QA : utiliser `python3 scripts/qa_pptx.py . --max-iterations 5 --apply-accents` seulement si les patchs d'accents sûrs doivent être appliqués
+- Verdict QA PPTX : lire `.qa/qa-pptx-report.md` et le champ `status`; ne pas interpréter le seul exit code comme une preuve de convergence
+- Sorties QA PPTX : garder les fichiers sous `.qa/` ; les chemins de sortie hors projet ne sont pas supportés en v1
 - Tester : `python3 scripts/assemble.py --only NN`
 - Template absent : `python3 scripts/build_template.py`
 - Prévisualiser le site des points de contrôle rapides : depuis `docs/`, lancer `python3 -m http.server 8765 --bind 127.0.0.1`, puis ouvrir `http://127.0.0.1:8765/index.html`

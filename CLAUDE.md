@@ -20,6 +20,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 - Pattern de nommage : `NN_nom.py` ou `NNxx_nom.py` (suffixe multi-lettres accepté, ex. `02ma_`, `02rb_`)
 - Chaque module expose `build(prs, layouts, ctx)` avec `ctx.page_num`, `ctx.date`, `ctx.footer_base`
 - `python3 scripts/assemble.py` pour régénérer, `--only NN` pour tester en isolation
+- Réexport complet du deck : suivre `REEXPORTER-DECK-PPTX.md` avant livraison
 - `python3 scripts/generate_exercice_sami.py` pour régénérer les DOCX
 - `python3 validate.py` pour valider le site d'exercice et les liens locaux
 - `finalize_pptx()` obligatoire avant livraison (a11y + quarantine macOS)
@@ -38,11 +39,14 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 ## Playbooks
 
 - **Nouvelle slide** : créer `scripts/slides/NN_nom.py`, suffixe lettre(s) pour intercaler (`05a_`, `02ma_`)
+- **Réexport deck stable** : lire `REEXPORTER-DECK-PPTX.md`, puis lancer `python3 scripts/qa_pptx.py . --max-iterations 5 --clean` avant `python3 scripts/assemble.py`
 - **Tester** : `python3 scripts/assemble.py --only NN`
 - **Template absent** : `python3 scripts/build_template.py`
 - **Quarantine** : `xattr -d com.apple.quarantine formation-102638-juin-2026.pptx`
-- **Tests unitaires** : `python3 -m pytest tests/ -v` (55 tests, couvre helpers + composants + a11y + géométrie deck)
-- **Tests géométrie** : `python3 scripts/assemble.py && python3 -m pytest tests/test_deck_geometry.py -v` (4 tests de régression sur le PPTX assemblé : footer, chevauchements, alt-text, police)
+- **Tests unitaires** : `python3 -m pytest tests/ -v` (suite complète helpers + composants + a11y + QA deck)
+- **Tests géométrie** : `python3 scripts/assemble.py --qa-map -o .qa/formation-test-qa.pptx && QA_PPTX_PATH=.qa/formation-test-qa.pptx python3 -m pytest tests/test_deck_geometry.py -v`
+- **Boucle QA PPTX PRD-119** : `python3 scripts/qa_pptx.py . --max-iterations 5 --clean`
+- **Verdict QA PPTX** : lire `.qa/qa-pptx-report.md` et le champ `status`; ne pas interpréter le seul exit code comme une preuve de convergence
 - **Contrôle tirets** : `grep -rn $'—\|–' scripts/` doit retourner vide
 - **Contrôle PPTX** : `unzip -t formation-102638-juin-2026.pptx`
 - **Warnings footer** : diagnostiquer par slide, corriger le positionnement source, puis régénérer le deck complet

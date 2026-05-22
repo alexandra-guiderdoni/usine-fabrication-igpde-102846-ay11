@@ -1,6 +1,6 @@
 # Contraintes — Formation 102638 (IGPDE / Carinne C.)
 
-- **Compile le** : 2026-05-16
+- **Compile le** : 2026-05-22
 - **Compilateur** : contraintes-vivantes v1
 
 ## 1. Dépendances externes
@@ -49,13 +49,23 @@
 
 ### Generation PPTX via scripts uniquement
 
-- **Date** : 2026-05-12
-- **Source** : `AGENTS.md`, `CLAUDE.md`, `scripts/assemble.py`
+- **Date** : 2026-05-22
+- **Source** : `AGENTS.md`, `CLAUDE.md`, `REEXPORTER-DECK-PPTX.md`, `scripts/assemble.py`
 - **Statut** : confirmée
 - **Contrainte** : le deck principal doit etre regenere via `python3 scripts/assemble.py`, avec `finalize_pptx()` obligatoire avant livraison.
 - **Impact** : une modification directe du PPTX contourne le flux de production et risque d'être écrasée à la régénération.
 - **Décision / prochaine vérification** : toute évolution du support doit passer par `scripts/slides/NN_*.py` puis une régénération.
-- **Composants affectés** : `scripts/assemble.py`, `scripts/slides/` (131 modules), `formation-102638-juin-2026.pptx` (131 slides)
+- **Composants affectés** : `scripts/assemble.py`, `scripts/slides/` (138 modules), `formation-102638-juin-2026.pptx` (138 slides)
+
+### QA PPTX sur copie de travail
+
+- **Date** : 2026-05-22
+- **Source** : `scripts/qa_pptx.py`, `tests/conftest.py`, `REEXPORTER-DECK-PPTX.md`
+- **Statut** : confirmée
+- **Contrainte** : la boucle QA PRD-119 teste une copie `.qa/formation-test-qa.pptx` via `QA_PPTX_PATH`, pas directement le deck stable.
+- **Impact** : un test lancé sur le mauvais PPTX peut donner une fausse confiance sur le livrable ou sur la copie de travail.
+- **Décision / prochaine vérification** : lire `.qa/qa-pptx-report.md` et le champ `status` avant de considérer la boucle convergée.
+- **Composants affectés** : `scripts/qa_pptx.py`, `tests/conftest.py`, `.qa/formation-test-qa.pptx`, `formation-102638-juin-2026.pptx`
 
 ## 3. Indexation et donnees
 
@@ -100,10 +110,15 @@
 | Validation automatisée du contrat, des assets et des pages HTML | `validate.py` | constaté le 2026-05-12 |
 | Generation de la grille d'audit XLSX | `scripts/generate_grille_audit.py` | constate le 2026-05-12 |
 | Bibliotheque de composants PPTX DSFR IGPDE | `scripts/igpde_dsfr_components.py` | constate le 2026-05-12 |
-| Jeu de slides modulaires par fichiers `NN_*.py` | `scripts/slides/` (131 modules) | constate le 2026-05-16 |
+| Jeu de slides modulaires par fichiers `NN_*.py` | `scripts/slides/` (138 modules) | constaté le 2026-05-22 |
 | Post-traitement accessibilité PPTX (ordre de lecture, lang, alt text, métadonnées, quarantine) | `scripts/igpde_dsfr_components.py` (`finalize_pptx()`) | constaté le 2026-05-12 |
 | Documentation architecture C4 du pipeline de slides | `architecture-c4-slides.md` | 2026-05-16 |
 | README causal du projet | `README.md` | 2026-05-16 |
+| Rapport QA PPTX fingerprinté et baseline de violations connues | `scripts/qa_geometry.py`, `tests/baselines/known-geometry-violations.json`, `tests/test_deck_geometry.py` | constaté le 2026-05-22 |
+| Source map PPTX slide -> composant -> appel Python | `scripts/qa_source_map.py`, `scripts/assemble.py --qa-map`, `scripts/igpde_dsfr_components.py` | constaté le 2026-05-22 |
+| Correcteur QA conservateur des accents français | `scripts/qa_corrector.py`, `tests/test_qa_corrector.py` | constaté le 2026-05-22 |
+| Orchestrateur QA PPTX PRD-119 | `scripts/qa_pptx.py`, `tests/test_qa_pptx.py` | constaté le 2026-05-22 |
+| Mode d'emploi de réexport du deck | `REEXPORTER-DECK-PPTX.md` | constaté le 2026-05-22 |
 
 ## 5. Securite et secrets
 
@@ -127,15 +142,15 @@
 - **Décision / prochaine vérification** : maintenir la liste blanche à jour avec toute nouvelle source pédagogique externe.
 - **Composants affectés** : `validate.py`, `docs/**/*.html`
 
-### Gitignore minimal
+### Gitignore des artefacts temporaires et QA
 
-- **Date** : 2026-05-12
+- **Date** : 2026-05-22
 - **Source** : `.gitignore`
 - **Statut** : confirmée
-- **Contrainte** : le `.gitignore` n'exclut que `.DS_Store` et les fichiers temporaires Office `~$*.pptx` et `~$*.docx`.
-- **Impact** : les artefacts générés principaux sont destinés à être suivis dans le dépôt, ce qui augmente le risque de gros diffs binaires mais préserve la distribuabilité.
-- **Décision / prochaine vérification** : ne pas supposer qu'un binaire généré sera ignoré par git.
-- **Composants affectés** : `.gitignore`, `*.pptx`, `*.docx`
+- **Contrainte** : `.gitignore` exclut notamment `.qa/`, `tmp/`, `__pycache__/`, les temporaires Office et certains dossiers de livrables volumineux, mais pas le deck stable principal.
+- **Impact** : les rapports et copies QA restent jetables, tandis que le PPTX stable peut toujours apparaître dans `git status` après régénération.
+- **Décision / prochaine vérification** : ne pas supposer qu'un binaire généré sera ignoré par git ; vérifier explicitement `git status` après `assemble.py`.
+- **Composants affectés** : `.gitignore`, `.qa/`, `tmp/`, `formation-102638-juin-2026.pptx`, `*.pptx`, `*.docx`
 
 ## 6. RGPD et donnees utilisateurs
 
@@ -183,13 +198,33 @@
 
 ### Passe visuelle PPTX non automatisée
 
-- **Date** : 2026-05-16
-- **Source** : `todo.md`
+- **Date** : 2026-05-22
+- **Source** : `todo.md`, `scripts/qa_pptx.py`, `REEXPORTER-DECK-PPTX.md`
 - **Statut** : confirmée
-- **Contrainte** : une passe visuelle humaine PowerPoint reste nécessaire avant diffusion pour détecter les chevauchements fins que les contrôles XML ne voient pas.
-- **Impact** : une génération sans revue visuelle peut laisser passer des défauts de rendu sur certaines slides.
+- **Contrainte** : une passe visuelle humaine PowerPoint reste nécessaire avant diffusion ; la QA PRD-119 ne remplace pas le contrôle de rendu réel.
+- **Impact** : une boucle `CONVERGED` garantit seulement l'absence de nouveau fingerprint couvert par les tests, pas l'absence de défaut esthétique ou de recomposition.
 - **Décision / prochaine vérification** : conserver une passe manuelle de livraison, en priorité sur les slides 16 à 22, 36, 75 à 76 et 82 à 106 (signalées dans `todo.md`).
-- **Composants affectés** : `todo.md`, `formation-102638-juin-2026.pptx`, `scripts/slides/`
+- **Composants affectés** : `todo.md`, `scripts/qa_pptx.py`, `formation-102638-juin-2026.pptx`, `scripts/slides/`
+
+### Boucle QA PPTX PRD-119
+
+- **Date** : 2026-05-22
+- **Source** : `scripts/qa_pptx.py`, `scripts/qa_geometry.py`, `scripts/qa_source_map.py`, `scripts/qa_corrector.py`, `tests/test_qa_pptx.py`
+- **Statut** : confirmée
+- **Contrainte** : la QA PPTX v1 est déterministe et limitée aux contrôles géométriques/textuels couverts par pytest ; son statut métier est écrit dans `.qa/qa-pptx-report.md` et `.qa/qa-pptx-run.json`.
+- **Impact** : l'exit code seul ne doit pas être interprété comme preuve de convergence, et les corrections layout restent hors périmètre automatique.
+- **Décision / prochaine vérification** : lancer `python3 scripts/qa_pptx.py . --max-iterations 5 --clean` avant réexport stable, puis lire le rapport.
+- **Composants affectés** : `scripts/qa_pptx.py`, `.qa/qa-pptx-report.md`, `.qa/qa-pptx-run.json`, `tests/test_deck_geometry.py`
+
+### Correcteur QA conservateur
+
+- **Date** : 2026-05-22
+- **Source** : `scripts/qa_corrector.py`, `tests/test_qa_corrector.py`
+- **Statut** : confirmée
+- **Contrainte** : le correcteur automatique v1 applique uniquement les accents français sûrs localisés dans des chaînes Python ; layout, alt-text et police restent en skip structuré.
+- **Impact** : une violation `SKIP_LAYOUT`, `SKIP_ALT_TEXT` ou `SKIP_FONT_SIZE` doit être traitée manuellement dans les scripts source.
+- **Décision / prochaine vérification** : utiliser `--apply-accents` seulement après lecture de `.qa/qa-corrections.md`, puis relire `git diff`.
+- **Composants affectés** : `scripts/qa_corrector.py`, `.qa/qa-corrections.md`, `.qa/qa-corrections.json`, `scripts/slides/`
 
 ### Modes d'échec documentés dans lessons.md
 
