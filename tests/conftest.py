@@ -1,5 +1,6 @@
-"""Fixtures partagees pour les tests igpde_dsfr_components."""
+"""Fixtures partagées pour les tests igpde_dsfr_components."""
 
+import os
 import sys
 from pathlib import Path
 
@@ -16,13 +17,20 @@ from igpde_dsfr_components import (  # noqa: E402
 
 @pytest.fixture(scope="session")
 def deck():
-    """Charge le PPTX final assemble depuis le disque (lecture seule)."""
+    """Charge le PPTX final assemblé depuis le disque (lecture seule)."""
     from pptx import Presentation as PrsLoad
 
-    pptx_path = Path(__file__).parent.parent / "formation-102638-juin-2026.pptx"
+    project_root = Path(__file__).parent.parent
+    env_path = os.environ.get("QA_PPTX_PATH")
+    if env_path:
+        pptx_path = Path(env_path)
+        if not pptx_path.is_absolute():
+            pptx_path = project_root / pptx_path
+    else:
+        pptx_path = project_root / "formation-102638-juin-2026.pptx"
     if not pptx_path.exists():
         pytest.skip(
-            f"PPTX final non trouve : {pptx_path}. "
+            f"PPTX final non trouvé : {pptx_path}. "
             "Lancer d'abord : python3 scripts/assemble.py"
         )
     return PrsLoad(str(pptx_path))
@@ -30,7 +38,7 @@ def deck():
 
 @pytest.fixture
 def prs():
-    """Presentation IGPDE chargee depuis le template reel."""
+    """Présentation IGPDE chargée depuis le template réel."""
     prs, _layouts = create_presentation()
     return prs
 
@@ -44,6 +52,6 @@ def layouts():
 
 @pytest.fixture
 def slide(prs, layouts):
-    """Slide vide avec layout titre_contenu, prete pour les composants."""
+    """Slide vide avec layout titre_contenu, prête pour les composants."""
     return new_slide(prs, layouts, layout_name="titre_contenu",
                      titre="Test", page_num=1)

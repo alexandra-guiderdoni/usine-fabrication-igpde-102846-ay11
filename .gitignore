@@ -3,6 +3,7 @@
 ~$*.docx
 __pycache__/
 tmp/
+.qa/
 
 easy-check-igpde/
 IGPDE-102638/
