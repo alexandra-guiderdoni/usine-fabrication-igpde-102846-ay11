@@ -248,12 +248,15 @@ def content_column(content: str, center: bool = True) -> str:
 </div>"""
 
 
-def page_card(page: dict, href: str) -> str:
+def page_card(page: dict, href: str, heading_level: int = 3) -> str:
+    if heading_level not in (2, 3):
+        raise ValueError("Card heading level must be 2 or 3.")
+    heading = f"h{heading_level}"
     return f"""<div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
   <div class="fr-card fr-enlarge-link">
     <div class="fr-card__body">
       <div class="fr-card__content">
-        <h3 class="fr-card__title"><a href="{href}">#{page['number']} {esc(page['title'])}</a></h3>
+        <{heading} class="fr-card__title"><a href="{href}">#{page['number']} {esc(page['title'])}</a></{heading}>
         <p class="fr-card__desc">{esc(page['easy_check']['name'])}</p>
         <p class="fr-card__detail">Point de contrôle rapide {page['easy_check']['number']}</p>
       </div>
@@ -553,7 +556,8 @@ def generate_sitemap_page(contract: dict) -> None:
 def generate_version_index(contract: dict, version_key: str, current: str) -> None:
     version = contract["versions"][version_key]
     pages = contract["pages"]
-    cards = "\n".join(page_card(page, f"{page['id']}.html") for page in pages)
+    card_heading_level = 2 if version_key == "accessible" else 3
+    cards = "\n".join(page_card(page, f"{page['id']}.html", card_heading_level) for page in pages)
     content = f"""  <h1>{esc(version['role'])}</h1>
   <p>Index généré depuis le contrat d'évaluation. Chaque page cible un Point de contrôle rapide et une erreur principale.</p>
   <div class="fr-grid-row fr-grid-row--gutters">
