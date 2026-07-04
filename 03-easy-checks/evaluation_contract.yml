@@ -5,8 +5,8 @@ course:
   code: "102638"
   section: "3. Les 13 points de contrôle rapides du W3C"
 site:
-  name: "Ministère de l'Accessibilité numérique"
-  baseline: "Formation IGPDE - Exercice points de contrôle rapides"
+  name: "Formation 102638 - Accessibilité numérique"
+  baseline: "Mission d'audit pédagogique - Points de contrôle rapides"
   root: "docs/"
 versions:
   inaccessible:
@@ -146,7 +146,7 @@ pages:
       - "Nom du ministère placé avant l'information spécifique."
     do_not_penalize:
       - "Titre long si l'information spécifique est présente en premier."
-    accessible_correction: "Titre unique, spécifique et ordonné du particulier vers le général, par exemple Recherche \"RGAA\" - Page 2/3 - Ministère de l'Accessibilité numérique."
+    accessible_correction: "Titre unique, spécifique et ordonné du particulier vers le général, par exemple Recherche \"RGAA\" - Page 2/3 - Formation 102638 - Accessibilité numérique."
     help:
       hint: "Regarder l'onglet du navigateur, le title HTML et le résultat WAVE. La page affiche déjà la requête, le tri, la page courante et le nombre de résultats : ces informations doivent aussi guider le titre."
       problem: "L'utilisateur ne sait pas quelle page ou quel état est ouvert, ce qui gêne la navigation entre onglets, historique et résultats. Sur une page de recherche, le titre doit reprendre la requête et la pagination utiles."
@@ -160,7 +160,7 @@ pages:
       fixes:
         - "Remplacer le titre générique par un titre unique."
         - "Inclure la requête et la pagination utiles."
-        - "Ordonner le titre du particulier vers le général, par exemple Recherche \"RGAA\" - Page 2/3 - Ministère de l'Accessibilité numérique."
+        - "Ordonner le titre du particulier vers le général, par exemple Recherche \"RGAA\" - Page 2/3 - Formation 102638 - Accessibilité numérique."
     dsfr_components:
       - "Barre de recherche"
       - "Lien"
@@ -193,7 +193,7 @@ pages:
       - "Qualifier le h1 interne comme incohérence de plan, sans perdre les deux erreurs principales."
     do_not_penalize:
       - "Plusieurs h1 si la hiérarchie reste cohérente au sens RGAA."
-    accessible_correction: "Titre visuel balisé avec un élément de titre natif ou role heading/aria-level si nécessaire ; balise de titre réservée aux vrais titres ; hiérarchie globalement pertinente et niveaux continus par bonne pratique."
+    accessible_correction: "Titre visuel balisé avec un élément de titre natif ou `role=\"heading\"`/`aria-level` si nécessaire ; balise de titre réservée aux vrais titres ; hiérarchie globalement pertinente et niveaux continus par bonne pratique."
     help:
       hint: "Afficher le plan de titres avec HeadingsMap, puis le comparer au plan visuel. Chercher les titres visibles qui n'apparaissent pas dans le plan, et les titres du plan qui ne correspondent pas à une vraie rubrique."
       problem: "Le plan technique peut être absent, pollué ou mal interprété ; la navigation par titres devient inefficace. Le h1 interne est volontairement très incohérent : il se discute dans le plan de titres, mais ne doit pas masquer les erreurs de sémantique."
@@ -663,7 +663,7 @@ pages:
       - "Label masqué avec display none."
     do_not_penalize:
       - "Placeholder utilisé comme exemple si une étiquette visible et associée existe."
-    accessible_correction: "Étiquette visible et persistante ; association label for/id ; placeholder utilisé seulement comme exemple ; nom accessible qui reprend le nom visible ; aide à la saisie reliée avec aria-describedby ; groupes DSFR structurés avec fieldset.fr-fieldset, legend.fr-fieldset__legend, fr-fieldset__element et fr-messages-group."
+    accessible_correction: "Étiquette visible et persistante ; association label for/id ; placeholder utilisé seulement comme exemple ; nom accessible qui reprend le nom visible ; aide à la saisie reliée avec aria-describedby ; groupes DSFR structurés avec fieldset.fr-fieldset, legend.fr-fieldset__legend, `fr-fieldset__element` et fr-messages-group."
     help:
       hint: "Vérifier uniquement le nom accessible des champs et des groupes avec ANDI, WAVE ou l'arbre d'accessibilité. Tester aussi le clic sur les libellés visibles. Les champs obligatoires et les erreurs seront traités dans le point 13."
       problem: "Le champ ou le groupe n'a pas de nom fiable : lecteur d'écran muet, commande vocale fragile, mémoire sollicitée ou contexte perdu. L'objectif est de distinguer l'étiquette du champ de la validation du formulaire."
@@ -676,7 +676,7 @@ pages:
       fixes_intro: "Corrections DSFR attendues :"
       fixes:
         - "Utiliser div.fr-input-group, label.fr-label for/id, input.fr-input et fr-messages-group relié par aria-describedby."
-        - "Regrouper les boutons radio dans fieldset.fr-fieldset avec legend.fr-fieldset__legend et des éléments fr-fieldset__element."
+        - "Regrouper les boutons radio dans fieldset.fr-fieldset avec legend.fr-fieldset__legend et des éléments `fr-fieldset__element`."
         - "Regrouper les cases à cocher dans fieldset.fr-fieldset avec une légende explicite et des messages de groupe."
     dsfr_components:
       - "Formulaire"

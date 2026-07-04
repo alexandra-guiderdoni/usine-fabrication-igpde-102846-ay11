@@ -93,7 +93,7 @@ def header(contract: dict, depth: int, current: str = "", skiplinks_variant: str
         ("Site corrigé", "../" * depth + "site-accessible/index.html", "accessible"),
     ]
     links = "\n".join(
-        f"""        <li class="fr-nav__item"><a class="fr-nav__link" href="{href}"{(' aria-current="page"' if key == current else '')}>{label}</a></li>"""
+        f"""              <li class="fr-nav__item"><a class="fr-nav__link" href="{href}"{(' aria-current="page"' if key == current else '')}>{label}</a></li>"""
         for label, href, key in nav_items
     )
     return f"""{skiplinks(depth, skiplinks_variant)}
@@ -107,7 +107,7 @@ def header(contract: dict, depth: int, current: str = "", skiplinks_variant: str
               <p class="fr-logo">République<br>Française</p>
             </div>
           </div>
-          <div class="fr-header__service">
+          <div class="fr-header__service fr-text--center">
             <a href="{home}" title="Accueil - {esc(contract['site']['name'])}">
               <p class="fr-header__service-title">{esc(contract['site']['name'])}</p>
             </a>
@@ -119,17 +119,21 @@ def header(contract: dict, depth: int, current: str = "", skiplinks_variant: str
   </div>
   <div class="fr-header__menu fr-modal" id="modal-menu">
     <div class="fr-container">
-      <nav class="fr-nav" role="navigation" aria-label="Menu principal" id="navigation-principale">
-        <ul class="fr-nav__list">
+      <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-12 fr-col-md-8">
+          <nav class="fr-nav" role="navigation" aria-label="Menu principal" id="navigation-principale">
+            <ul class="fr-nav__list">
 {links}
-        </ul>
-      </nav>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </div>
   </div>
 </header>"""
 
 
-def footer(depth: int) -> str:
+def footer(contract: dict, depth: int) -> str:
     home = "../" * depth + "index.html"
     plan = "../" * depth + "plan-du-site.html"
     accessibility = "../" * depth + "accessibilite.html"
@@ -141,8 +145,8 @@ def footer(depth: int) -> str:
       <div class="fr-footer__brand fr-enlarge-link">
         <p class="fr-logo">République<br>Française</p>
       </div>
-      <div class="fr-footer__content">
-        <p class="fr-footer__content-desc">Exercice pédagogique IGPDE sur les points de contrôle rapides du W3C.</p>
+      <div class="fr-footer__content fr-text--center">
+        <p class="fr-footer__content-desc"><strong>{esc_text(contract['site']['name'])}</strong><br>{esc_text(contract['site']['baseline'])}</p>
         <ul class="fr-footer__content-list">
           <li class="fr-footer__content-item"><a class="fr-footer__content-link" href="{home}">Accueil</a></li>
           <li class="fr-footer__content-item"><a class="fr-footer__content-link" href="{home}#apres-exercice">Après l'exercice</a></li>
@@ -169,19 +173,23 @@ def scripts(depth: int) -> str:
 
 def breadcrumb(links: list[tuple[str, str]], current_label: str, collapse_id: str) -> str:
     items = "\n".join(
-        f"""        <li><a class="fr-breadcrumb__link" href="{esc(href)}">{esc_text(label)}</a></li>"""
+        f"""            <li><a class="fr-breadcrumb__link" href="{esc(href)}">{esc_text(label)}</a></li>"""
         for label, href in links
     )
     return f"""<div class="fr-container">
-  <nav role="navigation" class="fr-breadcrumb fr-mt-3w" aria-label="vous êtes ici :">
-    <button type="button" class="fr-breadcrumb__button" aria-expanded="false" aria-controls="{esc(collapse_id)}">Voir le fil d'Ariane</button>
-    <div class="fr-collapse" id="{esc(collapse_id)}">
-      <ol class="fr-breadcrumb__list">
+  <div class="fr-grid-row fr-grid-row--center">
+    <div class="fr-col-12 fr-col-md-8">
+      <nav role="navigation" class="fr-breadcrumb fr-mt-3w" aria-label="vous êtes ici :">
+        <button type="button" class="fr-breadcrumb__button" aria-expanded="false" aria-controls="{esc(collapse_id)}">Voir le fil d'Ariane</button>
+        <div class="fr-collapse" id="{esc(collapse_id)}">
+          <ol class="fr-breadcrumb__list">
 {items}
-        <li><a class="fr-breadcrumb__link" aria-current="page">{esc_text(current_label)}</a></li>
-      </ol>
+            <li><a class="fr-breadcrumb__link" aria-current="page">{esc_text(current_label)}</a></li>
+          </ol>
+        </div>
+      </nav>
     </div>
-  </nav>
+  </div>
 </div>"""
 
 
@@ -200,15 +208,16 @@ def page_shell(
 <body>
 {header(contract, depth, current, skiplinks_variant)}
 {main}
-{footer(depth)}
+{footer(contract, depth)}
 {scripts(depth)}
 </body>
 </html>
 """
 
 
-def content_column(content: str) -> str:
-    return f"""<div class="fr-grid-row">
+def content_column(content: str, center: bool = True) -> str:
+    row_classes = "fr-grid-row fr-grid-row--center" if center else "fr-grid-row"
+    return f"""<div class="{row_classes}">
   <div class="fr-col-12 fr-col-md-8">
 {content}
   </div>
@@ -292,9 +301,9 @@ def generate_root(contract: dict) -> None:
     page_breadcrumb = breadcrumb([], "Accueil", "breadcrumb-accueil")
     main = f"""{page_breadcrumb}
 <main id="contenu" class="fr-container fr-py-6w">
-{content_column(content)}
+{content_column(content, center=True)}
 </main>"""
-    write_text(DOCS_DIR / "index.html", page_shell(contract, "Exercice points de contrôle rapides - Ministère de l'Accessibilité numérique", 0, main, "home"))
+    write_text(DOCS_DIR / "index.html", page_shell(contract, f"Exercice points de contrôle rapides - {contract['site']['name']}", 0, main, "home"))
 
 
 def generate_static_page(contract: dict, filename: str, title: str, body: str) -> None:
@@ -319,7 +328,7 @@ def generate_accessibility_statement_page(contract: dict) -> None:
     help_links = exercise_links("site-aide-correction/")
     accessible_links = exercise_links("site-accessible/")
     content = f"""  <h1>Déclaration d'accessibilité</h1>
-  <p>Le Ministère de l'Accessibilité numérique s'engage à rendre son site d'exercice pédagogique accessible conformément à l'article 47 de la loi n° 2005-102 du 11 février 2005.</p>
+  <p>Le site d'exercice pédagogique associé à la formation IGPDE s'inscrit dans une démarche d'accessibilité conformément à l'article 47 de la loi n° 2005-102 du 11 février 2005.</p>
   <p>Cette déclaration s'applique au site d'exercice « Les 13 points de contrôle rapides du W3C ». Elle reprend la <a class="fr-link" href="https://accessibilite.numerique.gouv.fr/obligations/declaration-accessibilite/">trame officielle de déclaration d'accessibilité</a> et l'adapte au contexte de formation.</p>
   <p>Ce support pédagogique fictif ne dispose pas d'un schéma pluriannuel d'accessibilité ni d'un plan d'action annuel distinct. La présente page documente le statut du site livré pour l'exercice.</p>
   <section class="fr-mt-5w" aria-labelledby="statement-versions">
@@ -432,7 +441,7 @@ def generate_accessibility_statement_page(contract: dict) -> None:
     <p>Si vous n'arrivez pas à accéder à un contenu ou à un service, vous pouvez contacter le responsable du site pour être orienté vers une alternative accessible ou obtenir le contenu sous une autre forme.</p>
     <ul>
       <li><a class="fr-link" href="site-accessible/ec13-required-errors.html">Envoyer un message avec le formulaire de contact</a></li>
-      <li><a class="fr-link" href="mailto:contact@accessibilite-numerique.gouv.fr">Contacter le Ministère de l'Accessibilité numérique par courriel</a></li>
+      <li><a class="fr-link" href="mailto:contact@accessibilite-numerique.gouv.fr">Contacter l'équipe de formation par courriel</a></li>
     </ul>
   </section>
 
@@ -529,7 +538,7 @@ def generate_version_index(contract: dict, version_key: str, current: str) -> No
     page_breadcrumb = breadcrumb([("Accueil", "../index.html")], version["role"], f"breadcrumb-{slug(version['role'])}")
     main = f"""{page_breadcrumb}
 <main id="contenu" class="fr-container fr-py-6w">
-{content_column(content)}
+{content_column(content, center=True)}
 </main>"""
     write_text(DOCS_DIR / version["path"] / "index.html", page_shell(contract, version["role"], 1, main, current))
 
@@ -1709,7 +1718,7 @@ def generate_exercise_page(contract: dict, page: dict, version_key: str, current
   {main_body}"""
     main = f"""{page_breadcrumb}
 <main id="contenu" class="fr-container fr-py-6w">
-{content_column(exercise_content)}
+{content_column(exercise_content, center=True)}
 </main>"""
     write_text(
         DOCS_DIR / version["path"] / f"{page['id']}.html",

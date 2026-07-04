@@ -55,7 +55,7 @@ Regarder l'onglet du navigateur, le title HTML et le résultat WAVE. La page aff
 
 ### Correction attendue
 
-Titre unique, spécifique et ordonné du particulier vers le général, par exemple Recherche "RGAA" - Page 2/3 - Ministère de l'Accessibilité numérique.
+Titre unique, spécifique et ordonné du particulier vers le général, par exemple Recherche "RGAA" - Page 2/3 - Formation 102638 - Accessibilité numérique.
 
 ### Aide associée
 
