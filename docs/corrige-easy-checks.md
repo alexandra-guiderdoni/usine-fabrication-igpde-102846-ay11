@@ -30,7 +30,7 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 - Constat minimal attendu : Un ou plusieurs textes visuellement présentés comme titres ne sont pas balisés comme titres, ou une balise de titre est utilisée pour une simple mise en valeur.
 - Sévérité indicative : Gênant
 - Preuve possible : HeadingsMap/WAVE ou extrait HTML montrant les faux titres en paragraphes, ou le titre détourné pour la présentation.
-- Correction : Titre visuel balisé avec un élément de titre natif ou role heading/aria-level si nécessaire ; balise de titre réservée aux vrais titres ; hiérarchie globalement pertinente et niveaux continus par bonne pratique.
+- Correction : Titre visuel balisé avec un élément de titre natif ou `role="heading"`/`aria-level` si nécessaire ; balise de titre réservée aux vrais titres ; hiérarchie globalement pertinente et niveaux continus par bonne pratique.
 - Repère pédagogique : Afficher le plan de titres avec HeadingsMap, puis le comparer au plan visuel. Chercher les titres visibles qui n'apparaissent pas dans le plan, et les titres du plan qui ne correspondent pas à une vraie rubrique.
 - Occurrences bonus : Comparer le plan visuel et le plan technique. ; Repérer un titre non pertinent. ; Qualifier le h1 interne comme incohérence de plan, sans perdre les deux erreurs principales.
 - À ne pas pénaliser : Plusieurs h1 si la hiérarchie reste cohérente au sens RGAA.
@@ -129,7 +129,7 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 - Constat minimal attendu : Au moins un champ ou groupe de champs n'a pas de nom accessible fiable.
 - Sévérité indicative : Bloquant
 - Preuve possible : ANDI/WAVE, clic label ou extrait HTML montrant placeholder seul, label non associé ou groupe DSFR visuel sans fieldset/legend natifs.
-- Correction : Étiquette visible et persistante ; association label for/id ; placeholder utilisé seulement comme exemple ; nom accessible qui reprend le nom visible ; aide à la saisie reliée avec aria-describedby ; groupes DSFR structurés avec fieldset.fr-fieldset, legend.fr-fieldset__legend, fr-fieldset__element et fr-messages-group.
+- Correction : Étiquette visible et persistante ; association label for/id ; placeholder utilisé seulement comme exemple ; nom accessible qui reprend le nom visible ; aide à la saisie reliée avec aria-describedby ; groupes DSFR structurés avec fieldset.fr-fieldset, legend.fr-fieldset__legend, `fr-fieldset__element` et fr-messages-group.
 - Repère pédagogique : Vérifier uniquement le nom accessible des champs et des groupes avec ANDI, WAVE ou l'arbre d'accessibilité. Tester aussi le clic sur les libellés visibles. Les champs obligatoires et les erreurs seront traités dans le point 13.
 - Occurrences bonus : Nom visible différent du nom accessible. ; Aide non reliée. ; Label masqué avec display none.
 - À ne pas pénaliser : Placeholder utilisé comme exemple si une étiquette visible et associée existe.

@@ -85,6 +85,7 @@ def skiplinks(depth: int, variant: str = "default") -> str:
 
 
 def header(contract: dict, depth: int, current: str = "", skiplinks_variant: str = "default") -> str:
+    assets = asset_prefix(depth)
     home = "../" * depth + "index.html"
     nav_items = [
         ("Accueil", home, "home"),
@@ -106,6 +107,14 @@ def header(contract: dict, depth: int, current: str = "", skiplinks_variant: str
             <div class="fr-header__logo">
               <p class="fr-logo">République<br>Française</p>
             </div>
+            <div class="fr-header__operator">
+              <img class="fr-responsive-img site-igpde-operator-logo" src="{assets}/shared/images/igpde-operator-logo.jpg" alt="IGPDE">
+            </div>
+            <div class="fr-header__navbar">
+              <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-menu" title="Menu">
+                Menu
+              </button>
+            </div>
           </div>
           <div class="fr-header__service fr-text--center">
             <a href="{home}" title="Accueil - {esc(contract['site']['name'])}">
@@ -117,8 +126,12 @@ def header(contract: dict, depth: int, current: str = "", skiplinks_variant: str
       </div>
     </div>
   </div>
-  <div class="fr-header__menu fr-modal" id="modal-menu">
+  <div class="fr-header__menu fr-modal" id="modal-menu" aria-label="Menu principal">
     <div class="fr-container">
+      <button class="fr-btn--close fr-btn" aria-controls="modal-menu" title="Fermer">
+        Fermer
+      </button>
+      <div class="fr-header__menu-links"></div>
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12 fr-col-md-8">
           <nav class="fr-nav" role="navigation" aria-label="Menu principal" id="navigation-principale">
@@ -134,22 +147,29 @@ def header(contract: dict, depth: int, current: str = "", skiplinks_variant: str
 
 
 def footer(contract: dict, depth: int) -> str:
+    assets = asset_prefix(depth)
     home = "../" * depth + "index.html"
     plan = "../" * depth + "plan-du-site.html"
     accessibility = "../" * depth + "accessibilite.html"
     legal = "../" * depth + "mentions-legales.html"
     privacy = "../" * depth + "donnees-personnelles.html"
+    cookies = privacy
     return f"""<footer class="fr-footer" role="contentinfo" id="footer">
   <div class="fr-container">
     <div class="fr-footer__body">
       <div class="fr-footer__brand fr-enlarge-link">
         <p class="fr-logo">République<br>Française</p>
+        <a class="fr-footer__brand-link" href="{home}" title="Retour à l'accueil du site - IGPDE - République Française">
+          <img class="fr-footer__logo site-igpde-footer-logo" style="width:5rem;" src="{assets}/shared/images/igpde-operator-logo.jpg" alt="IGPDE">
+        </a>
       </div>
-      <div class="fr-footer__content fr-text--center">
-        <p class="fr-footer__content-desc"><strong>{esc_text(contract['site']['name'])}</strong><br>{esc_text(contract['site']['baseline'])}</p>
+      <div class="fr-footer__content">
+        <p class="fr-footer__content-desc">{esc_text(contract['site']['baseline'])}</p>
         <ul class="fr-footer__content-list">
-          <li class="fr-footer__content-item"><a class="fr-footer__content-link" href="{home}">Accueil</a></li>
-          <li class="fr-footer__content-item"><a class="fr-footer__content-link" href="{home}#apres-exercice">Après l'exercice</a></li>
+          <li class="fr-footer__content-item"><a title="info.gouv.fr - nouvelle fenêtre" href="https://info.gouv.fr" target="_blank" rel="noopener external" class="fr-footer__content-link">info.gouv.fr</a></li>
+          <li class="fr-footer__content-item"><a title="service-public.gouv.fr - nouvelle fenêtre" href="https://service-public.gouv.fr" target="_blank" rel="noopener external" class="fr-footer__content-link">service-public.gouv.fr</a></li>
+          <li class="fr-footer__content-item"><a title="legifrance.gouv.fr - nouvelle fenêtre" href="https://legifrance.gouv.fr" target="_blank" rel="noopener external" class="fr-footer__content-link">legifrance.gouv.fr</a></li>
+          <li class="fr-footer__content-item"><a title="data.gouv.fr - nouvelle fenêtre" href="https://data.gouv.fr" target="_blank" rel="noopener external" class="fr-footer__content-link">data.gouv.fr</a></li>
         </ul>
       </div>
     </div>
@@ -159,7 +179,11 @@ def footer(contract: dict, depth: int) -> str:
         <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{accessibility}">Accessibilité : non conforme</a></li>
         <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{legal}">Mentions légales</a></li>
         <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{privacy}">Données personnelles</a></li>
+        <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{cookies}">Gestion des cookies</a></li>
       </ul>
+      <div class="fr-footer__bottom-copy">
+        <p>Sauf mention explicite de propriété intellectuelle détenue par des tiers, les contenus de ce site sont proposés sous <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank" rel="noopener external" title="Licence etalab-2.0 - nouvelle fenêtre">licence etalab-2.0</a>.</p>
+      </div>
     </div>
   </div>
 </footer>"""
@@ -262,7 +286,7 @@ def generate_root(contract: dict) -> None:
 </div>"""
         for label, href, desc in versions
     )
-    content = f"""  <h1>Les 13 points de contrôle rapides du W3C</h1>
+    content = f"""  <h1>Les 13 points de contrôle rapides</h1>
   <div class="fr-alert fr-alert--info fr-mb-4w">
     <h2 class="fr-alert__title">Pré-diagnostic pédagogique</h2>
     <p>Cet exercice ne constitue pas un audit RGAA et ne permet pas de publier un taux de conformité.</p>
@@ -300,7 +324,7 @@ def generate_root(contract: dict) -> None:
   </section>"""
     page_breadcrumb = breadcrumb([], "Accueil", "breadcrumb-accueil")
     main = f"""{page_breadcrumb}
-<main id="contenu" class="fr-container fr-py-6w">
+<main id="contenu" class="fr-container fr-pt-3w fr-pb-6w">
 {content_column(content, center=True)}
 </main>"""
     write_text(DOCS_DIR / "index.html", page_shell(contract, f"Exercice points de contrôle rapides - {contract['site']['name']}", 0, main, "home"))
@@ -311,7 +335,7 @@ def generate_static_page(contract: dict, filename: str, title: str, body: str) -
   <p>{esc(body)}</p>"""
     page_breadcrumb = breadcrumb([("Accueil", "index.html")], title, f"breadcrumb-{slug(title)}")
     main = f"""{page_breadcrumb}
-<main id="contenu" class="fr-container fr-py-6w">
+<main id="contenu" class="fr-container fr-pt-3w fr-pb-6w">
 {content_column(content)}
 </main>"""
     write_text(DOCS_DIR / filename, page_shell(contract, f"{title} - {contract['site']['name']}", 0, main, ""))
@@ -463,7 +487,7 @@ def generate_accessibility_statement_page(contract: dict) -> None:
     page_title = "Déclaration d'accessibilité"
     page_breadcrumb = breadcrumb([("Accueil", "index.html")], page_title, "breadcrumb-declaration-accessibilite")
     main = f"""{page_breadcrumb}
-<main id="contenu" class="fr-container fr-py-6w">
+<main id="contenu" class="fr-container fr-pt-3w fr-pb-6w">
 {content_column(content)}
 </main>"""
     write_text(
@@ -517,7 +541,7 @@ def generate_sitemap_page(contract: dict) -> None:
   </nav>"""
     page_breadcrumb = breadcrumb([("Accueil", "index.html")], "Plan du site", "breadcrumb-plan-du-site")
     main = f"""{page_breadcrumb}
-<main id="contenu" class="fr-container fr-py-6w">
+<main id="contenu" class="fr-container fr-pt-3w fr-pb-6w">
 {content_column(content)}
 </main>"""
     write_text(
@@ -537,7 +561,7 @@ def generate_version_index(contract: dict, version_key: str, current: str) -> No
   </div>"""
     page_breadcrumb = breadcrumb([("Accueil", "../index.html")], version["role"], f"breadcrumb-{slug(version['role'])}")
     main = f"""{page_breadcrumb}
-<main id="contenu" class="fr-container fr-py-6w">
+<main id="contenu" class="fr-container fr-pt-3w fr-pb-6w">
 {content_column(content, center=True)}
 </main>"""
     write_text(DOCS_DIR / version["path"] / "index.html", page_shell(contract, version["role"], 1, main, current))
@@ -1717,7 +1741,7 @@ def generate_exercise_page(contract: dict, page: dict, version_key: str, current
     exercise_content = f"""  <h1>#{page['number']} {esc(page['title'])}</h1>
   {main_body}"""
     main = f"""{page_breadcrumb}
-<main id="contenu" class="fr-container fr-py-6w">
+<main id="contenu" class="fr-container fr-pt-3w fr-pb-6w">
 {content_column(exercise_content, center=True)}
 </main>"""
     write_text(
@@ -1823,6 +1847,14 @@ def generate_site_css() -> None:
 
 .fr-breadcrumb {
   margin-bottom: 2rem;
+}
+
+.site-igpde-operator-logo {
+  max-width: 9.0625rem;
+}
+
+.site-igpde-footer-logo {
+  max-width: 5rem;
 }
 
 .fr-content-media__img img {

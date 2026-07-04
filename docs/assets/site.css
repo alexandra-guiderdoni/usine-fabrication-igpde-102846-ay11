@@ -14,6 +14,14 @@ body {
   margin-bottom: 2rem;
 }
 
+.site-igpde-operator-logo {
+  max-width: 9.0625rem;
+}
+
+.site-igpde-footer-logo {
+  max-width: 5rem;
+}
+
 .fr-content-media__img img {
   height: auto;
   max-width: 100%;

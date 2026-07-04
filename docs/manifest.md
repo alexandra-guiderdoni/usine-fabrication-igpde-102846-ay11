@@ -83,7 +83,7 @@ Afficher le plan de titres avec HeadingsMap, puis le comparer au plan visuel. Ch
 
 ### Correction attendue
 
-Titre visuel balisé avec un élément de titre natif ou role heading/aria-level si nécessaire ; balise de titre réservée aux vrais titres ; hiérarchie globalement pertinente et niveaux continus par bonne pratique.
+Titre visuel balisé avec un élément de titre natif ou `role="heading"`/`aria-level` si nécessaire ; balise de titre réservée aux vrais titres ; hiérarchie globalement pertinente et niveaux continus par bonne pratique.
 
 ### Aide associée
 
@@ -337,7 +337,7 @@ Vérifier uniquement le nom accessible des champs et des groupes avec ANDI, WAVE
 
 ### Correction attendue
 
-Étiquette visible et persistante ; association label for/id ; placeholder utilisé seulement comme exemple ; nom accessible qui reprend le nom visible ; aide à la saisie reliée avec aria-describedby ; groupes DSFR structurés avec fieldset.fr-fieldset, legend.fr-fieldset__legend, fr-fieldset__element et fr-messages-group.
+Étiquette visible et persistante ; association label for/id ; placeholder utilisé seulement comme exemple ; nom accessible qui reprend le nom visible ; aide à la saisie reliée avec aria-describedby ; groupes DSFR structurés avec fieldset.fr-fieldset, legend.fr-fieldset__legend, `fr-fieldset__element` et fr-messages-group.
 
 ### Aide associée
 

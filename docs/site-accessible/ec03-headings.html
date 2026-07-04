@@ -27,6 +27,14 @@
             <div class="fr-header__logo">
               <p class="fr-logo">République<br>Française</p>
             </div>
+            <div class="fr-header__operator">
+              <img class="fr-responsive-img site-igpde-operator-logo" src="../assets/shared/images/igpde-operator-logo.jpg" alt="IGPDE">
+            </div>
+            <div class="fr-header__navbar">
+              <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-menu" title="Menu">
+                Menu
+              </button>
+            </div>
           </div>
           <div class="fr-header__service fr-text--center">
             <a href="../index.html" title="Accueil - Formation 102638 - Accessibilité numérique">
@@ -38,8 +46,12 @@
       </div>
     </div>
   </div>
-  <div class="fr-header__menu fr-modal" id="modal-menu">
+  <div class="fr-header__menu fr-modal" id="modal-menu" aria-label="Menu principal">
     <div class="fr-container">
+      <button class="fr-btn--close fr-btn" aria-controls="modal-menu" title="Fermer">
+        Fermer
+      </button>
+      <div class="fr-header__menu-links"></div>
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12 fr-col-md-8">
           <nav class="fr-nav" role="navigation" aria-label="Menu principal" id="navigation-principale">
@@ -71,7 +83,7 @@
     </div>
   </div>
 </div>
-<main id="contenu" class="fr-container fr-py-6w">
+<main id="contenu" class="fr-container fr-pt-3w fr-pb-6w">
 <div class="fr-grid-row fr-grid-row--center">
   <div class="fr-col-12 fr-col-md-8">
   <h1>#3 Guide du RGAA</h1>
@@ -105,12 +117,17 @@
     <div class="fr-footer__body">
       <div class="fr-footer__brand fr-enlarge-link">
         <p class="fr-logo">République<br>Française</p>
+        <a class="fr-footer__brand-link" href="../index.html" title="Retour à l'accueil du site - IGPDE - République Française">
+          <img class="fr-footer__logo site-igpde-footer-logo" style="width:5rem;" src="../assets/shared/images/igpde-operator-logo.jpg" alt="IGPDE">
+        </a>
       </div>
-      <div class="fr-footer__content fr-text--center">
-        <p class="fr-footer__content-desc"><strong>Formation 102638 - Accessibilité numérique</strong><br>Mission d'audit pédagogique - Points de contrôle rapides</p>
+      <div class="fr-footer__content">
+        <p class="fr-footer__content-desc">Mission d'audit pédagogique - Points de contrôle rapides</p>
         <ul class="fr-footer__content-list">
-          <li class="fr-footer__content-item"><a class="fr-footer__content-link" href="../index.html">Accueil</a></li>
-          <li class="fr-footer__content-item"><a class="fr-footer__content-link" href="../index.html#apres-exercice">Après l'exercice</a></li>
+          <li class="fr-footer__content-item"><a title="info.gouv.fr - nouvelle fenêtre" href="https://info.gouv.fr" target="_blank" rel="noopener external" class="fr-footer__content-link">info.gouv.fr</a></li>
+          <li class="fr-footer__content-item"><a title="service-public.gouv.fr - nouvelle fenêtre" href="https://service-public.gouv.fr" target="_blank" rel="noopener external" class="fr-footer__content-link">service-public.gouv.fr</a></li>
+          <li class="fr-footer__content-item"><a title="legifrance.gouv.fr - nouvelle fenêtre" href="https://legifrance.gouv.fr" target="_blank" rel="noopener external" class="fr-footer__content-link">legifrance.gouv.fr</a></li>
+          <li class="fr-footer__content-item"><a title="data.gouv.fr - nouvelle fenêtre" href="https://data.gouv.fr" target="_blank" rel="noopener external" class="fr-footer__content-link">data.gouv.fr</a></li>
         </ul>
       </div>
     </div>
@@ -120,7 +137,11 @@
         <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="../accessibilite.html">Accessibilité : non conforme</a></li>
         <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="../mentions-legales.html">Mentions légales</a></li>
         <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="../donnees-personnelles.html">Données personnelles</a></li>
+        <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="../donnees-personnelles.html">Gestion des cookies</a></li>
       </ul>
+      <div class="fr-footer__bottom-copy">
+        <p>Sauf mention explicite de propriété intellectuelle détenue par des tiers, les contenus de ce site sont proposés sous <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank" rel="noopener external" title="Licence etalab-2.0 - nouvelle fenêtre">licence etalab-2.0</a>.</p>
+      </div>
     </div>
   </div>
 </footer>
