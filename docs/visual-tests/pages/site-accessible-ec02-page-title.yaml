@@ -1,0 +1,17 @@
+name: "Recherche \"RGAA\" - Page 2/3 - Formation 102638 - Accessibilité numérique"
+description: "Auto-generated from site-accessible/ec02-page-title.html"
+priority: medium
+requires_auth: false
+timeout: 30s
+tags: ["static-html", "form", "interactive"]
+
+steps:
+  - action: open
+    url: "{base_url}/site-accessible/ec02-page-title.html"
+  - action: screenshot
+    path: "visual-tests/_results/screenshots/site-accessible-ec02-page-title.png"
+  - action: llm-check
+    description: "Page loads and renders content"
+    criteria: "Visible content is present, the page is not blank, and no local resource appears broken."
+    severity: critical
+    screenshot: "site-accessible-ec02-page-title.png"

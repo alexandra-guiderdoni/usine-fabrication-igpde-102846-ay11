@@ -1,0 +1,17 @@
+name: "Vidéo de sensibilisation - Formation 102638 - Accessibilité numérique"
+description: "Auto-generated from site-accessible/ec09-captions.html"
+priority: medium
+requires_auth: false
+timeout: 30s
+tags: ["static-html", "media", "interactive"]
+
+steps:
+  - action: open
+    url: "{base_url}/site-accessible/ec09-captions.html"
+  - action: screenshot
+    path: "visual-tests/_results/screenshots/site-accessible-ec09-captions.png"
+  - action: llm-check
+    description: "Page loads and renders content"
+    criteria: "Visible content is present, the page is not blank, and no local resource appears broken."
+    severity: critical
+    screenshot: "site-accessible-ec09-captions.png"

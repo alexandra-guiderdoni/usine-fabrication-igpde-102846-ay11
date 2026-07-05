@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'nonce-miweb-static' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net 'nonce-miweb-static' 'sha256-k3BHgAgO/fV88g5vmVLwj4YYTF3a4hr8P/daaO0j2xk='; img-src 'self' data: https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net data:; connect-src 'self' https://cdn.jsdelivr.net; form-action 'self'; upgrade-insecure-requests">
+  <meta name="description" content="Version web accessible du jeu de slides « Réseaux sociaux accessibles - V2 ».">
+  <link rel="icon" href="assets/favicons/favicon.ico" type="image/vnd.microsoft.icon">
+  <title>Alternatives textuelles - Réseaux sociaux accessibles - V2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.14.4/dist/dsfr/dsfr.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.14.4/dist/utility/utility.min.css">
+  <style nonce="miweb-static">
+.miweb-page-header {
+  margin-bottom: 2rem;
+}
+
+.miweb-version {
+  color: var(--text-mention-grey);
+}
+
+.miweb-summary-zone {
+  margin-bottom: 2rem;
+}
+
+.miweb-slide-controls {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.miweb-projection-controls {
+  display: none;
+}
+
+.miweb-slide-status {
+  font-weight: 700;
+  margin: 0;
+}
+
+.miweb-slide-section {
+  margin-bottom: 2.5rem;
+}
+
+.miweb-slide-section[hidden] {
+  display: none;
+}
+
+.miweb-slide-title {
+  margin-bottom: 1rem;
+}
+
+.miweb-slide-frame {
+  margin: 0 auto 1rem;
+  max-width: 1120px;
+  width: 100%;
+}
+
+.miweb-slide-frame img {
+  border: 1px solid var(--border-default-grey);
+  display: block;
+  height: auto;
+  touch-action: pan-y;
+  width: 100%;
+}
+
+.miweb-slide-caption {
+  color: var(--text-mention-grey);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.miweb-text-page {
+  max-width: 48rem;
+}
+
+.miweb-download-link {
+  margin-top: 0.75rem;
+}
+
+#footer {
+  background-color: #ffffff;
+  box-shadow: inset 0 2px 0 0 var(--border-action-high-blue-france);
+  color: #3a3a3a;
+}
+
+#footer .fr-footer__content-link {
+  background-color: #ffffff;
+  color: #3a3a3a;
+}
+
+#diaporama:fullscreen {
+  background: var(--background-default-grey);
+  box-sizing: border-box;
+  overflow: auto;
+  padding: clamp(0.75rem, 2vw, 2rem);
+}
+
+#diaporama:fullscreen .miweb-slide-controls {
+  display: none;
+}
+
+#diaporama:fullscreen .miweb-projection-controls {
+  align-items: center;
+  background: var(--background-default-grey);
+  border: 1px solid var(--border-default-grey);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  max-width: min(100%, 56rem);
+  padding: 0.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+#diaporama:fullscreen #diaporama-title,
+#diaporama:fullscreen .miweb-slide-title {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+#diaporama:fullscreen .miweb-slide-section {
+  margin-bottom: 0;
+}
+
+#diaporama:fullscreen .miweb-slide-frame {
+  max-width: min(96vw, 1600px);
+}
+
+#diaporama:fullscreen .fr-accordions-group {
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: min(96vw, 1600px);
+  width: 100%;
+}
+
+@media (max-width: 36em) {
+  #diaporama:fullscreen .miweb-projection-controls {
+    align-items: stretch;
+  }
+
+  #diaporama:fullscreen .miweb-projection-controls .fr-btn {
+    flex: 1 1 9rem;
+    justify-content: center;
+  }
+}
+
+@media print {
+  .fr-skiplinks,
+  .fr-header,
+  .fr-summary,
+  .miweb-slide-controls,
+  .fr-footer {
+    display: none !important;
+  }
+
+  .miweb-slide-section[hidden] {
+    display: block !important;
+  }
+
+  .miweb-slide-section,
+  .miweb-alt-section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="fr-skiplinks">
+    <nav aria-label="Accès rapide" class="fr-container">
+      <ul class="fr-skiplinks__list">
+        <li><a class="fr-link" href="#contenu">Accéder au contenu</a></li>
+        <li><a class="fr-link" href="#footer">Accéder au pied de page</a></li>
+      </ul>
+    </nav>
+  </div>
+  <header role="banner" class="fr-header">
+    <div class="fr-header__body">
+      <div class="fr-container">
+        <div class="fr-header__body-row">
+          <div class="fr-header__brand fr-enlarge-link">
+            <div class="fr-header__brand-top">
+              <div class="fr-header__logo">
+                <p class="fr-logo">République<br>Française</p>
+              </div>
+              <div class="fr-header__navbar">
+                <button data-fr-opened="false" aria-controls="modal-menu" title="Menu" type="button" id="button-menu" class="fr-btn--menu fr-btn">Menu</button>
+              </div>
+            </div>
+            <div class="fr-header__service">
+              <a href="./" title="Accueil - Réseaux sociaux accessibles - V2">
+                <p class="fr-header__service-title">Réseaux sociaux accessibles - V2</p>
+              </a>
+              <p class="fr-header__service-tagline">Jeu de slides généré</p>
+            </div>
+          </div>
+          <div class="fr-header__tools">
+            <div class="fr-header__tools-links">
+              <ul class="fr-btns-group">
+                <li>
+                  <a href="./?projection=1#slide-01" class="fr-btn fr-icon-expand-left-right-line fr-btn--icon-left">Présentation plein écran</a>
+                </li>
+                <li>
+                  <a href="alternatives.html" class="fr-btn fr-icon-accessibility-line fr-btn--icon-left">Alternatives textuelles</a>
+                </li>
+                <li>
+                  <a href="assets/downloads/publier-de-facon-accessible-sur-les-reseaux-sociaux-v2-slides.zip" class="fr-btn fr-icon-download-line fr-btn--icon-left" download>Télécharger les slides</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fr-header__menu fr-modal" id="modal-menu">
+      <div class="fr-container">
+        <button aria-controls="modal-menu" title="Fermer" type="button" class="fr-btn--close fr-btn">Fermer</button>
+        <div class="fr-header__menu-links"></div>
+      </div>
+    </div>
+  </header>
+  <main id="contenu" class="fr-container fr-py-4w miweb-text-page">
+    <nav class="fr-breadcrumb" aria-label="vous êtes ici :">
+    <button type="button" class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb">Voir le fil d’Ariane</button>
+    <div class="fr-collapse" id="breadcrumb">
+      <ol class="fr-breadcrumb__list">
+        <li><a class="fr-breadcrumb__link" href="../">Versions</a></li>
+        <li><a class="fr-breadcrumb__link" href="./">Réseaux sociaux accessibles - V2</a></li>
+        <li><a class="fr-breadcrumb__link" aria-current="page">Alternatives textuelles</a></li>
+      </ol>
+    </div>
+  </nav>
+    <h1>Alternatives textuelles</h1>
+    <p class="fr-text--lead">Réseaux sociaux accessibles - V2 - publier-de-facon-accessible-sur-les-reseaux-sociaux-v2</p>
+      <section class="miweb-alt-section" id="alternative-slide-01">
+        <h2>Slide 1 - Accessibilité des réseaux sociaux</h2>
+        <p><a class="fr-link" href="./#slide-01">Voir la slide 1 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide d&#x27;ouverture montre un brief de production et un storyboard qui intègrent l&#x27;accessibilité dès le départ. Elle oppose l&#x27;idée de correction tardive à une intégration dans la création.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Accessibilité des réseaux sociaux</li>
+          <li>Penser l&#x27;accès dès le brief de production.</li>
+          <li>Contenu public</li>
+          <li>Qualité globale</li>
+          <li>Compréhensible par tous</li>
+          <li>La bonne approche n&#x27;est pas de corriger à la fin, mais d&#x27;intégrer l&#x27;accessibilité à la création.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>L&#x27;accessibilité des publications sociales doit être pensée dès le brief de production, comme une exigence de qualité globale.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-02">
+        <h2>Slide 2 - Le parcours d&#x27;un post accessible</h2>
+        <p><a class="fr-link" href="./#slide-02">Voir la slide 2 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide présente une frise en quatre piliers : typographie et signes, liens et actions, multimédia, puis fond et service après-vente.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Le parcours d&#x27;un post accessible</li>
+          <li>4 piliers pour concevoir sans exclure.</li>
+          <li>1. Typographie &amp; Signes</li>
+          <li>Émojis, Hashtags, Mises en forme</li>
+          <li>2. Liens &amp; Actions</li>
+          <li>Où cliquer ?</li>
+          <li>3. Le Multimédia</li>
+          <li>Images, Carrousels, Vidéos</li>
+          <li>4. Le Fond &amp; Le SAV</li>
+          <li>Langage clair, Modération, Mesure</li>
+          <li>Chaque composant d&#x27;une publication possède ses propres règles de clarté.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Un post accessible se conçoit composant par composant : texte, actions, multimédia, fond et suivi après publication.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-03">
+        <h2>Slide 3 - Communiquer sans exclure</h2>
+        <p><a class="fr-link" href="./#slide-03">Voir la slide 3 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre une publication transformée en message clair, puis restituée par un lecteur d&#x27;écran et reprise dans un canal accessible. Le parcours illustre qu&#x27;une publication doit rester compréhensible quand l&#x27;effet visuel disparaît.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Communiquer sans exclure</li>
+          <li>Le message reste prioritaire sur l&#x27;effet visuel.</li>
+          <li>Publication</li>
+          <li>Message clair</li>
+          <li>Lecteur d&#x27;écran</li>
+          <li>Canal accessible</li>
+          <li>L&#x27;apparence ne doit jamais porter seule l&#x27;information.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Une publication sociale reste accessible quand l&#x27;information principale est portée par un message clair, pas seulement par son apparence.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-04">
+        <h2>Slide 4 - Un émoji est aussi vocalisé</h2>
+        <p><a class="fr-link" href="./#slide-04">Voir la slide 4 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide représente une publication avec un émoji, puis une sortie audio de lecteur d&#x27;écran. Elle montre qu&#x27;un signe visuel peut devenir des mots vocalisés et ajouter du bruit à l&#x27;écoute.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Un émoji est aussi vocalisé</li>
+          <li>La synthèse vocale lit son équivalent textuel.</li>
+          <li>Émoji</li>
+          <li>Texte utile</li>
+          <li>Vocalisation</li>
+          <li>Mots parasites</li>
+          <li>Ce qui amuse à l&#x27;écran peut encombrer l&#x27;écoute.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Avant de publier, il faut se demander comment l&#x27;émoji sera restitué par un lecteur d&#x27;écran ou une autre technologie d&#x27;assistance.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-05">
+        <h2>Slide 5 - Un seul émoji suffit</h2>
+        <p><a class="fr-link" href="./#slide-05">Voir la slide 5 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide compare une publication qui empile les signes et une publication qui garde un seul signal. La version répétée est marquée comme à éviter, tandis que le signal unique laisse le message lisible.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Un seul émoji suffit</li>
+          <li>La répétition allonge la vocalisation.</li>
+          <li>À éviter</li>
+          <li>Répétition</li>
+          <li>À privilégier</li>
+          <li>Signal unique</li>
+          <li>L&#x27;attention vient du message, pas de l&#x27;empilement.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Répéter le même émoji n&#x27;ajoute pas d&#x27;information utile et peut rendre la vocalisation longue ou confuse.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-06">
+        <h2>Slide 6 - Garder les mots et chiffres en texte</h2>
+        <p><a class="fr-link" href="./#slide-06">Voir la slide 6 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide oppose un chiffre ambigu à une valeur écrite clairement en texte réel. Elle rappelle que les chiffres, les mots clés et les consignes ne doivent pas être remplacés par des symboles.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Garder les mots et chiffres en texte</li>
+          <li>Un émoji ne remplace pas une information.</li>
+          <li>Ambigu</li>
+          <li>44 %</li>
+          <li>Texte réel</li>
+          <li>Compréhensible</li>
+          <li>Les chiffres et les mots essentiels doivent rester écrits.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Les mots et les chiffres essentiels doivent rester écrits en texte réel, car un symbole peut être ambigu ou mal vocalisé.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-07">
+        <h2>Slide 7 - Placer l&#x27;émoji après le message</h2>
+        <p><a class="fr-link" href="./#slide-07">Voir la slide 7 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide compare deux chronologies de lecture. La première commence par l&#x27;ornement et ralentit l&#x27;accès au message ; la seconde commence par l&#x27;information utile et place l&#x27;ornement à la fin.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Placer l&#x27;émoji après le message</li>
+          <li>L&#x27;information passe d&#x27;abord.</li>
+          <li>Début</li>
+          <li>Milieu</li>
+          <li>Fin</li>
+          <li>Lecture fluide</li>
+          <li>Laissez le lecteur d&#x27;écran annoncer le message avant l&#x27;ornement.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Quand un émoji est utile, le placer après l&#x27;information permet d&#x27;entendre le message avant l&#x27;ornement.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-08">
+        <h2>Slide 8 - Ce n&#x27;est pas du style</h2>
+        <p><a class="fr-link" href="./#slide-08">Voir la slide 8 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre un texte réel transformé par un outil tiers en faux gras, faux italique et police fantaisie. Elle explique que ces effets ne sont pas une vraie mise en forme, mais un remplacement de caractères Unicode.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Ce n&#x27;est pas du style</li>
+          <li>Un outil tiers remplace les caractères.</li>
+          <li>Texte réel</li>
+          <li>Outil tiers</li>
+          <li>Faux gras</li>
+          <li>Faux italique</li>
+          <li>Police fantaisie</li>
+          <li>Caractères Unicode</li>
+          <li>La mise en forme ne doit pas changer la nature du texte.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Le faux gras, le faux italique et les polices fantaisie détournent les caractères au lieu d&#x27;appliquer une vraie mise en forme.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-09">
+        <h2>Slide 9 - Le lecteur d&#x27;écran perd le mot</h2>
+        <p><a class="fr-link" href="./#slide-09">Voir la slide 9 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre une publication passant dans un lecteur d&#x27;écran. La sortie peut être ignorée, épelée ou restituée comme des symboles, puis une version en texte réel rétablit le mot.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Le lecteur d&#x27;écran perd le mot</li>
+          <li>Ce qui paraît lisible peut devenir du bruit.</li>
+          <li>Ignoré</li>
+          <li>Épelé</li>
+          <li>Symboles</li>
+          <li>Texte réel</li>
+          <li>Un mot décoré peut ne plus être entendu comme un mot.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Un mot décoré avec des caractères détournés peut ne plus être compris comme un mot par les technologies d&#x27;assistance.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-10">
+        <h2>Slide 10 - Les outils ne suivent plus</h2>
+        <p><a class="fr-link" href="./#slide-10">Voir la slide 10 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide compare un mot en faux style et le même mot en texte réel face à trois outils : recherche, traduction et indexation. Les caractères détournés perturbent les outils, tandis que le texte réel circule correctement.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Les outils ne suivent plus</li>
+          <li>Recherche et traduction ont besoin de texte réel.</li>
+          <li>Recherche</li>
+          <li>Traduction</li>
+          <li>Indexation</li>
+          <li>Texte réel</li>
+          <li>Un mot introuvable est un message qui circule moins.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Les caractères détournés peuvent gêner la recherche, la traduction automatique et l&#x27;indexation des publications.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-11">
+        <h2>Slide 11 - Bannir les faux décors de texte</h2>
+        <p><a class="fr-link" href="./#slide-11">Voir la slide 11 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide présente quatre cartes de mauvaises pratiques à retirer : fausses puces, lettres espacées, titre décoré et ASCII art. Elle rappelle que la structure du message ne doit pas être simulée par des ornements.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Bannir les faux décors de texte</li>
+          <li>La structure ne doit pas être simulée.</li>
+          <li>Fausses puces</li>
+          <li>Lettres espacées</li>
+          <li>Titre décoré</li>
+          <li>ASCII art</li>
+          <li>À retirer</li>
+          <li>Le texte doit rester compréhensible sans les ornements.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Les signes décoratifs ne doivent pas porter la structure du message : le texte doit rester compréhensible sans eux.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-12">
+        <h2>Slide 12 - Linéariser les faux tableaux</h2>
+        <p><a class="fr-link" href="./#slide-12">Voir la slide 12 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre un faux tableau créé avec des espaces et des barres, puis une lecture dans le désordre. La solution proposée est de réécrire le contenu en post clair, avec une description longue ou un lien accessible si les données sont denses.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Linéariser les faux tableaux</li>
+          <li>Sur les réseaux, l&#x27;alignement visuel ne suffit pas.</li>
+          <li>Faux tableau</li>
+          <li>Espaces et barres</li>
+          <li>Lu dans le désordre</li>
+          <li>Texte linéarisé</li>
+          <li>Post clair</li>
+          <li>Description longue</li>
+          <li>Lien accessible</li>
+          <li>Si l&#x27;ordre devient incohérent, il faut réécrire le contenu.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Un faux tableau ou une fausse colonne doit être réécrit en texte linéaire, ou renvoyer vers un support accessible quand les données sont trop denses.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-13">
+        <h2>Slide 13 - Checklist émojis</h2>
+        <p><a class="fr-link" href="./#slide-13">Voir la slide 13 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre une publication relue avec une checklist. Les contrôles portent sur le sens du message, les mots clés écrits, la position en fin de phrase, l&#x27;absence de série et le maintien du texte réel.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Checklist émojis</li>
+          <li>Le message doit tenir sans eux.</li>
+          <li>Sens</li>
+          <li>Mot clé écrit</li>
+          <li>Fin de phrase</li>
+          <li>Pas de série</li>
+          <li>Texte réel</li>
+          <li>Un émoji aide seulement si le texte reste clair sans lui.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Un émoji peut aider visuellement, mais il ne doit jamais remplacer le sens, les mots clés, les chiffres ou la consigne.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-14">
+        <h2>Slide 14 - Checklist caractères spéciaux</h2>
+        <p><a class="fr-link" href="./#slide-14">Voir la slide 14 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre une personne inspectant une publication et plusieurs pièges barrés : faux gras, faux italique, police fantaisie, fausses puces, ASCII art, faux tableaux et ponctuation excessive. Elle s&#x27;appuie sur la règle Opquast n°14.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Checklist caractères spéciaux</li>
+          <li>Le style ne doit pas détourner le texte.</li>
+          <li>Opquast n°14</li>
+          <li>Faux gras</li>
+          <li>Faux italique</li>
+          <li>Police fantaisie</li>
+          <li>Fausses puces</li>
+          <li>ASCII art</li>
+          <li>Faux tableaux</li>
+          <li>Ponctuation</li>
+          <li>Sans vraie fonction native, on renonce à l&#x27;effet.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Sans vraie fonction native, il faut renoncer aux effets visuels qui détournent les caractères ; pour les listes, privilégier les tirets standards, les numéros et le texte réel.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-15">
+        <h2>Slide 15 - Relire avant de publier</h2>
+        <p><a class="fr-link" href="./#slide-15">Voir la slide 15 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre une publication prête, un bloc de quatre contrôles et un bloc séparé de canal accessible. Les quatre contrôles sont le sens, le nombre, la position et le texte réel ; le canal accessible est une page ou un document accessible après relecture.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Relire avant de publier</li>
+          <li>D&#x27;abord 4 contrôles, puis le canal accessible.</li>
+          <li>4 contrôles</li>
+          <li>Sens</li>
+          <li>Nombre</li>
+          <li>Position</li>
+          <li>Texte réel</li>
+          <li>Canal accessible</li>
+          <li>Page ou document accessible</li>
+          <li>La publication accessible se relit avant diffusion.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Avant diffusion, relire la publication avec quatre contrôles simples, puis vérifier que l&#x27;information importante existe aussi sur un support accessible.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-16">
+        <h2>Slide 16 - Placer le lien dans le post</h2>
+        <p><a class="fr-link" href="./#slide-16">Voir la slide 16 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide compare deux parcours. À gauche, le lien clair reste à la fin du post principal et mène directement vers une page accessible. À droite, le lien est déplacé dans un commentaire séparé, ce qui ajoute un détour.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Placer le lien dans le post</li>
+          <li>L&#x27;action essentielle doit rester dans le parcours principal.</li>
+          <li>Post principal</li>
+          <li>Fin du message</li>
+          <li>Lien clair</li>
+          <li>Parcours direct</li>
+          <li>Commentaire séparé</li>
+          <li>Détour</li>
+          <li>Page accessible</li>
+          <li>La pratique la plus robuste reste le lien clair à la fin du post.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Le lien le plus robuste est celui qui reste clairement intégré au post principal, idéalement à la fin du message.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-17">
+        <h2>Slide 17 - Le commentaire ajoute un détour</h2>
+        <p><a class="fr-link" href="./#slide-17">Voir la slide 17 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre les points de vigilance quand le lien est déplacé en premier commentaire : commentaire épinglé, accès clavier, lecteur d&#x27;écran et découvrabilité. Chaque étape est à vérifier sur la plateforme.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Le commentaire ajoute un détour</li>
+          <li>Un lien déplacé peut devenir plus difficile à trouver.</li>
+          <li>Premier commentaire</li>
+          <li>Commentaire épinglé</li>
+          <li>Accès clavier</li>
+          <li>Lecteur d&#x27;écran</li>
+          <li>Découvrabilité</li>
+          <li>À vérifier</li>
+          <li>Un commentaire non atteint est une action perdue.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Un lien en commentaire peut être utilisé seulement si le commentaire reste atteignable, lisible, épinglé quand c&#x27;est possible et réellement trouvable.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-18">
+        <h2>Slide 18 - Écrire l&#x27;action explicitement</h2>
+        <p><a class="fr-link" href="./#slide-18">Voir la slide 18 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide oppose des formulations vagues comme Lien ou Cliquez ici à des libellés explicites. Elle rappelle que l&#x27;aperçu automatique peut être tronqué et que le texte du lien doit annoncer la destination.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Écrire l&#x27;action explicitement</li>
+          <li>Le texte du lien doit annoncer la destination.</li>
+          <li>À fuir</li>
+          <li>Lien 👇</li>
+          <li>Cliquez ici</li>
+          <li>Aperçu tronqué</li>
+          <li>À privilégier</li>
+          <li>Télécharger le guide RGAA en PDF</li>
+          <li>Consulter la checklist</li>
+          <li>Un lien clair se comprend hors contexte.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Le texte d&#x27;appel à l&#x27;action doit dire ce que l&#x27;utilisateur va obtenir ou consulter, même si l&#x27;aperçu ou l&#x27;URL sont masqués.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-19">
+        <h2>Slide 19 - Utiliser le commentaire en réparation</h2>
+        <p><a class="fr-link" href="./#slide-19">Voir la slide 19 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre un post déjà publié avec un défaut d&#x27;accessibilité : texte alternatif ou transcription manquants. Le commentaire sert alors à publier le lien corrigé ou l&#x27;alternative et à l&#x27;épingler si la plateforme le permet.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Utiliser le commentaire en réparation</li>
+          <li>Après publication, il peut servir de roue de secours.</li>
+          <li>Défaut détecté</li>
+          <li>Texte alternatif</li>
+          <li>Transcription</li>
+          <li>Lien corrigé</li>
+          <li>Commentaire épinglé</li>
+          <li>Réparation</li>
+          <li>Le commentaire répare un manque, il ne doit pas cacher l&#x27;action principale.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Le commentaire est pertinent comme roue de secours après publication quand la plateforme empêche de corriger directement le post.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-20">
+        <h2>Slide 20 - Écrire les hashtags en mots lisibles</h2>
+        <p><a class="fr-link" href="./#slide-20">Voir la slide 20 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide compare deux publications. À gauche, un hashtag écrit tout collé est marqué comme difficile à lire. À droite, le même hashtag utilise des majuscules internes pour séparer les mots et rendre la lecture plus claire.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Écrire les hashtags en mots lisibles</li>
+          <li>Les majuscules internes aident à séparer les mots.</li>
+          <li>Tout collé</li>
+          <li>Mots séparés</li>
+          <li>Majuscules internes</li>
+          <li>Lecture lisible</li>
+          <li>#bonplaneteensemble</li>
+          <li>#BonPlaneteEnsemble</li>
+          <li>Un hashtag doit pouvoir être compris sans devinette.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Un hashtag reste du texte : les majuscules internes aident à distinguer les mots et à éviter la devinette.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-21">
+        <h2>Slide 21 - Garder peu de hashtags</h2>
+        <p><a class="fr-link" href="./#slide-21">Voir la slide 21 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide oppose une publication à éviter, remplie de marques de hashtags abstraites, et une publication à privilégier. Dans la version corrigée, le message arrive d&#x27;abord, puis quelques hashtags lisibles en CamelCase sont placés en fin de post.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Garder peu de hashtags</li>
+          <li>Ils complètent le message, ils ne le remplacent pas.</li>
+          <li>À ÉVITER</li>
+          <li>À PRIVILÉGIER</li>
+          <li>Message d&#x27;abord</li>
+          <li>Fin de post</li>
+          <li>Peu de hashtags</li>
+          <li>Pas de chaîne</li>
+          <li>#MotUn</li>
+          <li>#MotDeux</li>
+          <li>#MotTrois</li>
+          <li>Chronologie d&#x27;écoute trop longue</li>
+          <li>Chronologie d&#x27;écoute courte</li>
+          <li>Le hashtag est un repère, pas le contenu principal.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Les hashtags complètent le message : ils doivent rester peu nombreux, lisibles et placés après le contenu principal.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-22">
+        <h2>Slide 22 - Faire des listes accessibles</h2>
+        <p><a class="fr-link" href="./#slide-22">Voir la slide 22 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide compare deux manières de structurer une liste. À gauche, les symboles décoratifs et les émojis répétés sont marqués comme à éviter. À droite, les options à privilégier sont le tiret standard, la liste numérotée et un émoji unique accompagné de texte.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Faire des listes accessibles</li>
+          <li>Quand il n&#x27;y a pas de bouton puce, on garde une structure simple.</li>
+          <li>À éviter</li>
+          <li>Symboles décoratifs</li>
+          <li>Émojis répétés</li>
+          <li>À privilégier</li>
+          <li>Tiret standard</li>
+          <li>Liste numérotée</li>
+          <li>Émoji unique + texte</li>
+          <li>La liste doit rester lisible et vocalisable.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Sur les réseaux, une liste accessible peut utiliser un tiret standard, une numérotation ou un émoji unique accompagné d&#x27;un texte réel.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-23">
+        <h2>Slide 23 - Calmer la ponctuation bruyante</h2>
+        <p><a class="fr-link" href="./#slide-23">Voir la slide 23 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide compare une publication avec ponctuation excessive et une publication corrigée. L&#x27;excès produit une vocalisation longue, tandis qu&#x27;une ponctuation utile et un ton clair guident mieux la lecture.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Calmer la ponctuation bruyante</li>
+          <li>La répétition ne rend pas le message plus clair.</li>
+          <li>Ponctuation excessive</li>
+          <li>Vocalisation longue</li>
+          <li>Ponctuation utile</li>
+          <li>Ton clair</li>
+          <li>La ponctuation doit guider le sens, pas crier le message.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>La ponctuation répétée ajoute du bruit sans clarifier le message ; une formulation claire et une ponctuation sobre sont plus accessibles.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-24">
+        <h2>Slide 24 - Proscrire les séries bruyantes</h2>
+        <p><a class="fr-link" href="./#slide-24">Voir la slide 24 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre un avant-après. À gauche, ALERTE en majuscules et suivi de plusieurs points d&#x27;exclamation est présenté comme à fuir, avec décoration sonore et charge cognitive. À droite, Important suivi de deux-points est présenté comme langage clair.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Proscrire les séries bruyantes</li>
+          <li>La ponctuation répétée devient une décoration sonore.</li>
+          <li>À fuir</li>
+          <li>ALERTE !!!!!!</li>
+          <li>Décoration sonore</li>
+          <li>Charge cognitive</li>
+          <li>À privilégier</li>
+          <li>Important :</li>
+          <li>Langage clair</li>
+          <li>Pas de MAJUSCULES</li>
+          <li>L&#x27;urgence doit être portée par les mots, pas par les signes répétés.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Les séries de ponctuation comme !!! ou ??? doivent être proscrites : l&#x27;urgence doit être portée par des mots clairs, pas par des signes répétés.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-25">
+        <h2>Slide 25 - Contrôler les signes avant publication</h2>
+        <p><a class="fr-link" href="./#slide-25">Voir la slide 25 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide rassemble les familles de signes à contrôler avant publication : émojis, hashtags, ponctuation, faux style et symboles décoratifs. Elles convergent vers une carte de validation qui rappelle l&#x27;objectif de texte réel.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Contrôler les signes avant publication</li>
+          <li>Une même règle pour les éléments non alphabétiques, ponctuation et caractères spéciaux.</li>
+          <li>Émojis</li>
+          <li>Hashtags</li>
+          <li>Ponctuation</li>
+          <li>Faux style</li>
+          <li>Symboles décoratifs</li>
+          <li>Texte réel</li>
+          <li>Si le signe porte le sens, il faut le vérifier.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Émojis, hashtags, ponctuation et caractères spéciaux doivent être relus ensemble dès qu&#x27;ils portent du sens ou simulent une structure.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-26">
+        <h2>Slide 26 - Rendre l&#x27;image décorative silencieuse</h2>
+        <p><a class="fr-link" href="./#slide-26">Voir la slide 26 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre une image décorative, un champ alternatif vide quand il est possible et le risque d&#x27;un auto-alt bruyant sur les réseaux. Elle propose un alt court ou l&#x27;évitement de l&#x27;image quand elle n&#x27;ajoute aucune information.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Rendre l&#x27;image décorative silencieuse</li>
+          <li>Sur les réseaux, le champ Alt vide n&#x27;est pas toujours possible.</li>
+          <li>Image décorative</li>
+          <li>alt=&quot;&quot; si possible</li>
+          <li>Auto-alt</li>
+          <li>Bruit inutile</li>
+          <li>Alt court</li>
+          <li>Éviter l&#x27;image</li>
+          <li>Si l&#x27;image n&#x27;ajoute rien, elle ne doit pas ajouter de bruit.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Une image purement décorative doit rester silencieuse si la plateforme le permet ; sinon, l&#x27;alt doit rester très bref ou l&#x27;image doit être évitée.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-27">
+        <h2>Slide 27 - Décrire l&#x27;image informative</h2>
+        <p><a class="fr-link" href="./#slide-27">Voir la slide 27 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre une image informative abstraite, un champ Alt text manuel et trois règles de rédaction : aller à l&#x27;essentiel, éviter les redites, ne pas utiliser le champ pour le SEO et ne décrire les personnes que si c&#x27;est utile et consenti.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Décrire l&#x27;image informative</li>
+          <li>Toute information visuelle doit avoir un Alt text manuel.</li>
+          <li>Message visuel</li>
+          <li>Alt text manuel</li>
+          <li>Essentiel d&#x27;abord</li>
+          <li>Pas de redite</li>
+          <li>Pas de SEO</li>
+          <li>Personnes : utile et consenti</li>
+          <li>Si l&#x27;image informe, elle doit être décrite.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Toute image porteuse d&#x27;information doit avoir une alternative textuelle manuelle qui transmet l&#x27;information utile sans redite ni mots-clés SEO.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-28">
+        <h2>Slide 28 - Retaper le texte incrusté</h2>
+        <p><a class="fr-link" href="./#slide-28">Voir la slide 28 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre une affiche qui contient des informations visibles, puis les mêmes éléments recopiés dans le texte du post et dans une description longue. Elle rappelle que le texte dans l&#x27;image ne doit pas être le seul accès à l&#x27;information.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Retaper le texte incrusté</li>
+          <li>Le texte visible doit aussi exister en vrai texte.</li>
+          <li>Affiche</li>
+          <li>Date</li>
+          <li>Lieu</li>
+          <li>Prix</li>
+          <li>Texte du post</li>
+          <li>Description longue</li>
+          <li>Le texte dans l&#x27;image doit être recopié.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Si une image contient du texte utile, ce texte doit aussi être repris en texte réel dans la publication ou dans une description longue.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-29">
+        <h2>Slide 29 - Prévoir une description longue</h2>
+        <p><a class="fr-link" href="./#slide-29">Voir la slide 29 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre un graphique dense, un alt court insuffisant pour tout contenir, puis une description structurée avec conclusion, valeurs clés, post et lien accessible.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Prévoir une description longue</li>
+          <li>Un graphique dense dépasse souvent le champ Alt.</li>
+          <li>Graphique</li>
+          <li>Alt court</li>
+          <li>Conclusion</li>
+          <li>Valeurs clés</li>
+          <li>Post</li>
+          <li>Lien accessible</li>
+          <li>D&#x27;abord la conclusion, puis les valeurs nécessaires.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Pour une infographie ou un graphique dense, l&#x27;alt court oriente vers une description longue qui donne d&#x27;abord la conclusion puis les valeurs utiles.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-30">
+        <h2>Slide 30 - Fournir une version texte des carrousels</h2>
+        <p><a class="fr-link" href="./#slide-30">Voir la slide 30 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre un carrousel contenant méthode et graphiques, puis une version texte et un PDF balisé. Elle rappelle qu&#x27;un PDF publié n&#x27;est pas automatiquement accessible.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Fournir une version texte des carrousels</li>
+          <li>Un carrousel social est un contenu complexe.</li>
+          <li>Carrousel</li>
+          <li>Plus de 3 slides</li>
+          <li>Méthode</li>
+          <li>Graphiques</li>
+          <li>Version texte</li>
+          <li>PDF balisé</li>
+          <li>Un PDF publié n&#x27;est pas automatiquement accessible.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Un carrousel informatif ou un PDF doit avoir une version texte complète, surtout s&#x27;il contient une méthode, des graphiques ou plusieurs écrans.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-31">
+        <h2>Slide 31 - Relire les sous-titres automatiques</h2>
+        <p><a class="fr-link" href="./#slide-31">Voir la slide 31 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre une vidéo parlée, des sous-titres automatiques en brouillon et une relecture qui corrige les noms propres, les sigles et les sons utiles.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Relire les sous-titres automatiques</li>
+          <li>Les sous-titres générés sont des brouillons.</li>
+          <li>Vidéo parlée</li>
+          <li>Sous-titres</li>
+          <li>Relecture</li>
+          <li>Noms propres</li>
+          <li>Sigles</li>
+          <li>Sons utiles</li>
+          <li>Une vidéo parlée doit être sous-titrée et corrigée.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Toute vidéo parlée doit être sous-titrée, et les sous-titres automatiques doivent être relus avant publication.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-32">
+        <h2>Slide 32 - Décrire l&#x27;action visuelle non parlée</h2>
+        <p><a class="fr-link" href="./#slide-32">Voir la slide 32 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre une action importante uniquement visuelle, puis trois compensations possibles : script vocal, audiodescription et transcription.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Décrire l&#x27;action visuelle non parlée</li>
+          <li>Les sous-titres ne suffisent pas si le sens est visuel.</li>
+          <li>Action muette</li>
+          <li>Itinéraire</li>
+          <li>Tutoriel</li>
+          <li>Script vocal</li>
+          <li>Audiodescription</li>
+          <li>Transcription</li>
+          <li>Toute information visuelle importante doit être compensée.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Si une vidéo montre une information importante sans la dire, cette information doit être compensée par une piste audio ou une transcription.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-33">
+        <h2>Slide 33 - Sécuriser la lecture vidéo</h2>
+        <p><a class="fr-link" href="./#slide-33">Voir la slide 33 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide compare une vidéo risquée, avec flashs rapides, transitions agressives, autoplay, son et GIF, à une lecture contrôlée avec pause.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Sécuriser la lecture vidéo</li>
+          <li>L&#x27;utilisateur garde le contrôle de l&#x27;animation et du son.</li>
+          <li>Flashs rapides</li>
+          <li>Transitions agressives</li>
+          <li>Autoplay</li>
+          <li>Son</li>
+          <li>Pause</li>
+          <li>GIF</li>
+          <li>Une animation non contrôlable peut exclure.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Les contenus animés doivent éviter les flashs rapides, les transitions agressives et les lectures automatiques imprévisibles.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-34">
+        <h2>Slide 34 - Alléger la charge cognitive</h2>
+        <p><a class="fr-link" href="./#slide-34">Voir la slide 34 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre un post dense relu puis découpé en règles de langage clair : une idée, phrase courte, acronyme développé, date complète, ordre logique et mot simple.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Alléger la charge cognitive</li>
+          <li>Le fond compte autant que la forme.</li>
+          <li>Une idée</li>
+          <li>Phrase courte</li>
+          <li>Acronyme développé</li>
+          <li>Date complète</li>
+          <li>Ordre logique</li>
+          <li>Mot simple</li>
+          <li>Un message clair demande moins d&#x27;effort.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Le langage clair réduit l&#x27;effort de compréhension : une idée par phrase, acronymes développés, dates complètes et ordre logique.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-35">
+        <h2>Slide 35 - Distinguer langage clair et FALC</h2>
+        <p><a class="fr-link" href="./#slide-35">Voir la slide 35 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide compare deux parcours éditoriaux. Le langage clair s&#x27;applique à tous les posts, tandis que le FALC suit une méthode stricte avec relecture concernée et sujets critiques.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Distinguer langage clair et FALC</li>
+          <li>Le langage clair s&#x27;applique à tous les posts.</li>
+          <li>Langage clair</li>
+          <li>Tous les posts</li>
+          <li>FALC</li>
+          <li>Méthode stricte</li>
+          <li>Relecture concernée</li>
+          <li>Sujets critiques</li>
+          <li>Ne pas appeler FALC un texte qui n&#x27;a pas été relu selon la méthode.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Le FALC n&#x27;est pas un simple texte simplifié : c&#x27;est une méthode stricte avec relecture par les personnes concernées.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-36">
+        <h2>Slide 36 - Corriger après publication</h2>
+        <p><a class="fr-link" href="./#slide-36">Voir la slide 36 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide montre un signalement après publication. Le parcours prioritaire mène à la correction du post ; si la plateforme bloque cette correction, les alternatives manquantes sont publiées et épinglées en commentaire.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Corriger après publication</li>
+          <li>Publier n&#x27;arrête pas le devoir d&#x27;accessibilité.</li>
+          <li>Signalement</li>
+          <li>Corriger le post</li>
+          <li>Alt manquant</li>
+          <li>Sous-titres</li>
+          <li>Transcription</li>
+          <li>Commentaire épinglé</li>
+          <li>Si la plateforme bloque la correction, publier l&#x27;alternative manquante.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Après publication, un défaut signalé doit être corrigé dans le post quand c&#x27;est possible, ou réparé par une alternative publiée et épinglée.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-37">
+        <h2>Slide 37 - Mesurer les vrais KPI d&#x27;accessibilité</h2>
+        <p><a class="fr-link" href="./#slide-37">Voir la slide 37 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide compare les métriques de portée seules, comme likes et vues, avec des indicateurs d&#x27;accessibilité : alt text, vidéos relues, sous-titres et délai de correction.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Mesurer les vrais KPI d&#x27;accessibilité</li>
+          <li>Un post viral inaccessible reste un échec.</li>
+          <li>Likes</li>
+          <li>Vues</li>
+          <li>Alt text</li>
+          <li>Vidéos relues</li>
+          <li>Sous-titres</li>
+          <li>Délai de correction</li>
+          <li>Mesurer l&#x27;accessibilité, pas seulement la portée.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>La réussite d&#x27;une publication doit intégrer des KPI d&#x27;accessibilité, pas seulement les likes, les vues ou la viralité.</p>
+      </section>
+      <section class="miweb-alt-section" id="alternative-slide-38">
+        <h2>Slide 38 - Produire accessible, c&#x27;est produire mieux</h2>
+        <p><a class="fr-link" href="./#slide-38">Voir la slide 38 dans le diaporama</a></p>
+        <h3>Description</h3>
+        <p>La slide de conclusion reprend le masque précédent : un brief validé mène vers trois ressources internes, puis vers un échange visuel sans texte ajouté.</p>
+        <h3>Textes visibles</h3>
+        <ul>
+          <li>Produire accessible, c&#x27;est produire mieux</li>
+          <li>L&#x27;accessibilité n&#x27;est pas une option, c&#x27;est un standard de qualité.</li>
+          <li>Charte interne</li>
+          <li>Ressources</li>
+          <li>Outils</li>
+          <li>Merci de votre attention.</li>
+        </ul>
+        <h3>Message à retenir</h3>
+        <p>Produire accessible revient à produire mieux : l&#x27;équipe dispose maintenant d&#x27;une méthode, de ressources et d&#x27;outils pour continuer.</p>
+      </section>
+  </main>
+  <footer role="contentinfo" class="fr-footer" id="footer">
+    <div class="fr-container">
+      <div class="fr-footer__body">
+        <div class="fr-footer__brand">
+          <p class="fr-logo">République<br>Française</p>
+        </div>
+        <div class="fr-footer__content">
+          <p class="fr-footer__content-desc">Réseaux sociaux accessibles - V2 - Jeu de slides généré.</p>
+          <ul class="fr-footer__content-list">
+              <li class="fr-footer__content-item"><a class="fr-footer__content-link" href="./?projection=1#slide-01" data-projection-link>Présentation plein écran</a></li>
+              <li class="fr-footer__content-item"><a class="fr-footer__content-link" href="./?slides=all#diaporama" data-show-all-link>Afficher toutes les slides</a></li>
+              <li class="fr-footer__content-item"><a class="fr-footer__content-link" href="alternatives.html">Alternatives textuelles</a></li>
+              <li class="fr-footer__content-item"><a class="fr-footer__content-link" href="assets/downloads/publier-de-facon-accessible-sur-les-reseaux-sociaux-v2-slides.zip">Télécharger les slides</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script nonce="miweb-static" type="module" src="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.14.4/dist/dsfr/dsfr.module.min.js"></script>
+  <script nonce="miweb-static" nomodule src="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.14.4/dist/dsfr/dsfr.nomodule.min.js"></script>
+</body>
+</html>

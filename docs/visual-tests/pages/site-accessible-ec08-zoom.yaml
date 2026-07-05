@@ -1,0 +1,17 @@
+name: "Ressources à zoomer - Formation 102638 - Accessibilité numérique"
+description: "Auto-generated from site-accessible/ec08-zoom.html"
+priority: medium
+requires_auth: false
+timeout: 30s
+tags: ["static-html", "interactive"]
+
+steps:
+  - action: open
+    url: "{base_url}/site-accessible/ec08-zoom.html"
+  - action: screenshot
+    path: "visual-tests/_results/screenshots/site-accessible-ec08-zoom.png"
+  - action: llm-check
+    description: "Page loads and renders content"
+    criteria: "Visible content is present, the page is not blank, and no local resource appears broken."
+    severity: critical
+    screenshot: "site-accessible-ec08-zoom.png"

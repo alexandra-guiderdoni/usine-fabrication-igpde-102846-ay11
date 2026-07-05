@@ -1,0 +1,17 @@
+name: "Site corrigé et conforme DSFR/accessibilité"
+description: "Auto-generated from site-accessible/index.html"
+priority: medium
+requires_auth: false
+timeout: 30s
+tags: ["static-html", "interactive"]
+
+steps:
+  - action: open
+    url: "{base_url}/site-accessible/"
+  - action: screenshot
+    path: "visual-tests/_results/screenshots/site-accessible-index.png"
+  - action: llm-check
+    description: "Page loads and renders content"
+    criteria: "Visible content is present, the page is not blank, and no local resource appears broken."
+    severity: critical
+    screenshot: "site-accessible-index.png"
