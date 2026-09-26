@@ -7,7 +7,7 @@ lang: fr
 # Mémo accessibilité - LibreOffice Writer
 
 Aide-mémoire des bonnes pratiques pour créer des documents Writer accessibles.
-Formation 102846 - Juin 2026
+Formation 102846 - Octobre 2026
 
 ---
 

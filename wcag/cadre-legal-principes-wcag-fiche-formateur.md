@@ -1,5 +1,10 @@
 # Cadre légal et principes WCAG - fiche formateur
 
+<!-- Contournement WeasyPrint 68 : un tableau fragmenté entre deux pages fait
+     échouer la génération PDF/UA-1 (« Table wrapper without a table »).
+     Ce style garde chaque tableau entier sur une page. -->
+<style>table { break-inside: avoid; }</style>
+
 Formation : 102846 - L'accessibilité numérique pour la bureautique et le web
 
 Public : communicants et producteurs de contenus numériques, niveau initiation.
