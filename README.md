@@ -1,4 +1,4 @@
-# Formation 102638 — Accessibilité numérique (IGPDE)
+# Formation 102846, ex-102638 — Accessibilité numérique (IGPDE)
 
 > README causal — 2026-05-22
 
@@ -47,12 +47,12 @@ python3 scripts/qa_pptx.py . --max-iterations 5 --clean
 python3 -m pytest tests/ -v
 ```
 
-Le fichier de sortie est `formation-102638-juin-2026.pptx` (nom et date centralisés dans `config.yml`).
+Le fichier de sortie est `formation-102846-octobre-2026.pptx` (nom et date centralisés dans `config.yml`).
 
 Sur macOS, après génération, retirer la quarantine Gatekeeper si PowerPoint refuse d'ouvrir le fichier :
 
 ```bash
-xattr -d com.apple.quarantine formation-102638-juin-2026.pptx
+xattr -d com.apple.quarantine formation-102846-octobre-2026.pptx
 ```
 
 ### Workflow de création (nouvelles slides ou modifications)
@@ -83,7 +83,7 @@ Ensuite le script Python correspondant (`scripts/slides/NN_nom.py`) est créé o
 | Deck WCAG condensé (13 slides) | Livré |
 | Mode d'emploi réexport | Documenté dans `REEXPORTER-DECK-PPTX.md` |
 
-**Prochaines étapes** (avant diffusion et avant la session du 4 juin 2026) :
+**Prochaines étapes** (avant diffusion et avant la session du 9 octobre 2026) :
 
 1. Passe visuelle humaine slide par slide dans PowerPoint (priorité : slides 16-22, 36, 75-76, 82-138)
 2. Corrections et ajustements au fil de la relecture
@@ -92,7 +92,7 @@ Ensuite le script Python correspondant (`scripts/slides/NN_nom.py`) est créé o
 
 **Échéance de livraison** : 20 mai 2026 (cadre qualité IGPDE — supports transmis 15 jours avant la session, échéance passée).
 
-**Date de formation** : 4 juin 2026 (IGPDE, 1 journée).
+**Date de formation** : 9 octobre 2026 (IGPDE, 1 journée). Première session le 4 juin 2026.
 
 **Qui fait quoi** :
 

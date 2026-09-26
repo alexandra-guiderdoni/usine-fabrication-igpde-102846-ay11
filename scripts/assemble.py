@@ -27,10 +27,12 @@ SCRIPTS_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPTS_DIR.parent
 sys.path.insert(0, str(SCRIPTS_DIR))
 
-from igpde_dsfr_components import create_presentation, finalize_pptx  # noqa: E402
-import qa_source_map  # noqa: E402
-from slides import (  # noqa: E402
-    SlideContext, discover_slides, load_slide_module,
+import qa_source_map
+from igpde_dsfr_components import create_presentation, finalize_pptx
+from slides import (
+    SlideContext,
+    discover_slides,
+    load_slide_module,
 )
 
 _config = yaml.safe_load((PROJECT_ROOT / "config.yml").read_text())["formation"]
@@ -89,19 +91,25 @@ def main() -> None:
     parser.add_argument("--from", dest="frm", help="Numéro de début de plage")
     parser.add_argument("--to", help="Numéro de fin de plage")
     parser.add_argument(
-        "-o", "--output", type=Path, default=OUTPUT_DEFAULT,
+        "-o",
+        "--output",
+        type=Path,
+        default=OUTPUT_DEFAULT,
         help=f"Fichier de sortie (défaut : {OUTPUT_DEFAULT.name})",
     )
     parser.add_argument(
-        "--date", default=DATE_DEFAULT,
+        "--date",
+        default=DATE_DEFAULT,
         help=f"Date affichée dans le footer (défaut : « {DATE_DEFAULT} »)",
     )
     parser.add_argument(
-        "--footer-base", default=FOOTER_BASE_DEFAULT,
+        "--footer-base",
+        default=FOOTER_BASE_DEFAULT,
         help="Préfixe de pied de page transmis dans ctx.footer_base",
     )
     parser.add_argument(
-        "--qa-map", action="store_true",
+        "--qa-map",
+        action="store_true",
         help="Écrit .qa/source-map.json avec la provenance des composants DSFR",
     )
     args = parser.parse_args()
@@ -135,8 +143,9 @@ def main() -> None:
             print(f"  [{page_num:02d}] {path.name}")
 
         finalize_pptx(
-            prs, str(args.output),
-            title="Formation 102638 - Accessibilité numérique",
+            prs,
+            str(args.output),
+            title=f"Formation {_config['code']} - Accessibilité numérique",
             author="Alex Guiderdoni",
             subject="Support de formation IGPDE - DSFR accessible",
         )

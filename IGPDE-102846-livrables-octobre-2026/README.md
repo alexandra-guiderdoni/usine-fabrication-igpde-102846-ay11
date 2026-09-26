@@ -1,16 +1,18 @@
-# Livrables formation 102638 — juin 2026
+# Livrables formation 102846 — octobre 2026
 
-Pack livrable complet remis à l'IGPDE pour la session du 4 juin 2026.
+Pack livrable complet pour la session du 9 octobre 2026 (reprogrammation sous le code 102846 de la formation 102638 remise pour la session du 4 juin 2026).
+
+Les fiches administratives ont été renumérotées 102846 localement le 2026-09-26 (contenu, pieds de page et métadonnées) à partir des versions 102638.
 
 ## Structure
 
 ```
 Formateur/
-  102638FiCat.docx               Fiche catalogue
-  102638FiTechn_DSFR_accessible.docx   Fiche technique DSFR accessible
-  102638PL.docx                  Plan de la formation
-  Derped-deroule-pedagogique-102638.docx   Déroulé pédagogique détaillé
-  formation-102638-juin-2026.pptx         Deck principal (131 slides DSFR)
+  102846FiCat.docx               Fiche catalogue
+  102846FiTechn_DSFR_accessible.docx   Fiche technique DSFR accessible
+  102846PL.docx                  Plan de la formation
+  Derped-deroule-pedagogique-102846.docx   Déroulé pédagogique détaillé
+  formation-102846-octobre-2026.pptx      Deck principal (138 slides DSFR)
   fil-rouge-principes-wcag/      Fiche formateur + fiche stagiaire WCAG
   ice-breaker-idees-recues-cartes/   6 cartes PDF idées reçues a11y
   tp-word-igpde/                 Exercice Sami (3 DOCX) + fiches mémo PDF

@@ -9,7 +9,7 @@ import pytest
 # Ajouter scripts/ au path pour permettre l'import direct
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
-from igpde_dsfr_components import (  # noqa: E402
+from igpde_dsfr_components import (
     create_presentation,
     new_slide,
 )
@@ -27,7 +27,10 @@ def deck():
         if not pptx_path.is_absolute():
             pptx_path = project_root / pptx_path
     else:
-        pptx_path = project_root / "formation-102638-juin-2026.pptx"
+        import yaml
+
+        cfg = yaml.safe_load((project_root / "config.yml").read_text())["formation"]
+        pptx_path = project_root / cfg["output"]
     if not pptx_path.exists():
         pytest.skip(
             f"PPTX final non trouvé : {pptx_path}. "
@@ -53,5 +56,6 @@ def layouts():
 @pytest.fixture
 def slide(prs, layouts):
     """Slide vide avec layout titre_contenu, prête pour les composants."""
-    return new_slide(prs, layouts, layout_name="titre_contenu",
-                     titre="Test", page_num=1)
+    return new_slide(
+        prs, layouts, layout_name="titre_contenu", titre="Test", page_num=1
+    )

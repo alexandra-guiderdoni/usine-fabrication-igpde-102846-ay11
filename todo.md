@@ -1,6 +1,18 @@
-# TODO - Formation 102638 (IGPDE / Carinne C.)
+# TODO - Formation 102846, ex-102638 (IGPDE / Carinne C.)
 
 ## En cours
+
+- [ ] **Livraison des livrables à Carine Couplan lundi 2026-09-28** (session du vendredi 9 octobre 2026) :
+  - [x] Pack remis à niveau le 2026-09-26 et renommé `IGPDE-102846-livrables-octobre-2026/` : cartes ice-breaker ajoutées (`6-cartes-idees-recues.pdf`), site easy-checks resynchronisé depuis `docs/` (diff vide), README corrigé
+  - [x] Deck régénéré pour la session du 9 octobre 2026 sous le code 102846 : `config.yml` mis à jour, QA PRD-119 `CONVERGED new=0`, `formation-102846-octobre-2026.pptx` (138 slides, 69 tests pytest OK sur le bon fichier après correction du chemin en dur de `tests/conftest.py`, `unzip -t` exit 0, zéro « 102638 » et zéro « juin 2026 » dans tout le paquet), copié dans le pack (md5 identique)
+  - [x] Site GitHub Pages republié le 2026-09-26 : corrections RGAA de juillet (commit `ff2b26d`) puis bascule 102846 et grille mise à jour (commit `e2eef6e`) — rendu en ligne vérifié après le premier rebuild
+  - [x] Convocation des intervenants copiée dans le pack (`Formateur/convocation-intervenants.pdf`, md5 vérifié) — session confirmée du vendredi 9 octobre 2026, salle 3227 Vincennes, 9 h 15-12 h 15 et 13 h 45-16 h 45, co-animation Alexandra Guiderdoni et Bertrand Matge
+  - [ ] **Préparer la salle 3227 le vendredi 2 octobre 2026 après-midi** (créneau bloqué par la gestionnaire IGPDE)
+  - [x] Écart de code formation tranché par Alex le 2026-09-26 : reprogrammation sous le code 102846 ; deck, grille XLSX, site et documents structurants basculés
+  - [x] Fiches administratives DOCX du pack renumérotées 102846 le 2026-09-26 (corps, pieds de page, métadonnées ; fichiers renommés, zéro 102638 restant, zips testés, ouverture python-docx vérifiée, quarantine retirée). Les originaux 102638 restent dans `_source/`
+  - [ ] Relecture visuelle humaine du deck par Alex avant remise (les contrôles XML ne voient pas les chevauchements fins)
+  - [ ] Choisir le canal de remise (clé USB, dépôt, envoi) et vérifier la taille du dossier `outils/` (environ 200 Mo)
+  - [ ] Décider du sort de l'ancien deck `formation-102638-juin-2026.pptx` resté à la racine (suppression possible, l'historique git le conserve)
 
 - [ ] **Impressions papier avant la session** :
   - Imprimer les cartes idées reçues (ice-breaker)
@@ -15,7 +27,7 @@
   - Corrections et modifications au fil de la relecture
   - Régénération stable via `python3 scripts/assemble.py`
   - Contrôle QA sur copie via `python3 scripts/qa_pptx.py . --max-iterations 5 --clean`
-  - Livrable : `formation-102638-juin-2026.pptx` prêt à diffuser
+  - Livrable : `formation-102846-octobre-2026.pptx` prêt à diffuser
 
 ## Fait
 

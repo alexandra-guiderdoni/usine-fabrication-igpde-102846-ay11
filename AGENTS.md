@@ -1,4 +1,4 @@
-# Formation 102638 (IGPDE / Carinne C.) - protocole Codex
+# Formation 102846, ex-102638 (IGPDE / Carinne C.) - protocole Codex
 
 Ce fichier adapte `CLAUDE.md` pour Codex. Les consignes globales Codex restent applicables.
 
@@ -10,7 +10,7 @@ Ce fichier adapte `CLAUDE.md` pour Codex. Les consignes globales Codex restent a
 - Exercice Sami : 21 critères à vérifier dans 3 DOCX, spec dans `_source/exercice-sami-spec.md`
 - Site d'exercice points de contrôle rapides dans `docs/`, avec versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/` et grille XLSX téléchargeable
 - Site publié sur GitHub Pages via dépôt standalone `easy-check-igpde` : https://alexmacapple.github.io/easy-check-igpde/
-- Dernier état livré : deck `formation-102638-juin-2026.pptx` à 138 slides (2026-05-17)
+- Dernier état livré : deck `formation-102846-octobre-2026.pptx` à 138 slides, session du 9 octobre 2026 (régénéré le 2026-09-26)
 - Deck WCAG condensé : `wcag/WCAG en langage clair - condensé.pptx` (13 slides), généré par `scripts/generate_wcag_langage_clair.py --condensed`
 
 ## Pipeline
@@ -67,9 +67,9 @@ Si les skills ne sont pas automatiquement injectés dans la session, lire leurs 
 - Prévisualiser le site des points de contrôle rapides : depuis `docs/`, lancer `python3 -m http.server 8765 --bind 127.0.0.1`, puis ouvrir `http://127.0.0.1:8765/index.html`
 - Alternative fichier direct : ouvrir `file:///Users/alex/Claude/projets-formations/IGPDE-Carinne-C/docs/index.html`, mais préférer le serveur local si les composants DSFR interactifs ne réagissent pas
 - Arrêter le serveur local : revenir dans le terminal qui exécute `http.server` et faire `Ctrl+C`
-- Quarantine macOS : `xattr -d com.apple.quarantine formation-102638-juin-2026.pptx`
+- Quarantine macOS : `xattr -d com.apple.quarantine formation-102846-octobre-2026.pptx`
 - Controle tirets dans les scripts : `grep -rn $'—\|–' scripts/` doit retourner vide
-- Controle PPTX : `unzip -t formation-102638-juin-2026.pptx`
+- Controle PPTX : `unzip -t formation-102846-octobre-2026.pptx`
 - Warnings footer : diagnostiquer par slide, corriger le positionnement source, puis régénérer le deck complet
 - Publier le site : `rsync -a --delete --exclude='.DS_Store' --exclude='*.md' --exclude='.git' docs/ /tmp/easy-check-igpde/ && cd /tmp/easy-check-igpde && git add -A && git commit -m "Mise à jour du site" && git push`
 

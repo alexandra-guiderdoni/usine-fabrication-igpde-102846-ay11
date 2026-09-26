@@ -1,14 +1,20 @@
-"""Slide 2 : objectifs pédagogiques - 3 objectifs du catalogue 102638."""
+"""Slide 2 : objectifs pédagogiques - 3 objectifs du catalogue 102846."""
 
 from igpde_dsfr_components import (
-    add_callout, add_image, add_notes, add_qrcode, new_slide,
-    MARGIN_L, COL_W, COL_R,
+    COL_W,
+    MARGIN_L,
+    add_callout,
+    add_image,
+    add_notes,
+    add_qrcode,
+    new_slide,
 )
 
 
 def build(prs, layouts, ctx):
     slide = new_slide(
-        prs, layouts,
+        prs,
+        layouts,
         layout_name="titre_soustitre",
         fil_ariane="1. Introduction",
         titre="Objectifs pédagogiques",
@@ -35,7 +41,9 @@ def build(prs, layouts, ctx):
     add_image(
         slide,
         "_assets/affiche-sig-handicap.jpg",
-        top=2.10, left=7.53, width=3.82,
+        top=2.10,
+        left=7.53,
+        width=3.82,
         alt_text="Affiche du SIG pour les 20 ans de la loi handicap. Imaginez un quotidien où rien n'est vraiment pensé pour vous. Ordinateur avec un écran inversé.",
     )
 
@@ -51,7 +59,7 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Objectifs repris mot pour mot de la fiche catalogue 102638. "
+        "Objectifs repris mot pour mot de la fiche catalogue 102846. "
         "Présenter les 3 objectifs, insister sur le caractère opérationnel : "
         "cette formation débouche sur des gestes concrets, pas seulement de la théorie.",
     )

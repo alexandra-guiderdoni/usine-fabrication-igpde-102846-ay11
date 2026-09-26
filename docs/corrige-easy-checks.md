@@ -19,7 +19,7 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 - Constat minimal attendu : Le titre de page ne permet pas d'identifier précisément la page ou son état.
 - Sévérité indicative : Gênant
 - Preuve possible : Onglet navigateur ou extrait title montrant un titre absent, générique, dupliqué ou mal ordonné.
-- Correction : Titre unique, spécifique et ordonné du particulier vers le général, par exemple Recherche "RGAA" - Page 2/3 - Formation 102638 - Accessibilité numérique.
+- Correction : Titre unique, spécifique et ordonné du particulier vers le général, par exemple Recherche "RGAA" - Page 2/3 - Formation 102846 - Accessibilité numérique.
 - Repère pédagogique : Regarder l'onglet du navigateur, le title HTML et le résultat WAVE. La page affiche déjà la requête, le tri, la page courante et le nombre de résultats : ces informations doivent aussi guider le titre.
 - Occurrences bonus : Titre absent ou intitulé Sans titre. ; Pagination absente du titre. ; Requête de recherche absente. ; Nom du ministère placé avant l'information spécifique.
 - À ne pas pénaliser : Titre long si l'information spécifique est présente en premier.
