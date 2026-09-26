@@ -12,7 +12,7 @@
   - [x] Fiches administratives DOCX du pack renumérotées 102846 le 2026-09-26 (corps, pieds de page, métadonnées ; fichiers renommés, zéro 102638 restant, zips testés, ouverture python-docx vérifiée, quarantine retirée). Les originaux 102638 restent dans `_source/`
   - [ ] Relecture visuelle humaine du deck par Alex avant remise (les contrôles XML ne voient pas les chevauchements fins)
   - [ ] Choisir le canal de remise (clé USB, dépôt, envoi) et vérifier la taille du dossier `outils/` (environ 200 Mo)
-  - [ ] Décider du sort de l'ancien deck `formation-102638-juin-2026.pptx` resté à la racine (suppression possible, l'historique git le conserve)
+  - [x] Ancien deck de juin archivé le 2026-09-26 : renommé `archive-oldformation-102638-juin-2026.pptx` à la racine (commit `218029ae8`)
 
 - [ ] **Impressions papier avant la session** :
   - Imprimer les cartes idées reçues (ice-breaker)
