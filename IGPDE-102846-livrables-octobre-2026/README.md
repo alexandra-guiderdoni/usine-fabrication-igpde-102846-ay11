@@ -17,6 +17,7 @@ Formateur/
   ice-breaker-idees-recues-cartes/   6 cartes PDF idées reçues a11y
   tp-word-igpde/                 Exercice Sami (3 DOCX) + fiches mémo PDF
   tp-easy-check-igpde/           Site d'exercice points de contrôle rapides
+  tp-reseaux-sociaux-igpde/      Démo de mauvaise restitution des emojis
 
 outils/
   CCA-Setup-3.5.4.msi           Colour Contrast Analyser (Windows)
