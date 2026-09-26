@@ -1,13 +1,13 @@
 ---
 title: "Mémo accessibilité - Microsoft Word"
-author: "IGPDE - Formation 102638"
+author: "IGPDE - Formation 102846"
 lang: fr
 ---
 
 # Mémo accessibilité - Microsoft Word
 
 Aide-mémoire des bonnes pratiques pour créer des documents Word accessibles.
-Formation 102638 - Juin 2026
+Formation 102846 - Juin 2026
 
 ---
 

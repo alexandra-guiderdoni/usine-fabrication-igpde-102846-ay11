@@ -1,4 +1,4 @@
-# Gestalt : Pack livrable IGPDE 102638
+# Gestalt : Pack livrable IGPDE 102846, ex-102638
 
 ## Thèse
 
@@ -28,9 +28,9 @@ Posture de traducteur-praticien : ferme sur le droit et les obligations, mais co
 
 ---
 
-Source : `/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/IGPDE-102638-livrables-juin-2026`
+Source : `/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/IGPDE-102846-livrables-octobre-2026` (analyse réalisée en mai 2026 sur le pack de la session du 4 juin ; structure inchangée dans le pack reprogrammé)
 
-Contexte : pack formateur/stagiaire pour une formation IGPDE d’initiation, session du 4 juin 2026, public communicants.
+Contexte : pack formateur/stagiaire pour une formation IGPDE d’initiation, session du 4 juin 2026 reprogrammée le 9 octobre 2026 sous le code 102846, public communicants.
 
 Méthode : immersion sur README, contexte projet, 4 DOCX principaux, 3 DOCX Sami, PPTX 138 slides extrait, PDFs clés, site Easy Checks et manifeste outils.
 

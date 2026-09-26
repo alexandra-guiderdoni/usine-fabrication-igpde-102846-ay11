@@ -1,6 +1,6 @@
 # Cadre légal et principes WCAG - fiche formateur
 
-Formation : 102638 - L'accessibilité numérique pour la bureautique et le web
+Formation : 102846 - L'accessibilité numérique pour la bureautique et le web
 
 Public : communicants et producteurs de contenus numériques, niveau initiation.
 

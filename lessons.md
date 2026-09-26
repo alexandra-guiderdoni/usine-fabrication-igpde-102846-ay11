@@ -1,4 +1,4 @@
-# Leçons IGPDE - Formation 102638
+# Leçons IGPDE - Formation 102846, ex-102638
 
 Enseignements techniques tirés de la construction du support de formation et de la grille d'audit. À relire avant toute nouvelle session sur ce projet ou sur un projet similaire à base de template PPTX hérité.
 

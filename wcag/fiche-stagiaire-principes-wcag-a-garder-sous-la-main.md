@@ -1,6 +1,6 @@
 # Principes WCAG - fiche à garder sous la main
 
-Formation 102638 - L'accessibilité numérique pour la bureautique et le web
+Formation 102846 - L'accessibilité numérique pour la bureautique et le web
 
 ## L'idée à retenir
 

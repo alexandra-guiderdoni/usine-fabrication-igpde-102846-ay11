@@ -1,6 +1,6 @@
-# Formation 102638 - Réseaux sociaux
+# Formation 102846 - Réseaux sociaux
 
-Source : `formation-102638-juin-2026.md`
+Source : `formation-102846-octobre-2026.pptx`
 
 Périmètre : diapositives 115 à 137 du deck, hors diapositive de clôture.
 
@@ -8,8 +8,8 @@ Périmètre : diapositives 115 à 137 du deck, hors diapositive de clôture.
 
 4. Accessibilité sur les réseaux sociaux
 115
-4 juin 2026
-Formation 102638 / Module 4
+9 octobre 2026
+Formation 102846 / Module 4
 
 ## Diapositive 116
 
@@ -25,10 +25,10 @@ Votre audience est plus large que vous ne le pensez
 • Utilisateurs en contexte défavorable : faible luminosité, connexion lente, bruit
 • Moteurs de recherche et outils d'IA qui analysent vos contenus
 • Collègues et citoyens qui lisent sans images activées
-Formation 102638 / Module 4
+Formation 102846 / Module 4
 4. Réseaux sociaux
 116
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 117
 
@@ -39,10 +39,10 @@ En binôme - 2 minutes
 • Identifiez le maximum de problèmes d'accessibilité
 • Ne lisez pas le tweet à voix haute
 • Notez ce qui vous gêne ou vous surprend
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Cas pratique
 117
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 118
 
@@ -56,10 +56,10 @@ Ce que NVDA lit à voix haute
 • Quand vous toussez ou visage qui éternue couvrez votre bouche.
 • Évitez de toucher les yeux grand ouverts, le nez et la bouche.
 Chaque émoji a un nom officiel lu intégralement. Il interrompt le flux de lecture.
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Cas pratique
 118
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 119
 
@@ -77,10 +77,10 @@ Les 3 changements
 • Émojis réduits à 1, placé en fin de phrase - le message tient sans eux
 • Structure numérotée - navigation facile pour tous les utilisateurs
 • Hashtag conservé mais seul, séparé du texte informatif
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Cas pratique
 119
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 120
 
@@ -96,10 +96,10 @@ Naviguer sur le texte : flèches ou Tab
 Pour les stagiaires pendant la démo
 • Fermez les yeux ou regardez ailleurs - écoutez uniquement
 • Notez le premier mot qui vous vient à l'écoute
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Démonstration
 120
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 121
 
@@ -120,10 +120,10 @@ Texte natif
 • Rassembler en fin de post, 2 à 3 maximum
 • Jamais de faux gras ou faux italique (InstaFont ...)
 • Les caractères Unicode stylisés sont illisibles par les lecteurs d'écran
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Réflexes
 121
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 122
 
@@ -141,10 +141,10 @@ Concrètement sur les réseaux
 • Twitter/X : intégré à la publication
 • Instagram : Paramètres avancés → Alt text
 • Canva : Clic droit → Texte alternatif
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Alt text
 122
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 123
 
@@ -160,10 +160,10 @@ Ce qui fonctionne
 • "Graphique : le taux d'accessibilité passe de 45 à 78 % entre 2023 et 2025"
 • "Infographie : 4 étapes pour publier un post accessible (texte ci-dessous)"
 Exercice en binôme (7 min) : rédigez l'alt text pour 3 images que vous avez publiées récemment sur vos réseaux professionnels.
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Alt text
 123
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 124
 
@@ -171,7 +171,7 @@ Alt text : où le trouver sur chaque plateforme ?
 Astuce : activez-le par défaut
 • LinkedIn et Instagram proposent un rappel si vous oubliez l'alt text
 • X : paramètre Accessibilité dans les réglages de compte
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Plateformes
 124
 Plateforme
@@ -190,7 +190,7 @@ Paramètres avancés > Accessibilité > Écrire le texte alternatif
 Canva
 Clic droit sur l'image > Texte alternatif
 Pendant la création
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 125
 
@@ -206,10 +206,10 @@ Test rapide avant publication
 • Retirez tous les émojis du texte
 • Le message est-il toujours clair et complet ? Si oui : bon signe
 • Si non : l'émoji porte du sens - remplacez-le par le mot correspondant
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Émojis
 125
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 126
 
@@ -219,10 +219,10 @@ Ce que NVDA lit
 • [émojis de fête] Rejoignez-nous [calendrier] mardi 10 juin [bâtiment] salle B3 pour notre atelier [ordinateur] sur l'accessibilité [cerveau] numérique [applaudissements]
 • Visage qui fête quelque chose. Visage qui fête quelque chose. Rejoignez-nous. Calendrier spirale. mardi 10 juin. Bâtiment de bureau. salle B3 pour notre atelier. Ordinateur portable. sur l'accessibilité. Cerveau. numérique. Mains qui applaudissent, peau claire. Mains qui applaudissent, peau claire.
 Version accessible : 'Rejoignez-nous mardi 10 juin, salle B3, pour notre atelier sur l'accessibilité numérique.'
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Émojis
 126
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 127
 
@@ -236,10 +236,10 @@ Pourquoi le CamelCase ?
 • Hashtags regroupés à la fin du post
 • 2 à 3 maximum, courts et utiles
 Mini-test : relisez le hashtag à voix haute. Si vous hésitez sur les mots, raccourcissez-le ou ajoutez les majuscules.
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Hashtags
 127
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 128
 
@@ -253,10 +253,10 @@ Faux gras et caractères Unicode : le piège invisible
 • Sinon : écrire en texte simple
 • Mettre les mots importants au début du post
 Test express : si le texte vient d'un générateur de style, ne le collez pas. Référence : Opquast règle 14 - caractères détournés.
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Caractères spéciaux
 128
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 129
 
@@ -270,10 +270,10 @@ Pourquoi c'est important
 • Les personnes concernées peuvent se sentir attendues
 • La communication évite de reconduire une seule norme
 • Le public se projette plus facilement dans le message
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Communication inclusive
 129
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 130
 
@@ -287,10 +287,10 @@ Piège à éviter
 • Personne réduite à son handicap ou à son identité
 • Événement annoncé inclusif mais non accessible
 Règle simple : si vos visuels montrent des personnes handicapées, vos espaces, événements et pratiques doivent être accessibles.
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Communication inclusive
 130
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 131
 
@@ -305,10 +305,10 @@ Langage inclusif : clarté d'abord
 • Formes trop compressées : elles ralentissent aussi la lecture visuelle
 • Formes ambiguës à l'oral si le message doit être lu à voix haute
 Recommandation : choisir la forme la plus inclusive qui reste claire, lisible et prononçable.
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Communication inclusive
 131
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 132
 
@@ -330,10 +330,10 @@ Déroulé
 • Le point le plus bloquant
 • La correction proposée
 • La règle à garder pour vos prochains posts
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Exercice
 132
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 133
 
@@ -344,10 +344,10 @@ Avant de créer : l'information doit exister en version accessible, pas seulemen
 ☐ Visuel très chargé ? prévoir une version complète en ligne ou dans le post
 ☐ Police lisible, sans fantaisie, assez épaisse pour un écran mobile
 ☐ Texte sur image : contraste >= 4,5:1, pas de fond qui gêne la lecture
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Checklist
 133
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 134
 
@@ -358,10 +358,10 @@ Le post doit rester compréhensible quand on retire l'image, les effets visuels 
 ☐ Émojis : 1 ou 2, en fin de message, sens vérifié
 ☐ Hashtags : CamelCase, courts, regroupés à la fin, 2 ou 3 maximum
 ☐ Langage inclusif clair : épicène, double flexion ou mot-valise compris
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Checklist
 134
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 135
 
@@ -372,10 +372,10 @@ Juste avant de cliquer : chaque accès visuel ou sonore doit avoir une alternati
 ☐ Audio : transcription écrite jointe ou lien visible
 ☐ Vidéo : sous-titres relus, transcription si nécessaire
 ☐ QR code jamais seul : lien visible + « Scannez-moi ! », taille et contraste
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Checklist
 135
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 136
 
@@ -390,10 +390,10 @@ Un QR code peut remplacer le lien visible
 Alt text vide = toujours une erreur
 Visuel inclusif = événement accessible
 Récupération active : vous testez les 3 temps de la checklist, pas seulement la dernière slide.
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Quiz
 136
-4 juin 2026
+9 octobre 2026
 
 ## Diapositive 137
 
@@ -412,7 +412,7 @@ Mémo : les 3 temps
 • Anticiper : médias, représentations, contraste
 • Rédiger : texte natif, émojis, hashtags, langage inclusif
 • Publier : alt text, sous-titres, transcription, QR code
-Formation 102638 / Réseaux sociaux
+Formation 102846 / Réseaux sociaux
 4. Réseaux sociaux | Plan d'action
 137
-4 juin 2026
+9 octobre 2026

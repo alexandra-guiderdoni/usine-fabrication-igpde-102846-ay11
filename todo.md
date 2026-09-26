@@ -10,6 +10,8 @@
   - [ ] **Préparer la salle 3227 le vendredi 2 octobre 2026 après-midi** (créneau bloqué par la gestionnaire IGPDE)
   - [x] Écart de code formation tranché par Alex le 2026-09-26 : reprogrammation sous le code 102846 ; deck, grille XLSX, site et documents structurants basculés
   - [x] Fiches administratives DOCX du pack renumérotées 102846 le 2026-09-26 (corps, pieds de page, métadonnées ; fichiers renommés, zéro 102638 restant, zips testés, ouverture python-docx vérifiée, quarantine retirée). Les originaux 102638 restent dans `_source/`
+  - [ ] Régénérer 4 PDF du pack qui portent encore « 102638 » dans leur texte (vérifié par pdftotext) : `memo-word-accessibilite.pdf` et `memo-libreoffice-writer-accessibilite.pdf` (sources `fiche-pratique/*.md` à jour, chaîne `/accessible-pdf` + `md2pdf.py`), `cadre-legal-principes-wcag-fiche-formateur.pdf` (10 occurrences) et `fiche-stagiaire-principes-wcag-a-garder-sous-la-main.pdf` (6 occurrences, sources `wcag/*.md` à jour). `WCAG-2.2-Card-Deck` et `site-web.pdf` sont propres
+  - [ ] Rafraîchir ou retirer du pack `Formateur/alex/formation-102638-juin-2026.pdf` et les rapports JSON a11y datés de juin (exports de l'ancien deck)
   - [ ] Relecture visuelle humaine du deck par Alex avant remise (les contrôles XML ne voient pas les chevauchements fins)
   - [ ] Choisir le canal de remise (clé USB, dépôt, envoi) et vérifier la taille du dossier `outils/` (environ 200 Mo)
   - [x] Ancien deck de juin archivé le 2026-09-26 : renommé `archive-oldformation-102638-juin-2026.pptx` à la racine (commit `218029ae8`)

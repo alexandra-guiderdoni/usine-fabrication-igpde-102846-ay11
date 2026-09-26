@@ -1,14 +1,14 @@
 # Partie 3 - Web et points de contrôle rapides
 
-Source : `formation-102638-juin-2026.pptx`.
+Source : `formation-102846-octobre-2026.pptx`.
 
 Périmètre : diapositives 84 à 114 du deck, correspondant à la partie 3 sur les points de contrôle rapides W3C pour le web.
 
 ## Diapositive 84 - 3. Les 13 points de contrôle rapides du W3C
 
 84
-4 juin 2026
-Formation 102638 / points de contrôle rapides
+9 octobre 2026
+Formation 102846 / points de contrôle rapides
 
 ## Diapositive 85 - WebAIM Million 2026 : le constat
 
@@ -24,8 +24,8 @@ Comment lire ces chiffres
 • WebAIM analyse automatiquement les pages d’accueil : c’est un thermomètre, pas un audit RGAA complet.
 • L’absence d’erreur détectée ne prouve pas qu’une page est accessible.
 • Mais la présence d’erreurs détectées révèle des barrières très probables pour les utilisateurs.
-4 juin 2026
-Formation 102638 / points de contrôle rapides - WebAIM
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - WebAIM
 
 ## Diapositive 86 - Six erreurs qui justifient les points de contrôle rapides
 
@@ -55,8 +55,8 @@ Langue
 À retenir
 • Ces six familles représentent 96 % des erreurs détectées par WebAIM.
 • Les points de contrôle rapides donnent une méthode courte pour les repérer sans audit complet.
-4 juin 2026
-Formation 102638 / points de contrôle rapides - WebAIM
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - WebAIM
 
 ## Diapositive 87 - Texte alternatif : 4 types d’images, 4 décisions
 
@@ -75,8 +75,8 @@ Dans un lien ou un bouton : logo cliquable, picto.
 Complexe
 Diagramme, schéma, infographie.
 → texte court + description longue à part.
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Texte alternatif des images
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Texte alternatif des images
 1
 2
 3
@@ -95,8 +95,8 @@ Formation 102638 / points de contrôle rapides - Texte alternatif des images
 Piège fréquent
 • Un nom de fichier (IMG_4578.jpg) en guise de texte alternatif = information perdue
 • Un texte alternatif qui décrit la décoration au lieu du contenu utile
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Texte alternatif des images
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Texte alternatif des images
 
 ## Diapositive 89 - Texte alternatif : passe ou échoue ?
 
@@ -120,8 +120,8 @@ OK - alt court + renvoi au détail
 Icône loupe dans un bouton de recherche
 alt="loupe"
 KO - décrit l’image, pas l’action (devrait être « Rechercher »)
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Texte alternatif des images
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Texte alternatif des images
 
 ## Diapositive 90 - Titre de page : l’étiquette qui oriente
 
@@ -136,8 +136,8 @@ Exemples
 • OK : « Résultats de recherche : accessibilité - Ministère de la Culture »
 • KO : « Accueil » sur chaque page du site
 • KO : « Untitled Document » (oubli fréquent sur les PDF)
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Titre de page
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Titre de page
 
 ## Diapositive 91 - Titres : la hiérarchie qui structure
 
@@ -148,8 +148,8 @@ Un utilisateur de lecteur d’écran navigue de titre en titre comme on navigue 
 • Un seul H1 par page, qui reprend le sujet principal
 • Les niveaux s’emboîtent sans saut : H1 → H2 → H3, jamais H2 → H4
 • Un titre n’est pas une simple mise en forme gras/gros - c’est une balise <h1> à <h6>
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Titres et hiérarchie
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Titres et hiérarchie
 
 ## Diapositive 92 - Titres : 3 façons de vérifier
 
@@ -167,8 +167,8 @@ Le plan liste les titres réels et signale les niveaux manquants.
 Clic droit « Inspecter »
 Rechercher `h1`, `h2`, `h3` dans l’onglet Éléments.
 Un seul <h1>, pas de saut, pas de titre factice (<div class="titre">).
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Titres et hiérarchie
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Titres et hiérarchie
 
 ## Diapositive 93 - Contraste : un seuil chiffré, pas une opinion
 
@@ -185,8 +185,8 @@ Ce qui compte :
 • Le rapport entre la couleur du texte et celle du fond (ou l’arrière-plan visible)
 • Sur un dégradé ou une image, mesurer à l’endroit le moins contrasté
 • Ne pas se fier seulement à l’œil - mesurer avec un outil
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Contraste des couleurs
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Contraste des couleurs
 
 ## Diapositive 94 - Contraste : 3 outils à avoir sous la main
 
@@ -207,8 +207,8 @@ Tester des maquettes Figma, des captures d’écran, des PDF.
 Piège classique
 • Texte gris clair sur fond blanc (#999 sur #FFF) : 2,85:1 - échec même en texte large
 • Bouton bleu avec texte bleu marine « moderne » : souvent sous le seuil
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Contraste des couleurs
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Contraste des couleurs
 
 ## Diapositive 95 - Lien d’évitement : le raccourci vers le contenu
 
@@ -222,8 +222,8 @@ Ce qu’il faut vérifier :
 Démo en 3 Tab
 • Ouvrez gouvernement.fr et appuyez Tab : le lien « Contenu » apparaît en haut
 • Entrée → vous voilà au contenu, menu contourné
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Lien d’évitement
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Lien d’évitement
 
 ## Diapositive 96 - Naviguer sans souris : le test qui change tout
 
@@ -234,8 +234,8 @@ En 15 minutes, vous saurez :
 • Utiliser 5 touches pour tester n’importe quelle page
 • Repérer 3 signaux qui trahissent un défaut d’accessibilité
 • Reproduire l’expérience d’un lecteur d’écran en 3 minutes
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Focus et navigation clavier
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Focus et navigation clavier
 
 ## Diapositive 97 - 5 touches, 3 intentions
 
@@ -260,8 +260,8 @@ L’état coché / non coché est annoncé vocalement.
 Flèches ↑ ↓
 Lire le contenu ligne par ligne avec un lecteur d’écran.
 Le texte alternatif des images est lu à haute voix.
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Focus et navigation clavier
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Focus et navigation clavier
 
 ## Diapositive 98 - 3 signaux qui trahissent un défaut
 
@@ -273,8 +273,8 @@ L’ordre est illogique
 Le focus saute à droite avant le menu à gauche. Le lecteur d’écran parcourt la page dans le désordre.
 L’état n’est pas annoncé
 Une case qui coche sans dire « coché ». L’information est invisible pour qui ne voit pas l’écran.
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Focus et navigation clavier
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Focus et navigation clavier
 1
 2
 3
@@ -291,8 +291,8 @@ Sur le site d’entraînement qui vous sera fourni :
 Objectif : votre permis clavier
 • 1 signal détecté = vous avez l’œil
 • 3 signaux détectés = vous êtes auditeur clavier
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Focus et navigation clavier
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Focus et navigation clavier
 
 ## Diapositive 100 - Langue de la page : l’accent juste du lecteur d’écran
 
@@ -306,8 +306,8 @@ Ce qu’il faut vérifier :
 Comment vérifier sans coder
 • Clic droit → Afficher le code source → regarder la 1ʳᵉ ligne <html lang="…">
 • Ou extension « Web Developer » → Information → View Document Language
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Langue de la page
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Langue de la page
 
 ## Diapositive 101 - Zoom à 200 % : tout doit rester lisible
 
@@ -321,8 +321,8 @@ Ce qu’il faut vérifier :
 Comment tester
 • Ctrl + (ou Cmd + sur Mac) pour zoomer jusqu’à 200 % - répéter 4 fois depuis 100 %
 • Parcourir la page : formulaire, menu, pied de page. Si ça casse, le check échoue
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Zoom à 200 %
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Zoom à 200 %
 
 ## Diapositive 102 - Sous-titres : le son que tout le monde lit
 
@@ -333,8 +333,8 @@ Ce qu’il faut vérifier :
 • La vidéo propose des sous-titres synchronisés (pas seulement une transcription)
 • Les sous-titres incluent les paroles ET les informations sonores importantes : « (rires) », « (sonnerie) »
 • Ils sont activables/désactivables par l’utilisateur (bouton CC)
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Sous-titres vidéo
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Sous-titres vidéo
 
 ## Diapositive 103 - Sous-titres auto : brouillon utile, livrable à relire
 
@@ -349,8 +349,8 @@ Méthode recommandée
 • Générer l’auto (YouTube, Whisper, outil interne) pour accélérer le brouillon
 • Relire : noms, chiffres, ponctuation et [indications sonores]
 • Tester le rendu : 2 lignes max, contraste fort, sous-titres non masqués
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Sous-titres vidéo
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Sous-titres vidéo
 
 ## Diapositive 104 - Transcription : la version texte qui accompagne
 
@@ -365,8 +365,8 @@ Ce qu'il faut vérifier :
 Bonus souvent oublié
 • La transcription rend le contenu plus facile à retrouver, relire et citer
 • Elle sert aussi aux personnes qui ne peuvent pas lancer la vidéo ou l’audio
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Transcriptions audio et vidéo
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Transcriptions audio et vidéo
 
 ## Diapositive 105 - Audiodescription : la voix qui montre
 
@@ -380,8 +380,8 @@ Ce qu’il faut vérifier :
 • Pour une vidéo sans dialogue essentiel : une description textuelle synchronisée suffit
 Quand l’image porte l’information, elle doit aussi être disponible autrement que par la vue.
 Principe d’accessibilité vidéo
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Audiodescription
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Audiodescription
 
 ## Diapositive 106 - Bonus médias : toujours 2 accès
 
@@ -396,8 +396,8 @@ Les pièges à repérer
 • Sous-titres lisibles : contraste fort, bandeau si besoin
 • Format réseau social : sous-titres non masqués par l'interface
 • PDF : texte sélectionnable, pas une image scannée
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Bonus médias
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Bonus médias
 
 ## Diapositive 107 - Bonus médias : VSME et transcriptions
 
@@ -414,8 +414,8 @@ Transcription : choisir le niveau
 • Intégrale éditée : texte complet, corrigé et lisible
 • Verbatim : mot à mot, hésitations et sons inclus
 IA utile pour brouillonner. Publication seulement après relecture humaine.
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Bonus médias
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Bonus médias
 
 ## Diapositive 108 - Étiquettes : chaque champ a un nom
 
@@ -427,8 +427,8 @@ Ce qu’il faut vérifier :
 • L’étiquette reste affichée quand on commence à saisir - elle ne disparaît pas
 • Cliquer sur l’étiquette déplace le focus dans le champ (test rapide et décisif)
 • Le lecteur d’écran annonce l’étiquette ET le type de champ
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Étiquettes de formulaire
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Étiquettes de formulaire
 
 ## Diapositive 109 - Placeholder ≠ étiquette
 
@@ -443,8 +443,8 @@ Pattern recommandé
 • Étiquette visible au-dessus du champ (ou à gauche)
 • Placeholder optionnel, pour donner un exemple de format : « JJ/MM/AAAA »
 • Ne pas mettre l’information essentielle uniquement dans le placeholder
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Étiquettes de formulaire
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Étiquettes de formulaire
 
 ## Diapositive 110 - Groupes de champs : l’étiquette commune
 
@@ -463,8 +463,8 @@ Chaque radio a son label seul
 3 radios dans un <fieldset> avec <legend>
 <fieldset><legend>Civilité</legend>… <input type="radio">…
 « Civilité, M, bouton radio » - question claire
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Étiquettes de formulaire
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Étiquettes de formulaire
 
 ## Diapositive 111 - Champs obligatoires : prévenir puis guider
 
@@ -479,8 +479,8 @@ Après soumission
 • Aucune erreur ne doit apparaître avant l'envoi
 • Message précis relié au champ, avec aria-invalid si erreur
 • Focus vers le récapitulatif ou le premier champ en erreur
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Champs obligatoires et erreurs
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Champs obligatoires et erreurs
 
 ## Diapositive 112 - Ce qu’on remonte dans la grille
 
@@ -507,8 +507,8 @@ URL, capture, sélecteur ou extrait
 Règle de travail
 • Un défaut sans preuve est difficile à traiter.
 • Une preuve sans sévérité est difficile à prioriser.
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Grille
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Grille
 
 ## Diapositive 113 - Bonus site web : liens et PDF à repérer
 
@@ -525,8 +525,8 @@ Documents PDF
 • Structure : titres, sommaire et liens internes si le document est long
 • Images avec texte alternatif
 • Si possible : proposer aussi un format éditable ou OpenDocument
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Bonus web
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Bonus web
 
 ## Diapositive 114 - Votre mission : audit en binôme (30 min)
 
@@ -545,5 +545,5 @@ Prouver 1 NC
 Début / fin
 4
 Restitution orale
-4 juin 2026
-Formation 102638 / points de contrôle rapides - Mission
+9 octobre 2026
+Formation 102846 / points de contrôle rapides - Mission

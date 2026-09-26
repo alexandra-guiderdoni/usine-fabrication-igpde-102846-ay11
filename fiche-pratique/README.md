@@ -1,4 +1,4 @@
-# Fiches pratiques - Formation 102638
+# Fiches pratiques - Formation 102846
 
 Mémos accessibilité distribués aux stagiaires après la formation. Deux versions : une pour Microsoft Word, une pour LibreOffice Writer.
 
@@ -71,7 +71,7 @@ Le script `md2pdf.py` exécute 6 étapes :
 ### Résultat attendu
 
 - Standard : **PDF/UA-1**
-- Métadonnées : titre, auteur "IGPDE - Formation 102638", langue `fr`
+- Métadonnées : titre, auteur "IGPDE - Formation 102846", langue `fr`
 - Structure : MarkInfo + StructTreeRoot (balises de titres, listes, figures)
 - Images : toutes avec texte alternatif
 - Taille : 350-450 Ko par PDF

@@ -1,6 +1,6 @@
 # Exercice « Ministère de l'Accessibilité numérique » - Spécification
 
-Formation 102638 - Support de la section 3 « Les 13 points de contrôle rapides du W3C ».
+Formation 102846 - Support de la section 3 « Les 13 points de contrôle rapides du W3C ».
 
 Statut : cadrage fonctionnel et contrat d'évaluation prêts avant production.
 

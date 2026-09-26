@@ -1,6 +1,6 @@
 # Prompt de production : Memo Word + Memo LibreOffice Writer
 
-Formation 102638 (IGPDE / Carinne C.) - Fiches annexes distribuees separement
+Formation 102846 (IGPDE / Carinne C.) - Fiches annexes distribuees separement
 
 ---
 
@@ -64,7 +64,7 @@ Ces memos sont distribues apres la formation comme reference. Ils ne remplacent 
 - Titre : "Memo accessibilite - [Word / LibreOffice Writer]"
 - Sous-titre : "Aide-memoire des bonnes pratiques"
 - Logo IGPDE + DSFR
-- Mention : "Formation 102638 - Accessibilite numerique pour les communicants"
+- Mention : "Formation 102846 - Accessibilite numerique pour les communicants"
 - Date : juin 2026
 
 ### Organisation par les 5 themes Sami (pages 2 a 7-8)

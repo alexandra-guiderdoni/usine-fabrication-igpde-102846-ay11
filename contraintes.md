@@ -1,4 +1,4 @@
-# Contraintes — Formation 102638 (IGPDE / Carinne C.)
+# Contraintes — Formation 102846, ex-102638 (IGPDE / Carinne C.)
 
 - **Compile le** : 2026-05-22
 - **Compilateur** : contraintes-vivantes v1
@@ -277,3 +277,13 @@
 - **Impact** : la distribuabilité du code source est conditionnée par la préparation du poste local.
 - **Décision / prochaine vérification** : documenter explicitement les dépendances si une installation from scratch doit être déléguée.
 - **Composants affectés** : `AGENTS.md`, `CLAUDE.md`, `scripts/*.py`
+
+### Reprogrammation sous le code 102846
+
+- **Date** : 2026-09-26
+- **Source** : convocation IGPDE et mail « Supports à jour - Formation 102846 », confirmés par Alex
+- **Statut** : confirmée
+- **Contrainte** : la session du 9 octobre 2026 (salle 3227, Vincennes) porte le code IGPDE 102846 ; le code 102638 ne désigne plus que la session du 4 juin 2026. Le code, la date et le nom du fichier de sortie sont portés par `config.yml` (source unique) ; `tests/conftest.py` et la couverture lisent cette source au lieu de valeurs en dur.
+- **Impact** : toute référence en dur à « 102638 » ou au « 4 juin 2026 » dans un support courant est périmée ; le deck courant est `formation-102846-octobre-2026.pptx`, le pack courant `IGPDE-102846-livrables-octobre-2026/`, l'ancien deck archivé sous `archive-oldformation-102638-juin-2026.pptx`. Les fiches administratives DOCX ont été renumérotées localement (originaux 102638 conservés dans `_source/`).
+- **Décision / prochaine vérification** : pour toute renumérotation future, passer par `config.yml` puis contrôler `grep -r` sur l'ancien code dans les scripts, le site `docs/` et les MD structurants.
+- **Composants affectés** : `config.yml`, `scripts/assemble.py`, `scripts/slides/01_couverture.py`, `scripts/generate_grille_audit.py`, `tests/conftest.py`, `docs/`, `IGPDE-102846-livrables-octobre-2026/`

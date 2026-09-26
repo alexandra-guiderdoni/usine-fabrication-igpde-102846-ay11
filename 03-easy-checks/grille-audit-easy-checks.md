@@ -1,6 +1,6 @@
-# IGPDE - Formation 102638 - Grille d'audit 13 points de contrôle rapides du W3C
+# IGPDE - Formation 102846 - Grille d'audit 13 points de contrôle rapides du W3C
 
-Grille opérationnelle pour la formation IGPDE 102638 « L'accessibilité numérique pour la bureautique et le web ». Inspirée méthodologiquement de la grille points de contrôle rapides de beta.gouv.fr et alignée sur le RGAA 4.1.2.
+Grille opérationnelle pour la formation IGPDE 102846 « L'accessibilité numérique pour la bureautique et le web ». Inspirée méthodologiquement de la grille points de contrôle rapides de beta.gouv.fr et alignée sur le RGAA 4.1.2.
 
 > **Avertissement**
 > Cet outil est un **outil de sensibilisation et de pré-diagnostic**. Il ne remplace en aucun cas un audit RGAA formel (106 critères sur 13 thématiques) réalisé par un expert certifié. Le « Taux de conformité points de contrôle rapides » calculé ici n'est PAS le taux de conformité RGAA officiel publié en déclaration d'accessibilité.

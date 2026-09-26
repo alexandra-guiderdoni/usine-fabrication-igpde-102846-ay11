@@ -1,14 +1,14 @@
 # Cadre légal et accessibilité numérique
 
-Source : `formation-102638-juin-2026.pptx`.
+Source : `formation-102846-octobre-2026.pptx`.
 
-Périmètre : diapositives 1 à 53 du deck, correspondant au module 1 de la formation 102638.
+Périmètre : diapositives 1 à 53 du deck, correspondant au module 1 de la formation 102846.
 
 ## Diapositive 1 - Accessibilité numérique
 
 1
-Formation 102638 | Bureautique et web
-4 juin 2026
+Formation 102846 | Bureautique et web
+9 octobre 2026
 Institut de la Gestion publique et du Développement économique
 
 ## Diapositive 2 - Objectifs pédagogiques
@@ -20,8 +20,8 @@ Cette formation vous permettra de :
 • Rendre des contenus numériques accessibles
 Scannez-moi !
 https://www.info.gouv.fr/accessibilite
-4 juin 2026
-Formation 102638 / Objectifs
+9 octobre 2026
+Formation 102846 / Objectifs
 
 ## Diapositive 3 - Programme de la journée
 
@@ -39,8 +39,8 @@ points de contrôle rapides W3C
 Réseaux sociaux
 • Enjeux et obligations
 • Alt text, hashtags, émojis
-4 juin 2026
-Formation 102638 / Programme
+9 octobre 2026
+Formation 102846 / Programme
 1
 2
 3
@@ -56,8 +56,8 @@ Responsable pôle support web - Mission Ingénierie du Web, SG-SNUM
 • Passionné par la conception inclusive et l'expérience utilisateur
 • Formé à l'audit d'accessibilité numérique
 • Contact : coordonnée masquée
-4 juin 2026
-Formation 102638 / Intervenants
+9 octobre 2026
+Formation 102846 / Intervenants
 
 ## Diapositive 5 - Intervenante 2
 
@@ -70,8 +70,8 @@ Chef de projet - Mission Ingénierie du Web, SG-SNUM
 • Formée à l'audit d'accessibilité numérique RGAA
 • Formatrice et Référente en Assurance Qualité pour le Web - Opquast
 • Contact : coordonnée masquée
-4 juin 2026
-Formation 102638 / Intervenants
+9 octobre 2026
+Formation 102846 / Intervenants
 
 ## Diapositive 6 - Présentez-vous
 
@@ -97,8 +97,8 @@ Pour un usage :
 
 Ce que j'espère retirer :
 J'aimerais [objectif personnel]
-4 juin 2026
-Formation 102638 / Accueil
+9 octobre 2026
+Formation 102846 / Accueil
 
 ## Diapositive 7 - Organisation des activités
 
@@ -114,8 +114,8 @@ Pour les ateliers Word et Web
 • Deux regards repèrent ce qu'un seul ne voit pas
 • Expliquer à quelqu'un consolide l'apprentissage
 Première étape : trouvez votre binôme et piochez votre carte !
-4 juin 2026
-Formation 102638 / Accueil
+9 octobre 2026
+Formation 102846 / Accueil
 
 ## Diapositive 8 - Ensemble, faisons tomber les préjugés !
 
@@ -126,8 +126,8 @@ Activité : vrai ou faux ?
 • En binôme, confrontez vos cartes : vrai ou faux ?
 • Échangez vos arguments, préparez votre position
 • Chaque binôme présente sa carte au groupe - débat ouvert
-4 juin 2026
-Formation 102638 / Accueil
+9 octobre 2026
+Formation 102846 / Accueil
 
 ## Diapositive 9 - Idée reçue 1 / 6
 
@@ -142,8 +142,8 @@ Décryptage
 • Et chacun sera concerné un jour : âge, accident, maladie temporaire
 Scannez-moi !
 https://ideance.net/blog/4602/idees-recues-a11y
-4 juin 2026
-Formation 102638 / Accueil
+9 octobre 2026
+Formation 102846 / Accueil
 1
 
 ## Diapositive 10 - Idée reçue 2 / 6
@@ -159,8 +159,8 @@ Décryptage
 • Exemple : le DSFR (Design System de l'État) est à la fois accessible et soigné
 Scannez-moi !
 https://ideance.net/blog/4602/idees-recues-a11y
-4 juin 2026
-Formation 102638 / Accueil
+9 octobre 2026
+Formation 102846 / Accueil
 2
 
 ## Diapositive 11 - Idée reçue 3 / 6
@@ -176,8 +176,8 @@ Décryptage
 • L'accessibilité touche toute la chaîne : rédaction, mise en forme, export, publication
 Scannez-moi !
 https://ideance.net/blog/4602/idees-recues-a11y
-4 juin 2026
-Formation 102638 / Accueil
+9 octobre 2026
+Formation 102846 / Accueil
 3
 
 ## Diapositive 12 - Idée reçue 4 / 6
@@ -193,8 +193,8 @@ Décryptage
 • La loi de 2005 et la directive européenne 2016/2102 s'appliquent à tous les agents publics
 Scannez-moi !
 https://ideance.net/blog/4602/idees-recues-a11y
-4 juin 2026
-Formation 102638 / Accueil
+9 octobre 2026
+Formation 102846 / Accueil
 4
 
 ## Diapositive 13 - Idée reçue 5 / 6
@@ -210,8 +210,8 @@ Décryptage
 • Les réflexes appris aujourd'hui ne coûtent rien : juste un changement d'habitude
 Scannez-moi !
 https://ideance.net/blog/4602/idees-recues-a11y
-4 juin 2026
-Formation 102638 / Accueil
+9 octobre 2026
+Formation 102846 / Accueil
 5
 
 ## Diapositive 14 - Idée reçue 6 / 6
@@ -227,15 +227,15 @@ Décryptage
 • Solution : intégrer les bons réflexes à chaque étape, pas les accumuler en sprint final
 Scannez-moi !
 https://ideance.net/blog/4602/idees-recues-a11y
-4 juin 2026
-Formation 102638 / Accueil
+9 octobre 2026
+Formation 102846 / Accueil
 6
 
 ## Diapositive 15 - 1. L'accessibilité numérique, c'est quoi ?
 
 15
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 16 - L'accessibilité numérique, c'est quoi ?
 
@@ -252,8 +252,8 @@ Utile pour tous, indispensable pour certains
 • Matériel ancien, connexion lente, écran petit
 • Environnement bruyant, lumineux ou contraint
 • Langue étrangère, faible littératie numérique
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 17 - Point sur l'accessibilité numérique
 
@@ -269,8 +269,8 @@ publié par la DINUM.
 106
 critères regroupés
 en 13 thématiques.
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 18 - 4 principes pour tout retenir
 
@@ -285,8 +285,8 @@ Comprendre
 Les mots, formulaires et comportements sont-ils previsibles ?
 Compatible
 Les aides techniques peuvent-elles interpreter l'interface ?
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 1
 2
 3
@@ -295,8 +295,8 @@ Formation 102638 / Module 1
 ## Diapositive 19 - 2. L'accessibilité numérique, c'est pour qui ?
 
 19
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 20 - C'est pour qui ? 4 familles de besoins
 
@@ -315,8 +315,8 @@ Motrice
 Cognitive
 • Langage clair, mise en page aérée
 • Navigation prévisible, pas de surcharge
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 21 - Comprendre pour mieux agir
 
@@ -330,8 +330,8 @@ Testez les simulations suivantes
 • Surdité
 • Handicap moteur
 L'accessibilité numérique, et si nous agissions ?
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 22 - Amir, charge d'études - cécité
 
@@ -346,8 +346,8 @@ Percevoir + Compatible
 Lecteurs d'écran
 Plage braille
 Synthèse vocale
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 23 - Anaïs, gestionnaire RH - malvoyance
 
@@ -361,8 +361,8 @@ Percevoir
 Clavier adapté
 Clavier guide-doigts
 Paramètres accessibilité
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 24 - Justine, chargée de communication - surdité
 
@@ -376,8 +376,8 @@ Percevoir
 Transcription
 Vérificateur accessibilité
 NVDA - lecteur d'écran
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 25 - Agathe, chargée de mission - déficience motrice
 
@@ -391,8 +391,8 @@ Utiliser
 Souris trackball
 Plage braille / contacteurs
 Contrôle vocal
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 26 - Anatole, lyceen - handicap cognitif
 
@@ -409,8 +409,8 @@ Profil
 • Lire lui demande du temps et de la concentration
 • Il comprend mieux les phrases simples et courtes
 • Le langage clair et le FALC lui sont indispensables
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 27 - Paul, attache de presse - TDAH et dyslexie
 
@@ -426,8 +426,8 @@ Profil
 • Consulte quotidiennement des sites d'info pour ses revues de presse
 • Trouble de l'attention : les animations non contrôlables le déconcentrent
 • Dyslexie : le texte justifié et les polices a empattement ralentissent sa lecture
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 28 - 6 profils, 4 questions - votre boussole WCAG
 
@@ -452,8 +452,8 @@ FALC, phrases courtes
 Paul (TDAH, dyslexie)
 Polices lisibles
 Pas de justification
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 29 - Solutions par type de déficience (1/2)
 
@@ -482,8 +482,8 @@ Renforcement du signal auditif, visuel
 Technologies
 Sous-titrage, velotypie, LSF
 Appareil auditif, boucle magnétique
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 30 - Solutions par type de déficience (2/2)
 
@@ -512,8 +512,8 @@ Consignes claires, structure documentaire
 Technologies
 Pas de technologie d'assistance spécifique
 Pas de technologie d'assistance spécifique
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 31 - Handicap : sortir de l'angle mort
 
@@ -533,8 +533,8 @@ Validisme : le piège à déconstruire
 • Penser le public comme valide par défaut
 • Confondre bonne intention et accès réel
 • Oublier les handicaps invisibles, acquis ou temporaires
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 32 - Déficience n'est pas situation de handicap
 
@@ -545,22 +545,22 @@ Ce que ça change pour vous
 • C'est l'environnement qui crée le handicap, pas la personne
 • Un document inaccessible = une barrière que vous pouvez lever
 • Une communication accessibilisée lève la situation de handicap
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 33 - Le spectre du handicap
 
 1. Q2 - Pour qui | Spectre du handicap
 33
 Le handicap n'est pas binaire. Il peut être permanent, temporaire, situationnel ou lié au vieillissement.
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 34 - 3. L'accessibilité numérique, quel cadre légal ?
 
 34
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 35 - Le cadre légal : de 2005 à aujourd'hui
 
@@ -578,8 +578,8 @@ Qui est concerné ?
 • État, collectivités, établissements publics
 • Entreprises privées gérant un service public ou CA > 250 M EUR
 • Pénalité jusqu'à 25 000 EUR par service non conforme
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 36 - Le cadre européen
 
@@ -596,8 +596,8 @@ Directive 2019/882 - secteur privé
 • Applicable à partir du 28 juin 2025
 • Commerce en ligne, banque, transport, télécom
 • Élargit l'obligation au-delà du secteur public
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 37 - RGAA : 13 thèmes, 3 niveaux de conformité
 
@@ -622,8 +622,8 @@ Obligations de publication
 • Non conforme : moins de 50 % des critères
 • Partiellement conforme : de 50 % à 99 %
 • Totalement conforme : 100 % des critères applicables
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 38 - Le RGAA - Référentiel général d'amélioration de l'accessibilité
 
@@ -649,8 +649,8 @@ Images
 • Présentation
 • Formulaires
 • Consultation
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 39 - Quelles obligations pour votre structure ?
 
@@ -666,8 +666,8 @@ Scannez-moi !
 https://obligations-legales-accessibilite-numerique.fr/fr/
 Simuler : https://obligations-legales-accessibilite-numerique.fr/fr/simulation/
 Comprendre : https://obligations-legales-accessibilite-numerique.fr/fr/comprendre/
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 40 - La déclaration d'accessibilité
 
@@ -689,8 +689,8 @@ Exercice pratique
 • Cherchez la déclaration d'accessibilité de votre site
 • URL type : /déclaration-accessibilité
 • Notez le taux de conformité affiché
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 41 - Les obligations légales de mise en accessibilité
 
@@ -710,14 +710,14 @@ Accessibilité : partiellement conforme
 De 50 % à 99 % des critères respectés
 Accessibilité : totalement conforme
 100 % des critères applicables validés
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 42 - 4. L'accessibilité numérique, pourquoi ?
 
 42
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 43 - Pourquoi agir ?
 
@@ -737,8 +737,8 @@ Decrochage
 Autonomie
 Exclusion
 Inclusion sociale
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 44 - Accessibiliser sa communication : de quoi parle-t-on ?
 
@@ -754,14 +754,14 @@ Les supports concernés
 • Médias : vidéo, podcast, visuel animé
 • Documents : PDF, bureautique, formulaires
 • Imprimés : affiche, flyer, plan, QR code...
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 45 - 5. L'accessibilité numérique, comment s'y mettre ?
 
 45
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 46 - Des outils déjà intégrés à vos postes
 
@@ -778,8 +778,8 @@ Audition et interaction
 • Commandes vocales
 • Navigation au clavier
 • Vérification d'accessibilité (Word, PowerPoint)
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 47 - Règles transversales : texte, contraste, QR
 
@@ -801,8 +801,8 @@ QR codes utiles
 • Mention « Scannez-moi ! »
 • Taille et contraste suffisants
 Un support accessible ne dépend jamais d'un seul canal.
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 1
 2
 3
@@ -822,8 +822,8 @@ Langage clair
 • Expliquer : sigles, jargon, termes techniques
 • Guider : verbes d'action, consignes explicites
 • Tester : relecture à voix haute, lisibilité
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 49 - Comment s'y mettre ?
 
@@ -839,8 +839,8 @@ Offre de formation
 • Mentor (en ligne) : l'accessibilité numérique selon votre métier
 • IGPDE : l'accessibilité numérique pour la bureautique et le web (réf. 102846)
 • DINUM : sensibilisation, design inclusif, audit RGAA
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 50 - FALC : la méthode en 5 étapes
 
@@ -857,8 +857,8 @@ Conditions obligatoires
 • Validation par des personnes concernées (obligatoire)
 • 80 % des critères FALC respectés (Unapei)
 • Logo européen FALC + crédit des valideurs
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 51 - Exemple : le rapport DIA en version accessible et FALC
 
@@ -873,8 +873,8 @@ Version FALC
 • Phrases courtes, vocabulaire simple, pictogrammes
 • Validé par des personnes concernées
 • Télécharger (handicap.gouv.fr)
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 52 - L'accessibilité dès la conception
 
@@ -885,8 +885,8 @@ Concevoir accessible, pas adapter après
 • Intégrer l'accessibilité dès le début, pas en rattrapage
 • Un document bien structuré profite à tous les lecteurs
 • La rampe intégrée est plus élégante que la rampe ajoutée
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
 
 ## Diapositive 53 - Module 1 - ce que vous retenez
 
@@ -903,5 +903,5 @@ Dès demain matin
 Cette semaine
 • Partager les constats avec l'équipe
 • Choisir 3 règles transversales à appliquer à chaque publication
-4 juin 2026
-Formation 102638 / Module 1
+9 octobre 2026
+Formation 102846 / Module 1
