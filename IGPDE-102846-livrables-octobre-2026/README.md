@@ -15,7 +15,7 @@ Formateur/
     Derped-deroule-pedagogique-102846.docx  Déroulé pédagogique détaillé
     convocation-intervenants.pdf            Convocation IGPDE du 9 octobre 2026
   support-formation-102846-2026-IGPDE.pptx      Deck principal (138 slides DSFR)
-  alex/                          Notes formateur (transcriptions du deck, checklists, PDF du deck)
+  _alex/                         Notes formateur (transcriptions du deck, checklists, PDF du deck)
   fil-rouge-principes-wcag-igpde/  Fiche formateur + fiche stagiaire WCAG
   ice-breaker-idées-recues-cartes-igpde/  6 cartes PDF idées reçues a11y
   tp-word-igpde/                 Exercice Sami (3 DOCX) + fiches mémo PDF
