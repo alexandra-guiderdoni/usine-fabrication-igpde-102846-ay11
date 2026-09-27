@@ -85,9 +85,9 @@ Cette logique vaut pour Word et pour le web.
 
 Dans l'atelier Word, les stagiaires travaillent sur :
 
-- `Formateur/tp-word-igpde/sami-doc-inaccessible.docx`
-- `Formateur/tp-word-igpde/sami-doc-aide-correction.docx`
-- `Formateur/tp-word-igpde/sami-doc-accessible.docx`
+- `Formateur/tp-word-igpde/tp-doc-inaccessible.docx`
+- `Formateur/tp-word-igpde/tp-doc-aide-correction.docx`
+- `Formateur/tp-word-igpde/tp-doc-accessible.docx`
 
 Faire utiliser la fiche ainsi :
 

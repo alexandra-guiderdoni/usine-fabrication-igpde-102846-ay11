@@ -12,7 +12,7 @@ Sami, chargé de communication à la Direction des affaires juridiques, envoie s
 - **Public** : communicants, niveau initiation
 - **Format** : exercice en binôme, 25 minutes (3 phases)
 - **Modalité** : identifier d'abord, corriger ensuite, discuter en restitution
-- **Livrables** : `sami-doc-inaccessible.docx` + `sami-doc-aide-correction.docx` + `sami-doc-accessible.docx`
+- **Livrables** : `tp-doc-inaccessible.docx` + `tp-doc-aide-correction.docx` + `tp-doc-accessible.docx`
 
 ---
 
@@ -261,7 +261,7 @@ Note : les données sont provisoires.*         <-- Critère 6 : gris #767676 (ra
 
 | Temps | Action |
 |---|---|
-| 0-2 min | Distribution du fichier `sami-doc-inaccessible.docx`. Consigne : « Identifiez les critères d'accessibilité qui posent problème. Notez-les sur une feuille, sans corriger. » |
+| 0-2 min | Distribution du fichier `tp-doc-inaccessible.docx`. Consigne : « Identifiez les critères d'accessibilité qui posent problème. Notez-les sur une feuille, sans corriger. » |
 | 2-10 min | Chaque binôme explore le document et liste les problèmes identifiés |
 
 Pas de checklist distribuée à cette phase. Les stagiaires doivent mobiliser ce qu'ils ont appris.
@@ -270,7 +270,7 @@ Pas de checklist distribuée à cette phase. Les stagiaires doivent mobiliser ce
 
 | Temps | Action |
 |---|---|
-| 10-12 min | Le formateur peut distribuer `sami-doc-aide-correction.docx` si le groupe a besoin d'un guidage. Les commentaires Word expliquent le problème, l'impact et la méthode, sans corriger le document. |
+| 10-12 min | Le formateur peut distribuer `tp-doc-aide-correction.docx` si le groupe a besoin d'un guidage. Les commentaires Word expliquent le problème, l'impact et la méthode, sans corriger le document. |
 | 12-20 min | Chaque binôme corrige les problèmes dans l'ordre prescrit (thème 1 puis 2 puis 3) |
 
 Le vérificateur Word est utilisé comme **outil de découverte** (« que détecte-t-il ? que rate-t-il ? »), pas comme preuve de conformité.

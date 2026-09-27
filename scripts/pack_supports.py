@@ -26,6 +26,11 @@ PAGES_DU_MENU = [
     "donnees-personnelles.html",
 ]
 DEMO = "demo-mauvaise-restitution-emojis.html"
+DOCX_TP = [
+    "tp-doc-accessible.docx",
+    "tp-doc-aide-correction.docx",
+    "tp-doc-inaccessible.docx",
+]
 SOFFICE = Path("/Applications/LibreOffice.app/Contents/MacOS/soffice")
 
 
@@ -53,9 +58,10 @@ def tp_reseaux_sociaux(racine, formateur):
 
 def docx_sami(racine, formateur):
     cible = formateur / "tp-word-igpde"
-    for source in sorted((racine / "_source").glob("sami-doc-*.docx")):
-        shutil.copy2(source, cible / source.name)
-        print(f"[supports] {source.name} copié dans {cible.relative_to(racine)}")
+    # Liste explicite : un document manquant fait échouer la copie.
+    for nom in DOCX_TP:
+        shutil.copy2(racine / "_source" / nom, cible / nom)
+        print(f"[supports] {nom} copié dans {cible.relative_to(racine)}")
 
 
 def pdf_deck(racine, formateur, nom_deck):

@@ -66,7 +66,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
 ## Vérifier avant de livrer
 
-- `make verifier` : 74 tests, validation du site (`validate.py`), contrôles du dépôt. Le verdict se lit sur le code de sortie.
+- `make verifier` : 76 tests, validation du site (`validate.py`), contrôles du dépôt. Le verdict se lit sur le code de sortie.
 - `make qa` : boucle qualité du deck. Lire `.qa/qa-pptx-report.md` et son champ `status` ; le code de sortie seul ne prouve pas la convergence.
 - Réexport complet du deck : suivre `REEXPORTER-DECK-PPTX.md`.
 - Recette visuelle du site corrigé : `make recette` (plugin ShipGuard requis ; ses manifestes sont dans `recette/visual-tests/`).

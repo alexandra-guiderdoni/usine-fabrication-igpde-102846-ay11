@@ -6,8 +6,8 @@ Verification du raccord entre les deux documents Word de l'exercice Sami et les 
 
 Fichiers concernes :
 
-- `_source/sami-doc-inaccessible.docx`
-- `_source/sami-doc-accessible.docx`
+- `_source/tp-doc-inaccessible.docx`
+- `_source/tp-doc-accessible.docx`
 - `scripts/generate_exercice_sami.py`
 - `_source/exercice-sami-spec.md`
 
@@ -37,8 +37,8 @@ Commandes executees :
 
 - `python3 -m py_compile scripts/generate_exercice_sami.py`
 - `python3 scripts/generate_exercice_sami.py`
-- `remediate-docx.py _source/sami-doc-inaccessible.docx --audit` (skill `remediation-docx` de l'espace de travail d'Alex, hors de ce dépôt)
-- `remediate-docx.py _source/sami-doc-accessible.docx --audit` (même skill)
+- `remediate-docx.py _source/tp-doc-inaccessible.docx --audit` (skill `remediation-docx` de l'espace de travail d'Alex, hors de ce dépôt)
+- `remediate-docx.py _source/tp-doc-accessible.docx --audit` (même skill)
 - controles OOXML cibles sur `word/document.xml`, `word/styles.xml` et `docProps/core.xml`
 - `unzip -t` sur les deux DOCX
 - ouverture des deux DOCX avec `python-docx`

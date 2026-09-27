@@ -89,7 +89,7 @@ Chaque entrée est datée et garde la trace de sa découverte. En cas de conflit
 - **Contrainte** : l'exercice Sami produit des PNG dans `_assets/` et trois DOCX distincts (`inaccessible`, `aide_correction`, `accessible`) à partir du script de génération.
 - **Impact** : la cohérence pédagogique de l'exercice dépend du script et des assets qu'il régénère.
 - **Décision / prochaine vérification** : réexécuter le script après toute modification du contenu ou des médias Sami.
-- **Composants affectés** : `scripts/generate_exercice_sami.py` (`make sami`), `_assets/`, `_source/sami-doc-inaccessible.docx`, `_source/sami-doc-aide-correction.docx`, `_source/sami-doc-accessible.docx` (copiés dans le pack par `make supports`)
+- **Composants affectés** : `scripts/generate_exercice_sami.py` (`make sami`), `_assets/`, `_source/tp-doc-inaccessible.docx`, `_source/tp-doc-aide-correction.docx`, `_source/tp-doc-accessible.docx` (copiés dans le pack par `make supports`)
 
 ### Copie de la grille d'audit dans le site
 

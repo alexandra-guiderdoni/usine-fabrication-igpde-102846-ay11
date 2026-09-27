@@ -55,11 +55,11 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Distribuer sami-doc-inaccessible.docx aux binômes.\n\n"
+        "Distribuer tp-doc-inaccessible.docx aux binômes.\n\n"
         "Phase 1 - Identification (10 min) : « Identifiez les critères "
         "d'accessibilité qui posent problème. Notez-les sans corriger. » Pas de checklist.\n\n"
         "Phase 2 - Correction (15 min) : si le groupe a besoin d'un guidage, "
-        "distribuer sami-doc-aide-correction.docx. Les commentaires Word "
+        "distribuer tp-doc-aide-correction.docx. Les commentaires Word "
         "expliquent le problème, l'impact et la méthode sans corriger à la "
         "place des stagiaires. "
         "Les binômes corrigent dans l'ordre structure > couleurs > contenus. "

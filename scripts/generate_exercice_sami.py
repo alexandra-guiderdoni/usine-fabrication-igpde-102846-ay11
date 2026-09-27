@@ -5,9 +5,9 @@ Produit :
 - _assets/graphique-accessible.png    (barres avec motifs + etiquettes)
 - _assets/icone-enveloppe.png         (icone e-mail)
 - _assets/organigramme.png            (organigramme du service)
-- sami-doc-inaccessible.docx         (21 erreurs intentionnelles)
-- sami-doc-aide-correction.docx      (version fautive annotee)
-- sami-doc-accessible.docx           (version corrigee)
+- tp-doc-inaccessible.docx           (21 erreurs intentionnelles)
+- tp-doc-aide-correction.docx        (version fautive annotee)
+- tp-doc-accessible.docx             (version corrigee)
 """
 
 import subprocess
@@ -431,7 +431,7 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
                        organigramme_path: Path = None,
                        texte_image_path: Path = None,
                        with_guidance: bool = False,
-                       output_name: str = "sami-doc-inaccessible.docx"):
+                       output_name: str = "tp-doc-inaccessible.docx"):
     doc = Document()
     doc.core_properties.title = ""
     doc.core_properties.author = ""
@@ -1145,7 +1145,7 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
         "communication numérique"
     )
 
-    output = PROJECT / "_source" / "sami-doc-accessible.docx"
+    output = PROJECT / "_source" / "tp-doc-accessible.docx"
     doc.save(str(output))
     _remove_quarantine(output)
     print(f"  -> {output.name}")
@@ -1187,7 +1187,7 @@ if __name__ == "__main__":
                        texte_image_path=txt_img)
     build_inaccessible(chart_bad, icon_path=icon, organigramme_path=orga,
                        texte_image_path=txt_img, with_guidance=True,
-                       output_name="sami-doc-aide-correction.docx")
+                       output_name="tp-doc-aide-correction.docx")
     build_accessible(chart_good, icon_path=icon, organigramme_path=orga,
                      texte_image_path=txt_img)
 

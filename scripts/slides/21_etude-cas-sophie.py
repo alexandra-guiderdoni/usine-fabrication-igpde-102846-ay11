@@ -70,7 +70,7 @@ def build(prs, layouts, ctx):
         "Effet de surprise : les stagiaires pensaient avoir repéré toutes les "
         "catégories visibles à ce stade. Révéler les 2 derniers critères montre que "
         "l'accessibilité a des dimensions qu'on ne voit pas sans formation.\n\n"
-        "Proposer aux stagiaires de rouvrir sami-doc-inaccessible.docx et de "
+        "Proposer aux stagiaires de rouvrir tp-doc-inaccessible.docx et de "
         "corriger ces 2 erreurs en 2 minutes. Le passage anglais est dans la "
         "section Contact. Les propriétés sont dans Fichier > Informations.",
     )
