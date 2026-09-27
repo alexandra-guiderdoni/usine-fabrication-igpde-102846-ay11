@@ -77,6 +77,6 @@
 
 - [x] Sources et livrables pointés vers https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/ : fiche des liens, mémos Word et LibreOffice, fiche technique v2, démo hors ligne, documentation et Makefile ; adresses imprimées sans coupure trompeuse
 - [x] Chemins d'images absolus des mémos rendus relatifs (résolus à la génération par `scripts/pack_supports.py`), hook étendu aux sources Markdown et au site
-- [ ] Créer le dépôt public `alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11` (Alex), inviter Alexmacapple en écriture, y pousser l'historique du site, activer GitHub Pages (main, racine)
-- [ ] Vérifier le nouveau site en ligne, puis pousser l'usine
+- [x] Dépôt public `alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11` créé, historique du site poussé (9 commits), `.DS_Store` retiré du site, GitHub Pages activé (main, racine) le 2026-09-27
+- [x] Nouveau site vérifié en ligne (pages, démo, vidéos, grille : 200 ; outillage interne et corrigé : 404), usine poussée (`fe4fa15`)
 - [ ] Après la session du 9 octobre 2026 : décommissionner `Alexmacapple/easy-check-igpde` (page de redirection vers la nouvelle adresse, puis archivage du dépôt)
