@@ -1,5 +1,8 @@
 # Dépendances de l'usine, versions exactes (celles de l'environnement de référence).
 # Fichier verrouillé avec empreintes : requirements.lock (généré par uv).
+# PDG-LARGE-FILE-JUSTIFICATION: requirements.lock (environ 1 200 lignes) est généré par
+#   uv pip compile requirements.txt --python /opt/homebrew/bin/python3.12 --generate-hashes -o requirements.lock
+#   et ne se modifie jamais à la main : régénérer après tout changement de ce fichier.
 # Installation : make installer
 
 # Génération du deck, des documents et de la grille

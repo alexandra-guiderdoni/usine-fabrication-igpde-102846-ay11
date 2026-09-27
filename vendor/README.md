@@ -24,3 +24,7 @@ Pour resynchroniser : recopier les fichiers depuis la source, puis mettre à jou
 Pandoc (`brew install pandoc`), WeasyPrint et pikepdf (voir `requirements.txt`), Pango et GLib (`brew install pango glib`). Vérification : `python3 vendor/accessible-pdf/scripts/md2pdf.py --check`.
 
 L'option `--via-docx` du générateur n'est pas embarquée : elle dépend d'un autre skill, et l'usine ne l'utilise pas.
+
+## Taille des fichiers embarqués
+
+PDG-LARGE-FILE-JUSTIFICATION: `accessible-pdf/scripts/md2pdf.py` (927 lignes) et `accessible-pdf/templates/dsfr.css` (266 lignes) sont des copies conformes de l'outil d'origine, vérifiables par empreinte. Les découper créerait une variante divergente impossible à resynchroniser ; ils restent donc entiers et ne se modifient pas ici.
