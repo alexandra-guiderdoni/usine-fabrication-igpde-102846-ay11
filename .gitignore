@@ -10,3 +10,8 @@ IGPDE-102638/
 IGPDE-102638-livrables/outils/
 IGPDE-102638-livrables/Formateur/tp-easy-check-igpde/
 IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde/
+
+# Le pack livrable est un snapshot remis à l'IGPDE : ses PPTX et DOCX sont
+# versionnés malgré les règles *.pptx et *.docx du .gitignore racine.
+!IGPDE-102846-livrables-octobre-2026/Formateur/**/*.pptx
+!IGPDE-102846-livrables-octobre-2026/Formateur/**/*.docx
