@@ -55,7 +55,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
   - Démo réseaux sociaux hors ligne (`Formateur/tp-reseaux-sociaux-igpde/`) : `make supports`, depuis `docs/demo-mauvaise-restitution-emojis.html`.
   - Grille d'audit XLSX : `make grille` (dans `03-easy-checks/` et dans le site).
   - Installeurs (`outils/`) : `make outils-telecharger`, sauf PAC à déposer à la main (voir `outils/MANIFEST.md`).
-- **Document source édité à la main** (pas de générateur : modifier le fichier, garder l'original dans `V1/`)
+- **Document source édité à la main** (pas de générateur : modifier le fichier ; les versions précédentes restent dans l'historique git, pas de copie sur le disque)
   - Fiche catalogue, fiche technique, programme et déroulé (`Formateur/documents-administratifs-igpde/`), au format Word de l'IGPDE.
   - Site d'exercice `docs/`, publié par `make publier-site`.
   - Notes formateur `Formateur/_alex/*.md` et `alternatives.*`.
