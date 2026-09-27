@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# Contrôles bloquants avant commit, indépendants de l'agent (Claude, Codex, autre).
+# Activation : git config core.hooksPath .githooks (fait par make installer)
+# Usage manuel sur tout l'arbre : bash .githooks/pre-commit --tout
+set -uo pipefail
+
+if [[ "${1:-}" == "--tout" ]]; then
+  LISTE="$(git ls-files)"
+else
+  LISTE="$(git diff --cached --name-only --diff-filter=ACMR)"
+fi
+
+ECHECS=0
+signaler() { echo "BLOQUÉ : $1" >&2; ECHECS=$((ECHECS + 1)); }
+
+NOMBRE=0
+while IFS= read -r f; do
+  [[ -n "$f" ]] || continue
+  NOMBRE=$((NOMBRE + 1))
+  [[ -f "$f" ]] || continue
+  base="$(basename -- "$f")"
+  case "$base" in
+    '~$'*) signaler "fichier de verrou Office : $f" ;;
+    convocation-intervenants.pdf) signaler "convocation nominative, hors dépôt : $f" ;;
+    *.msi|*.exe) signaler "installeur binaire, récupéré par make outils : $f" ;;
+  esac
+  taille=$(stat -f %z "$f" 2>/dev/null || stat -c %s "$f")
+  if (( taille > 50 * 1024 * 1024 )); then
+    signaler "fichier de plus de 50 Mo : $f"
+  fi
+  case "$f" in
+    scripts/*.py|scripts/slides/*.py)
+      if grep -n $'\xe2\x80\x94\|\xe2\x80\x93' "$f" >/dev/null; then
+        signaler "tiret cadratin ou demi-cadratin dans un script (tiret simple attendu) : $f"
+      fi ;;
+  esac
+  case "$f" in
+    scripts/*|tests/*|recette/*|validate.py|Makefile)
+      if grep -nE '/Users/[a-z]|/home/[a-z]' "$f" | grep -v 'PREFERRED_PYTHONS' | grep -vq '^\s*#'; then
+        signaler "chemin absolu vers un dossier personnel : $f"
+      fi ;;
+  esac
+done <<< "$LISTE"
+
+if (( ECHECS > 0 )); then
+  echo "$ECHECS contrôle(s) en échec." >&2
+  exit 1
+fi
+echo "Contrôles du dépôt : OK ($NOMBRE fichier(s) examiné(s))"

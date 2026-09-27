@@ -1,0 +1,169 @@
+/* accessible-pdf — Template: formation
+   Documents pédagogiques : encadrés colorés, en-têtes bleus, style cours. */
+
+@page {
+  size: A4;
+  margin: 2cm 2cm 2.5cm 2cm;
+  @bottom-center {
+    content: counter(page);
+    font-size: 9pt;
+    color: #666;
+  }
+  @top-center {
+    content: "{{HEADER_TEXT}}";
+    font-size: 8pt;
+    color: #666;
+    border-bottom: 0.5pt solid #ddd;
+    padding-bottom: 4pt;
+  }
+}
+@page :first {
+  @top-center { content: none; }
+  @bottom-center { content: none; }
+}
+
+:root {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.55;
+  color: #1a1a1a;
+  orphans: 3;
+  widows: 3;
+}
+
+/* --- Headings (bleu pédagogique) --- */
+h1 {
+  font-size: 22pt;
+  color: #1a3a5c;
+  margin-top: 1.5em;
+  break-before: page;
+  border-bottom: 2pt solid #1a3a5c;
+  padding-bottom: 0.3em;
+}
+body > section:first-of-type > h1:first-child,
+body > h1:first-child {
+  break-before: avoid;
+}
+h2 {
+  font-size: 15pt;
+  color: #2a5a8c;
+  margin-top: 1.2em;
+  border-bottom: 1pt solid #ccc;
+  padding-bottom: 0.2em;
+  break-after: avoid;
+}
+h3 {
+  font-size: 12pt;
+  color: #3a6a9c;
+  margin-top: 1em;
+  break-after: avoid;
+}
+h4, h5, h6 {
+  font-size: 10.5pt;
+  font-weight: bold;
+  color: #444;
+  break-after: avoid;
+}
+
+p { margin: 0.4em 0; }
+
+/* --- Blockquotes = encadrés pédagogiques --- */
+blockquote {
+  background: #f0f5fa;
+  border-left: 4pt solid #2a5a8c;
+  padding: 0.8em 1em;
+  margin: 0.8em 0;
+  break-inside: avoid;
+  border-radius: 0 4pt 4pt 0;
+}
+blockquote h3 {
+  color: #1a3a5c;
+  font-size: 11pt;
+  margin-top: 0;
+  border-bottom: none;
+}
+blockquote p { margin: 0.3em 0; }
+
+/* --- Tables --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.8em 0;
+  font-size: 9.5pt;
+  break-inside: auto;
+}
+thead { display: table-header-group; }
+th {
+  background: #2a5a8c;
+  color: white;
+  font-weight: bold;
+  text-align: left;
+  padding: 6pt 8pt;
+}
+td {
+  padding: 5pt 8pt;
+  border-bottom: 0.5pt solid #ddd;
+  vertical-align: top;
+}
+tr:nth-child(even) td { background: #f8f9fa; }
+
+/* --- Lists --- */
+ul, ol { margin: 0.4em 0 0.4em 1.5em; padding: 0; }
+li { margin: 0.15em 0; }
+
+/* --- Dividers --- */
+hr {
+  border: none;
+  border-top: 1.5pt solid #ccc;
+  margin: 1.5em 0;
+}
+
+/* --- Inline --- */
+strong { color: #1a1a1a; }
+em { font-style: italic; }
+code {
+  background: #f0f0f0;
+  padding: 1pt 3pt;
+  border-radius: 2pt;
+  font-size: 9.5pt;
+}
+
+/* --- TOC --- */
+nav#TOC {
+  background: #f5f7fa;
+  padding: 1em 1.5em;
+  border: 1pt solid #ddd;
+  border-radius: 4pt;
+  margin: 1em 0 2em 0;
+  break-after: page;
+}
+nav#TOC > ul { list-style: none; padding-left: 0; }
+nav#TOC a { color: #2a5a8c; text-decoration: none; }
+nav#TOC li { margin: 0.2em 0; }
+
+/* --- Cover --- */
+header#title-block-header {
+  text-align: center;
+  padding: 6em 0 2em 0;
+  break-after: page;
+}
+header#title-block-header h1.title {
+  font-size: 28pt;
+  break-before: avoid;
+  border-bottom: none;
+  color: #1a3a5c;
+}
+header#title-block-header .subtitle,
+header#title-block-header p.subtitle {
+  font-size: 16pt;
+  color: #555;
+  margin-top: 0.5em;
+}
+
+/* --- Liens accessibles (WCAG G183 + RGAA critere 3.2) --- */
+a {
+  color: #2a5a8c;
+  text-decoration: underline;
+}
+
+img { max-width: 100%; }

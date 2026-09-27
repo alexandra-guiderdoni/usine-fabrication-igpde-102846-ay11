@@ -8,8 +8,9 @@ from pathlib import Path
 import shutil
 from pptx import Presentation
 
-SRC = Path("/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/gabarits-ppt-igpde.pptx")
-DST = Path("/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/PPT-IGPDE-DSFR-base-intervenant.pptx")
+SOURCES = Path(__file__).resolve().parent.parent / "_source" / "presentations-source"
+SRC = SOURCES / "gabarits-ppt-igpde.pptx"
+DST = SOURCES / "PPT-IGPDE-DSFR-base-intervenant.pptx"
 
 NS_R = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 

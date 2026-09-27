@@ -1,0 +1,174 @@
+/* accessible-pdf — Template: rapport
+   Rapports formels : tons neutres, marges larges, style professionnel. */
+
+@page {
+  size: A4;
+  margin: 2.5cm 2.5cm 3cm 2.5cm;
+  @bottom-center {
+    content: counter(page);
+    font-size: 9pt;
+    color: #666;
+  }
+  @top-right {
+    content: "{{HEADER_TEXT}}";
+    font-size: 7.5pt;
+    color: #666;
+  }
+}
+@page :first {
+  @top-right { content: none; }
+  @bottom-center { content: none; }
+}
+
+:root {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 11pt;
+  line-height: 1.6;
+  color: #222;
+  orphans: 3;
+  widows: 3;
+}
+
+/* --- Headings --- */
+h1 {
+  font-size: 20pt;
+  color: #1a1a1a;
+  margin-top: 1.5em;
+  break-before: page;
+  border-bottom: 1.5pt solid #1a1a1a;
+  padding-bottom: 0.3em;
+  font-weight: normal;
+  font-variant: small-caps;
+}
+body > section:first-of-type > h1:first-child,
+body > h1:first-child {
+  break-before: avoid;
+}
+h2 {
+  font-size: 14pt;
+  color: #333;
+  margin-top: 1.2em;
+  border-bottom: 0.5pt solid #ccc;
+  padding-bottom: 0.2em;
+  break-after: avoid;
+}
+h3 {
+  font-size: 12pt;
+  color: #444;
+  margin-top: 1em;
+  break-after: avoid;
+  font-style: italic;
+}
+h4, h5, h6 {
+  font-size: 11pt;
+  font-weight: bold;
+  color: #555;
+  break-after: avoid;
+}
+
+p { margin: 0.5em 0; text-align: justify; }
+
+/* --- Blockquotes --- */
+blockquote {
+  background: #fafafa;
+  border-left: 3pt solid #999;
+  padding: 0.8em 1.2em;
+  margin: 1em 0;
+  break-inside: avoid;
+  font-style: italic;
+}
+blockquote h3 {
+  color: #333;
+  font-size: 11pt;
+  margin-top: 0;
+  border-bottom: none;
+  font-style: normal;
+  font-weight: bold;
+}
+blockquote p { margin: 0.3em 0; }
+
+/* --- Tables --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-size: 9.5pt;
+  break-inside: auto;
+}
+thead { display: table-header-group; }
+th {
+  background: #555;
+  color: white;
+  font-weight: bold;
+  text-align: left;
+  padding: 6pt 10pt;
+}
+td {
+  padding: 6pt 10pt;
+  border-bottom: 0.5pt solid #ddd;
+  vertical-align: top;
+}
+tr:nth-child(even) td { background: #f9f9f9; }
+
+/* --- Lists --- */
+ul, ol { margin: 0.5em 0 0.5em 2em; padding: 0; }
+li { margin: 0.2em 0; }
+
+/* --- Dividers --- */
+hr {
+  border: none;
+  border-top: 1pt solid #ccc;
+  margin: 2em 0;
+}
+
+/* --- Inline --- */
+strong { color: #1a1a1a; }
+em { font-style: italic; }
+code {
+  background: #f0f0f0;
+  padding: 1pt 3pt;
+  border-radius: 2pt;
+  font-family: "Courier New", monospace;
+  font-size: 9.5pt;
+}
+
+/* --- TOC --- */
+nav#TOC {
+  padding: 1em 0;
+  margin: 1em 0 2em 0;
+  border-top: 1pt solid #ccc;
+  border-bottom: 1pt solid #ccc;
+  break-after: page;
+}
+nav#TOC > ul { list-style: none; padding-left: 0; }
+nav#TOC a { color: #333; text-decoration: none; }
+nav#TOC li { margin: 0.25em 0; }
+
+/* --- Cover --- */
+header#title-block-header {
+  text-align: center;
+  padding: 8em 0 3em 0;
+  break-after: page;
+}
+header#title-block-header h1.title {
+  font-size: 26pt;
+  break-before: avoid;
+  border-bottom: none;
+  color: #1a1a1a;
+  font-variant: small-caps;
+}
+header#title-block-header .subtitle,
+header#title-block-header p.subtitle {
+  font-size: 14pt;
+  color: #666;
+  margin-top: 1em;
+  font-style: italic;
+}
+
+/* --- Liens accessibles (WCAG G183 + RGAA critere 3.2) --- */
+a {
+  color: #1a1a1a;
+  text-decoration: underline;
+}
+
+img { max-width: 100%; }

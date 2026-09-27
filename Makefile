@@ -1,0 +1,75 @@
+# Usine de fabrication de la formation accessibilité numérique IGPDE.
+# Point d'entrée unique, pour un humain comme pour un agent : make aide
+
+PYTHON ?= $(shell if [ -x .venv/bin/python ]; then echo .venv/bin/python; elif [ -x /opt/homebrew/bin/python3.12 ]; then echo /opt/homebrew/bin/python3.12; else echo python3; fi)
+LIVRABLES := $(shell sed -n 's/^  livrables: "\(.*\)"/\1/p' config.yml)
+SITE_CLONE ?= $(LIVRABLES)/Formateur/tp-easy-check-site-web-igpde
+
+.PHONY: aide installer deck qa tests valider controles verifier grille pdf outils outils-telecharger pack apercu recette publier-site
+
+aide:
+	@echo "Usine IGPDE - commandes principales (Python : $(PYTHON))"
+	@echo "  make installer           environnement Python verrouillé + hooks git"
+	@echo "  make deck                régénère le deck PPTX depuis scripts/slides/"
+	@echo "  make qa                  boucle qualité du deck (lire .qa/qa-pptx-report.md)"
+	@echo "  make verifier            tests + validation du site + contrôles du dépôt"
+	@echo "  make grille              régénère la grille d'audit XLSX et la copie dans le site"
+	@echo "  make pdf                 régénère les PDF accessibles du pack"
+	@echo "  make pack                deck + PDF + vérification des outils"
+	@echo "  make outils-telecharger  récupère et vérifie les installeurs"
+	@echo "  make apercu              site d'exercice en local"
+	@echo "  make recette             recette visuelle ShipGuard du site corrigé"
+	@echo "  make publier-site        publie docs/ sur le dépôt du site (GitHub Pages)"
+
+installer:
+	uv venv .venv --python /opt/homebrew/bin/python3.12
+	uv pip sync --require-hashes --python .venv/bin/python requirements.lock
+	git config core.hooksPath .githooks
+	@echo "Environnement prêt. Prérequis Homebrew pour les PDF : pandoc pango glib"
+
+deck:
+	$(PYTHON) scripts/assemble.py
+
+qa:
+	$(PYTHON) scripts/qa_pptx.py . --max-iterations 5 --clean
+
+tests:
+	$(PYTHON) -m pytest tests/ -q
+
+valider:
+	$(PYTHON) validate.py
+
+controles:
+	bash .githooks/pre-commit --tout
+
+verifier: tests valider controles
+
+grille:
+	$(PYTHON) scripts/generate_grille_audit.py
+	cp 03-easy-checks/grille-audit-easy-checks.xlsx docs/assets/downloads/grille-audit-easy-checks.xlsx
+
+pdf:
+	$(PYTHON) scripts/fabriquer_pack.py pdf
+
+outils:
+	$(PYTHON) scripts/fabriquer_pack.py outils
+
+outils-telecharger:
+	$(PYTHON) scripts/fabriquer_pack.py outils --telecharger
+
+pack: deck
+	$(PYTHON) scripts/fabriquer_pack.py tout
+
+apercu:
+	bash recette/lancer-site-local.sh
+
+recette:
+	bash recette/recette-site-accessible.sh
+
+publier-site:
+	@test -d "$(SITE_CLONE)/.git" || { echo "Clone du site absent : git clone git@github.com:Alexmacapple/easy-check-igpde.git $(SITE_CLONE)"; exit 1; }
+	$(PYTHON) validate.py
+	rsync -a --delete --exclude='.DS_Store' --exclude='*.md' --exclude='.git' docs/ "$(SITE_CLONE)/"
+	git -C "$(SITE_CLONE)" add -A
+	git -C "$(SITE_CLONE)" diff --cached --quiet || git -C "$(SITE_CLONE)" commit -m "Mise à jour du site depuis l'usine"
+	git -C "$(SITE_CLONE)" push origin main

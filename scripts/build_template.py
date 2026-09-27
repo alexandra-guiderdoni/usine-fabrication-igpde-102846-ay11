@@ -9,18 +9,16 @@
 6. Sauvegarde en PPT-IGPDE-DSFR-base-intervenant.pptx
 """
 
-from pathlib import Path
 import shutil
-from copy import deepcopy
-from lxml import etree
+from pathlib import Path
 
 from pptx import Presentation
-from pptx.util import Inches, Emu, Pt
 from pptx.dml.color import RGBColor
-from pptx.enum.shapes import MSO_SHAPE
+from pptx.util import Emu, Inches
 
-SRC = Path("/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/PPT-IGPDE-base-intervenant.pptx")
-DST = Path("/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/PPT-IGPDE-DSFR-base-intervenant.pptx")
+SOURCES = Path(__file__).resolve().parent.parent / "_source" / "presentations-source"
+SRC = SOURCES / "PPT-IGPDE-base-intervenant.pptx"
+DST = SOURCES / "PPT-IGPDE-DSFR-base-intervenant.pptx"
 
 SCALE = 13.3333 / 10.0  # ratio de changement d'échelle
 
@@ -56,6 +54,12 @@ def rescale_xml_shapes(xml_element, scale):
 
 
 def main():
+    if not SRC.exists():
+        raise SystemExit(
+            f"Source IGPDE 10 pouces introuvable : {SRC}\n"
+            "Le gabarit existant n'a pas été touché. Pour le reconstruire depuis "
+            "gabarits-ppt-igpde.pptx : python3 scripts/rebuild_template_from_demo.py"
+        )
     if DST.exists():
         DST.unlink()
     shutil.copy(SRC, DST)
@@ -86,7 +90,9 @@ def main():
     # 4. Sauvegarde intermédiaire
     prs.save(str(DST))
     print(f"[OK] Template rescalé sauvegardé : {DST.name}")
-    print(f"     Dimensions : {Emu(prs.slide_width).inches:.2f}\" x {Emu(prs.slide_height).inches:.2f}\"")
+    print(
+        f'     Dimensions : {Emu(prs.slide_width).inches:.2f}" x {Emu(prs.slide_height).inches:.2f}"'
+    )
     print(f"     Layouts : {len(prs.slide_masters[0].slide_layouts)}")
     for i, layout in enumerate(prs.slide_masters[0].slide_layouts):
         print(f"       {i}: {layout.name}")

@@ -1,0 +1,38 @@
+{
+  "description": "Installeurs remis aux stagiaires sur clé USB. Non versionnés : récupérés et vérifiés par scripts/fabriquer_pack.py.",
+  "outils": [
+    {
+      "fichier": "nvda_2024.4.1.exe",
+      "nom": "Lecteur d'écran NVDA (Windows)",
+      "version": "2024.4.1",
+      "taille": 40334480,
+      "sha256": "37b6f52473a0a08df52f928f718e773768c8bc02304678ec615a5c222b5ba97c",
+      "url": "https://download.nvaccess.org/releases/2024.4.1/nvda_2024.4.1.exe"
+    },
+    {
+      "fichier": "CCA-Setup-3.5.4.msi",
+      "nom": "Colour Contrast Analyser (Windows)",
+      "version": "3.5.4",
+      "taille": 91496448,
+      "sha256": "3fb3b9450494dbdd8b97300b39cfec377e297b5139e2f46f92c6a8540bad1782",
+      "url": "https://github.com/ThePacielloGroup/CCAe/releases/download/v3.5.4/CCA-Setup-3.5.4.msi"
+    },
+    {
+      "fichier": "focusHighlight-6.6.nvda-addon.zip",
+      "nom": "Extension NVDA Focus Highlight",
+      "version": "6.6",
+      "taille": 166852,
+      "sha256": "73b93e77aa1b8fce4e7c9db516af24acd3a7af5dfd51c17442ddb6375e62c68a",
+      "url": "https://github.com/nvdajp/focusHighlight/releases/download/6.6/focusHighlight-6.6.nvda-addon"
+    },
+    {
+      "fichier": "PAC_24.3.1.0.zip",
+      "nom": "PDF Accessibility Checker",
+      "version": "24.3.1.0",
+      "taille": 77817513,
+      "sha256": "361b602db5907ded0156d207755083e5219deec9ba4d97445b6e84898a9e8a07",
+      "url": null,
+      "page": "https://pac.pdf-accessibility.org/en/download"
+    }
+  ]
+}

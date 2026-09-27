@@ -1,20 +1,29 @@
+# Système et éditeurs
 .DS_Store
-~$*.pptx
-~$*.docx
+._*
+~$*
+
+# Python et environnement
 __pycache__/
-tmp/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Sorties régénérables
 .qa/
+tmp/
+outputs/
+/support-formation-*.pptx
 
-easy-check-igpde/
-IGPDE-102638/
-IGPDE-102638-livrables/outils/
-IGPDE-102638-livrables/Formateur/tp-easy-check-igpde/
-IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde/
+# Pack livrable : installeurs récupérés par make outils (voir outils/outils.json)
+IGPDE-*-livrables-*/outils/*
+!IGPDE-*-livrables-*/outils/MANIFEST.md
+!IGPDE-*-livrables-*/outils/outils.json
+*.partiel
 
-# Le pack livrable est un snapshot remis à l'IGPDE : ses PPTX et DOCX sont
-# versionnés malgré les règles *.pptx et *.docx du .gitignore racine.
-!IGPDE-102846-livrables-octobre-2026/Formateur/**/*.pptx
-!IGPDE-102846-livrables-octobre-2026/Formateur/**/*.docx
+# Clone de travail du dépôt du site (publié par make publier-site)
+IGPDE-*-livrables-*/Formateur/tp-easy-check-site-web-igpde/
 
-# Convocation nominative des intervenants : conservée sur disque, hors du dépôt.
-IGPDE-102846-livrables-octobre-2026/Formateur/documents-administratifs-igpde/convocation-intervenants.pdf
+# Convocation nominative des intervenants : conservée sur disque, hors du dépôt
+convocation-intervenants.pdf
