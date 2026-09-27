@@ -1,0 +1,86 @@
+"""Étapes du pack qui ne passent pas par le générateur PDF.
+
+- tp_reseaux_sociaux : variante hors ligne de la démo émojis (ressources DSFR
+  locales, navigation du site en liens absolus vers le site publié)
+- docx_sami : copie des trois documents de l'exercice Sami dans le pack
+- pdf_deck : export PDF du deck pour les notes formateur (LibreOffice)
+"""
+
+import shutil
+import subprocess
+import tempfile
+from pathlib import Path
+
+SITE_PUBLIE = "https://alexmacapple.github.io/easy-check-igpde/"
+PAGES_DU_MENU = [
+    "index.html",
+    "site-inaccessible/index.html",
+    "site-aide-correction/index.html",
+    "site-accessible/index.html",
+    "plan-du-site.html",
+    "accessibilite.html",
+    "mentions-legales.html",
+    "donnees-personnelles.html",
+]
+DEMO = "demo-mauvaise-restitution-emojis.html"
+SOFFICE = Path("/Applications/LibreOffice.app/Contents/MacOS/soffice")
+
+
+def tp_reseaux_sociaux(racine, formateur):
+    docs = racine / "docs"
+    cible = formateur / "tp-reseaux-sociaux-igpde"
+    images = cible / "assets" / "shared" / "images"
+    images.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(
+        docs / "assets" / "dsfr",
+        cible / "assets" / "dsfr",
+        dirs_exist_ok=True,
+        ignore=shutil.ignore_patterns(".DS_Store"),
+    )
+    shutil.copy2(docs / "assets" / "site.css", cible / "assets" / "site.css")
+    shutil.copy2(
+        docs / "assets" / "shared" / "images" / "igpde-operator-logo.jpg", images
+    )
+    html = (docs / DEMO).read_text(encoding="utf-8")
+    for page in PAGES_DU_MENU:
+        html = html.replace(f'href="{page}"', f'href="{SITE_PUBLIE}{page}"')
+    (cible / DEMO).write_text(html, encoding="utf-8")
+    print(f"[supports] démo hors ligne : {(cible / DEMO).relative_to(racine)}")
+
+
+def docx_sami(racine, formateur):
+    cible = formateur / "tp-word-igpde"
+    for source in sorted((racine / "_source").glob("sami-doc-*.docx")):
+        shutil.copy2(source, cible / source.name)
+        print(f"[supports] {source.name} copié dans {cible.relative_to(racine)}")
+
+
+def pdf_deck(racine, formateur, nom_deck):
+    """Exporte le deck en PDF dans _alex/. Retourne False si LibreOffice est absent."""
+    if not SOFFICE.exists():
+        print(f"[supports] LibreOffice absent ({SOFFICE}) : export PDF du deck ignoré")
+        return False
+    deck = racine / nom_deck
+    with (
+        tempfile.TemporaryDirectory() as profil,
+        tempfile.TemporaryDirectory() as sortie,
+    ):
+        subprocess.run(
+            [
+                str(SOFFICE),
+                "--headless",
+                f"-env:UserInstallation=file://{profil}",
+                "--convert-to",
+                "pdf",
+                "--outdir",
+                sortie,
+                str(deck),
+            ],
+            capture_output=True,
+            check=True,
+        )
+        produit = Path(sortie) / (deck.stem + ".pdf")
+        cible = formateur / "_alex" / produit.name
+        shutil.move(str(produit), cible)
+    print(f"[supports] export PDF du deck : {cible.relative_to(racine)}")
+    return True

@@ -5,7 +5,7 @@ PYTHON ?= $(shell if [ -x .venv/bin/python ]; then echo .venv/bin/python; elif [
 LIVRABLES := $(shell sed -n 's/^  livrables: "\(.*\)"/\1/p' config.yml)
 SITE_CLONE ?= $(LIVRABLES)/Formateur/tp-easy-check-site-web-igpde
 
-.PHONY: aide installer deck qa tests valider controles verifier grille pdf outils outils-telecharger pack apercu recette publier-site
+.PHONY: aide installer deck qa tests valider controles verifier grille sami wcag pdf supports outils outils-telecharger pack apercu recette publier-site
 
 aide:
 	@echo "Usine IGPDE - commandes principales (Python : $(PYTHON))"
@@ -14,8 +14,11 @@ aide:
 	@echo "  make qa                  boucle qualité du deck (lire .qa/qa-pptx-report.md)"
 	@echo "  make verifier            tests + validation du site + contrôles du dépôt"
 	@echo "  make grille              régénère la grille d'audit XLSX et la copie dans le site"
+	@echo "  make sami                régénère les 3 documents Word de l'exercice Sami"
+	@echo "  make wcag                régénère le deck WCAG en langage clair (condensé) dans wcag/"
 	@echo "  make pdf                 régénère les PDF accessibles du pack"
-	@echo "  make pack                deck + PDF + vérification des outils"
+	@echo "  make supports            démo hors ligne, documents Sami et export PDF du deck dans le pack"
+	@echo "  make pack                deck + PDF + supports + vérification des outils"
 	@echo "  make outils-telecharger  récupère et vérifie les installeurs"
 	@echo "  make apercu              site d'exercice en local"
 	@echo "  make recette             recette visuelle ShipGuard du site corrigé"
@@ -48,8 +51,17 @@ grille:
 	$(PYTHON) scripts/generate_grille_audit.py
 	cp 03-easy-checks/grille-audit-easy-checks.xlsx docs/assets/downloads/grille-audit-easy-checks.xlsx
 
+sami:
+	$(PYTHON) scripts/generate_exercice_sami.py
+
+wcag:
+	$(PYTHON) scripts/generate_wcag_langage_clair.py --condensed
+
 pdf:
 	$(PYTHON) scripts/fabriquer_pack.py pdf
+
+supports:
+	$(PYTHON) scripts/fabriquer_pack.py supports
 
 outils:
 	$(PYTHON) scripts/fabriquer_pack.py outils

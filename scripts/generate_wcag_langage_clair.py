@@ -21,6 +21,7 @@ from dataclasses import dataclass
 from math import ceil
 from pathlib import Path
 
+import yaml
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import PP_ALIGN
 from pptx.util import Inches
@@ -35,6 +36,7 @@ from igpde_dsfr_components import (  # noqa: E402
     COL_W,
     CONTENT_W,
     GAP,
+    GRIS_CLAIR,
     MARGIN_L,
     ROUGE_MARIANNE,
     TOP_CONTENT,
@@ -53,14 +55,12 @@ from igpde_dsfr_components import (  # noqa: E402
     estimate_card_height,
     estimate_highlight_height,
     finalize_pptx,
-    GRIS_CLAIR,
     new_slide,
 )
 
-
-OUTPUT_DEFAULT = PROJECT_ROOT / "WCAG en langage clair.pptx"
-OUTPUT_CONDENSED = PROJECT_ROOT / "WCAG en langage clair - condensé.pptx"
-DATE_DEFAULT = "juin 2026"
+OUTPUT_DEFAULT = PROJECT_ROOT / "wcag" / "WCAG en langage clair.pptx"
+OUTPUT_CONDENSED = PROJECT_ROOT / "wcag" / "WCAG en langage clair - condensé.pptx"
+DATE_DEFAULT = yaml.safe_load((PROJECT_ROOT / "config.yml").read_text(encoding="utf-8"))["formation"]["date"]
 FOOTER_BASE = "WCAG en langage clair"
 AUTHOR = "Alex Guiderdoni"
 

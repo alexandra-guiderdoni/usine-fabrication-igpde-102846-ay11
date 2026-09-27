@@ -30,6 +30,28 @@ Protocole unique pour tout agent (Claude, Codex ou autre) et pour un humain. `CL
 - Gabarit IGPDE : `_source/presentations-source/PPT-IGPDE-DSFR-base-intervenant.pptx`. S'il manque : `python scripts/rebuild_template_from_demo.py`.
 - Le site `docs/` est maintenu à la main page par page : ne pas relancer `scripts/generate_easy_checks_site_skeleton.py` sans comparer ensuite le diff complet, il écraserait les corrections faites depuis juillet.
 
+## Qui fabrique quoi dans le pack
+
+`make pack` enchaîne tout ce qui se génère. Chaque livrable relève de l'une de ces trois catégories.
+
+- **Généré par une commande**
+  - Deck `support-formation-*.pptx` : `make deck`, copié dans le pack par `make pack`.
+  - Export PDF du deck (`Formateur/_alex/`) : `make supports` (nécessite LibreOffice).
+  - Mémos Word et LibreOffice, fiches WCAG formateur et stagiaire, fiche des liens des TP : `make pdf`, depuis `fiche-pratique/*.md`, `wcag/*.md` et `liens-tp-en-ligne.md`.
+  - Documents Sami (`Formateur/tp-word-igpde/`) : `make sami` dans `_source/`, puis `make supports` pour la copie dans le pack.
+  - Démo réseaux sociaux hors ligne (`Formateur/tp-reseaux-sociaux-igpde/`) : `make supports`, depuis `docs/demo-mauvaise-restitution-emojis.html`.
+  - Grille d'audit XLSX : `make grille` (dans `03-easy-checks/` et dans le site).
+  - Installeurs (`outils/`) : `make outils-telecharger`, sauf PAC à déposer à la main (voir `outils/MANIFEST.md`).
+- **Document source édité à la main** (pas de générateur : modifier le fichier, garder l'original dans `V1/`)
+  - Fiche catalogue, fiche technique, programme et déroulé (`Formateur/documents-administratifs-igpde/`), au format Word de l'IGPDE.
+  - Site d'exercice `docs/`, publié par `make publier-site`.
+  - Notes formateur `Formateur/_alex/*.md` et `alternatives.*`.
+- **Ressource fixe** (fournie, jamais régénérée)
+  - Cartes idées reçues (`Formateur/ice-breaker-idées-recues-cartes-igpde/`), cartes WCAG 2.2 (`fil-rouge-principes-wcag-igpde/WCAG-2.2-Card-Deck-FR-6-par-page.pdf`), bandeaux IGPDE.
+  - Convocation des intervenants : sur le disque seulement, jamais versionnée.
+
+`scripts/assemble_reseaux_sociaux.py` est obsolète : les slides du module 4 sont intégrées au deck principal. `scripts/generate_demo.py` est hors chaîne (voir `todo.md`).
+
 ## Vérifier avant de livrer
 
 - `make verifier` : 69 tests, validation du site (`validate.py`), contrôles du dépôt. Le verdict se lit sur le code de sortie.

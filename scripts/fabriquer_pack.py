@@ -3,10 +3,9 @@
 Commandes :
   deck    copie le deck généré (config.yml : output) dans le pack
   pdf     régénère les PDF accessibles (mémos, fiches WCAG, fiche des liens)
+  supports démo réseaux sociaux hors ligne, documents Sami, export PDF du deck
   outils  vérifie les installeurs (taille et SHA-256), --telecharger pour les récupérer
-  tout    deck + pdf + outils
-
-Le dossier du pack est lu dans config.yml (clé livrables).
+  tout    deck + pdf + supports + outils
 """
 
 import argparse
@@ -18,6 +17,7 @@ import sys
 import urllib.request
 from pathlib import Path
 
+import pack_supports
 import yaml
 
 RACINE = Path(__file__).resolve().parent.parent
@@ -178,7 +178,7 @@ def main():
     analyseur = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    analyseur.add_argument("commande", choices=["deck", "pdf", "outils", "tout"])
+    analyseur.add_argument("commande", choices=["deck", "pdf", "supports", "outils", "tout"])
     analyseur.add_argument(
         "--telecharger", action="store_true", help="récupère les installeurs manquants"
     )
@@ -187,6 +187,10 @@ def main():
         deck()
     if args.commande in ("pdf", "tout"):
         pdf()
+    if args.commande in ("supports", "tout"):
+        pack_supports.tp_reseaux_sociaux(RACINE, FORMATEUR)
+        pack_supports.docx_sami(RACINE, FORMATEUR)
+        pack_supports.pdf_deck(RACINE, FORMATEUR, CONFIG["output"])
     if args.commande in ("outils", "tout") and outils(args.telecharger):
         sys.exit(1)
 
