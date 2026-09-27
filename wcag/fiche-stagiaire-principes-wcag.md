@@ -1,4 +1,11 @@
-# Principes WCAG - fiche à garder sous la main
+# Principes WCAG - fiche stagiaire
+
+<!-- Contournement WeasyPrint 68 : un tableau fragmenté entre deux pages fait
+     échouer la génération PDF/UA-1 (« Table wrapper without a table »).
+     Ce style garde chaque tableau entier sur une page. Le tableau web, le plus
+     long, laissait alors son intertitre seul en bas de page : la section commence
+     sur une nouvelle page et ses cellules sont resserrées pour tenir avec lui. -->
+<style>table { break-inside: avoid; } section#pendant-latelier-web { break-before: page; } section#pendant-latelier-web th, section#pendant-latelier-web td { padding-top: 2pt; padding-bottom: 2pt; }</style>
 
 <!-- Sommaire sur la première page : le gabarit formation place la page de garde
      (header#title-block-header) seule sur une page. Ici elle n'impose plus de saut

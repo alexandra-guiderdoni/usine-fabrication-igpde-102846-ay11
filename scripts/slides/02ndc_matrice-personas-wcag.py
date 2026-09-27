@@ -37,9 +37,10 @@ def build(prs, layouts, ctx):
     add_notes(
         slide,
         "Slide de synthèse qui fait le lien entre les personas et les "
-        "4 principes WCAG. Distribuer la fiche stagiaire a ce moment-la. "
+        "4 principes WCAG. Distribuer la fiche stagiaire "
+        "(fiche-stagiaire-principes-wcag.pdf) à ce moment-là. "
         "Dire : « Vous n'avez pas besoin de retenir tout WCAG. Gardez les "
-        "4 questions sous la main. A chaque anomalie Word ou web, "
+        "4 questions sous la main. À chaque anomalie Word ou web, "
         "demandez-vous : est-ce un problème pour percevoir, utiliser, "
         "comprendre ou être lu par les outils ? »",
     )
