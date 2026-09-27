@@ -69,6 +69,6 @@
 - [x] Historique extrait (153 commits depuis mars 2026) et nettoyé : installeurs, convocation, transcriptions d'agents et sorties expérimentales purgés ; coordonnées de Carine et nom de la gestionnaire IGPDE anonymisés ; messages de commit hors sujet neutralisés
 - [x] Outillage autonome : `Makefile`, `requirements.lock` avec empreintes, générateur PDF dans `vendor/`, `scripts/fabriquer_pack.py`, hooks `.githooks/`, `.gitignore` autonome, licence etalab-2.0
 - [x] `AGENTS.md` protocole unique pour tous les agents, `CLAUDE.md` l'importe ; README d'usine, `PUBLIER-SITE.md`
-- [ ] Publier sur GitHub après acceptation de l'invitation d'Alexmacapple (droit d'écriture à vérifier par l'API)
+- [x] Publié sur GitHub le 2026-09-27 (alexandra-guiderdoni/usine-fabrication-igpde-102846-ay11, 159 commits) ; site republié depuis l'usine (make publier-site, commit 5f19e04)
 - [ ] Supprimer `projets-formations/IGPDE-Carinne-C` de l'ancien espace de travail : uniquement sur GO explicite d'Alex
 - [ ] `scripts/generate_demo.py` (générateur de démonstration hors chaîne) écrit `gabarits-ppt-igpde.pptx` à la racine, homonyme de la source rangée dans `_source/presentations-source/` : à retirer ou à rediriger avant tout usage
