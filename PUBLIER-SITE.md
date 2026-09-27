@@ -6,7 +6,7 @@ Le site des points de contrôle rapides est fabriqué dans `docs/` et publié pa
 
 ## Où il vit
 
-- **Source** : `docs/` de cette usine (seule à modifier).
+- **Source** : `docs/` de cette usine (seule à modifier), et `publication-site/README.md` pour la page d'accueil du dépôt publié sur GitHub.
 - **Dépôt publié** : `git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git`, branche `main`, racine `/`, mode legacy.
 - **Adresse** : https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/
 - **Clone de travail** : `IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde/`, ignoré par l'usine.
@@ -17,7 +17,7 @@ Le site des points de contrôle rapides est fabriqué dans `docs/` et publié pa
 make publier-site
 ```
 
-La commande valide le site (`validate.py`), synchronise `docs/` vers le clone (sans les fichiers `.md` internes ni `.DS_Store`), commite et pousse. GitHub Pages reconstruit le site en une à deux minutes.
+La commande valide le site (`validate.py`), synchronise `docs/` vers le clone (sans les fichiers `.md` internes ni `.DS_Store`), copie `publication-site/README.md` à la racine du clone, commite et pousse. Ce README est public, et GitHub Pages le sert aussi en texte brut : n'y mettre que des informations publiables. GitHub Pages reconstruit le site en une à deux minutes.
 
 Si le clone est absent :
 

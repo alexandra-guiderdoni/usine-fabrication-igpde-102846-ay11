@@ -44,6 +44,7 @@ Les installeurs remis aux stagiaires (NVDA, Colour Contrast Analyser, Focus High
 - `scripts/` : génération du deck (`assemble.py`, `slides/`, `igpde_dsfr_components.py`), des documents, du site, de la grille, contrôle qualité du deck, fabrication du pack.
 - `tests/`, `validate.py` : preuves de fonctionnement du deck et du site.
 - `docs/` : source du site d'exercice.
+- `publication-site/README.md` : présentation du dépôt publié du site, copiée par `make publier-site`.
 - `recette/` : recette visuelle du site (manifestes ShipGuard), prévisualisation locale, rapports d'audit.
 - `_source/`, `_assets/` : gabarits IGPDE, présentations et références sources, images.
 - `01-cadre-legal/` à `06-medias/`, `fiche-pratique/`, `wcag/` : contenus pédagogiques et sources Markdown des fiches.

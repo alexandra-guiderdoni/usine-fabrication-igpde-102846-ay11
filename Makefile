@@ -22,7 +22,7 @@ aide:
 	@echo "  make outils-telecharger  récupère et vérifie les installeurs"
 	@echo "  make apercu              site d'exercice en local"
 	@echo "  make recette             recette visuelle ShipGuard du site corrigé"
-	@echo "  make publier-site        publie docs/ sur le dépôt du site (GitHub Pages)"
+	@echo "  make publier-site        publie docs/ et le README du dépôt du site (GitHub Pages)"
 
 installer:
 	uv venv .venv --python /opt/homebrew/bin/python3.12
@@ -82,6 +82,7 @@ publier-site:
 	@test -d "$(SITE_CLONE)/.git" || { echo "Clone du site absent : git clone git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git $(SITE_CLONE)"; exit 1; }
 	$(PYTHON) validate.py
 	rsync -a --delete --exclude='.DS_Store' --exclude='*.md' --exclude='.git' docs/ "$(SITE_CLONE)/"
+	cp publication-site/README.md "$(SITE_CLONE)/README.md"
 	git -C "$(SITE_CLONE)" add -A
 	git -C "$(SITE_CLONE)" diff --cached --quiet || git -C "$(SITE_CLONE)" commit -m "Mise à jour du site depuis l'usine"
 	git -C "$(SITE_CLONE)" push origin main
