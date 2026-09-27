@@ -16,7 +16,7 @@ Formateur/
     convocation-intervenants.pdf            Convocation IGPDE du 9 octobre 2026 (sur disque uniquement, non versionnée)
   support-formation-102846-2026-IGPDE.pptx      Deck principal (138 slides DSFR)
   _alex/                         Notes formateur (transcriptions du deck, checklists, PDF du deck)
-  fil-rouge-principes-wcag-igpde/  Fiche formateur + fiche stagiaire WCAG
+  fil-rouge-principes-wcag-igpde/  Fiches formateur et stagiaire WCAG, cartes des critères WCAG 2.2 (voir son README)
   ice-breaker-idées-recues-cartes-igpde/  6 cartes PDF idées reçues a11y
   tp-word-igpde/                 Exercice Sami (3 DOCX) + fiches mémo PDF
   tp-easy-check-site-web-igpde/  Site d'exercice points de contrôle rapides (clone git du site)

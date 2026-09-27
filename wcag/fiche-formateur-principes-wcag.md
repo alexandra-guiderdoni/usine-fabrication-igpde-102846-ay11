@@ -5,6 +5,14 @@
      Ce style garde chaque tableau entier sur une page. -->
 <style>table { break-inside: avoid; }</style>
 
+<!-- Sommaire sur la première page : le gabarit formation place la page de garde
+     (header#title-block-header) seule sur une page. Ici elle n'impose plus de saut
+     de page et son espace haut est réduit : bandeau, titre et sommaire tiennent sur
+     la page 1. Le sous-titre est masqué : le générateur y met le premier intertitre
+     (« Intention pédagogique »), qui figure déjà dans le sommaire.
+     Pied de page « Page X / Y » sur toutes les pages, première comprise. -->
+<style>header#title-block-header { break-after: avoid; padding: 2em 0 0.5em 0; } header#title-block-header .subtitle { display: none; } @page { @bottom-center { content: "Page " counter(page) " / " counter(pages); } } @page :first { @bottom-center { content: "Page " counter(page) " / " counter(pages); } }</style>
+
 Formation : 102846 - L'accessibilité numérique pour la bureautique et le web
 
 Public : communicants et producteurs de contenus numériques, niveau initiation.
@@ -183,7 +191,7 @@ Dire aux stagiaires :
 
 - AAArdvark : WCAG en anglais clair — https://aaardvarkaccessibility.com/wcag-plain-english/
 - Cartes WCAG 2.2 (Figma) — https://www.figma.com/community/file/1409436654182046971/wcag-2-2-card-deck
-- Fiche stagiaire PDF : `Formateur/fil-rouge-principes-wcag-igpde/fiche-stagiaire-principes-wcag-a-garder-sous-la-main.pdf`
+- Fiche stagiaire PDF : `Formateur/fil-rouge-principes-wcag-igpde/fiche-stagiaire-principes-wcag.pdf`
 - TP Word : `Formateur/tp-word-igpde/`
 - TP web : `Formateur/tp-easy-check-site-web-igpde/index.html`
 - Cartes idées reçues : `Formateur/ice-breaker-idées-recues-cartes-igpde/`

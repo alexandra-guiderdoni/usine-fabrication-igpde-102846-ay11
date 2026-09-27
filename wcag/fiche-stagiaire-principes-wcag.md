@@ -1,5 +1,13 @@
 # Principes WCAG - fiche à garder sous la main
 
+<!-- Sommaire sur la première page : le gabarit formation place la page de garde
+     (header#title-block-header) seule sur une page. Ici elle n'impose plus de saut
+     de page et son espace haut est réduit : bandeau, titre et sommaire tiennent sur
+     la page 1. Le sous-titre est masqué : le générateur y met le premier intertitre
+     (« L'idée à retenir »), qui figure déjà dans le sommaire.
+     Pied de page « Page X / Y » sur toutes les pages, première comprise. -->
+<style>header#title-block-header { break-after: avoid; padding: 2em 0 0.5em 0; } header#title-block-header .subtitle { display: none; } @page { @bottom-center { content: "Page " counter(page) " / " counter(pages); } } @page :first { @bottom-center { content: "Page " counter(page) " / " counter(pages); } }</style>
+
 Formation 102846 - L'accessibilité numérique pour la bureautique et le web
 
 ## L'idée à retenir

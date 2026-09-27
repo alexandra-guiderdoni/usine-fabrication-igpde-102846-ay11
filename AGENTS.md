@@ -58,8 +58,9 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
   - Fiche catalogue, fiche technique, programme et déroulé (`Formateur/documents-administratifs-igpde/`), au format Word de l'IGPDE.
   - Site d'exercice `docs/`, publié par `make publier-site`.
   - Notes formateur `Formateur/_alex/*.md` et `alternatives.*`.
+  - README du dossier `Formateur/fil-rouge-principes-wcag-igpde/`.
 - **Ressource fixe** (fournie, jamais régénérée)
-  - Cartes idées reçues (`Formateur/ice-breaker-idées-recues-cartes-igpde/`), cartes WCAG 2.2 (`fil-rouge-principes-wcag-igpde/WCAG-2.2-Card-Deck-FR-6-par-page.pdf`), bandeaux IGPDE.
+  - Cartes idées reçues (`Formateur/ice-breaker-idées-recues-cartes-igpde/`), cartes WCAG 2.2 (`fil-rouge-principes-wcag-igpde/cartes-criteres-wcag-2-2-a-imprimer.pdf`, crédits et licence dans `CREDITS.md` à côté), bandeaux IGPDE.
   - Convocation des intervenants : sur le disque seulement, jamais versionnée.
 
 `scripts/assemble_reseaux_sociaux.py` est obsolète : les slides du module 4 sont intégrées au deck principal. `scripts/generate_demo.py` est hors chaîne (voir `todo.md`).
