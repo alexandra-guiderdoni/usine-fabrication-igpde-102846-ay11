@@ -80,15 +80,13 @@ Article : FormA11y - A tool for remediating PDF forms for accessibility
 ---
 
 # Skill generer-images-slides-ia
-`/Users/alex/Claude/.claude/skills/generer-images-slides-ia/SKILL.md`.
+
+Prompt historique (juin 2026) pour le skill `generer-images-slides-ia` de l'espace de travail d'Alex, hors de ce dépôt.
 
 ## Objectif :
-générer une série courte de 6 slides image-based PNG 16:9 à partir de `/Users/alex/
-Claude/projets-formations/IGPDE-Carinne-C/pdf-accessibles-constat-et-checklist.md`.
+générer une série courte de 6 slides image-based PNG 16:9 à partir de ce fichier (`notes/pdf-accessibles-constat-et-checklist.md`).
 
-Dossier de sortie obligatoire :
-`/Users/alex/Claude/projets-formations/IGPDE-Carinne-C/outputs/ia-slides/2026-06-22-pdf-accessibles/
-`
+Dossier de sortie utilisé à l'époque : `outputs/ia-slides/2026-06-22-pdf-accessibles/`, dans l'ancien dossier du projet (non versionné).
 
 ## Contraintes :
 - utiliser `image_gen`, pas PIL, SVG, HTML, canvas ni PowerPoint éditable ;

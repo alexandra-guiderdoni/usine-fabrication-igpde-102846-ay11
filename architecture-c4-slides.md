@@ -11,7 +11,7 @@
 
 **Système en scope** : pipeline de génération du deck PPTX principal `support-formation-102846-2026-IGPDE.pptx` (138 slides DSFR accessibles, nom porté par `config.yml`).
 
-**Audiences** : Alex (formateur/développeur), Carinne C. (commanditaire IGPDE, non-technique).
+**Audiences** : Alex (formateur/développeur), Carine C. (commanditaire IGPDE, non technique).
 
 **Contraintes non négociables** :
 - Python 3.12 + python-pptx + lxml (pas de Docker, pas de CI)
@@ -19,8 +19,7 @@
 - Police Marianne (fallback Arial)
 - Accessibilité : ordre de lecture, `lang=fr-FR`, alt text, métadonnées
 - macOS : quarantine Gatekeeper à retirer sur le PPTX généré
-- Pas de modification directe du PPTX — tout passe par les scripts Python
-- Deux régimes de slides : générées par script vs retouchées manuellement
+- Pas de modification directe du PPTX — tout passe par les scripts Python : les 138 slides sont générées, aucune n'est retouchée dans PowerPoint
 
 ---
 
@@ -28,14 +27,14 @@
 
 ```text
 +------------------+                    +------------------+
-|   Alex           |                    |  Carinne C.      |
+|   Alex           |                    |  Carine C.       |
 |  (formateur /    |                    |  (commanditaire  |
 |   développeur)   |                    |   IGPDE)         |
 +--------+---------+                    +--------+---------+
          |                                       |
-         | édite les scripts Python               | reçoit le PPTX final
-         | lance assemble.py                      | ouvre dans PowerPoint
-         | valide le rendu visuel                 | anime la formation
+         | édite les scripts Python               | reçoit le pack livrable
+         | lance make deck                        | valide côté IGPDE
+         | valide le rendu, anime                 |
          |                                       |
          v                                       v
 +--------+---------------------------------------+--------+
@@ -54,7 +53,7 @@
 +----------+
 ```
 
-Le formateur Alex édite les modules Python et lance la génération. Le deck PPTX produit est livré à Carinne C. qui l'utilise dans PowerPoint pour animer la formation. PowerPoint sert aussi de vérification manuelle (débordements, rendu visuel) car le pipeline ne couvre pas le rendu pixel.
+Le formateur Alex édite les modules Python, lance la génération et anime la formation avec le deck. Le deck est remis à l'IGPDE (Carine C., commanditaire) dans le pack livrable. PowerPoint sert aussi de vérification manuelle (débordements, rendu visuel) car le pipeline ne couvre pas le rendu pixel.
 
 ---
 
@@ -82,7 +81,7 @@ Le formateur Alex édite les modules Python et lance la génération. Le deck PP
 |  |                         |   |                                 |  |
 |  | Chacun expose :         |   | create_presentation()           |  |
 |  |   build(prs,layouts,ctx)|   | new_slide()                     |  |
-|  |                         |   | 16 composants (add_*)           |  |
+|  |                         |   | 17 composants (add_*)           |  |
 |  | Contenu pédagogique +   |   | Stack, _safe_top, _estimate_h   |  |
 |  | appels aux composants   |   | finalize_pptx() (a11y)          |  |
 |  +-------------------------+   +---------------------------------+  |
@@ -101,10 +100,11 @@ Le formateur Alex édite les modules Python et lance la génération. Le deck PP
 |-----------|-------------|----------------|---------|
 | `assemble.py` | Python 3 | Orchestre la decouverte, le tri, le chargement et l'execution sequentielle des modules de slides. Produit le PPTX final | Lit les modules `NN_*.py`, ecrit le `.pptx` |
 | `scripts/slides/NN_*.py` (138 fichiers) | Python 3 | Chaque module definit le contenu d'une ou plusieurs slides. Expose `build(prs, layouts, ctx)` | Importe les composants depuis `igpde_dsfr_components` |
-| `igpde_dsfr_components.py` (55 Ko) | Python 3 + python-pptx + lxml | Bibliotheque de composants DSFR : grille, palette, 16 helpers de composition, post-traitement a11y | Charge le template PPTX, manipule le XML OOXML |
-| `build_template.py` | Python 3 + python-pptx | Genere le template DSFR 13,33"x7,5" a partir du source IGPDE 10"x5,62" (rescaling + DSFRisation) | Lit `PPT-IGPDE-base-intervenant.pptx`, ecrit le template DSFR |
+| `igpde_dsfr_components.py` | Python 3 + python-pptx + lxml | Bibliotheque de composants DSFR : grille, palette, 17 composants `add_*` et 2 `compose_*`, post-traitement a11y | Charge le template PPTX, manipule le XML OOXML |
+| `build_template.py` | Python 3 + python-pptx | Premiere generation du template DSFR 13,33"x7,5" a partir du source IGPDE 10"x5,62" (rescaling + DSFRisation). Historique : ce source n'est plus dans le depot | Lisait `PPT-IGPDE-base-intervenant.pptx` (absent) |
+| `rebuild_template_from_demo.py` | Python 3 + python-pptx | Voie actuelle pour reconstruire le template s'il manque (voir `AGENTS.md`) | Lit `_source/presentations-source/gabarits-ppt-igpde.pptx`, ecrit `PPT-IGPDE-DSFR-base-intervenant.pptx` |
 | Template PPTX | OOXML | 6 layouts natifs IGPDE : couverture, titre_soustitre, sommaire, chapitre, 3_colonnes, titre_contenu | Fichier binaire PPTX |
-| Artefact final | PPTX | Deck complet livre a la formatrice | 138 slides, ~5 Mo |
+| Artefact final | PPTX | Deck complet, copie dans le pack livrable par `make pack` | 138 slides, ~5 Mo |
 
 ---
 
@@ -134,7 +134,7 @@ Le container central mérite un zoom car il porte toute la logique de compositio
 |  +-------------------+  +------------------+  | xattr quarantine  |  |
 |                                               +--------------------+  |
 |                                                                       |
-|  COMPOSANTS (16 helpers publics)                                      |
+|  COMPOSANTS (extrait ; liste complete dans le tableau ci-dessous)     |
 |  +-------------+ +-------------+ +-----------+ +------------------+   |
 |  | add_callout | | add_alert   | | add_high- | | add_quote        |   |
 |  | (info box)  | | (warn/err/  | | light     | | (citation)       |   |
@@ -175,36 +175,42 @@ Le container central mérite un zoom car il porte toute la logique de compositio
 +-----------------------------------------------------------------------+
 ```
 
-| Composant | Interface | Responsabilite | Source locale |
-|-----------|-----------|----------------|--------------|
-| `create_presentation()` | `() -> (prs, layouts)` | Charge le template PPTX, construit le dict des 6 layouts | L.188 |
-| `new_slide()` | `(prs, layouts, layout_name, titre, ...) -> slide` | Crée une slide avec layout, titre, footer, fil d'ariane, accent couleur | L.302 |
-| `Stack` | `.push(h) -> top` | Curseur vertical qui empile les composants avec gap constant (évite le calcul manuel des `top`) | L.555 |
-| `_safe_top()` | `(top, height) -> top` | Garde-fou : remonte le composant si `top+height > BOTTOM_CONTENT` | L.478 |
-| `_estimate_height()` | `(content, width, ...) -> float` | Estime la hauteur en pouces d'un texte pour le positionnement | L.496 |
-| `add_callout` | `(slide, titre, bullets, top, ...) -> shape` | Boite d'information bleue DSFR avec titre + bullets | L.631 |
-| `add_alert` | `(slide, titre, bullets, top, severity, ...) -> shape` | Alerte DSFR (warning / error / success / info) | L.677 |
-| `add_highlight` | `(slide, texte, top, ...) -> shape` | Bandeau d'emphase avec accent bleu | L.722 |
-| `add_quote` | `(slide, texte, auteur, ...) -> shape` | Citation avec guillemets et attribution | L.769 |
-| `add_card` | `(slide, titre, contenu, top, left, ...) -> shape` | Carte DSFR avec numero, titre et contenu | L.807 |
-| `add_pave_chiffre` | `(slide, valeur, label, ...) -> shape` | Pave KPI (chiffre + label) | L.859 |
-| `add_stepper` | `(slide, etapes, top, ...) -> shape` | Processus sequentiel DSFR (pastilles numerotees) | L.884 |
-| `add_tableau` | `(slide, headers, rows, ...) -> float` | Tableau DSFR. Retourne la hauteur pour empilement | L.931 |
-| `add_image` | `(slide, path, top, left, ...) -> shape` | Image avec alt text obligatoire | L.998 |
-| `add_texte_libre` | `(slide, texte, top, ...) -> shape` | Texte positionne sans composant DSFR | L.984 |
-| `add_notes` | `(slide, texte) -> None` | Notes presentateur (invisibles en projection) | L.445 |
-| `add_encadre` | `(slide, ...) -> shape` | Encadre fond colore parametrable | L.1181 |
-| `add_fleche` | `(slide, top, left, ...) -> shape` | Fleche decorative entre elements | L.1090 |
-| `compose_sommaire` | `(slide, titre, parties) -> None` | Compose un sommaire avec cards numerotees | L.1209 |
-| `compose_chapitre` | `(slide, numero, titre) -> None` | Compose une slide de chapitre avec bandeau bleu | L.1227 |
-| `finalize_pptx` | `(prs, output, ...) -> path` | Post-traitement a11y complet : ordre de lecture, langue, décoratifs, métadonnées, quarantine macOS | L.1368 |
+Pour trouver un composant dans le code : `grep -n "^def nom" scripts/igpde_dsfr_components.py` (les numéros de ligne changent à chaque modification, ils ne sont donc pas notés ici).
+
+| Composant | Interface | Responsabilite |
+|-----------|-----------|----------------|
+| `create_presentation()` | `() -> (prs, layouts)` | Charge le template PPTX, construit le dict des 6 layouts |
+| `new_slide()` | `(prs, layouts, layout_name, titre, ...) -> slide` | Crée une slide avec layout, titre, footer, fil d'ariane, accent couleur |
+| `Stack` | `.push(h) -> top` | Curseur vertical qui empile les composants avec gap constant (évite le calcul manuel des `top`) |
+| `_safe_top()` | `(top, height) -> top` | Garde-fou : remonte le composant si `top+height > BOTTOM_CONTENT` |
+| `_estimate_height()` | `(content, width, ...) -> float` | Estime la hauteur en pouces d'un texte pour le positionnement |
+| `add_callout` | `(slide, titre, bullets, top, ...) -> shape` | Boite d'information bleue DSFR avec titre + bullets |
+| `add_alert` | `(slide, titre, bullets, top, severity, ...) -> shape` | Alerte DSFR (warning / error / success / info) |
+| `add_highlight` | `(slide, texte, top, ...) -> shape` | Bandeau d'emphase avec accent bleu |
+| `add_quote` | `(slide, texte, auteur, ...) -> shape` | Citation avec guillemets et attribution |
+| `add_card` | `(slide, titre, contenu, top, left, ...) -> shape` | Carte DSFR avec numero, titre et contenu |
+| `add_pave_chiffre` | `(slide, valeur, label, ...) -> shape` | Pave KPI (chiffre + label) |
+| `add_stepper` | `(slide, etapes, top, ...) -> shape` | Processus sequentiel DSFR (pastilles numerotees) |
+| `add_tableau` | `(slide, headers, rows, ...) -> float` | Tableau DSFR. Retourne la hauteur pour empilement |
+| `add_image` | `(slide, path, top, left, ...) -> shape` | Image avec alt text obligatoire |
+| `add_texte_libre` | `(slide, texte, top, ...) -> shape` | Texte positionne sans composant DSFR |
+| `add_qrcode` | `(slide, image_path, url, top, left, ...) -> shape` | QR code imprime avec alternative visible : appel a l'action et URL lisible |
+| `add_checklist` | `(slide, items, top, ...) -> shape` | Liste a cocher DSFR (case Unicode et texte) |
+| `add_avant_apres` | `(slide, avant_titre, avant_bullets, apres_titre, apres_bullets, ...) -> shape` | Comparaison avant/apres en 2 colonnes |
+| `add_exemple_contre_exemple` | `(slide, bon_titre, bon_bullets, mauvais_titre, mauvais_bullets, ...) -> shape` | Bon exemple et contre-exemple en 2 colonnes |
+| `add_notes` | `(slide, texte, lang="fr-FR") -> None` | Notes presentateur (invisibles en projection) |
+| `add_encadre` | `(slide, ...) -> shape` | Encadre fond colore parametrable |
+| `add_fleche` | `(slide, top, left, ...) -> shape` | Fleche decorative entre elements |
+| `compose_sommaire` | `(slide, titre, parties) -> None` | Compose un sommaire avec cards numerotees |
+| `compose_chapitre` | `(slide, numero, titre) -> None` | Compose une slide de chapitre avec bandeau bleu |
+| `finalize_pptx` | `(prs, output, ...) -> path` | Post-traitement a11y complet : ordre de lecture, langue, décoratifs, métadonnées, quarantine macOS |
 
 ---
 
 ## Flux dynamique — Generation du deck
 
 ```text
-1. Alex lance : python3 scripts/assemble.py
+1. Alex lance : make deck (scripts/assemble.py)
                       |
 2. assemble.py        | appelle create_presentation()
                       | -> charge PPT-IGPDE-DSFR-base-intervenant.pptx
@@ -212,7 +218,7 @@ Le container central mérite un zoom car il porte toute la logique de compositio
                       |
 3.                    | appelle discover_slides()
                       | -> scanne scripts/slides/, filtre NN_*.py, trie par nom
-                      | -> retourne [Path x 113]
+                      | -> retourne [Path x 138]
                       |
 4. Pour chaque module (page_num = 1..N) :
    |
@@ -248,7 +254,7 @@ Le container central mérite un zoom car il porte toute la logique de compositio
 Depuis l'extraction en dépôt autonome, la chaîne de génération décrite ci-dessus est pilotée par des containers d'orchestration et de preuve qui ne dépendent plus d'aucun espace de travail extérieur.
 
 - **`Makefile`** (make) : point d'entrée unique pour un humain ou un agent. Choisit l'interpréteur (`.venv`, sinon Python 3.12 Homebrew) et enchaîne deck, contrôle qualité, tests, validation du site, PDF, pack et publication.
-- **`scripts/fabriquer_pack.py`** (Python 3) : lit `config.yml`, copie le deck généré dans le pack, régénère les PDF accessibles par le générateur embarqué, récupère et vérifie par SHA-256 les installeurs listés dans `outils/outils.json`.
+- **`scripts/fabriquer_pack.py`** (Python 3) : lit `config.yml`, copie le deck généré dans le pack, régénère les PDF accessibles par le générateur embarqué, récupère et vérifie par SHA-256 les installeurs listés dans `IGPDE-102846-livrables-octobre-2026/outils/outils.json`.
 - **`vendor/accessible-pdf/`** (Python 3, Pandoc, WeasyPrint, pikepdf) : générateur Markdown vers PDF/UA-1, copié du skill d'origine avec ses gabarits CSS.
 - **`recette/`** (bash, Node, ShipGuard) : recette visuelle du site corrigé à partir des manifestes `recette/visual-tests/`, prévisualisation locale ; le site servi reste `docs/`.
 - **`.githooks/pre-commit`** (bash 3.2) : contrôles bloquants du dépôt, indépendants de l'agent qui commite.
@@ -260,9 +266,9 @@ Relations : `Makefile` appelle `assemble.py`, `qa_pptx.py`, `pytest`, `validate.
 - **Pas de rendu pixel** : le pipeline génère du XML OOXML, pas un rendu visuel. Les débordements fins ne sont détectables que dans PowerPoint (passe manuelle obligatoire).
 - **`_estimate_height` est heuristique** : l'estimation de hauteur repose sur un calcul approximatif (caractères par pouce), pas sur un moteur de rendu texte. Les cas limites (texte long, polices variables) peuvent déborder.
 - **`_safe_top` est un garde-fou de dernier recours** : il remonte un composant pour éviter de sortir de la zone utile, mais peut créer un chevauchement avec le composant précédent si le `top` initial était déjà trop bas.
-- **Deux régimes de slides** : certaines slides sont retouchées manuellement dans PowerPoint après génération. La régénération écrase ces corrections. Il faut identifier le régime avant de relancer `assemble.py`.
+- **Aucune retouche dans PowerPoint** : les 138 slides sont générées par script ; une retouche faite dans PowerPoint serait écrasée à la régénération suivante. Toute correction passe par `scripts/slides/`.
 - **Pas de CI/CD** : la génération est locale, sur le poste d'Alex. Pas de pipeline de build automatisé.
-- **69 tests pytest** : la bibliothèque de composants, les contrats a11y, la géométrie deck et la boucle QA PRD-119 sont couverts par pytest. La validation repose aussi sur `validate.py` (site easy checks) et la passe visuelle manuelle.
+- **69 tests pytest** : la bibliothèque de composants, les contrats a11y, la géométrie deck et la boucle QA du deck (`make qa`) sont couverts par pytest. La validation repose aussi sur `validate.py` (site easy checks) et la passe visuelle manuelle.
 
 ---
 

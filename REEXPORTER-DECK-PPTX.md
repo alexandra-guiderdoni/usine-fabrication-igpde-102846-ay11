@@ -7,9 +7,9 @@ Dans les commandes ci-dessous, `python` désigne l'interpréteur de l'usine : `.
 
 ## Principe
 
-Le deck est généré par les scripts Python du projet. Il ne faut pas modifier le fichier `.pptx` directement dans PowerPoint si l'objectif est de produire une version reproductible.
+Le deck est généré par les scripts Python du projet. Ne jamais modifier le fichier `.pptx` dans PowerPoint : toute retouche serait écrasée à la régénération suivante. Les corrections se font dans `scripts/slides/` (voir `AGENTS.md`).
 
-La boucle QA PRD-119 travaille sur une copie dans `.qa/formation-test-qa.pptx`. Elle sert à vérifier le deck avant de régénérer ou livrer le fichier stable.
+La boucle QA du deck travaille sur une copie dans `.qa/formation-test-qa.pptx`. Elle sert à vérifier le deck avant de régénérer ou livrer le fichier stable.
 
 ## Commande recommandée
 
@@ -26,7 +26,7 @@ Si la sortie indique :
 [QA-PPTX] new=0
 ```
 
-alors la copie de travail `.qa/formation-test-qa.pptx` ne contient aucune nouvelle violation connue par les tests PRD-119.
+alors la copie de travail `.qa/formation-test-qa.pptx` ne contient aucune nouvelle violation connue par les tests de la boucle QA.
 
 ## Réexporter le deck stable
 

@@ -57,7 +57,7 @@ Points validés :
 ## Commandes utiles
 
 ```bash
-cd /Users/alex/Claude/projets-formations/IGPDE-Carinne-C
+# historique : à la racine de l'ancien dossier du projet ; aujourd'hui, dans l'usine : make apercu
 python3 -m http.server 8765 --bind 127.0.0.1 --directory docs
 ```
 

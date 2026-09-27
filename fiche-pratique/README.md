@@ -77,7 +77,7 @@ Les captures proviennent de deux PPTX sources (formation de novembre 2024) :
 
 Elles ont été extraites via `python-pptx`, triées par suite (Word vs Writer), renommées de façon descriptive et copiées dans les dossiers `images-memo-word/` et `images-memo-writer/`.
 
-Les chemins d'images dans les fichiers Markdown sont **absolus** (nécessaire car le script `md2pdf.py` génère le HTML dans un fichier temporaire, et WeasyPrint résout les chemins relatifs depuis ce fichier temporaire, pas depuis le répertoire source).
+Les chemins d'images restent **relatifs** dans les sources Markdown. `md2pdf.py` écrit le HTML dans un fichier temporaire, d'où WeasyPrint ne retrouverait pas un chemin relatif : c'est `scripts/pack_supports.py` qui les rend absolus au moment de la génération, sans jamais les écrire dans les sources. Ne pas y mettre de chemin absolu : le hook du dépôt refuse les chemins personnels (`/Users/…`, `/home/…`), et tout autre chemin absolu casserait la génération sur un autre poste.
 
 ---
 
@@ -98,6 +98,6 @@ Les procédures sont spécifiques à chaque suite (Word ou Writer). Les différe
 ## Modification du contenu
 
 1. Éditer le fichier `.md` source (pas le PDF)
-2. Régénérer le PDF avec la commande ci-dessus
+2. Régénérer le PDF avec `make pdf`
 3. Vérifier visuellement le rendu (images embarquées, mise en page)
-4. Vérifier l'accessibilité : `python3 md2pdf.py --check` + ouvrir dans PAC si possible
+4. Vérifier l'accessibilité en ouvrant le PDF dans PAC (PDF Accessibility Checker). `vendor/accessible-pdf/scripts/md2pdf.py --check` ne contrôle que les dépendances du générateur, pas le PDF.

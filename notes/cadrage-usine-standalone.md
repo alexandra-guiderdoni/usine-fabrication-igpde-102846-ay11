@@ -51,7 +51,7 @@ Ta liste est juste, il y manque surtout ce qui prouve que l'usine marche et ce q
 2. **Les hooks.** Les contrôles actuels (Markdown au pre-commit, CHANGELOG au pre-push, formatage à l'écriture) viennent du workspace. Une session ouverte dans un sous-dossier ne charge pas les hooks du projet parent : l'usine doit porter ses propres contrôles, ou accepter de s'en passer.
 3. **La fabrication des PDF.** Les mémos, fiches WCAG et la fiche des liens sont produits par le skill `accessible-pdf` du workspace (`~/Claude/.claude/skills/accessible-pdf/scripts/md2pdf.py`), pas par `scripts/`. Il faut l'embarquer (vendoring) ou documenter la dépendance.
 4. **Les skills de conception.** `CLAUDE.md` impose `/pedagogie-neuro`, `/composition-dsfr-pptx`, `/accessible-pptx` avant toute nouvelle slide : ce sont des skills du workspace, absents d'un clone isolé.
-5. **Les chemins absolus.** `scripts/build_template.py` et `scripts/rebuild_template_from_demo.py` pointent vers `/Users/alex/Claude/…` et vers des fichiers qui ne sont plus à la racine du projet : à corriger ou à retirer.
+5. **Les chemins absolus.** `scripts/build_template.py` et `scripts/rebuild_template_from_demo.py` pointent vers un chemin absolu de l'espace de travail d'Alex et vers des fichiers qui ne sont plus à la racine du projet : à corriger ou à retirer.
 6. **L'environnement Python.** `python-pptx` n'est installé que dans `/opt/homebrew/bin/python3.12`. L'usine doit fixer son environnement (`uv` ou `venv` avec dépendances épinglées).
 
 ## Harnais ShipGuard et Loriq, concrètement

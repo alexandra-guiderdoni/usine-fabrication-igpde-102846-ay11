@@ -1,6 +1,6 @@
 # Usine de la formation 102846 (IGPDE) - protocole agent
 
-Protocole unique pour tout agent (Claude, Codex ou autre) et pour un humain. `CLAUDE.md` l'importe. Ce dépôt est autonome : aucune règle n'est héritée d'un espace de travail extérieur.
+Protocole unique pour tout agent (Claude, Codex ou autre) et pour un humain. `CLAUDE.md` l'importe. Ce dépôt est autonome : aucune règle n'est héritée d'un espace de travail extérieur. Si l'environnement de l'agent charge malgré tout des règles d'un dossier parent (par exemple une grille DSFR générique ou une autre bibliothèque de composants), elles ne s'appliquent pas ici : ce fichier et le code de l'usine priment.
 
 ## Contexte
 
@@ -17,7 +17,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
 - **Cette usine** (`alexandra-guiderdoni/usine-fabrication-igpde-102846-ay11`) est la seule source. Le site se modifie dans `docs/`. Le `README.md`, l'`AGENTS.md` et le `CLAUDE.md` du dépôt publié se modifient dans `publication-site/`, sous les noms `README.md`, `agents-site.md` et `claude-site.md`.
 - **Le dépôt du site** (`alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11`) n'est qu'une copie de publication servie par GitHub Pages. Chacun de ses fichiers correspond à `docs/<même chemin>`, sauf `README.md`, `AGENTS.md` et `CLAUDE.md`, qui viennent de `publication-site/`.
-- **Deux clones locaux du site**, tous deux en lecture seule :
+- **Deux clones locaux du site**, en lecture seule pour un humain comme pour un agent (seul `make publier-site` y écrit) :
   - `IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde/` : clone de publication, écrit par `make publier-site` (variable `SITE_CLONE`), ignoré par l'usine ;
   - `../tp-fabrication-igpde-102846-ay11/`, à côté de l'usine quand il existe : clone de consultation, avancé automatiquement à la fin de `make publier-site` (variable `SITE_CONSULTATION`).
 - **MUST** : pour changer le site, éditer `docs/`, lancer `make verifier`, puis `make publier-site`. Pour savoir ce qui est en ligne, lire `docs/` ou l'adresse publique, pas un clone.
@@ -33,28 +33,27 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 ## Chaîne de fabrication
 
 - **Ne jamais modifier le PPTX directement.** Éditer `scripts/slides/NN_*.py`, puis `make deck`. La prochaine régénération écraserait toute retouche faite dans PowerPoint. État au 2026-09-27 : les 138 slides sont générées par script.
-- Nommage des modules : `NN_nom.py` ou `NNxx_nom.py` pour intercaler (`02ma_`, `05a_`). L'ordre du deck suit l'ordre alphabétique des fichiers ; le numéro du fichier n'est donc pas la position dans le deck.
+- Nommage des modules : `NN_nom.py` ou `NNxx_nom.py` pour intercaler (`02a_`, `02ma_`). L'ordre du deck suit l'ordre alphabétique des fichiers ; le numéro du fichier n'est donc pas la position dans le deck.
 - Chaque module expose `build(prs, layouts, ctx)` et utilise `ctx.page_num`, `ctx.date`, `ctx.footer_base`, jamais de valeur en dur.
 - Composants : exclusivement `scripts/igpde_dsfr_components.py` (grille IGPDE 13,33 x 7,5 pouces), jamais une bibliothèque DSFR extérieure.
 - `finalize_pptx()` est obligatoire (langue, ordre de lecture, métadonnées, quarantaine macOS) ; `scripts/assemble.py` l'appelle.
-- Tester une slide : `python scripts/assemble.py --only NN`.
-- DOCX de l'exercice Sami : `python scripts/generate_exercice_sami.py`.
-- Grille d'audit : `make grille`. PDF du pack : `make pdf` (générateur embarqué dans `vendor/`).
-- Gabarit IGPDE : `_source/presentations-source/PPT-IGPDE-DSFR-base-intervenant.pptx`. S'il manque : `python scripts/rebuild_template_from_demo.py`.
+- Tester une seule slide (pas de cible `make`) : `.venv/bin/python scripts/assemble.py --only NN`, ou `/opt/homebrew/bin/python3.12` sans `.venv`. Même interpréteur pour les autres scripts appelés directement ci-dessous.
+- DOCX de l'exercice Sami : `make sami` (écrit dans `_source/`). Grille d'audit : `make grille`. Deck WCAG condensé : `make wcag`. PDF du pack : `make pdf` (générateur embarqué dans `vendor/`).
+- Gabarit IGPDE : `_source/presentations-source/PPT-IGPDE-DSFR-base-intervenant.pptx`. S'il manque : `scripts/rebuild_template_from_demo.py`, depuis `_source/presentations-source/gabarits-ppt-igpde.pptx`. `scripts/build_template.py` est historique : sa source IGPDE native n'est plus dans le dépôt.
 - Le site `docs/` est maintenu à la main page par page : ne pas relancer `scripts/generate_easy_checks_site_skeleton.py` sans comparer ensuite le diff complet, il écraserait les corrections faites depuis juillet.
 
 ## Qui fabrique quoi dans le pack
 
-`make pack` enchaîne tout ce qui se génère. Chaque livrable relève de l'une de ces trois catégories.
+`make pack` régénère le deck, puis les PDF, les supports et la vérification des outils. Il ne relance ni `make sami`, ni `make grille`, ni `make wcag` : les lancer d'abord si leurs sources ont changé. Chaque livrable relève de l'une de ces trois catégories.
 
 - **Généré par une commande**
   - Deck `support-formation-*.pptx` : `make deck`, copié dans le pack par `make pack`.
   - Export PDF du deck (`Formateur/_alex/`) : `make supports` (nécessite LibreOffice).
   - Mémos Word et LibreOffice, fiches WCAG formateur et stagiaire, fiche des liens des TP : `make pdf`, depuis `fiche-pratique/*.md`, `wcag/*.md` et `liens-tp-en-ligne.md`.
-  - Documents Sami (`Formateur/tp-word-igpde/`) : `make sami` dans `_source/`, puis `make supports` pour la copie dans le pack.
+  - Documents Sami (`Formateur/tp-word-igpde/`) : `make sami` (écrit dans `_source/`), puis `make supports` ou `make pack` pour la copie dans le pack.
   - Démo réseaux sociaux hors ligne (`Formateur/tp-reseaux-sociaux-igpde/`) : `make supports`, depuis `docs/demo-mauvaise-restitution-emojis.html`.
   - Grille d'audit XLSX : `make grille` (dans `03-easy-checks/` et dans le site).
-  - Installeurs (`outils/`) : `make outils-telecharger`, sauf PAC à déposer à la main (voir `outils/MANIFEST.md`).
+  - Installeurs (`IGPDE-102846-livrables-octobre-2026/outils/`) : `make outils-telecharger`, sauf PAC à déposer à la main (voir `MANIFEST.md` dans ce dossier).
 - **Document source édité à la main** (pas de générateur : modifier le fichier ; les versions précédentes restent dans l'historique git, pas de copie sur le disque)
   - Fiche catalogue, fiche technique, programme et déroulé (`Formateur/documents-administratifs-igpde/`), au format Word de l'IGPDE.
   - Site d'exercice `docs/`, publié par `make publier-site`.
@@ -77,12 +76,12 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
 - Site : `make publier-site` (valide, synchronise `docs/` et `publication-site/` vers le clone de publication, commit, push, puis avance le clone de consultation). Voir « Deux dépôts liés » ci-dessus et `PUBLIER-SITE.md`.
 - Dépôt de l'usine : commits en français, forme nominale, première ligne de 50 caractères au plus, sans point final. Aucune ligne d'attribution d'agent (`Co-Authored-By`, `Generated with` ou signature d'outil).
-- Les hooks `.githooks/pre-commit` bloquent : fichiers de verrou Office, fichiers de plus de 50 Mo, convocation, installeurs, tirets cadratins dans les scripts, chemins personnels absolus. Ne jamais les contourner avec `--no-verify`.
+- Le hook `.githooks/pre-commit` bloque : fichiers de verrou Office, fichiers de plus de 50 Mo, convocation, installeurs `.msi` et `.exe`, tirets cadratins dans `scripts/`, chemins personnels absolus dans les dossiers qu'il surveille (`scripts/`, `tests/`, `recette/`, `docs/`, `fiche-pratique/`, `wcag/`, `03-easy-checks/`, `Makefile`, `config.yml`, `validate.py`, `liens-tp-en-ligne.md`). Ailleurs, notamment dans `notes/` et `_source/`, la règle reste à appliquer à la main. Ne jamais contourner le hook avec `--no-verify`.
 
 ## Dépôt public : règles de contenu
 
-- Ce dépôt est public. Ne jamais y ajouter de coordonnées personnelles de tiers (téléphone, adresse), de convocation nominative, de transcription de conversation d'agent, ni d'informations logistiques de session (salle, horaires, gestionnaire).
-- Les installeurs du pack ne sont pas versionnés : `make outils-telecharger` les récupère et vérifie leur empreinte (`outils/outils.json`).
+- Ce dépôt est public. Ne jamais ajouter aux fichiers de travail (Markdown, scripts, notes, todo) de coordonnées personnelles de tiers (téléphone, adresse), de convocation nominative, de transcription de conversation d'agent, ni d'informations logistiques de session (salle, horaires, gestionnaire) : ces informations restent dans la convocation, hors dépôt. Les documents administratifs IGPDE du pack (fiche catalogue, fiche technique, programme, déroulé) sont publiés tels quels, par décision d'Alex.
+- Les installeurs du pack ne sont pas versionnés : `make outils-telecharger` les récupère et vérifie leur empreinte (`IGPDE-102846-livrables-octobre-2026/outils/outils.json`).
 
 ## Règles pédagogiques validées
 
@@ -101,9 +100,9 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 ## Grille IGPDE-DSFR
 
 - Format 13,33 x 7,5 pouces ; marge gauche `MARGIN_L` 0,52 ; largeur utile `CONTENT_W` 12,28.
-- Colonnes : `COL_W` 5,98 et `COL_R` 6,83 ; contenu de `TOP` 2,68 à `BOTTOM_CONTENT` 6,80 ; ligne de pied `FOOTER_Y` 6,98.
+- Colonnes : `COL_W` 5,98 et `COL_R` 6,83 ; contenu de `TOP_CONTENT` 2,68 à `BOTTOM_CONTENT` 6,80 ; ligne de pied `FOOTER_Y` 6,98.
 - Layouts : `couverture`, `titre_soustitre` (logos), `titre_contenu` (standard), `chapitre`, `sommaire`, `3_colonnes`.
-- Composants : `add_callout`, `add_alert`, `add_highlight`, `add_quote`, `add_card`, `add_pave_chiffre`, `add_stepper`, `add_tableau`, `add_image`, `add_texte_libre`, `add_notes`, `add_encadre`, `add_fleche`, `compose_sommaire`, `compose_chapitre`.
+- Composants (17 `add_*` et 2 `compose_*`, tous dans `scripts/igpde_dsfr_components.py`) : `add_callout`, `add_alert`, `add_highlight`, `add_quote`, `add_card`, `add_pave_chiffre`, `add_stepper`, `add_tableau`, `add_image`, `add_texte_libre`, `add_qrcode`, `add_checklist`, `add_avant_apres`, `add_exemple_contre_exemple`, `add_notes`, `add_encadre`, `add_fleche`, `compose_sommaire`, `compose_chapitre`. Vérifier qu'un composant existe avant d'en créer un.
 
 ## À ne pas faire
 
@@ -112,7 +111,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - Jamais `slide.shapes.add_textbox()` direct : utiliser `add_texte_libre` (pouces et EMU).
 - Jamais toucher à la ligne séparatrice IGPDE (y = 6,98) ni à la disposition des logos.
 - Jamais de jargon développeur dans les slides (ARIA, DOM, CSS).
-- Pas de mot « pilier » : utiliser « thème ».
+- Pas de mot « pilier » dans le texte affiché des slides : utiliser « thème ». Les noms de fichiers historiques (`08_pilier1-…`) restent tels quels.
 
 ## Modes d'échec connus
 
@@ -134,5 +133,6 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - Points de contrôle rapides W3C : `03-easy-checks/w3c-easy-checks-fr.md`. Contrat d'évaluation : `03-easy-checks/evaluation_contract.yml`.
 - Guide « Accessibiliser sa communication » : `_source/references/Guide-2026-Accessibiliser-sa-communication-police-14-coul.md`.
 - Notes de contenu : `04-reseaux-sociaux/md-reseaux-sociaux.md`, `05-falc/md-falc.md`, `06-medias/md-medias.md`.
-- Passations de session : `_source/passation-session-2026-05-03.md`, `_source/passation-session-2026-05-04.md`.
-- Deck WCAG condensé : `wcag/WCAG en langage clair - condensé.pptx` (13 slides), `python scripts/generate_wcag_langage_clair.py --condensed`.
+- Passations de mai 2026, historiques (écrites dans l'ancien espace de travail, ne pas suivre leurs commandes) : `_source/passation-session-2026-05-03.md`, `_source/passation-session-2026-05-04.md`.
+- Deck WCAG condensé : `wcag/WCAG en langage clair - condensé.pptx` (13 slides), régénéré par `make wcag`.
+- Pourquoi le projet est construit ainsi : `notes/readme-causal.md` (histoire, sans consigne de travail).

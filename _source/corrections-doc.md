@@ -37,8 +37,8 @@ Commandes executees :
 
 - `python3 -m py_compile scripts/generate_exercice_sami.py`
 - `python3 scripts/generate_exercice_sami.py`
-- `python3 /Users/alex/Claude/.claude/skills/remediation-docx/scripts/remediate-docx.py _source/sami-doc-inaccessible.docx --audit`
-- `python3 /Users/alex/Claude/.claude/skills/remediation-docx/scripts/remediate-docx.py _source/sami-doc-accessible.docx --audit`
+- `remediate-docx.py _source/sami-doc-inaccessible.docx --audit` (skill `remediation-docx` de l'espace de travail d'Alex, hors de ce dépôt)
+- `remediate-docx.py _source/sami-doc-accessible.docx --audit` (même skill)
 - controles OOXML cibles sur `word/document.xml`, `word/styles.xml` et `docProps/core.xml`
 - `unzip -t` sur les deux DOCX
 - ouverture des deux DOCX avec `python-docx`

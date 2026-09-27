@@ -168,7 +168,7 @@ Passer une string unique au lieu d'une liste de bullets à `add_callout` ou `add
 
 **Fix** : toujours passer une liste, même pour un seul bullet : `["Mon texte"]`, jamais `"Mon texte"`.
 
-Source : `CLAUDE.md` section Modes d'échec connus.
+Source : `AGENTS.md` section Modes d'échec connus.
 
 ---
 
@@ -180,7 +180,7 @@ Modifier la taille de police, l'interligne ou l'espacement sur l'ensemble du dec
 
 **Règle** : tout changement typographique global (taille, interligne, espacement) impose une passe de recalibration de `_estimate_height` et des `h_padding` avant régénération.
 
-Source : `CLAUDE.md` section Modes d'échec connus.
+Source : `AGENTS.md` section Modes d'échec connus.
 
 ---
 
@@ -190,7 +190,7 @@ Source : `CLAUDE.md` section Modes d'échec connus.
 
 **Règle** : toujours passer `height=` à `add_image` quand un autre composant suit sur la même slide. Vérifier visuellement que `image_top + image_height` reste au-dessus du composant suivant.
 
-Source : `CLAUDE.md` section Modes d'échec connus.
+Source : `AGENTS.md` section Modes d'échec connus.
 
 ---
 
@@ -200,7 +200,7 @@ Ne pas supposer que `_estimate_height(text) + image_height` garantit l'absence d
 
 **Règle** : contraindre les hauteurs explicitement et vérifier le rendu dans PowerPoint. Ne pas se fier à un calcul purement additif.
 
-Source : `CLAUDE.md` section Modes d'échec connus.
+Source : `AGENTS.md` section Modes d'échec connus.
 
 ---
 
@@ -210,7 +210,7 @@ Utiliser `layout_name="titre_soustitre"` sur une slide de contenu normal affiche
 
 **Règle** : `titre_soustitre` est réservé à la page de couverture et à la slide de clôture. Pour le contenu, utiliser `titre_contenu`.
 
-Source : `CLAUDE.md` section Modes d'échec connus ; incident slide 21 (`_source/passation-session-2026-05-03.md`).
+Source : `AGENTS.md` section Modes d'échec connus ; incident slide 21 (`_source/passation-session-2026-05-03.md`).
 
 ---
 
@@ -220,7 +220,7 @@ L'accent bleu vertical à gauche du titre doit mesurer 0,08" de large. Toute aut
 
 **Exception** : les slides de chapitre utilisent `accent_w=0,16"` (bandeau plus large, voulu).
 
-Source : `CLAUDE.md` section Modes d'échec connus.
+Source : `AGENTS.md` section Modes d'échec connus.
 
 ---
 
@@ -230,7 +230,7 @@ Les questions et réponses d'un quiz ne doivent jamais figurer sur la même slid
 
 **Règle** : créer deux modules : `NN_quiz.py` (question) et `NNb_quiz.py` (réponse, suffixe `b`).
 
-Source : `CLAUDE.md` section Modes d'échec connus.
+Source : `AGENTS.md` section Modes d'échec connus.
 
 ---
 
@@ -242,7 +242,7 @@ Source : `CLAUDE.md` section Modes d'échec connus.
 
 **Règle** : ne pas compter sur `_safe_top` comme filet de sécurité. Calibrer les hauteurs et les gaps en amont via `Stack` + estimateurs. Si `_safe_top` se déclenche, c'est un signal que la slide est trop chargée — la recomposer.
 
-Source : `CLAUDE.md` section Modes d'échec connus.
+Source : `AGENTS.md` section Modes d'échec connus.
 
 ---
 
@@ -252,7 +252,7 @@ Le warning `footer overlap` en console signale qu'un composant empiète sur la z
 
 **Règle** : vérifier l'écart entre le dernier composant et le footer, resserrer les gaps ou recomposer la slide. Objectif : `TOTAL_WARNINGS 0` avant livraison.
 
-Source : `CLAUDE.md` section Modes d'échec connus.
+Source : `AGENTS.md` section Modes d'échec connus.
 
 ---
 

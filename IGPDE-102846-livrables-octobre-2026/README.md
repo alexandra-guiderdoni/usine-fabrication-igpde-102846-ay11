@@ -32,4 +32,7 @@ outils/
 
 ## Relation avec le dépôt
 
-Ce dossier est un **snapshot livrable** : il contient les fichiers finaux tels que remis à l'IGPDE. Le code source qui génère ces livrables se trouve dans `scripts/` à la racine du dépôt. Ne pas modifier les fichiers ici directement — régénérer via les scripts Python puis copier.
+Ce dossier est un **snapshot livrable** : il contient les fichiers finaux tels que remis à l'IGPDE. Deux cas :
+
+- **Fichiers générés ou récupérés** (deck, PDF, documents Sami, démo hors ligne ; installeurs récupérés par `make outils-telecharger`) : ne pas les modifier ici. Corriger la source à la racine de l'usine, puis lancer la commande indiquée dans « Qui fabrique quoi dans le pack » (`AGENTS.md`) : en général `make pack`, précédé de `make sami`, `make grille` ou `make wcag` si leurs sources ont changé.
+- **Fichiers édités sur place** (documents administratifs de `Formateur/documents-administratifs-igpde/`, notes `Formateur/_alex/*.md`) : ils n'ont pas de générateur, on les modifie directement ici.
