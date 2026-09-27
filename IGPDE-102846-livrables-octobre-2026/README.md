@@ -13,10 +13,10 @@ Formateur/
   102846PL.docx                  Plan de la formation
   Derped-deroule-pedagogique-102846.docx   Déroulé pédagogique détaillé
   formation-102846-octobre-2026.pptx      Deck principal (138 slides DSFR)
-  fil-rouge-principes-wcag/      Fiche formateur + fiche stagiaire WCAG
-  ice-breaker-idees-recues-cartes/   6 cartes PDF idées reçues a11y
+  fil-rouge-principes-wcag-igpde/  Fiche formateur + fiche stagiaire WCAG
+  ice-breaker-idées-recues-cartes-igpde/  6 cartes PDF idées reçues a11y
   tp-word-igpde/                 Exercice Sami (3 DOCX) + fiches mémo PDF
-  tp-easy-check-igpde/           Site d'exercice points de contrôle rapides
+  tp-easy-check-igpde-site-web/  Site d'exercice points de contrôle rapides (clone git du site)
   tp-reseaux-sociaux-igpde/      Démo de mauvaise restitution des emojis
   liens-tp-en-ligne.pdf          Liens en ligne des deux TP (une page)
 

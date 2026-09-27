@@ -111,7 +111,7 @@ Consigne atelier Word :
 
 Point d'entrée :
 
-- `Stagiaire/tp-easy-check-igpde/index.html`
+- `Stagiaire/tp-easy-check-igpde-site-web/index.html`
 
 Les 13 points rapides se rattachent aux 4 principes.
 
@@ -185,5 +185,5 @@ Dire aux stagiaires :
 - Cartes WCAG 2.2 (Figma) — https://www.figma.com/community/file/1409436654182046971/wcag-2-2-card-deck
 - Fiche stagiaire PDF : `Stagiaire/principes-wcag/directives-accessibilite-wcag-anglais-clair.pdf`
 - TP Word : `Stagiaire/tp-word-igpde/`
-- TP web : `Stagiaire/tp-easy-check-igpde/index.html`
+- TP web : `Stagiaire/tp-easy-check-igpde-site-web/index.html`
 - Cartes idées reçues : `Stagiaire/idees-recues-cartes/`
