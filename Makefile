@@ -79,7 +79,7 @@ recette:
 	bash recette/recette-site-accessible.sh
 
 publier-site:
-	@test -d "$(SITE_CLONE)/.git" || { echo "Clone du site absent : git clone git@github.com:Alexmacapple/easy-check-igpde.git $(SITE_CLONE)"; exit 1; }
+	@test -d "$(SITE_CLONE)/.git" || { echo "Clone du site absent : git clone git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git $(SITE_CLONE)"; exit 1; }
 	$(PYTHON) validate.py
 	rsync -a --delete --exclude='.DS_Store' --exclude='*.md' --exclude='.git' docs/ "$(SITE_CLONE)/"
 	git -C "$(SITE_CLONE)" add -A

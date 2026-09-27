@@ -8,7 +8,7 @@ Protocole unique pour tout agent (Claude, Codex ou autre) et pour un humain. `CL
 - Session du 9 octobre 2026. Code, date, pied de page, nom du deck et dossier de livraison sont centralisés dans `config.yml` : c'est la seule source à modifier pour une nouvelle session.
 - Deck de 138 slides DSFR, 4 modules dans un ordre impératif : 1. communication accessible et cadre légal, 2. Word accessible, 3. points de contrôle rapides W3C, 4. réseaux sociaux.
 - Exercice Sami : 21 critères à vérifier dans 3 DOCX (inaccessible, aide à la correction, accessible), spécification dans `_source/exercice-sami-spec.md`.
-- Site d'exercice dans `docs/` (versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/`, démo émojis, grille XLSX), publié sur https://alexmacapple.github.io/easy-check-igpde/ depuis le dépôt `git@github.com:Alexmacapple/easy-check-igpde.git`.
+- Site d'exercice dans `docs/` (versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/`, démo émojis, grille XLSX), publié sur https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/ depuis le dépôt `git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git`.
 - Pack remis à l'IGPDE : `IGPDE-102846-livrables-octobre-2026/`, fabriqué par `make pack`.
 
 ## Environnement

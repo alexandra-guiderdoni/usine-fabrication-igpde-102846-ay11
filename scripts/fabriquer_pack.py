@@ -27,7 +27,7 @@ CONFIG = yaml.safe_load((RACINE / "config.yml").read_text(encoding="utf-8"))[
 PACK = RACINE / CONFIG["livrables"]
 FORMATEUR = PACK / "Formateur"
 MD2PDF = RACINE / "vendor" / "accessible-pdf" / "scripts" / "md2pdf.py"
-ALT_IGPDE = "IGPDE - Institut de la Gestion publique et du Développement économique"
+ALT_IGPDE = "République française - IGPDE"
 BANDEAU_MEMO = RACINE / "fiche-pratique" / "bandeau-igpde-logos.jpg"
 BANDEAU_FICHE = (
     FORMATEUR / "fil-rouge-principes-wcag-igpde" / "assets" / "bandeau-igpde.jpg"
@@ -39,14 +39,14 @@ PDFS = [
         "fiche-pratique/memo-word.md",
         "fiche-pratique/memo-word-accessibilite.pdf",
         BANDEAU_MEMO,
-        [],
+        ["--header-text", "Mémo accessibilité - Microsoft Word"],
         FORMATEUR / "tp-word-igpde",
     ),
     (
         "fiche-pratique/memo-libreoffice-writer.md",
         "fiche-pratique/memo-libreoffice-writer-accessibilite.pdf",
         BANDEAU_MEMO,
-        [],
+        ["--header-text", "Mémo accessibilité - LibreOffice Writer"],
         FORMATEUR / "tp-word-igpde",
     ),
     (
@@ -94,23 +94,9 @@ def deck():
 
 def pdf():
     for source, sortie, bandeau, options, copie in PDFS:
-        commande = [
-            sys.executable,
-            str(MD2PDF),
-            str(RACINE / source),
-            "--template",
-            "formation",
-            "--lang",
-            "fr",
-            "--logo",
-            str(bandeau),
-            "--logo-alt",
-            ALT_IGPDE,
-            "-o",
-            str(RACINE / sortie),
-            *options,
-        ]
-        resultat = subprocess.run(commande, capture_output=True, text=True, check=False)
+        resultat = pack_supports.generer_pdf(
+            MD2PDF, RACINE / source, RACINE / sortie, bandeau, ALT_IGPDE, options
+        )
         standard = next(
             (
                 ligne.strip()

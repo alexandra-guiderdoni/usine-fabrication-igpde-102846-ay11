@@ -15,47 +15,22 @@ Mémos accessibilité distribués aux stagiaires après la formation. Deux versi
 
 ## Comment régénérer les PDF
 
-### Prérequis
-
-- Python 3.12 avec `weasyprint`, `pikepdf`, `pandoc` installés
-- Skill `/accessible-pdf` (script `~/.claude/skills/accessible-pdf/scripts/md2pdf.py`)
-- Vérifier les dépendances : `python3 ~/.claude/skills/accessible-pdf/scripts/md2pdf.py --check`
-
-### Commandes
+Depuis la racine de l'usine :
 
 ```bash
-cd /Users/alex/Claude/projets-formations/IGPDE-Carinne-C/fiche-pratique
-
-# Mémo Word
-python3 ~/.claude/skills/accessible-pdf/scripts/md2pdf.py \
-  memo-word.md \
-  --template formation \
-  --lang fr \
-  --logo bandeau-igpde-logos.jpg \
-  --logo-alt "République française - IGPDE" \
-  --header-text "Mémo accessibilité - Microsoft Word" \
-  -o memo-word-accessibilite.pdf
-
-# Mémo LibreOffice Writer
-python3 ~/.claude/skills/accessible-pdf/scripts/md2pdf.py \
-  memo-libreoffice-writer.md \
-  --template formation \
-  --lang fr \
-  --logo bandeau-igpde-logos.jpg \
-  --logo-alt "République française - IGPDE" \
-  --header-text "Mémo accessibilité - LibreOffice Writer" \
-  -o memo-libreoffice-writer-accessibilite.pdf
+make pdf
 ```
+
+La commande régénère les deux mémos (et les autres PDF du pack) avec le générateur embarqué dans `vendor/accessible-pdf/`, puis copie les mémos dans `Formateur/tp-word-igpde/` du pack. Prérequis : `make installer`, et Pandoc, Pango et GLib (Homebrew).
 
 ### Options utilisées
 
-| Option | Valeur | Rôle |
-|--------|--------|------|
-| `--template formation` | Template CSS pédagogique | Titres bleus, interligne 1,55, sommaire encadré |
-| `--lang fr` | Français | Langue du document dans les métadonnées PDF |
-| `--logo` | `bandeau-igpde-logos.jpg` | Logos Marianne + IGPDE sur la couverture |
-| `--logo-alt` | Texte alternatif du bandeau | Accessibilité PDF/UA |
-| `--header-text` | Titre dans l'en-tête de page | Affiché en haut de chaque page sauf la couverture |
+- `--template formation` : gabarit CSS pédagogique (titres bleus, sommaire encadré).
+- `--lang fr` : langue du document dans les métadonnées PDF.
+- `--logo bandeau-igpde-logos.jpg` et `--logo-alt "République française - IGPDE"` : bandeau des logos, avec son texte alternatif (exigence PDF/UA).
+- `--header-text "Mémo accessibilité - Microsoft Word"` (ou « LibreOffice Writer ») : titre en haut de chaque page, sauf la couverture.
+
+Les images sont citées par des chemins relatifs (`images-memo-word/…`, `images-memo-writer/…`) : `scripts/pack_supports.py` les résout au moment de la génération, où que se trouve l'usine.
 
 ### Pipeline de conversion
 

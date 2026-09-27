@@ -3,13 +3,16 @@
 <!-- Document d'une seule page : les templates accessible-pdf imposent une
      page de garde (header#title-block-header avec saut de page). Elle est
      masquée ici ; le titre visible reste le H1 ci-dessus. -->
-<style>header#title-block-header { display: none; }</style>
+<!-- Adresses imprimées d'un seul tenant : pas de césure, pas de retour à la ligne. -->
+<style>header#title-block-header { display: none; } a { hyphens: none; white-space: nowrap; font-size: 8pt; }</style>
 
 Formation 102846 - L'accessibilité numérique pour la bureautique et le web - Session du 9 octobre 2026
 
 ## TP points de contrôle rapides
 
-Site d'exercice : [https://alexmacapple.github.io/easy-check-igpde/](https://alexmacapple.github.io/easy-check-igpde/)
+Site d'exercice :
+
+[https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/)
 
 - **Site à auditer** (`site-inaccessible/`) : pages avec défauts volontaires, à identifier en binôme
 - **Aide à la correction** (`site-aide-correction/`) : les mêmes pages, avec des indices
@@ -18,7 +21,9 @@ Site d'exercice : [https://alexmacapple.github.io/easy-check-igpde/](https://ale
 
 ## TP réseaux sociaux
 
-Démo émojis et lecteurs d'écran : [https://alexmacapple.github.io/easy-check-igpde/demo-mauvaise-restitution-emojis.html](https://alexmacapple.github.io/easy-check-igpde/demo-mauvaise-restitution-emojis.html)
+Démo émojis et lecteurs d'écran :
+
+[https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/demo-mauvaise-restitution-emojis.html](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/demo-mauvaise-restitution-emojis.html)
 
 - Trois exemples de publications où les émojis portent le sens, avec leur restitution écrite possible et leur version corrigée
 - Un exercice de réécriture d'une publication institutionnelle

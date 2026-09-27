@@ -101,7 +101,7 @@ Les erreurs invisibles à l'oeil sont aussi autorisées et même souhaitables lo
 La production doit s'appuyer sur le skill local `dsfr-components` pour cadrer les composants, les gabarits, les points de vigilance et la checklist de conformité :
 
 - chemin fourni : `/Volumes/MacStudio/Claude/.claude/skills/dsfr-components/SKILL.md` ;
-- miroir disponible dans cet environnement : `/Users/alex/Claude/.claude/skills/dsfr-components/SKILL.md`.
+- miroir : skill `dsfr-components` de l'agent, s'il est installé.
 
 Le skill sert de guide de production, mais les règles propres à ce projet priment en cas de conflit :
 

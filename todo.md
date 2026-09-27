@@ -72,3 +72,11 @@
 - [x] Publié sur GitHub le 2026-09-27 (alexandra-guiderdoni/usine-fabrication-igpde-102846-ay11, 159 commits) ; site republié depuis l'usine (make publier-site, commit 5f19e04)
 - [ ] Supprimer `projets-formations/IGPDE-Carinne-C` de l'ancien espace de travail : uniquement sur GO explicite d'Alex
 - [ ] `scripts/generate_demo.py` (générateur de démonstration hors chaîne) écrit `gabarits-ppt-igpde.pptx` à la racine, homonyme de la source rangée dans `_source/presentations-source/` : à retirer ou à rediriger avant tout usage
+
+## Déménagement du site d'exercice (2026-09-27)
+
+- [x] Sources et livrables pointés vers https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/ : fiche des liens, mémos Word et LibreOffice, fiche technique v2, démo hors ligne, documentation et Makefile ; adresses imprimées sans coupure trompeuse
+- [x] Chemins d'images absolus des mémos rendus relatifs (résolus à la génération par `scripts/pack_supports.py`), hook étendu aux sources Markdown et au site
+- [ ] Créer le dépôt public `alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11` (Alex), inviter Alexmacapple en écriture, y pousser l'historique du site, activer GitHub Pages (main, racine)
+- [ ] Vérifier le nouveau site en ligne, puis pousser l'usine
+- [ ] Après la session du 9 octobre 2026 : décommissionner `Alexmacapple/easy-check-igpde` (page de redirection vers la nouvelle adresse, puis archivage du dépôt)

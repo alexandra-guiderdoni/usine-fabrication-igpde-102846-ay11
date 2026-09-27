@@ -4,14 +4,17 @@
   locales, navigation du site en liens absolus vers le site publié)
 - docx_sami : copie des trois documents de l'exercice Sami dans le pack
 - pdf_deck : export PDF du deck pour les notes formateur (LibreOffice)
+- generer_pdf : lance le générateur PDF avec des images résolues depuis l'usine
 """
 
+import re
 import shutil
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
-SITE_PUBLIE = "https://alexmacapple.github.io/easy-check-igpde/"
+SITE_PUBLIE = "https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/"
 PAGES_DU_MENU = [
     "index.html",
     "site-inaccessible/index.html",
@@ -84,3 +87,22 @@ def pdf_deck(racine, formateur, nom_deck):
         shutil.move(str(produit), cible)
     print(f"[supports] export PDF du deck : {cible.relative_to(racine)}")
     return True
+
+
+IMAGE_RELATIVE = re.compile(r"(!\[[^\]]*\]\()(?!https?:|/)([^)\s]+)")
+
+
+def generer_pdf(md2pdf, source, sortie, bandeau, alt, options):
+    """Le générateur résout les images depuis un dossier temporaire : on lui passe
+    une copie de la source dont les chemins d'images relatifs sont rendus absolus."""
+    texte = IMAGE_RELATIVE.sub(
+        lambda m: m.group(1) + str((source.parent / m.group(2)).resolve()),
+        source.read_text(encoding="utf-8"),
+    )
+    with tempfile.TemporaryDirectory() as dossier:
+        copie = Path(dossier) / source.name
+        copie.write_text(texte, encoding="utf-8")
+        commande = [sys.executable, str(md2pdf), str(copie), "--template", "formation",
+                    "--lang", "fr", "--logo", str(bandeau), "--logo-alt", alt,
+                    "-o", str(sortie), *options]
+        return subprocess.run(commande, capture_output=True, text=True, check=False)

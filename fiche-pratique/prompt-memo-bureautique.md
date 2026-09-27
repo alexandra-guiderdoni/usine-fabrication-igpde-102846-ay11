@@ -123,7 +123,7 @@ Procedure :
 
 - Checklist rapide : les 21 criteres sous forme de cases a cocher
 - Ressources : liens vers CCA (outil de contraste), PAC, guide Tanaguru
-- QR code vers le site d'exercice : https://alexmacapple.github.io/easy-check-igpde/
+- QR code vers le site d'exercice : https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/
 
 ---
 
@@ -264,7 +264,7 @@ Voir checklist ci-dessous.
 - [ ] Les 5 themes Sami correspondent aux themes de la formation (slides 02pb a 03)
 - [ ] Les procedures correspondent a ce qui est montre en classe (pas de raccourci inconnu)
 - [ ] La checklist finale reprend exactement les 21 criteres de `exercice-sami-spec.md`
-- [ ] Le QR code pointe vers le bon site (https://alexmacapple.github.io/easy-check-igpde/)
+- [ ] Le QR code pointe vers le bon site (https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/)
 - [ ] Aucune reference a des themes non couverts en formation (pas de PowerPoint, pas de PDF natif)
 
 ### Forme

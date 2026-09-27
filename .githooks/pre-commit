@@ -35,7 +35,7 @@ while IFS= read -r f; do
       fi ;;
   esac
   case "$f" in
-    scripts/*|tests/*|recette/*|validate.py|Makefile)
+    scripts/*|tests/*|recette/*|validate.py|Makefile|fiche-pratique/*.md|wcag/*.md|liens-tp-en-ligne.md|docs/*|03-easy-checks/*.md|config.yml)
       if grep -nE '/Users/[a-z]|/home/[a-z]' "$f" | grep -v 'PREFERRED_PYTHONS' | grep -vq '^\s*#'; then
         signaler "chemin absolu vers un dossier personnel : $f"
       fi ;;

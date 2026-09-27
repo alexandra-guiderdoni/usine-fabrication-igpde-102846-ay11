@@ -7,8 +7,8 @@ Le site des points de contrôle rapides est fabriqué dans `docs/` et publié pa
 ## Où il vit
 
 - **Source** : `docs/` de cette usine (seule à modifier).
-- **Dépôt publié** : `git@github.com:Alexmacapple/easy-check-igpde.git`, branche `main`, racine `/`, mode legacy.
-- **Adresse** : https://alexmacapple.github.io/easy-check-igpde/
+- **Dépôt publié** : `git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git`, branche `main`, racine `/`, mode legacy.
+- **Adresse** : https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/
 - **Clone de travail** : `IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde/`, ignoré par l'usine.
 
 ## Publier une modification
@@ -22,7 +22,7 @@ La commande valide le site (`validate.py`), synchronise `docs/` vers le clone (s
 Si le clone est absent :
 
 ```bash
-git clone git@github.com:Alexmacapple/easy-check-igpde.git IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde
+git clone git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde
 ```
 
 ## Points de vigilance
@@ -32,12 +32,9 @@ git clone git@github.com:Alexmacapple/easy-check-igpde.git IGPDE-102846-livrable
 - Les pages de `docs/` sont maintenues à la main. Relancer `scripts/generate_easy_checks_site_skeleton.py` écraserait les corrections faites depuis juillet : ne le faire qu'en relisant le diff complet.
 - Le menu du site est le même sur toutes les pages : toute nouvelle entrée doit être ajoutée partout, et dans le générateur.
 
-## Première mise en ligne (historique)
+## Historique de l'hébergement
 
-Le dépôt du site a été créé le 2026-05-15 : initialisation, ajout de `.nojekyll`, puis activation de GitHub Pages en mode legacy :
+- **2026-05-15** : première publication depuis le dépôt personnel `Alexmacapple/easy-check-igpde` (https://alexmacapple.github.io/easy-check-igpde/), GitHub Pages en mode legacy, branche `main`, racine.
+- **2026-09-27** : déménagement vers `alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11`, avec l'historique complet du site. L'ancienne adresse reste en ligne jusqu'après la session du 9 octobre 2026, puis sera décommissionnée.
 
-```bash
-gh api repos/Alexmacapple/easy-check-igpde/pages -X POST --input - <<'EOF'
-{"source":{"branch":"main","path":"/"},"build_type":"legacy"}
-EOF
-```
+Activer GitHub Pages sur un nouveau dépôt demande le droit administrateur : Settings > Pages, source « Deploy from a branch », branche `main`, dossier `/ (root)`.
