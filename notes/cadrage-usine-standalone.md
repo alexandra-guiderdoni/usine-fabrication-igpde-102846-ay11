@@ -1,6 +1,7 @@
 # Cadrage : usine standalone de la formation accessibilité IGPDE
 
-Statut : proposition, rien n'est créé. Rédigé le 2026-09-27 à partir de mesures sur disque.
+Statut : cadrage initial rédigé le 2026-09-27 à partir de mesures sur disque.
+Mise en œuvre partielle le 2026-09-28 : les corpus documentaires des thèmes 1, 2, 4, 5 et 6 sont regroupés dans `corpus-documentaire-preparatoire/` ; `03-easy-checks/` reste à la racine car il alimente la fabrication et la validation du site.
 Aucune fiche `why-context` n'existe sur ce projet : le pourquoi repose sur l'état réel du dépôt.
 
 ---
@@ -18,7 +19,7 @@ L'idée est bonne : le projet est déjà une usine de fait (config centrale, 138
 - `IGPDE-102846-livrables-octobre-2026/` : 260 Mo, dont 199 Mo d'installeurs dans `outils/` (CCA 87 Mo, PAC 74 Mo, NVDA 38 Mo) et 24 Mo de clone du site (doublon de `docs/`, vidéo de 12 Mo comprise).
 - `outputs/` : 144 Mo, l'expérience de slides générées par image de juillet (`ia-slides`), hors de la chaîne de fabrication.
 - `docs/` : 24 Mo, la source du site d'exercice (vidéo audiodécrite de 12 Mo).
-- `04-reseaux-sociaux/` : 17 Mo, surtout d'anciens PPTX sources (webinaire, module 4 historique).
+- `corpus-documentaire-preparatoire/04-reseaux-sociaux/` : 17 Mo, surtout d'anciens PPTX sources (webinaire, module 4 historique).
 - `tmp/` 14 Mo, `.qa/` 4 Mo : régénérables.
 - Le cœur réel (scripts, `_source`, `_assets`, `docs`, contenus Markdown, tests) pèse environ 55 Mo ; avec un pack livrable sans installeurs ni doublon du site, l'usine tiendrait autour de 90 Mo (estimation).
 
@@ -33,8 +34,8 @@ Ta liste est juste, il y manque surtout ce qui prouve que l'usine marche et ce q
   - `CLAUDE.md` : tu as cité `AGENTS.md` mais pas lui ; il porte les règles de génération et les modes d'échec.
   - `03-easy-checks/` : la grille XLSX y est générée, et `evaluation_contract.yml` y vit.
   - `wcag/` et `fiche-pratique/` : sources Markdown des fiches WCAG et des mémos PDF.
-  - `liens-tp-en-ligne.md`, `01-cadre-legal/cadre-legal.md`, `03-easy-checks/web.md` : source de la fiche des liens et transcriptions du deck.
-  - `04-reseaux-sociaux/` : seulement les Markdown et les images réellement utilisées (un script y lit encore), pas les anciens PPTX.
+  - `liens-tp-en-ligne.md`, `corpus-documentaire-preparatoire/01-cadre-legal/cadre-legal.md`, `03-easy-checks/web.md` : source de la fiche des liens et transcriptions du deck.
+  - `corpus-documentaire-preparatoire/04-reseaux-sociaux/` : seulement les Markdown et les images réellement utilisées (un script y lit encore), pas les anciens PPTX.
 - **À discuter** : `pedagogie-methode/` (références pédagogiques, 20 Ko), `gestast.md`, `cadrage-usine-standalone.md` (ce document).
 
 ## Ce qui reste dehors

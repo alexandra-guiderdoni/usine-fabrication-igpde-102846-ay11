@@ -3,7 +3,6 @@
 - tp_reseaux_sociaux : variante hors ligne de la démo émojis (ressources DSFR
   locales, navigation du site en liens absolus vers le site publié)
 - docx_sami : copie des trois documents de l'exercice Sami dans le pack
-- pdf_deck : export PDF du deck pour les notes formateur (LibreOffice)
 - generer_pdf : lance le générateur PDF avec des images résolues depuis l'usine
 """
 
@@ -31,9 +30,6 @@ DOCX_TP = [
     "tp-doc-aide-correction.docx",
     "tp-doc-inaccessible.docx",
 ]
-SOFFICE = Path("/Applications/LibreOffice.app/Contents/MacOS/soffice")
-
-
 def tp_reseaux_sociaux(racine, formateur):
     docs = racine / "docs"
     cible = formateur / "tp-reseaux-sociaux-igpde"
@@ -62,37 +58,6 @@ def docx_sami(racine, formateur):
     for nom in DOCX_TP:
         shutil.copy2(racine / "_source" / nom, cible / nom)
         print(f"[supports] {nom} copié dans {cible.relative_to(racine)}")
-
-
-def pdf_deck(racine, formateur, nom_deck):
-    """Exporte le deck en PDF dans _alex/. Retourne False si LibreOffice est absent."""
-    if not SOFFICE.exists():
-        print(f"[supports] LibreOffice absent ({SOFFICE}) : export PDF du deck ignoré")
-        return False
-    deck = racine / nom_deck
-    with (
-        tempfile.TemporaryDirectory() as profil,
-        tempfile.TemporaryDirectory() as sortie,
-    ):
-        subprocess.run(
-            [
-                str(SOFFICE),
-                "--headless",
-                f"-env:UserInstallation=file://{profil}",
-                "--convert-to",
-                "pdf",
-                "--outdir",
-                sortie,
-                str(deck),
-            ],
-            capture_output=True,
-            check=True,
-        )
-        produit = Path(sortie) / (deck.stem + ".pdf")
-        cible = formateur / "_alex" / produit.name
-        shutil.move(str(produit), cible)
-    print(f"[supports] export PDF du deck : {cible.relative_to(racine)}")
-    return True
 
 
 IMAGE_RELATIVE = re.compile(r"(!\[[^\]]*\]\()(?!https?:|/)([^)\s]+)")

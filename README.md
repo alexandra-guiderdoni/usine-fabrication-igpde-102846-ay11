@@ -47,7 +47,9 @@ Les installeurs remis aux stagiaires (NVDA, Colour Contrast Analyser, Focus High
 - `publication-site/` : `README.md`, `agents-site.md` et `claude-site.md`, copiés par `make publier-site` à la racine du dépôt publié du site sous les noms `README.md`, `AGENTS.md` et `CLAUDE.md` ; les deux derniers renvoient les agents vers l'usine.
 - `recette/` : recette visuelle du site (manifestes ShipGuard), prévisualisation locale, rapports d'audit.
 - `_source/`, `_assets/` : gabarits IGPDE, présentations et références sources, images.
-- `01-cadre-legal/` à `06-medias/`, `fiche-pratique/`, `wcag/` : contenus pédagogiques et sources Markdown des fiches.
+- `03-easy-checks/` : contrat d'évaluation du site et grille d'audit XLSX.
+- `corpus-documentaire-preparatoire/` : contenus pédagogiques des thèmes cadre légal, bureautique, réseaux sociaux, FALC et médias.
+- `fiche-pratique/`, `wcag/` : sources Markdown des fiches PDF accessibles.
 - `livrables-IGPDE-2026-102846/` : pack livrable de la session.
 - `vendor/` : générateur PDF accessible embarqué.
 - `notes/` : notes de réflexion, histoire du projet (`readme-causal.md`), cadrage de cette usine.
@@ -68,4 +70,4 @@ Licence Ouverte 2.0 (etalab-2.0), voir [LICENSE](LICENSE). Les documents de tier
 ---
 
 Date de création : 2026-03-11 (projet), 2026-09-27 (usine autonome)
-Dernière mise à jour : 2026-09-27
+Dernière mise à jour : 2026-09-28

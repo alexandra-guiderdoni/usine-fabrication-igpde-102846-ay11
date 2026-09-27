@@ -3,7 +3,7 @@
 Commandes :
   deck    copie le deck généré (config.yml : output) dans le pack
   pdf     régénère les PDF accessibles (mémos, fiches WCAG, fiche des liens)
-  supports démo réseaux sociaux hors ligne, documents Sami, export PDF du deck
+  supports démo réseaux sociaux hors ligne et documents Sami
   outils  vérifie les installeurs (taille et SHA-256), --telecharger pour les récupérer
   tout    deck + pdf + supports + outils
 """
@@ -233,7 +233,6 @@ def main():
     if args.commande in ("supports", "tout"):
         pack_supports.tp_reseaux_sociaux(RACINE, FORMATEUR)
         pack_supports.docx_sami(RACINE, FORMATEUR)
-        pack_supports.pdf_deck(RACINE, FORMATEUR, CONFIG["output"])
     if args.commande in ("outils", "tout") and outils(args.telecharger):
         sys.exit(1)
 

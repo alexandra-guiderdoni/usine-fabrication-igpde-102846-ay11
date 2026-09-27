@@ -18,7 +18,7 @@ aide:
 	@echo "  make sami                régénère les 3 documents Word de l'exercice Sami"
 	@echo "  make wcag                régénère le deck WCAG en langage clair (condensé) dans wcag/"
 	@echo "  make pdf                 régénère les PDF accessibles du pack"
-	@echo "  make supports            démo hors ligne, documents Sami et export PDF du deck dans le pack"
+	@echo "  make supports            démo hors ligne et documents Sami dans le pack"
 	@echo "  make pack                deck + PDF + supports + vérification des outils"
 	@echo "  make outils-telecharger  récupère et vérifie les installeurs"
 	@echo "  make apercu              site d'exercice en local"

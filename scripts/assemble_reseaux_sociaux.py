@@ -28,7 +28,12 @@ from slides import SlideContext  # noqa: E402
 
 SLIDES_DIR = SCRIPTS_DIR / "slides"
 RS_PATTERN = re.compile(r"^rs_\d+_.+\.py$")
-OUTPUT_DEFAULT = SCRIPTS_DIR.parent / "04-reseaux-sociaux" / "module4-reseaux-sociaux.pptx"
+OUTPUT_DEFAULT = (
+    SCRIPTS_DIR.parent
+    / "corpus-documentaire-preparatoire"
+    / "04-reseaux-sociaux"
+    / "module4-reseaux-sociaux.pptx"
+)
 _CONFIG = yaml.safe_load((SCRIPTS_DIR.parent / "config.yml").read_text(encoding="utf-8"))["formation"]
 DATE_DEFAULT = _CONFIG["date"]
 FOOTER_BASE_DEFAULT = _CONFIG["footer"]

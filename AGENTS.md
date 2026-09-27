@@ -47,8 +47,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 `make pack` régénère le deck, puis les PDF, les supports et la vérification des outils. Il ne relance ni `make sami`, ni `make grille`, ni `make wcag` : les lancer d'abord si leurs sources ont changé. Chaque livrable relève de l'une de ces trois catégories.
 
 - **Généré par une commande**
-  - Deck `support-formation-*.pptx` : `make deck`, qui génère le deck à la racine (sortie de travail, ignorée par git) puis le copie dans le pack (livrable versionné). La copie refuse un deck partiel.
-  - Export PDF du deck (`Formateur/_alex/`) : `make supports` (nécessite LibreOffice).
+  - Deck `support-formation-*.pptx` : `make deck`, qui génère le deck à la racine (sortie de travail, ignorée par git) puis le copie dans le pack (livrable versionné). La copie refuse un deck partiel. Aucun PDF du deck n'est livré.
   - Mémos Word et LibreOffice, fiches WCAG formateur et stagiaire, fiche des liens des TP : `make pdf`, depuis `fiche-pratique/*.md`, `wcag/*.md` et `liens-tp-en-ligne.md`. `make pdf` n'accepte que du PDF/UA-1 : sinon il s'arrête en erreur et laisse le livrable précédent en place (voir `contraintes.md`).
   - Documents Sami (`Formateur/tp-word-igpde/`) : `make sami` (écrit dans `_source/`), puis `make supports` ou `make pack` pour la copie dans le pack.
   - Démo réseaux sociaux hors ligne (`Formateur/tp-reseaux-sociaux-igpde/`) : `make supports`, depuis `docs/demo-mauvaise-restitution-emojis.html`.
@@ -57,7 +56,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - **Document source édité à la main** (pas de générateur : modifier le fichier ; les versions précédentes restent dans l'historique git, pas de copie sur le disque)
   - Fiche catalogue, fiche technique, programme et déroulé (`Formateur/documents-administratifs-igpde/`), au format Word de l'IGPDE.
   - Site d'exercice `docs/`, publié par `make publier-site`.
-  - Notes formateur `Formateur/_alex/*.md` et `alternatives.*`.
+  - Notes formateur `Formateur/_alex/*.md`.
   - README du dossier `Formateur/fil-rouge-principes-wcag-igpde/`.
 - **Ressource fixe** (fournie, jamais régénérée)
   - Cartes idées reçues (`Formateur/ice-breaker-idées-recues-cartes-igpde/`), cartes WCAG 2.2 (`fil-rouge-principes-wcag-igpde/cartes-criteres-wcag-2-2-a-imprimer.pdf`, crédits et licence dans `CREDITS.md` à côté), bandeaux IGPDE.
@@ -135,7 +134,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - Exercice Sami : `_source/exercice-sami-spec.md`, `_source/exercice-sami-diff.md`.
 - Points de contrôle rapides W3C : `03-easy-checks/w3c-easy-checks-fr.md`. Contrat d'évaluation : `03-easy-checks/evaluation_contract.yml`.
 - Guide « Accessibiliser sa communication » : `_source/references/Guide-2026-Accessibiliser-sa-communication-police-14-coul.md`.
-- Notes de contenu : `04-reseaux-sociaux/md-reseaux-sociaux.md`, `05-falc/md-falc.md`, `06-medias/md-medias.md`.
+- Notes de contenu : `corpus-documentaire-preparatoire/04-reseaux-sociaux/md-reseaux-sociaux.md`, `corpus-documentaire-preparatoire/05-falc/md-falc.md`, `corpus-documentaire-preparatoire/06-medias/md-medias.md`.
 - Passations de mai 2026, historiques (écrites dans l'ancien espace de travail, ne pas suivre leurs commandes) : `_source/passation-session-2026-05-03.md`, `_source/passation-session-2026-05-04.md`.
 - Deck WCAG condensé : `wcag/WCAG en langage clair - condensé.pptx` (13 slides), régénéré par `make wcag`.
 - Pourquoi le projet est construit ainsi : `notes/readme-causal.md` (histoire, sans consigne de travail).
