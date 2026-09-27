@@ -50,7 +50,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 - **Contrôle tirets** : `grep -rn $'—\|–' scripts/` doit retourner vide
 - **Contrôle PPTX** : `unzip -t formation-102846-octobre-2026.pptx`
 - **Warnings footer** : diagnostiquer par slide, corriger le positionnement source, puis régénérer le deck complet
-- **Publier le site** : `rsync -a --delete --exclude='.DS_Store' --exclude='*.md' --exclude='.git' docs/ IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-igpde-site-web/ && cd IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-igpde-site-web && git add -A && git commit -m "Mise à jour du site" && git push` (clone durable du dépôt `easy-check-igpde`, installé le 2026-09-27, ignoré par le dépôt parent)
+- **Publier le site** : `rsync -a --delete --exclude='.DS_Store' --exclude='*.md' --exclude='.git' docs/ IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde/ && cd IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde && git add -A && git commit -m "Mise à jour du site" && git push` (clone durable du dépôt `easy-check-igpde`, installé le 2026-09-27, ignoré par le dépôt parent)
 
 **Grille IGPDE-DSFR (13,33" x 7,5")** :
 
