@@ -72,6 +72,7 @@
 - [x] Publié sur GitHub le 2026-09-27 (alexandra-guiderdoni/usine-fabrication-igpde-102846-ay11, 159 commits) ; site republié depuis l'usine (make publier-site, commit 5f19e04)
 - [ ] Supprimer l'ancien dossier du projet dans l'espace de travail personnel d'Alex (hors de ce dépôt) : uniquement sur GO explicite d'Alex
 - [x] Audit des Markdown structurants le 2026-09-27 (contrôles mécaniques et relecture indépendante) puis correction : logistique retirée des fichiers de travail (l'historique public n'est pas réécrit, décision d'Alex), « deux régimes de slides » et démarrage rapide périmé retirés, portée de `make pack` et du hook précisée, `TOP_CONTENT` et composants complétés, `contraintes.md` remis à jour, `notes/readme-causal.md` réduit à l'histoire. Preuve : IA neuve lancée dans l'usine, 10 questions pièges sur 10 justes
+- [x] Revue indépendante par Codex en lecture seule le 2026-09-27 (`notes/revue-codex-lecture-seule-2026-09-27.md`) : réponses aux questions pièges justes, 4 écarts confirmés et corrigés, plus un cinquième relevé à la vérification (ligne séparatrice à 6,97)
 - [ ] `scripts/generate_demo.py` (générateur de démonstration hors chaîne) écrit `gabarits-ppt-igpde.pptx` à la racine, homonyme de la source rangée dans `_source/presentations-source/` : à retirer ou à rediriger avant tout usage
 
 ## Déménagement du site d'exercice (2026-09-27)

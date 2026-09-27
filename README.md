@@ -13,7 +13,7 @@ Dépôt autonome qui fabrique, à partir de sources versionnées, tous les suppo
 - **Fiches PDF accessibles** : mémos Word et LibreOffice, fiches WCAG, fiche des liens des TP.
 - **Pack livrable** : `IGPDE-102846-livrables-octobre-2026/`, remis à l'IGPDE pour la session du 9 octobre 2026.
 
-Une nouvelle session se prépare en modifiant `config.yml` (code, date, pied de page, nom du deck, dossier de livraison), puis en relançant la fabrication.
+Une nouvelle session se prépare en modifiant `config.yml` (code, date, pied de page, nom du deck, dossier de livraison), puis en relançant la fabrication. Il faut aussi renommer le dossier du pack, mettre à jour les documents administratifs et rechercher l'ancien code dans le site et la documentation (voir `AGENTS.md`).
 
 ## Installation
 

@@ -100,3 +100,7 @@ pas à la limite de contenu.
   pack, la réussite des tests ou la publication web.
 - Aucun fichier existant n'a été modifié. Ce document est la seule addition de
   cette passation.
+
+## Intégration
+
+Le 2026-09-27, Claude a vérifié les quatre écarts dans les fichiers : tous confirmés et corrigés (`AGENTS.md`, `README.md`, commentaire de `scripts/igpde_dsfr_components.py`). La vérification a révélé un cinquième écart, lui aussi corrigé : `AGENTS.md` plaçait la ligne séparatrice à 6,98 alors qu'elle est tracée à 6,97 (`FOOTER_Y` moins 0,01). Ce document, d'abord posé à la racine, a été rangé dans `notes/`.

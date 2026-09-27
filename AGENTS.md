@@ -5,7 +5,7 @@ Protocole unique pour tout agent (Claude, Codex ou autre) et pour un humain. `CL
 ## Contexte
 
 - Formation « L'accessibilité numérique pour la bureautique et le web », IGPDE, code 102846 (ex-102638), 1 jour, public communicants, pas développeurs.
-- Session du 9 octobre 2026. Code, date, pied de page, nom du deck et dossier de livraison sont centralisés dans `config.yml` : c'est la seule source à modifier pour une nouvelle session.
+- Session du 9 octobre 2026. Code, date, pied de page, nom du deck et dossier de livraison sont centralisés dans `config.yml` : c'est la seule source des paramètres lus par la fabrication. Une nouvelle session demande en plus de renommer le dossier du pack, de mettre à jour à la main les documents administratifs, et de rechercher l'ancien code et l'ancienne date dans `docs/` et dans les Markdown structurants, qui citent le dossier du pack en toutes lettres.
 - Deck de 138 slides DSFR, 4 modules dans un ordre impératif : 1. communication accessible et cadre légal, 2. Word accessible, 3. points de contrôle rapides W3C, 4. réseaux sociaux.
 - Exercice Sami : 21 critères à vérifier dans 3 DOCX (inaccessible, aide à la correction, accessible), spécification dans `_source/exercice-sami-spec.md`.
 - Site d'exercice dans `docs/` (versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/`, démo émojis, grille XLSX), publié sur https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/ depuis le dépôt `git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git`.
@@ -28,7 +28,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
 - macOS en priorité, Python 3.12 (Homebrew), `uv`, et pour les PDF : `pandoc`, `pango`, `glib` (Homebrew).
 - `make installer` crée `.venv` depuis `requirements.lock` (installation avec vérification des empreintes) et active les hooks git versionnés (`.githooks`).
-- Sans `.venv`, le `Makefile` utilise `/opt/homebrew/bin/python3.12`. Toutes les commandes passent par `make` : `make aide` les liste.
+- Sans `.venv`, le `Makefile` utilise `/opt/homebrew/bin/python3.12`, et à défaut le `python3` du système, sans garantie sur les dépendances : lancer `make installer` d'abord. Les commandes courantes passent par `make` (`make aide` les liste) ; les quelques scripts sans cible (test d'une seule slide, diagnostics de `REEXPORTER-DECK-PPTX.md`) s'appellent avec le même interpréteur.
 
 ## Chaîne de fabrication
 
@@ -109,7 +109,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - Jamais de français sans accents, dans les slides, les scripts et les documents.
 - Jamais de tiret cadratin ni demi-cadratin dans les scripts : tiret simple.
 - Jamais `slide.shapes.add_textbox()` direct : utiliser `add_texte_libre` (pouces et EMU).
-- Jamais toucher à la ligne séparatrice IGPDE (y = 6,98) ni à la disposition des logos.
+- Jamais toucher à la ligne séparatrice IGPDE (y = 6,97, soit `FOOTER_Y` moins 0,01) ni à la disposition des logos.
 - Jamais de jargon développeur dans les slides (ARIA, DOM, CSS).
 - Pas de mot « pilier » dans le texte affiché des slides : utiliser « thème ». Les noms de fichiers historiques (`08_pilier1-…`) restent tels quels.
 

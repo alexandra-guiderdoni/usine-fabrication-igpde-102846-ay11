@@ -1,7 +1,7 @@
 """Bibliotheque de composants DSFR pour le template IGPDE (13,33" x 7,5").
 
 S'appuie sur les layouts natifs IGPDE (header logos + footer institut + ligne separatrice)
-et injecte les composants DSFR dans la zone contenu (top=2.68" a 6.97").
+et injecte les composants DSFR dans la zone contenu (top=2.68" a 6.80", ligne separatrice a 6.97").
 
 Helpers disponibles :
 - create_presentation()       charge le template IGPDE-DSFR
