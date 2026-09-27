@@ -85,9 +85,9 @@ Cette logique vaut pour Word et pour le web.
 
 Dans l'atelier Word, les stagiaires travaillent sur :
 
-- `Stagiaire/tp-word-igpde/sami-doc-inaccessible.docx`
-- `Stagiaire/tp-word-igpde/sami-doc-aide-correction.docx`
-- `Stagiaire/tp-word-igpde/sami-doc-accessible.docx`
+- `Formateur/tp-word-igpde/sami-doc-inaccessible.docx`
+- `Formateur/tp-word-igpde/sami-doc-aide-correction.docx`
+- `Formateur/tp-word-igpde/sami-doc-accessible.docx`
 
 Faire utiliser la fiche ainsi :
 
@@ -111,7 +111,7 @@ Consigne atelier Word :
 
 Point d'entrée :
 
-- `Stagiaire/tp-easy-check-site-web-igpde/index.html`
+- `Formateur/tp-easy-check-site-web-igpde/index.html`
 
 Les 13 points rapides se rattachent aux 4 principes.
 
@@ -183,7 +183,7 @@ Dire aux stagiaires :
 
 - AAArdvark : WCAG en anglais clair — https://aaardvarkaccessibility.com/wcag-plain-english/
 - Cartes WCAG 2.2 (Figma) — https://www.figma.com/community/file/1409436654182046971/wcag-2-2-card-deck
-- Fiche stagiaire PDF : `Stagiaire/principes-wcag/directives-accessibilite-wcag-anglais-clair.pdf`
-- TP Word : `Stagiaire/tp-word-igpde/`
-- TP web : `Stagiaire/tp-easy-check-site-web-igpde/index.html`
-- Cartes idées reçues : `Stagiaire/idees-recues-cartes/`
+- Fiche stagiaire PDF : `Formateur/fil-rouge-principes-wcag-igpde/fiche-stagiaire-principes-wcag-a-garder-sous-la-main.pdf`
+- TP Word : `Formateur/tp-word-igpde/`
+- TP web : `Formateur/tp-easy-check-site-web-igpde/index.html`
+- Cartes idées reçues : `Formateur/ice-breaker-idées-recues-cartes-igpde/`

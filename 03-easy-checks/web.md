@@ -1,6 +1,6 @@
 # Partie 3 - Web et points de contrôle rapides
 
-Source : `formation-102846-octobre-2026.pptx`.
+Source : `support-formation-102846-2026-IGPDE.pptx`.
 
 Périmètre : diapositives 84 à 114 du deck, correspondant à la partie 3 sur les points de contrôle rapides W3C pour le web.
 

@@ -1,6 +1,6 @@
 # Cadre légal et accessibilité numérique
 
-Source : `formation-102846-octobre-2026.pptx`.
+Source : `support-formation-102846-2026-IGPDE.pptx`.
 
 Périmètre : diapositives 1 à 53 du deck, correspondant au module 1 de la formation 102846.
 

@@ -1,6 +1,6 @@
 # Réexporter le deck PPTX
 
-Mode d'emploi court pour régénérer le support `formation-102846-octobre-2026.pptx` et vérifier qu'il ne contient pas de nouvelle régression géométrique ou textuelle.
+Mode d'emploi court pour régénérer le support `support-formation-102846-2026-IGPDE.pptx` et vérifier qu'il ne contient pas de nouvelle régression géométrique ou textuelle.
 
 ## Principe
 
@@ -33,13 +33,13 @@ Quand la QA est conforme, régénérer le fichier final :
 ```bash
 python3 scripts/assemble.py
 python3 -m pytest tests/ -q
-unzip -t formation-102846-octobre-2026.pptx
+unzip -t support-formation-102846-2026-IGPDE.pptx
 ```
 
 Le fichier à livrer reste :
 
 ```text
-formation-102846-octobre-2026.pptx
+support-formation-102846-2026-IGPDE.pptx
 ```
 
 ## Corriger les accents sûrs
@@ -98,7 +98,7 @@ QA_PPTX_PATH=.qa/formation-test-qa.pptx python3 -m pytest tests/test_deck_geomet
 Vérifier le PPTX stable :
 
 ```bash
-unzip -t formation-102846-octobre-2026.pptx
+unzip -t support-formation-102846-2026-IGPDE.pptx
 ```
 
 Vérifier les tirets interdits dans les scripts :

@@ -1,6 +1,6 @@
 # Formation 102846 - Réseaux sociaux
 
-Source : `formation-102846-octobre-2026.pptx`
+Source : `support-formation-102846-2026-IGPDE.pptx`
 
 Périmètre : diapositives 115 à 137 du deck, hors diapositive de clôture.
 

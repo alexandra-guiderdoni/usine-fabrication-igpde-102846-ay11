@@ -9,7 +9,7 @@
 - `scripts/build_template.py`
 - `scripts/slides/02ma_definition-a11y.py` (module type)
 
-**Système en scope** : pipeline de génération du deck PPTX principal `formation-102846-octobre-2026.pptx` (138 slides DSFR accessibles, nom porté par `config.yml`).
+**Système en scope** : pipeline de génération du deck PPTX principal `support-formation-102846-2026-IGPDE.pptx` (138 slides DSFR accessibles, nom porté par `config.yml`).
 
 **Audiences** : Alex (formateur/développeur), Carinne C. (commanditaire IGPDE, non-technique).
 
@@ -90,8 +90,8 @@ Le formateur Alex édite les modules Python et lance la génération. Le deck PP
 +----------------------------------------------------------------------+
 
 +---------------------------+     +------------------------------+
-| PPT-IGPDE-DSFR-base-      |     | formation-102846-octobre-    |
-| intervenant.pptx          |     | 2026.pptx                    |
+| PPT-IGPDE-DSFR-base-      |     | support-formation-102846-    |
+| intervenant.pptx          |     | 2026-IGPDE.pptx              |
 | (template avec layouts    |     | (artefact final, 138 slides) |
 |  et master)               |     +------------------------------+
 +---------------------------+
@@ -238,7 +238,7 @@ Le container central mérite un zoom car il porte toute la logique de compositio
                       |   -> prs.save(output)
                       |   -> xattr -d com.apple.quarantine (macOS)
                       |
-6.                    | print "[OK] formation-102846-octobre-2026.pptx"
+6.                    | print "[OK] support-formation-102846-2026-IGPDE.pptx"
 ```
 
 ---

@@ -47,12 +47,12 @@ python3 scripts/qa_pptx.py . --max-iterations 5 --clean
 python3 -m pytest tests/ -v
 ```
 
-Le fichier de sortie est `formation-102846-octobre-2026.pptx` (nom et date centralisés dans `config.yml`).
+Le fichier de sortie est `support-formation-102846-2026-IGPDE.pptx` (nom et date centralisés dans `config.yml`).
 
 Sur macOS, après génération, retirer la quarantine Gatekeeper si PowerPoint refuse d'ouvrir le fichier :
 
 ```bash
-xattr -d com.apple.quarantine formation-102846-octobre-2026.pptx
+xattr -d com.apple.quarantine support-formation-102846-2026-IGPDE.pptx
 ```
 
 ### Workflow de création (nouvelles slides ou modifications)

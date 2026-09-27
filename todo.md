@@ -4,7 +4,7 @@
 
 - [ ] **Livraison des livrables à Carine Couplan lundi 2026-09-28** (session du vendredi 9 octobre 2026) :
   - [x] Pack remis à niveau le 2026-09-26 et renommé `IGPDE-102846-livrables-octobre-2026/` : cartes ice-breaker ajoutées (`6-cartes-idees-recues.pdf`), site easy-checks resynchronisé depuis `docs/` (diff vide), README corrigé
-  - [x] Deck régénéré pour la session du 9 octobre 2026 sous le code 102846 : `config.yml` mis à jour, QA PRD-119 `CONVERGED new=0`, `formation-102846-octobre-2026.pptx` (138 slides, 69 tests pytest OK sur le bon fichier après correction du chemin en dur de `tests/conftest.py`, `unzip -t` exit 0, zéro « 102638 » et zéro « juin 2026 » dans tout le paquet), copié dans le pack (md5 identique)
+  - [x] Deck régénéré pour la session du 9 octobre 2026 sous le code 102846 : `config.yml` mis à jour, QA PRD-119 `CONVERGED new=0`, `support-formation-102846-2026-IGPDE.pptx` (138 slides, 69 tests pytest OK sur le bon fichier après correction du chemin en dur de `tests/conftest.py`, `unzip -t` exit 0, zéro « 102638 » et zéro « juin 2026 » dans tout le paquet), copié dans le pack (md5 identique)
   - [x] Site GitHub Pages republié le 2026-09-26 : corrections RGAA de juillet (commit `ff2b26d`) puis bascule 102846 et grille mise à jour (commit `e2eef6e`) — rendu en ligne vérifié après le premier rebuild
   - [x] Convocation des intervenants copiée dans le pack (`Formateur/convocation-intervenants.pdf`, md5 vérifié) — session confirmée du vendredi 9 octobre 2026, salle 3227 Vincennes, 9 h 15-12 h 15 et 13 h 45-16 h 45, co-animation Alexandra Guiderdoni et Bertrand Matge
   - [ ] **Préparer la salle 3227 le vendredi 2 octobre 2026 après-midi** (créneau bloqué par la gestionnaire IGPDE)
@@ -32,7 +32,7 @@
   - Corrections et modifications au fil de la relecture
   - Régénération stable via `python3 scripts/assemble.py`
   - Contrôle QA sur copie via `python3 scripts/qa_pptx.py . --max-iterations 5 --clean`
-  - Livrable : `formation-102846-octobre-2026.pptx` prêt à diffuser
+  - Livrable : `support-formation-102846-2026-IGPDE.pptx` prêt à diffuser
 
 ## Fait
 

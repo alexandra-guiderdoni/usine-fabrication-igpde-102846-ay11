@@ -11,7 +11,7 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 - Site d'exercice points de contrôle rapides dans `docs/`, avec versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/` et grille XLSX téléchargeable
 - Site publié sur GitHub Pages via dépôt standalone `easy-check-igpde` : https://alexmacapple.github.io/easy-check-igpde/
 - Date, footer et nom du fichier de sortie centralisés dans `config.yml` (source unique)
-- Dernier état livré : deck `formation-102846-octobre-2026.pptx` à 138 slides, session du 9 octobre 2026 (régénéré le 2026-09-26)
+- Dernier état livré : deck `support-formation-102846-2026-IGPDE.pptx` à 138 slides, session du 9 octobre 2026 (régénéré le 2026-09-26)
 - Deck WCAG condensé : `wcag/WCAG en langage clair - condensé.pptx` (13 slides), généré par `scripts/generate_wcag_langage_clair.py --condensed`
 
 ## Comment je travaille
@@ -42,13 +42,13 @@ Hérite de `~/.claude/CLAUDE.md` et `~/Claude/CLAUDE.md`. Ne pas dupliquer les r
 - **Réexport deck stable** : lire `REEXPORTER-DECK-PPTX.md`, puis lancer `python3 scripts/qa_pptx.py . --max-iterations 5 --clean` avant `python3 scripts/assemble.py`
 - **Tester** : `python3 scripts/assemble.py --only NN`
 - **Template absent** : `python3 scripts/build_template.py`
-- **Quarantine** : `xattr -d com.apple.quarantine formation-102846-octobre-2026.pptx`
+- **Quarantine** : `xattr -d com.apple.quarantine support-formation-102846-2026-IGPDE.pptx`
 - **Tests unitaires** : `python3 -m pytest tests/ -v` (suite complète helpers + composants + a11y + QA deck)
 - **Tests géométrie** : `python3 scripts/assemble.py --qa-map -o .qa/formation-test-qa.pptx && QA_PPTX_PATH=.qa/formation-test-qa.pptx python3 -m pytest tests/test_deck_geometry.py -v`
 - **Boucle QA PPTX PRD-119** : `python3 scripts/qa_pptx.py . --max-iterations 5 --clean`
 - **Verdict QA PPTX** : lire `.qa/qa-pptx-report.md` et le champ `status`; ne pas interpréter le seul exit code comme une preuve de convergence
 - **Contrôle tirets** : `grep -rn $'—\|–' scripts/` doit retourner vide
-- **Contrôle PPTX** : `unzip -t formation-102846-octobre-2026.pptx`
+- **Contrôle PPTX** : `unzip -t support-formation-102846-2026-IGPDE.pptx`
 - **Warnings footer** : diagnostiquer par slide, corriger le positionnement source, puis régénérer le deck complet
 - **Publier le site** : `rsync -a --delete --exclude='.DS_Store' --exclude='*.md' --exclude='.git' docs/ IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde/ && cd IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde && git add -A && git commit -m "Mise à jour du site" && git push` (clone durable du dépôt `easy-check-igpde`, installé le 2026-09-27, ignoré par le dépôt parent)
 
