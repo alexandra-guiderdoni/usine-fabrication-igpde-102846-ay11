@@ -2,8 +2,14 @@
 
 <!-- Contournement WeasyPrint 68 : un tableau fragmenté entre deux pages fait
      échouer la génération PDF/UA-1 (« Table wrapper without a table »).
-     Ce style garde chaque tableau entier sur une page. -->
-<style>table { break-inside: avoid; }</style>
+     Ce style garde chaque tableau entier sur une page. Exception : le tableau
+     Easy Checks, plus long qu'une page et donc coupé de toute façon, commence
+     juste après son introduction au lieu de laisser une page presque vide. Les
+     sections Word et réseaux sociaux commencent sur une nouvelle page, pour que
+     leur intertitre et leur introduction restent avec leur tableau ; les cellules
+     du tableau Word sont resserrées pour tenir sur la même page, et le libellé
+     « Consigne atelier Word : » reste avec l'encadré qu'il annonce. -->
+<style>section#lien-avec-latelier-word > p:last-of-type { break-after: avoid; } table { break-inside: avoid; } section#lien-avec-latelier-web-easy-checks table { break-inside: auto; } section#lien-avec-latelier-word, section#lien-avec-les-réseaux-sociaux { break-before: page; } section#lien-avec-latelier-word th, section#lien-avec-latelier-word td { padding-top: 2pt; padding-bottom: 2pt; }</style>
 
 <!-- Sommaire sur la première page : le gabarit formation place la page de garde
      (header#title-block-header) seule sur une page. Ici elle n'impose plus de saut
