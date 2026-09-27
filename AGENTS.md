@@ -11,6 +11,19 @@ Protocole unique pour tout agent (Claude, Codex ou autre) et pour un humain. `CL
 - Site d'exercice dans `docs/` (versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/`, démo émojis, grille XLSX), publié sur https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/ depuis le dépôt `git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git`.
 - Pack remis à l'IGPDE : `IGPDE-102846-livrables-octobre-2026/`, fabriqué par `make pack`.
 
+## Deux dépôts liés : l'usine et le site publié
+
+Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
+
+- **Cette usine** (`alexandra-guiderdoni/usine-fabrication-igpde-102846-ay11`) est la seule source. Le site se modifie dans `docs/`. Le `README.md`, l'`AGENTS.md` et le `CLAUDE.md` du dépôt publié se modifient dans `publication-site/`, sous les noms `README.md`, `agents-site.md` et `claude-site.md`.
+- **Le dépôt du site** (`alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11`) n'est qu'une copie de publication servie par GitHub Pages. Chacun de ses fichiers correspond à `docs/<même chemin>`, sauf `README.md`, `AGENTS.md` et `CLAUDE.md`, qui viennent de `publication-site/`.
+- **Deux clones locaux du site**, tous deux en lecture seule :
+  - `IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde/` : clone de publication, écrit par `make publier-site` (variable `SITE_CLONE`), ignoré par l'usine ;
+  - `../tp-fabrication-igpde-102846-ay11/`, à côté de l'usine quand il existe : clone de consultation, avancé automatiquement à la fin de `make publier-site` (variable `SITE_CONSULTATION`).
+- **MUST** : pour changer le site, éditer `docs/`, lancer `make verifier`, puis `make publier-site`. Pour savoir ce qui est en ligne, lire `docs/` ou l'adresse publique, pas un clone.
+- **MUST NOT** : modifier, commiter ou pousser dans un clone du site. La publication suivante synchronise avec suppression et effacerait la modification ; un commit poussé depuis un clone ferait aussi échouer le push de `make publier-site`.
+- **MUST NOT** : renommer `publication-site/agents-site.md` ou `claude-site.md` en `AGENTS.md` ou `CLAUDE.md` dans l'usine. Sous ces noms, les agents appliqueraient au dossier `publication-site/` la consigne « ne rien modifier ici », destinée au seul dépôt publié. `make publier-site` leur donne leur vrai nom au moment de la copie.
+
 ## Environnement
 
 - macOS en priorité, Python 3.12 (Homebrew), `uv`, et pour les PDF : `pandoc`, `pango`, `glib` (Homebrew).
@@ -62,7 +75,7 @@ Protocole unique pour tout agent (Claude, Codex ou autre) et pour un humain. `CL
 
 ## Publier
 
-- Site : `make publier-site` (valide, synchronise `docs/` vers le clone du dépôt du site, commit et push). Détail : `PUBLIER-SITE.md`.
+- Site : `make publier-site` (valide, synchronise `docs/` et `publication-site/` vers le clone de publication, commit, push, puis avance le clone de consultation). Voir « Deux dépôts liés » ci-dessus et `PUBLIER-SITE.md`.
 - Dépôt de l'usine : commits en français, forme nominale, première ligne de 50 caractères au plus, sans point final. Aucune ligne d'attribution d'agent (`Co-Authored-By`, `Generated with` ou signature d'outil).
 - Les hooks `.githooks/pre-commit` bloquent : fichiers de verrou Office, fichiers de plus de 50 Mo, convocation, installeurs, tirets cadratins dans les scripts, chemins personnels absolus. Ne jamais les contourner avec `--no-verify`.
 

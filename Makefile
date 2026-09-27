@@ -4,6 +4,7 @@
 PYTHON ?= $(shell if [ -x .venv/bin/python ]; then echo .venv/bin/python; elif [ -x /opt/homebrew/bin/python3.12 ]; then echo /opt/homebrew/bin/python3.12; else echo python3; fi)
 LIVRABLES := $(shell sed -n 's/^  livrables: "\(.*\)"/\1/p' config.yml)
 SITE_CLONE ?= $(LIVRABLES)/Formateur/tp-easy-check-site-web-igpde
+SITE_CONSULTATION ?= ../tp-fabrication-igpde-102846-ay11
 
 .PHONY: aide installer deck qa tests valider controles verifier grille sami wcag pdf supports outils outils-telecharger pack apercu recette publier-site
 
@@ -22,7 +23,7 @@ aide:
 	@echo "  make outils-telecharger  récupère et vérifie les installeurs"
 	@echo "  make apercu              site d'exercice en local"
 	@echo "  make recette             recette visuelle ShipGuard du site corrigé"
-	@echo "  make publier-site        publie docs/ et le README du dépôt du site (GitHub Pages)"
+	@echo "  make publier-site        publie docs/ et publication-site/ sur le dépôt du site (GitHub Pages)"
 
 installer:
 	uv venv .venv --python /opt/homebrew/bin/python3.12
@@ -83,6 +84,12 @@ publier-site:
 	$(PYTHON) validate.py
 	rsync -a --delete --exclude='.DS_Store' --exclude='*.md' --exclude='.git' docs/ "$(SITE_CLONE)/"
 	cp publication-site/README.md "$(SITE_CLONE)/README.md"
+	cp publication-site/agents-site.md "$(SITE_CLONE)/AGENTS.md"
+	cp publication-site/claude-site.md "$(SITE_CLONE)/CLAUDE.md"
 	git -C "$(SITE_CLONE)" add -A
 	git -C "$(SITE_CLONE)" diff --cached --quiet || git -C "$(SITE_CLONE)" commit -m "Mise à jour du site depuis l'usine"
 	git -C "$(SITE_CLONE)" push origin main
+	@if [ -d "$(SITE_CONSULTATION)/.git" ]; then \
+		if git -C "$(SITE_CONSULTATION)" pull --ff-only --quiet; then echo "Clone de consultation à jour : $(SITE_CONSULTATION)"; \
+		else echo "Avertissement : clone de consultation non avancé ($(SITE_CONSULTATION)), vérifier qu'il n'a pas été modifié"; fi; \
+	fi

@@ -22,6 +22,7 @@ Site statique des travaux pratiques de la formation « L'accessibilité numériq
 - `demo-mauvaise-restitution-emojis.html` : démo émojis et lecteurs d'écran.
 - `accessibilite.html`, `mentions-legales.html`, `donnees-personnelles.html`, `plan-du-site.html` : pages légales.
 - `assets/` : Système de design de l'État (DSFR), images, vidéos et audio des exercices, grille d'audit.
+- `AGENTS.md`, `CLAUDE.md` : consignes pour les agents d'IA, qui les renvoient vers l'usine.
 
 Le site est statique : les formulaires d'exercice rechargent simplement la page, aucune donnée n'est traitée ni enregistrée par le site.
 

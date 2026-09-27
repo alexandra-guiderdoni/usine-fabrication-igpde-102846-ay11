@@ -80,4 +80,6 @@
 - [x] Dépôt public `alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11` créé, historique du site poussé (9 commits), `.DS_Store` retiré du site, GitHub Pages activé (main, racine) le 2026-09-27
 - [x] Nouveau site vérifié en ligne (pages, démo, vidéos, grille : 200 ; outillage interne et corrigé : 404), usine poussée (`fe4fa15`)
 - [x] README du dépôt du site (`publication-site/README.md`, copié par `make publier-site`)
+- [x] Liens usine et site explicites pour les agents : section « Deux dépôts liés » d'`AGENTS.md`, `AGENTS.md` et `CLAUDE.md` du dépôt publié (sources `publication-site/agents-site.md` et `claude-site.md`), `docs/AGENTS.md` actualisé, clone de consultation `../tp-fabrication-igpde-102846-ay11` avancé par `make publier-site`. Preuve : sessions Claude neuves lancées dans chaque dossier, réponses correctes
+- [ ] Non vérifié : avertissement de `make publier-site` quand le clone de consultation a divergé (test refusé le 2026-09-27)
 - [x] `Alexmacapple/easy-check-igpde` supprimé par Alex le 2026-09-27, sans attendre la session : historique et étiquette `site-2026-07-04` vérifiés dans le nouveau dépôt avant suppression. Seule trace de l'ancienne adresse : la fiche technique V1 archivée (`documents-administratifs-igpde/V1/`), laissée telle quelle comme original

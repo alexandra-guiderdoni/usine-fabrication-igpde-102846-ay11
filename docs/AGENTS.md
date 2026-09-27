@@ -1,17 +1,12 @@
 # Site Easy Check IGPDE - consignes locales
 
-Pour le site web, le dépôt GitHub est :
+Ce dossier `docs/` est la source du site d'exercice : c'est ici, et nulle part ailleurs, qu'on modifie le site. Les règles complètes sont dans l'`AGENTS.md` de l'usine, section « Deux dépôts liés ».
 
-https://github.com/alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11
+- Publier une modification : depuis la racine de l'usine, `make verifier` puis `make publier-site`.
+- Ne jamais modifier les clones du dépôt publié (`IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde/` dans l'usine, et `tp-fabrication-igpde-102846-ay11/` à côté de l'usine) : ils sont écrasés à chaque publication.
+- Les fichiers `.md` de ce dossier ne sont pas publiés.
+- Pages maintenues à la main : ne pas relancer `scripts/generate_easy_checks_site_skeleton.py` sans relire le diff complet.
 
-Remote SSH :
+Dépôt publié : https://github.com/alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11 (remote `git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git`).
 
-```text
-git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git
-```
-
-URL publique GitHub Pages :
-
-https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/
-
-Attention : le dossier actuel est dans le gros dépôt workspace `claude-workflow-perso`. Le site est publié dans un dépôt standalone séparé, via copie de `docs/`.
+Adresse publique : https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/
