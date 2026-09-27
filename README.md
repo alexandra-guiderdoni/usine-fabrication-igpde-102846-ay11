@@ -11,7 +11,7 @@ Dépôt autonome qui fabrique, à partir de sources versionnées, tous les suppo
 - **Exercice Word** : trois documents Sami générés par `scripts/generate_exercice_sami.py`.
 - **Grille d'audit** : classeur XLSX des 13 points de contrôle rapides du W3C.
 - **Fiches PDF accessibles** : mémos Word et LibreOffice, fiches WCAG, fiche des liens des TP.
-- **Pack livrable** : `IGPDE-102846-livrables-octobre-2026/`, remis à l'IGPDE pour la session du 9 octobre 2026.
+- **Pack livrable** : `livrables-IGPDE-2026-102846/`, remis à l'IGPDE pour la session du 9 octobre 2026.
 
 Une nouvelle session se prépare en modifiant `config.yml` (code, date, pied de page, nom du deck, dossier de livraison), puis en relançant la fabrication. Il faut aussi renommer le dossier du pack, mettre à jour les documents administratifs et rechercher l'ancien code dans le site et la documentation (voir `AGENTS.md`).
 
@@ -36,7 +36,7 @@ make apercu        # site d'exercice en local
 make publier-site  # publication du site sur GitHub Pages
 ```
 
-Les installeurs remis aux stagiaires (NVDA, Colour Contrast Analyser, Focus Highlight, PAC) ne sont pas versionnés : `make outils-telecharger` les récupère et vérifie leur empreinte SHA-256 (voir `IGPDE-102846-livrables-octobre-2026/outils/MANIFEST.md`).
+Les installeurs remis aux stagiaires (NVDA, Colour Contrast Analyser, Focus Highlight, PAC) ne sont pas versionnés : `make outils-telecharger` les récupère et vérifie leur empreinte SHA-256 (voir `livrables-IGPDE-2026-102846/outils/MANIFEST.md`).
 
 ## Structure
 
@@ -48,7 +48,7 @@ Les installeurs remis aux stagiaires (NVDA, Colour Contrast Analyser, Focus High
 - `recette/` : recette visuelle du site (manifestes ShipGuard), prévisualisation locale, rapports d'audit.
 - `_source/`, `_assets/` : gabarits IGPDE, présentations et références sources, images.
 - `01-cadre-legal/` à `06-medias/`, `fiche-pratique/`, `wcag/` : contenus pédagogiques et sources Markdown des fiches.
-- `IGPDE-102846-livrables-octobre-2026/` : pack livrable de la session.
+- `livrables-IGPDE-2026-102846/` : pack livrable de la session.
 - `vendor/` : générateur PDF accessible embarqué.
 - `notes/` : notes de réflexion, histoire du projet (`readme-causal.md`), cadrage de cette usine.
 

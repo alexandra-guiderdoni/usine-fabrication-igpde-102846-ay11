@@ -17,13 +17,13 @@ outputs/
 /support-formation-*.pptx
 
 # Pack livrable : installeurs récupérés par make outils (voir outils/outils.json)
-IGPDE-*-livrables-*/outils/*
-!IGPDE-*-livrables-*/outils/MANIFEST.md
-!IGPDE-*-livrables-*/outils/outils.json
+livrables-IGPDE-*/outils/*
+!livrables-IGPDE-*/outils/MANIFEST.md
+!livrables-IGPDE-*/outils/outils.json
 *.partiel
 
 # Clone de travail du dépôt du site (publié par make publier-site)
-IGPDE-*-livrables-*/Formateur/tp-easy-check-site-web-igpde/
+livrables-IGPDE-*/Formateur/tp-easy-check-site-web-igpde/
 
 # Convocation nominative des intervenants : conservée sur disque, hors du dépôt
 convocation-intervenants.pdf

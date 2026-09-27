@@ -254,7 +254,7 @@ Pour trouver un composant dans le code : `grep -n "^def nom" scripts/igpde_dsfr_
 Depuis l'extraction en dépôt autonome, la chaîne de génération décrite ci-dessus est pilotée par des containers d'orchestration et de preuve qui ne dépendent plus d'aucun espace de travail extérieur.
 
 - **`Makefile`** (make) : point d'entrée unique pour un humain ou un agent. Choisit l'interpréteur (`.venv`, sinon Python 3.12 Homebrew) et enchaîne deck, contrôle qualité, tests, validation du site, PDF, pack et publication.
-- **`scripts/fabriquer_pack.py`** (Python 3) : lit `config.yml`, copie le deck généré dans le pack, régénère les PDF accessibles par le générateur embarqué, récupère et vérifie par SHA-256 les installeurs listés dans `IGPDE-102846-livrables-octobre-2026/outils/outils.json`.
+- **`scripts/fabriquer_pack.py`** (Python 3) : lit `config.yml`, copie le deck généré dans le pack, régénère les PDF accessibles par le générateur embarqué, récupère et vérifie par SHA-256 les installeurs listés dans `livrables-IGPDE-2026-102846/outils/outils.json`.
 - **`vendor/accessible-pdf/`** (Python 3, Pandoc, WeasyPrint, pikepdf) : générateur Markdown vers PDF/UA-1, copié du skill d'origine avec ses gabarits CSS.
 - **`recette/`** (bash, Node, ShipGuard) : recette visuelle du site corrigé à partir des manifestes `recette/visual-tests/`, prévisualisation locale ; le site servi reste `docs/`.
 - **`.githooks/pre-commit`** (bash 3.2) : contrôles bloquants du dépôt, indépendants de l'agent qui commite.

@@ -28,7 +28,7 @@ Posture de traducteur-praticien : ferme sur le droit et les obligations, mais co
 
 ---
 
-Source : le pack livrable, alors dans l'ancien espace de travail et aujourd'hui `IGPDE-102846-livrables-octobre-2026/` dans l'usine (analyse réalisée en mai 2026 sur le pack de la session du 4 juin ; structure inchangée dans le pack reprogrammé)
+Source : le pack livrable, alors dans l'ancien espace de travail et aujourd'hui `livrables-IGPDE-2026-102846/` dans l'usine (analyse réalisée en mai 2026 sur le pack de la session du 4 juin ; structure inchangée dans le pack reprogrammé)
 
 Contexte : pack formateur/stagiaire pour une formation IGPDE d’initiation, session du 4 juin 2026 reprogrammée le 9 octobre 2026 sous le code 102846, public communicants.
 

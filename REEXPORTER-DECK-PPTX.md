@@ -43,7 +43,7 @@ unzip -t support-formation-102846-2026-IGPDE.pptx
 Le fichier à livrer est la copie du pack :
 
 ```text
-IGPDE-102846-livrables-octobre-2026/Formateur/support-formation-102846-2026-IGPDE.pptx
+livrables-IGPDE-2026-102846/Formateur/support-formation-102846-2026-IGPDE.pptx
 ```
 
 ## Corriger les accents sûrs

@@ -9,7 +9,7 @@ Le site des points de contrôle rapides est fabriqué dans `docs/` et publié pa
 - **Source** : `docs/` de cette usine (seule à modifier), et `publication-site/` pour le `README.md`, l'`AGENTS.md` et le `CLAUDE.md` du dépôt publié (sources : `README.md`, `agents-site.md`, `claude-site.md`, renommés à la copie). Ces deux derniers renvoient vers l'usine tout agent qui ouvre un clone du site.
 - **Dépôt publié** : `git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git`, branche `main`, racine `/`, mode legacy.
 - **Adresse** : https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/
-- **Clone de publication** : `IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde/`, ignoré par l'usine, écrit par `make publier-site` (variable `SITE_CLONE`).
+- **Clone de publication** : `livrables-IGPDE-2026-102846/Formateur/tp-easy-check-site-web-igpde/`, ignoré par l'usine, écrit par `make publier-site` (variable `SITE_CLONE`).
 - **Clone de consultation** : `../tp-fabrication-igpde-102846-ay11/`, à côté de l'usine, facultatif, avancé à la fin de `make publier-site` (variable `SITE_CONSULTATION`).
 - Les deux clones sont en lecture seule : ne jamais y modifier, commiter ni pousser quoi que ce soit.
 
@@ -24,7 +24,7 @@ La commande valide le site (`validate.py`), synchronise `docs/` vers le clone (s
 Si le clone est absent :
 
 ```bash
-git clone git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde
+git clone git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git livrables-IGPDE-2026-102846/Formateur/tp-easy-check-site-web-igpde
 ```
 
 ## Points de vigilance

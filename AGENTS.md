@@ -9,7 +9,7 @@ Protocole unique pour tout agent (Claude, Codex ou autre) et pour un humain. `CL
 - Deck de 138 slides DSFR, 4 modules dans un ordre impératif : 1. communication accessible et cadre légal, 2. Word accessible, 3. points de contrôle rapides W3C, 4. réseaux sociaux.
 - Exercice Sami : 21 critères à vérifier dans 3 DOCX (inaccessible, aide à la correction, accessible), spécification dans `_source/exercice-sami-spec.md`.
 - Site d'exercice dans `docs/` (versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/`, démo émojis, grille XLSX), publié sur https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/ depuis le dépôt `git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git`.
-- Pack remis à l'IGPDE : `IGPDE-102846-livrables-octobre-2026/`, fabriqué par `make pack`.
+- Pack remis à l'IGPDE : `livrables-IGPDE-2026-102846/`, fabriqué par `make pack`.
 
 ## Deux dépôts liés : l'usine et le site publié
 
@@ -18,7 +18,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - **Cette usine** (`alexandra-guiderdoni/usine-fabrication-igpde-102846-ay11`) est la seule source. Le site se modifie dans `docs/`. Le `README.md`, l'`AGENTS.md` et le `CLAUDE.md` du dépôt publié se modifient dans `publication-site/`, sous les noms `README.md`, `agents-site.md` et `claude-site.md`.
 - **Le dépôt du site** (`alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11`) n'est qu'une copie de publication servie par GitHub Pages. Chacun de ses fichiers correspond à `docs/<même chemin>`, sauf `README.md`, `AGENTS.md` et `CLAUDE.md`, qui viennent de `publication-site/`.
 - **Deux clones locaux du site**, en lecture seule pour un humain comme pour un agent (seul `make publier-site` y écrit) :
-  - `IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde/` : clone de publication, écrit par `make publier-site` (variable `SITE_CLONE`), ignoré par l'usine ;
+  - `livrables-IGPDE-2026-102846/Formateur/tp-easy-check-site-web-igpde/` : clone de publication, écrit par `make publier-site` (variable `SITE_CLONE`), ignoré par l'usine ;
   - `../tp-fabrication-igpde-102846-ay11/`, à côté de l'usine quand il existe : clone de consultation, avancé automatiquement à la fin de `make publier-site` (variable `SITE_CONSULTATION`).
 - **MUST** : pour changer le site, éditer `docs/`, lancer `make verifier`, puis `make publier-site`. Pour savoir ce qui est en ligne, lire `docs/` ou l'adresse publique, pas un clone.
 - **MUST NOT** : modifier, commiter ou pousser dans un clone du site. La publication suivante synchronise avec suppression et effacerait la modification ; un commit poussé depuis un clone ferait aussi échouer le push de `make publier-site`.
@@ -53,7 +53,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
   - Documents Sami (`Formateur/tp-word-igpde/`) : `make sami` (écrit dans `_source/`), puis `make supports` ou `make pack` pour la copie dans le pack.
   - Démo réseaux sociaux hors ligne (`Formateur/tp-reseaux-sociaux-igpde/`) : `make supports`, depuis `docs/demo-mauvaise-restitution-emojis.html`.
   - Grille d'audit XLSX : `make grille` (dans `03-easy-checks/` et dans le site).
-  - Installeurs (`IGPDE-102846-livrables-octobre-2026/outils/`) : `make outils-telecharger`, sauf PAC à déposer à la main (voir `MANIFEST.md` dans ce dossier).
+  - Installeurs (`livrables-IGPDE-2026-102846/outils/`) : `make outils-telecharger`, sauf PAC à déposer à la main (voir `MANIFEST.md` dans ce dossier).
 - **Document source édité à la main** (pas de générateur : modifier le fichier ; les versions précédentes restent dans l'historique git, pas de copie sur le disque)
   - Fiche catalogue, fiche technique, programme et déroulé (`Formateur/documents-administratifs-igpde/`), au format Word de l'IGPDE.
   - Site d'exercice `docs/`, publié par `make publier-site`.
@@ -81,7 +81,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 ## Dépôt public : règles de contenu
 
 - Ce dépôt est public. Ne jamais ajouter aux fichiers de travail (Markdown, scripts, notes, todo) de coordonnées personnelles de tiers (téléphone, adresse), de convocation nominative, de transcription de conversation d'agent, ni d'informations logistiques de session (salle, horaires, gestionnaire) : ces informations restent dans la convocation, hors dépôt. Les documents administratifs IGPDE du pack (fiche catalogue, fiche technique, programme, déroulé) sont publiés tels quels, par décision d'Alex.
-- Les installeurs du pack ne sont pas versionnés : `make outils-telecharger` les récupère et vérifie leur empreinte (`IGPDE-102846-livrables-octobre-2026/outils/outils.json`).
+- Les installeurs du pack ne sont pas versionnés : `make outils-telecharger` les récupère et vérifie leur empreinte (`livrables-IGPDE-2026-102846/outils/outils.json`).
 
 ## Règles pédagogiques validées
 
