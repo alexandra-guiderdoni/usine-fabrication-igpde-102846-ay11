@@ -77,7 +77,7 @@ Ensuite le script Python correspondant (`scripts/slides/NN_nom.py`) est créé o
 |-------|------|
 | Deck PPTX 138 slides | Généré, QA PRD-119 convergée, `unzip -t` OK |
 | Exercice Sami (3 DOCX + PNG) | Livré |
-| Site d'exercice points de contrôle rapides | Publié sur [GitHub Pages](https://alexmacapple.github.io/easy-check-igpde/) |
+| Site d'exercice points de contrôle rapides | Publié sur [GitHub Pages](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/) |
 | Grille d'audit XLSX (16 onglets) | Validée |
 | Fiches mémo Word / LibreOffice (PDF/UA-1) | Livrées |
 | Deck WCAG condensé (13 slides) | Livré |

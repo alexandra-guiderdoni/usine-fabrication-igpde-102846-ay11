@@ -57,7 +57,7 @@ Le site est déclaré **non conforme** au RGAA, volontairement : les versions «
 ## Historique
 
 - 2026-05-15 : première publication, sous le compte personnel `Alexmacapple` (dépôt `easy-check-igpde`).
-- 2026-09-27 : déménagement dans ce dépôt, avec l'historique complet du site. L'ancienne adresse reste en ligne jusqu'après la session du 9 octobre 2026.
+- 2026-09-27 : déménagement dans ce dépôt, avec l'historique complet du site. L'ancien dépôt a été supprimé : seule l'adresse ci-dessus est valable.
 
 ## Licence
 

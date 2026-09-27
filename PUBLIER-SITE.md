@@ -35,6 +35,6 @@ git clone git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.g
 ## Historique de l'hébergement
 
 - **2026-05-15** : première publication depuis le dépôt personnel `Alexmacapple/easy-check-igpde` (https://alexmacapple.github.io/easy-check-igpde/), GitHub Pages en mode legacy, branche `main`, racine.
-- **2026-09-27** : déménagement vers `alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11`, avec l'historique complet du site. L'ancienne adresse reste en ligne jusqu'après la session du 9 octobre 2026, puis sera décommissionnée.
+- **2026-09-27** : déménagement vers `alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11`, avec l'historique complet du site et l'étiquette `site-2026-07-04`. Le dépôt `Alexmacapple/easy-check-igpde` a été supprimé le même jour : l'ancienne adresse ne répond plus.
 
 Activer GitHub Pages sur un nouveau dépôt demande le droit administrateur : Settings > Pages, source « Deploy from a branch », branche `main`, dossier `/ (root)`.

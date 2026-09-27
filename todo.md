@@ -79,4 +79,5 @@
 - [x] Chemins d'images absolus des mémos rendus relatifs (résolus à la génération par `scripts/pack_supports.py`), hook étendu aux sources Markdown et au site
 - [x] Dépôt public `alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11` créé, historique du site poussé (9 commits), `.DS_Store` retiré du site, GitHub Pages activé (main, racine) le 2026-09-27
 - [x] Nouveau site vérifié en ligne (pages, démo, vidéos, grille : 200 ; outillage interne et corrigé : 404), usine poussée (`fe4fa15`)
-- [ ] Après la session du 9 octobre 2026 : décommissionner `Alexmacapple/easy-check-igpde` (page de redirection vers la nouvelle adresse, puis archivage du dépôt)
+- [x] README du dépôt du site (`publication-site/README.md`, copié par `make publier-site`)
+- [x] `Alexmacapple/easy-check-igpde` supprimé par Alex le 2026-09-27, sans attendre la session : historique et étiquette `site-2026-07-04` vérifiés dans le nouveau dépôt avant suppression. Seule trace de l'ancienne adresse : la fiche technique V1 archivée (`documents-administratifs-igpde/V1/`), laissée telle quelle comme original
