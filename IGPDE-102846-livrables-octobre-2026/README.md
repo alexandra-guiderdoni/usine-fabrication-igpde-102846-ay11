@@ -8,11 +8,14 @@ Les fiches administratives ont été renumérotées 102846 localement le 2026-09
 
 ```
 Formateur/
-  102846FiCat.docx               Fiche catalogue
-  102846FiTechn_DSFR_accessible.docx   Fiche technique DSFR accessible
-  102846PL.docx                  Plan de la formation
-  Derped-deroule-pedagogique-102846.docx   Déroulé pédagogique détaillé
+  documents-administratifs-igpde/
+    102846FiCat.docx                        Fiche catalogue
+    102846FiTechn_DSFR_accessible.docx      Fiche technique DSFR accessible
+    102846PL.docx                           Plan de la formation
+    Derped-deroule-pedagogique-102846.docx  Déroulé pédagogique détaillé
+    convocation-intervenants.pdf            Convocation IGPDE du 9 octobre 2026
   support-formation-102846-2026-IGPDE.pptx      Deck principal (138 slides DSFR)
+  alex/                          Notes formateur (transcriptions du deck, checklists, PDF du deck)
   fil-rouge-principes-wcag-igpde/  Fiche formateur + fiche stagiaire WCAG
   ice-breaker-idées-recues-cartes-igpde/  6 cartes PDF idées reçues a11y
   tp-word-igpde/                 Exercice Sami (3 DOCX) + fiches mémo PDF
