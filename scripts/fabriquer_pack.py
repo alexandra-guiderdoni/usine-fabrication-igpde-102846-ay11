@@ -124,10 +124,26 @@ def deck():
     print(f"[deck] {source.name} copié dans {cible.relative_to(RACINE)}")
 
 
+def est_pdf_ua(chemin):
+    """Vrai si le PDF déclare PDF/UA-1 et porte un arbre de structure.
+
+    Quand WeasyPrint refuse le mode PDF/UA-1, le générateur bascule sans échouer
+    sur un PDF sans structure : on contrôle le fichier produit, pas son message."""
+    import pikepdf
+
+    with pikepdf.open(chemin) as document:
+        return (
+            document.open_metadata().get("pdfuaid:part") == "1"
+            and "/StructTreeRoot" in document.Root
+        )
+
+
 def pdf():
     for source, sortie, bandeau, options, copie in PDFS:
+        # Génération à côté du livrable : il n'est remplacé que par un PDF/UA-1.
+        temporaire = RACINE / f"{sortie}.partiel"
         resultat = pack_supports.generer_pdf(
-            MD2PDF, RACINE / source, RACINE / sortie, bandeau, ALT_IGPDE, options
+            MD2PDF, RACINE / source, temporaire, bandeau, ALT_IGPDE, options
         )
         standard = next(
             (
@@ -138,9 +154,18 @@ def pdf():
             "?",
         )
         if resultat.returncode != 0:
+            temporaire.unlink(missing_ok=True)
             sys.exit(
                 f"[pdf] échec pour {source} :\n{resultat.stdout}\n{resultat.stderr}"
             )
+        if not est_pdf_ua(temporaire):
+            temporaire.unlink(missing_ok=True)
+            sys.exit(
+                f"[pdf] {source} n'est pas en PDF/UA-1 ({standard}) : {sortie} inchangé. "
+                "Cause connue : tableau coupé entre deux pages (WeasyPrint, « Table wrapper "
+                "without a table ») ; voir le contournement en tête des sources de wcag/."
+            )
+        temporaire.replace(RACINE / sortie)
         retirer_quarantaine(RACINE / sortie)
         print(f"[pdf] {sortie} ({standard})")
         if copie is not None:

@@ -49,7 +49,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - **Généré par une commande**
   - Deck `support-formation-*.pptx` : `make deck`, qui génère le deck à la racine (sortie de travail, ignorée par git) puis le copie dans le pack (livrable versionné). La copie refuse un deck partiel.
   - Export PDF du deck (`Formateur/_alex/`) : `make supports` (nécessite LibreOffice).
-  - Mémos Word et LibreOffice, fiches WCAG formateur et stagiaire, fiche des liens des TP : `make pdf`, depuis `fiche-pratique/*.md`, `wcag/*.md` et `liens-tp-en-ligne.md`.
+  - Mémos Word et LibreOffice, fiches WCAG formateur et stagiaire, fiche des liens des TP : `make pdf`, depuis `fiche-pratique/*.md`, `wcag/*.md` et `liens-tp-en-ligne.md`. `make pdf` n'accepte que du PDF/UA-1 : sinon il s'arrête en erreur et laisse le livrable précédent en place (voir `contraintes.md`).
   - Documents Sami (`Formateur/tp-word-igpde/`) : `make sami` (écrit dans `_source/`), puis `make supports` ou `make pack` pour la copie dans le pack.
   - Démo réseaux sociaux hors ligne (`Formateur/tp-reseaux-sociaux-igpde/`) : `make supports`, depuis `docs/demo-mauvaise-restitution-emojis.html`.
   - Grille d'audit XLSX : `make grille` (dans `03-easy-checks/` et dans le site).
@@ -67,7 +67,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
 ## Vérifier avant de livrer
 
-- `make verifier` : 76 tests, validation du site (`validate.py`), contrôles du dépôt. Le verdict se lit sur le code de sortie.
+- `make verifier` : 87 tests (dont la déclaration PDF/UA-1 des PDF livrés), validation du site (`validate.py`), contrôles du dépôt. Le verdict se lit sur le code de sortie.
 - `make qa` : boucle qualité du deck. Lire `.qa/qa-pptx-report.md` et son champ `status` ; le code de sortie seul ne prouve pas la convergence.
 - Réexport complet du deck : suivre `REEXPORTER-DECK-PPTX.md`.
 - Recette visuelle du site corrigé : `make recette` (plugin ShipGuard requis ; ses manifestes sont dans `recette/visual-tests/`).
@@ -124,6 +124,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - Placeholder de titre : copier les 4 dimensions, sinon `left` et `width` tombent à 0.
 - `_safe_top` remonte un composant pour éviter le débordement bas, mais peut créer un chevauchement avec le bloc précédent.
 - Avertissement de pied de page : ne jamais l'ignorer ; resserrer ou recomposer la slide, viser `TOTAL_WARNINGS 0`.
+- Tableau coupé entre deux pages dans une source de `wcag/` : WeasyPrint refuse le PDF/UA-1 et `make pdf` s'arrête ; garder le style qui laisse les tableaux entiers, en tête de la source.
 - Un `.gitignore` global d'un autre dépôt peut exclure des formats entiers (PPTX, DOCX, MP4) : vérifier qu'un livrable est bien suivi (`git ls-files`), pas seulement présent sur le disque.
 
 ## Références
