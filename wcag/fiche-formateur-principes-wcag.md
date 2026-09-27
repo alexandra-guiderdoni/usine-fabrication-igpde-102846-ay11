@@ -2,14 +2,15 @@
 
 <!-- Contournement WeasyPrint 68 : un tableau fragmenté entre deux pages fait
      échouer la génération PDF/UA-1 (« Table wrapper without a table »).
-     Ce style garde chaque tableau entier sur une page. Exception : le tableau
-     Easy Checks, plus long qu'une page et donc coupé de toute façon, commence
-     juste après son introduction au lieu de laisser une page presque vide. Les
-     sections Word et réseaux sociaux commencent sur une nouvelle page, pour que
-     leur intertitre et leur introduction restent avec leur tableau ; les cellules
-     du tableau Word sont resserrées pour tenir sur la même page, et le libellé
-     « Consigne atelier Word : » reste avec l'encadré qu'il annonce. -->
-<style>section#lien-avec-latelier-word > p:last-of-type { break-after: avoid; } table { break-inside: avoid; } section#lien-avec-latelier-web-easy-checks table { break-inside: auto; } section#lien-avec-latelier-word, section#lien-avec-les-réseaux-sociaux { break-before: page; } section#lien-avec-latelier-word th, section#lien-avec-latelier-word td { padding-top: 2pt; padding-bottom: 2pt; }</style>
+     Ce style garde chaque tableau entier sur une page, en police de 9 pt. La largeur
+     des colonnes est fixée par les tirets de la ligne de séparation de chaque
+     tableau : colonnes courtes étroites, colonnes de phrases larges. Dans les
+     sections Word et Easy Checks, intertitre, introduction, liste, tableau et
+     consigne restent attachés : sans cela, l'introduction restait seule en bas de
+     page et le tableau partait à la page suivante. Pas de césure dans les en-têtes
+     ni dans les deux colonnes de mots-clés : le gabarit Pandoc l'active partout et
+     coupait « Cou-leur » ou « Com-prendre ». -->
+<style>table { break-inside: avoid; font-size: 9pt; } section#lien-avec-latelier-word > ul, section#lien-avec-latelier-web-easy-checks > ul { break-inside: avoid; } section#lien-avec-latelier-word > h2, section#lien-avec-latelier-word > p, section#lien-avec-latelier-word > ul, section#lien-avec-latelier-web-easy-checks > h2, section#lien-avec-latelier-web-easy-checks > p, section#lien-avec-latelier-web-easy-checks > ul { break-after: avoid; } th, td:nth-child(-n+2) { hyphens: manual; }</style>
 
 <!-- Sommaire sur la première page : le gabarit formation place la page de garde
      (header#title-block-header) seule sur une page. Ici elle n'impose plus de saut
@@ -68,7 +69,7 @@ Déroulé :
 Table: Les 4 principes WCAG et les personas concernés
 
 | Couleur | Principe | Question stagiaire | Reformulation métier | Personas concernés |
-|---|---|---|---|---|
+|--------------|-----------------|------------------------------|----------------------|-----------------|
 | Bleu | Percevoir | Est-ce que l'information existe encore si je ne vois pas, n'entends pas ou lis difficilement ? | Images, sons, vidéos, contrastes, structure visible. | Amir, Anaïs, Justine |
 | Vert | Utiliser | Est-ce que je peux aller jusqu'au bout sans souris, sans geste précis, sans piège ? | Clavier, focus, liens, navigation, temps, actions possibles. | Agathe |
 | Orange | Comprendre | Est-ce que je sais quoi faire, quoi corriger et ce qui va se passer ? | Titres, libellés, langage clair, erreurs, aide, cohérence. | Anatole, Paul |
@@ -108,7 +109,7 @@ Faire utiliser la fiche ainsi :
 Table: Corrections Word et principes WCAG
 
 | Correction Word | Principe principal | Qui est bloqué ? | Question à poser |
-|---|---|---|---|
+|--------------------|--------------------|--------------------|----------------------------------------|
 | Styles de titres | Compatible + Utiliser | Amir (lecteur d'écran) | Le lecteur d'écran et le volet de navigation comprennent-ils la structure ? |
 | Listes natives | Compatible + Comprendre | Amir, Anatole | La liste est-elle reconnue comme une liste, pas seulement comme des lignes avec tirets ? |
 | Texte alternatif | Percevoir | Amir (aveugle) | L'information de l'image existe-t-elle pour une personne qui ne la voit pas ? |
@@ -132,7 +133,7 @@ Les 13 points rapides se rattachent aux 4 principes.
 Table: Easy Checks et principes WCAG
 
 | Pages Easy Checks | Principe principal | Qui est bloqué ? | Question à poser |
-|---|---|---|---|
+|--------------------|--------------------|--------------------|----------------------------------------|
 | #1 Images | Percevoir | Amir (aveugle) | L'information portée par l'image existe-t-elle en texte ? |
 | #2 Titre de page | Comprendre + Utiliser | Amir, Anatole | La page est-elle identifiable dans un onglet, un historique ou un lecteur d'écran ? |
 | #3 Titres | Comprendre + Compatible | Amir, Anatole | La structure de la page est-elle lisible par l'humain et par les outils ? |
@@ -158,7 +159,7 @@ La même fiche sert au module réseaux sociaux :
 Table: Réseaux sociaux et principes WCAG
 
 | Cas réseaux sociaux | Principe principal | Qui est bloqué ? | Réflexe |
-|---|---|---|---|
+|------------------------|--------------------|------------------------|--------------------------------|
 | Image sans alternative | Percevoir | Amir (aveugle) | Ajouter un texte alternatif utile. |
 | Texte dans une image | Percevoir + Compatible | Amir (lecteur d'écran) | Remettre l'information essentielle dans le texte du post. |
 | Hashtag illisible | Comprendre | Amir (synthèse vocale), Paul | Utiliser le CamelCase. |

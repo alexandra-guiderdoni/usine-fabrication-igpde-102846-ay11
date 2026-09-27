@@ -125,6 +125,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - `_safe_top` remonte un composant pour éviter le débordement bas, mais peut créer un chevauchement avec le bloc précédent.
 - Avertissement de pied de page : ne jamais l'ignorer ; resserrer ou recomposer la slide, viser `TOTAL_WARNINGS 0`.
 - Tableau coupé entre deux pages dans une source de `wcag/` : WeasyPrint refuse le PDF/UA-1 et `make pdf` s'arrête ; garder le style qui laisse les tableaux entiers, en tête de la source.
+- Tableau d'une source Markdown aux colonnes toutes égales : Pandoc donne la même largeur à chaque colonne quand la ligne de séparation est `|---|---|`, et le tableau devient deux fois trop haut. Fixer les largeurs par le nombre de tirets de cette ligne (colonnes de mots-clés étroites, colonnes de phrases larges).
 - Un `.gitignore` global d'un autre dépôt peut exclure des formats entiers (PPTX, DOCX, MP4) : vérifier qu'un livrable est bien suivi (`git ls-files`), pas seulement présent sur le disque.
 
 ## Références

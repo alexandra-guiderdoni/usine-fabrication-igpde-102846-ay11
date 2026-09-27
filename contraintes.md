@@ -255,7 +255,7 @@ Chaque entrée est datée et garde la trace de sa découverte. En cas de conflit
 - **Statut** : confirmée
 - **Contrainte** : WeasyPrint 68.1 refuse le mode PDF/UA-1 quand un tableau est coupé entre deux pages à certains endroits (« Table wrapper without a table ») ; le générateur embarqué bascule alors, sans échouer, sur un PDF sans structure d'accessibilité. `make pdf` contrôle donc le PDF produit (déclaration `pdfuaid:part` et arbre de structure), s'arrête en erreur si elle manque et ne remplace pas le livrable.
 - **Impact** : une modification de texte ou de mise en page d'une source de `wcag/` peut faire échouer `make pdf` ; la parade est le style qui garde les tableaux entiers, documenté en tête de chaque source.
-- **Décision / prochaine vérification** : si `make pdf` échoue sur ce motif, ajuster la mise en page de la source (tableaux entiers, section sur une nouvelle page, cellules resserrées) ; `make verifier` contrôle aussi la déclaration PDF/UA-1 des 7 PDF livrés.
+- **Décision / prochaine vérification** : si `make pdf` échoue sur ce motif, ajuster la mise en page de la source (tableaux entiers, largeur des colonnes, police des tableaux, introduction attachée à son tableau) ; `make verifier` contrôle aussi la déclaration PDF/UA-1 des 7 PDF livrés.
 - **Composants affectés** : `scripts/fabriquer_pack.py`, `tests/test_pdf_ua.py`, `wcag/*.md`, `vendor/accessible-pdf/`
 
 ## 8. Distribuabilite
