@@ -15,3 +15,6 @@ IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde/
 # versionnés malgré les règles *.pptx et *.docx du .gitignore racine.
 !IGPDE-102846-livrables-octobre-2026/Formateur/**/*.pptx
 !IGPDE-102846-livrables-octobre-2026/Formateur/**/*.docx
+
+# Convocation nominative des intervenants : conservée sur disque, hors du dépôt.
+IGPDE-102846-livrables-octobre-2026/Formateur/documents-administratifs-igpde/convocation-intervenants.pdf
