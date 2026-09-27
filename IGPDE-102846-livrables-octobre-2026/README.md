@@ -18,6 +18,7 @@ Formateur/
   tp-word-igpde/                 Exercice Sami (3 DOCX) + fiches mémo PDF
   tp-easy-check-igpde/           Site d'exercice points de contrôle rapides
   tp-reseaux-sociaux-igpde/      Démo de mauvaise restitution des emojis
+  liens-tp-en-ligne.pdf          Liens en ligne des deux TP (une page)
 
 outils/
   CCA-Setup-3.5.4.msi           Colour Contrast Analyser (Windows)
