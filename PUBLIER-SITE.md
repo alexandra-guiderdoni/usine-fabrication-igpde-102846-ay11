@@ -1,103 +1,43 @@
-# Publication du site exercice points de contrôle rapides W3C
+# Publier le site d'exercice
 
-## Dépôt GitHub
+Le site des points de contrôle rapides est fabriqué dans `docs/` et publié par GitHub Pages depuis un dépôt séparé.
 
-- **Dépôt** : [Alexmacapple/easy-check-igpde](https://github.com/Alexmacapple/easy-check-igpde)
-- **Visibilité** : public
-- **Remote SSH** : `git@github.com:Alexmacapple/easy-check-igpde.git`
+---
 
-## URL publique
+## Où il vit
 
-**https://alexmacapple.github.io/easy-check-igpde/**
+- **Source** : `docs/` de cette usine (seule à modifier).
+- **Dépôt publié** : `git@github.com:Alexmacapple/easy-check-igpde.git`, branche `main`, racine `/`, mode legacy.
+- **Adresse** : https://alexmacapple.github.io/easy-check-igpde/
+- **Clone de travail** : `IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde/`, ignoré par l'usine.
 
-Hébergement via GitHub Pages, branche `main`, racine `/`, mode legacy (déploiement direct depuis la branche).
-
-## Contenu publié
-
-Le site est généré depuis le projet `IGPDE-Carinne-C` (dossier `docs/`). Il contient :
-
-- **Page d'accueil** (`index.html`) avec navigation vers les 3 versions
-- **3 versions du site** :
-  - `site-inaccessible/` : version avec défauts volontaires (exercice d'identification)
-  - `site-aide-correction/` : version avec indices de correction
-  - `site-accessible/` : version corrigée conforme
-- **Pages légales** : mentions légales, données personnelles, accessibilité, plan du site
-- **Assets** : DSFR, audio, vidéo, grille XLSX téléchargeable
-
-## Procédure de publication
-
-### Prérequis
-
-- Clé SSH chargée (`ssh-add -l`)
-- CLI GitHub (`gh`) authentifiée
-- Dépôt cible créé sur GitHub (vide, public)
-
-### Étapes
-
-1. Copier le contenu de `docs/` dans un dossier temporaire (sans `.DS_Store` ni fichiers `.md` internes) :
+## Publier une modification
 
 ```bash
-rsync -a --exclude='.DS_Store' --exclude='*.md' docs/ /tmp/easy-check-igpde/
+make publier-site
 ```
 
-2. Ajouter `.nojekyll` à la racine (empêche Jekyll de filtrer les fichiers DSFR) :
+La commande valide le site (`validate.py`), synchronise `docs/` vers le clone (sans les fichiers `.md` internes ni `.DS_Store`), commite et pousse. GitHub Pages reconstruit le site en une à deux minutes.
+
+Si le clone est absent :
 
 ```bash
-touch /tmp/easy-check-igpde/.nojekyll
+git clone git@github.com:Alexmacapple/easy-check-igpde.git IGPDE-102846-livrables-octobre-2026/Formateur/tp-easy-check-site-web-igpde
 ```
 
-3. Initialiser le dépôt git et pusher :
+## Points de vigilance
+
+- `docs/.nojekyll` doit rester présent : la synchronisation supprime dans le clone ce qui n'existe pas dans `docs/`, et sans ce fichier GitHub Pages filtre une partie des ressources.
+- Le cache du navigateur garde une page jusqu'à 10 minutes : vérifier une publication avec un rechargement forcé (Cmd + Maj + R) ou une fenêtre privée.
+- Les pages de `docs/` sont maintenues à la main. Relancer `scripts/generate_easy_checks_site_skeleton.py` écraserait les corrections faites depuis juillet : ne le faire qu'en relisant le diff complet.
+- Le menu du site est le même sur toutes les pages : toute nouvelle entrée doit être ajoutée partout, et dans le générateur.
+
+## Première mise en ligne (historique)
+
+Le dépôt du site a été créé le 2026-05-15 : initialisation, ajout de `.nojekyll`, puis activation de GitHub Pages en mode legacy :
 
 ```bash
-cd /tmp/easy-check-igpde
-git init
-git remote add origin git@github.com:Alexmacapple/easy-check-igpde.git
-git add -A
-git commit -m "Publication du site exercice points de contrôle rapides W3C"
-git branch -M main
-git push -u origin main
-```
-
-4. Activer GitHub Pages en mode legacy :
-
-```bash
-gh api repos/Alexmacapple/easy-check-igpde/pages \
-  -X POST --input - <<'EOF'
+gh api repos/Alexmacapple/easy-check-igpde/pages -X POST --input - <<'EOF'
 {"source":{"branch":"main","path":"/"},"build_type":"legacy"}
 EOF
 ```
-
-### Mise à jour du site
-
-Pour republier après modification des sources :
-
-1. Régénérer le site : `python3 scripts/generate_easy_checks_site_skeleton.py`
-2. Valider : `python3 validate.py`
-3. Synchroniser vers le dépôt :
-
-```bash
-rsync -a --delete --exclude='.DS_Store' --exclude='*.md' --exclude='.git' \
-  docs/ /tmp/easy-check-igpde/
-cd /tmp/easy-check-igpde
-git add -A
-git commit -m "Mise à jour du site"
-git push
-```
-
-## Architecture : deux dépôts, un seul contenu
-
-Le contenu HTML existe à deux endroits :
-
-1. **`IGPDE-Carinne-C/docs/`** — dans le dépôt de la formation (source, généré par le script Python)
-2. **`easy-check-igpde`** — dépôt standalone pour GitHub Pages (copie publiée)
-
-Le dépôt de formation reste privé (il contient les scripts, les sources pédagogiques, les specs et les exercices). Le site public est une copie pushée manuellement via la procédure de mise à jour ci-dessus.
-
-La source de vérité est toujours `IGPDE-Carinne-C` : toute modification passe par le script Python, puis est synchronisée vers le dépôt public.
-
-## Points d'attention
-
-- **`.nojekyll`** : indispensable, sans lui GitHub Pages active Jekyll qui peut ignorer certains fichiers DSFR
-- **Mode legacy** (pas workflow) : le mode `workflow` nécessite un fichier GitHub Actions, le mode `legacy` déploie directement depuis la branche
-- **SSH uniquement** : ne pas utiliser HTTPS pour les opérations git
-- **Deux dépôts à synchroniser** : après chaque régénération du site, penser à republier vers `easy-check-igpde`

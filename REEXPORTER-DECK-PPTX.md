@@ -2,6 +2,9 @@
 
 Mode d'emploi court pour régénérer le support `support-formation-102846-2026-IGPDE.pptx` et vérifier qu'il ne contient pas de nouvelle régression géométrique ou textuelle.
 
+
+Dans les commandes ci-dessous, `python` désigne l'interpréteur de l'usine : `.venv/bin/python` après `make installer`, sinon `/opt/homebrew/bin/python3.12`.
+
 ## Principe
 
 Le deck est généré par les scripts Python du projet. Il ne faut pas modifier le fichier `.pptx` directement dans PowerPoint si l'objectif est de produire une version reproductible.
@@ -13,8 +16,7 @@ La boucle QA PRD-119 travaille sur une copie dans `.qa/formation-test-qa.pptx`. 
 Depuis la racine du projet :
 
 ```bash
-cd /Users/alex/Claude/projets-formations/IGPDE-Carinne-C
-python3 scripts/qa_pptx.py . --max-iterations 5 --clean
+make qa
 ```
 
 Si la sortie indique :
@@ -31,10 +33,12 @@ alors la copie de travail `.qa/formation-test-qa.pptx` ne contient aucune nouvel
 Quand la QA est conforme, régénérer le fichier final :
 
 ```bash
-python3 scripts/assemble.py
-python3 -m pytest tests/ -q
+make deck
+make tests
 unzip -t support-formation-102846-2026-IGPDE.pptx
 ```
+
+Pour copier ensuite le deck dans le pack livrable et régénérer les PDF : `make pack`.
 
 Le fichier à livrer reste :
 
@@ -47,10 +51,10 @@ support-formation-102846-2026-IGPDE.pptx
 Si la QA signale des violations `accent_fr` nouvelles et que le rapport propose des patchs sûrs, appliquer uniquement ces corrections :
 
 ```bash
-python3 scripts/qa_pptx.py . --max-iterations 5 --apply-accents
+python scripts/qa_pptx.py . --max-iterations 5 --apply-accents
 git diff
-python3 scripts/assemble.py
-python3 -m pytest tests/ -q
+python scripts/assemble.py
+python -m pytest tests/ -q
 ```
 
 Vérifier le diff avant de committer. Le correcteur ne doit modifier que des chaînes Python avec accents manquants.
@@ -92,7 +96,7 @@ Les débordements footer, chevauchements, tailles de police et alt-text restent 
 Relancer uniquement les tests géométriques sur la copie `.qa` :
 
 ```bash
-QA_PPTX_PATH=.qa/formation-test-qa.pptx python3 -m pytest tests/test_deck_geometry.py -q
+QA_PPTX_PATH=.qa/formation-test-qa.pptx python -m pytest tests/test_deck_geometry.py -q
 ```
 
 Vérifier le PPTX stable :

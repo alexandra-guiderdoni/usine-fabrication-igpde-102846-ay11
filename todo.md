@@ -20,7 +20,7 @@
   - [x] Fiche catalogue v2 le 2026-09-27 (`102846FiCat-v2.docx`, original dans `V1/`) : module 3 harmonisé en « Pratiquer » comme le programme et le déroulé, apostrophe typographique dans le libellé, pagination « Page X / Y » ; 2 pages dans Word
   - [ ] Auto-évaluation « en début et fin de formation » promise par la fiche catalogue mais absente du deck : confirmer avec Carine si les fiches d'évaluation IGPDE la couvrent, sinon ajouter deux slides d'auto-positionnement (ouverture et clôture) sur les trois compétences ciblées
   - [ ] Pour 2027 : titre « Fiche catalogue 2026 » à passer en 2027
-  - [ ] Corriger ou exclure de la publication `docs/visual-tests/` (outillage interne publié par erreur ; `_review-template.html` fait échouer `validate.py` sur un lien local « , » — préexistant, juillet 2026)
+  - [x] Manifestes ShipGuard sortis du site publié (`docs/visual-tests/` vers `recette/visual-tests/`) le 2026-09-27 : `validate.py` passe au vert
   - [ ] Relecture visuelle humaine du deck par Alex avant remise (les contrôles XML ne voient pas les chevauchements fins)
   - [ ] Choisir le canal de remise (clé USB, dépôt, envoi) et vérifier la taille du dossier `outils/` (environ 200 Mo)
   - [x] Ancien deck de juin archivé le 2026-09-26 : renommé `archive-oldformation-102638-juin-2026.pptx` à la racine (commit `218029ae8`)
@@ -63,3 +63,12 @@
 - [x] Validation locale OK après génération : `python3 scripts/generate_easy_checks_site_skeleton.py` puis `python3 validate.py`.
 - [x] Sous-titres YouTube français de la vidéo CAPTCHA récupérés le 2026-05-05 (`docs/assets/shared/media/captcha-le-retour-au-moyen-age-youtube.fr.srt` et `.vtt`) et intégrés au lecteur HTML via `docs/assets/shared/media/captcha-sous-titres.vtt`.
 - [x] Rattrapage typographique : remplacement des tirets cadratins par tirets simples dans tous les scripts Python (29 fichiers touchés + règle documentée dans CLAUDE.md)
+
+## Usine autonome (2026-09-27)
+
+- [x] Historique extrait (153 commits depuis mars 2026) et nettoyé : installeurs, convocation, transcriptions d'agents et sorties expérimentales purgés ; coordonnées de Carine et nom de la gestionnaire IGPDE anonymisés ; messages de commit hors sujet neutralisés
+- [x] Outillage autonome : `Makefile`, `requirements.lock` avec empreintes, générateur PDF dans `vendor/`, `scripts/fabriquer_pack.py`, hooks `.githooks/`, `.gitignore` autonome, licence etalab-2.0
+- [x] `AGENTS.md` protocole unique pour tous les agents, `CLAUDE.md` l'importe ; README d'usine, `PUBLIER-SITE.md`
+- [ ] Publier sur GitHub après acceptation de l'invitation d'Alexmacapple (droit d'écriture à vérifier par l'API)
+- [ ] Supprimer `projets-formations/IGPDE-Carinne-C` de l'ancien espace de travail : uniquement sur GO explicite d'Alex
+- [ ] `scripts/generate_demo.py` (générateur de démonstration hors chaîne) écrit `gabarits-ppt-igpde.pptx` à la racine, homonyme de la source rangée dans `_source/presentations-source/` : à retirer ou à rediriger avant tout usage

@@ -287,3 +287,13 @@
 - **Impact** : toute référence en dur à « 102638 » ou au « 4 juin 2026 » dans un support courant est périmée ; le deck courant est `support-formation-102846-2026-IGPDE.pptx`, le pack courant `IGPDE-102846-livrables-octobre-2026/`, l'ancien deck archivé sous `archive-oldformation-102638-juin-2026.pptx`. Les fiches administratives DOCX ont été renumérotées localement (originaux 102638 conservés dans `_source/`).
 - **Décision / prochaine vérification** : pour toute renumérotation future, passer par `config.yml` puis contrôler `grep -r` sur l'ancien code dans les scripts, le site `docs/` et les MD structurants.
 - **Composants affectés** : `config.yml`, `scripts/assemble.py`, `scripts/slides/01_couverture.py`, `scripts/generate_grille_audit.py`, `tests/conftest.py`, `docs/`, `IGPDE-102846-livrables-octobre-2026/`
+
+### Usine autonome et dépôt public
+
+- **Date** : 2026-09-27
+- **Source** : décision d'Alex (cadrage `notes/cadrage-usine-standalone.md`)
+- **Statut** : confirmée
+- **Contrainte** : le projet vit désormais dans un dépôt public autonome (`alexandra-guiderdoni/usine-fabrication-igpde-102846-ay11`), extrait de l'ancien espace de travail avec son historique. Aucune règle, aucun hook ni aucun outil de cet espace n'est plus hérité : les contrôles vivent dans `.githooks/`, les commandes dans le `Makefile`, le générateur PDF dans `vendor/`, l'environnement dans `requirements.lock`.
+- **Impact** : pas de coordonnées de tiers, de convocation, de transcription d'agent ni de logistique de session dans le dépôt (historique compris). Les installeurs du pack ne sont pas versionnés (`outils/outils.json`, `make outils-telecharger`). La contrainte « Regeneration reservee a un poste equipe Python » est levée par `make installer`, qui reste limité à macOS avec Homebrew.
+- **Décision / prochaine vérification** : prouver l'autonomie par un clone neuf dans un dossier vierge (deck, tests, `validate.py`, pack) après toute évolution de la chaîne.
+- **Composants affectés** : `Makefile`, `.githooks/`, `vendor/`, `requirements.txt`, `requirements.lock`, `scripts/fabriquer_pack.py`, `.gitignore`, `AGENTS.md`, `CLAUDE.md`

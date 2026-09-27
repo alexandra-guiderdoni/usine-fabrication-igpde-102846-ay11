@@ -16,6 +16,8 @@ import importlib.util
 import re
 import sys
 from pathlib import Path
+
+import yaml
 from types import ModuleType
 
 SCRIPTS_DIR = Path(__file__).parent
@@ -27,8 +29,9 @@ from slides import SlideContext  # noqa: E402
 SLIDES_DIR = SCRIPTS_DIR / "slides"
 RS_PATTERN = re.compile(r"^rs_\d+_.+\.py$")
 OUTPUT_DEFAULT = SCRIPTS_DIR.parent / "04-reseaux-sociaux" / "module4-reseaux-sociaux.pptx"
-DATE_DEFAULT = "4 juin 2026"
-FOOTER_BASE_DEFAULT = "Formation 102638"
+_CONFIG = yaml.safe_load((SCRIPTS_DIR.parent / "config.yml").read_text(encoding="utf-8"))["formation"]
+DATE_DEFAULT = _CONFIG["date"]
+FOOTER_BASE_DEFAULT = _CONFIG["footer"]
 
 
 def discover_rs_slides() -> list[Path]:
@@ -72,7 +75,7 @@ def main() -> None:
         prs, str(args.output),
         title="Module 4 - Accessibilité réseaux sociaux",
         author="Alex Guiderdoni",
-        subject="Formation 102638 IGPDE - Module réseaux sociaux",
+        subject=f"Formation {_CONFIG['code']} IGPDE - Module réseaux sociaux",
     )
     print(f"[OK] {args.output.name} généré ({len(selected)} slides)")
 

@@ -243,6 +243,18 @@ Le container central mérite un zoom car il porte toute la logique de compositio
 
 ---
 
+## Usine autonome — containers ajoutés le 2026-09-27
+
+Depuis l'extraction en dépôt autonome, la chaîne de génération décrite ci-dessus est pilotée par des containers d'orchestration et de preuve qui ne dépendent plus d'aucun espace de travail extérieur.
+
+- **`Makefile`** (make) : point d'entrée unique pour un humain ou un agent. Choisit l'interpréteur (`.venv`, sinon Python 3.12 Homebrew) et enchaîne deck, contrôle qualité, tests, validation du site, PDF, pack et publication.
+- **`scripts/fabriquer_pack.py`** (Python 3) : lit `config.yml`, copie le deck généré dans le pack, régénère les PDF accessibles par le générateur embarqué, récupère et vérifie par SHA-256 les installeurs listés dans `outils/outils.json`.
+- **`vendor/accessible-pdf/`** (Python 3, Pandoc, WeasyPrint, pikepdf) : générateur Markdown vers PDF/UA-1, copié du skill d'origine avec ses gabarits CSS.
+- **`recette/`** (bash, Node, ShipGuard) : recette visuelle du site corrigé à partir des manifestes `recette/visual-tests/`, prévisualisation locale ; le site servi reste `docs/`.
+- **`.githooks/pre-commit`** (bash 3.2) : contrôles bloquants du dépôt, indépendants de l'agent qui commite.
+
+Relations : `Makefile` appelle `assemble.py`, `qa_pptx.py`, `pytest`, `validate.py`, `fabriquer_pack.py` et les scripts de `recette/` ; `fabriquer_pack.py` appelle `vendor/accessible-pdf/scripts/md2pdf.py` ; `git commit` déclenche `.githooks/pre-commit`.
+
 ## Limites à dire en présentation
 
 - **Pas de rendu pixel** : le pipeline génère du XML OOXML, pas un rendu visuel. Les débordements fins ne sont détectables que dans PowerPoint (passe manuelle obligatoire).

@@ -1,4 +1,4 @@
-"""Modules de slides de la formation 102638.
+"""Modules de slides de la formation IGPDE (code dans config.yml).
 
 Chaque module nommé `NN_nom.py` (où NN est un entier à 2 chiffres) expose :
 
@@ -31,7 +31,7 @@ class SlideContext:
 
     page_num: int
     date: str
-    footer_base: str  # préfixe commun, ex. « Formation 102638 »
+    footer_base: str  # préfixe commun, ex. « Formation 102846 »
 
 
 def discover_slides() -> list[Path]:

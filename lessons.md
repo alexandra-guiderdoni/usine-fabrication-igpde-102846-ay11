@@ -263,3 +263,53 @@ Pour patcher 14 slides en une opération (remplacer `top=X.XX, height=Y.YY` par 
 Script jetable sauvegardé dans `/tmp/auto_stack.py` (supprimé en fin de session). Re-créable si besoin à partir du même pattern.
 
 Leçon : pour >5 fichiers avec un pattern répétitif stable, un script AST est plus sûr qu'un regex.
+
+---
+
+## Livrable présent sur le disque, absent de git
+
+Le `.gitignore` global de l'ancien espace de travail excluait les formats `*.pptx`, `*.docx`, `*.mp4` et `*.mp3`. Le deck régénéré, les documents administratifs renumérotés et les médias du site existaient sur le disque sans jamais avoir été versionnés, et le renommage du dossier du pack avait fait sortir de git les trois DOCX de l'exercice Sami.
+
+**Règle** : un livrable est prouvé par `git ls-files`, pas par `ls`. Après un renommage de dossier, comparer la liste suivie avant et après (`git status --ignored`).
+
+Source : migration vers l'usine autonome, 2026-09-27.
+
+---
+
+## git filter-repo : les remplacements littéraux passent avant les expressions régulières
+
+Avec `--replace-text`, une règle littérale (un numéro de téléphone) a été appliquée avant une règle `regex:` qui ciblait la ligne entière contenant ce numéro. La regex ne trouvait plus rien, et l'adresse est restée dans l'historique jusqu'à une troisième passe.
+
+**Règle** : écrire les expressions régulières sur la forme finale du texte, ou ne pas faire chevaucher règles littérales et regex. Toujours vérifier par une recherche sur toutes les révisions : `git grep -l "motif" $(git rev-list --all)`.
+
+Source : extraction de l'historique, 2026-09-27.
+
+---
+
+## zsh ne découpe pas les variables
+
+Une variable contenant une liste de chemins (`INC="scripts docs ..."`), passée à `grep -r $INC`, est traitée par zsh comme un seul chemin inexistant : la recherche renvoie zéro résultat sans erreur, ce qui ressemble à un résultat propre.
+
+**Règle** : pour une liste, utiliser un tableau sous `bash -c` (`"${INC[@]}"`), et se méfier d'un zéro obtenu trop facilement sur une recherche de données sensibles.
+
+Source : recherche de données personnelles avant publication, 2026-09-27.
+
+---
+
+## Hooks git et bash de macOS
+
+Le `bash` fourni par macOS est la version 3.2 : `mapfile` n'existe pas et un hook qui l'utilise échoue en silence sur une variable vide. Les hooks de `.githooks/` lisent leurs listes par `while IFS= read -r`.
+
+**Règle** : tester chaque hook en positif et en négatif (un faux fichier interdit indexé doit bloquer le commit) avec `/bin/bash`.
+
+Source : `.githooks/pre-commit`, 2026-09-27.
+
+---
+
+## Supprimer la destination avant de vérifier la source
+
+`scripts/build_template.py` supprimait le gabarit de destination avant de copier sa source. La source (gabarit IGPDE 10 pouces) n'existant plus, un lancement aurait effacé le gabarit indispensable à la génération, puis échoué.
+
+**Règle** : dans un script de reconstruction, vérifier l'existence de la source avant toute suppression.
+
+Source : revue des scripts de gabarit, 2026-09-27.

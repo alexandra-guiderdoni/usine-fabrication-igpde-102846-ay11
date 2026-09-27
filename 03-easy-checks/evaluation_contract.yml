@@ -2,10 +2,10 @@ schema_version: "1.0"
 contract_id: "igpde-session-3-easy-checks"
 title: "Contrat d'évaluation - Exercice Les 13 points de contrôle rapides du W3C"
 course:
-  code: "102638"
+  code: "102846"
   section: "3. Les 13 points de contrôle rapides du W3C"
 site:
-  name: "Formation 102638 - Accessibilité numérique"
+  name: "Formation 102846 - Accessibilité numérique"
   baseline: "Mission d'audit pédagogique - Points de contrôle rapides"
   root: "docs/"
 versions:
@@ -146,7 +146,7 @@ pages:
       - "Nom du ministère placé avant l'information spécifique."
     do_not_penalize:
       - "Titre long si l'information spécifique est présente en premier."
-    accessible_correction: "Titre unique, spécifique et ordonné du particulier vers le général, par exemple Recherche \"RGAA\" - Page 2/3 - Formation 102638 - Accessibilité numérique."
+    accessible_correction: "Titre unique, spécifique et ordonné du particulier vers le général, par exemple Recherche \"RGAA\" - Page 2/3 - Formation 102846 - Accessibilité numérique."
     help:
       hint: "Regarder l'onglet du navigateur, le title HTML et le résultat WAVE. La page affiche déjà la requête, le tri, la page courante et le nombre de résultats : ces informations doivent aussi guider le titre."
       problem: "L'utilisateur ne sait pas quelle page ou quel état est ouvert, ce qui gêne la navigation entre onglets, historique et résultats. Sur une page de recherche, le titre doit reprendre la requête et la pagination utiles."
@@ -160,7 +160,7 @@ pages:
       fixes:
         - "Remplacer le titre générique par un titre unique."
         - "Inclure la requête et la pagination utiles."
-        - "Ordonner le titre du particulier vers le général, par exemple Recherche \"RGAA\" - Page 2/3 - Formation 102638 - Accessibilité numérique."
+        - "Ordonner le titre du particulier vers le général, par exemple Recherche \"RGAA\" - Page 2/3 - Formation 102846 - Accessibilité numérique."
     dsfr_components:
       - "Barre de recherche"
       - "Lien"
