@@ -1,18 +1,17 @@
 #!/usr/bin/env bash
 #
-# Lancement depuis le dépôt du site :
-#   cd /Users/alex/Claude/projets-formations/IGPDE-Carinne-C/docs
-#   ./lancer-site-local.sh
+# Lancement depuis la racine du dépôt :
+#   recette/lancer-site-local.sh
 #
 # Lancement avec un autre port :
-#   ./lancer-site-local.sh 8888
+#   recette/lancer-site-local.sh 8888
 #
 # Le script affiche les URL locales à ouvrir, puis garde le serveur actif
 # jusqu'à l'arrêt manuel avec Ctrl+C.
 set -euo pipefail
 
 ROOT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-DOCS_DIR="$ROOT_DIR"
+DOCS_DIR="$(cd -- "$ROOT_DIR/../docs" && pwd)"
 
 HOST="${HOST:-127.0.0.1}"
 PORT="${1:-${PORT:-8765}}"

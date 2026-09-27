@@ -2,17 +2,18 @@
 set -euo pipefail
 
 # Usage :
-#   cd /Users/alex/Claude/projets-formations/IGPDE-Carinne-C/docs
-#   ./recette-site-accessible.sh
+#   recette/recette-site-accessible.sh            (depuis la racine du dépôt)
 #
 # Variante avec port du site :
-#   ./recette-site-accessible.sh 8888
+#   recette/recette-site-accessible.sh 8888
 #
 # La commande lance la recette sur `site-accessible/`, génère les artefacts
 # ShipGuard, puis sert le tableau de revue sur http://127.0.0.1:8888/.
 
-DOCS_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-cd "$DOCS_DIR"
+RECETTE_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+DOCS_DIR="$(cd -- "$RECETTE_DIR/../docs" && pwd)"
+export SHIPGUARD_SITE_DIR="$DOCS_DIR"
+cd "$RECETTE_DIR"
 
 HOST="${HOST:-127.0.0.1}"
 PORT="${1:-${PORT:-8765}}"
@@ -64,12 +65,12 @@ require_command python3
 require_command curl
 require_command agent-browser
 
-if [[ ! -d "$SCOPE" ]]; then
+if [[ ! -d "$DOCS_DIR/$SCOPE" ]]; then
   echo "Erreur : dossier de recette introuvable : $SCOPE" >&2
   exit 1
 fi
 
-if [[ ! -f "$SCOPE/index.html" ]]; then
+if [[ ! -f "$DOCS_DIR/$SCOPE/index.html" ]]; then
   echo "Erreur : $SCOPE/index.html est introuvable." >&2
   exit 1
 fi
@@ -92,7 +93,7 @@ done
 BASE_URL="http://$HOST:$PORT"
 SITE_LOG="visual-tests/_results/site-server.log"
 
-python3 -m http.server "$PORT" --bind "$HOST" >"$SITE_LOG" 2>&1 &
+python3 -m http.server "$PORT" --bind "$HOST" --directory "$DOCS_DIR" >"$SITE_LOG" 2>&1 &
 SITE_PID=$!
 
 cleanup_site() {

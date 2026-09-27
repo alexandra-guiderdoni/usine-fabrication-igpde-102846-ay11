@@ -6,6 +6,7 @@ import path from "node:path";
 import process from "node:process";
 
 const rootDir = path.resolve(new URL("..", import.meta.url).pathname);
+const siteDir = path.resolve(process.env.SHIPGUARD_SITE_DIR || path.join(rootDir, "..", "docs"));
 const visualDir = path.join(rootDir, "visual-tests");
 const resultsDir = path.join(visualDir, "_results");
 const screenshotsDir = path.join(resultsDir, "screenshots");
@@ -32,7 +33,8 @@ function walk(dir, predicate, acc = []) {
 }
 
 function rel(file) {
-  return path.relative(rootDir, file).replaceAll(path.sep, "/");
+  const base = file.startsWith(siteDir + path.sep) ? siteDir : rootDir;
+  return path.relative(base, file).replaceAll(path.sep, "/");
 }
 
 function slugify(value) {
@@ -77,7 +79,7 @@ function localTargetExists(fromFile, rawTarget) {
 
   const decoded = decodeURIComponent(cleanTarget);
   const targetPath = decoded.startsWith("/")
-    ? path.join(rootDir, decoded)
+    ? path.join(siteDir, decoded)
     : path.resolve(path.dirname(fromFile), decoded);
 
   if (existsSync(targetPath)) return null;
@@ -367,7 +369,7 @@ function sourceFileFromRoute(route) {
 }
 
 function lineForTargets(relativePath, targets) {
-  const filePath = path.join(rootDir, relativePath);
+  const filePath = path.join(siteDir, relativePath);
   if (!existsSync(filePath)) return null;
   const lines = readFileSync(filePath, "utf8").split("\n");
   for (const target of targets) {
@@ -458,7 +460,7 @@ function writeAuditResults(tests) {
 }
 
 function main() {
-  const scanRoot = scopeDir === "." ? rootDir : path.join(rootDir, scopeDir);
+  const scanRoot = scopeDir === "." ? siteDir : path.join(siteDir, scopeDir);
   if (!existsSync(scanRoot) || !statSync(scanRoot).isDirectory()) {
     throw new Error(`Scope directory not found: ${scopeDir}`);
   }
