@@ -15,7 +15,6 @@ from pathlib import Path
 
 import yaml
 
-
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_PATH = ROOT / "03-easy-checks" / "evaluation_contract.yml"
 DOCS_DIR = ROOT / "docs"
@@ -32,7 +31,9 @@ def esc_text(value: object) -> str:
 
 
 def slug(value: str) -> str:
-    normalized = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
+    normalized = (
+        unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
+    )
     normalized = re.sub(r"[^a-zA-Z0-9]+", "-", normalized).strip("-").lower()
     return normalized or "section"
 
@@ -72,7 +73,9 @@ def dsfr_head(title: str, depth: int) -> str:
 
 
 def skiplinks(depth: int, variant: str = "default") -> str:
-    first_target = "#contenu-principal" if variant == "broken-content-anchor" else "#contenu"
+    first_target = (
+        "#contenu-principal" if variant == "broken-content-anchor" else "#contenu"
+    )
     return f"""<div class="fr-skiplinks">
   <nav role="navigation" class="fr-container" aria-label="Accès rapide">
     <ul class="fr-skiplinks__list">
@@ -84,17 +87,32 @@ def skiplinks(depth: int, variant: str = "default") -> str:
 </div>"""
 
 
-def header(contract: dict, depth: int, current: str = "", skiplinks_variant: str = "default") -> str:
+def header(
+    contract: dict, depth: int, current: str = "", skiplinks_variant: str = "default"
+) -> str:
     assets = asset_prefix(depth)
     home = "../" * depth + "index.html"
     nav_items = [
         ("Accueil", home, "home"),
-        ("Site à auditer", "../" * depth + "site-inaccessible/index.html", "inaccessible"),
-        ("Aide à la correction", "../" * depth + "site-aide-correction/index.html", "help"),
+        (
+            "Site à auditer",
+            "../" * depth + "site-inaccessible/index.html",
+            "inaccessible",
+        ),
+        (
+            "Aide à la correction",
+            "../" * depth + "site-aide-correction/index.html",
+            "help",
+        ),
         ("Site corrigé", "../" * depth + "site-accessible/index.html", "accessible"),
+        (
+            "Démo #RS",
+            "../" * depth + "demo-mauvaise-restitution-emojis.html",
+            "demo-rs",
+        ),
     ]
     links = "\n".join(
-        f"""              <li class="fr-nav__item"><a class="fr-nav__link" href="{href}"{(' aria-current="page"' if key == current else '')}>{label}</a></li>"""
+        f"""              <li class="fr-nav__item"><a class="fr-nav__link" href="{href}"{(' aria-current="page"' if key == current else "")}>{label}</a></li>"""
         for label, href, key in nav_items
     )
     return f"""{skiplinks(depth, skiplinks_variant)}
@@ -117,10 +135,10 @@ def header(contract: dict, depth: int, current: str = "", skiplinks_variant: str
             </div>
           </div>
           <div class="fr-header__service fr-text--center">
-            <a href="{home}" title="Accueil - {esc(contract['site']['name'])}">
-              <p class="fr-header__service-title">{esc(contract['site']['name'])}</p>
+            <a href="{home}" title="Accueil - {esc(contract["site"]["name"])}">
+              <p class="fr-header__service-title">{esc(contract["site"]["name"])}</p>
             </a>
-            <p class="fr-header__service-tagline">{esc(contract['site']['baseline'])}</p>
+            <p class="fr-header__service-tagline">{esc(contract["site"]["baseline"])}</p>
           </div>
         </div>
       </div>
@@ -164,7 +182,7 @@ def footer(contract: dict, depth: int) -> str:
         </a>
       </div>
       <div class="fr-footer__content">
-        <p class="fr-footer__content-desc">{esc_text(contract['site']['baseline'])}</p>
+        <p class="fr-footer__content-desc">{esc_text(contract["site"]["baseline"])}</p>
         <ul class="fr-footer__content-list">
           <li class="fr-footer__content-item"><a title="info.gouv.fr - nouvelle fenêtre" href="https://info.gouv.fr" target="_blank" rel="noopener external" class="fr-footer__content-link">info.gouv.fr</a></li>
           <li class="fr-footer__content-item"><a title="service-public.gouv.fr - nouvelle fenêtre" href="https://service-public.gouv.fr" target="_blank" rel="noopener external" class="fr-footer__content-link">service-public.gouv.fr</a></li>
@@ -195,7 +213,9 @@ def scripts(depth: int) -> str:
 <script nomodule src="{assets}/dsfr/dsfr.nomodule.min.js"></script>"""
 
 
-def breadcrumb(links: list[tuple[str, str]], current_label: str, collapse_id: str) -> str:
+def breadcrumb(
+    links: list[tuple[str, str]], current_label: str, collapse_id: str
+) -> str:
     items = "\n".join(
         f"""            <li><a class="fr-breadcrumb__link" href="{esc(href)}">{esc_text(label)}</a></li>"""
         for label, href in links
@@ -256,9 +276,9 @@ def page_card(page: dict, href: str, heading_level: int = 3) -> str:
   <div class="fr-card fr-enlarge-link">
     <div class="fr-card__body">
       <div class="fr-card__content">
-        <{heading} class="fr-card__title"><a href="{href}">#{page['number']} {esc(page['title'])}</a></{heading}>
-        <p class="fr-card__desc">{esc(page['easy_check']['name'])}</p>
-        <p class="fr-card__detail">Point de contrôle rapide {page['easy_check']['number']}</p>
+        <{heading} class="fr-card__title"><a href="{href}">#{page["number"]} {esc(page["title"])}</a></{heading}>
+        <p class="fr-card__desc">{esc(page["easy_check"]["name"])}</p>
+        <p class="fr-card__detail">Point de contrôle rapide {page["easy_check"]["number"]}</p>
       </div>
     </div>
   </div>
@@ -270,11 +290,25 @@ def generate_root(contract: dict) -> None:
     grid_size = "poids à vérifier avant publication"
     if GRID_SOURCE.exists():
         grid_size = f"{round(GRID_SOURCE.stat().st_size / 1024)} Ko"
-    cards = "\n".join(page_card(page, f"site-inaccessible/{page['id']}.html") for page in pages)
+    cards = "\n".join(
+        page_card(page, f"site-inaccessible/{page['id']}.html") for page in pages
+    )
     versions = [
-        ("Site à auditer", "site-inaccessible/index.html", "Version inaccessible utilisée pendant l'exercice."),
-        ("Aide à la correction", "site-aide-correction/index.html", "Même site avec indices en haut de page."),
-        ("Site corrigé", "site-accessible/index.html", "Version accessible sobre, sans pédagogie visible."),
+        (
+            "Site à auditer",
+            "site-inaccessible/index.html",
+            "Version inaccessible utilisée pendant l'exercice.",
+        ),
+        (
+            "Aide à la correction",
+            "site-aide-correction/index.html",
+            "Même site avec indices en haut de page.",
+        ),
+        (
+            "Site corrigé",
+            "site-accessible/index.html",
+            "Version accessible sobre, sans pédagogie visible.",
+        ),
     ]
     version_cards = "\n".join(
         f"""<div class="fr-col-12 fr-col-md-4">
@@ -330,31 +364,45 @@ def generate_root(contract: dict) -> None:
 <main id="contenu" class="fr-container fr-pt-3w fr-pb-6w">
 {content_column(content, center=True)}
 </main>"""
-    write_text(DOCS_DIR / "index.html", page_shell(contract, f"Exercice points de contrôle rapides - {contract['site']['name']}", 0, main, "home"))
+    write_text(
+        DOCS_DIR / "index.html",
+        page_shell(
+            contract,
+            f"Exercice points de contrôle rapides - {contract['site']['name']}",
+            0,
+            main,
+            "home",
+        ),
+    )
 
 
 def generate_static_page(contract: dict, filename: str, title: str, body: str) -> None:
     content = f"""  <h1>{esc(title)}</h1>
   <p>{esc(body)}</p>"""
-    page_breadcrumb = breadcrumb([("Accueil", "index.html")], title, f"breadcrumb-{slug(title)}")
+    page_breadcrumb = breadcrumb(
+        [("Accueil", "index.html")], title, f"breadcrumb-{slug(title)}"
+    )
     main = f"""{page_breadcrumb}
 <main id="contenu" class="fr-container fr-pt-3w fr-pb-6w">
 {content_column(content)}
 </main>"""
-    write_text(DOCS_DIR / filename, page_shell(contract, f"{title} - {contract['site']['name']}", 0, main, ""))
+    write_text(
+        DOCS_DIR / filename,
+        page_shell(contract, f"{title} - {contract['site']['name']}", 0, main, ""),
+    )
 
 
 def generate_accessibility_statement_page(contract: dict) -> None:
     def exercise_links(prefix: str) -> str:
         return "\n".join(
-            f"""        <li><a class="fr-link" href="{esc(prefix)}{esc(page['id'])}.html">{page['number']}. {esc_text(page['title'])}</a></li>"""
+            f"""        <li><a class="fr-link" href="{esc(prefix)}{esc(page["id"])}.html">{page["number"]}. {esc_text(page["title"])}</a></li>"""
             for page in contract["pages"]
         )
 
     inaccessible_links = exercise_links("site-inaccessible/")
     help_links = exercise_links("site-aide-correction/")
     accessible_links = exercise_links("site-accessible/")
-    content = f"""  <h1>Déclaration d'accessibilité</h1>
+    content = """  <h1>Déclaration d'accessibilité</h1>
   <p>Le site d'exercice pédagogique associé à la formation IGPDE s'inscrit dans une démarche d'accessibilité conformément à l'article 47 de la loi n° 2005-102 du 11 février 2005.</p>
   <p>Cette déclaration s'applique au site d'exercice « Les 13 points de contrôle rapides du W3C ». Elle reprend la <a class="fr-link" href="https://accessibilite.numerique.gouv.fr/obligations/declaration-accessibilite/">trame officielle de déclaration d'accessibilité</a> et l'adapte au contexte de formation.</p>
   <p>Ce support pédagogique fictif ne dispose pas d'un schéma pluriannuel d'accessibilité ni d'un plan d'action annuel distinct. La présente page documente le statut du site livré pour l'exercice.</p>
@@ -488,7 +536,9 @@ def generate_accessibility_statement_page(contract: dict) -> None:
     </ul>
   </section>"""
     page_title = "Déclaration d'accessibilité"
-    page_breadcrumb = breadcrumb([("Accueil", "index.html")], page_title, "breadcrumb-declaration-accessibilite")
+    page_breadcrumb = breadcrumb(
+        [("Accueil", "index.html")], page_title, "breadcrumb-declaration-accessibilite"
+    )
     main = f"""{page_breadcrumb}
 <main id="contenu" class="fr-container fr-pt-3w fr-pb-6w">
 {content_column(content)}
@@ -501,7 +551,7 @@ def generate_accessibility_statement_page(contract: dict) -> None:
 
 def sitemap_items(pages: list[dict], prefix: str) -> str:
     return "\n".join(
-        f"""      <li><a class="fr-link" href="{esc(prefix)}{page['id']}.html">{esc_text(page['title'])}</a></li>"""
+        f"""      <li><a class="fr-link" href="{esc(prefix)}{page["id"]}.html">{esc_text(page["title"])}</a></li>"""
         for page in pages
     )
 
@@ -509,9 +559,24 @@ def sitemap_items(pages: list[dict], prefix: str) -> str:
 def generate_sitemap_page(contract: dict) -> None:
     pages = contract["pages"]
     sections = [
-        ("sitemap-inaccessible", "Site à auditer", "Accueil du site à auditer", "site-inaccessible/"),
-        ("sitemap-help", "Site d'aide à la correction", "Accueil du site d'aide à la correction", "site-aide-correction/"),
-        ("sitemap-accessible", "Site corrigé", "Accueil du site corrigé", "site-accessible/"),
+        (
+            "sitemap-inaccessible",
+            "Site à auditer",
+            "Accueil du site à auditer",
+            "site-inaccessible/",
+        ),
+        (
+            "sitemap-help",
+            "Site d'aide à la correction",
+            "Accueil du site d'aide à la correction",
+            "site-aide-correction/",
+        ),
+        (
+            "sitemap-accessible",
+            "Site corrigé",
+            "Accueil du site corrigé",
+            "site-accessible/",
+        ),
     ]
     exercise_sections = "\n".join(
         f"""  <section class="fr-mb-5w" aria-labelledby="{section_id}">
@@ -542,7 +607,9 @@ def generate_sitemap_page(contract: dict) -> None:
     </section>
 {exercise_sections}
   </nav>"""
-    page_breadcrumb = breadcrumb([("Accueil", "index.html")], "Plan du site", "breadcrumb-plan-du-site")
+    page_breadcrumb = breadcrumb(
+        [("Accueil", "index.html")], "Plan du site", "breadcrumb-plan-du-site"
+    )
     main = f"""{page_breadcrumb}
 <main id="contenu" class="fr-container fr-pt-3w fr-pb-6w">
 {content_column(content)}
@@ -557,18 +624,27 @@ def generate_version_index(contract: dict, version_key: str, current: str) -> No
     version = contract["versions"][version_key]
     pages = contract["pages"]
     card_heading_level = 2 if version_key == "accessible" else 3
-    cards = "\n".join(page_card(page, f"{page['id']}.html", card_heading_level) for page in pages)
-    content = f"""  <h1>{esc(version['role'])}</h1>
+    cards = "\n".join(
+        page_card(page, f"{page['id']}.html", card_heading_level) for page in pages
+    )
+    content = f"""  <h1>{esc(version["role"])}</h1>
   <p>Index généré depuis le contrat d'évaluation. Chaque page cible un Point de contrôle rapide et une erreur principale.</p>
   <div class="fr-grid-row fr-grid-row--gutters">
 {cards}
   </div>"""
-    page_breadcrumb = breadcrumb([("Accueil", "../index.html")], version["role"], f"breadcrumb-{slug(version['role'])}")
+    page_breadcrumb = breadcrumb(
+        [("Accueil", "../index.html")],
+        version["role"],
+        f"breadcrumb-{slug(version['role'])}",
+    )
     main = f"""{page_breadcrumb}
 <main id="contenu" class="fr-container fr-pt-3w fr-pb-6w">
 {content_column(content, center=True)}
 </main>"""
-    write_text(DOCS_DIR / version["path"] / "index.html", page_shell(contract, version["role"], 1, main, current))
+    write_text(
+        DOCS_DIR / version["path"] / "index.html",
+        page_shell(contract, version["role"], 1, main, current),
+    )
 
 
 def help_accordions(page: dict) -> str:
@@ -582,7 +658,9 @@ def help_accordions(page: dict) -> str:
         panel_id = f"{page['id']}-help-{index}"
         findings = ""
         if title == "Ce qui pose problème" and page["help"].get("findings"):
-            items = "\n".join(f"      <li>{esc(item)}</li>" for item in page["help"]["findings"])
+            items = "\n".join(
+                f"      <li>{esc(item)}</li>" for item in page["help"]["findings"]
+            )
             intro = page["help"].get("findings_intro", "Les erreurs à trouver sont :")
             findings = f"""
     <p>{esc(intro)}</p>
@@ -591,7 +669,9 @@ def help_accordions(page: dict) -> str:
     </ul>"""
         fixes = ""
         if title == "Comment corriger" and page["help"].get("fixes"):
-            items = "\n".join(f"      <li>{esc(item)}</li>" for item in page["help"]["fixes"])
+            items = "\n".join(
+                f"      <li>{esc(item)}</li>" for item in page["help"]["fixes"]
+            )
             intro = page["help"].get("fixes_intro", "Messages de correction ciblés :")
             fixes = f"""
     <p>{esc(intro)}</p>
@@ -612,7 +692,9 @@ def help_accordions(page: dict) -> str:
     return "\n".join(sections)
 
 
-def accordion_panel(panel_id: str, title: str, body: str, heading_level: int = 4) -> str:
+def accordion_panel(
+    panel_id: str, title: str, body: str, heading_level: int = 4
+) -> str:
     return f"""<section class="fr-accordion">
   <h{heading_level} class="fr-accordion__title">
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="{esc(panel_id)}">{esc(title)}</button>
@@ -649,7 +731,14 @@ def video_track(kind: str, src: str, label: str, default: bool = False) -> str:
     return f'      <track kind="{esc(kind)}" src="{esc(src)}" srclang="fr" label="{esc(label)}"{default_attr}>'
 
 
-def local_video_media_block(identifier: str, title: str, source: str, caption: str, tracks: list[str] | None = None, credit: str = "") -> str:
+def local_video_media_block(
+    identifier: str,
+    title: str,
+    source: str,
+    caption: str,
+    tracks: list[str] | None = None,
+    credit: str = "",
+) -> str:
     caption_id = f"{identifier}-caption"
     tracks_html = ""
     if tracks:
@@ -755,7 +844,9 @@ def transcription_levels_section() -> str:
 
 
 def card(title: str, href: str, desc: str, detail: str = "") -> str:
-    detail_html = f'\n        <p class="fr-card__detail">{esc(detail)}</p>' if detail else ""
+    detail_html = (
+        f'\n        <p class="fr-card__detail">{esc(detail)}</p>' if detail else ""
+    )
     return f"""<div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
   <div class="fr-card fr-enlarge-link">
     <div class="fr-card__body">
@@ -775,7 +866,9 @@ def callout(title: str, text: str, heading_level: int = 2) -> str:
 </div>"""
 
 
-def audit_prompt(version_key: str, inaccessible_text: str, help_text: str, accessible_text: str) -> str:
+def audit_prompt(
+    version_key: str, inaccessible_text: str, help_text: str, accessible_text: str
+) -> str:
     if version_key == "inaccessible":
         return callout("Question d'audit", inaccessible_text, 3)
     if version_key == "help":
@@ -793,7 +886,9 @@ def transcript_component(identifier: str, title: str, paragraphs: list[str]) -> 
     collapse_id = f"{identifier}-collapse"
     modal_id = f"{identifier}-modal"
     title_id = f"{identifier}-modal-title"
-    body = "\n".join(f"              <p>{esc(paragraph)}</p>" for paragraph in paragraphs)
+    body = "\n".join(
+        f"              <p>{esc(paragraph)}</p>" for paragraph in paragraphs
+    )
     return f"""<div class="fr-transcription fr-mt-3w">
   <button type="button" class="fr-transcription__btn" aria-expanded="false" aria-controls="{collapse_id}">Lire la transcription</button>
   <div class="fr-collapse" id="{collapse_id}">
@@ -1205,9 +1300,24 @@ def content_ec01(version_key: str) -> str:
 def content_ec02(version_key: str) -> str:
     cards = "\n".join(
         [
-            card("Guide RGAA pour les contributeurs", "ec03-headings.html", "Comprendre la structure d'une page avant publication.", "Résultat 4 sur 9"),
-            card("Contrastes et charte éditoriale", "ec04-contrast.html", "Repérer les textes difficiles à lire.", "Résultat 5 sur 9"),
-            card("Formulaires de contact", "ec12-form-labels.html", "Contrôler les étiquettes et les groupes de champs.", "Résultat 6 sur 9"),
+            card(
+                "Guide RGAA pour les contributeurs",
+                "ec03-headings.html",
+                "Comprendre la structure d'une page avant publication.",
+                "Résultat 4 sur 9",
+            ),
+            card(
+                "Contrastes et charte éditoriale",
+                "ec04-contrast.html",
+                "Repérer les textes difficiles à lire.",
+                "Résultat 5 sur 9",
+            ),
+            card(
+                "Formulaires de contact",
+                "ec12-form-labels.html",
+                "Contrôler les étiquettes et les groupes de champs.",
+                "Résultat 6 sur 9",
+            ),
         ]
     )
     return f"""<section aria-labelledby="content-title">
@@ -1339,7 +1449,9 @@ def content_ec05(version_key: str) -> str:
 def content_ec06(version_key: str) -> str:
     class_attr = ' class="demo-no-focus"' if version_key != "accessible" else ""
     secondary_action_tabindex = ' tabindex="-1"' if version_key != "accessible" else ""
-    modal_trap_class = " demo-modal-keyboard-trap" if version_key != "accessible" else ""
+    modal_trap_class = (
+        " demo-modal-keyboard-trap" if version_key != "accessible" else ""
+    )
     close_tabindex = ' tabindex="-1"' if version_key != "accessible" else ""
     modal_script = """<script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -1407,9 +1519,21 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>"""
     cards = "\n".join(
         [
-            card("Guide des titres", "ec03-headings.html", "Repères pour structurer une page de publication."),
-            card("Formulaire d'inscription", "ec12-form-labels.html", "Contrôle des champs et des libellés avant mise en ligne."),
-            card("Accès rapides", "ec05-skiplinks.html", "Vérification des raccourcis placés en début de page."),
+            card(
+                "Guide des titres",
+                "ec03-headings.html",
+                "Repères pour structurer une page de publication.",
+            ),
+            card(
+                "Formulaire d'inscription",
+                "ec12-form-labels.html",
+                "Contrôle des champs et des libellés avant mise en ligne.",
+            ),
+            card(
+                "Accès rapides",
+                "ec05-skiplinks.html",
+                "Vérification des raccourcis placés en début de page.",
+            ),
         ]
     )
     return f"""<section{class_attr} aria-labelledby="content-title">
@@ -1510,9 +1634,24 @@ def content_ec08(version_key: str) -> str:
     class_attr = ' class="demo-fixed-cards"' if version_key != "accessible" else ""
     cards = "\n".join(
         [
-            card("Checklist de publication", "ec04-contrast.html", "Une ressource longue avec plusieurs points de contrôle à relire avant la mise en ligne, dont le contraste, les titres, les images, les liens et les formulaires.", "PDF - 18 pages"),
-            card("Kit contribution RGAA", "ec03-headings.html", "Un kit détaillé pour aider les contributeurs à vérifier la structure éditoriale, les alternatives, la navigation clavier et les champs de formulaire.", "DOCX - modèle"),
-            card("Grille de restitution", "ec13-required-errors.html", "Un modèle pour préparer la restitution collective, avec constats, preuves, priorités et actions à suivre.", "XLSX - atelier"),
+            card(
+                "Checklist de publication",
+                "ec04-contrast.html",
+                "Une ressource longue avec plusieurs points de contrôle à relire avant la mise en ligne, dont le contraste, les titres, les images, les liens et les formulaires.",
+                "PDF - 18 pages",
+            ),
+            card(
+                "Kit contribution RGAA",
+                "ec03-headings.html",
+                "Un kit détaillé pour aider les contributeurs à vérifier la structure éditoriale, les alternatives, la navigation clavier et les champs de formulaire.",
+                "DOCX - modèle",
+            ),
+            card(
+                "Grille de restitution",
+                "ec13-required-errors.html",
+                "Un modèle pour préparer la restitution collective, avec constats, preuves, priorités et actions à suivre.",
+                "XLSX - atelier",
+            ),
         ]
     )
     return f"""<section{class_attr} aria-labelledby="content-title">
@@ -1543,7 +1682,14 @@ def content_ec08(version_key: str) -> str:
 
 def content_ec09(version_key: str) -> str:
     if version_key == "accessible":
-        tracks = [video_track("captions", "../assets/shared/media/captcha-sous-titres.vtt", "Français", True)]
+        tracks = [
+            video_track(
+                "captions",
+                "../assets/shared/media/captcha-sous-titres.vtt",
+                "Français",
+                True,
+            )
+        ]
         caption = "Vidéo de sensibilisation avec sous-titres français issus de la piste YouTube."
     else:
         tracks = []
@@ -1628,7 +1774,12 @@ def content_ec11(page: dict, version_key: str) -> str:
   </section>"""
     else:
         caption_tracks = [
-            video_track("captions", "../assets/shared/media/captcha-sous-titres.vtt", "Français", True),
+            video_track(
+                "captions",
+                "../assets/shared/media/captcha-sous-titres.vtt",
+                "Français",
+                True,
+            ),
         ]
         media = local_video_media_block(
             "captcha-video",
@@ -1639,9 +1790,18 @@ def content_ec11(page: dict, version_key: str) -> str:
             CAPTCHA_CREDIT,
         )
         main_media = ""
-        transcript = transcript_component("captcha-video-transcript", "Transcription de la vidéo CAPTCHA", CAPTCHA_TRANSCRIPTION)
+        transcript = transcript_component(
+            "captcha-video-transcript",
+            "Transcription de la vidéo CAPTCHA",
+            CAPTCHA_TRANSCRIPTION,
+        )
         audio_description_caption_tracks = [
-            video_track("captions", "../assets/shared/media/captcha-audiodecrite-sous-titres.vtt", "Français VSME", True),
+            video_track(
+                "captions",
+                "../assets/shared/media/captcha-audiodecrite-sous-titres.vtt",
+                "Français VSME",
+                True,
+            ),
         ]
         audio_described_media = local_video_media_block(
             "captcha-video-audiodecrite",
@@ -1724,7 +1884,9 @@ def skiplinks_variant(page: dict, version_key: str) -> str:
     return "default"
 
 
-def generate_exercise_page(contract: dict, page: dict, version_key: str, current: str) -> None:
+def generate_exercise_page(
+    contract: dict, page: dict, version_key: str, current: str
+) -> None:
     version = contract["versions"][version_key]
     title = document_title(contract, page, version_key)
     notice = ""
@@ -1742,7 +1904,7 @@ def generate_exercise_page(contract: dict, page: dict, version_key: str, current
         f"breadcrumb-{version_key}-{page['id']}",
     )
     main_body = f"{notice}\n  {content}" if version_key == "help" else f"{content}\n  "
-    exercise_content = f"""  <h1>#{page['number']} {esc(page['title'])}</h1>
+    exercise_content = f"""  <h1>#{page["number"]} {esc(page["title"])}</h1>
   {main_body}"""
     main = f"""{page_breadcrumb}
 <main id="contenu" class="fr-container fr-pt-3w fr-pb-6w">
@@ -1793,7 +1955,10 @@ def generate_manifest(contract: dict) -> None:
                 "before_submit": "Avant soumission",
                 "after_submit": "Après soumission",
             }
-            parts.extend(f"- {scenario_labels.get(label, label.replace('_', ' '))} : {text}" for label, text in page["scenario"].items())
+            parts.extend(
+                f"- {scenario_labels.get(label, label.replace('_', ' '))} : {text}"
+                for label, text in page["scenario"].items()
+            )
         parts.extend(["", "### Outils de détection", ""])
         parts.extend(f"- {tool}" for tool in page["detection"])
         parts.extend(
@@ -1813,7 +1978,10 @@ def generate_manifest(contract: dict) -> None:
 
 
 def generate_correction(contract: dict) -> None:
-    parts = ["\ufeff# Corrigé points de contrôle rapides\n", "Généré depuis `03-easy-checks/evaluation_contract.yml`.\n"]
+    parts = [
+        "\ufeff# Corrigé points de contrôle rapides\n",
+        "Généré depuis `03-easy-checks/evaluation_contract.yml`.\n",
+    ]
     for page in contract["pages"]:
         parts.append(f"## {page['number']}. {page['title']}\n")
         parts.append(f"- Point de contrôle rapide : {page['easy_check']['name']}")
@@ -1827,7 +1995,10 @@ def generate_correction(contract: dict) -> None:
                 "before_submit": "Avant soumission",
                 "after_submit": "Après soumission",
             }
-            scenario = " ; ".join(f"{scenario_labels.get(label, label.replace('_', ' '))} : {text}" for label, text in page["scenario"].items())
+            scenario = " ; ".join(
+                f"{scenario_labels.get(label, label.replace('_', ' '))} : {text}"
+                for label, text in page["scenario"].items()
+            )
             parts.append(f"- Scénario de test : {scenario}")
         parts.append(f"- Occurrences bonus : {' ; '.join(page['bonus_occurrences'])}")
         parts.append(f"- À ne pas pénaliser : {' ; '.join(page['do_not_penalize'])}\n")
@@ -2094,7 +2265,11 @@ def generate_demo_assets() -> None:
         "WEBVTT\nKind: captions\nLanguage: fr\n\n00:00:03.000 --> 00:00:04.000\nBonjour\n\n00:00:04.200 --> 00:00:05.600\nBonjour, ce sera tout ?\n\n00:00:06.000 --> 00:00:07.099\nOui, je vous dois combien ?\n\n00:00:07.099 --> 00:00:13.080\nMon petit monsieur, avant, il va falloir d'abord sélectionner tous les carreaux avec des vaches que vous voyez juste là !\n\n00:00:14.080 --> 00:00:16.200\nEn plus là vous avez de la chance, elles bougent pas !\n\n00:00:21.200 --> 00:00:22.424\nSélectionnez les cases contenant des vaches.\n",
     )
     write_text(
-        DOCS_DIR / "assets" / "shared" / "media" / "captcha-audiodecrite-sous-titres.vtt",
+        DOCS_DIR
+        / "assets"
+        / "shared"
+        / "media"
+        / "captcha-audiodecrite-sous-titres.vtt",
         "WEBVTT\nKind: captions\nLanguage: fr\n\n00:00:00.000 --> 00:00:02.900\n<c.vsme-audiodescription>[Audiodescription] Une échoppe au Moyen Âge. Un homme aveugle pose ses courses sur le comptoir.</c>\n\n00:00:02.900 --> 00:00:03.700\n<c.vsme-dialogue-visible>Bonjour.</c>\n\n00:00:04.200 --> 00:00:05.850\n<c.vsme-dialogue-visible>Bonjour, ce sera tout ?</c>\n\n00:00:05.850 --> 00:00:06.900\n<c.vsme-dialogue-visible>Oui, je vous dois combien ?</c>\n\n00:00:06.900 --> 00:00:11.700\n<c.vsme-dialogue-visible>Mon petit monsieur, avant, il va falloir d'abord sélectionner tous les carreaux avec des vaches que vous voyez juste là !</c>\n\n00:00:11.700 --> 00:00:15.200\n<c.vsme-audiodescription>[Audiodescription] Le marchand montre à l'homme une fenêtre avec neuf cases. L'homme ne réagit pas.</c>\n\n00:00:15.200 --> 00:00:17.980\n<c.vsme-dialogue-visible>En plus là, vous avez de la chance, elles bougent pas !</c>\n\n00:00:17.980 --> 00:00:22.140\n<c.vsme-audiodescription>[Audiodescription] Nous passons du Moyen Âge à aujourd'hui. Le même homme aveugle est devant son ordinateur.</c>\n\n00:00:22.140 --> 00:00:25.500\n<c.vsme-audiodescription>[Audiodescription] Il est bloqué sur un site internet par un CAPTCHA.</c>\n\n00:00:25.500 --> 00:00:28.939\n<c.vsme-voiceover>[Voix off] Ne pas rendre son site accessible, c'est renvoyer les aveugles au Moyen Âge.</c>\n\n00:00:28.939 --> 00:00:33.120\n<c.vsme-voiceover>[Voix off] Faisons du numérique responsable une opportunité pour tous.</c>\n\n00:00:33.120 --> 00:00:35.050\n<c.vsme-audiodescription>[Audiodescription] Logo de l'association Valentin Haüy.</c>\n",
     )
     write_text(
@@ -2103,7 +2278,7 @@ def generate_demo_assets() -> None:
     )
     write_text(
         DOCS_DIR / "assets" / "shared" / "media" / "transcription-demo.html",
-        "<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><title>Transcription du podcast RGAA</title></head><body><main><h1>Transcription du podcast RGAA</h1><p>Transcription de démonstration à remplacer par la transcription finale.</p></main></body></html>\n",
+        '<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Transcription du podcast RGAA</title></head><body><main><h1>Transcription du podcast RGAA</h1><p>Transcription de démonstration à remplacer par la transcription finale.</p></main></body></html>\n',
     )
 
 
@@ -2114,14 +2289,23 @@ def generate_media_readme(contract: dict) -> None:
         assets = page.get("assets", {})
         placeholders.extend(assets.get("placeholders", []))
         for key, source in assets.get("external_sources", {}).items():
-            external_sources.append((page["number"], page["title"], key, source["title"], source["url"]))
-    lines = ["# Médias à fournir", "", "Les vrais fichiers vidéo/audio remplaceront ces placeholders déclaratifs.", ""]
+            external_sources.append(
+                (page["number"], page["title"], key, source["title"], source["url"])
+            )
+    lines = [
+        "# Médias à fournir",
+        "",
+        "Les vrais fichiers vidéo/audio remplaceront ces placeholders déclaratifs.",
+        "",
+    ]
     for item in sorted(set(placeholders)):
         lines.append(f"- `{item}`")
     if external_sources:
         lines.extend(["", "## Sources externes de référence", ""])
         for number, page_title, key, source_title, url in external_sources:
-            lines.append(f"- Page {number} - {page_title} - {key} : [{source_title}]({url})")
+            lines.append(
+                f"- Page {number} - {page_title} - {key} : [{source_title}]({url})"
+            )
         lines.extend(
             [
                 "",
@@ -2129,7 +2313,9 @@ def generate_media_readme(contract: dict) -> None:
                 "Elles servent de références pédagogiques ou seront remplacées par des fichiers locaux autorisés.",
             ]
         )
-    write_text(DOCS_DIR / "assets" / "shared" / "media" / "README.md", "\n".join(lines) + "\n")
+    write_text(
+        DOCS_DIR / "assets" / "shared" / "media" / "README.md", "\n".join(lines) + "\n"
+    )
 
 
 def main() -> None:
@@ -2141,9 +2327,23 @@ def main() -> None:
     generate_root(contract)
     generate_sitemap_page(contract)
     generate_accessibility_statement_page(contract)
-    generate_static_page(contract, "mentions-legales.html", "Mentions légales", "Site fictif créé pour une formation IGPDE.")
-    generate_static_page(contract, "donnees-personnelles.html", "Données personnelles", "Aucune donnée personnelle réelle n'est collectée dans cet exercice.")
-    for key, current in (("inaccessible", "inaccessible"), ("help", "help"), ("accessible", "accessible")):
+    generate_static_page(
+        contract,
+        "mentions-legales.html",
+        "Mentions légales",
+        "Site fictif créé pour une formation IGPDE.",
+    )
+    generate_static_page(
+        contract,
+        "donnees-personnelles.html",
+        "Données personnelles",
+        "Aucune donnée personnelle réelle n'est collectée dans cet exercice.",
+    )
+    for key, current in (
+        ("inaccessible", "inaccessible"),
+        ("help", "help"),
+        ("accessible", "accessible"),
+    ):
         generate_version_index(contract, key, current)
         for page in contract["pages"]:
             generate_exercise_page(contract, page, key, current)
