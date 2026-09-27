@@ -38,12 +38,12 @@ make tests
 unzip -t support-formation-102846-2026-IGPDE.pptx
 ```
 
-Pour copier ensuite le deck dans le pack livrable et régénérer les PDF : `make pack`.
+`make deck` met aussi à jour la copie du deck dans le pack livrable, qui est la version versionnée et remise à l'IGPDE. Cette copie refuse un deck partiel (produit par `--only`, `--from` ou `--to`) : le livrable reste alors inchangé. Pour régénérer en plus les PDF et les supports : `make pack`.
 
-Le fichier à livrer reste :
+Le fichier à livrer est la copie du pack :
 
 ```text
-support-formation-102846-2026-IGPDE.pptx
+IGPDE-102846-livrables-octobre-2026/Formateur/support-formation-102846-2026-IGPDE.pptx
 ```
 
 ## Corriger les accents sûrs
@@ -53,8 +53,8 @@ Si la QA signale des violations `accent_fr` nouvelles et que le rapport propose 
 ```bash
 python scripts/qa_pptx.py . --max-iterations 5 --apply-accents
 git diff
-python scripts/assemble.py
-python -m pytest tests/ -q
+make deck
+make tests
 ```
 
 Vérifier le diff avant de committer. Le correcteur ne doit modifier que des chaînes Python avec accents manquants.

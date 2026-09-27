@@ -11,10 +11,12 @@ Commandes :
 import argparse
 import hashlib
 import json
+import re
 import shutil
 import subprocess
 import sys
 import urllib.request
+import zipfile
 from pathlib import Path
 
 import pack_supports
@@ -82,11 +84,41 @@ def retirer_quarantaine(chemin):
         )
 
 
+def nombre_modules():
+    from slides import discover_slides
+
+    return len(discover_slides())
+
+
+def nombre_slides(pptx):
+    with zipfile.ZipFile(pptx) as archive:
+        return sum(
+            1
+            for nom in archive.namelist()
+            if re.fullmatch(r"ppt/slides/slide\d+\.xml", nom)
+        )
+
+
+def contenu_deck(pptx):
+    # Compare les parties, pas les octets : l'archive date chaque régénération.
+    with zipfile.ZipFile(pptx) as archive:
+        return {nom: archive.read(nom) for nom in archive.namelist()}
+
+
 def deck():
     source = RACINE / CONFIG["output"]
     if not source.exists():
         sys.exit(f"Deck introuvable : {source}. Lancer d'abord : make deck")
+    attendu, present = nombre_modules(), nombre_slides(source)
+    if present < attendu:
+        sys.exit(
+            f"Deck partiel : {present} slides pour {attendu} modules (génération --only, "
+            "--from ou --to). Livrable du pack inchangé ; lancer make deck pour un deck complet."
+        )
     cible = FORMATEUR / CONFIG["output"]
+    if cible.exists() and contenu_deck(cible) == contenu_deck(source):
+        print(f"[deck] {cible.relative_to(RACINE)} déjà à jour (contenu identique)")
+        return
     shutil.copy2(source, cible)
     retirer_quarantaine(cible)
     print(f"[deck] {source.name} copié dans {cible.relative_to(RACINE)}")

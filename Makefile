@@ -11,7 +11,7 @@ SITE_CONSULTATION ?= ../tp-fabrication-igpde-102846-ay11
 aide:
 	@echo "Usine IGPDE - commandes principales (Python : $(PYTHON))"
 	@echo "  make installer           environnement Python verrouillé + hooks git"
-	@echo "  make deck                régénère le deck PPTX depuis scripts/slides/"
+	@echo "  make deck                régénère le deck PPTX depuis scripts/slides/ et met à jour sa copie dans le pack"
 	@echo "  make qa                  boucle qualité du deck (lire .qa/qa-pptx-report.md)"
 	@echo "  make verifier            tests + validation du site + contrôles du dépôt"
 	@echo "  make grille              régénère la grille d'audit XLSX et la copie dans le site"
@@ -33,6 +33,7 @@ installer:
 
 deck:
 	$(PYTHON) scripts/assemble.py
+	$(PYTHON) scripts/fabriquer_pack.py deck
 
 qa:
 	$(PYTHON) scripts/qa_pptx.py . --max-iterations 5 --clean

@@ -104,7 +104,7 @@ Le formateur Alex édite les modules Python, lance la génération et anime la f
 | `build_template.py` | Python 3 + python-pptx | Premiere generation du template DSFR 13,33"x7,5" a partir du source IGPDE 10"x5,62" (rescaling + DSFRisation). Historique : ce source n'est plus dans le depot | Lisait `PPT-IGPDE-base-intervenant.pptx` (absent) |
 | `rebuild_template_from_demo.py` | Python 3 + python-pptx | Voie actuelle pour reconstruire le template s'il manque (voir `AGENTS.md`) | Lit `_source/presentations-source/gabarits-ppt-igpde.pptx`, ecrit `PPT-IGPDE-DSFR-base-intervenant.pptx` |
 | Template PPTX | OOXML | 6 layouts natifs IGPDE : couverture, titre_soustitre, sommaire, chapitre, 3_colonnes, titre_contenu | Fichier binaire PPTX |
-| Artefact final | PPTX | Deck complet, copie dans le pack livrable par `make pack` | 138 slides, ~5 Mo |
+| Artefact final | PPTX | Deck complet, copié dans le pack livrable par `make deck` à chaque génération complète (copie refusée si le deck est partiel, sautée si le contenu est identique) | 138 slides, ~3,4 Mo |
 
 ---
 
@@ -268,7 +268,7 @@ Relations : `Makefile` appelle `assemble.py`, `qa_pptx.py`, `pytest`, `validate.
 - **`_safe_top` est un garde-fou de dernier recours** : il remonte un composant pour éviter de sortir de la zone utile, mais peut créer un chevauchement avec le composant précédent si le `top` initial était déjà trop bas.
 - **Aucune retouche dans PowerPoint** : les 138 slides sont générées par script ; une retouche faite dans PowerPoint serait écrasée à la régénération suivante. Toute correction passe par `scripts/slides/`.
 - **Pas de CI/CD** : la génération est locale, sur le poste d'Alex. Pas de pipeline de build automatisé.
-- **69 tests pytest** : la bibliothèque de composants, les contrats a11y, la géométrie deck et la boucle QA du deck (`make qa`) sont couverts par pytest. La validation repose aussi sur `validate.py` (site easy checks) et la passe visuelle manuelle.
+- **74 tests pytest** : la bibliothèque de composants, les contrats a11y, la géométrie deck, la boucle QA du deck (`make qa`) et la copie du deck dans le pack (`tests/test_fabriquer_pack.py`) sont couverts par pytest. La validation repose aussi sur `validate.py` (site easy checks) et la passe visuelle manuelle.
 
 ---
 

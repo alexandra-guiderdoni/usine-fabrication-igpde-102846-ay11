@@ -37,7 +37,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - Chaque module expose `build(prs, layouts, ctx)` et utilise `ctx.page_num`, `ctx.date`, `ctx.footer_base`, jamais de valeur en dur.
 - Composants : exclusivement `scripts/igpde_dsfr_components.py` (grille IGPDE 13,33 x 7,5 pouces), jamais une bibliothèque DSFR extérieure.
 - `finalize_pptx()` est obligatoire (langue, ordre de lecture, métadonnées, quarantaine macOS) ; `scripts/assemble.py` l'appelle.
-- Tester une seule slide (pas de cible `make`) : `.venv/bin/python scripts/assemble.py --only NN`, ou `/opt/homebrew/bin/python3.12` sans `.venv`. Même interpréteur pour les autres scripts appelés directement ci-dessous.
+- Tester une seule slide (pas de cible `make`) : `.venv/bin/python scripts/assemble.py --only NN`, ou `/opt/homebrew/bin/python3.12` sans `.venv`. Cette commande écrit un deck partiel à la racine : relancer `make deck` ensuite. Le livrable du pack n'est jamais remplacé par un deck partiel. Même interpréteur pour les autres scripts appelés directement ci-dessous.
 - DOCX de l'exercice Sami : `make sami` (écrit dans `_source/`). Grille d'audit : `make grille`. Deck WCAG condensé : `make wcag`. PDF du pack : `make pdf` (générateur embarqué dans `vendor/`).
 - Gabarit IGPDE : `_source/presentations-source/PPT-IGPDE-DSFR-base-intervenant.pptx`. S'il manque : `scripts/rebuild_template_from_demo.py`, depuis `_source/presentations-source/gabarits-ppt-igpde.pptx`. `scripts/build_template.py` est historique : sa source IGPDE native n'est plus dans le dépôt.
 - Le site `docs/` est maintenu à la main page par page : ne pas relancer `scripts/generate_easy_checks_site_skeleton.py` sans comparer ensuite le diff complet, il écraserait les corrections faites depuis juillet.
@@ -47,7 +47,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 `make pack` régénère le deck, puis les PDF, les supports et la vérification des outils. Il ne relance ni `make sami`, ni `make grille`, ni `make wcag` : les lancer d'abord si leurs sources ont changé. Chaque livrable relève de l'une de ces trois catégories.
 
 - **Généré par une commande**
-  - Deck `support-formation-*.pptx` : `make deck`, copié dans le pack par `make pack`.
+  - Deck `support-formation-*.pptx` : `make deck`, qui génère le deck à la racine (sortie de travail, ignorée par git) puis le copie dans le pack (livrable versionné). La copie refuse un deck partiel.
   - Export PDF du deck (`Formateur/_alex/`) : `make supports` (nécessite LibreOffice).
   - Mémos Word et LibreOffice, fiches WCAG formateur et stagiaire, fiche des liens des TP : `make pdf`, depuis `fiche-pratique/*.md`, `wcag/*.md` et `liens-tp-en-ligne.md`.
   - Documents Sami (`Formateur/tp-word-igpde/`) : `make sami` (écrit dans `_source/`), puis `make supports` ou `make pack` pour la copie dans le pack.
@@ -66,7 +66,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
 ## Vérifier avant de livrer
 
-- `make verifier` : 69 tests, validation du site (`validate.py`), contrôles du dépôt. Le verdict se lit sur le code de sortie.
+- `make verifier` : 74 tests, validation du site (`validate.py`), contrôles du dépôt. Le verdict se lit sur le code de sortie.
 - `make qa` : boucle qualité du deck. Lire `.qa/qa-pptx-report.md` et son champ `status` ; le code de sortie seul ne prouve pas la convergence.
 - Réexport complet du deck : suivre `REEXPORTER-DECK-PPTX.md`.
 - Recette visuelle du site corrigé : `make recette` (plugin ShipGuard requis ; ses manifestes sont dans `recette/visual-tests/`).

@@ -150,7 +150,7 @@ Chaque entrée est datée et garde la trace de sa découverte. En cas de conflit
 - **Source** : `.gitignore`
 - **Statut** : confirmée
 - **Contrainte** : `.gitignore` exclut notamment `.qa/`, `tmp/`, `__pycache__/`, les temporaires Office et le deck généré à la racine (`/support-formation-*.pptx`). Cette règle est ancrée à la racine : la copie du deck dans le pack (`IGPDE-102846-livrables-octobre-2026/Formateur/`) n'est pas visée et reste versionnée, comme les DOCX du pack.
-- **Impact** : régénérer le deck (`make deck`) ne modifie pas `git status` ; c'est `make pack` qui met à jour la copie versionnée du pack.
+- **Impact** : le deck de la racine n'apparaît jamais dans `git status` ; `make deck` met à jour la copie versionnée du pack à chaque génération complète (depuis le 2026-09-27), et refuse de la remplacer par un deck partiel.
 - **Décision / prochaine vérification** : ne pas supposer qu'un livrable présent sur le disque est suivi ; le vérifier avec `git ls-files`.
 - **Composants affectés** : `.gitignore`, `.qa/`, `tmp/`, `support-formation-102846-2026-IGPDE.pptx`, `*.pptx`, `*.docx`
 

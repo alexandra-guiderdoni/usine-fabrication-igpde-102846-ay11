@@ -29,7 +29,7 @@ La commande crée `.venv` depuis `requirements.lock`, en vérifiant l'empreinte 
 
 ```bash
 make aide          # liste des commandes
-make deck          # régénère le deck
+make deck          # régénère le deck et met à jour sa copie dans le pack
 make verifier      # tests, validation du site, contrôles du dépôt
 make pack          # deck, PDF accessibles, supports, vérification des installeurs
 make apercu        # site d'exercice en local

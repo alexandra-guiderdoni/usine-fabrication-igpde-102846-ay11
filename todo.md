@@ -36,7 +36,7 @@
 - [ ] **Réexport final du deck avant diffusion** :
   - Relecture complète slide par slide par Alex
   - Corrections et modifications au fil de la relecture, dans `scripts/slides/`
-  - Régénération stable via `make deck`, puis copie dans le pack via `make pack`
+  - Régénération stable via `make deck` (copie automatique dans le pack), puis `make pack` pour les PDF et supports
   - Contrôle QA sur copie via `make qa` (lire `.qa/qa-pptx-report.md`)
   - Livrable : `support-formation-102846-2026-IGPDE.pptx` prêt à diffuser
 
@@ -73,6 +73,7 @@
 - [ ] Supprimer l'ancien dossier du projet dans l'espace de travail personnel d'Alex (hors de ce dépôt) : uniquement sur GO explicite d'Alex
 - [x] Audit des Markdown structurants le 2026-09-27 (contrôles mécaniques et relecture indépendante) puis correction : logistique retirée des fichiers de travail (l'historique public n'est pas réécrit, décision d'Alex), « deux régimes de slides » et démarrage rapide périmé retirés, portée de `make pack` et du hook précisée, `TOP_CONTENT` et composants complétés, `contraintes.md` remis à jour, `notes/readme-causal.md` réduit à l'histoire. Preuve : IA neuve lancée dans l'usine, 10 questions pièges sur 10 justes
 - [x] Revue indépendante par Codex en lecture seule le 2026-09-27 (`notes/revue-codex-lecture-seule-2026-09-27.md`) : réponses aux questions pièges justes, 4 écarts confirmés et corrigés, plus un cinquième relevé à la vérification (ligne séparatrice à 6,97)
+- [x] Copie automatique du deck dans le pack le 2026-09-27 : `make deck` met à jour le livrable versionné à chaque génération complète ; copie refusée pour un deck partiel (`--only`, `--from`, `--to`), sautée si le contenu est identique (pas de fausse modification git). Preuve : 5 tests (`tests/test_fabriquer_pack.py`, phase rouge constatée), et `make deck` réel sur les trois cas
 - [ ] `scripts/generate_demo.py` (générateur de démonstration hors chaîne) écrit `gabarits-ppt-igpde.pptx` à la racine, homonyme de la source rangée dans `_source/presentations-source/` : à retirer ou à rediriger avant tout usage
 
 ## Déménagement du site d'exercice (2026-09-27)
