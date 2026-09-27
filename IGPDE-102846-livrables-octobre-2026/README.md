@@ -9,12 +9,12 @@ Les fiches administratives ont été renumérotées 102846 localement le 2026-09
 ```
 Formateur/
   documents-administratifs-igpde/
-    102846FiCat.docx                        Fiche catalogue
+    102846FiCat-v2.docx                     Fiche catalogue
     102846FiTechn-v2.docx                   Fiche technique (équipement, outils, accès internet)
     102846PL-v2.docx                        Programme de la formation (une page)
     Derped-deroule-pedagogique-102846-v2.docx  Déroulé pédagogique détaillé
     convocation-intervenants.pdf            Convocation IGPDE du 9 octobre 2026 (sur disque uniquement, non versionnée)
-    V1/                                     Versions précédentes de la fiche technique, du programme et du déroulé
+    V1/                                     Versions précédentes de la fiche catalogue, de la fiche technique, du programme et du déroulé
   support-formation-102846-2026-IGPDE.pptx      Deck principal (138 slides DSFR)
   _alex/                         Notes formateur (transcriptions du deck, checklists, PDF du deck)
   fil-rouge-principes-wcag-igpde/  Fiche formateur + fiche stagiaire WCAG
