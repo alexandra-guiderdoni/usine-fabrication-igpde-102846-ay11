@@ -24,7 +24,7 @@ Les contrôles qui lisent le deck assemblé utilisent le PPTX de travail à la r
 
 ## Écarts connus
 
-`baselines/known-geometry-violations.json` documente les écarts géométriques explicitement tolérés. Un test échoue dès qu'un écart nouveau apparaît : la baseline ne doit jamais servir à masquer une régression.
+`baselines/known-geometry-violations.json` consigne le triage des écarts QA. La baseline courante est vide : un test échoue dès qu'un écart apparaît, elle ne doit jamais servir à masquer une régression.
 
 ## Limites
 

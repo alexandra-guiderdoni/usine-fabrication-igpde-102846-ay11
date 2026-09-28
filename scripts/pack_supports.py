@@ -13,7 +13,10 @@ import sys
 import tempfile
 from pathlib import Path
 
-SITE_PUBLIE = "https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/"
+from config import load_formation_config
+
+
+SITE_PUBLIE = load_formation_config()["site_url"]
 PAGES_DU_MENU = [
     "index.html",
     "site-inaccessible/index.html",

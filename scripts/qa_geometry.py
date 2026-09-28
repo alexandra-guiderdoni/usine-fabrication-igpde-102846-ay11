@@ -15,6 +15,7 @@ from typing import Any
 from igpde_dsfr_components import BOTTOM_CONTENT
 
 NSMAP_A = "http://schemas.openxmlformats.org/drawingml/2006/main"
+NSMAP_P = "http://schemas.openxmlformats.org/presentationml/2006/main"
 
 LAYOUT_PATTERNS = {"espace réservé", "placeholder", "title 1"}
 
@@ -26,8 +27,8 @@ FOOTER_EXTRA_EXCL = {"qrcode", "qr-code"}
 FONT_EXTRA_EXCL = {"qrcode", "qr-code", "url-visible"}
 
 KNOWN_FOOTER_VIOLATIONS = 0
-KNOWN_ALT_VIOLATIONS = 42
-KNOWN_FONT_VIOLATIONS = 25
+KNOWN_ALT_VIOLATIONS = 0
+KNOWN_FONT_VIOLATIONS = 0
 
 MIN_FONT_PT = 14
 EMU_PER_INCH = 914400
@@ -234,7 +235,12 @@ def _collect_alt_text(deck: Any) -> list[dict[str, Any]]:
                 continue
             if _is_excluded(shape.name, DECORATIVE_PATTERNS):
                 continue
-            c_nv_pr = shape._element.find(f".//{{{NSMAP_A}}}cNvPr")
+            # Le descripteur d'une image PPTX est porté par p:cNvPr, pas par
+            # a:cNvPr. La seconde recherche conserve la compatibilité avec
+            # les fichiers atypiques produits par certains outils Office.
+            c_nv_pr = shape._element.find(f".//{{{NSMAP_P}}}cNvPr")
+            if c_nv_pr is None:
+                c_nv_pr = shape._element.find(f".//{{{NSMAP_A}}}cNvPr")
             descr = c_nv_pr.get("descr", "") if c_nv_pr is not None else ""
             if not descr:
                 rect = _shape_rect(shape)

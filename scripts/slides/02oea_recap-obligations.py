@@ -1,4 +1,4 @@
-"""Slide recap : obligations legales de mise en accessibilite."""
+"""Slide récap : obligations légales de mise en accessibilité."""
 
 from igpde_dsfr_components import (
     CONTENT_W, MARGIN_L, Stack,
@@ -10,8 +10,8 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Les obligations legales de mise en accessibilite",
-        fil_ariane="1. Q3 - Cadre legal | Recap obligations",
+        titre="Les obligations légales de mise en accessibilité",
+        fil_ariane="1. Q3 - Cadre légal | Récap obligations",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,
         page_num=ctx.page_num,
@@ -23,20 +23,20 @@ def build(prs, layouts, ctx):
         slide,
         "Documents obligatoires",
         [
-            "Schema pluriannuel d'accessibilite numerique (SPAN)",
+            "Schéma pluriannuel d'accessibilité numérique (SPAN)",
             "Plan d'action annuel",
-            "Audit d'accessibilite RGAA en version 4.1.2",
+            "Audit d'accessibilité RGAA en version 4.1.2",
             "Un moyen de contact",
-            "RAN (Referent Accessibilite Numerique)",
+            "RAN (Référent Accessibilité Numérique)",
         ],
         top=stack.push(2.40), height=2.60,
     )
 
     headers = ["Mention", "Signification"]
     rows = [
-        ["Accessibilite : non conforme", "49 % et moins, ou aucun audit en cours de validite"],
-        ["Accessibilite : partiellement conforme", "De 50 % a 99 % des criteres respectes"],
-        ["Accessibilite : totalement conforme", "100 % des criteres applicables valides"],
+        ["Accessibilité : non conforme", "49 % et moins, ou aucun audit en cours de validité"],
+        ["Accessibilité : partiellement conforme", "De 50 % à 99 % des critères respectés"],
+        ["Accessibilité : totalement conforme", "100 % des critères applicables validés"],
     ]
     add_tableau(
         slide, headers, rows,
@@ -47,10 +47,10 @@ def build(prs, layouts, ctx):
     add_notes(
         slide,
         "Rappel : environ 25 % des tests RGAA sont automatisables, "
-        "le reste necessite un audit humain.\n"
-        "Attention : 100 % conforme ne veut pas forcement dire accessible - "
+        "le reste nécessite un audit humain.\n"
+        "Attention : 100 % conforme ne veut pas forcément dire accessible - "
         "le RGAA ne couvre pas tous les usages.\n"
-        "Le RAN est le referent accessibilite numerique, interlocuteur interne "
-        "pour piloter la demarche.",
+        "Le RAN est le référent accessibilité numérique, interlocuteur interne "
+        "pour piloter la démarche.",
     )
     return slide

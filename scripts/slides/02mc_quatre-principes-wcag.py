@@ -30,9 +30,9 @@ def build(prs, layouts, ctx):
 
     principes = [
         ("Percevoir", "L'information reste-t-elle disponible si je ne vois pas ou n'entends pas ?"),
-        ("Utiliser", "Puis-je naviguer et agir sans souris, sans geste impose ?"),
-        ("Comprendre", "Les mots, formulaires et comportements sont-ils previsibles ?"),
-        ("Compatible", "Les aides techniques peuvent-elles interpreter l'interface ?"),
+        ("Utiliser", "Puis-je naviguer et agir sans souris, sans geste imposé ?"),
+        ("Comprendre", "Les mots, formulaires et comportements sont-ils prévisibles ?"),
+        ("Compatible", "Les aides techniques peuvent-elles interpréter l'interface ?"),
     ]
 
     n = len(principes)
@@ -44,11 +44,11 @@ def build(prs, layouts, ctx):
         left = MARGIN_L + i * (card_w + GAP)
         add_card(slide, titre, contenu,
                  top=card_top, left=left, width=card_w, height=card_h,
-                 numero=i + 1, title_size=13, body_size=13)
+                 numero=i + 1, title_size=14, body_size=14)
 
     add_notes(
         slide,
-        "Mnemonique : PUCC (Percevoir, Utiliser, Comprendre, Compatible). "
+        "Mnémonique : PUCC (Percevoir, Utiliser, Comprendre, Compatible). "
         "Faire reformuler par le groupe : 'Si je suis aveugle, quel principe est en jeu ?' "
         "(Percevoir). 'Si je ne peux pas utiliser la souris ?' (Utiliser). "
         "Ces 4 principes structurent le RGAA et reviendront dans les modules suivants.",

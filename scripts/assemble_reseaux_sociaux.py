@@ -72,7 +72,12 @@ def main() -> None:
     prs, layouts = create_presentation()
     for page_num, path in enumerate(selected, start=1):
         mod = load_module(path)
-        ctx = SlideContext(page_num=page_num, date=args.date, footer_base=args.footer_base)
+        ctx = SlideContext(
+            page_num=page_num,
+            date=args.date,
+            footer_base=args.footer_base,
+            formation_code=_CONFIG["code"],
+        )
         mod.build(prs, layouts, ctx)
         print(f"  [{page_num:02d}] {path.name}")
 

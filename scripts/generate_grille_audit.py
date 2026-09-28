@@ -25,6 +25,11 @@ from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.worksheet.page import PageMargins
 
+from config import load_formation_config
+
+
+FORMATION = load_formation_config()
+
 # ---------------------------------------------------------------------------
 # Palette DSFR
 # ---------------------------------------------------------------------------
@@ -509,7 +514,7 @@ def build_mode_emploi(wb):
     set_widths(ws, [12, 130])
 
     ws["A1"] = (
-        "IGPDE - Formation 102846 - Grille d'audit 13 points de contrôle rapides du W3C"
+        f"IGPDE - {FORMATION['footer']} - Grille d'audit 13 points de contrôle rapides du W3C"
     )
     ws["A1"].font = FONT_TITLE
     ws.merge_cells("A1:B1")
@@ -1238,7 +1243,9 @@ def main():
 
     # Métadonnées du classeur (titre, auteur, sujet, mots-clés)
     cp = wb.properties
-    cp.title = "IGPDE - Formation 102846 - Grille d'audit 13 points de contrôle rapides"
+    cp.title = (
+        f"IGPDE - {FORMATION['footer']} - Grille d'audit 13 points de contrôle rapides"
+    )
     cp.subject = (
         "Accessibilité numérique - 13 points de contrôle rapides W3C alignés RGAA 4.1.2"
     )
@@ -1246,7 +1253,7 @@ def main():
         "IGPDE - Institut de la Gestion publique et du Développement économique"
     )
     cp.keywords = (
-        "IGPDE, 102846, accessibilité, RGAA, WCAG, points de contrôle rapides, audit"
+        f"IGPDE, {FORMATION['code']}, accessibilité, RGAA, WCAG, points de contrôle rapides, audit"
     )
     cp.language = "fr-FR"
 

@@ -19,7 +19,7 @@ URL_COMPRENDRE = "https://obligations-legales-accessibilite-numerique.fr/fr/comp
 def _add_link_line(slide, label, url, top):
     txbox = slide.shapes.add_textbox(
         Inches(MARGIN_L), Inches(top),
-        Inches(CONTENT_W), Inches(0.24),
+        Inches(CONTENT_W), Inches(0.325),
     )
     tf = txbox.text_frame
     tf.word_wrap = False
@@ -27,13 +27,13 @@ def _add_link_line(slide, label, url, top):
 
     label_run = p.add_run()
     label_run.text = label
-    label_run.font.size = Pt(9)
+    label_run.font.size = Pt(14)
     label_run.font.bold = True
     label_run.font.color.rgb = RGBColor(0x16, 0x16, 0x16)
 
     link_run = p.add_run()
     link_run.text = url
-    link_run.font.size = Pt(9)
+    link_run.font.size = Pt(14)
     link_run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
     link_run.font.underline = True
     link_run.hyperlink.address = url
@@ -102,8 +102,8 @@ def build(prs, layouts, ctx):
         slide,
         "Scannez-moi !",
         top=qr_top + qr_w + 0.05,
-        left=qr_left, width=qr_w, height=0.30,
-        size=12, bold=True,
+        left=qr_left, width=qr_w, height=0.35,
+        size=14, bold=True,
     )
 
     txbox = slide.shapes.add_textbox(
@@ -124,13 +124,13 @@ def build(prs, layouts, ctx):
         slide,
         "Simuler : ",
         URL_SIMULATION,
-        top=stack.cursor + 0.45,
+        top=stack.cursor + 0.40,
     )
     _add_link_line(
         slide,
         "Comprendre : ",
         URL_COMPRENDRE,
-        top=stack.cursor + 0.72,
+        top=stack.cursor + 0.73,
     )
 
     add_notes(

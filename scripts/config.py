@@ -10,7 +10,7 @@ import yaml
 
 PROJECT_ROOT = Path(__file__).parent.parent
 DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config.yml"
-REQUIRED_FIELDS = ("code", "date", "footer", "output", "livrables")
+REQUIRED_FIELDS = ("code", "date", "footer", "output", "livrables", "site_url")
 
 
 def load_formation_config(config_path: Path = DEFAULT_CONFIG_PATH) -> dict[str, str]:

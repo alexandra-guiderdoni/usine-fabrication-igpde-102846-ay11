@@ -66,7 +66,7 @@ Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les
 - **Date** : 2026-09-28
 - **Source** : `Makefile`, `AGENTS.md`.
 - **Statut** : active et vérifiée.
-- **Contrainte** : `make` est le point d'entrée courant : `make installer`, `make deck`, `make sami`, `make grille`, `make wcag`, `make pdf`, `make supports`, `make pack`, `make verifier`, `make qa`, `make recette` et `make publier-site` portent les étapes documentées.
+- **Contrainte** : `make` est le point d'entrée courant : `make installer`, `make deck`, `make sami`, `make grille`, `make wcag`, `make pdf`, `make supports`, `make fraicheur-pack`, `make pack`, `make verifier`, `make qa`, `make recette` et `make publier-site` portent les étapes documentées.
 - **Impact** : les cibles préservent l'ordre de production, les chemins des livrables et les contrôles associés.
 - **Décision / prochaine vérification** : les diagnostics ou tests explicitement hors cible `make` utilisent le même interpréteur que l'usine et respectent les consignes d'`AGENTS.md`.
 - **Composants affectés** : `Makefile`, `.venv/`, `scripts/`, `tests/`, livrables.
@@ -86,9 +86,9 @@ Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les
 - **Date** : 2026-09-28
 - **Source** : `Makefile`, `AGENTS.md`.
 - **Statut** : active.
-- **Contrainte** : `make pack` régénère le deck, les PDF, les supports et vérifie les outils, mais ne relance pas `make sami`, `make grille` ni `make wcag`.
-- **Impact** : si les sources Sami, la grille XLSX ou le deck WCAG ont changé, elles doivent être produites avant le pack afin que les livrables remis soient cohérents.
-- **Décision / prochaine vérification** : suivre l'ordre explicite des cibles avant chaque fabrication complète.
+- **Contrainte** : `make pack` vérifie d'abord avec `make fraicheur-pack` que les documents Sami, la grille XLSX et le deck WCAG ne sont ni absents ni plus anciens que leurs sources. Il régénère ensuite le deck, les PDF, les supports et vérifie les outils, sans relancer ces trois cibles.
+- **Impact** : aucun pack ne peut être construit avec une version silencieusement dépassée de ces ressources.
+- **Décision / prochaine vérification** : lorsque le contrôle bloque, exécuter uniquement la commande indiquée (`make sami`, `make grille` ou `make wcag`), vérifier son résultat, puis relancer `make pack`.
 - **Composants affectés** : `_source/`, `03-easy-checks/`, `wcag/`, `livrables-IGPDE-2026-102846/`.
 
 ## 3. Sources, livrables et patrimoine pédagogique
@@ -98,7 +98,7 @@ Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les
 - **Date** : 2026-09-28
 - **Source** : `config.yml`, `AGENTS.md`.
 - **Statut** : active.
-- **Contrainte** : le code, la date, le pied de page, le nom du deck et le dossier de livraison lus par la fabrication sont centralisés dans `config.yml`.
+- **Contrainte** : le code, la date, le pied de page, le nom du deck, le dossier de livraison et l'URL du site lus par la fabrication sont centralisés dans `config.yml`.
 - **Impact** : un changement de session demande aussi de renommer le dossier du pack, de mettre à jour les documents administratifs et de rechercher les anciennes valeurs dans `docs/` et les Markdown structurants.
 - **Décision / prochaine vérification** : traiter un changement de session comme une migration documentaire complète, pas comme une seule modification de configuration.
 - **Composants affectés** : `config.yml`, `docs/`, Markdown structurants, documents administratifs et pack.

@@ -46,6 +46,7 @@ def test_la_commande_lit_un_yaml_valide_independamment_de_sa_presentation(tmp_pa
     footer: Formation 102846
     output: support-formation-102846-2026-IGPDE.pptx
     livrables: pack-de-test
+    site_url: https://example.test/site/
 """,
         encoding="utf-8",
     )
@@ -78,6 +79,7 @@ def test_make_lit_le_dossier_de_livraison_par_le_chargeur(tmp_path):
     footer: Formation 102846
     output: support-formation-102846-2026-IGPDE.pptx
     livrables: pack-de-test
+    site_url: https://example.test/site/
 """,
         encoding="utf-8",
     )

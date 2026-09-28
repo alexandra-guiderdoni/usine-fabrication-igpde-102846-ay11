@@ -10,7 +10,7 @@ Usage :
 Convention :
   - Les modules `slides/NN_nom.py` sont découverts et triés par nom.
   - Chaque module expose `build(prs, layouts, ctx)` et reçoit dans `ctx`
-    la date, le préfixe de pied de page et le numéro de page.
+    le code, la date, le préfixe de pied de page et le numéro de page.
   - Le numéro de page est recalculé à chaque assemblage : insérer ou
     réordonner des slides ne casse pas la pagination.
 """
@@ -129,6 +129,7 @@ def main() -> None:
                 page_num=page_num,
                 date=args.date,
                 footer_base=args.footer_base,
+                formation_code=_config["code"],
             )
             qa_source_map.start_slide(
                 slide_index=page_num,

@@ -5,7 +5,7 @@ Protocole unique pour tout agent (Claude, Codex ou autre) et pour un humain. `CL
 ## Contexte
 
 - Formation « L'accessibilité numérique pour la bureautique et le web », IGPDE, code 102846 (ex-102638), 1 jour, public communicants, pas développeurs.
-- Session du 9 octobre 2026. Code, date, pied de page, nom du deck et dossier de livraison sont centralisés dans `config.yml` : `scripts/config.py` les valide et les expose à la fabrication. Une nouvelle session demande en plus de renommer le dossier du pack, de mettre à jour à la main les documents administratifs, et de rechercher l'ancien code et l'ancienne date dans les sources versionnées (`docs/`, `scripts/`, `tests/` et Markdown structurants), en distinguant les historiques et les fixtures de test.
+- Session du 9 octobre 2026. Code, date, pied de page, nom du deck, dossier de livraison et URL du site sont centralisés dans `config.yml` : `scripts/config.py` les valide et les expose à la fabrication. Une nouvelle session demande en plus de renommer le dossier du pack, de mettre à jour à la main les documents administratifs, et de rechercher l'ancien code et l'ancienne date dans les sources versionnées (`docs/`, `scripts/`, `tests/` et Markdown structurants), en distinguant les historiques et les fixtures de test.
 - Deck de 138 slides DSFR, 4 modules dans un ordre impératif : 1. communication accessible et cadre légal, 2. Word accessible, 3. points de contrôle rapides W3C, 4. réseaux sociaux.
 - Exercice Sami : 21 critères à vérifier dans 3 DOCX (inaccessible, aide à la correction, accessible), spécification dans `_source/exercice-sami-spec.md`.
 - Site d'exercice dans `docs/` (versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/`, démo émojis, grille XLSX), publié sur https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/ depuis le dépôt `git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git`.
@@ -45,7 +45,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
 ## Qui fabrique quoi dans le pack
 
-`make pack` régénère le deck, puis les PDF, les supports et la vérification des outils. Il ne relance ni `make sami`, ni `make grille`, ni `make wcag` : les lancer d'abord si leurs sources ont changé. Chaque livrable relève de l'une de ces trois catégories.
+`make pack` vérifie d'abord la fraîcheur des ressources qu'il ne régénère pas, puis régénère le deck, les PDF, les supports et la vérification des outils. Il ne relance ni `make sami`, ni `make grille`, ni `make wcag` : son contrôle les bloque si leurs sorties sont absentes ou plus anciennes que leurs sources. Chaque livrable relève de l'une de ces trois catégories.
 
 - **Généré par une commande**
   - Deck `support-formation-*.pptx` : `make deck`, qui génère le deck à la racine (sortie de travail, ignorée par git) puis le copie dans le pack (livrable versionné). La copie refuse un deck partiel. Aucun PDF du deck n'est livré.
@@ -68,6 +68,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 ## Vérifier avant de livrer
 
 - `make verifier` : suite pytest (dont la déclaration PDF/UA-1 des PDF livrés), validation du site (`validate.py`), contrôles du dépôt. Le verdict se lit sur le code de sortie.
+- `make fraicheur-pack` : vérifie les documents Sami, la grille XLSX et le deck WCAG que `make pack` ne régénère pas. Cette cible est un prérequis obligatoire de `make pack`.
 - `make qa` : boucle qualité du deck. Lire `.qa/qa-pptx-report.md` et son champ `status` ; le code de sortie seul ne prouve pas la convergence.
 - Réexport complet du deck : suivre `REEXPORTER-DECK-PPTX.md`.
 - Recette visuelle du site corrigé : exécuter une fois `make installer-recette`, puis `make recette`. Les manifestes sont dans `recette/visual-tests/`.

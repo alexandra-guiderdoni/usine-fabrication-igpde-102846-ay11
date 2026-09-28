@@ -10,7 +10,7 @@ endif
 SITE_CLONE ?= $(LIVRABLES)/Formateur/tp-easy-check-site-web-igpde
 SITE_CONSULTATION ?= ../tp-fabrication-igpde-102846-ay11
 
-.PHONY: aide installer installer-recette deck qa tests valider controles verifier grille sami wcag pdf supports outils outils-telecharger pack apercu recette publier-site
+.PHONY: aide installer installer-recette deck qa tests valider controles verifier grille sami wcag pdf supports outils outils-telecharger fraicheur-pack pack apercu recette publier-site
 
 aide:
 	@echo "Usine IGPDE - commandes principales (Python : $(PYTHON))"
@@ -22,9 +22,10 @@ aide:
 	@echo "  make grille              régénère la grille d'audit XLSX et la copie dans le site"
 	@echo "  make sami                régénère les 3 documents Word de l'exercice Sami"
 	@echo "  make wcag                régénère le deck WCAG en langage clair (condensé) dans wcag/"
+	@echo "  make fraicheur-pack      vérifie les ressources que pack ne régénère pas"
 	@echo "  make pdf                 régénère les PDF accessibles du pack"
 	@echo "  make supports            démo hors ligne et documents Sami dans le pack"
-	@echo "  make pack                deck + PDF + supports + vérification des outils"
+	@echo "  make pack                vérifie la fraîcheur, puis deck + PDF + supports + outils"
 	@echo "  make outils-telecharger  récupère et vérifie les installeurs"
 	@echo "  make apercu              site d'exercice en local"
 	@echo "  make recette             recette visuelle ShipGuard du site corrigé"
@@ -79,7 +80,10 @@ outils:
 outils-telecharger:
 	$(PYTHON) scripts/fabriquer_pack.py outils --telecharger
 
-pack: deck
+fraicheur-pack:
+	$(PYTHON) scripts/verifier_fraicheur_pack.py
+
+pack: fraicheur-pack deck
 	$(PYTHON) scripts/fabriquer_pack.py tout
 
 apercu:

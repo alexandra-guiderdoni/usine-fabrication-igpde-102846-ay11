@@ -15,7 +15,7 @@ Dépôt autonome qui fabrique, à partir de sources versionnées, tous les suppo
 - **Fiches PDF accessibles** : mémos Word et LibreOffice, fiches WCAG, fiche des liens des TP.
 - **Pack livrable** : `livrables-IGPDE-2026-102846/`, remis à l'IGPDE pour la session du 9 octobre 2026.
 
-Une nouvelle session se prépare en modifiant `config.yml` (code, date, pied de page, nom du deck, dossier de livraison), puis en relançant la fabrication. Il faut aussi renommer le dossier du pack, mettre à jour les documents administratifs et rechercher l'ancien code dans le site et la documentation (voir `AGENTS.md`).
+Une nouvelle session se prépare en modifiant `config.yml` (code, date, pied de page, nom du deck, dossier de livraison et URL du site), puis en relançant la fabrication. Il faut aussi renommer le dossier du pack, mettre à jour les documents administratifs et rechercher l'ancien code dans le site et la documentation (voir `AGENTS.md`).
 
 ## Installation
 
@@ -42,14 +42,15 @@ make aide          # liste des commandes
 make deck          # régénère le deck et met à jour sa copie dans le pack
 make qa            # qualité du deck ; lire le statut CONVERGED dans .qa/qa-pptx-report.md
 make verifier      # tests, validation du site, contrôles du dépôt
-make pack          # deck, PDF accessibles, supports, vérification des installeurs
+make fraicheur-pack # contrôle les ressources que pack ne régénère pas
+make pack          # fraîcheur, deck, PDF accessibles, supports, outils
 make apercu        # site d'exercice en local
 make installer-recette # dépendances locales de la recette visuelle
 make recette       # recette visuelle du site corrigé
 make publier-site  # publication du site, seulement après le succès de make verifier
 ```
 
-`make pack` ne relance pas `make sami`, `make grille` ni `make wcag`. Si leurs sources ont changé, les régénérer avant de fabriquer le pack.
+`make pack` ne relance pas `make sami`, `make grille` ni `make wcag`. Il exécute d'abord `make fraicheur-pack` et s'arrête avec la commande de régénération attendue si leurs sorties sont absentes ou plus anciennes que leurs sources.
 
 Pour modifier le site, éditer exclusivement `docs/`, lancer `make verifier`, puis `make publier-site`. Les deux clones locaux du site sont des destinations de publication : ne jamais les modifier, commiter ou pousser.
 

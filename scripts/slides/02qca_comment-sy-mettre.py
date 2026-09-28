@@ -41,7 +41,10 @@ def build(prs, layouts, ctx):
     titre_formation = "Offre de formation"
     bullets_formation = [
         "Mentor (en ligne) : l'accessibilité numérique selon votre métier",
-        "IGPDE : l'accessibilité numérique pour la bureautique et le web (réf. 102846)",
+        (
+            "IGPDE : l'accessibilité numérique pour la bureautique et le web "
+            f"(réf. {ctx.formation_code})"
+        ),
         "DINUM : sensibilisation, design inclusif, audit RGAA",
     ]
 
@@ -66,7 +69,7 @@ def build(prs, layouts, ctx):
         slide,
         "Rassurer les stagiaires : ils ne partent pas de zéro. "
         "La sensibilisation d'aujourd'hui est la première étape. "
-        "Mentor est un parcours en ligne gratuit. La formation IGPDE 102846 "
+        f"Mentor est un parcours en ligne gratuit. La formation IGPDE {ctx.formation_code} "
         "est le prolongement de cette journée. La DINUM propose des formats "
         "plus techniques pour ceux qui veulent aller plus loin.",
     )

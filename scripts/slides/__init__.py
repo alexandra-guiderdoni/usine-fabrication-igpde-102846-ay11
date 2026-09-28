@@ -6,7 +6,7 @@ Chaque module nommé `NN_nom.py` (où NN est un entier à 2 chiffres) expose :
         ...
 
 Le `ctx` est un dataclass `SlideContext` injecté par `assemble.py` qui porte
-le numéro de page, la date et le texte du pied de page. L'ordre d'exécution
+le numéro de page, le code, la date et le texte du pied de page. L'ordre d'exécution
 suit le tri alphabétique des noms de fichiers, donc `01_*.py` puis `02_*.py`,
 etc. Pour insérer une slide au milieu, renommer les suivantes ou utiliser
 un numéro intermédiaire (`05a_*.py` est accepté).
@@ -32,6 +32,7 @@ class SlideContext:
     page_num: int
     date: str
     footer_base: str  # préfixe commun, ex. « Formation 102846 »
+    formation_code: str
 
 
 def discover_slides() -> list[Path]:

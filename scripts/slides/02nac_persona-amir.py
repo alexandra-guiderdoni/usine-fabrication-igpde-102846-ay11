@@ -12,7 +12,7 @@ BIO_LEFT = round(MARGIN_L + PHOTO_W + 0.30, 2)
 BIO_W = round(CONTENT_W - PHOTO_W - 0.30, 2)
 
 IMG_H = 1.3
-LABEL_H = 0.35
+LABEL_H = 0.40
 
 
 def build(prs, layouts, ctx):
@@ -73,7 +73,7 @@ def build(prs, layouts, ctx):
             slide, label,
             top=img_top + IMG_H + 0.05,
             left=left, width=item_w, height=LABEL_H,
-            size=12, bold=True,
+            size=14, bold=True,
         )
 
     add_notes(
