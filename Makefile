@@ -2,7 +2,11 @@
 # Point d'entrée unique, pour un humain comme pour un agent : make aide
 
 PYTHON ?= $(shell if [ -x .venv/bin/python ]; then echo .venv/bin/python; elif [ -x /opt/homebrew/bin/python3.12 ]; then echo /opt/homebrew/bin/python3.12; else echo python3; fi)
-LIVRABLES := $(shell sed -n 's/^  livrables: "\(.*\)"/\1/p' config.yml)
+CONFIG ?= config.yml
+LIVRABLES := $(shell $(PYTHON) scripts/config.py --config "$(CONFIG)" --value livrables)
+ifeq ($(strip $(LIVRABLES)),)
+$(error Impossible de lire livrables depuis $(CONFIG))
+endif
 SITE_CLONE ?= $(LIVRABLES)/Formateur/tp-easy-check-site-web-igpde
 SITE_CONSULTATION ?= ../tp-fabrication-igpde-102846-ay11
 

@@ -29,7 +29,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.3, gap=0.15)
+    stack = Stack(top=2.20, gap=0.10)
 
     add_highlight(
         slide,

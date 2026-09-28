@@ -21,13 +21,12 @@ import argparse
 import sys
 from pathlib import Path
 
-import yaml
-
 SCRIPTS_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPTS_DIR.parent
 sys.path.insert(0, str(SCRIPTS_DIR))
 
 import qa_source_map
+from config import load_formation_config
 from igpde_dsfr_components import create_presentation, finalize_pptx
 from slides import (
     SlideContext,
@@ -35,7 +34,7 @@ from slides import (
     load_slide_module,
 )
 
-_config = yaml.safe_load((PROJECT_ROOT / "config.yml").read_text())["formation"]
+_config = load_formation_config()
 DATE_DEFAULT = _config["date"]
 FOOTER_BASE_DEFAULT = _config["footer"]
 OUTPUT_DEFAULT = PROJECT_ROOT / _config["output"]

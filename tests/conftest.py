@@ -27,9 +27,9 @@ def deck():
         if not pptx_path.is_absolute():
             pptx_path = project_root / pptx_path
     else:
-        import yaml
+        from config import load_formation_config
 
-        cfg = yaml.safe_load((project_root / "config.yml").read_text())["formation"]
+        cfg = load_formation_config()
         pptx_path = project_root / cfg["output"]
     if not pptx_path.exists():
         pytest.skip(

@@ -8,7 +8,7 @@ from igpde_dsfr_components import (
     new_slide,
 )
 
-LOGO_FALC_W = 1.2
+LOGO_FALC_W = 0.6
 
 
 def build(prs, layouts, ctx):
@@ -67,7 +67,7 @@ def build(prs, layouts, ctx):
     add_image(
         slide,
         "scripts/images/image17.jpeg",
-        top=top_cols + col_h + 0.15,
+        top=top_cols + col_h + 0.10,
         left=MARGIN_L + (CONTENT_W - LOGO_FALC_W) / 2,
         width=LOGO_FALC_W,
         alt_text="Logo FALC - Facile à lire et à comprendre",

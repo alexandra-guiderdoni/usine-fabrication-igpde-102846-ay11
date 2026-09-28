@@ -19,13 +19,11 @@ import urllib.request
 import zipfile
 from pathlib import Path
 
+from config import load_formation_config
 import pack_supports
-import yaml
 
 RACINE = Path(__file__).resolve().parent.parent
-CONFIG = yaml.safe_load((RACINE / "config.yml").read_text(encoding="utf-8"))[
-    "formation"
-]
+CONFIG = load_formation_config()
 PACK = RACINE / CONFIG["livrables"]
 FORMATEUR = PACK / "Formateur"
 MD2PDF = RACINE / "vendor" / "accessible-pdf" / "scripts" / "md2pdf.py"

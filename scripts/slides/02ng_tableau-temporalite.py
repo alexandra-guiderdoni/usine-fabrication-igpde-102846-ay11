@@ -32,7 +32,7 @@ def build(prs, layouts, ctx):
         top=stack.push(estimate_highlight_height(message, CONTENT_W)),
     )
 
-    img_w = 4.5
+    img_w = 4.43
     img_h = img_w * 0.784
     add_image(
         slide,

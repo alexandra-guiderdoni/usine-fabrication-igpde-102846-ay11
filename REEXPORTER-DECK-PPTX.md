@@ -5,6 +5,12 @@ Mode d'emploi court pour régénérer le support `support-formation-102846-2026-
 
 Dans les commandes ci-dessous, `python` désigne l'interpréteur de l'usine : `.venv/bin/python` après `make installer`, sinon `/opt/homebrew/bin/python3.12`.
 
+Avant une première utilisation ou après recréation de l'environnement :
+
+```bash
+make installer
+```
+
 ## Principe
 
 Le deck est généré par les scripts Python du projet. Ne jamais modifier le fichier `.pptx` dans PowerPoint : toute retouche serait écrasée à la régénération suivante. Les corrections se font dans `scripts/slides/` (voir `AGENTS.md`).
@@ -34,11 +40,13 @@ Quand la QA est conforme, régénérer le fichier final :
 
 ```bash
 make deck
-make tests
-unzip -t support-formation-102846-2026-IGPDE.pptx
+make verifier
+unzip -t livrables-IGPDE-2026-102846/Formateur/support-formation-102846-2026-IGPDE.pptx
 ```
 
 `make deck` met aussi à jour la copie du deck dans le pack livrable, qui est la version versionnée et remise à l'IGPDE. Cette copie refuse un deck partiel (produit par `--only`, `--from` ou `--to`) : le livrable reste alors inchangé. Pour régénérer en plus les PDF et les supports : `make pack`.
+
+Avant livraison, ouvrir ce PPTX du pack dans PowerPoint et effectuer une relecture visuelle humaine. La QA automatique ne détecte pas tous les chevauchements fins ni tous les défauts esthétiques.
 
 Le fichier à livrer est la copie du pack :
 
@@ -54,7 +62,7 @@ Si la QA signale des violations `accent_fr` nouvelles et que le rapport propose 
 python scripts/qa_pptx.py . --max-iterations 5 --apply-accents
 git diff
 make deck
-make tests
+make verifier
 ```
 
 Vérifier le diff avant de committer. Le correcteur ne doit modifier que des chaînes Python avec accents manquants.
@@ -102,7 +110,7 @@ QA_PPTX_PATH=.qa/formation-test-qa.pptx python -m pytest tests/test_deck_geometr
 Vérifier le PPTX stable :
 
 ```bash
-unzip -t support-formation-102846-2026-IGPDE.pptx
+unzip -t livrables-IGPDE-2026-102846/Formateur/support-formation-102846-2026-IGPDE.pptx
 ```
 
 Vérifier les tirets interdits dans les scripts :

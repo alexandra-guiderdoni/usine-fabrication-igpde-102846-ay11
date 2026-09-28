@@ -20,7 +20,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=1.85, gap=0.20)
+    stack = Stack(top=1.85, gap=0.13)
 
     message = (
         "Chaque déficience appelle des solutions et des technologies "

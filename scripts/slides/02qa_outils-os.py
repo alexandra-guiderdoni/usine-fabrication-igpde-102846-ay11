@@ -68,7 +68,7 @@ def build(prs, layouts, ctx):
     add_image(
         slide,
         "scripts/images/image12.png",
-        top=top_cols + col_h + 0.15,
+        top=top_cols + col_h + 0.12,
         left=MARGIN_L + (CONTENT_W - LOGO_NVDA_W) / 2,
         width=LOGO_NVDA_W,
         alt_text="Logo NVDA - lecteur d'écran gratuit et open source",

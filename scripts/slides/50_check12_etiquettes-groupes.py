@@ -45,9 +45,9 @@ def build(prs, layouts, ctx):
     ]
     add_tableau(
         slide, headers, rows,
-        top=4.6,
+        top=4.35,
         col_widths=[3.20, 4.58, 4.50],
-        row_h=0.85,
+        row_h=0.80,
     )
 
     add_notes(

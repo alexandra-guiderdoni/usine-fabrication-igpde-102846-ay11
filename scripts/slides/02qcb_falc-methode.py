@@ -8,6 +8,8 @@ from igpde_dsfr_components import (
     new_slide,
 )
 
+GUIDE_FALC_W = 0.55
+
 
 def build(prs, layouts, ctx):
     slide = new_slide(
@@ -65,8 +67,8 @@ def build(prs, layouts, ctx):
     add_image(
         slide,
         "scripts/images/guide-unapei-falc.png",
-        top=top_cols + col_h - 0.30, left=COL_R + (COL_W - 1.0) / 2,
-        width=1.0,
+        top=5.55, left=COL_R + (COL_W - GUIDE_FALC_W) / 2,
+        width=GUIDE_FALC_W,
         alt_text="Couverture du guide Unapei - L'information pour tous",
     )
 

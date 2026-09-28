@@ -102,7 +102,7 @@ L'assembleur est le seul conteneur qui mérite une vue interne détaillée : il 
 
 | Composant | Fichier ou interface | Responsabilité |
 |---|---|---|
-| Chargeur de configuration | `scripts/config.py`, `config.yml` | Expose le code de formation, la date, le pied de page, le nom du deck et le dossier de livraison aux générateurs. |
+| Chargeur de configuration | `scripts/config.py`, `config.yml` | Valide et expose le code de formation, la date, le pied de page, le nom du deck et le dossier de livraison aux générateurs et au Makefile. |
 | Découverte et chargement des slides | `scripts/slides/__init__.py` | Trie les fichiers `NN_*.py` et leurs intercalaires alphabétiques, importe chaque module et exige une fonction `build(...)`. |
 | Modules pédagogiques | `scripts/slides/*.py` | Produisent les 138 slides des quatre modules dans leur ordre lexical contrôlé. |
 | Composants IGPDE-DSFR | `scripts/igpde_dsfr_components.py` | Crée les six layouts, les 17 composants `add_*`, les deux compositions `compose_*` et applique la grille visuelle. |
@@ -190,7 +190,7 @@ Il n'y a pas de chaîne CI déclarée dans ce dépôt : l'installation, la gén�
 |---|---|---|
 | Régression fonctionnelle | `make verifier` exécute 87 tests, la validation du site et les contrôles de dépôt. | Un succès atteste l'absence de régression détectée, pas une relecture pédagogique ou visuelle exhaustive. |
 | Mise en page du deck | `make qa`, contrôles géométriques et relecture humaine. | Les superpositions fines exigent toujours une inspection visuelle. |
-| Pied de page | La génération remonte automatiquement un composant lorsqu'il franchit la limite basse ; les tests empêchent d'ajouter de nouvelles violations connues. | Onze violations historiques de géométrie de pied sont enregistrées dans la baseline des tests ; un test vert ne les efface pas. |
+| Pied de page | La génération limite les composants à la zone de contenu et les tests imposent désormais zéro forme de contenu sous `BOTTOM_CONTENT` (6,80 pouces). | `_safe_top()` reste un filet de sécurité : son avertissement signale une mise en page à corriger et une relecture visuelle reste nécessaire pour exclure un chevauchement. |
 | PDF | La fabrication vérifie la déclaration PDF/UA-1 avant de remplacer un PDF livré. | Les tableaux Markdown doivent rester composables sur une page, sinon la production est bloquée. |
 | Site | `validate.py` contrôle le contrat de l'exercice, les liens, les ressources et les règles d'accessibilité ciblées. | La recette visuelle nécessite ShipGuard et ne remplace pas un contrôle humain. |
 | Publication | Une seule commande synchronise, commit et pousse vers le dépôt des TP. | Toute modification directe d'un clone local serait écrasée ou ferait échouer une publication ultérieure. |

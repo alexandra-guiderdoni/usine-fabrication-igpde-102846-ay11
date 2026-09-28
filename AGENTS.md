@@ -5,7 +5,7 @@ Protocole unique pour tout agent (Claude, Codex ou autre) et pour un humain. `CL
 ## Contexte
 
 - Formation « L'accessibilité numérique pour la bureautique et le web », IGPDE, code 102846 (ex-102638), 1 jour, public communicants, pas développeurs.
-- Session du 9 octobre 2026. Code, date, pied de page, nom du deck et dossier de livraison sont centralisés dans `config.yml` : c'est la seule source des paramètres lus par la fabrication. Une nouvelle session demande en plus de renommer le dossier du pack, de mettre à jour à la main les documents administratifs, et de rechercher l'ancien code et l'ancienne date dans `docs/` et dans les Markdown structurants, qui citent le dossier du pack en toutes lettres.
+- Session du 9 octobre 2026. Code, date, pied de page, nom du deck et dossier de livraison sont centralisés dans `config.yml` : `scripts/config.py` les valide et les expose à la fabrication. Une nouvelle session demande en plus de renommer le dossier du pack, de mettre à jour à la main les documents administratifs, et de rechercher l'ancien code et l'ancienne date dans les sources versionnées (`docs/`, `scripts/`, `tests/` et Markdown structurants), en distinguant les historiques et les fixtures de test.
 - Deck de 138 slides DSFR, 4 modules dans un ordre impératif : 1. communication accessible et cadre légal, 2. Word accessible, 3. points de contrôle rapides W3C, 4. réseaux sociaux.
 - Exercice Sami : 21 critères à vérifier dans 3 DOCX (inaccessible, aide à la correction, accessible), spécification dans `_source/exercice-sami-spec.md`.
 - Site d'exercice dans `docs/` (versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/`, démo émojis, grille XLSX), publié sur https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/ depuis le dépôt `git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git`.
@@ -66,7 +66,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
 ## Vérifier avant de livrer
 
-- `make verifier` : 87 tests (dont la déclaration PDF/UA-1 des PDF livrés), validation du site (`validate.py`), contrôles du dépôt. Le verdict se lit sur le code de sortie.
+- `make verifier` : suite pytest (dont la déclaration PDF/UA-1 des PDF livrés), validation du site (`validate.py`), contrôles du dépôt. Le verdict se lit sur le code de sortie.
 - `make qa` : boucle qualité du deck. Lire `.qa/qa-pptx-report.md` et son champ `status` ; le code de sortie seul ne prouve pas la convergence.
 - Réexport complet du deck : suivre `REEXPORTER-DECK-PPTX.md`.
 - Recette visuelle du site corrigé : `make recette` (plugin ShipGuard requis ; ses manifestes sont dans `recette/visual-tests/`).

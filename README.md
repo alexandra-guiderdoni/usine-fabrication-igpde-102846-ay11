@@ -2,6 +2,8 @@
 
 Dépôt autonome qui fabrique, à partir de sources versionnées, tous les supports de la formation « L'accessibilité numérique pour la bureautique et le web » de l'IGPDE (code 102846) : deck PPTX DSFR, site d'exercice, exercice Word, grille d'audit, fiches PDF accessibles et pack livrable.
 
+**Avant toute action** : un agent lit d'abord [AGENTS.md](AGENTS.md), qui est le protocole canonique ; un humain s'y réfère dès qu'une commande, un livrable ou une publication sort du parcours ci-dessous.
+
 ---
 
 ## Vue d'ensemble
@@ -30,18 +32,23 @@ La commande crée `.venv` depuis `requirements.lock`, en vérifiant l'empreinte 
 ```bash
 make aide          # liste des commandes
 make deck          # régénère le deck et met à jour sa copie dans le pack
+make qa            # qualité du deck ; lire le statut CONVERGED dans .qa/qa-pptx-report.md
 make verifier      # tests, validation du site, contrôles du dépôt
 make pack          # deck, PDF accessibles, supports, vérification des installeurs
 make apercu        # site d'exercice en local
-make publier-site  # publication du site sur GitHub Pages
+make publier-site  # publication du site, seulement après le succès de make verifier
 ```
+
+`make pack` ne relance pas `make sami`, `make grille` ni `make wcag`. Si leurs sources ont changé, les régénérer avant de fabriquer le pack.
+
+Pour modifier le site, éditer exclusivement `docs/`, lancer `make verifier`, puis `make publier-site`. Les deux clones locaux du site sont des destinations de publication : ne jamais les modifier, commiter ou pousser.
 
 Les installeurs remis aux stagiaires (NVDA, Colour Contrast Analyser, Focus Highlight, PAC) ne sont pas versionnés : `make outils-telecharger` les récupère et vérifie leur empreinte SHA-256 (voir `livrables-IGPDE-2026-102846/outils/MANIFEST.md`).
 
 ## Structure
 
 - `config.yml` : paramètres de la session, source unique.
-- `scripts/` : génération du deck (`assemble.py`, `slides/`, `igpde_dsfr_components.py`), des documents, du site, de la grille, contrôle qualité du deck, fabrication du pack.
+- `scripts/` : génération du deck (`assemble.py`, `slides/`, `igpde_dsfr_components.py`), des documents et de la grille, validation et publication du site, contrôle qualité du deck, fabrication du pack.
 - `tests/`, `validate.py` : preuves de fonctionnement du deck et du site.
 - `docs/` : source du site d'exercice.
 - `publication-site/` : `README.md`, `agents-site.md` et `claude-site.md`, copiés par `make publier-site` à la racine du dépôt publié du site sous les noms `README.md`, `AGENTS.md` et `CLAUDE.md` ; les deux derniers renvoient les agents vers l'usine.

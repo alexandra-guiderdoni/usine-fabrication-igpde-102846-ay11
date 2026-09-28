@@ -9,7 +9,7 @@
       "accent_fr": 18,
       "alt_text": 42,
       "font_size": 25,
-      "footer": 11
+      "footer": 0
     }
   },
   "fingerprints": [
@@ -58,17 +58,17 @@
     "alt_text|slide=2|shape=DSFR-qrcode|t=5.18:l=0.52:h=1.12:w=1.12|missing_descr",
     "alt_text|slide=2|shape=Picture 18|t=2.10:l=7.53:h=4.56:w=3.82|missing_descr",
     "alt_text|slide=32|shape=Picture 10|t=3.27:l=0.52:h=3.00:w=5.50|missing_descr",
-    "alt_text|slide=33|shape=Picture 10|t=3.33:l=4.41:h=3.53:w=4.50|missing_descr",
+    "alt_text|slide=33|shape=Picture 10|t=3.33:l=4.45:h=3.47:w=4.43|missing_descr",
     "alt_text|slide=39|shape=Picture 14|t=3.98:l=10.95:h=1.80:w=1.80|missing_descr",
     "alt_text|slide=43|shape=Picture 11|t=2.20:l=11.30:h=3.15:w=1.50|missing_descr",
-    "alt_text|slide=46|shape=Picture 18|t=5.82:l=6.16:h=1.00:w=1.00|missing_descr",
-    "alt_text|slide=48|shape=Picture 18|t=6.24:l=6.06:h=1.09:w=1.20|missing_descr",
+    "alt_text|slide=46|shape=Picture 18|t=5.79:l=6.16:h=1.00:w=1.00|missing_descr",
+    "alt_text|slide=48|shape=Picture 18|t=6.19:l=6.36:h=0.55:w=0.60|missing_descr",
     "alt_text|slide=4|shape=Picture 7|t=2.40:l=0.71:h=2.39:w=2.39|missing_descr",
-    "alt_text|slide=50|shape=Picture 18|t=6.14:l=9.31:h=2.09:w=1.00|missing_descr",
+    "alt_text|slide=50|shape=Picture 18|t=5.55:l=9.54:h=1.15:w=0.55|missing_descr",
     "alt_text|slide=51|shape=Picture 10|t=3.02:l=2.91:h=1.20:w=1.20|missing_descr",
     "alt_text|slide=51|shape=Picture 11|t=3.02:l=9.21:h=1.20:w=1.20|missing_descr",
     "alt_text|slide=52|shape=Picture 10|t=3.27:l=0.52:h=2.80:w=6.00|missing_descr",
-    "alt_text|slide=52|shape=Picture 15|t=6.22:l=4.91:h=1.34:w=3.50|missing_descr",
+    "alt_text|slide=52|shape=Picture 15|t=5.85:l=8.84:h=0.77:w=2.00|missing_descr",
     "alt_text|slide=5|shape=Picture 7|t=2.40:l=0.71:h=3.07:w=2.39|missing_descr",
     "alt_text|slide=62|shape=DSFR-qrcode|t=5.12:l=7.68:h=1.10:w=1.10|missing_descr",
     "alt_text|slide=63|shape=Picture 9|t=2.15:l=4.50:h=1.57:w=5.50|missing_descr",
@@ -97,17 +97,6 @@
     "font_size|slide=39|shape=TextBox 17|t=6.19:l=0.52:h=0.24:w=12.28|p=0:r=0:size=9.0:text=Simuler : ",
     "font_size|slide=39|shape=TextBox 17|t=6.19:l=0.52:h=0.24:w=12.28|p=0:r=1:size=9.0:text=https://obligations-legales-ac",
     "font_size|slide=39|shape=TextBox 18|t=6.46:l=0.52:h=0.24:w=12.28|p=0:r=0:size=9.0:text=Comprendre : ",
-    "font_size|slide=39|shape=TextBox 18|t=6.46:l=0.52:h=0.24:w=12.28|p=0:r=1:size=9.0:text=https://obligations-legales-ac",
-    "footer|slide=105|shape=DSFR-box|t=5.58:l=0.60:h=1.40:w=12.20|bottom=6.982>limit=6.80",
-    "footer|slide=105|shape=DSFR-quote-auteur|t=6.48:l=0.82:h=0.40:w=11.88|bottom=6.882>limit=6.80",
-    "footer|slide=110|shape=Table 11|t=4.60:l=0.52:h=2.55:w=12.28|bottom=7.150>limit=6.80",
-    "footer|slide=29|shape=Table 11|t=5.07:l=0.52:h=1.80:w=12.00|bottom=6.865>limit=6.80",
-    "footer|slide=30|shape=Table 11|t=5.07:l=0.52:h=1.80:w=12.00|bottom=6.865>limit=6.80",
-    "footer|slide=33|shape=Picture 10|t=3.33:l=4.41:h=3.53:w=4.50|bottom=6.853>limit=6.80",
-    "footer|slide=41|shape=Table 11|t=5.20:l=0.52:h=1.80:w=12.28|bottom=7.000>limit=6.80",
-    "footer|slide=46|shape=Picture 18|t=5.82:l=6.16:h=1.00:w=1.00|bottom=6.822>limit=6.80",
-    "footer|slide=48|shape=Picture 18|t=6.24:l=6.06:h=1.09:w=1.20|bottom=7.330>limit=6.80",
-    "footer|slide=50|shape=Picture 18|t=6.14:l=9.31:h=2.09:w=1.00|bottom=8.226>limit=6.80",
-    "footer|slide=52|shape=Picture 15|t=6.22:l=4.91:h=1.34:w=3.50|bottom=7.570>limit=6.80"
+    "font_size|slide=39|shape=TextBox 18|t=6.46:l=0.52:h=0.24:w=12.28|p=0:r=1:size=9.0:text=https://obligations-legales-ac"
   ]
 }

@@ -17,13 +17,13 @@ import re
 import sys
 from pathlib import Path
 
-import yaml
 from types import ModuleType
 
 SCRIPTS_DIR = Path(__file__).parent
 sys.path.insert(0, str(SCRIPTS_DIR))
 
 from igpde_dsfr_components import create_presentation, finalize_pptx  # noqa: E402
+from config import load_formation_config  # noqa: E402
 from slides import SlideContext  # noqa: E402
 
 SLIDES_DIR = SCRIPTS_DIR / "slides"
@@ -34,7 +34,7 @@ OUTPUT_DEFAULT = (
     / "04-reseaux-sociaux"
     / "module4-reseaux-sociaux.pptx"
 )
-_CONFIG = yaml.safe_load((SCRIPTS_DIR.parent / "config.yml").read_text(encoding="utf-8"))["formation"]
+_CONFIG = load_formation_config()
 DATE_DEFAULT = _CONFIG["date"]
 FOOTER_BASE_DEFAULT = _CONFIG["footer"]
 

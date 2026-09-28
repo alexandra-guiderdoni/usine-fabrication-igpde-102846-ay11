@@ -9,6 +9,7 @@ from igpde_dsfr_components import (
 )
 
 IMG_W = 6.0
+BADGE_W = 2.0
 TEXTE_LEFT = round(MARGIN_L + IMG_W + 0.35, 2)
 TEXTE_W = round(CONTENT_W - IMG_W - 0.35, 2)
 
@@ -62,9 +63,9 @@ def build(prs, layouts, ctx):
     add_image(
         slide,
         "scripts/images/image21.png",
-        top=img_top + 2.8 + 0.15,
-        left=MARGIN_L + (CONTENT_W - 3.5) / 2,
-        width=3.5,
+        top=5.85,
+        left=TEXTE_LEFT + (TEXTE_W - BADGE_W) / 2,
+        width=BADGE_W,
         alt_text=(
             "Bandeau #accessibleatous : pictogrammes poussette, "
             "personne âgée, femme enceinte, fauteuil roulant"

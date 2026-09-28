@@ -1,311 +1,302 @@
-# Contraintes — Formation 102846, ex-102638 (IGPDE / Carine C.)
+# Contraintes — Usine IGPDE 102846
 
-- **Compile le** : 2026-05-22, révisé le 2026-09-27 (usine autonome)
-- **Compilateur** : contraintes-vivantes v1
+- **Compilé le** : 2026-09-28
+- **Compilateur** : `contraintes-vivantes` v1
+- **Portée** : fabrication locale du pack de formation et publication contrôlée du site d'exercice.
+- **Sources de compilation** : `AGENTS.md`, `Makefile`, `config.yml`, `requirements.txt`, `requirements.lock`, `scripts/`, `tests/`, `docs/`, `publication-site/`, `validate.py`, `PUBLIER-SITE.md`, `architecture-c4-slides.md` et l'état vérifié par `make verifier` et `make qa`.
 
-Chaque entrée est datée et garde la trace de sa découverte. En cas de conflit avec `AGENTS.md`, c'est `AGENTS.md` qui fait foi pour la manière de travailler.
+Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les consignes opérationnelles d'`AGENTS.md`, ni l'historique et les pistes de travail de `todo.md`.
 
-## 1. Dépendances externes
+## 1. Environnement et dépendances
 
-### Stack Python de génération
+### Dépendances Python verrouillées
 
-- **Date** : 2026-05-12
-- **Source** : `AGENTS.md`, `CLAUDE.md`, imports Python dans `scripts/` et `validate.py`
-- **Statut** : confirmée
-- **Contrainte** : la régénération du projet repose sur Python 3 et au minimum `python-pptx`, `lxml`, `openpyxl`, `python-docx`, `matplotlib`, `numpy` et `PyYAML`.
-- **Impact** : sans cette stack, les sorties PPTX, DOCX, XLSX et la validation du site ne sont pas regenerables localement.
-- **Decision / prochaine verification** : revalider la liste a chaque ajout d'import dans `scripts/` ou `validate.py`.
-- **Composants affectés** : `AGENTS.md`, `CLAUDE.md`, `validate.py`, `scripts/igpde_dsfr_components.py`, `scripts/generate_exercice_sami.py`, `scripts/generate_grille_audit.py`, `scripts/generate_easy_checks_site_skeleton.py`
+- **Date** : 2026-09-28
+- **Source** : `requirements.txt`, `requirements.lock`, `Makefile`.
+- **Statut** : active et vérifiée.
+- **Contrainte** : la fabrication s'appuie sur Python 3.12 et sur des dépendances aux versions verrouillées : `python-pptx` 1.0.2, `lxml` 6.0.2, `openpyxl` 3.1.5, `python-docx` 1.2.0, `PyYAML` 6.0.3, `matplotlib` 3.10.9, `numpy` 2.4.4, `Pillow` 12.1.1, `WeasyPrint` 68.1, `pikepdf` 10.6 et `pytest` 9.0.3.
+- **Impact** : une dépendance installée hors de ces versions peut changer la génération des PPTX, DOCX, XLSX ou PDF, ou invalider les contrôles.
+- **Décision / prochaine vérification** : installer avec `make installer`, qui crée `.venv` et exécute `uv pip sync --require-hashes -r requirements.lock`.
+- **Composants affectés** : `.venv/`, `requirements.txt`, `requirements.lock`, scripts de fabrication et tests.
+
+### Outillage hôte
+
+- **Date** : 2026-09-28
+- **Source** : `AGENTS.md`, `Makefile`.
+- **Statut** : active.
+- **Contrainte** : macOS est l'environnement de référence. La chaîne attend `uv`, `/opt/homebrew/bin/python3.12`, Pandoc, Pango et GLib ; LibreOffice est nécessaire aux exports de supports.
+- **Impact** : sans l'outillage hôte, les commandes de fabrication concernées échouent ou ne garantissent pas le même résultat.
+- **Décision / prochaine vérification** : privilégier `.venv/bin/python` après `make installer`. Le repli sur Python système n'offre pas de garantie de dépendances.
+- **Composants affectés** : `Makefile`, `scripts/`, génération PDF et export LibreOffice.
 
 ### Assets DSFR embarqués
 
-- **Date** : 2026-05-12
-- **Source** : `validate.py`, `docs/assets/dsfr/`
-- **Statut** : confirmée
-- **Contrainte** : le site d'exercice dépend des assets DSFR embarqués localement (`dsfr.min.css`, `utility.min.css`, `dsfr.module.min.js`, `dsfr.nomodule.min.js`).
-- **Impact** : un build ou une copie incomplete du dossier `docs/assets/dsfr/` casse le rendu ou les comportements interactifs du site.
-- **Décision / prochaine vérification** : conserver ces assets dans le dépôt et les vérifier via `make valider`.
-- **Composants affectés** : `validate.py`, `docs/assets/dsfr/`, `docs/index.html`, `docs/site-accessible/*.html`, `docs/site-inaccessible/*.html`, `docs/site-aide-correction/*.html`
+- **Date** : 2026-09-28
+- **Source** : `docs/assets/dsfr/`, `validate.py`.
+- **Statut** : active et vérifiée.
+- **Contrainte** : le site d'exercice embarque ses assets DSFR localement, notamment les feuilles de style et scripts de la bibliothèque.
+- **Impact** : une copie incomplète de `docs/assets/dsfr/` dégrade le rendu ou les comportements interactifs et fait échouer la validation du site.
+- **Décision / prochaine vérification** : conserver les assets dans le dépôt et lancer la validation du site après toute mise à jour DSFR.
+- **Composants affectés** : `docs/assets/dsfr/`, `docs/**/*.html`, `validate.py`.
 
-### Hotes externes limites
+### Services externes autorisés
 
-- **Date** : 2026-05-12
-- **Source** : `validate.py`
-- **Statut** : confirmée
-- **Contrainte** : les références HTTP/HTTPS du site d'exercice sont limitées à une liste blanche d'hôtes, notamment `youtube.com`, `youtube-nocookie.com`, `accessibilite.numerique.gouv.fr` et quelques extensions navigateurs.
-- **Impact** : toute nouvelle reference externe hors liste blanche fera echouer la validation.
-- **Decision / prochaine verification** : etendre explicitement `ALLOWED_EXTERNAL_HOSTS` avant d'introduire un nouvel hote externe.
-- **Composants affectés** : `validate.py`, `docs/**/*.html`
+- **Date** : 2026-09-28
+- **Source** : `AGENTS.md`, `Makefile`, `PUBLIER-SITE.md`.
+- **Statut** : active.
+- **Contrainte** : GitHub héberge l'usine et le dépôt du site ; GitHub Pages sert le site d'exercice. Les hôtes HTTP(S) du site sont limités à la liste blanche `ALLOWED_EXTERNAL_HOSTS` de `validate.py`. Les téléchargements d'outils sont contrôlés par le manifeste du pack.
+- **Impact** : la publication et la récupération d'outils dépendent du réseau et des accès GitHub, sans modifier la source locale du site. Une nouvelle référence externe hors liste blanche fait échouer la validation.
+- **Décision / prochaine vérification** : conserver les URL, dépôts et empreintes dans leurs fichiers de configuration ou manifestes dédiés ; ajouter explicitement tout hôte pédagogique légitime à la liste blanche avant son usage.
+- **Composants affectés** : `validate.py`, `docs/**/*.html`, `PUBLIER-SITE.md`, `livrables-IGPDE-2026-102846/outils/`, dépôt GitHub Pages.
 
-## 2. Runtime et infrastructure
+## 2. Chaîne de fabrication
 
-### Runtime local sans orchestration
+### Orchestration courante par Make
 
-- **Date** : 2026-05-12, mise à jour le 2026-09-27
-- **Source** : arborescence du projet, absence de `Dockerfile` et de CI ; `Makefile` et `requirements.lock` ajoutés le 2026-09-27
-- **Statut** : confirmée
-- **Contrainte** : le projet s'exécute localement, sans orchestration Docker ni intégration continue. Le point d'entrée unique est le `Makefile` (`make aide`) ; l'environnement Python est installé par `make installer` depuis `requirements.lock`, avec vérification des empreintes.
-- **Impact** : l'environnement de régénération dépend du poste local (macOS, Homebrew) ; les commandes ne s'appellent plus par des chemins d'interpréteur en dur.
-- **Décision / prochaine vérification** : toute nouvelle commande passe par une cible du `Makefile`, documentée dans `AGENTS.md`.
-- **Composants affectés** : `Makefile`, `requirements.lock`, `validate.py`, `scripts/*.py`
+- **Date** : 2026-09-28
+- **Source** : `Makefile`, `AGENTS.md`.
+- **Statut** : active et vérifiée.
+- **Contrainte** : `make` est le point d'entrée courant : `make installer`, `make deck`, `make sami`, `make grille`, `make wcag`, `make pdf`, `make supports`, `make pack`, `make verifier`, `make qa`, `make recette` et `make publier-site` portent les étapes documentées.
+- **Impact** : les cibles préservent l'ordre de production, les chemins des livrables et les contrôles associés.
+- **Décision / prochaine vérification** : les diagnostics ou tests explicitement hors cible `make` utilisent le même interpréteur que l'usine et respectent les consignes d'`AGENTS.md`.
+- **Composants affectés** : `Makefile`, `.venv/`, `scripts/`, `tests/`, livrables.
 
-### Generation PPTX via scripts uniquement
+### Deck et composants de présentation
 
-- **Date** : 2026-05-22
-- **Source** : `AGENTS.md`, `CLAUDE.md`, `REEXPORTER-DECK-PPTX.md`, `scripts/assemble.py`
-- **Statut** : confirmée
-- **Contrainte** : le deck principal doit être régénéré via `make deck` (`scripts/assemble.py`), avec `finalize_pptx()` obligatoire avant livraison.
-- **Impact** : une modification directe du PPTX contourne le flux de production et risque d'être écrasée à la régénération.
-- **Décision / prochaine vérification** : toute évolution du support doit passer par `scripts/slides/NN_*.py` puis une régénération.
-- **Composants affectés** : `scripts/assemble.py`, `scripts/slides/` (138 modules), `support-formation-102846-2026-IGPDE.pptx` (138 slides)
+- **Date** : 2026-09-28
+- **Source** : `AGENTS.md`, `scripts/assemble.py`, `scripts/slides/`, `scripts/igpde_dsfr_components.py`.
+- **Statut** : active et vérifiée.
+- **Contrainte** : les 138 slides sont générées par les modules Python de `scripts/slides/`. Le PPTX ne se modifie jamais directement : une régénération l'écraserait. Les composants de la grille IGPDE-DSFR sont centralisés dans `scripts/igpde_dsfr_components.py` et `finalize_pptx()` finalise langue, ordre de lecture, métadonnées et quarantaine macOS.
+- **Impact** : toute correction de contenu ou de mise en page doit être faite dans le module source, puis régénérée par `make deck`.
+- **Décision / prochaine vérification** : conserver les paramètres de session lus depuis `config.yml` et vérifier les avertissements de pied de page lors de toute modification visuelle.
+- **Composants affectés** : `scripts/slides/`, `scripts/assemble.py`, `scripts/igpde_dsfr_components.py`, `config.yml`, PPTX du pack.
 
-### QA PPTX sur copie de travail
+### Production du pack
 
-- **Date** : 2026-05-22
-- **Source** : `scripts/qa_pptx.py`, `tests/conftest.py`, `REEXPORTER-DECK-PPTX.md`
-- **Statut** : confirmée
-- **Contrainte** : la boucle QA du deck (`make qa`) teste une copie `.qa/formation-test-qa.pptx` via `QA_PPTX_PATH`, pas directement le deck stable.
-- **Impact** : un test lancé sur le mauvais PPTX peut donner une fausse confiance sur le livrable ou sur la copie de travail.
-- **Décision / prochaine vérification** : lire `.qa/qa-pptx-report.md` et le champ `status` avant de considérer la boucle convergée.
-- **Composants affectés** : `scripts/qa_pptx.py`, `tests/conftest.py`, `.qa/formation-test-qa.pptx`, `support-formation-102846-2026-IGPDE.pptx`
+- **Date** : 2026-09-28
+- **Source** : `Makefile`, `AGENTS.md`.
+- **Statut** : active.
+- **Contrainte** : `make pack` régénère le deck, les PDF, les supports et vérifie les outils, mais ne relance pas `make sami`, `make grille` ni `make wcag`.
+- **Impact** : si les sources Sami, la grille XLSX ou le deck WCAG ont changé, elles doivent être produites avant le pack afin que les livrables remis soient cohérents.
+- **Décision / prochaine vérification** : suivre l'ordre explicite des cibles avant chaque fabrication complète.
+- **Composants affectés** : `_source/`, `03-easy-checks/`, `wcag/`, `livrables-IGPDE-2026-102846/`.
 
-## 3. Indexation et donnees
+## 3. Sources, livrables et patrimoine pédagogique
 
-### Contrat source du site easy checks
+### Paramètres de session
 
-- **Date** : 2026-05-12, mise à jour le 2026-09-27
-- **Source** : `validate.py`, `scripts/generate_easy_checks_site_skeleton.py`, `03-easy-checks/evaluation_contract.yml`
-- **Statut** : confirmée
-- **Contrainte** : `03-easy-checks/evaluation_contract.yml` décrit les 13 pages et un schéma minimal imposé ; `validate.py` s'en sert pour contrôler le site. Les pages de `docs/` ont été amorcées par `scripts/generate_easy_checks_site_skeleton.py`, mais elles sont maintenues à la main depuis juillet 2026 : ce générateur ne doit plus être relancé sans relire le diff complet.
-- **Impact** : un contrat incomplet ou incohérent casse la validation du site ; une régénération aveugle écraserait les corrections faites à la main.
-- **Décision / prochaine vérification** : toute modification du contrat ou des pages doit être revalidée par `make valider`.
-- **Composants affectés** : `03-easy-checks/evaluation_contract.yml`, `scripts/generate_easy_checks_site_skeleton.py`, `validate.py`, `docs/`
+- **Date** : 2026-09-28
+- **Source** : `config.yml`, `AGENTS.md`.
+- **Statut** : active.
+- **Contrainte** : le code, la date, le pied de page, le nom du deck et le dossier de livraison lus par la fabrication sont centralisés dans `config.yml`.
+- **Impact** : un changement de session demande aussi de renommer le dossier du pack, de mettre à jour les documents administratifs et de rechercher les anciennes valeurs dans `docs/` et les Markdown structurants.
+- **Décision / prochaine vérification** : traiter un changement de session comme une migration documentaire complète, pas comme une seule modification de configuration.
+- **Composants affectés** : `config.yml`, `docs/`, Markdown structurants, documents administratifs et pack.
 
-### Artefacts pédagogiques générés
+### Ressources pédagogiques
 
-- **Date** : 2026-05-12
-- **Source** : docstring de `scripts/generate_exercice_sami.py`
-- **Statut** : confirmée
-- **Contrainte** : l'exercice Sami produit des PNG dans `_assets/` et trois DOCX distincts (`inaccessible`, `aide_correction`, `accessible`) à partir du script de génération.
-- **Impact** : la cohérence pédagogique de l'exercice dépend du script et des assets qu'il régénère.
-- **Décision / prochaine vérification** : réexécuter le script après toute modification du contenu ou des médias Sami.
-- **Composants affectés** : `scripts/generate_exercice_sami.py` (`make sami`), `_assets/`, `_source/tp-doc-inaccessible.docx`, `_source/tp-doc-aide-correction.docx`, `_source/tp-doc-accessible.docx` (copiés dans le pack par `make supports`)
+- **Date** : 2026-09-28
+- **Source** : `AGENTS.md`, `_source/exercice-sami-spec.md`, `03-easy-checks/evaluation_contract.yml`.
+- **Statut** : active.
+- **Contrainte** : les documents Sami sont générés depuis `_source/`; la grille d'audit est générée dans `03-easy-checks/` et dans le site ; le deck WCAG condensé est régénéré par `make wcag`. Les cartes, bandeaux et autres ressources fixes ne sont pas régénérés.
+- **Impact** : il faut distinguer les ressources à reconstruire, les sources éditées à la main et les ressources fournies, afin de ne pas écraser un livrable ou une correction pédagogique.
+- **Décision / prochaine vérification** : consulter la section « Qui fabrique quoi dans le pack » d'`AGENTS.md` avant toute modification d'un livrable.
+- **Composants affectés** : `_source/`, `03-easy-checks/`, `wcag/`, `livrables-IGPDE-2026-102846/`.
 
-### Copie de la grille d'audit dans le site
+### Contrat des points de contrôle rapides
 
-- **Date** : 2026-05-12
-- **Source** : `validate.py`, `todo.md`, presence de `docs/assets/downloads/grille-audit-easy-checks.xlsx`
-- **Statut** : confirmée
-- **Contrainte** : la grille XLSX des easy checks doit exister a la fois dans `03-easy-checks/` et dans `docs/assets/downloads/` pour la mission finale.
-- **Impact** : une copie manquante casse soit la source pédagogique, soit le téléchargement depuis le site.
-- **Décision / prochaine vérification** : vérifier les deux emplacements après régénération du site ou de la grille.
-- **Composants affectés** : `03-easy-checks/grille-audit-easy-checks.xlsx`, `docs/assets/downloads/grille-audit-easy-checks.xlsx`, `validate.py`
+- **Date** : 2026-09-28
+- **Source** : `03-easy-checks/evaluation_contract.yml`, `validate.py`, `AGENTS.md`.
+- **Statut** : active et vérifiée.
+- **Contrainte** : le contrat d'évaluation décrit les 13 pages des points de contrôle rapides et le schéma minimal que `validate.py` applique au site. Le générateur de squelette a servi à amorcer les pages, mais elles sont maintenues à la main depuis juillet 2026.
+- **Impact** : un contrat ou une page incohérente fait échouer la validation ; relancer aveuglément le générateur écraserait des corrections éditoriales réalisées depuis sa première génération.
+- **Décision / prochaine vérification** : modifier les pages à la main et ne relancer `scripts/generate_easy_checks_site_skeleton.py` qu'après comparaison du diff complet.
+- **Composants affectés** : `03-easy-checks/evaluation_contract.yml`, `scripts/generate_easy_checks_site_skeleton.py`, `validate.py`, `docs/`.
 
-## 4. Features déjà implémentées
+### Site d'exercice et publication à sens unique
 
-| Feature | Fichier | Depuis quand |
-|---------|---------|--------------|
-| Assemblage du deck principal numerote automatiquement | `scripts/assemble.py` | constate le 2026-05-12 |
-| Generation d'un deck distinct `WCAG en langage clair` et de sa version condensee (dans `wcag/`) | `scripts/generate_wcag_langage_clair.py` | constate le 2026-05-12 |
-| Génération des trois DOCX Sami et de leurs médias PNG | `scripts/generate_exercice_sami.py` | constaté le 2026-05-12 |
-| Amorçage du site d'exercice easy checks en trois variantes (site maintenu à la main depuis juillet 2026) | `scripts/generate_easy_checks_site_skeleton.py` | constaté le 2026-05-12 |
-| Validation automatisée du contrat, des assets et des pages HTML | `validate.py` | constaté le 2026-05-12 |
-| Generation de la grille d'audit XLSX | `scripts/generate_grille_audit.py` | constate le 2026-05-12 |
-| Bibliotheque de composants PPTX DSFR IGPDE | `scripts/igpde_dsfr_components.py` | constate le 2026-05-12 |
-| Jeu de slides modulaires par fichiers `NN_*.py` | `scripts/slides/` (138 modules) | constaté le 2026-05-22 |
-| Post-traitement accessibilité PPTX (ordre de lecture, lang, alt text, métadonnées, quarantine) | `scripts/igpde_dsfr_components.py` (`finalize_pptx()`) | constaté le 2026-05-12 |
-| Documentation architecture C4 du pipeline de slides | `architecture-c4-slides.md` | 2026-05-16 |
-| README causal du projet | `notes/readme-causal.md` | 2026-05-16 |
-| Rapport QA PPTX fingerprinté et baseline de violations connues | `scripts/qa_geometry.py`, `tests/baselines/known-geometry-violations.json`, `tests/test_deck_geometry.py` | constaté le 2026-05-22 |
-| Source map PPTX slide -> composant -> appel Python | `scripts/qa_source_map.py`, `scripts/assemble.py --qa-map`, `scripts/igpde_dsfr_components.py` | constaté le 2026-05-22 |
-| Correcteur QA conservateur des accents français | `scripts/qa_corrector.py`, `tests/test_qa_corrector.py` | constaté le 2026-05-22 |
-| Orchestrateur de la boucle QA du deck (`make qa`) | `scripts/qa_pptx.py`, `tests/test_qa_pptx.py` | constaté le 2026-05-22 |
-| Mode d'emploi de réexport du deck | `REEXPORTER-DECK-PPTX.md` | constaté le 2026-05-22 |
+- **Date** : 2026-09-28
+- **Source** : `AGENTS.md`, `Makefile`, `PUBLIER-SITE.md`.
+- **Statut** : active et vérifiée.
+- **Contrainte** : `docs/` est l'unique source du site d'exercice. `publication-site/` fournit ses trois fichiers racine adaptés. Le dépôt public `git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git` est une copie de publication, servie à l'adresse `https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/`.
+- **Impact** : le flux va de l'usine vers le site, jamais dans l'autre sens. Les deux clones locaux du site sont des destinations de publication, non des sources éditables.
+- **Décision / prochaine vérification** : modifier `docs/`, lancer `make verifier`, puis `make publier-site`. Ne jamais modifier, commiter ou pousser un clone du site.
+- **Composants affectés** : `docs/`, `publication-site/`, clone de publication dans le pack, clone de consultation voisin, dépôt GitHub Pages.
 
-## 5. Securite et secrets
+## 4. Fonctionnalités et capacité de l'usine
 
-### Pas de secret applicatif identifie
+| Fonctionnalité | État | Source de preuve | Limite ou contrainte |
+|---|---|---|---|
+| Environnement reproductible et hooks Git | Disponible | `Makefile`, `requirements.lock`, `.githooks/` | Requiert l'outillage macOS et `uv`. |
+| Deck IGPDE-DSFR de 138 slides | Disponible | `scripts/assemble.py`, `scripts/slides/` | Sources Python uniquement ; aucune retouche directe du PPTX. |
+| Finalisation accessible du PPTX | Disponible | `finalize_pptx()` | Une relecture visuelle humaine demeure nécessaire. |
+| Documents Sami, grille XLSX et deck WCAG | Disponible | cibles `sami`, `grille`, `wcag` | À régénérer avant `make pack` si leurs sources changent. |
+| PDF du pack et démo hors ligne | Disponible | cibles `pdf`, `supports` | Les PDF livrés doivent être PDF/UA-1 ; LibreOffice est requis pour les supports. |
+| Validation et recette du site | Disponible | `validate.py`, `make recette` | La recette visuelle requiert le plugin ShipGuard. |
+| Publication GitHub Pages | Disponible | `make publier-site` | Publication contrôlée depuis `docs/` ; aucun édit direct du clone. |
 
-- **Date** : 2026-05-12
-- **Source** : arborescence inspectee, absence de `.env`, `.env.example` et de configuration de secret
-- **Statut** : confirmée
-- **Contrainte** : aucun mecanisme de secret ou d'authentification applicative n'a ete identifie dans les sources inspectees.
-- **Impact** : le projet parait distribuable sans coffre de secrets, mais toute future dependance externe avec cle devra etre documentee explicitement.
-- **Decision / prochaine verification** : recontroler cette hypothese si des appels API autentifies sont ajoutes.
-- **Composants affectés** : racine du projet, `scripts/`, `docs/`
+## 5. Sécurité, Git et dépôt public
 
-### Filtrage des références externes du site
+### Contenu public et données sensibles
 
-- **Date** : 2026-05-12
-- **Source** : `validate.py`
-- **Statut** : confirmée
-- **Contrainte** : les liens externes du site ne sont acceptés que s'ils appartiennent à une liste blanche d'hôtes.
-- **Impact** : cela limite l'introduction accidentelle de ressources externes non controlees dans le site d'exercice.
-- **Décision / prochaine vérification** : maintenir la liste blanche à jour avec toute nouvelle source pédagogique externe.
-- **Composants affectés** : `validate.py`, `docs/**/*.html`
+- **Date** : 2026-09-28
+- **Source** : `AGENTS.md`.
+- **Statut** : active.
+- **Contrainte** : le dépôt est public. Il ne doit contenir ni coordonnées personnelles de tiers, ni convocation nominative, ni transcription de conversation d'agent, ni informations logistiques de session. Les secrets restent hors versionnement et sont fournis par variables d'environnement si nécessaire.
+- **Impact** : les notes, scripts, Markdown et documents de travail doivent être relus avant ajout au dépôt.
+- **Décision / prochaine vérification** : conserver convocations et informations nominatives hors du dépôt ; vérifier le diff avant commit.
+- **Composants affectés** : tout fichier versionné, `Codex.local.md` ignoré, documents administratifs du pack.
 
-### Gitignore des artefacts temporaires et QA
+### Contrôles Git
 
-- **Date** : 2026-05-22, mise à jour le 2026-09-27
-- **Source** : `.gitignore`
-- **Statut** : confirmée
-- **Contrainte** : `.gitignore` exclut notamment `.qa/`, `tmp/`, `__pycache__/`, les temporaires Office et le deck généré à la racine (`/support-formation-*.pptx`). Cette règle est ancrée à la racine : la copie du deck dans le pack (`livrables-IGPDE-2026-102846/Formateur/`) n'est pas visée et reste versionnée, comme les DOCX du pack.
-- **Impact** : le deck de la racine n'apparaît jamais dans `git status` ; `make deck` met à jour la copie versionnée du pack à chaque génération complète (depuis le 2026-09-27), et refuse de la remplacer par un deck partiel.
-- **Décision / prochaine vérification** : ne pas supposer qu'un livrable présent sur le disque est suivi ; le vérifier avec `git ls-files`.
-- **Composants affectés** : `.gitignore`, `.qa/`, `tmp/`, `support-formation-102846-2026-IGPDE.pptx`, `*.pptx`, `*.docx`
+- **Date** : 2026-09-28
+- **Source** : `.githooks/pre-commit`, `AGENTS.md`.
+- **Statut** : active.
+- **Contrainte** : le hook bloque les verrous Office, les fichiers de plus de 50 Mo, les convocations, les installeurs `.msi` et `.exe`, les tirets cadratins dans `scripts/` et les chemins personnels absolus dans les zones surveillées. Il ne se contourne jamais avec `--no-verify`.
+- **Impact** : la conformité du contenu et des fichiers est contrôlée avant chaque commit.
+- **Décision / prochaine vérification** : installer les hooks avec `make installer`, utiliser SSH pour Git et corriger la cause d'un rejet au lieu de contourner le hook.
+- **Composants affectés** : `.githooks/`, `.gitignore`, fichiers suivis par Git.
 
-## 6. RGPD et donnees utilisateurs
+### Artefacts temporaires et livrables suivis
 
-### Projet statique sans persistance applicative identifiee
+- **Date** : 2026-09-28
+- **Source** : `.gitignore`, `AGENTS.md`.
+- **Statut** : active et vérifiée.
+- **Contrainte** : `.gitignore` exclut la QA, les temporaires, les verrous Office et le deck généré à la racine. Le deck copié dans le pack et les DOCX livrés ne sont pas concernés et restent versionnés.
+- **Impact** : la présence d'un fichier sur le disque ne prouve pas son suivi par Git ; le deck de travail à la racine peut être régénéré sans apparaître dans l'état Git.
+- **Décision / prochaine vérification** : vérifier un livrable attendu avec `git ls-files`, en particulier après une modification d'ignore globale ou locale.
+- **Composants affectés** : `.gitignore`, `.qa/`, `tmp/`, deck de travail à la racine, `livrables-IGPDE-2026-102846/`.
 
-- **Date** : 2026-05-12
-- **Source** : scripts inspectes, absence de base de donnees, de backend web et de couche de persistance dediee
-- **Statut** : confirmée
-- **Contrainte** : aucune persistance applicative de donnees utilisateurs n'a ete identifiee dans les sources inspectees ; le projet produit surtout des documents et des pages statiques.
-- **Impact** : les évolutions ajoutant formulaires avec soumission serveur, analytics ou stockage devront documenter leur impact RGPD.
-- **Décision / prochaine vérification** : requalifier cette contrainte si un backend ou un stockage est ajouté.
-- **Composants affectés** : `scripts/*.py`, `docs/`
+## 6. Données, droits et sobriété
 
-### Pages d'information vie privée déjà présentes
+### Absence de service applicatif persistant
 
-- **Date** : 2026-05-12
-- **Source** : présence de `docs/donnees-personnelles.html` et `docs/mentions-legales.html`
-- **Statut** : confirmée
-- **Contrainte** : le site d'exercice embarque déjà des pages dédiées aux données personnelles et aux mentions légales.
-- **Impact** : toute modification du parcours ou des données collectées doit rester cohérente avec ces pages.
-- **Décision / prochaine vérification** : vérifier ces pages si le contenu du site ajoute une collecte nouvelle.
-- **Composants affectés** : `docs/donnees-personnelles.html`, `docs/mentions-legales.html`, `docs/index.html`
+- **Date** : 2026-09-28
+- **Source** : `architecture-c4-slides.md`, `AGENTS.md`.
+- **Statut** : active.
+- **Contrainte** : l'usine est une chaîne locale de fichiers et le site d'exercice est statique. Aucun backend ni stockage applicatif persistant n'est prévu.
+- **Impact** : la confidentialité dépend avant tout du contenu publié et de la maîtrise des dépôts, plutôt que d'un modèle de données ou de comptes utilisateurs.
+- **Décision / prochaine vérification** : ne pas introduire de collecte ou de persistance de données sans cadrage explicite.
+- **Composants affectés** : `docs/`, scripts locaux, dépôts GitHub.
 
-### Sous-titres et transcriptions médias embarqués
+### Information sur les données personnelles
 
-- **Date** : 2026-05-12
-- **Source** : `todo.md`, présence de `docs/assets/shared/media/captcha-sous-titres.vtt`
-- **Statut** : confirmée
-- **Contrainte** : certains médias pédagogiques reposent sur des sous-titres et transcriptions locales versionnées dans `docs/assets/shared/media/`.
-- **Impact** : supprimer ou désynchroniser ces fichiers dégrade immédiatement l'accessibilité et la cohérence pédagogique des pages média.
-- **Décision / prochaine vérification** : vérifier les fichiers `.vtt` et `.srt` à chaque remplacement de média.
-- **Composants affectés** : `docs/assets/shared/media/`, `docs/site-*/ec09-captions.html`, `docs/site-*/ec10-transcript.html`
+- **Date** : 2026-09-28
+- **Source** : `docs/donnees-personnelles.html`, `docs/mentions-legales.html`.
+- **Statut** : active et vérifiée.
+- **Contrainte** : le site comporte des pages dédiées aux données personnelles et aux mentions légales, cohérentes avec son absence de collecte applicative prévue.
+- **Impact** : toute évolution qui introduirait une collecte, des mesures d'audience ou une soumission vers un serveur devrait être cadrée et répercutée dans ces pages.
+- **Décision / prochaine vérification** : relire ces informations avant toute évolution du parcours ou des données traitées.
+- **Composants affectés** : `docs/donnees-personnelles.html`, `docs/mentions-legales.html`, `docs/`.
 
-## 7. Qualité et benchmarks
+### Droits des médias et accessibilité éditoriale
 
-### Validation automatisée du site easy checks
+- **Date** : 2026-09-28
+- **Source** : `AGENTS.md`, ressources du pack.
+- **Statut** : active.
+- **Contrainte** : les médias, cartes et ressources fixes conservent leurs crédits et licences à proximité. Les documents accessibles déclarent une langue cohérente en français ; les défauts des versions inaccessibles sont intentionnels et pédagogiques.
+- **Impact** : une ressource ajoutée sans licence, crédit ou alternative adaptée ne peut pas être intégrée au pack public.
+- **Décision / prochaine vérification** : documenter les crédits au plus près de la ressource et conserver les distinctions entre versions accessibles et versions d'exercice.
+- **Composants affectés** : `docs/`, `livrables-IGPDE-2026-102846/`, `_source/`, cartes et médias.
 
-- **Date** : 2026-05-12
-- **Source** : `validate.py`
-- **Statut** : confirmée
-- **Contrainte** : le projet dispose d'une validation scriptable qui contrôle le contrat YAML, les assets obligatoires, les liens locaux, la version accessible et des cas spécifiques EC06.
-- **Impact** : `make valider` (`validate.py`) est le garde-fou principal pour les régressions du site d'exercice.
-- **Décision / prochaine vérification** : exécuter la validation après chaque régénération du site ou changement des pages HTML.
-- **Composants affectés** : `validate.py`, `03-easy-checks/evaluation_contract.yml`, `docs/`
+### Sous-titres et transcriptions locales
 
-### Passe visuelle PPTX non automatisée
+- **Date** : 2026-09-28
+- **Source** : `docs/assets/shared/media/`, `03-easy-checks/evaluation_contract.yml`.
+- **Statut** : active et vérifiée.
+- **Contrainte** : les parcours média du site s'appuient sur des fichiers locaux de sous-titres et de transcription, notamment au format `.vtt`.
+- **Impact** : supprimer ou désynchroniser ces fichiers dégrade l'accessibilité et la cohérence des exercices sur les médias.
+- **Décision / prochaine vérification** : vérifier les sous-titres et transcriptions lors de chaque remplacement de média ou d'URL intégrée.
+- **Composants affectés** : `docs/assets/shared/media/`, pages EC09 à EC11 du site, `03-easy-checks/evaluation_contract.yml`.
 
-- **Date** : 2026-05-22
-- **Source** : `todo.md`, `scripts/qa_pptx.py`, `REEXPORTER-DECK-PPTX.md`
-- **Statut** : confirmée
-- **Contrainte** : une passe visuelle humaine PowerPoint reste nécessaire avant diffusion ; la boucle QA du deck ne remplace pas le contrôle de rendu réel.
-- **Impact** : une boucle `CONVERGED` garantit seulement l'absence de nouveau fingerprint couvert par les tests, pas l'absence de défaut esthétique ou de recomposition.
-- **Décision / prochaine vérification** : conserver une passe manuelle de livraison, en priorité sur les slides signalées dans `todo.md` (seule source de cette liste).
-- **Composants affectés** : `todo.md`, `scripts/qa_pptx.py`, `support-formation-102846-2026-IGPDE.pptx`, `scripts/slides/`
+## 7. Qualité et vérification
 
-### Boucle QA du deck
+### Vérification automatisée du dépôt et du site
 
-- **Date** : 2026-05-22
-- **Source** : `scripts/qa_pptx.py`, `scripts/qa_geometry.py`, `scripts/qa_source_map.py`, `scripts/qa_corrector.py`, `tests/test_qa_pptx.py`
-- **Statut** : confirmée
-- **Contrainte** : la QA PPTX v1 est déterministe et limitée aux contrôles géométriques/textuels couverts par pytest ; son statut métier est écrit dans `.qa/qa-pptx-report.md` et `.qa/qa-pptx-run.json`.
-- **Impact** : l'exit code seul ne doit pas être interprété comme preuve de convergence, et les corrections layout restent hors périmètre automatique.
-- **Décision / prochaine vérification** : lancer `make qa` (`scripts/qa_pptx.py . --max-iterations 5 --clean`) avant réexport stable, puis lire le rapport.
-- **Composants affectés** : `scripts/qa_pptx.py`, `.qa/qa-pptx-report.md`, `.qa/qa-pptx-run.json`, `tests/test_deck_geometry.py`
+- **Date** : 2026-09-28
+- **Source** : `Makefile`, `tests/`, `validate.py`, résultat vérifié de `make verifier`.
+- **Statut** : active et vérifiée.
+- **Contrainte** : `make verifier` exécute 87 tests, valide le site, contrôle les PDF livrés et lance les vérifications de dépôt. Le code de sortie porte le verdict.
+- **Impact** : une modification de source ou de configuration doit être vérifiée avant livraison ou publication.
+- **Décision / prochaine vérification** : lancer `make verifier` après toute modification qui affecte la fabrication, le site ou les contrôles.
+- **Composants affectés** : `tests/`, `validate.py`, `docs/`, PDF livrés, hook Git.
 
-### Correcteur QA conservateur
+### QA sur copie de travail
 
-- **Date** : 2026-05-22
-- **Source** : `scripts/qa_corrector.py`, `tests/test_qa_corrector.py`
-- **Statut** : confirmée
-- **Contrainte** : le correcteur automatique v1 applique uniquement les accents français sûrs localisés dans des chaînes Python ; layout, alt-text et police restent en skip structuré.
-- **Impact** : une violation `SKIP_LAYOUT`, `SKIP_ALT_TEXT` ou `SKIP_FONT_SIZE` doit être traitée manuellement dans les scripts source.
-- **Décision / prochaine vérification** : utiliser `--apply-accents` seulement après lecture de `.qa/qa-corrections.md`, puis relire `git diff`.
-- **Composants affectés** : `scripts/qa_corrector.py`, `.qa/qa-corrections.md`, `.qa/qa-corrections.json`, `scripts/slides/`
+- **Date** : 2026-09-28
+- **Source** : `scripts/qa_pptx.py`, `tests/conftest.py`, `AGENTS.md`.
+- **Statut** : active et vérifiée.
+- **Contrainte** : `make qa` travaille sur `.qa/formation-test-qa.pptx`, désignée par `QA_PPTX_PATH`, et non directement sur le deck stable du pack.
+- **Impact** : tester ou interpréter le mauvais PPTX peut produire une fausse confiance sur le livrable final.
+- **Décision / prochaine vérification** : lire `.qa/qa-pptx-report.md` et son statut, puis régénérer le deck de livraison dans le flux normal.
+- **Composants affectés** : `scripts/qa_pptx.py`, `tests/conftest.py`, `.qa/formation-test-qa.pptx`, PPTX du pack.
 
-### Modes d'échec documentés dans lessons.md
+### Qualité du deck et pied de page
 
-- **Date** : 2026-05-16
-- **Source** : `lessons.md`, `AGENTS.md` section Modes d'échec connus
-- **Statut** : confirmée
-- **Contrainte** : les leçons techniques sont documentées dans `lessons.md`, couvrant les pièges python-pptx, les erreurs de positionnement, les débordements et les choix pédagogiques. À relire avant toute nouvelle session.
-- **Impact** : ignorer ces leçons conduit à répéter les mêmes erreurs (string/liste, layout parasite, débordement _safe_top, estimation additive).
-- **Décision / prochaine vérification** : mettre à jour `lessons.md` à chaque nouveau piège découvert.
-- **Composants affectés** : `lessons.md`, `AGENTS.md`, `scripts/igpde_dsfr_components.py`, `scripts/slides/`
+- **Date** : 2026-09-28
+- **Source** : `scripts/qa_geometry.py`, `tests/baselines/known-geometry-violations.json`, résultat vérifié de `make qa`.
+- **Statut** : active et vérifiée.
+- **Contrainte** : `make qa` doit produire un rapport `.qa/qa-pptx-report.md` au statut `CONVERGED`. Les composants de contenu sont limités à `BOTTOM_CONTENT` (6,80 pouces) et la base de référence ne tolère plus aucune violation de pied de page.
+- **Impact** : un avertissement de pied de page est un défaut de composition à corriger, sans déplacer la ligne ou les logos institutionnels.
+- **Décision / prochaine vérification** : lire le rapport QA, corriger à la source puis compléter par une relecture visuelle humaine des slides modifiées.
+- **Composants affectés** : `scripts/qa_geometry.py`, `scripts/slides/`, `.qa/`, base de référence géométrique.
 
-### Contrôles de livraison documentés
+### Correcteur QA conservateur et leçons techniques
 
-- **Date** : 2026-05-12
-- **Source** : `AGENTS.md`, `CLAUDE.md`
-- **Statut** : confirmée
-- **Contrainte** : la livraison du deck passe par régénération, `finalize_pptx()`, contrôle des tirets dans `scripts/` et vérification `unzip -t` du PPTX.
-- **Impact** : sauter ces contrôles augmente le risque de régressions d'accessibilité, de typographie ou de corruption binaire.
-- **Decision / prochaine verification** : conserver ces commandes dans le rituel de livraison.
-- **Composants affectés** : `AGENTS.md`, `CLAUDE.md`, `scripts/assemble.py`, `support-formation-102846-2026-IGPDE.pptx`
+- **Date** : 2026-09-28
+- **Source** : `scripts/qa_corrector.py`, `tests/test_qa_corrector.py`, `lessons.md`.
+- **Statut** : active et vérifiée.
+- **Contrainte** : le correcteur QA ne traite automatiquement que les accents français sûrs et localisés dans les chaînes Python. Les défauts de mise en page, d'alternative textuelle ou de taille de police restent des décisions humaines signalées comme omissions structurées.
+- **Impact** : aucune correction automatique ne doit recomposer une slide ou inventer une alternative ; les pièges connus documentés dans `lessons.md` restent à consulter avant une évolution du deck.
+- **Décision / prochaine vérification** : lire le rapport de corrections et le diff avant toute application ; corriger à la source les omissions de mise en page, d'alternative ou de police.
+- **Composants affectés** : `scripts/qa_corrector.py`, `tests/test_qa_corrector.py`, `.qa/`, `lessons.md`, `scripts/slides/`.
 
-### PDF/UA-1 exigé par make pdf
+### PDFs accessibles
 
-- **Date** : 2026-09-27
-- **Source** : `vendor/accessible-pdf/scripts/md2pdf.py` (repli sans échec), `scripts/fabriquer_pack.py` (`est_pdf_ua`), `tests/test_pdf_ua.py`
-- **Statut** : confirmée
-- **Contrainte** : WeasyPrint 68.1 refuse le mode PDF/UA-1 quand un tableau est coupé entre deux pages à certains endroits (« Table wrapper without a table ») ; le générateur embarqué bascule alors, sans échouer, sur un PDF sans structure d'accessibilité. `make pdf` contrôle donc le PDF produit (déclaration `pdfuaid:part` et arbre de structure), s'arrête en erreur si elle manque et ne remplace pas le livrable.
-- **Impact** : une modification de texte ou de mise en page d'une source de `wcag/` peut faire échouer `make pdf` ; la parade est le style qui garde les tableaux entiers, documenté en tête de chaque source.
-- **Décision / prochaine vérification** : si `make pdf` échoue sur ce motif, ajuster la mise en page de la source (tableaux entiers, largeur des colonnes, police des tableaux, introduction attachée à son tableau) ; `make verifier` contrôle aussi la déclaration PDF/UA-1 des 7 PDF livrés.
-- **Composants affectés** : `scripts/fabriquer_pack.py`, `tests/test_pdf_ua.py`, `wcag/*.md`, `vendor/accessible-pdf/`
+- **Date** : 2026-09-28
+- **Source** : `AGENTS.md`, `Makefile`, contrôles de `make verifier`.
+- **Statut** : active.
+- **Contrainte** : `make pdf` n'accepte que les sorties PDF/UA-1. En cas d'échec, le générateur s'arrête et laisse le livrable précédent en place.
+- **Impact** : la fabrication ne remplace pas silencieusement un PDF accessible par un document non conforme.
+- **Décision / prochaine vérification** : conserver les tableaux Markdown entiers sur une page et contrôler l'état PDF/UA-1 avant livraison.
+- **Composants affectés** : `fiche-pratique/`, `wcag/`, `liens-tp-en-ligne.md`, PDF du pack.
 
-## 8. Distribuabilite
+## 8. Exploitation et continuité
 
-### Depot consultable sans CDN
+### Installation et reprise locale
 
-- **Date** : 2026-05-12
-- **Source** : `docs/assets/dsfr/`, `validate.py`
-- **Statut** : confirmée
-- **Contrainte** : le site d'exercice embarque ses assets DSFR localement et ne dépend pas d'un CDN pour son CSS/JS principal.
-- **Impact** : le site peut être prévisualisé hors ligne, sous réserve de disposer des fichiers du dépôt.
-- **Décision / prochaine vérification** : conserver les assets localement lors de toute mise à jour DSFR.
-- **Composants affectés** : `docs/assets/dsfr/`, `docs/**/*.html`
+- **Date** : 2026-09-28
+- **Source** : `Makefile`, `AGENTS.md`.
+- **Statut** : active.
+- **Contrainte** : `make installer` prépare l'environnement Python verrouillé et active les hooks. Sans `.venv`, les commandes peuvent utiliser un Python de repli sans garantie sur les dépendances.
+- **Impact** : une reprise d'usine commence par l'installation, puis par la lecture des règles d'`AGENTS.md` et de la cible concernée.
+- **Décision / prochaine vérification** : relancer `make installer` lorsqu'un environnement local est recréé ou que le verrou de dépendances évolue.
+- **Composants affectés** : `.venv/`, `requirements.lock`, `.githooks/`, `Makefile`.
 
-### Quarantaine macOS sur les fichiers générés
+### Quarantaine macOS des fichiers générés
 
-- **Date** : 2026-05-12
-- **Source** : `lessons.md`, `AGENTS.md`, `CLAUDE.md`
-- **Statut** : confirmée
-- **Contrainte** : sur macOS, les fichiers Office générés par les scripts Python peuvent recevoir le flag `com.apple.quarantine` et doivent être post-traités avant édition utilisateur.
-- **Impact** : PowerPoint ou Excel peuvent ouvrir le fichier en mode protégé et refuser la sauvegarde tant que l'attribut n'est pas retiré.
-- **Décision / prochaine vérification** : conserver `finalize_pptx()` et les post-traitements `xattr -d com.apple.quarantine` dans le flux de livraison.
-- **Composants affectés** : `lessons.md`, `AGENTS.md`, `CLAUDE.md`, `support-formation-102846-2026-IGPDE.pptx`, `scripts/generate_grille_audit.py`
+- **Date** : 2026-09-28
+- **Source** : `scripts/assemble.py`, `AGENTS.md`.
+- **Statut** : active.
+- **Contrainte** : les fichiers Office générés sous macOS peuvent porter l'attribut `com.apple.quarantine`. La finalisation du PPTX traite ce point avant remise à l'utilisateur.
+- **Impact** : sans ce post-traitement, PowerPoint ou Excel peut ouvrir un fichier en mode protégé et empêcher sa sauvegarde.
+- **Décision / prochaine vérification** : préserver `finalize_pptx()` dans toute évolution de la chaîne de deck et vérifier l'ouverture des livrables lorsqu'un nouveau type de fichier est ajouté.
+- **Composants affectés** : `scripts/assemble.py`, `scripts/igpde_dsfr_components.py`, PPTX et fichiers Office générés.
 
-### Regeneration reservee a un poste equipe Python
+### Livraison, publication et clones de site
 
-- **Date** : 2026-05-12
-- **Source** : `AGENTS.md`, `CLAUDE.md`, imports Python dans `scripts/`
-- **Statut** : levée le 2026-09-27 par `make installer` (voir « Usine autonome et dépôt public »)
-- **Contrainte** : un collègue peut consulter les artefacts livrés du dépôt, mais ne peut pas régénérer le projet from scratch sans un environnement Python outillé et les bibliothèques listées.
-- **Impact** : la distribuabilité du code source est conditionnée par la préparation du poste local.
-- **Décision / prochaine vérification** : documenter explicitement les dépendances si une installation from scratch doit être déléguée.
-- **Composants affectés** : `AGENTS.md`, `CLAUDE.md`, `scripts/*.py`
+- **Date** : 2026-09-28
+- **Source** : `AGENTS.md`, `Makefile`, `PUBLIER-SITE.md`.
+- **Statut** : active.
+- **Contrainte** : `make publier-site` valide puis synchronise le site vers le clone de publication, copie les trois documents racine adaptés, effectue le commit et le push du dépôt du site, puis avance le clone de consultation lorsqu'il existe. Les installeurs ne sont pas versionnés ; `make outils-telecharger` les récupère et vérifie leurs empreintes, tandis que PAC est déposé manuellement selon son manifeste.
+- **Impact** : une publication est une opération distincte d'un commit de l'usine et les clones restent des destinations gérées par la cible.
+- **Décision / prochaine vérification** : préparer et vérifier l'usine, puis publier uniquement par la cible prévue ; contrôler le manifeste des outils avant constitution du pack.
+- **Composants affectés** : `docs/`, `publication-site/`, clones locaux du site, `livrables-IGPDE-2026-102846/outils/`.
 
-### Reprogrammation sous le code 102846
+## Références opérationnelles
 
-- **Date** : 2026-09-26
-- **Source** : convocation IGPDE et mail « Supports à jour - Formation 102846 », confirmés par Alex
-- **Statut** : confirmée
-- **Contrainte** : la session du 9 octobre 2026 porte le code IGPDE 102846 ; le code 102638 ne désigne plus que la session du 4 juin 2026. Le code, la date et le nom du fichier de sortie sont portés par `config.yml` (source unique) ; `tests/conftest.py` et la couverture lisent cette source au lieu de valeurs en dur.
-- **Impact** : toute référence en dur à « 102638 » ou au « 4 juin 2026 » dans un support courant est périmée ; le deck courant est `support-formation-102846-2026-IGPDE.pptx`, le pack courant `livrables-IGPDE-2026-102846/`. L'ancien deck de juin, archivé sous `archive-oldformation-102638-juin-2026.pptx`, n'est plus sur le disque : il reste récupérable dans l'historique git (commit `0ab3406`). Les fiches administratives DOCX ont été renumérotées 102846 ; les originaux 102638 de la fiche catalogue, du programme et du déroulé sont dans `_source/`, celui de la fiche technique seulement dans l'historique git.
-- **Décision / prochaine vérification** : pour toute renumérotation future, passer par `config.yml` puis contrôler `grep -r` sur l'ancien code dans les scripts, le site `docs/` et les MD structurants.
-- **Composants affectés** : `config.yml`, `scripts/assemble.py`, `scripts/slides/01_couverture.py`, `scripts/generate_grille_audit.py`, `tests/conftest.py`, `docs/`, `livrables-IGPDE-2026-102846/`
-
-### Usine autonome et dépôt public
-
-- **Date** : 2026-09-27
-- **Source** : décision d'Alex (cadrage `notes/cadrage-usine-standalone.md`)
-- **Statut** : confirmée
-- **Contrainte** : le projet vit désormais dans un dépôt public autonome (`alexandra-guiderdoni/usine-fabrication-igpde-102846-ay11`), extrait de l'ancien espace de travail avec son historique. Aucune règle, aucun hook ni aucun outil de cet espace n'est plus hérité : les contrôles vivent dans `.githooks/`, les commandes dans le `Makefile`, le générateur PDF dans `vendor/`, l'environnement dans `requirements.lock`.
-- **Impact** : pas de coordonnées de tiers, de convocation, de transcription d'agent ni de logistique de session dans le dépôt. Les trois premiers ont été purgés de l'historique à l'extraction. La logistique de session (salle, horaires), écrite par erreur dans `todo.md` et `contraintes.md` puis poussée le 2026-09-27, a été retirée des fichiers courants ; par décision d'Alex, l'historique public n'a pas été réécrit pour si peu. Les installeurs du pack ne sont pas versionnés (`livrables-IGPDE-2026-102846/outils/outils.json`, `make outils-telecharger`). La contrainte « Regeneration reservee a un poste equipe Python » est levée par `make installer`, qui reste limité à macOS avec Homebrew.
-- **Décision / prochaine vérification** : prouver l'autonomie par un clone neuf dans un dossier vierge (deck, tests, `validate.py`, pack) après toute évolution de la chaîne.
-- **Composants affectés** : `Makefile`, `.githooks/`, `vendor/`, `requirements.txt`, `requirements.lock`, `scripts/fabriquer_pack.py`, `.gitignore`, `AGENTS.md`, `CLAUDE.md`
+- Règles et parcours de fabrication : `AGENTS.md`.
+- Architecture de l'usine : `architecture-c4-slides.md`.
+- Cibles et enchaînements : `Makefile`.
+- Publication du site : `PUBLIER-SITE.md`.
+- Sources et suivi historique : `todo.md`, `lessons.md`, `notes/readme-causal.md`.

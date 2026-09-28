@@ -47,7 +47,7 @@ class LinkParser(HTMLParser):
         self.fragments: list[str] = []
         self.html_lang: str | None = None
         self.images_without_alt: list[str] = []
-        self.local_refs: list[str] = []
+        self.local_refs: list[tuple[str, str]] = []
         self.bad_refs: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
@@ -58,9 +58,7 @@ class LinkParser(HTMLParser):
             self.html_lang = values.get("lang")
         if tag == "img" and "alt" not in values:
             self.images_without_alt.append(values.get("src", "image sans src"))
-        href = values.get("href")
-        src = values.get("src")
-        for value in (href, src):
+        for value in (values.get("href"), values.get("src"), values.get("action")):
             if not value:
                 continue
             if value == "#":
@@ -79,16 +77,20 @@ class LinkParser(HTMLParser):
                 continue
             if value.startswith(("mailto:", "tel:", "sms:")):
                 continue
-            target, _ = urldefrag(value)
+            target, fragment = urldefrag(value)
             target = urlparse(target).path
             if target:
-                self.local_refs.append(target)
+                self.local_refs.append((target, fragment))
 
 
-def validate_contract() -> None:
+def load_contract_pages() -> list[dict]:
     with CONTRACT.open(encoding="utf-8") as handle:
         contract = yaml.safe_load(handle)
-    pages = contract.get("pages", [])
+    return contract.get("pages", [])
+
+
+def validate_contract() -> list[dict]:
+    pages = load_contract_pages()
     if len(pages) != 13:
         raise ValueError(f"Le contrat doit contenir 13 pages, trouvé: {len(pages)}")
     ids = [page.get("id") for page in pages]
@@ -116,10 +118,14 @@ def validate_contract() -> None:
         for key in ("hint", "problem", "fix"):
             if key not in page["help"]:
                 raise ValueError(f"{page['id']}: help.{key} manquant")
+    return pages
 
 
-def validate_docs() -> None:
+def validate_docs(contract_pages: list[dict] | None = None) -> None:
+    if contract_pages is None:
+        contract_pages = load_contract_pages()
     required_files = [
+        DOCS / ".nojekyll",
         DOCS / "index.html",
         DOCS / "manifest.md",
         DOCS / "corrige-easy-checks.md",
@@ -129,6 +135,11 @@ def validate_docs() -> None:
         DOCS / "assets" / "dsfr" / "dsfr.nomodule.min.js",
         DOCS / "assets" / "downloads" / "grille-audit-easy-checks.xlsx",
     ]
+    for variant in ("site-inaccessible", "site-aide-correction", "site-accessible"):
+        required_files.extend(
+            DOCS / variant / f"{page['id']}.html"
+            for page in contract_pages
+        )
     for file in required_files:
         if not file.exists():
             raise FileNotFoundError(file)
@@ -137,23 +148,42 @@ def validate_docs() -> None:
     if len(html_files) < 47:
         raise ValueError(f"Nombre de pages HTML inattendu: {len(html_files)}")
 
+    docs_root = DOCS.resolve()
     missing: list[tuple[Path, str]] = []
+    outside_docs: list[tuple[Path, str]] = []
+    missing_anchors: list[tuple[Path, str]] = []
+    target_ids: dict[Path, set[str]] = {}
     bad_refs: list[tuple[Path, str]] = []
     for file in html_files:
         parser = LinkParser(file)
         parser.feed(file.read_text(encoding="utf-8"))
         for value in parser.bad_refs:
             bad_refs.append((file, value))
-        for value in parser.local_refs:
+        for value, fragment in parser.local_refs:
             path = (file.parent / value).resolve()
-            if not path.exists():
+            if not path.is_relative_to(docs_root):
+                outside_docs.append((file, value))
+            elif not path.exists():
                 missing.append((file, value))
+            elif fragment and path.suffix == ".html":
+                if path not in target_ids:
+                    target_parser = LinkParser(path)
+                    target_parser.feed(path.read_text(encoding="utf-8"))
+                    target_ids[path] = target_parser.ids
+                if fragment not in target_ids[path]:
+                    missing_anchors.append((file, f"{value}#{fragment}"))
     if bad_refs:
         details = "\n".join(f"{file}: {value}" for file, value in bad_refs[:20])
         raise ValueError(f"Références interdites détectées:\n{details}")
+    if outside_docs:
+        details = "\n".join(f"{file}: {value}" for file, value in outside_docs[:20])
+        raise ValueError(f"Références locales hors de docs détectées:\n{details}")
     if missing:
         details = "\n".join(f"{file}: {value}" for file, value in missing[:20])
         raise FileNotFoundError(f"Liens ou assets locaux manquants:\n{details}")
+    if missing_anchors:
+        details = "\n".join(f"{file}: {value}" for file, value in missing_anchors[:20])
+        raise ValueError(f"Ancres locales absentes:\n{details}")
 
     accessible_errors: list[str] = []
     forbidden_accessible_markers = (
@@ -229,8 +259,8 @@ def validate_docs() -> None:
 
 
 def main() -> None:
-    validate_contract()
-    validate_docs()
+    contract_pages = validate_contract()
+    validate_docs(contract_pages)
     print("OK validation points de contrôle rapides")
 
 

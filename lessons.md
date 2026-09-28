@@ -1,4 +1,4 @@
-# Leçons IGPDE - Formation 102846, ex-102638
+# Leçons IGPDE - Formation 102846
 
 Enseignements techniques tirés de la construction du support de formation et de la grille d'audit. À relire avant toute nouvelle session sur ce projet ou sur un projet similaire à base de template PPTX hérité.
 
@@ -101,7 +101,7 @@ add_callout(slide, titre, bullets, top=stack.push(estimate_callout_height(titre,
 add_alert(slide, titre=t2, bullets=b2, top=stack.push(estimate_alert_height(t2, b2)))
 ```
 
-Avantage : le positionnement reste cohérent quelle que soit la variation du contenu (bullets ajoutés, titre modifié). Le `gap` constant contrôle l'aération entre composants. Valeur par défaut 0,35" ; 0,55" pour les tableaux après highlight (effet visuel d'ombre portée).
+Avantage : le positionnement reste cohérent quelle que soit la variation du contenu (bullets ajoutés, titre modifié). Le `gap` constant contrôle l'aération entre composants. Valeur par défaut : 0,30" ; 0,55" peut convenir après un highlight avant un tableau, pour préserver l'effet visuel d'ombre portée.
 
 ---
 
@@ -133,11 +133,11 @@ Affecte : `add_callout()` et `add_alert()` dans `igpde_dsfr_components.py`.
 
 ---
 
-## add_textbox direct sans Inches() = positions brisées
+## add_textbox direct : interdit hors composant
 
-`slide.shapes.add_textbox(0.52, 3.15, ...)` passe des valeurs en EMU, pas en pouces. 0.52 EMU ≈ 0 sur un slide de 13,33 pouces.
+`slide.shapes.add_textbox(0.52, 3.15, ...)` passe des valeurs en EMU, pas en pouces. 0.52 EMU ≈ 0 sur une slide de 13,33 pouces.
 
-**Règle** : toujours utiliser `Inches(x)` ou les helpers `add_texte_libre` / `add_callout`. Ne jamais appeler `add_textbox` directement avec des valeurs décimales.
+**Règle** : dans les modules de slides, ne jamais appeler `slide.shapes.add_textbox()` directement, même avec `Inches()`. Utiliser `add_texte_libre` ou un composant IGPDE-DSFR existant. Les appels directs sont réservés à l'implémentation des composants centralisés.
 
 ---
 
@@ -208,7 +208,7 @@ Source : `AGENTS.md` section Modes d'échec connus.
 
 Utiliser `layout_name="titre_soustitre"` sur une slide de contenu normal affiche les logos institutionnels (République française, IGPDE) en plein milieu de la slide, au-dessus du contenu.
 
-**Règle** : `titre_soustitre` est réservé à la page de couverture et à la slide de clôture. Pour le contenu, utiliser `titre_contenu`.
+**Règle** : `titre_soustitre` est réservé aux slides de titre qui requièrent les logos institutionnels, par exemple la couverture et les objectifs. Pour une slide de contenu, utiliser `titre_contenu`.
 
 Source : `AGENTS.md` section Modes d'échec connus ; incident slide 21 (`_source/passation-session-2026-05-03.md`).
 
