@@ -10,11 +10,12 @@ endif
 SITE_CLONE ?= $(LIVRABLES)/Formateur/tp-easy-check-site-web-igpde
 SITE_CONSULTATION ?= ../tp-fabrication-igpde-102846-ay11
 
-.PHONY: aide installer deck qa tests valider controles verifier grille sami wcag pdf supports outils outils-telecharger pack apercu recette publier-site
+.PHONY: aide installer installer-recette deck qa tests valider controles verifier grille sami wcag pdf supports outils outils-telecharger pack apercu recette publier-site
 
 aide:
 	@echo "Usine IGPDE - commandes principales (Python : $(PYTHON))"
 	@echo "  make installer           environnement Python verrouillé + hooks git"
+	@echo "  make installer-recette   dépendances locales ShipGuard et navigateur de recette"
 	@echo "  make deck                régénère le deck PPTX depuis scripts/slides/ et met à jour sa copie dans le pack"
 	@echo "  make qa                  boucle qualité du deck (lire .qa/qa-pptx-report.md)"
 	@echo "  make verifier            tests + validation du site + contrôles du dépôt"
@@ -34,6 +35,9 @@ installer:
 	uv pip sync --require-hashes --python .venv/bin/python requirements.lock
 	git config core.hooksPath .githooks
 	@echo "Environnement prêt. Prérequis Homebrew pour les PDF : pandoc pango glib"
+
+installer-recette:
+	bash recette/installer-recette.sh
 
 deck:
 	$(PYTHON) scripts/assemble.py

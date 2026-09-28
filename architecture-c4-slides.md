@@ -188,11 +188,11 @@ Il n'y a pas de chaîne CI déclarée dans ce dépôt : l'installation, la gén�
 
 | Sujet | Garde-fou actuel | Limite à connaître |
 |---|---|---|
-| Régression fonctionnelle | `make verifier` exécute 87 tests, la validation du site et les contrôles de dépôt. | Un succès atteste l'absence de régression détectée, pas une relecture pédagogique ou visuelle exhaustive. |
+| Régression fonctionnelle | `make verifier` exécute la suite de tests, la validation du site et les contrôles de dépôt. | Un succès atteste l'absence de régression détectée, pas une relecture pédagogique ou visuelle exhaustive. |
 | Mise en page du deck | `make qa`, contrôles géométriques et relecture humaine. | Les superpositions fines exigent toujours une inspection visuelle. |
 | Pied de page | La génération limite les composants à la zone de contenu et les tests imposent désormais zéro forme de contenu sous `BOTTOM_CONTENT` (6,80 pouces). | `_safe_top()` reste un filet de sécurité : son avertissement signale une mise en page à corriger et une relecture visuelle reste nécessaire pour exclure un chevauchement. |
 | PDF | La fabrication vérifie la déclaration PDF/UA-1 avant de remplacer un PDF livré. | Les tableaux Markdown doivent rester composables sur une page, sinon la production est bloquée. |
-| Site | `validate.py` contrôle le contrat de l'exercice, les liens, les ressources et les règles d'accessibilité ciblées. | La recette visuelle nécessite ShipGuard et ne remplace pas un contrôle humain. |
+| Site | `validate.py` contrôle le contrat de l'exercice, les liens, les ressources et les règles d'accessibilité ciblées. | La recette visuelle s'installe localement par `make installer-recette` et ne remplace pas un contrôle humain. |
 | Publication | Une seule commande synchronise, commit et pousse vers le dépôt des TP. | Toute modification directe d'un clone local serait écrasée ou ferait échouer une publication ultérieure. |
 
 ## Règles de maintenance qui découlent de l'architecture

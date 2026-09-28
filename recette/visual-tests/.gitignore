@@ -2,7 +2,7 @@
 _regressions.yaml
 _results/
 
-# Fichiers du plugin ShipGuard, recopiés à chaque recette : jamais versionnés.
+# Fichiers ShipGuard, recopiés depuis l'installation locale à chaque recette : jamais versionnés.
 build-review.mjs
 _review-template.html
 review-smoke-test.mjs

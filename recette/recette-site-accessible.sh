@@ -11,6 +11,7 @@ set -euo pipefail
 # ShipGuard, puis sert le tableau de revue sur http://127.0.0.1:8888/.
 
 RECETTE_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(cd -- "$RECETTE_DIR/.." && pwd)"
 DOCS_DIR="$(cd -- "$RECETTE_DIR/../docs" && pwd)"
 export SHIPGUARD_SITE_DIR="$DOCS_DIR"
 cd "$RECETTE_DIR"
@@ -21,7 +22,20 @@ SCOPE="${SHIPGUARD_SCOPE:-site-accessible}"
 REVIEW_PORT="${SHIPGUARD_REVIEW_PORT:-8888}"
 REVIEW_HOST="${SHIPGUARD_REVIEW_HOST:-127.0.0.1}"
 REVIEW_URL="http://$REVIEW_HOST:$REVIEW_PORT/"
-SHIPGUARD_VISUAL_REVIEW_SKILL_DIR="${SHIPGUARD_VISUAL_REVIEW_SKILL_DIR:-$HOME/plugins/shipguard-codex/skills/sg-visual-review}"
+TOOLS_DIR="$ROOT_DIR/.tools"
+SHIPGUARD_VISUAL_REVIEW_SKILL_DIR="$TOOLS_DIR/shipguard/plugins/shipguard/skills/sg-visual-review"
+AGENT_BROWSER_BIN="$RECETTE_DIR/node_modules/.bin/agent-browser"
+
+case "$(uname -m)" in
+  arm64) BROWSER_PLATFORM="mac-arm64" ;;
+  x86_64) BROWSER_PLATFORM="mac-x64" ;;
+  *)
+    echo "Erreur : architecture macOS non prise en charge : $(uname -m)." >&2
+    exit 1
+    ;;
+esac
+
+BROWSER_EXECUTABLE="$TOOLS_DIR/chrome-154.0.8037.57-$BROWSER_PLATFORM/chrome-$BROWSER_PLATFORM/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
 
 require_command() {
   local name="$1"
@@ -63,6 +77,17 @@ wait_for_url() {
 require_command node
 require_command python3
 require_command curl
+
+if [[ ! -x "$AGENT_BROWSER_BIN" ]]; then
+  echo "Erreur : agent-browser local est introuvable. Lancez make installer-recette." >&2
+  exit 1
+fi
+if [[ ! -x "$BROWSER_EXECUTABLE" ]]; then
+  echo "Erreur : navigateur local de recette introuvable. Lancez make installer-recette." >&2
+  exit 1
+fi
+export PATH="$(dirname -- "$AGENT_BROWSER_BIN"):$PATH"
+export AGENT_BROWSER_EXECUTABLE_PATH="$BROWSER_EXECUTABLE"
 require_command agent-browser
 
 if [[ ! -d "$DOCS_DIR/$SCOPE" ]]; then
@@ -80,6 +105,7 @@ mkdir -p visual-tests/_results/screenshots visual-tests/pages
 for file in build-review.mjs _review-template.html review-smoke-test.mjs monitor-smoke-test.mjs; do
   if [[ ! -f "$SHIPGUARD_VISUAL_REVIEW_SKILL_DIR/$file" ]]; then
     echo "Erreur : asset ShipGuard introuvable : $SHIPGUARD_VISUAL_REVIEW_SKILL_DIR/$file" >&2
+    echo "Lancez make installer-recette pour restaurer les dépendances locales." >&2
     exit 1
   fi
   cp "$SHIPGUARD_VISUAL_REVIEW_SKILL_DIR/$file" "visual-tests/$file"

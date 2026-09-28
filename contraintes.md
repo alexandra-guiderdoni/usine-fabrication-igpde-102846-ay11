@@ -29,6 +29,16 @@ Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les
 - **Décision / prochaine vérification** : privilégier `.venv/bin/python` après `make installer`. Le repli sur Python système n'offre pas de garantie de dépendances.
 - **Composants affectés** : `Makefile`, `scripts/`, génération PDF et export LibreOffice.
 
+### Recette visuelle autonome
+
+- **Date** : 2026-09-28
+- **Source** : `Makefile`, `recette/installer-recette.sh`, `recette/package.json`.
+- **Statut** : active.
+- **Contrainte** : `make installer-recette` prépare les dépendances de recette sans plugin Codex ni dépendance globale : ShipGuard `v2.14.0` est cloné à son commit vérifié dans `.tools/shipguard/`, `agent-browser` 0.38.1 est installé dans `recette/node_modules/` et Chrome for Testing est téléchargé sous `.tools/` avec une empreinte SHA-256 vérifiée.
+- **Impact** : `make recette` est reproductible depuis un clone de l'usine après cette installation, sans dépendre du cache personnel d'un agent.
+- **Décision / prochaine vérification** : conserver le tag, le commit et le verrou npm alignés ; lancer `make installer-recette`, puis `make recette` après toute mise à jour de cette chaîne.
+- **Composants affectés** : `Makefile`, `recette/`, `.tools/`, `.gitignore`.
+
 ### Assets DSFR embarqués
 
 - **Date** : 2026-09-28
@@ -216,7 +226,7 @@ Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les
 - **Date** : 2026-09-28
 - **Source** : `Makefile`, `tests/`, `validate.py`, résultat vérifié de `make verifier`.
 - **Statut** : active et vérifiée.
-- **Contrainte** : `make verifier` exécute 87 tests, valide le site, contrôle les PDF livrés et lance les vérifications de dépôt. Le code de sortie porte le verdict.
+- **Contrainte** : `make verifier` exécute la suite de tests, valide le site, contrôle les PDF livrés et lance les vérifications de dépôt. Le code de sortie porte le verdict.
 - **Impact** : une modification de source ou de configuration doit être vérifiée avant livraison ou publication.
 - **Décision / prochaine vérification** : lancer `make verifier` après toute modification qui affecte la fabrication, le site ou les contrôles.
 - **Composants affectés** : `tests/`, `validate.py`, `docs/`, PDF livrés, hook Git.

@@ -28,6 +28,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
 - macOS en priorité, Python 3.12 (Homebrew), `uv`, et pour les PDF : `pandoc`, `pango`, `glib` (Homebrew).
 - `make installer` crée `.venv` depuis `requirements.lock` (installation avec vérification des empreintes) et active les hooks git versionnés (`.githooks`).
+- La recette visuelle a son installation autonome : `make installer-recette` clone ShipGuard `v2.14.0` dans `.tools/shipguard/`, installe `agent-browser` 0.38.1 dans `recette/node_modules/` et Chrome for Testing sous `.tools/` après vérification de son empreinte. Ces répertoires sont ignorés par Git. Elle demande `git`, Node.js 24 ou plus et npm, mais aucun plugin Codex ni cache global.
 - Sans `.venv`, le `Makefile` utilise `/opt/homebrew/bin/python3.12`, et à défaut le `python3` du système, sans garantie sur les dépendances : lancer `make installer` d'abord. Les commandes courantes passent par `make` (`make aide` les liste) ; les quelques scripts sans cible (test d'une seule slide, diagnostics de `REEXPORTER-DECK-PPTX.md`) s'appellent avec le même interpréteur.
 
 ## Chaîne de fabrication
@@ -69,7 +70,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - `make verifier` : suite pytest (dont la déclaration PDF/UA-1 des PDF livrés), validation du site (`validate.py`), contrôles du dépôt. Le verdict se lit sur le code de sortie.
 - `make qa` : boucle qualité du deck. Lire `.qa/qa-pptx-report.md` et son champ `status` ; le code de sortie seul ne prouve pas la convergence.
 - Réexport complet du deck : suivre `REEXPORTER-DECK-PPTX.md`.
-- Recette visuelle du site corrigé : `make recette` (plugin ShipGuard requis ; ses manifestes sont dans `recette/visual-tests/`).
+- Recette visuelle du site corrigé : exécuter une fois `make installer-recette`, puis `make recette`. Les manifestes sont dans `recette/visual-tests/`.
 - Une relecture visuelle humaine du deck reste nécessaire : les contrôles automatiques ne voient pas les chevauchements fins.
 
 ## Publier

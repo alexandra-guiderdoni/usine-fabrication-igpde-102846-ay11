@@ -27,6 +27,14 @@ make installer
 
 La commande crée `.venv` depuis `requirements.lock`, en vérifiant l'empreinte de chaque paquet, et active les contrôles git versionnés du dépôt (`.githooks`).
 
+La recette visuelle est optionnelle pour la fabrication du pack. Elle demande `git`, Node.js 24 ou plus et npm, puis s'installe intégralement dans le projet :
+
+```bash
+make installer-recette
+```
+
+Cette cible installe `agent-browser` dans `recette/node_modules/`, Chrome for Testing dans `.tools/` avec une empreinte vérifiée et clone ShipGuard `v2.14.0` dans `.tools/shipguard/`. Ces répertoires sont ignorés par Git : aucun plugin Codex global ni cache de navigateur global n'est requis.
+
 ## Usage
 
 ```bash
@@ -36,6 +44,8 @@ make qa            # qualité du deck ; lire le statut CONVERGED dans .qa/qa-ppt
 make verifier      # tests, validation du site, contrôles du dépôt
 make pack          # deck, PDF accessibles, supports, vérification des installeurs
 make apercu        # site d'exercice en local
+make installer-recette # dépendances locales de la recette visuelle
+make recette       # recette visuelle du site corrigé
 make publier-site  # publication du site, seulement après le succès de make verifier
 ```
 

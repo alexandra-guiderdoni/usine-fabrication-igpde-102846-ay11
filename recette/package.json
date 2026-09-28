@@ -1,0 +1,11 @@
+{
+  "name": "recette-site-igpde",
+  "private": true,
+  "description": "Dépendances locales de la recette visuelle du site IGPDE",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "devDependencies": {
+    "agent-browser": "0.38.1"
+  }
+}
