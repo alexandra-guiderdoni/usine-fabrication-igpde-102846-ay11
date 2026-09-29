@@ -63,7 +63,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
   - Cartes idées reçues (`Formateur/ice-breaker-idées-recues-cartes-igpde/`), cartes WCAG 2.2 (`fil-rouge-principes-wcag-igpde/cartes-criteres-wcag-2-2-a-imprimer.pdf`, crédits et licence dans `CREDITS.md` à côté), bandeaux IGPDE.
   - Convocation des intervenants : sur le disque seulement, jamais versionnée.
 
-`scripts/assemble_reseaux_sociaux.py` est obsolète : les slides du module 4 sont intégrées au deck principal. `scripts/generate_demo.py` est hors chaîne (voir `todo.md`).
+`scripts/assemble_reseaux_sociaux.py` est obsolète : les slides du module 4 sont intégrées au deck principal.
 
 ## Vérifier avant de livrer
 

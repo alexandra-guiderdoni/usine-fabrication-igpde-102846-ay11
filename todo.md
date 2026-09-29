@@ -12,8 +12,6 @@ Dernière revue des actions : 2026-09-29.
 ### Qualité et livraison du deck
 
 - [ ] Réaliser la relecture visuelle humaine complète du deck dans PowerPoint, corriger les sources `scripts/slides/` si nécessaire, puis suivre `REEXPORTER-DECK-PPTX.md` : `make qa` et lecture du statut, `make deck`, `make verifier`, contrôle `unzip -t` du PPTX du pack. Le livrable à diffuser est `livrables-IGPDE-2026-102846/Formateur/support-formation-102846-2026-IGPDE.pptx`.
-- [ ] Documenter dans `CREDITS.md` la provenance de la mise en page à six cartes par page, lorsque cette information est établie, conformément à la licence CC BY-SA 4.0.
-- [ ] Avant tout usage de `scripts/generate_demo.py`, supprimer ou rediriger sa sortie `gabarits-ppt-igpde.pptx`, homonyme de la source rangée dans `_source/presentations-source/`.
 - [ ] Vérifier, dans un environnement de test réversible, l'avertissement de `make publier-site` lorsque le clone de consultation a divergé.
 
 ### Après la formation et préparation 2027
