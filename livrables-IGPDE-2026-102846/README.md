@@ -14,7 +14,7 @@ Formateur/
     102846PL-v2.docx                        Programme de la formation (une page)
     Derped-deroule-pedagogique-102846-v2.docx  Déroulé pédagogique détaillé
   support-formation-102846-2026-IGPDE.pptx      Deck principal (138 slides DSFR)
-  _alex/                         Notes formateur (transcriptions du deck, checklists, PDF du deck)
+  _alex/                         Notes formateur (transcriptions du deck, checklists)
   fil-rouge-principes-wcag-igpde/  Fiches formateur et stagiaire WCAG, cartes des critères WCAG 2.2 (voir son README)
   ice-breaker-idées-recues-cartes-igpde/  6 cartes PDF idées reçues a11y
   tp-word-igpde/                 Exercice Sami (3 DOCX) + fiches mémo PDF
