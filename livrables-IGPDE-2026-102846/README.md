@@ -18,7 +18,6 @@ Formateur/
   fil-rouge-principes-wcag-igpde/  Fiches formateur et stagiaire WCAG, cartes des critères WCAG 2.2 (voir son README)
   ice-breaker-idées-recues-cartes-igpde/  6 cartes PDF idées reçues a11y
   tp-word-igpde/                 Exercice Sami (3 DOCX) + fiches mémo PDF
-  tp-easy-check-site-web-igpde/  Site d'exercice points de contrôle rapides (clone git du site)
   tp-reseaux-sociaux-igpde/      Démo de mauvaise restitution des emojis
   liens-tp-en-ligne.pdf          Liens en ligne des deux TP (une page)
 
@@ -28,6 +27,13 @@ outils/
   nvda_2024.4.1.exe             Lecteur d'écran NVDA (Windows)
   PAC_24.3.1.0.zip              PDF Accessibility Checker
 ```
+
+## Site d'exercice
+
+Le site d'exercice est maintenu dans le dépôt séparé
+[`tp-fabrication-igpde-102846-ay11`](https://github.com/alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11).
+Dans cet espace de travail, son clone est placé au même niveau que l'usine, sous
+`../tp-fabrication-igpde-102846-ay11`. Il ne fait pas partie du snapshot livré.
 
 ## Relation avec le dépôt
 
