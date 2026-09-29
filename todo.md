@@ -1,13 +1,11 @@
 # TODO - Formation 102846 (IGPDE)
 
-Dernière revue des actions : 2026-09-28.
+Dernière revue des actions : 2026-09-29.
 
 ## En cours
 
 ### Avant la session du 9 octobre 2026
 
-- [ ] Confirmer si les fiches d'évaluation IGPDE couvrent l'auto-évaluation annoncée en début et fin de formation ; sinon, ajouter deux slides d'auto-positionnement sur les trois compétences ciblées.
-- [ ] Décider si la fiche stagiaire WCAG doit contenir une liste autonome des 13 vérifications rapides. Son contenu actuel ne comporte pas le tableau web de la fiche formateur.
 - [ ] Imprimer les cartes idées reçues pour l'ice-breaker.
 - [ ] Imprimer les cartes des critères WCAG 2.2 (`fil-rouge-principes-wcag-igpde/cartes-criteres-wcag-2-2-a-imprimer.pdf`).
 
@@ -25,6 +23,11 @@ Dernière revue des actions : 2026-09-28.
 - [ ] Pour 2027, remplacer le titre « Fiche catalogue 2026 » par « Fiche catalogue 2027 ».
 
 ## Fait
+
+### Arbitrages pédagogiques
+
+- [x] Auto-positionnement, décision du 2026-09-29 : ne pas ajouter de slides ; l'activité reste menée à l'oral.
+- [x] Vérifications rapides, décision du 2026-09-29 : ne pas ajouter la liste autonome des 13 vérifications à la fiche stagiaire ; le site GitHub Pages et la grille checklist fournissent déjà le support opérationnel.
 
 ### Préparation et livraison des livrables
 
