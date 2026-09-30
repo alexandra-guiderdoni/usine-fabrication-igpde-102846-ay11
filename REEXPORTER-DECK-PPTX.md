@@ -1,6 +1,6 @@
 # Réexporter le deck PPTX
 
-Mode d'emploi court pour régénérer le support `support-formation-102846-2026-IGPDE.pptx` et vérifier qu'il ne contient pas de nouvelle régression géométrique ou textuelle.
+Mode opératoire du projet pour régénérer le support `support-formation-102846-2026-IGPDE.pptx` et vérifier qu'il ne contient pas de nouvelle régression géométrique ou textuelle. Ce document est un runbook : une procédure exécutable et vérifiable, pas un modèle à recopier ni une simple recommandation.
 
 
 Dans les commandes ci-dessous, `python` désigne l'interpréteur de l'usine : `.venv/bin/python` après `make installer`, sinon `/opt/homebrew/bin/python3.12`.
@@ -17,13 +17,50 @@ Le deck est généré par les scripts Python du projet. Ne jamais modifier le fi
 
 La boucle QA du deck travaille sur une copie dans `.qa/formation-test-qa.pptx`. Elle sert à vérifier le deck avant de régénérer ou livrer le fichier stable.
 
-## Commande recommandée
+## Relever les corrections pendant la relecture
 
-Depuis la racine du projet :
+Ouvrir le fichier livré :
 
-```bash
-make qa
+```text
+livrables-IGPDE-2026-102846/Formateur/support-formation-102846-2026-IGPDE.pptx
 ```
+
+Pour chaque observation, noter :
+
+```text
+Position dans PowerPoint :
+Titre ou texte visible :
+Type : texte | mise en page | image | accessibilité | notes
+Problème observé :
+Résultat attendu :
+Capture d'écran : facultative, recommandée pour un défaut visuel
+```
+
+La position dans PowerPoint ne correspond pas nécessairement au préfixe du fichier Python. Le titre ou le texte visible permet de retrouver la bonne source. Ne pas enregistrer de correction, de commentaire ou d'annotation dans le PPTX livré : fermer sans enregistrer s'il a été modifié par erreur.
+
+## Traiter un lot de corrections
+
+1. Vérifier que l'arbre Git ne contient pas de changement étranger au lot.
+2. Retrouver la source avec `scripts/slides/README.md` ou une recherche du texte visible :
+
+   ```bash
+   rg -n "texte visible" scripts/slides
+   ```
+
+3. Corriger le fichier `scripts/slides/NN_*.py` correspondant. Pour un défaut isolé, ne pas modifier un composant partagé. Modifier `scripts/igpde_dsfr_components.py` seulement si le problème est réellement commun à plusieurs slides.
+4. Relire le diff source. Les textes, notes, images, textes alternatifs et ordres de lecture se corrigent dans les scripts, jamais dans PowerPoint.
+5. Si utile, générer une slide seule pour un diagnostic rapide :
+
+   ```bash
+   .venv/bin/python scripts/assemble.py --only NN
+   ```
+
+   Cette commande produit un deck partiel à la racine. Elle ne met jamais à jour le PPTX du pack et ne remplace pas la génération complète.
+6. Quand le lot est prêt, lancer la boucle QA depuis la racine du projet :
+
+   ```bash
+   make qa
+   ```
 
 Si la sortie indique :
 
@@ -33,6 +70,8 @@ Si la sortie indique :
 ```
 
 alors la copie de travail `.qa/formation-test-qa.pptx` ne contient aucune nouvelle violation connue par les tests de la boucle QA.
+
+Si le statut n'est pas `CONVERGED`, lire `.qa/qa-corrections.md`, corriger les scripts, puis relancer `make qa`. Ne pas régénérer le livrable stable tant que les violations nouvelles ne sont pas comprises.
 
 ## Réexporter le deck stable
 
@@ -48,11 +87,37 @@ unzip -t livrables-IGPDE-2026-102846/Formateur/support-formation-102846-2026-IGP
 
 Avant livraison, ouvrir ce PPTX du pack dans PowerPoint et effectuer une relecture visuelle humaine. La QA automatique ne détecte pas tous les chevauchements fins ni tous les défauts esthétiques.
 
+Contrôler en priorité chaque slide corrigée, la slide qui la précède, celle qui la suit, puis les slides qui utilisent le même composant partagé. Une nouvelle observation ouvre un nouveau tour de la même boucle ; le PPTX n'est la source d'aucune correction.
+
 Le fichier à livrer est la copie du pack :
 
 ```text
 livrables-IGPDE-2026-102846/Formateur/support-formation-102846-2026-IGPDE.pptx
 ```
+
+## Critère de fin d'un lot
+
+Le lot est terminé uniquement lorsque :
+
+- les corrections demandées sont présentes dans les scripts source ;
+- le diff ne contient aucune modification étrangère ;
+- `.qa/qa-pptx-report.md` indique `status=CONVERGED` et `new=0` ;
+- `make deck` a régénéré le deck complet et sa copie dans le pack ;
+- `make verifier` réussit ;
+- `unzip -t` confirme l'intégrité du PPTX du pack ;
+- la relecture humaine du fichier du pack confirme les corrections sans nouvelle régression visible.
+
+Le commit et le push viennent après cette validation. Aucun outil de la chaîne ne les effectue automatiquement.
+
+## Place de ShipGuard
+
+ShipGuard est utile comme garde-fou, pas comme générateur du deck :
+
+- le verrou de mission borne un lot aux slides signalées, aux sources correspondantes et aux contrôles attendus ;
+- une vérification ShipGuard complète peut être pertinente si le générateur, les composants partagés ou la chaîne de fabrication changent ;
+- la revue visuelle ShipGuard actuelle vise des captures de pages web et ne remplace pas la relecture du PPTX dans PowerPoint ; la recette ShipGuard du projet reste dédiée au site.
+
+Décision au 2026-09-30 : conserver ce mode opératoire comme runbook du projet, sans créer de skill interne. Un skill ne serait reconsidéré que si plusieurs agents échouent malgré ce guide ou si une chaîne automatisée de rendu et de comparaison des slides est ajoutée.
 
 ## Corriger les accents sûrs
 
