@@ -1,6 +1,6 @@
 # TODO - Formation 102846 (IGPDE)
 
-Dernière revue des actions : 2026-09-29.
+Dernière revue des actions : 2026-09-30.
 
 ## En cours
 
@@ -12,13 +12,9 @@ Dernière revue des actions : 2026-09-29.
 ### Qualité et livraison du deck
 
 - [ ] Réaliser la relecture visuelle humaine complète du deck dans PowerPoint, corriger les sources `scripts/slides/` si nécessaire, puis suivre `REEXPORTER-DECK-PPTX.md` : `make qa` et lecture du statut, `make deck`, `make verifier`, contrôle `unzip -t` du PPTX du pack. Le livrable à diffuser est `livrables-IGPDE-2026-102846/Formateur/support-formation-102846-2026-IGPDE.pptx`.
-- [ ] Vérifier, dans un environnement de test réversible, l'avertissement de `make publier-site` lorsque le clone de consultation a divergé.
+### Après la formation
 
-### Après la formation et préparation 2027
-
-- [ ] Déclarer le bug WeasyPrint 68.1 « Table wrapper without a table » (mode PDF/UA-1, tableau coupé entre deux pages) sur le dépôt de WeasyPrint avec un exemple minimal, sur décision d'Alex.
 - [ ] Supprimer l'ancien dossier du projet dans l'espace de travail personnel d'Alex, après la formation du 9 octobre 2026 et uniquement sur son GO explicite.
-- [ ] Pour 2027, remplacer le titre « Fiche catalogue 2026 » par « Fiche catalogue 2027 ».
 
 ## Fait
 
@@ -45,6 +41,8 @@ Dernière revue des actions : 2026-09-29.
 - [x] Manifestes ShipGuard sortis du site publié (`docs/visual-tests/` vers `recette/visual-tests/`) le 2026-09-27 : `validate.py` passe au vert
 - [x] Ancien deck de juin archivé le 2026-09-26 sous `archive-oldformation-102638-juin-2026.pptx`, puis retiré de la racine de l'usine : récupérable dans l'historique git (commit `0ab3406`)
 - [x] Avertissements de pied de page supprimés le 2026-09-28 : les composants concernés ont été recomposés à la source, `KNOWN_FOOTER_VIOLATIONS` et la base de référence sont à zéro, et la QA a convergé sans nouvelle violation.
+- [x] Avertissement de `make publier-site` testé le 2026-09-30 dans deux clones temporaires ayant divergé d'un commit chacun : le `pull --ff-only` a échoué comme attendu, l'avertissement a été affiché et la cible s'est terminée avec le code 0 ; aucun dépôt réel n'a été touché et l'environnement temporaire a été supprimé.
+- [x] Crash WeasyPrint 68.1 « Table wrapper without a table » reproduit le 2026-09-30 en PDF/UA-1 et réduit au cas d'un tableau avec légende coupé entre deux pages. Aucun doublon n'a été ouvert : le bug est déjà suivi par l'issue amont `Kozea/WeasyPrint#2761` et son correctif « Handle split tables with captions » est publié dans WeasyPrint 70.0. Le contournement local reste en place tant qu'une montée de version n'a pas été validée.
 
 ### Travaux initiaux et pédagogiques
 
