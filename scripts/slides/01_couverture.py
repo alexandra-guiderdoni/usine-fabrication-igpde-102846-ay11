@@ -16,7 +16,7 @@ def build(prs, layouts, ctx):
         prs,
         layouts,
         layout_name="couverture",
-        titre="Accessibilité numérique",
+        titre="L'accessibilité numérique pour la bureautique et le web",
         footer_text="Institut de la Gestion publique et du Développement économique",
         date_text=ctx.date,
         page_num=ctx.page_num,
@@ -24,7 +24,7 @@ def build(prs, layouts, ctx):
 
     sub_box = slide.shapes.add_textbox(
         Inches(5.8),
-        Inches(5.3),
+        Inches(5.95),
         Inches(7.1),
         Inches(0.35),
     )
@@ -39,5 +39,5 @@ def build(prs, layouts, ctx):
         align=PP_ALIGN.RIGHT,
     )
 
-    add_notes(slide, "Slide de couverture - accueil des stagiaires, tour de table.")
+    add_notes(slide, "Slide de couverture - accueil des stagiaires et installation.")
     return slide

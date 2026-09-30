@@ -48,20 +48,22 @@ def build(prs, layouts, ctx):
         "Tester : relecture à voix haute, lisibilité",
     ]
     col_h = max(
-        estimate_callout_height(titre_falc, bullets_falc, COL_W, line_spacing=1.2),
-        estimate_alert_height(titre_clair, bullets_clair, COL_W, line_spacing=1.2),
+        estimate_callout_height(titre_falc, bullets_falc, COL_W, line_spacing=1.2, compact=True),
+        estimate_alert_height(titre_clair, bullets_clair, COL_W, line_spacing=1.2, compact=True),
     )
     top_cols = stack.push(col_h)
     add_callout(
         slide, titre_falc, bullets_falc,
         top=top_cols, left=MARGIN_L, width=COL_W,
         line_spacing=1.2,
+        compact=True,
     )
     add_alert(
         slide, titre_clair, bullets_clair,
         top=top_cols, left=COL_R, width=COL_W,
         alert_type="info",
         line_spacing=1.2,
+        compact=True,
     )
 
     add_image(

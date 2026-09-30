@@ -63,7 +63,7 @@ def build(prs, layouts, ctx):
             3,
         ),
     ]
-    card_h = max(estimate_card_height(t, c, card_w, numero=n) for t, c, n in cards)
+    card_h = max(estimate_card_height(t, c, card_w, numero=n, compact=True) for t, c, n in cards)
     top_cards = 2.30
     for i, (titre, contenu, numero) in enumerate(cards):
         add_card(
@@ -75,6 +75,7 @@ def build(prs, layouts, ctx):
             width=card_w,
             height=card_h,
             numero=numero,
+            compact=True,
         )
 
     message = "Un support accessible ne dépend jamais d'un seul canal."

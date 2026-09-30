@@ -50,19 +50,21 @@ def build(prs, layouts, ctx):
     ]
 
     col_h = max(
-        estimate_callout_height(titre_vision, bullets_vision, COL_W, line_spacing=1.2),
-        estimate_callout_height(titre_audition, bullets_audition, COL_W, line_spacing=1.2),
+        estimate_callout_height(titre_vision, bullets_vision, COL_W, line_spacing=1.2, compact=True),
+        estimate_callout_height(titre_audition, bullets_audition, COL_W, line_spacing=1.2, compact=True),
     )
     top_cols = stack.push(col_h)
     add_callout(
         slide, titre_vision, bullets_vision,
         top=top_cols, left=MARGIN_L, width=COL_W,
         line_spacing=1.2,
+        compact=True,
     )
     add_callout(
         slide, titre_audition, bullets_audition,
         top=top_cols, left=COL_R, width=COL_W,
         line_spacing=1.2,
+        compact=True,
     )
 
     add_image(

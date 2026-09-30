@@ -1,12 +1,13 @@
 """Slide 02a : sommaire - les 4 modules de la journée en grille 2x2."""
 
 from igpde_dsfr_components import (
-    COL_R, COL_W, MARGIN_L, BOTTOM_CONTENT,
-    add_card, add_notes, estimate_card_height, new_slide,
+    COL_R, COL_W, MARGIN_L,
+    add_card, add_notes, new_slide,
 )
 
-GAP_ROWS = 0.20
-BOTTOM_SAFE = BOTTOM_CONTENT - 0.05
+CARD_H = 2.05
+GAP_ROWS = 0.35
+ROW1_TOP = 2.25
 
 
 def build(prs, layouts, ctx):
@@ -26,9 +27,9 @@ def build(prs, layouts, ctx):
          ["Enjeux et obligations des acteurs publics",
           "Déclaration d'accessibilité"],                        1, MARGIN_L),
         ("Bureautique accessible",
-         ["Documents Word et LibreOffice",
+         ["Documents Word (LibreOffice)",
           "Export PDF accessible"],                              2, COL_R),
-        ("points de contrôle rapides W3C",
+        ("Points de contrôle rapides W3C",
          ["13 vérifications rapides W3C WAI",
           "Démonstration et exercice pratique"],                 3, MARGIN_L),
         ("Réseaux sociaux",
@@ -36,13 +37,8 @@ def build(prs, layouts, ctx):
           "Alt text, hashtags, émojis"],                        4, COL_R),
     ]
 
-    # Hauteur uniforme : toutes les cartes alignées sur la plus haute
-    card_h = max(estimate_card_height(t, c, COL_W, n) for t, c, n, _ in modules)
-    # row1_top le plus près possible du titre (2.20"), recalé vers le haut
-    # si les deux rangées dépasseraient le footer
-    row1_top = min(2.20, BOTTOM_SAFE - 2 * card_h - GAP_ROWS)
-    row2_top = row1_top + card_h + GAP_ROWS
-    tops = [row1_top, row1_top, row2_top, row2_top]
+    row2_top = ROW1_TOP + CARD_H + GAP_ROWS
+    tops = [ROW1_TOP, ROW1_TOP, row2_top, row2_top]
 
     for (titre_m, desc, numero, left), top in zip(modules, tops):
         add_card(
@@ -52,8 +48,9 @@ def build(prs, layouts, ctx):
             top=top,
             left=left,
             width=COL_W,
-            height=card_h,
+            height=CARD_H,
             numero=numero,
+            numero_en_ligne=True,
         )
 
     add_notes(

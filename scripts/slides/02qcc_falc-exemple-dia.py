@@ -90,19 +90,21 @@ def build(prs, layouts, ctx):
         "Télécharger (handicap.gouv.fr)",
     ]
     col_h = max(
-        estimate_callout_height(titre_pdf, bullets_pdf, COL_W, line_spacing=1.15),
-        estimate_callout_height(titre_falc, bullets_falc, COL_W, line_spacing=1.15),
+        estimate_callout_height(titre_pdf, bullets_pdf, COL_W, line_spacing=1.15, compact=True),
+        estimate_callout_height(titre_falc, bullets_falc, COL_W, line_spacing=1.15, compact=True),
     )
     top_cols = stack.push(col_h)
     add_callout(
         slide, titre_pdf, bullets_pdf,
         top=top_cols, left=MARGIN_L, width=COL_W,
         line_spacing=1.15,
+        compact=True,
     )
     add_callout(
         slide, titre_falc, bullets_falc,
         top=top_cols, left=COL_R, width=COL_W,
         line_spacing=1.15,
+        compact=True,
     )
 
     _inject_links_in_callouts(slide, [URL_PDF, URL_FALC])

@@ -30,6 +30,7 @@ def build(prs, layouts, ctx):
             "RAN (Référent Accessibilité Numérique)",
         ],
         top=stack.push(2.40), height=2.60,
+        compact=True,
     )
 
     headers = ["Mention", "Signification"]

@@ -35,11 +35,31 @@ def build(prs, layouts, ctx):
 
     titre_etapes = "Les 5 étapes"
     bullets_etapes = [
-        "1. Préparatoire : recherches, résumé simplifié, contrôle des contre-sens",
-        "2. Transcription en duo : simplification, illustrations, mise en page",
-        "3. Validation : relecture par des personnes handicapees intellectuelles",
-        "4. Publication : logo FALC, credit des personnes impliquees",
-        "5. Iteration : savoir dire stop - un texte ne sera jamais compris a 100 %",
+        [
+            ("1. ", False),
+            ("Préparatoire", True),
+            (" : recherches, résumé simplifié, contrôle des contre-sens", False),
+        ],
+        [
+            ("2. ", False),
+            ("Transcription en duo", True),
+            (" : simplification, illustrations, mise en page", False),
+        ],
+        [
+            ("3. ", False),
+            ("Validation", True),
+            (" : relecture par des personnes handicapees intellectuelles", False),
+        ],
+        [
+            ("4. ", False),
+            ("Publication", True),
+            (" : logo FALC, credit des personnes impliquees", False),
+        ],
+        [
+            ("5. ", False),
+            ("Itération", True),
+            (" : savoir dire stop - un texte ne sera jamais compris a 100 %", False),
+        ],
     ]
     titre_conditions = "Conditions obligatoires"
     bullets_conditions = [
@@ -48,20 +68,23 @@ def build(prs, layouts, ctx):
         "Logo europeen FALC + credit des valideurs",
     ]
     col_h = max(
-        estimate_callout_height(titre_etapes, bullets_etapes, COL_W, line_spacing=1.15),
-        estimate_alert_height(titre_conditions, bullets_conditions, COL_W, line_spacing=1.15),
+        estimate_callout_height(titre_etapes, bullets_etapes, COL_W, line_spacing=1.15, compact=True),
+        estimate_alert_height(titre_conditions, bullets_conditions, COL_W, line_spacing=1.15, compact=True),
     )
     top_cols = stack.push(col_h)
     add_callout(
         slide, titre_etapes, bullets_etapes,
         top=top_cols, left=MARGIN_L, width=COL_W,
         line_spacing=1.15,
+        bullet_prefix="",
+        compact=True,
     )
     add_alert(
         slide, titre_conditions, bullets_conditions,
         top=top_cols, left=COL_R, width=COL_W,
         alert_type="warning",
         line_spacing=1.15,
+        compact=True,
     )
 
     add_image(

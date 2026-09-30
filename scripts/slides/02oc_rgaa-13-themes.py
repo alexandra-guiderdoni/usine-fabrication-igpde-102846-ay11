@@ -1,10 +1,10 @@
 """Slide 02rb : RGAA 13 thèmes et obligations (Martine 32+33)."""
 
 from igpde_dsfr_components import (
-    CONTENT_W, COL_W, COL_R, GAP, MARGIN_L,
+    CONTENT_W, COL_W, GAP, MARGIN_L,
     Stack,
-    add_alert, add_notes, add_tableau,
-    estimate_alert_height,
+    add_card, add_notes, add_tableau,
+    estimate_card_height,
     new_slide,
 )
 
@@ -20,7 +20,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.00, gap=0.30)
+    stack = Stack(top=1.90, gap=0.30)
 
     headers = ["Les 13 thèmes du RGAA", ""]
     rows = [
@@ -41,19 +41,35 @@ def build(prs, layouts, ctx):
     )
     stack.push(tbl_h)
 
-    titre_oblig = "Obligations de publication"
-    bullets_oblig = [
-        "Schéma pluriannuel d'accessibilité (SPAN) sur 3 ans",
-        "Non conforme : moins de 50 % des critères",
-        "Partiellement conforme : de 50 % à 99 %",
-        "Totalement conforme : 100 % des critères applicables",
+    card_w = (CONTENT_W - GAP) / 2
+    card_top = 5.10
+    cards = [
+        (
+            "SPAN",
+            "Schéma pluriannuel d'accessibilité sur 3 ans",
+        ),
+        (
+            "Trois niveaux de conformité",
+            [
+                "Non conforme : moins de 50 % des critères",
+                "Partiellement conforme : de 50 % à 99 %",
+                "Totalement conforme : 100 % des critères applicables",
+            ],
+        ),
     ]
-    add_alert(
-        slide, titre_oblig, bullets_oblig,
-        top=stack.push(estimate_alert_height(titre_oblig, bullets_oblig, CONTENT_W, line_spacing=1.2)),
-        alert_type="warning",
-        line_spacing=1.2,
-    )
+    for index, (titre, contenu) in enumerate(cards):
+        card_h = estimate_card_height(titre, contenu, card_w, compact=True)
+        add_card(
+            slide,
+            titre,
+            contenu,
+            top=card_top,
+            left=MARGIN_L + index * (card_w + GAP),
+            width=card_w,
+            height=card_h + 0.17,
+            body_line_spacing=1.2,
+            compact=True,
+        )
 
     add_notes(
         slide,

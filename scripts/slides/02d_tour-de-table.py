@@ -1,13 +1,14 @@
 """Slide 02d : tour de table - template de présentation en 3 colonnes."""
 
 from igpde_dsfr_components import (
-    CONTENT_W, MARGIN_L, GAP, BOTTOM_CONTENT,
+    CONTENT_W, MARGIN_L, GAP,
     add_card, add_notes, new_slide,
 )
 
 CARD_W = (CONTENT_W - 2 * GAP) / 3
 CARD_TOP = 2.30
-CARD_H = BOTTOM_CONTENT - CARD_TOP - 0.05
+CARD_H = 3.45
+BODY_LINE_SPACING = 1.50
 
 
 def build(prs, layouts, ctx):
@@ -48,11 +49,14 @@ def build(prs, layouts, ctx):
     )
 
     add_card(slide, card1_titre, card1_contenu,
-             top=CARD_TOP, left=MARGIN_L, width=CARD_W, height=CARD_H)
+             top=CARD_TOP, left=MARGIN_L, width=CARD_W, height=CARD_H,
+             body_line_spacing=BODY_LINE_SPACING)
     add_card(slide, card2_titre, card2_contenu,
-             top=CARD_TOP, left=MARGIN_L + CARD_W + GAP, width=CARD_W, height=CARD_H)
+             top=CARD_TOP, left=MARGIN_L + CARD_W + GAP, width=CARD_W,
+             height=CARD_H, body_line_spacing=BODY_LINE_SPACING)
     add_card(slide, card3_titre, card3_contenu,
-             top=CARD_TOP, left=MARGIN_L + 2 * (CARD_W + GAP), width=CARD_W, height=CARD_H)
+             top=CARD_TOP, left=MARGIN_L + 2 * (CARD_W + GAP), width=CARD_W,
+             height=CARD_H, body_line_spacing=BODY_LINE_SPACING)
 
     add_notes(
         slide,

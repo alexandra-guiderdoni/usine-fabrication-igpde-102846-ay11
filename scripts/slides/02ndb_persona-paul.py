@@ -40,6 +40,7 @@ def build(prs, layouts, ctx):
         slide, titre_besoin, bullets_besoin,
         top=2.20, left=BIO_LEFT, width=BIO_W,
         line_spacing=1.3,
+        compact=True,
     )
 
     add_encadre(
@@ -58,6 +59,7 @@ def build(prs, layouts, ctx):
         ],
         top=5.00, left=MARGIN_L, width=CONTENT_W,
         line_spacing=1.2,
+        compact=True,
     )
 
     add_notes(

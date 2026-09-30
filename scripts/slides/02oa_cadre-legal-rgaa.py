@@ -42,6 +42,7 @@ def build(prs, layouts, ctx):
         bullets_alert,
         top=stack.cursor,
         alert_type="info",
+        compact=True,
     )
 
     add_notes(

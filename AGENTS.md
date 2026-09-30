@@ -70,7 +70,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - `make verifier` : suite pytest (dont la déclaration PDF/UA-1 des PDF livrés), validation du site (`validate.py`), contrôles du dépôt. Le verdict se lit sur le code de sortie.
 - `make fraicheur-pack` : vérifie les documents Sami, la grille XLSX et le deck WCAG que `make pack` ne régénère pas. Cette cible est un prérequis obligatoire de `make pack`.
 - `make qa` : boucle qualité du deck. Lire `.qa/qa-pptx-report.md` et son champ `status` ; le code de sortie seul ne prouve pas la convergence.
-- Réexport complet du deck : suivre `REEXPORTER-DECK-PPTX.md`.
+- Relecture, correction et réexport complet du deck : suivre le mode opératoire (runbook) `REEXPORTER-DECK-PPTX.md`, qui couvre le relevé des observations, la correction des sources, la QA, la régénération et la validation humaine du PPTX du pack.
 - Recette visuelle du site corrigé : exécuter une fois `make installer-recette`, puis `make recette`. Les manifestes sont dans `recette/visual-tests/`.
 - Une relecture visuelle humaine du deck reste nécessaire : les contrôles automatiques ne voient pas les chevauchements fins.
 

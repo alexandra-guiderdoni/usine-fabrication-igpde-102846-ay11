@@ -50,14 +50,19 @@ def build(prs, layouts, ctx):
 
     titre_cle = "Ce que ça change pour vous"
     bullets_cle = [
-        "C'est l'environnement qui crée le handicap, pas la personne",
+        [
+            ("C'est l'", False),
+            ("environnement", True),
+            (" qui crée le handicap, pas la personne", False),
+        ],
         "Un document inaccessible = une barrière que vous pouvez lever",
-        "Accessibiliser votre communication supprime la situation de handicap",
+        "Mettre en accessibilité votre communication supprime la situation de handicap",
     ]
     add_callout(
         slide, titre_cle, bullets_cle,
         top=img_top, left=TEXTE_LEFT, width=TEXTE_W,
         line_spacing=1.3,
+        compact=True,
     )
 
     add_notes(

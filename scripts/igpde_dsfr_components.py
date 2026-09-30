@@ -334,7 +334,8 @@ def new_slide(prs, layouts, layout_name="titre_contenu", titre=None,
 
     - Recopie les placeholders date/pied de page/n° depuis le layout pour affichage
     - Remplit le titre dans la bonne zone selon le layout :
-        * couverture / titre_soustitre : textbox DSFR en zone utile (titre 0,26" inutile)
+        * couverture / titre_soustitre : placeholder Title natif repositionne
+          en zone utile
         * autres layouts : placeholder Title natif
     - Remplit le fil d'Ariane (aligne a droite, pos y<0.5") si fourni
     - Supprime les placeholders de contenu (texte de niveau N, cartes) non utilises
@@ -411,8 +412,28 @@ def new_slide(prs, layouts, layout_name="titre_contenu", titre=None,
                             color=BLEU_FRANCE)
                 titre_pose = True
             continue
-        # Titre "inutile" (0.26" x 0.26") : le supprimer pour eviter affichage vertical
+        # Le titre natif minuscule reste le titre semantique :
+        # le repositionner dans la zone visible plutot que le remplacer par
+        # une textbox ordinaire.
         if is_title and _is_title_useless(ph):
+            if (layout_name in ("couverture", "titre_soustitre")
+                    and titre and not titre_pose and ph.has_text_frame):
+                if layout_name == "couverture":
+                    left, top, width, height = 5.8, 4.5, 7.1, 1.3
+                    size, align = 32, PP_ALIGN.RIGHT
+                else:
+                    left, top, width, height = 2.8, 0.95, 8.0, 0.9
+                    size, align = 36, PP_ALIGN.CENTER
+                ph.left = Inches(left)
+                ph.top = Inches(top)
+                ph.width = Inches(width)
+                ph.height = Inches(height)
+                _apply_text(ph.text_frame, titre, font=FONT, size=size, bold=True,
+                            color=BLEU_FRANCE, align=align)
+                titre_pose = True
+                continue
+            # Sur les autres layouts, supprimer ce titre inutilisable pour
+            # eviter un affichage vertical.
             a_supprimer.append(ph)
             continue
         # Fil d'Ariane : placeholder texte en haut (y < 0.5")
@@ -521,7 +542,8 @@ def _safe_top(top, height, component="composant"):
     return top
 
 
-def _estimate_height(content, available_width, size=11, line_height_mult=1.35):
+def _estimate_height(content, available_width, size=11, line_height_mult=1.35,
+                     chars_per_inch_base=9.0):
     """Estime la hauteur (pouces) necessaire pour afficher un contenu.
 
     - content : str (1 texte) ou list[str] (bullets)
@@ -536,7 +558,7 @@ def _estimate_height(content, available_width, size=11, line_height_mult=1.35):
     if content is None:
         return 0.0
     items = [content] if isinstance(content, str) else list(content)
-    chars_per_inch = 9.0 * (11.0 / size)
+    chars_per_inch = chars_per_inch_base * (11.0 / size)
     chars_per_line = max(8, int(available_width * chars_per_inch))
     line_height_inches = (size / 72.0) * line_height_mult
     total_lines = 0
@@ -549,14 +571,31 @@ def _estimate_height(content, available_width, size=11, line_height_mult=1.35):
     return total_lines * line_height_inches
 
 
-def estimate_callout_height(titre, bullets, width=None, line_spacing=1.5):
+def estimate_callout_height(titre, bullets, width=None, line_spacing=1.5,
+                            compact=False):
     """Hauteur auto d'un callout ou d'une alert (meme formule)."""
     if width is None:
         width = CONTENT_W
-    h_titre = 0.55 if titre else 0.15
+    chars_per_inch_base = 13.0 if compact else 9.0
+    if compact:
+        h_titre_box = max(
+            _estimate_height(
+                titre, width - 0.35, size=14,
+                chars_per_inch_base=chars_per_inch_base,
+            ),
+            0.35,
+        ) if titre else 0
+        h_titre = (0.10 + h_titre_box + 0.10) if titre else 0.15
+    else:
+        h_titre = 0.55 if titre else 0.15
     adjusted_lhm = 1.35 * (line_spacing / 1.25)
-    h_body = _estimate_height(bullets, width - 0.5, size=14, line_height_mult=adjusted_lhm)
-    return max(h_titre + h_body + 0.25, 0.90)
+    h_body = _estimate_height(
+        bullets, width - 0.5, size=14,
+        line_height_mult=adjusted_lhm,
+        chars_per_inch_base=chars_per_inch_base,
+    )
+    h_padding = 0.24 if compact else 0.25
+    return max(h_titre + h_body + h_padding, 0.90)
 
 
 # Alias pour les alerts (meme structure que callout)
@@ -605,7 +644,7 @@ class Stack:
         return self._cursor
 
 
-def estimate_card_height(titre, contenu, width, numero=None):
+def estimate_card_height(titre, contenu, width, numero=None, compact=False):
     """Estime la hauteur necessaire pour une carte DSFR (helper public).
 
     A utiliser dans une slide qui dispose plusieurs cartes cote a cote :
@@ -615,8 +654,12 @@ def estimate_card_height(titre, contenu, width, numero=None):
     """
     h_numero = 0.80 if numero is not None else 0.0
     h_titre = 0.50 if titre else 0.15
-    h_body = _estimate_height(contenu, width - 0.5, size=14)
-    h_padding = 0.30
+    chars_per_inch_base = 13.0 if compact else 9.0
+    h_body = _estimate_height(
+        contenu, width - 0.5, size=14,
+        chars_per_inch_base=chars_per_inch_base,
+    )
+    h_padding = 0.24 if compact else 0.30
     return max(h_numero + h_titre + h_body + h_padding, 1.0)
 
 
@@ -657,7 +700,8 @@ def _make_box(slide, top, left, width, height, fill_color,
 # Composants DSFR
 # ----------------------------------------------------------------------
 def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height=None,
-                line_spacing=1.25, bullet_prefix="\u2022 "):
+                line_spacing=1.25, bullet_prefix="\u2022 ", compact=False,
+                extra_height=0.0):
     """Callout bleu : accent gauche Bleu France + fond bleu clair + titre bold + bullets.
 
     La hauteur est calculee automatiquement a partir du contenu (titre +
@@ -670,12 +714,23 @@ def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, heig
     # specifique (alignement entre plusieurs composants), utiliser add_card
     # qui respecte max(height, auto).
     qa_start = qa_source_map.shape_count(slide)
-    h_titre_box = max(_estimate_height(titre, width - 0.35, size=14), 0.35) if titre else 0
+    chars_per_inch_base = 13.0 if compact else 9.0
+    h_titre_box = max(
+        _estimate_height(
+            titre, width - 0.35, size=14,
+            chars_per_inch_base=chars_per_inch_base,
+        ),
+        0.35,
+    ) if titre else 0
     h_titre = (0.10 + h_titre_box + 0.10) if titre else 0.15
     adjusted_lhm = 1.35 * (line_spacing / 1.25)
-    h_body = _estimate_height(bullets, width - 0.5, size=14, line_height_mult=adjusted_lhm)
-    h_padding = 0.25
-    height = max(h_titre + h_body + h_padding, 0.90)
+    h_body = _estimate_height(
+        bullets, width - 0.5, size=14,
+        line_height_mult=adjusted_lhm,
+        chars_per_inch_base=chars_per_inch_base,
+    )
+    h_padding = 0.24 if compact else 0.25
+    height = max(h_titre + h_body + h_padding, 0.90) + max(0.0, float(extra_height))
     top = _safe_top(top, height, "add_callout")
 
     _make_box(slide, top, left, width, height,
@@ -702,13 +757,13 @@ def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, heig
                      line_spacing=line_spacing, bullet_prefix=bullet_prefix)
     qa_source_map.record_component(
         "add_callout", slide, qa_start,
-        {"titre": str(titre)[:80], "top": top, "left": left, "width": width, "height": height},
+        {"titre": str(titre)[:80], "top": top, "left": left, "width": width, "height": height, "compact": compact},
     )
     return slide
 
 
 def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height=None,
-              alert_type="info", line_spacing=1.5):
+              alert_type="info", line_spacing=1.5, compact=False):
     """Alerte DSFR - rendu uniformise en gris/bleu DSFR.
 
     Le parametre alert_type (success, warning, error, info) est conserve
@@ -723,11 +778,22 @@ def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height
     qa_start = qa_source_map.shape_count(slide)
     fond, accent = GRIS_CLAIR, BLEU_FRANCE
     # Calcul auto TOUJOURS (voir add_callout pour le rationnel)
-    h_titre_box = max(_estimate_height(titre, width - 0.35, size=14), 0.35) if titre else 0
+    chars_per_inch_base = 13.0 if compact else 9.0
+    h_titre_box = max(
+        _estimate_height(
+            titre, width - 0.35, size=14,
+            chars_per_inch_base=chars_per_inch_base,
+        ),
+        0.35,
+    ) if titre else 0
     h_titre = (0.10 + h_titre_box + 0.10) if titre else 0.15
     adjusted_lhm = 1.35 * (line_spacing / 1.25)
-    h_body = _estimate_height(bullets, width - 0.5, size=14, line_height_mult=adjusted_lhm)
-    h_padding = 0.25
+    h_body = _estimate_height(
+        bullets, width - 0.5, size=14,
+        line_height_mult=adjusted_lhm,
+        chars_per_inch_base=chars_per_inch_base,
+    )
+    h_padding = 0.24 if compact else 0.25
     height = max(h_titre + h_body + h_padding, 0.90)
     top = _safe_top(top, height, "add_alert")
     _make_box(slide, top, left, width, height,
@@ -759,6 +825,7 @@ def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height
             "left": left,
             "width": width,
             "height": height,
+            "compact": compact,
         },
     )
     return slide
@@ -860,60 +927,84 @@ def add_quote(slide, texte, auteur="", top=TOP_CONTENT, left=MARGIN_L,
 
 
 def add_card(slide, titre, contenu, top, left, width=3.78, height=None,
-             numero=None, title_size=14, body_size=14):
+             numero=None, title_size=14, body_size=14,
+             numero_en_ligne=False, body_line_spacing=1.25, compact=False):
     """Carte DSFR : accent bleu + fond gris clair + titre + contenu.
 
     Si numero est fourni (1, 2, 3...), affiche une pastille ronde bleue en haut.
+    Si numero_en_ligne est vrai, la pastille agrandie et le titre partagent
+    la premiere ligne afin de renforcer la hierarchie sans allonger la carte.
 
     Hauteur : si None, calcul auto. Si passe, prend max(passe, auto) pour
     garantir l'absence de debordement tout en respectant une hauteur
     imposee (utile pour aligner plusieurs cartes cote a cote).
     """
     qa_start = qa_source_map.shape_count(slide)
-    auto_h = estimate_card_height(titre, contenu, width, numero)
+    auto_h = estimate_card_height(titre, contenu, width, numero, compact=compact)
     height = auto_h if height is None else height
     _make_box(slide, top, left, width, height,
               fill_color=GRIS_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.08)
     y_titre = top + 0.15
+    title_left = left + 0.25
+    title_width = width - 0.4
+    title_h = 0.35 if title_size <= 12 else 0.45
+    title_anchor = MSO_ANCHOR.TOP
     if numero is not None:
+        pastille_size = 0.62 if numero_en_ligne else 0.5
+        pastille_top = top + (0.20 if numero_en_ligne else 0.15)
+        numero_font_size = 20 if numero_en_ligne else 16
         pastille = slide.shapes.add_shape(
             MSO_SHAPE.OVAL,
-            Inches(left + 0.25), Inches(top + 0.15),
-            Inches(0.5), Inches(0.5),
+            Inches(left + 0.25), Inches(pastille_top),
+            Inches(pastille_size), Inches(pastille_size),
         )
         pastille.name = "DSFR-card-numero"
         pastille.fill.solid()
         pastille.fill.fore_color.rgb = BLEU_FRANCE
         pastille.line.fill.background()
         pastille.shadow.inherit = False
-        _apply_text(pastille.text_frame, str(numero), font=FONT, size=16,
+        _apply_text(pastille.text_frame, str(numero), font=FONT,
+                    size=numero_font_size,
                     bold=True, color=BLANC, align=PP_ALIGN.CENTER,
                     anchor=MSO_ANCHOR.MIDDLE)
-        y_titre = top + 0.75
-    title_h = 0.35 if title_size <= 12 else 0.45
+        if numero_en_ligne:
+            y_titre = pastille_top
+            title_left = left + 1.02
+            title_width = width - 1.22
+            title_h = pastille_size
+            title_anchor = MSO_ANCHOR.MIDDLE
+        else:
+            y_titre = top + 0.75
     t_box = slide.shapes.add_textbox(
-        Inches(left + 0.25), Inches(y_titre),
-        Inches(width - 0.4), Inches(title_h),
+        Inches(title_left), Inches(y_titre),
+        Inches(title_width), Inches(title_h),
     )
     t_box.name = "DSFR-card-titre"
     _apply_text(t_box.text_frame, titre, font=FONT, size=title_size, bold=True,
-                color=BLEU_FRANCE)
+                color=BLEU_FRANCE, anchor=title_anchor)
     if contenu:
-        c_top = y_titre + title_h + 0.05
+        c_top = top + 0.95 if numero_en_ligne else y_titre + title_h + 0.05
         c_box = slide.shapes.add_textbox(
             Inches(left + 0.25), Inches(c_top),
             Inches(width - 0.4), Inches(height - (c_top - top) - 0.10),
         )
         c_box.name = "DSFR-card-contenu"
         if isinstance(contenu, list):
-            _add_bullets(c_box.text_frame, contenu, font=FONT, size=body_size, color=NOIR)
+            _add_bullets(c_box.text_frame, contenu, font=FONT, size=body_size,
+                         color=NOIR, line_spacing=body_line_spacing)
         else:
-            _apply_text(c_box.text_frame, contenu, font=FONT, size=body_size, color=NOIR)
+            body_paragraph = _apply_text(
+                c_box.text_frame, contenu, font=FONT, size=body_size, color=NOIR,
+            )
+            body_paragraph.line_spacing = body_line_spacing
     qa_source_map.record_component(
         "add_card", slide, qa_start,
         {
             "titre": str(titre)[:80],
             "numero": numero,
+            "numero_en_ligne": numero_en_ligne,
+            "body_line_spacing": body_line_spacing,
+            "compact": compact,
             "top": top,
             "left": left,
             "width": width,
@@ -1126,7 +1217,7 @@ def _set_run_hyperlink(slide, run, url):
 
 
 def add_qrcode(slide, image_path, url, top, left, size=1.10,
-               label=None, label_width=2.80, label_position="right"):
+               label=None, label_width=2.80, label_position="right", url_size=8.5):
     """QR code imprime avec alternative visible : CTA + URL lisible."""
     qa_start = qa_source_map.shape_count(slide)
     pic = add_image(
@@ -1170,7 +1261,7 @@ def add_qrcode(slide, image_path, url, top, left, size=1.10,
         url_box.text_frame,
         label,
         font=FONT,
-        size=8.5,
+        size=url_size,
         bold=False,
         color=BLEU_FRANCE,
     )

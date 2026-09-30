@@ -2,8 +2,8 @@
 
 from igpde_dsfr_components import (
     CONTENT_W, COL_W, COL_R, MARGIN_L,
-    add_callout, add_alert, add_highlight, add_notes, new_slide,
-    estimate_callout_height, estimate_alert_height, estimate_highlight_height,
+    add_card, add_highlight, add_notes, new_slide,
+    estimate_highlight_height,
 )
 
 
@@ -27,33 +27,27 @@ def build(prs, layouts, ctx):
         "Confrontez vos cartes : qu'en pensez-vous ?",
         "Présentez vos réflexions au groupe - débat ouvert",
     ]
-    consigne_h = estimate_callout_height(consigne_titre, consigne_bullets, COL_W)
-
     ateliers_titre = "Pour les ateliers Word et Web"
     ateliers_bullets = [
         "N'hésitez pas à travailler en binôme",
         "Deux regards repèrent ce qu'un seul ne voit pas",
         "Expliquer à quelqu'un consolide l'apprentissage",
     ]
-    ateliers_h = estimate_alert_height(ateliers_titre, ateliers_bullets, COL_W)
-
-    col_h = max(consigne_h, ateliers_h)
-
-    add_callout(
+    card_h = 2.45
+    add_card(
         slide, consigne_titre, consigne_bullets,
-        top=top_cols, left=MARGIN_L, width=COL_W, height=col_h,
+        top=top_cols, left=MARGIN_L, width=COL_W, height=card_h, compact=True,
     )
-    add_alert(
+    add_card(
         slide, ateliers_titre, ateliers_bullets,
-        top=top_cols, left=COL_R, width=COL_W,
-        alert_type="info",
+        top=top_cols, left=COL_R, width=COL_W, height=card_h, compact=True,
     )
 
     accroche = "Première étape : trouvez votre binôme et piochez votre carte !"
     hl_h = estimate_highlight_height(accroche, CONTENT_W)
     add_highlight(
         slide, accroche,
-        top=round(top_cols + col_h + 0.25, 2),
+        top=round(top_cols + card_h + 0.45, 2),
         left=MARGIN_L,
         width=CONTENT_W,
     )

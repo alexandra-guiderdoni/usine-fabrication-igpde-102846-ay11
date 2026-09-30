@@ -58,6 +58,7 @@ def build(prs, layouts, ctx):
         slide, titre_cle, bullets_cle,
         top=img_top, left=TEXTE_LEFT, width=TEXTE_W,
         line_spacing=1.3,
+        compact=True,
     )
 
     add_image(

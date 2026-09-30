@@ -66,12 +66,11 @@ def build(prs, layouts, ctx):
     alert_bullets = [
         "Cliquez sur Simuler et répondez aux questions",
         "Notez le résultat : quelles normes s'appliquent à vous ?",
-        "Visualiser (infographie) : .../fr/visualisation/",
-        "Approfondir (article détaillé) : .../fr/comprendre/",
     ]
     alert_w = CONTENT_W - 2.0
     alert_h = estimate_alert_height(
         alert_titre, alert_bullets, alert_w, line_spacing=1.15,
+        compact=True,
     )
     add_alert(
         slide,
@@ -81,6 +80,7 @@ def build(prs, layouts, ctx):
         left=MARGIN_L,
         width=alert_w,
         alert_type="info",
+        compact=True,
     )
 
     qr_w = 1.8

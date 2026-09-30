@@ -63,7 +63,7 @@ def build(prs, layouts, ctx):
     ]
 
     card_w = (CONTENT_W - GAP * 3) / 4
-    card_h = max(estimate_card_height(t, c, card_w) for t, c in cards)
+    card_h = max(estimate_card_height(t, c, card_w, compact=True) for t, c in cards) + 0.25
     top_cards = stack.push(card_h)
     for i, (titre, contenu) in enumerate(cards):
         add_card(
@@ -72,6 +72,7 @@ def build(prs, layouts, ctx):
             left=MARGIN_L + i * (card_w + GAP),
             width=card_w,
             height=card_h,
+            compact=True,
         )
 
     add_notes(

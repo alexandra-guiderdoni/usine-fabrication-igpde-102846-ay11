@@ -44,6 +44,7 @@ def build(prs, layouts, ctx):
         ],
         top=stack.cursor,
         alert_type="success",
+        compact=True,
     )
 
     add_notes(

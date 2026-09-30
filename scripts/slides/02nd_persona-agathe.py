@@ -43,6 +43,7 @@ def build(prs, layouts, ctx):
         slide, titre_besoin, bullets_besoin,
         top=2.20, left=BIO_LEFT, width=BIO_W,
         line_spacing=1.3,
+        compact=True,
     )
 
     add_encadre(

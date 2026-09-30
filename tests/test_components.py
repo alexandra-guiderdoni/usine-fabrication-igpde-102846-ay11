@@ -40,6 +40,28 @@ class TestAddCallout:
     def test_hauteur_explicite(self, slide):
         add_callout(slide, "Titre", ["B1"], top=TOP_CONTENT, height=3.0)
 
+    def test_mode_compact_reduit_la_hauteur(self, slide):
+        add_callout(
+            slide,
+            "Titre",
+            ["Une phrase suffisamment longue pour tester le calcul de hauteur"] * 4,
+            top=TOP_CONTENT,
+        )
+        hauteur_normale = [
+            shape.height for shape in slide.shapes if shape.name == "DSFR-box"
+        ][-1]
+        add_callout(
+            slide,
+            "Titre",
+            ["Une phrase suffisamment longue pour tester le calcul de hauteur"] * 4,
+            top=TOP_CONTENT,
+            compact=True,
+        )
+        hauteur_compacte = [
+            shape.height for shape in slide.shapes if shape.name == "DSFR-box"
+        ][-1]
+        assert hauteur_compacte < hauteur_normale
+
     def test_string_en_bullets_itere_caracteres(self, slide):
         # Piege documente dans CLAUDE.md : string au lieu de liste
         # Ne leve pas d'erreur mais produit un bullet par caractere (degrade)

@@ -1,9 +1,11 @@
 """Slide 02q : point sur l'accessibilité numérique + 3 repères."""
 
+from pptx.enum.text import PP_ALIGN
+
 from igpde_dsfr_components import (
     CONTENT_W, MARGIN_L, TOP_CONTENT,
     GAP, Stack,
-    add_highlight, add_notes, add_pave_chiffre, estimate_highlight_height, new_slide,
+    add_highlight, add_notes, add_pave_chiffre, add_texte_libre, estimate_highlight_height, new_slide,
 )
 
 
@@ -27,15 +29,20 @@ def build(prs, layouts, ctx):
 
     kpi_top = stack.cursor
     item_w = (CONTENT_W - GAP * 2) / 3
-    kpis = [
-        ("WCAG", "référence internationale\ndu W3C."),
-        ("RGAA", "référentiel français\npublié par la DINUM."),
-        ("106", "critères regroupés\nen 13 thématiques."),
-    ]
-    for i, (valeur, label) in enumerate(kpis):
+    for i, valeur in enumerate(["WCAG", "RGAA", "106 / 13"]):
         left = MARGIN_L + i * (item_w + GAP)
-        add_pave_chiffre(slide, valeur=valeur, label=label,
+        add_pave_chiffre(slide, valeur=valeur, label="",
                          top=kpi_top, left=left, width=item_w, height=1.5)
+
+    texte_reperes = (
+        "WCAG : référence internationale du W3C. RGAA : référentiel français "
+        "publié par la DINUM. 106 critères regroupés en 13 thématiques."
+    )
+    add_texte_libre(
+        slide, texte_reperes,
+        top=kpi_top + 1.55, width=CONTENT_W,
+        height=0.6, size=14, align=PP_ALIGN.CENTER,
+    )
 
     add_notes(
         slide,

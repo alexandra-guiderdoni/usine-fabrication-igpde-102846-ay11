@@ -52,13 +52,14 @@ def build(prs, layouts, ctx):
         "Surdité",
         "Handicap moteur",
     ]
-    h_callout = estimate_callout_height(titre_sim, simulations, COL_LEFT_W)
+    h_callout = estimate_callout_height(titre_sim, simulations, COL_LEFT_W, compact=True)
     add_callout(
         slide,
         titre_sim,
         simulations,
         top=stack.push(h_callout),
         left=MARGIN_L, width=COL_LEFT_W,
+        compact=True,
     )
 
     img_top = 2.30

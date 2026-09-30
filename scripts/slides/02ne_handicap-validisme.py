@@ -11,10 +11,11 @@ from igpde_dsfr_components import (
     GAP,
     MARGIN_L,
     Stack,
+    add_card,
     add_callout,
     add_highlight,
     add_notes,
-    add_pave_chiffre,
+    estimate_card_height,
     estimate_callout_height,
     estimate_highlight_height,
     new_slide,
@@ -33,7 +34,7 @@ def build(prs, layouts, ctx):
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.05, gap=0.25)
+    stack = Stack(top=2.05, gap=0.20)
 
     message = (
         "L'accessibilité n'est pas une faveur : c'est une condition d'accès "
@@ -45,23 +46,38 @@ def build(prs, layouts, ctx):
         top=stack.push(estimate_highlight_height(message, CONTENT_W)),
     )
 
-    item_w = (CONTENT_W - GAP * 2) / 3
-    kpi_top = stack.push(1.5)
-    kpis = [
-        ("1 sur 5", "personne en situation\nde handicap ou trouble invalidant."),
-        ("85 %", "des handicaps sont acquis\nau cours de la vie."),
-        ("1er", "facteur de discrimination\nselon le Défenseur des droits."),
+    chiffres_cles = [
+        (
+            "1/5",
+            "1 personne sur 5 est en situation de handicap ou connaît un trouble invalidant.",
+        ),
+        ("85%", "des handicaps sont acquis au cours de la vie"),
+        (
+            "1er",
+            "Le handicap est le 1er facteur de discrimination selon le Défenseur des droits",
+        ),
     ]
-    for i, (valeur, label) in enumerate(kpis):
+    item_w = (CONTENT_W - GAP * 2) / 3
+    card_h = (
+        max(
+            estimate_card_height(titre, texte, item_w, compact=True)
+            for titre, texte in chiffres_cles
+        )
+        + 0.12
+    )
+    cards_top = stack.push(card_h)
+    for i, (titre_carte, texte_carte) in enumerate(chiffres_cles):
         left = MARGIN_L + i * (item_w + GAP)
-        add_pave_chiffre(
+        add_card(
             slide,
-            valeur=valeur,
-            label=label,
-            top=kpi_top,
+            titre_carte,
+            texte_carte,
+            top=cards_top,
             left=left,
             width=item_w,
-            height=1.5,
+            height=card_h,
+            title_size=24,
+            compact=True,
         )
 
     titre = "Validisme : le piège à déconstruire"
@@ -74,8 +90,11 @@ def build(prs, layouts, ctx):
         slide,
         titre,
         bullets,
-        top=stack.push(estimate_callout_height(titre, bullets, CONTENT_W, line_spacing=1.2)),
+        top=stack.push(
+            estimate_callout_height(titre, bullets, CONTENT_W, compact=True)
+        ),
         line_spacing=1.2,
+        compact=True,
     )
 
     add_notes(

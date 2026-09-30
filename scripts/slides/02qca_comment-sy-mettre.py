@@ -49,20 +49,22 @@ def build(prs, layouts, ctx):
     ]
 
     col_h = max(
-        estimate_callout_height(titre_etapes, bullets_etapes, COL_W, line_spacing=1.2),
-        estimate_alert_height(titre_formation, bullets_formation, COL_W, line_spacing=1.2),
+        estimate_callout_height(titre_etapes, bullets_etapes, COL_W, line_spacing=1.2, compact=True),
+        estimate_alert_height(titre_formation, bullets_formation, COL_W, line_spacing=1.2, compact=True),
     )
     top_cols = stack.push(col_h)
     add_callout(
         slide, titre_etapes, bullets_etapes,
         top=top_cols, left=MARGIN_L, width=COL_W,
         line_spacing=1.2,
+        compact=True,
     )
     add_alert(
         slide, titre_formation, bullets_formation,
         top=top_cols, left=COL_R, width=COL_W,
         alert_type="success",
         line_spacing=1.2,
+        compact=True,
     )
 
     add_notes(

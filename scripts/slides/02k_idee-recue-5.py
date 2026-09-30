@@ -31,20 +31,21 @@ def build(prs, layouts, ctx):
         "Les réflexes appris aujourd'hui ne coûtent rien : juste un changement d'habitude",
     ]
 
-    callout_h = estimate_callout_height("Décryptage", decrypt_bullets, COL_W, line_spacing=1.15)
+    extra_height = 0.08
+    callout_h = estimate_callout_height("Décryptage", decrypt_bullets, COL_W, line_spacing=1.30, compact=True) + extra_height
     card_h = estimate_card_height("Idée reçue", [idee_text], COL_W, numero=NUMERO)
-    col_h = max(card_h, callout_h)
 
     add_card(
         slide, "Idée reçue", idee_text,
-        top=top_cols, left=MARGIN_L, width=COL_W, height=col_h, numero=NUMERO,
+        top=top_cols, left=MARGIN_L, width=COL_W, height=card_h, numero=NUMERO,
     )
     add_callout(
         slide, "Décryptage", decrypt_bullets,
-        top=top_cols, left=COL_R, width=COL_W, line_spacing=1.15,
+        top=top_cols, left=COL_R, width=COL_W, line_spacing=1.30, compact=True,
+        extra_height=extra_height,
     )
 
-    url_top = round(top_cols + col_h + 0.10, 2)
+    url_top = round(top_cols + callout_h + 0.15, 2)
     add_qrcode(slide, "_assets/qrcode-ideance-idees-recues.png",
                url=URL_SOURCE, top=url_top, left=COL_R, size=0.95,
                label=URL_SOURCE, label_width=COL_W - 1.10)

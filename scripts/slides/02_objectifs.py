@@ -25,7 +25,7 @@ def build(prs, layouts, ctx):
 
     add_callout(
         slide,
-        "Cette formation vous permettra de :",
+        "",
         [
             "Expliquer les enjeux de l'accessibilité numérique et son cadre légal"
             " dans le contexte de la communication",
@@ -44,17 +44,23 @@ def build(prs, layouts, ctx):
         top=2.10,
         left=7.53,
         width=3.82,
-        alt_text="Affiche du SIG pour les 20 ans de la loi handicap. Imaginez un quotidien où rien n'est vraiment pensé pour vous. Ordinateur avec un écran inversé.",
+        alt_text=(
+            "Affiche du Service d'information du Gouvernement pour les 20 ans "
+            "de la loi handicap. Un ordinateur à l'écran inversé illustre un "
+            "outil inaccessible. L'affiche invite les agents publics à utiliser "
+            "les outils disponibles sur accessibilite.gouv.fr."
+        ),
     )
 
     add_qrcode(
         slide,
         "_assets/qrcode-info-gouv-accessibilite.png",
         url="https://www.info.gouv.fr/accessibilite",
-        top=5.18,
+        top=5.30,
         left=MARGIN_L,
         size=1.12,
         label_width=COL_W - 1.26,
+        url_size=10,
     )
 
     add_notes(

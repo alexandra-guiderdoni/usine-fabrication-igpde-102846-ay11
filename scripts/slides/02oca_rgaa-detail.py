@@ -20,6 +20,7 @@ def build(prs, layouts, ctx):
     col_w = (CONTENT_W - GAP * 2) / 3
     top = 2.30
     col_h = 4.30
+    extra_height = 0.08
 
     add_callout(
         slide,
@@ -27,12 +28,13 @@ def build(prs, layouts, ctx):
         [
             "Obligations légales",
             "Méthode technique",
-            "",
             "13 thématiques",
             "106 critères au total",
             "258 tests unitaires",
         ],
         top=top, left=MARGIN_L, width=col_w, height=col_h,
+        compact=True,
+        extra_height=extra_height,
     )
 
     add_callout(
@@ -47,6 +49,8 @@ def build(prs, layouts, ctx):
             "Scripts",
         ],
         top=top, left=MARGIN_L + col_w + GAP, width=col_w, height=col_h,
+        compact=True,
+        extra_height=extra_height,
     )
 
     add_callout(
@@ -60,6 +64,8 @@ def build(prs, layouts, ctx):
             "Consultation",
         ],
         top=top, left=MARGIN_L + 2 * (col_w + GAP), width=col_w, height=col_h,
+        compact=True,
+        extra_height=extra_height,
     )
 
     add_notes(

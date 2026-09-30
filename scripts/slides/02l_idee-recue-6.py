@@ -31,7 +31,8 @@ def build(prs, layouts, ctx):
         "Solution : intégrer les bons réflexes à chaque étape, pas les accumuler en sprint final",
     ]
 
-    callout_h = estimate_callout_height("Décryptage", decrypt_bullets, COL_W, line_spacing=1.15)
+    extra_height = 0.07
+    callout_h = estimate_callout_height("Décryptage", decrypt_bullets, COL_W, line_spacing=1.30) + extra_height
     card_h = estimate_card_height("Idée reçue", [idee_text], COL_W, numero=NUMERO)
     col_h = max(card_h, callout_h)
 
@@ -41,12 +42,13 @@ def build(prs, layouts, ctx):
     )
     add_callout(
         slide, "Décryptage", decrypt_bullets,
-        top=top_cols, left=COL_R, width=COL_W, line_spacing=1.15,
+        top=top_cols, left=COL_R, width=COL_W, line_spacing=1.30,
+        extra_height=extra_height,
     )
 
-    url_top = round(top_cols + col_h + 0.10, 2)
+    url_top = round(top_cols + col_h + 0.05, 2)
     add_qrcode(slide, "_assets/qrcode-ideance-idees-recues.png",
-               url=URL_SOURCE, top=url_top, left=COL_R, size=0.95,
+               url=URL_SOURCE, top=url_top, left=COL_R, size=0.90,
                label=URL_SOURCE, label_width=COL_W - 1.10)
 
     add_notes(

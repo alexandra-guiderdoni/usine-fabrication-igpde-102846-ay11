@@ -28,7 +28,7 @@ def build(prs, layouts, ctx):
         prs,
         layouts,
         layout_name="titre_contenu",
-        titre="Accessibiliser sa communication : de quoi parle-t-on ?",
+        titre="Communication accessible, de quoi parle-t-on ?",
         fil_ariane="1. Q4 - Pourquoi | Communication accessible",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,
@@ -38,8 +38,8 @@ def build(prs, layouts, ctx):
     stack = Stack(top=2.05, gap=0.18)
 
     message = (
-        "Transformer une intention d'inclusion en contenus "
-        "que les publics peuvent lire, comprendre et utiliser."
+        "Contenus que le public peut lire, comprendre "
+        "et utiliser."
     )
     add_highlight(
         slide,
@@ -63,8 +63,8 @@ def build(prs, layouts, ctx):
         "Imprimés : affiche, flyer, plan, QR code...",
     ]
     col_h = max(
-        estimate_callout_height(questions_titre, questions_bullets, COL_W, line_spacing=1.25),
-        estimate_alert_height(supports_titre, supports_bullets, COL_W, line_spacing=1.25),
+        estimate_callout_height(questions_titre, questions_bullets, COL_W, line_spacing=1.25, compact=True),
+        estimate_alert_height(supports_titre, supports_bullets, COL_W, line_spacing=1.25, compact=True),
     )
     top_cols = stack.push(col_h)
     add_callout(
@@ -75,6 +75,7 @@ def build(prs, layouts, ctx):
         left=MARGIN_L,
         width=COL_W,
         line_spacing=1.25,
+        compact=True,
     )
     add_alert(
         slide,
@@ -85,6 +86,7 @@ def build(prs, layouts, ctx):
         width=COL_W,
         alert_type="info",
         line_spacing=1.25,
+        compact=True,
     )
 
     add_notes(

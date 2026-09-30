@@ -30,12 +30,13 @@ def build(prs, layouts, ctx):
         "Lutte contre la discrimination numérique",
         "Inclusion dans la vie professionnelle et citoyenne",
     ]
-    col_h = estimate_callout_height(titre_droit, bullets_droit, CONTENT_W - IMG_W - 0.3, line_spacing=1.2)
+    col_h = estimate_callout_height(titre_droit, bullets_droit, CONTENT_W - IMG_W - 0.3, line_spacing=1.2, compact=True)
     top_row1 = stack.push(col_h)
     add_callout(
         slide, titre_droit, bullets_droit,
         top=top_row1, left=MARGIN_L, width=CONTENT_W - IMG_W - 0.3,
         line_spacing=1.2,
+        compact=True,
     )
     add_image(
         slide,
@@ -55,7 +56,8 @@ def build(prs, layouts, ctx):
     add_tableau(
         slide, headers, rows,
         top=stack.push(len(rows) * 0.40 + 0.40),
-        col_widths=[6.0, 6.0],
+        width=CONTENT_W - IMG_W - 0.3,
+        col_widths=[5.24, 5.24],
     )
 
     add_notes(

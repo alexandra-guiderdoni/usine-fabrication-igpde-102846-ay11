@@ -1,7 +1,7 @@
 # Index des modules de slides
 
 Table de correspondance entre les slides et les fichiers Python source.
-Genere depuis les noms de fichiers dans `scripts/slides/`.
+Généré depuis les noms de fichiers dans `scripts/slides/`.
 
 | Num | Contenu | Fichier |
 |-----|---------|---------|
@@ -19,6 +19,7 @@ Genere depuis les noms de fichiers dans `scripts/slides/`.
 | 02j | idee recue 4 | `02j_idee-recue-4.py` |
 | 02k | idee recue 5 | `02k_idee-recue-5.py` |
 | 02l | idee recue 6 | `02l_idee-recue-6.py` |
+| 02la | plan partie 1 | `02la_plan-partie-1.py` |
 | 02m | chapitre cadre legal | `02m_chapitre-cadre-legal.py` |
 | 02ma | definition a11y | `02ma_definition-a11y.py` |
 | 02mb | point a11y numerique | `02mb_point-a11y-numerique.py` |
@@ -44,20 +45,19 @@ Genere depuis les noms de fichiers dans `scripts/slides/`.
 | 02oc | rgaa 13 themes | `02oc_rgaa-13-themes.py` |
 | 02oca | rgaa detail | `02oca_rgaa-detail.py` |
 | 02od | obligally simulateur | `02od_obligally-simulateur.py` |
-| 02oe | declaration accessibilite | `02oe_declaration-accessibilite.py` |
+| 02oe | déclaration accessibilité | `02oe_declaration-accessibilite.py` |
 | 02oea | recap obligations | `02oea_recap-obligations.py` |
 | 02p | chapitre q4 | `02p_chapitre-q4.py` |
 | 02pa | pourquoi agir | `02pa_pourquoi-agir.py` |
 | 02pb | accessibiliser communication | `02pb_accessibiliser-communication.py` |
 | 02q | chapitre q5 | `02q_chapitre-q5.py` |
 | 02qa | outils os | `02qa_outils-os.py` |
-| 02qb | regles transversales | `02qb_regles-transversales.py` |
+| 02qb | règles transversales | `02qb_regles-transversales.py` |
 | 02qc | falc langage clair | `02qc_falc-langage-clair.py` |
 | 02qca | comment sy mettre | `02qca_comment-sy-mettre.py` |
-| 02qcb | falc methode | `02qcb_falc-methode.py` |
+| 02qcb | falc méthode | `02qcb_falc-methode.py` |
 | 02qcc | falc exemple dia | `02qcc_falc-exemple-dia.py` |
 | 02qd | by design | `02qd_by-design.py` |
-| 02t | module1 points cles | `02t_module1-points-cles.py` |
 | 03 | chapitre word | `03_chapitre-word.py` |
 | 04 | ouverture lecteur ecran | `04_ouverture-lecteur-ecran.py` |
 | 05 | quiz flash a vs b | `05_quiz-flash-a-vs-b.py` |
@@ -95,7 +95,7 @@ Genere depuis les noms de fichiers dans `scripts/slides/`.
 | 30 | check01 alt redaction | `30_check01_alt-redaction.py` |
 | 31 | check01 alt exemples | `31_check01_alt-exemples.py` |
 | 32 | check02 titre page | `32_check02_titre-page.py` |
-| 33 | check03 titres hierarchie | `33_check03_titres-hierarchie.py` |
+| 33 | check03 titres hiérarchie | `33_check03_titres-hierarchie.py` |
 | 34 | check03 titres outils | `34_check03_titres-outils.py` |
 | 35 | check04 contraste principe | `35_check04_contraste-principe.py` |
 | 36 | check04 contraste outils | `36_check04_contraste-outils.py` |
@@ -110,7 +110,7 @@ Genere depuis les noms de fichiers dans `scripts/slides/`.
 | 45 | check09 sous titres auto | `45_check09_sous-titres-auto.py` |
 | 46 | check10 transcriptions | `46_check10_transcriptions.py` |
 | 47 | check11 audiodescription | `47_check11_audiodescription.py` |
-| 47a | bonus medias regle or | `47a_bonus-medias-regle-or.py` |
+| 47a | bonus medias règle or | `47a_bonus-medias-regle-or.py` |
 | 47b | bonus vsme transcriptions | `47b_bonus-vsme-transcriptions.py` |
 | 48 | check12 etiquettes principe | `48_check12_etiquettes-principe.py` |
 | 49 | check12 etiquettes placeholder | `49_check12_etiquettes-placeholder.py` |
@@ -129,7 +129,7 @@ Genere depuis les noms de fichiers dans `scripts/slides/`.
 | 55f | alt text pourquoi | `55f_alt-text-pourquoi.py` |
 | 55g | alt text rediger | `55g_alt-text-rediger.py` |
 | 55h | plateformes tableau | `55h_plateformes-tableau.py` |
-| 55i | emojis regles | `55i_emojis-regles.py` |
+| 55i | emojis règles | `55i_emojis-regles.py` |
 | 55j | emojis avant apres | `55j_emojis-avant-apres.py` |
 | 55k | hashtags camelcase | `55k_hashtags-camelcase.py` |
 | 55l | caracteres speciaux | `55l_caracteres-speciaux.py` |
@@ -143,4 +143,3 @@ Genere depuis les noms de fichiers dans `scripts/slides/`.
 | 55u | quiz cloture | `55u_quiz-cloture.py` |
 | 55v | plan action | `55v_plan-action.py` |
 | 55w | questions contact | `55w_questions-contact.py` |
-

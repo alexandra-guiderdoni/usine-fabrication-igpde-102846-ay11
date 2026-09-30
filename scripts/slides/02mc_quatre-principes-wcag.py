@@ -4,7 +4,7 @@ from igpde_dsfr_components import (
     CONTENT_W, GAP, MARGIN_L, TOP_CONTENT,
     Stack,
     add_card, add_highlight, add_notes,
-    estimate_highlight_height,
+    estimate_card_height, estimate_highlight_height,
     new_slide,
 )
 
@@ -37,14 +37,14 @@ def build(prs, layouts, ctx):
 
     n = len(principes)
     card_w = (CONTENT_W - GAP * (n - 1)) / n
-    card_h = 2.8
+    card_h = max(estimate_card_height(t, c, card_w, numero=i + 1, compact=True) for i, (t, c) in enumerate(principes))
     card_top = stack.push(card_h)
 
     for i, (titre, contenu) in enumerate(principes):
         left = MARGIN_L + i * (card_w + GAP)
         add_card(slide, titre, contenu,
                  top=card_top, left=left, width=card_w, height=card_h,
-                 numero=i + 1, title_size=14, body_size=14)
+                 numero=i + 1, title_size=14, body_size=14, compact=True)
 
     add_notes(
         slide,
