@@ -4,14 +4,15 @@ Dernière revue des actions : 2026-09-30.
 
 ## En cours
 
-### Avant la session du 9 octobre 2026
+### Cet après-midi - 30 septembre 2026
+
+- [ ] Réaliser la relecture visuelle humaine complète du deck dans PowerPoint, corriger les sources `scripts/slides/` si nécessaire, puis suivre `REEXPORTER-DECK-PPTX.md` : `make qa` et lecture du statut, `make deck`, `make verifier`, contrôle `unzip -t` du PPTX du pack. Le livrable à diffuser est `livrables-IGPDE-2026-102846/Formateur/support-formation-102846-2026-IGPDE.pptx`.
+
+### Demain - 1er octobre 2026
 
 - [ ] Imprimer les cartes idées reçues pour l'ice-breaker.
 - [ ] Imprimer les cartes des critères WCAG 2.2 (`fil-rouge-principes-wcag-igpde/cartes-criteres-wcag-2-2-a-imprimer.pdf`).
 
-### Qualité et livraison du deck
-
-- [ ] Réaliser la relecture visuelle humaine complète du deck dans PowerPoint, corriger les sources `scripts/slides/` si nécessaire, puis suivre `REEXPORTER-DECK-PPTX.md` : `make qa` et lecture du statut, `make deck`, `make verifier`, contrôle `unzip -t` du PPTX du pack. Le livrable à diffuser est `livrables-IGPDE-2026-102846/Formateur/support-formation-102846-2026-IGPDE.pptx`.
 ### Après la formation
 
 - [ ] Supprimer l'ancien dossier du projet dans l'espace de travail personnel d'Alex, après la formation du 9 octobre 2026 et uniquement sur son GO explicite.
