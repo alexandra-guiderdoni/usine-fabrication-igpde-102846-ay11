@@ -15,7 +15,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Paul, attache de presse - TDAH et dyslexie",
+        titre="Paul, attaché de presse - TDAH et dyslexie",
         fil_ariane="1. Q2 - Pour qui | Paul",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,

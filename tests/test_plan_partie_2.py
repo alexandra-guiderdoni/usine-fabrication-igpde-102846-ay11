@@ -23,7 +23,7 @@ def test_plan_partie_2_occupe_la_slide_54_dans_le_deck_complet():
     fichiers = [chemin.name for chemin in discover_slides()]
 
     assert fichiers[53] == SLIDE_FILE
-    assert len(fichiers) == 134
+    assert len(fichiers) == 133
 
 
 def test_plan_partie_2_annonce_les_cinq_sous_parties():

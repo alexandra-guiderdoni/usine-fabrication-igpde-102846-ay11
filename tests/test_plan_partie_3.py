@@ -23,27 +23,27 @@ SLIDES_RETIREES = {
     "24b_faites-le-point-reponses.py",
     "25_demain-9h.py",
     "27_revenez-7-jours.py",
+    "23b_quiz-final-reponses.py",
 }
 
 
-def test_les_cinq_slides_demandees_sont_retirees_du_deck():
+def test_les_six_slides_demandees_sont_retirees_du_deck():
     fichiers = {chemin.name for chemin in discover_slides()}
 
     assert fichiers.isdisjoint(SLIDES_RETIREES)
-    assert "23b_quiz-final-reponses.py" in fichiers
 
 
-def test_plan_partie_3_occupe_la_slide_80_dans_le_deck_complet():
+def test_plan_partie_3_occupe_la_slide_79_dans_le_deck_complet():
     fichiers = [chemin.name for chemin in discover_slides()]
 
-    assert fichiers[79] == SLIDE_FILE
-    assert len(fichiers) == 134
+    assert fichiers[78] == SLIDE_FILE
+    assert len(fichiers) == 133
 
 
 def test_plan_partie_3_annonce_les_cinq_sous_parties():
     prs, layouts = create_presentation()
     ctx = SlideContext(
-        page_num=80,
+        page_num=79,
         date="9 octobre 2026",
         footer_base="Formation 102846",
         formation_code="102846",

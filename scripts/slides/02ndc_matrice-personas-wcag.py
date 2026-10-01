@@ -22,7 +22,7 @@ def build(prs, layouts, ctx):
     headers = ["Persona", "Percevoir", "Utiliser", "Comprendre", "Compatible"]
     rows = [
         ["Amir (aveugle)", "Alt text, structure", "", "", "Lecteur d'écran"],
-        ["Anais (malvoyante)", "Contrastes, taille", "", "", ""],
+        ["Anaïs (malvoyante)", "Contrastes, taille", "", "", ""],
         ["Justine (sourde)", "Sous-titres, transcription", "", "", ""],
         ["Agathe (motrice)", "", "Clavier, cibles 44px", "", ""],
         ["Anatole (cognitif)", "", "", "FALC, phrases courtes", ""],

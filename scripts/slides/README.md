@@ -78,7 +78,6 @@ Généré depuis les noms de fichiers dans `scripts/slides/`.
 | 20 | export pdf accessible | `20_export-pdf-accessible.py` |
 | 21 | etude cas sophie | `21_etude-cas-sophie.py` |
 | 22 | par ou commencer | `22_par-ou-commencer.py` |
-| 23b | quiz final reponses | `23b_quiz-final-reponses.py` |
 | 26 | checklist 21 criteres | `26_checklist-21-criteres.py` |
 | 26a | checklist exercice 2 | `26a_checklist-exercice-2.py` |
 | 26b | checklist autres | `26b_checklist-autres.py` |

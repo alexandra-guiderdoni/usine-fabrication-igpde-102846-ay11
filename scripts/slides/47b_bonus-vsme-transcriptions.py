@@ -1,8 +1,8 @@
-"""Slide bonus : VSME et niveaux de transcription.
+"""Slide bonus : audio-description et niveaux de transcription.
 
 Règles neuropédagogie appliquées :
-- R5 : chunking - une colonne VSME, une colonne transcription
-- R15 : jargon traduit - VSME expliqué par l'usage
+- R5 : chunking - une colonne audio-description, une colonne transcription
+- R15 : jargon traduit - l'audio-description expliquée par l'usage
 - R24 : action concrète - choisir le niveau utile avant publication
 """
 
@@ -28,7 +28,7 @@ def build(prs, layouts, ctx):
         prs,
         layouts,
         layout_name="titre_contenu",
-        titre="Bonus médias : VSME et transcriptions",
+        titre="Bonus médias : Audio-description et transcription",
         fil_ariane="3. points de contrôle rapides | Bonus médias",
         footer_text=f"{ctx.footer_base} / points de contrôle rapides - Bonus médias",
         date_text=ctx.date,
@@ -37,9 +37,7 @@ def build(prs, layouts, ctx):
 
     stack = Stack(top=2.05, gap=0.16)
 
-    message = (
-        "Quand le son porte de l'information, la transcription des paroles ne suffit pas toujours."
-    )
+    message = "Image et son : proposer un autre accès à toute information utile."
     add_highlight(
         slide,
         message,
@@ -48,12 +46,12 @@ def build(prs, layouts, ctx):
         width=CONTENT_W,
     )
 
-    vsme_titre = "VSME : ce que ça ajoute"
-    vsme_bullets = [
-        "Dialogues visibles et hors champ",
-        "Bruits utiles, effets sonores et musique",
-        "Voix off, narration, pensée intérieure",
-        "Langue étrangère et son venant d'un haut-parleur",
+    audiodescription_titre = "Audio-description : ce que ça ajoute"
+    audiodescription_bullets = [
+        "Décors, lieux et changements de scène utiles",
+        "Actions, gestes et expressions qui ne s’entendent pas",
+        "Textes et informations importantes affichés à l’écran",
+        "Une voix placée dans les silences, sans couvrir les dialogues",
     ]
     transcript_titre = "Transcription : choisir le niveau"
     transcript_bullets = [
@@ -62,14 +60,19 @@ def build(prs, layouts, ctx):
         "Verbatim : mot à mot, hésitations et sons inclus",
     ]
     col_h = max(
-        estimate_callout_height(vsme_titre, vsme_bullets, COL_W, line_spacing=1.15),
+        estimate_callout_height(
+            audiodescription_titre,
+            audiodescription_bullets,
+            COL_W,
+            line_spacing=1.15,
+        ),
         estimate_alert_height(transcript_titre, transcript_bullets, COL_W, line_spacing=1.15),
     )
     top_cols = stack.push(col_h)
     add_callout(
         slide,
-        vsme_titre,
-        vsme_bullets,
+        audiodescription_titre,
+        audiodescription_bullets,
         top=top_cols,
         left=MARGIN_L,
         width=COL_W,
@@ -97,11 +100,10 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "VSME signifie Voix, Sons, Musiques et Éléments sonores. "
-        "La codification classique utilise notamment : blanc pour les dialogues visibles, jaune pour le hors champ, "
-        "rouge pour les bruits importants, magenta pour la musique, cyan pour les voix off ou narrations, "
-        "vert pour une langue étrangère, et un astérisque quand le son vient d'un haut-parleur. "
-        "Ne pas demander au groupe de mémoriser les couleurs : l'objectif pédagogique est de comprendre que le son utile "
-        "ne se limite pas aux dialogues.",
+        "L’audio-description rend accessibles les informations visuelles essentielles : lieux, actions, gestes, "
+        "expressions et textes affichés. Elle s’insère dans les silences sans couvrir les dialogues ni les sons utiles. "
+        "Pour la transcription, faire choisir le niveau adapté à l’usage : semi-intégrale pour restituer l’essentiel, "
+        "intégrale éditée pour une lecture complète et fluide, verbatim lorsqu’une restitution mot à mot est nécessaire. "
+        "Un outil d’IA peut produire un premier jet, mais la publication exige une relecture humaine.",
     )
     return slide

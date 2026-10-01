@@ -24,7 +24,8 @@ def build(prs, layouts, ctx):
     modules = [
         ("Texte alternatif",
          ["Décrire chaque image en 1 à 2 phrases",
-          "Mentionner « Image décorative » si elle ne porte pas de sens"],
+          "Image décorative : utiliser l’option « Décorative » si la plateforme la propose. "
+          "Sinon, indiquer « Image décorative » dans le texte alternatif."],
          1, MARGIN_L),
         ("Émojis sobres",
          ["1 ou 2 maximum, en fin de message uniquement",

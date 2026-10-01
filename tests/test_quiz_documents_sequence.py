@@ -35,7 +35,7 @@ def test_quiz_et_reponse_occupent_les_slides_56_et_57():
     fichiers = [chemin.name for chemin in discover_slides()]
 
     assert fichiers[55:58] == [QUESTION_FILE, ANSWER_FILE, NEXT_FILE]
-    assert len(fichiers) == 134
+    assert len(fichiers) == 133
 
 
 def test_slide_55_presente_deux_cartes_cote_a_cote():

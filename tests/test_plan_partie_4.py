@@ -19,18 +19,18 @@ ETAPES = [
 ]
 
 
-def test_plan_partie_4_occupe_la_slide_111_apres_la_mission_web():
+def test_plan_partie_4_occupe_la_slide_110_apres_la_mission_web():
     fichiers = [chemin.name for chemin in discover_slides()]
 
-    assert fichiers[109] == "52_mission-13-checks.py"
-    assert fichiers[110] == SLIDE_FILE
-    assert len(fichiers) == 134
+    assert fichiers[108] == "52_mission-13-checks.py"
+    assert fichiers[109] == SLIDE_FILE
+    assert len(fichiers) == 133
 
 
 def test_plan_partie_4_annonce_les_cinq_sous_parties():
     prs, layouts = create_presentation()
     ctx = SlideContext(
-        page_num=111,
+        page_num=110,
         date="9 octobre 2026",
         footer_base="Formation 102846",
         formation_code="102846",

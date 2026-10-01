@@ -6,15 +6,23 @@ Règles neuropédagogie appliquées :
 - R19 : feedback immédiat - le site d'entraînement répondra en direct
 """
 
+from config import load_formation_config
 from igpde_dsfr_components import (
+    COL_R,
+    COL_W,
+    MARGIN_L,
     Stack,
     add_alert,
     add_callout,
     add_notes,
+    add_qrcode,
     estimate_alert_height,
     estimate_callout_height,
     new_slide,
 )
+
+
+SITE_ENTRAINEMENT = load_formation_config()["site_url"]
 
 
 def build(prs, layouts, ctx):
@@ -30,27 +38,46 @@ def build(prs, layouts, ctx):
 
     stack = Stack(top=2.3, gap=0.35)
 
+    callout_titre = "Site d’entraînement :"
+    callout_bullets = [
+        "Cachez votre souris derrière l’écran",
+        "Tabulez 10 fois et notez chaque fois que le focus disparaît",
+        "Essayez Entrée sur un bouton, Espace sur une case à cocher",
+        "Listez les pièges détectés et associez-les aux 3 signaux",
+    ]
     add_callout(
         slide,
-        "Sur le site d’entraînement qui vous sera fourni :",
-        [
-            "Cachez votre souris derrière l’écran",
-            "Tabulez 10 fois et notez chaque fois que le focus disparaît",
-            "Essayez Entrée sur un bouton, Espace sur une case à cocher",
-            "Listez les pièges détectés et associez-les aux 3 signaux",
-        ],
-        top=stack.push(estimate_callout_height('Sur le site d’entraînement qui vous sera fourni :', ['Cachez votre souris derrière l’écran', 'Tabulez 10 fois et notez chaque fois que le focus disparaît', 'Essayez Entrée sur un bouton, Espace sur une case à cocher', 'Listez les pièges détectés et associez-les aux 3 signaux'])),
+        callout_titre,
+        callout_bullets,
+        top=stack.push(estimate_callout_height(callout_titre, callout_bullets)),
     )
 
+    alert_titre = "Objectif : votre permis clavier"
+    alert_bullets = [
+        "1 signal détecté = vous avez l’œil",
+        "3 signaux détectés = vous êtes auditeur clavier",
+    ]
+    alert_top = stack.push(
+        estimate_alert_height(alert_titre, alert_bullets, width=COL_W)
+    )
     add_alert(
         slide,
-        titre="Objectif : votre permis clavier",
-        bullets=[
-            "1 signal détecté = vous avez l’œil",
-            "3 signaux détectés = vous êtes auditeur clavier",
-        ],
-        top=stack.push(estimate_alert_height('Objectif : votre permis clavier', ['1 signal détecté = vous avez l’œil', '3 signaux détectés = vous êtes auditeur clavier'])),
+        titre=alert_titre,
+        bullets=alert_bullets,
+        top=alert_top,
+        left=MARGIN_L,
+        width=COL_W,
         alert_type="success",
+    )
+    add_qrcode(
+        slide,
+        "scripts/images/qrcode-site-entrainement.png",
+        url=SITE_ENTRAINEMENT,
+        top=alert_top,
+        left=COL_R,
+        size=1.10,
+        label_width=COL_W - 1.24,
+        url_size=10,
     )
 
     add_notes(

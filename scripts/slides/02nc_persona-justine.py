@@ -2,18 +2,12 @@
 
 from igpde_dsfr_components import (
     BLEU_INFO, BLEU_INFO_CLAIR, CONTENT_W, GAP, MARGIN_L,
-    Stack,
-    add_callout, add_encadre, add_image, add_notes, add_texte_libre,
-    new_slide,
+    add_callout, add_encadre, add_image, add_notes, new_slide,
 )
 
 PHOTO_W = 2.2
 BIO_LEFT = round(MARGIN_L + PHOTO_W + 0.30, 2)
 BIO_W = round(CONTENT_W - PHOTO_W - 0.30, 2)
-
-IMG_H = 1.3
-LABEL_H = 0.40
-
 
 def build(prs, layouts, ctx):
     slide = new_slide(
@@ -52,28 +46,20 @@ def build(prs, layouts, ctx):
         couleur_fond=BLEU_INFO_CLAIR, couleur_accent=BLEU_INFO,
     )
 
-    img_top = 5.05
+    outils_top = 5.05
     item_w = (CONTENT_W - GAP * 2) / 3
 
     outils = [
-        ("scripts/images/image9.png", "Transcription", 1.00),
-        ("scripts/images/image16.png", "Vérificateur accessibilité", 0.47),
-        ("scripts/images/image12.png", "NVDA - lecteur d'écran", 1.00),
+        "Sous-titres relus",
+        "Transcription",
+        "Alertes visuelles",
     ]
-    for i, (img_path, label, ratio) in enumerate(outils):
+    for i, label in enumerate(outils):
         left = MARGIN_L + i * (item_w + GAP)
-        img_w = min(item_w - 0.2, IMG_H / ratio)
-        img_left = left + (item_w - img_w) / 2
-        add_image(
-            slide, img_path,
-            top=img_top, left=img_left, width=img_w,
-            alt_text=label,
-        )
-        add_texte_libre(
-            slide, label,
-            top=img_top + IMG_H + 0.05,
-            left=left, width=item_w, height=LABEL_H,
-            size=14, bold=True,
+        add_encadre(
+            slide, top=outils_top, left=left, width=item_w, height=1.35,
+            titre=label,
+            couleur_fond=BLEU_INFO_CLAIR, couleur_accent=BLEU_INFO,
         )
 
     add_notes(

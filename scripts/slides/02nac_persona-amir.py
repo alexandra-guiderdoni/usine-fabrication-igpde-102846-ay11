@@ -19,7 +19,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Amir, charge d'études - cécité",
+        titre="Amir, chargé d'études - cécité",
         fil_ariane="1. Q2 - Pour qui | Amir",
         footer_text=f"{ctx.footer_base} / Module 1",
         date_text=ctx.date,

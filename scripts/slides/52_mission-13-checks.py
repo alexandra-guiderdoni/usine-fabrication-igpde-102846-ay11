@@ -13,7 +13,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Votre mission : audit en binôme (30 min)",
+        titre="Votre mission : audit en binôme",
         fil_ariane="3. points de contrôle rapides | Mission finale",
         footer_text=f"{ctx.footer_base} / points de contrôle rapides - Mission",
         date_text=ctx.date,
