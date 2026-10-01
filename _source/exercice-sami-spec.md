@@ -1,5 +1,12 @@
 # Exercice « Les erreurs de Sami » - Spécification
 
+> **Archive transitoire - ne pas utiliser comme contrat actif.** Le PRD
+> `notes/prd-refonte-partie-II-tp-sami.md` fait autorité jusqu'à T02, puis
+> `_source/exercice-sami-matrice.yml` devient la source normative. Le contenu
+> ci-dessous, notamment le format de 25 minutes et la liste de 21 critères, est
+> conservé seulement pour comparer l'ancien et le nouveau dispositif ; T07 le
+> retirera après stabilisation de la matrice.
+
 Formation 102638 - Support de la slide 32.
 Amendé suite au Devil Council du 2026-05-02.
 

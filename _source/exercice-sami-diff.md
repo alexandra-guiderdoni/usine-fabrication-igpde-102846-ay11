@@ -1,5 +1,11 @@
 # Exercice Sami - liste des différences
 
+> **Archive transitoire - ne pas utiliser comme contrat actif.** Le PRD
+> `notes/prd-refonte-partie-II-tp-sami.md` fait autorité jusqu'à T02, puis
+> `_source/exercice-sami-matrice.yml` devient la source normative. Cette liste
+> historique est conservée uniquement comme trace de comparaison pendant
+> l'expansion ; T07 la retirera après stabilisation de la matrice.
+
 Comparaison entre `tp-doc-inaccessible.docx` et `tp-doc-accessible.docx`.
 Le fichier `tp-doc-aide-correction.docx` reprend volontairement la version
 inaccessible et ajoute des commentaires Word pédagogiques sur les points à

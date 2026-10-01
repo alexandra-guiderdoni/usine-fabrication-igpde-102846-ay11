@@ -6,8 +6,8 @@ Protocole unique pour tout agent (Claude, Codex ou autre) et pour un humain. `CL
 
 - Formation « L'accessibilité numérique pour la bureautique et le web », IGPDE, code 102846 (ex-102638), 1 jour, public communicants, pas développeurs.
 - Session du 9 octobre 2026. Code, date, pied de page, nom du deck, dossier de livraison et URL du site sont centralisés dans `config.yml` : `scripts/config.py` les valide et les expose à la fabrication. Une nouvelle session demande en plus de renommer le dossier du pack, de mettre à jour à la main les documents administratifs, et de rechercher l'ancien code et l'ancienne date dans les sources versionnées (`docs/`, `scripts/`, `tests/` et Markdown structurants), en distinguant les historiques et les fixtures de test.
-- Deck de 138 slides DSFR, 4 modules dans un ordre impératif : 1. communication accessible et cadre légal, 2. Word accessible, 3. points de contrôle rapides W3C, 4. réseaux sociaux.
-- Exercice Sami : 21 critères à vérifier dans 3 DOCX (inaccessible, aide à la correction, accessible), spécification dans `_source/exercice-sami-spec.md`.
+- Deck DSFR généré par scripts, composé de 4 modules dans un ordre impératif : 1. communication accessible et cadre légal, 2. Word accessible, 3. points de contrôle rapides W3C, 4. réseaux sociaux. Le total de slides est une sortie de génération, pas un contrat à maintenir manuellement.
+- Exercice Sami : TP guidé de 90 minutes organisé en stations, avec 3 DOCX (inaccessible, aide à la correction, accessible). Le PRD `notes/prd-refonte-partie-II-tp-sami.md` fait autorité jusqu'à la création de la matrice canonique par T02 ; l'ancienne spécification est historique.
 - Site d'exercice dans `docs/` (versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/`, démo émojis, grille XLSX), publié sur https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/ depuis le dépôt `git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git`.
 - Pack remis à l'IGPDE : `livrables-IGPDE-2026-102846/`, fabriqué par `make pack`.
 
@@ -15,25 +15,25 @@ Protocole unique pour tout agent (Claude, Codex ou autre) et pour un humain. `CL
 
 Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
-- **Cette usine** (`alexandra-guiderdoni/usine-fabrication-igpde-102846-ay11`) est la seule source. Le site se modifie dans `docs/`. Le `README.md`, l'`AGENTS.md` et le `CLAUDE.md` du dépôt publié se modifient dans `publication-site/`, sous les noms `README.md`, `agents-site.md` et `claude-site.md`.
+- **Cette usine** (`alexandra-guiderdoni/usine-fabrication-igpde-102846-ay11`) est la seule source. Les changements du site se font dans `docs/`. Ceux du `README.md`, de l'`AGENTS.md` et du `CLAUDE.md` du dépôt publié se font dans `publication-site/`, sous les noms `README.md`, `agents-site.md` et `claude-site.md`.
 - **Le dépôt du site** (`alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11`) n'est qu'une copie de publication servie par GitHub Pages. Chacun de ses fichiers correspond à `docs/<même chemin>`, sauf `README.md`, `AGENTS.md` et `CLAUDE.md`, qui viennent de `publication-site/`.
 - **Deux clones locaux du site**, en lecture seule pour un humain comme pour un agent (seul `make publier-site` y écrit) :
   - `livrables-IGPDE-2026-102846/Formateur/tp-easy-check-site-web-igpde/` : clone de publication, écrit par `make publier-site` (variable `SITE_CLONE`), ignoré par l'usine ;
   - `../tp-fabrication-igpde-102846-ay11/`, à côté de l'usine quand il existe : clone de consultation, avancé automatiquement à la fin de `make publier-site` (variable `SITE_CONSULTATION`).
 - **MUST** : pour changer le site, éditer `docs/`, lancer `make verifier`, puis `make publier-site`. Pour savoir ce qui est en ligne, lire `docs/` ou l'adresse publique, pas un clone.
-- **MUST NOT** : modifier, commiter ou pousser dans un clone du site. La publication suivante synchronise avec suppression et effacerait la modification ; un commit poussé depuis un clone ferait aussi échouer le push de `make publier-site`.
+- **MUST NOT** : modifier, commiter ou pousser dans un clone du site. La publication suivante effectue une synchronisation avec suppression et effacerait la modification ; un commit poussé depuis un clone ferait aussi échouer le push de `make publier-site`.
 - **MUST NOT** : renommer `publication-site/agents-site.md` ou `claude-site.md` en `AGENTS.md` ou `CLAUDE.md` dans l'usine. Sous ces noms, les agents appliqueraient au dossier `publication-site/` la consigne « ne rien modifier ici », destinée au seul dépôt publié. `make publier-site` leur donne leur vrai nom au moment de la copie.
 
 ## Environnement
 
 - macOS en priorité, Python 3.12 (Homebrew), `uv`, et pour les PDF : `pandoc`, `pango`, `glib` (Homebrew).
 - `make installer` crée `.venv` depuis `requirements.lock` (installation avec vérification des empreintes) et active les hooks git versionnés (`.githooks`).
-- La recette visuelle a son installation autonome : `make installer-recette` clone ShipGuard `v2.14.0` dans `.tools/shipguard/`, installe `agent-browser` 0.38.1 dans `recette/node_modules/` et Chrome for Testing sous `.tools/` après vérification de son empreinte. Ces répertoires sont ignorés par Git. Elle demande `git`, Node.js 24 ou plus et npm, mais aucun plugin Codex ni cache global.
+- La recette visuelle a son installation autonome : `make installer-recette` place ShipGuard `v2.14.0` dans `.tools/shipguard/`, `agent-browser` 0.38.1 dans `recette/node_modules/` et Chrome for Testing sous `.tools/` après vérification de son empreinte. Ces répertoires sont ignorés par Git. Elle demande `git`, Node.js 24 ou plus et npm, mais aucun plugin Codex ni cache global.
 - Sans `.venv`, le `Makefile` utilise `/opt/homebrew/bin/python3.12`, et à défaut le `python3` du système, sans garantie sur les dépendances : lancer `make installer` d'abord. Les commandes courantes passent par `make` (`make aide` les liste) ; les quelques scripts sans cible (test d'une seule slide, diagnostics de `REEXPORTER-DECK-PPTX.md`) s'appellent avec le même interpréteur.
 
 ## Chaîne de fabrication
 
-- **Ne jamais modifier le PPTX directement.** Éditer `scripts/slides/NN_*.py`, puis `make deck`. La prochaine régénération écraserait toute retouche faite dans PowerPoint. État au 2026-09-27 : les 138 slides sont générées par script.
+- **Ne jamais modifier le PPTX directement.** Éditer `scripts/slides/NN_*.py`, puis `make deck`. La prochaine régénération écraserait toute retouche faite dans PowerPoint. Toutes les slides du deck sont générées par script ; leur nombre se vérifie sur la sortie courante.
 - Nommage des modules : `NN_nom.py` ou `NNxx_nom.py` pour intercaler (`02a_`, `02ma_`). L'ordre du deck suit l'ordre alphabétique des fichiers ; le numéro du fichier n'est donc pas la position dans le deck.
 - Chaque module expose `build(prs, layouts, ctx)` et utilise `ctx.page_num`, `ctx.date`, `ctx.footer_base`, jamais de valeur en dur.
 - Composants : exclusivement `scripts/igpde_dsfr_components.py` (grille IGPDE 13,33 x 7,5 pouces), jamais une bibliothèque DSFR extérieure.
@@ -76,7 +76,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
 ## Publier
 
-- Site : `make publier-site` (valide, synchronise `docs/` et `publication-site/` vers le clone de publication, commit, push, puis avance le clone de consultation). Voir « Deux dépôts liés » ci-dessus et `PUBLIER-SITE.md`.
+- Site : `make publier-site` (validation et synchronisation de `docs/` et `publication-site/` vers le clone de publication, puis commit, push et avance du clone de consultation). Voir « Deux dépôts liés » ci-dessus et `PUBLIER-SITE.md`.
 - Dépôt de l'usine : commits en français, forme nominale, première ligne de 50 caractères au plus, sans point final. Aucune ligne d'attribution d'agent (`Co-Authored-By`, `Generated with` ou signature d'outil).
 - Le hook `.githooks/pre-commit` bloque : fichiers de verrou Office, fichiers de plus de 50 Mo, convocation, installeurs `.msi` et `.exe`, tirets cadratins dans `scripts/`, chemins personnels absolus dans les dossiers qu'il surveille (`scripts/`, `tests/`, `recette/`, `docs/`, `fiche-pratique/`, `wcag/`, `03-easy-checks/`, `Makefile`, `config.yml`, `validate.py`, `liens-tp-en-ligne.md`). Ailleurs, notamment dans `notes/` et `_source/`, la règle reste à appliquer à la main. Ne jamais contourner le hook avec `--no-verify`.
 
@@ -90,7 +90,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - La version accessible du site d'exercice reste sobre, comme un vrai site corrigé, sans pédagogie visible.
 - Les erreurs de formulaire n'apparaissent qu'après une tentative de soumission ou une interaction avec le champ.
 - Les documents accessibles déclarent une langue cohérente (`fr`). Les versions volontairement inaccessibles peuvent garder des défauts pédagogiques explicites.
-- Exercice : ne pas distribuer la checklist au moment de l'identification ; les stagiaires diagnostiquent d'abord sans filet.
+- Exercice : rendre la checklist disponible dès le préambule et la faire renseigner progressivement après chaque station ; les cartes WCAG servent à relier informellement chaque contrôle aux principes concernés.
 - Quiz : questions et réponses sur des slides séparées (suffixe `b`).
 
 ## Compétences recommandées, si l'agent en dispose
@@ -133,7 +133,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
 - Contraintes et limites connues : `contraintes.md`. Leçons techniques : `lessons.md`. Suivi : `todo.md`.
 - Architecture de la chaîne : `architecture-c4-slides.md`. Index slides et modules : `scripts/slides/README.md`.
-- Exercice Sami : `_source/exercice-sami-spec.md`, `_source/exercice-sami-diff.md`.
+- Refonte de l'exercice Sami : `notes/prd-refonte-partie-II-tp-sami.md`, puis `_source/exercice-sami-matrice.yml` à partir de T02. `_source/exercice-sami-spec.md` et `_source/exercice-sami-diff.md` restent des archives transitoires jusqu'à T07.
 - Points de contrôle rapides W3C : `03-easy-checks/w3c-easy-checks-fr.md`. Contrat d'évaluation : `03-easy-checks/evaluation_contract.yml`.
 - Guide « Accessibiliser sa communication » : `_source/references/Guide-2026-Accessibiliser-sa-communication-police-14-coul.md`.
 - Notes de contenu : `corpus-documentaire-preparatoire/04-reseaux-sociaux/md-reseaux-sociaux.md`, `corpus-documentaire-preparatoire/05-falc/md-falc.md`, `corpus-documentaire-preparatoire/06-medias/md-medias.md`.

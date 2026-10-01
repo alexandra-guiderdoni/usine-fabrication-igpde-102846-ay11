@@ -29,7 +29,11 @@ RESSOURCES_GENEREES = (
     RessourceGeneree(
         nom="documents Sami",
         commande="make sami",
-        sources=("scripts/generate_exercice_sami.py",),
+        sources=(
+            "scripts/generate_exercice_sami.py",
+            "scripts/exercice_sami_matrice.py",
+            "_source/exercice-sami-matrice.yml",
+        ),
         sorties=(
             "_source/tp-doc-inaccessible.docx",
             "_source/tp-doc-aide-correction.docx",

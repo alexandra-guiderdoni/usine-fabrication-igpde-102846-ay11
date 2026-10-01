@@ -10,7 +10,11 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
-from verifier_fraicheur_pack import RessourceGeneree, verifier_fraicheur  # noqa: E402
+from verifier_fraicheur_pack import (  # noqa: E402
+    RESSOURCES_GENEREES,
+    RessourceGeneree,
+    verifier_fraicheur,
+)
 
 
 RESSOURCE = RessourceGeneree(
@@ -59,3 +63,11 @@ def test_accepte_des_sorties_aussi_recentes_que_les_sources(tmp_path):
     _ecrire(tmp_path, "sorties/copie.txt", "copie", 2_000_000_000)
 
     assert verifier_fraicheur(tmp_path, (RESSOURCE,)) == []
+
+
+def test_la_matrice_est_une_source_du_controle_de_fraicheur_sami():
+    sami = next(
+        resource for resource in RESSOURCES_GENEREES if resource.nom == "documents Sami"
+    )
+
+    assert "_source/exercice-sami-matrice.yml" in sami.sources

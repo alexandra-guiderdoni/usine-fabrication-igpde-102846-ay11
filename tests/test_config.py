@@ -96,6 +96,19 @@ def test_make_lit_le_dossier_de_livraison_par_le_chargeur(tmp_path):
     assert "LIVRABLES := pack-de-test" in result.stdout
 
 
+def test_make_installer_ne_depend_pas_du_chargeur_de_configuration():
+    result = subprocess.run(
+        ["make", "-n", "installer", "PYTHON=false"],
+        capture_output=True,
+        cwd=PROJECT_ROOT,
+        encoding="utf-8",
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert "uv venv .venv" in result.stdout
+
+
 def test_refuse_un_yaml_mal_forme_avec_un_message_explicite(tmp_path):
     config_path = tmp_path / "config.yml"
     config_path.write_text("formation: [\n", encoding="utf-8")
@@ -124,5 +137,8 @@ def test_la_commande_signale_une_configuration_incomplete_sans_trace(tmp_path):
     )
 
     assert result.returncode == 2
-    assert "Configuration invalide : Paramètre obligatoire invalide : date" in result.stderr
+    assert (
+        "Configuration invalide : Paramètre obligatoire invalide : date"
+        in result.stderr
+    )
     assert "Traceback" not in result.stderr

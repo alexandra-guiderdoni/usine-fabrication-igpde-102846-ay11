@@ -15,6 +15,7 @@ from xml.sax.saxutils import escape
 from pathlib import Path
 
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
@@ -22,12 +23,15 @@ import numpy as np
 
 from docx import Document
 from docx.shared import Pt, Inches, RGBColor
+from docx.enum.section import WD_SECTION
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.opc.constants import RELATIONSHIP_TYPE as RT
 from docx.oxml.ns import qn, nsdecls
 from docx.oxml import parse_xml
 from lxml import etree
+
+from exercice_sami_matrice import load_sami_matrix
 
 PROJECT = Path(__file__).resolve().parent.parent
 ASSETS = PROJECT / "_assets"
@@ -71,21 +75,45 @@ def generate_chart_accessible():
     fig, ax = plt.subplots(figsize=(5, 3))
     x = np.arange(len(INDICATEURS))
     w = 0.35
-    bars1 = ax.bar(x - w / 2, T4_2024, w, color="#6C6C6C",
-                   edgecolor="black", linewidth=0.8, hatch="///",
-                   label="T4 2024")
-    bars2 = ax.bar(x + w / 2, T1_2025, w, color="#B0B0B0",
-                   edgecolor="black", linewidth=0.8, hatch="...",
-                   label="T1 2025")
+    bars1 = ax.bar(
+        x - w / 2,
+        T4_2024,
+        w,
+        color="#6C6C6C",
+        edgecolor="black",
+        linewidth=0.8,
+        hatch="///",
+        label="T4 2024",
+    )
+    bars2 = ax.bar(
+        x + w / 2,
+        T1_2025,
+        w,
+        color="#B0B0B0",
+        edgecolor="black",
+        linewidth=0.8,
+        hatch="...",
+        label="T1 2025",
+    )
 
     for bar, val in zip(bars1, T4_2024):
-        ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 500,
-                f"{val:,}".replace(",", " "), ha="center", va="bottom",
-                fontsize=6)
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            bar.get_height() + 500,
+            f"{val:,}".replace(",", " "),
+            ha="center",
+            va="bottom",
+            fontsize=6,
+        )
     for bar, val, ev in zip(bars2, T1_2025, EVOL):
-        ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 500,
-                f"{val:,}".replace(",", " ") + f" ({ev})",
-                ha="center", va="bottom", fontsize=6)
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            bar.get_height() + 500,
+            f"{val:,}".replace(",", " ") + f" ({ev})",
+            ha="center",
+            va="bottom",
+            fontsize=6,
+        )
 
     ax.set_xticks(x)
     ax.set_xticklabels(INDICATEURS, fontsize=8)
@@ -103,6 +131,7 @@ def generate_chart_accessible():
 # 2. Icone enveloppe + organigramme
 # ------------------------------------------------------------------
 
+
 def generate_icon_enveloppe():
     """Petite icone d'enveloppe pour le paragraphe contact."""
     fig, ax = plt.subplots(figsize=(0.5, 0.5))
@@ -111,15 +140,15 @@ def generate_icon_enveloppe():
     ax.set_aspect("equal")
     ax.axis("off")
     # Corps de l'enveloppe
-    rect = mpatches.FancyBboxPatch((1, 2), 8, 5, boxstyle="round,pad=0.3",
-                                    facecolor="#000091", edgecolor="#000091")
+    rect = mpatches.FancyBboxPatch(
+        (1, 2), 8, 5, boxstyle="round,pad=0.3", facecolor="#000091", edgecolor="#000091"
+    )
     ax.add_patch(rect)
     # Rabat triangulaire
     ax.plot([1, 5, 9], [7, 3.5, 7], color="white", linewidth=1.5)
     fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
     path = ASSETS / "icone-enveloppe.png"
-    fig.savefig(path, dpi=100, transparent=True, bbox_inches="tight",
-                pad_inches=0.02)
+    fig.savefig(path, dpi=100, transparent=True, bbox_inches="tight", pad_inches=0.02)
     plt.close(fig)
     return path
 
@@ -131,10 +160,15 @@ def generate_organigramme():
     ax.set_ylim(0, 7)
     ax.axis("off")
 
-    box_style = dict(boxstyle="round,pad=0.4", facecolor="#000091",
-                     edgecolor="#000091")
-    text_kw = dict(ha="center", va="center", fontsize=8, color="white",
-                   fontweight="bold", bbox=box_style)
+    box_style = dict(boxstyle="round,pad=0.4", facecolor="#000091", edgecolor="#000091")
+    text_kw = dict(
+        ha="center",
+        va="center",
+        fontsize=8,
+        color="white",
+        fontweight="bold",
+        bbox=box_style,
+    )
 
     ax.text(6, 6, "Direction des\naffaires juridiques", **text_kw)
 
@@ -164,19 +198,30 @@ def generate_texte_image():
     ax.set_xlim(0, 10)
     ax.set_ylim(0, 3)
     ax.axis("off")
-    rect = mpatches.FancyBboxPatch((0.2, 0.2), 9.6, 2.6, boxstyle="round,pad=0.3",
-                                    facecolor="#FFF3CD", edgecolor="#856404",
-                                    linewidth=1.5)
+    rect = mpatches.FancyBboxPatch(
+        (0.2, 0.2),
+        9.6,
+        2.6,
+        boxstyle="round,pad=0.3",
+        facecolor="#FFF3CD",
+        edgecolor="#856404",
+        linewidth=1.5,
+    )
     ax.add_patch(rect)
-    ax.text(5, 1.5,
-            "Avis important : les indicateurs du T2 2025\n"
-            "seront transmis avant le 15 septembre 2025.",
-            ha="center", va="center", fontsize=11,
-            fontweight="bold", color="#856404")
+    ax.text(
+        5,
+        1.5,
+        "Avis important : les indicateurs du T2 2025\n"
+        "seront transmis avant le 15 septembre 2025.",
+        ha="center",
+        va="center",
+        fontsize=11,
+        fontweight="bold",
+        color="#856404",
+    )
     fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
     path = ASSETS / "texte-image.png"
-    fig.savefig(path, dpi=150, facecolor="white", bbox_inches="tight",
-                pad_inches=0.05)
+    fig.savefig(path, dpi=150, facecolor="white", bbox_inches="tight", pad_inches=0.05)
     plt.close(fig)
     return path
 
@@ -185,9 +230,11 @@ def generate_texte_image():
 # 3. Document inaccessible
 # ------------------------------------------------------------------
 
+
 def _add_watermark(doc, text):
     """Ajoute un filigrane texte diagonal au document via VML dans le header."""
     from lxml import etree
+
     section = doc.sections[0]
     header = section.header
     header.is_linked_to_previous = False
@@ -199,27 +246,27 @@ def _add_watermark(doc, text):
     }
     pict_xml = (
         f'<w:r xmlns:w="{ns["w"]}" xmlns:v="{ns["v"]}" xmlns:o="{ns["o"]}">'
-        f'<w:rPr><w:noProof/></w:rPr>'
-        f'<w:pict>'
+        f"<w:rPr><w:noProof/></w:rPr>"
+        f"<w:pict>"
         f'<v:shapetype id="_x0000_t136" coordsize="21600,21600" o:spt="136" '
         f'path="m@7,l@8,m@5,21600l@6,21600e">'
         f'<v:formulas><v:f eqn="sum #0 0 10800"/></v:formulas>'
         f'<v:path textpathok="t"/>'
         f'<v:textpath on="t" fitshape="t"/>'
         f'<o:lock v:ext="edit" text="t" shapetype="t"/>'
-        f'</v:shapetype>'
+        f"</v:shapetype>"
         f'<v:shape id="WaterMark" o:spid="_x0000_s2049" type="#_x0000_t136" '
         f'style="position:absolute;margin-left:0;margin-top:0;width:500pt;'
-        f'height:100pt;rotation:315;z-index:-251658752;'
-        f'mso-position-horizontal:center;mso-position-horizontal-relative:margin;'
+        f"height:100pt;rotation:315;z-index:-251658752;"
+        f"mso-position-horizontal:center;mso-position-horizontal-relative:margin;"
         f'mso-position-vertical:center;mso-position-vertical-relative:margin" '
         f'o:allowincell="f" fillcolor="silver" stroked="f">'
         f'<v:fill opacity=".5"/>'
         f'<v:textpath style="font-family:&quot;Arial&quot;;font-size:1pt" '
         f'string="{text}"/>'
-        f'</v:shape>'
-        f'</w:pict>'
-        f'</w:r>'
+        f"</v:shape>"
+        f"</w:pict>"
+        f"</w:r>"
     )
     r_element = etree.fromstring(pict_xml)
     p._p.append(r_element)
@@ -253,7 +300,7 @@ def _mark_image_decorative(doc):
     ext = parse_xml(
         f'<a:ext xmlns:a="{A_NS}" uri="{DECORATIVE_EXT_URI}">'
         f'<adec:decorative xmlns:adec="{ADEC_NS}" val="1"/>'
-        f'</a:ext>'
+        f"</a:ext>"
     )
     extLst.append(ext)
 
@@ -279,17 +326,17 @@ def _set_doc_defaults_language(doc, lang):
     styles = doc.styles.element
     doc_defaults = styles.find(qn("w:docDefaults"))
     if doc_defaults is None:
-        doc_defaults = parse_xml(f'<w:docDefaults {nsdecls("w")}/>')
+        doc_defaults = parse_xml(f"<w:docDefaults {nsdecls('w')}/>")
         styles.insert(0, doc_defaults)
 
     rPr_default = doc_defaults.find(qn("w:rPrDefault"))
     if rPr_default is None:
-        rPr_default = parse_xml(f'<w:rPrDefault {nsdecls("w")}/>')
+        rPr_default = parse_xml(f"<w:rPrDefault {nsdecls('w')}/>")
         doc_defaults.insert(0, rPr_default)
 
     rPr = rPr_default.find(qn("w:rPr"))
     if rPr is None:
-        rPr = parse_xml(f'<w:rPr {nsdecls("w")}/>')
+        rPr = parse_xml(f"<w:rPr {nsdecls('w')}/>")
         rPr_default.append(rPr)
 
     lang_el = rPr.find(qn("w:lang"))
@@ -310,18 +357,17 @@ def _add_hyperlink(paragraph, text, url):
     r_id = paragraph.part.relate_to(url, RT.HYPERLINK, is_external=True)
     hyperlink = parse_xml(
         f'<w:hyperlink {nsdecls("w", "r")} r:id="{r_id}">'
-        f'<w:r>'
+        f"<w:r>"
         f'<w:rPr><w:color w:val="0000FF"/><w:u w:val="single"/></w:rPr>'
-        f'<w:t>{escape(text)}</w:t>'
-        f'</w:r>'
-        f'</w:hyperlink>'
+        f"<w:t>{escape(text)}</w:t>"
+        f"</w:r>"
+        f"</w:hyperlink>"
     )
     paragraph._p.append(hyperlink)
 
 
 def _add_toc(doc):
     """Insere un champ Table des matieres automatique."""
-    from lxml import etree
     p = doc.add_paragraph()
     run = p.add_run()
     fldChar_begin = parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="begin"/>')
@@ -332,7 +378,9 @@ def _add_toc(doc):
     )
     run2._r.append(instrText)
     run3 = p.add_run()
-    fldChar_separate = parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="separate"/>')
+    fldChar_separate = parse_xml(
+        f'<w:fldChar {nsdecls("w")} w:fldCharType="separate"/>'
+    )
     run3._r.append(fldChar_separate)
     run4 = p.add_run("(Table des matières - mettre à jour avec F9)")
     run4.font.color.rgb = RGBColor(0x80, 0x80, 0x80)
@@ -345,9 +393,7 @@ def _add_toc(doc):
 def _add_simple_field(paragraph, instr):
     """Ajoute un champ Word simple dans un paragraphe."""
     run_begin = paragraph.add_run()
-    run_begin._r.append(
-        parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="begin"/>')
-    )
+    run_begin._r.append(parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="begin"/>'))
     run_instr = paragraph.add_run()
     run_instr._r.append(
         parse_xml(
@@ -360,14 +406,13 @@ def _add_simple_field(paragraph, instr):
     )
     run_result = paragraph.add_run("1")
     run_end = paragraph.add_run()
-    run_end._r.append(
-        parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="end"/>')
-    )
+    run_end._r.append(parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="end"/>'))
     return run_result
 
 
 DOCUMENT_TITLE = "Rapport trimestriel - Bilan T1 2025"
 HEADER_TEXT = "Direction des affaires juridiques - Rapport trimestriel T1 2025"
+GUIDE_TITLE = "Rendre un document Word accessible"
 
 
 def _format_header_footer_run(run):
@@ -427,12 +472,231 @@ def _add_guidance_comment(doc, runs, text):
         )
 
 
-def build_inaccessible(chart_path: Path, icon_path: Path = None,
-                       organigramme_path: Path = None,
-                       texte_image_path: Path = None,
-                       with_guidance: bool = False,
-                       output_name: str = "tp-doc-inaccessible.docx"):
+def _station_controls(matrix, station_id):
+    """Retourne les contrôles d'une station dans l'ordre canonique."""
+    return [
+        control for control in matrix["controles"] if control["station"] == station_id
+    ]
+
+
+def _station_title(matrix, station_id):
+    """Retourne le titre canonique d'une station."""
+    return next(
+        block["titre"] for block in matrix["sequence"] if block["id"] == station_id
+    )
+
+
+def _guidance_text(control, *, document_level=False):
+    """Compose une piste à partir du contrôle canonique."""
+    prefix = f"Document {chr(0x2014)} " if document_level else ""
+    return (
+        f"{prefix}{control['id']} - {control['intitule']}. "
+        f"Problème : {control['defaut']} Impact : {control['impact']} "
+        f"Règle : {control['regle']} Piste : {control['piste']} "
+        f"Première action : {control['action_attendue']} Procédure Word : "
+        f"{control['procedure_word']}"
+    )
+
+
+def _add_control_details(doc, control):
+    """Ajoute le contenu éditorial commun d'un contrôle pratiqué."""
+    doc.add_paragraph(f"Problème : {control['defaut']}")
+    doc.add_paragraph(f"Pourquoi : {control['impact']}")
+    doc.add_paragraph(f"Règle : {control['regle']}")
+    doc.add_paragraph(f"Dans Word : {control['procedure_word']}")
+    doc.add_paragraph(f"Dans LibreOffice Writer : {control['procedure_writer']}")
+    doc.add_paragraph(f"À faire : {control['action_attendue']}")
+    doc.add_paragraph(f"Preuve : {control['preuve']['attendu']}")
+
+
+def _create_heading_numbering(doc):
+    """Crée une numérotation multiniveau native pour les titres de station."""
+    numbering = doc.part.numbering_part.element
+    abstract_ids = [
+        int(item.get(qn("w:abstractNumId")))
+        for item in numbering.findall(qn("w:abstractNum"))
+    ]
+    num_ids = [int(item.get(qn("w:numId"))) for item in numbering.findall(qn("w:num"))]
+    abstract_id = max(abstract_ids, default=-1) + 1
+    num_id = max(num_ids, default=0) + 1
+
+    levels = []
+    for level in range(4):
+        level_text = ".".join(f"%{index}" for index in range(1, level + 2)) + "."
+        levels.append(
+            f'<w:lvl w:ilvl="{level}">'
+            '<w:start w:val="1"/>'
+            '<w:numFmt w:val="decimal"/>'
+            f'<w:lvlText w:val="{level_text}"/>'
+            '<w:suff w:val="space"/>'
+            "</w:lvl>"
+        )
+    abstract = parse_xml(
+        f'<w:abstractNum {nsdecls("w")} w:abstractNumId="{abstract_id}">'
+        '<w:multiLevelType w:val="multilevel"/>'
+        f"{''.join(levels)}"
+        "</w:abstractNum>"
+    )
+    num = parse_xml(
+        f'<w:num {nsdecls("w")} w:numId="{num_id}">'
+        f'<w:abstractNumId w:val="{abstract_id}"/>'
+        "</w:num>"
+    )
+    numbering.append(abstract)
+    numbering.append(num)
+    return num_id
+
+
+def _apply_heading_numbering(paragraph, num_id, level):
+    """Associe un titre à un niveau de la numérotation de station."""
+    p_pr = paragraph._p.get_or_add_pPr()
+    current = p_pr.find(qn("w:numPr"))
+    if current is not None:
+        p_pr.remove(current)
+    p_pr.append(
+        parse_xml(
+            f"<w:numPr {nsdecls('w')}>"
+            f'<w:ilvl w:val="{level}"/>'
+            f'<w:numId w:val="{num_id}"/>'
+            "</w:numPr>"
+        )
+    )
+
+
+def _add_station_one_p01(
+    doc,
+    control,
+    station_title,
+    numbering_id,
+    *,
+    corrected=False,
+    with_guidance=False,
+):
+    """Ajoute le titre principal et le premier point du guide."""
+    if corrected:
+        title = doc.add_paragraph(GUIDE_TITLE, style="Title")
+        station_heading = doc.add_heading(station_title, level=1)
+        control_heading = doc.add_heading(
+            f"{control['id']} - {control['intitule']}", level=2
+        )
+    else:
+        title = doc.add_paragraph()
+        title_run = title.add_run(GUIDE_TITLE)
+        title_run.bold = True
+        title_run.font.name = "Arial"
+        title_run.font.size = Pt(20)
+        station_heading = doc.add_heading(station_title, level=1)
+        control_heading = doc.add_heading(
+            f"{control['id']} - {control['intitule']}", level=2
+        )
+
+    _apply_heading_numbering(station_heading, numbering_id, 0)
+    _apply_heading_numbering(control_heading, numbering_id, 1)
+
+    _add_control_details(doc, control)
+
+    if with_guidance:
+        _add_guidance_comment(doc, title.runs, _guidance_text(control))
+
+
+def _add_station_one_p02(
+    doc, control, numbering_id, *, corrected=False, with_guidance=False
+):
+    """Ajoute le contrôle de hiérarchie avec ou sans saut de niveau."""
+    level = 2 if corrected else 4
+    heading = doc.add_heading(f"{control['id']} - {control['intitule']}", level=level)
+    _apply_heading_numbering(heading, numbering_id, 1 if corrected else 3)
+    _add_control_details(doc, control)
+    if with_guidance:
+        _add_guidance_comment(doc, heading.runs, _guidance_text(control))
+
+
+def _add_station_one_control(doc, control, numbering_id):
+    """Ajoute un point de station avec son titre structurel numéroté."""
+    text = f"{control['id']} - {control['intitule']}"
+    heading = doc.add_heading(text, level=2)
+    _apply_heading_numbering(heading, numbering_id, 1)
+    _add_control_details(doc, control)
+    return heading
+
+
+def _set_section_columns(section, count):
+    cols = section._sectPr.find(qn("w:cols"))
+    if cols is None:
+        cols = parse_xml(f"<w:cols {nsdecls('w')}/>")
+        section._sectPr.append(cols)
+    cols.set(qn("w:num"), str(count))
+
+
+def _add_station_one_p05(
+    doc, control, numbering_id, *, corrected=False, with_guidance=False
+):
+    """Ajoute l'occurrence composite de mise en page de la station 1."""
+    _add_station_one_control(doc, control, numbering_id)
+    zone_heading = doc.add_heading("Mise en page robuste", level=3)
+    if corrected:
+        spacing = doc.add_paragraph("Espacement entre les paragraphes")
+        spacing.paragraph_format.space_after = Pt(12)
+
+        indent = doc.add_paragraph(
+            "Retrait du paragraphe aligné avec le contenu précédent."
+        )
+        indent.paragraph_format.left_indent = Inches(0.5)
+
+        doc.add_paragraph("Ligne principale")
+        doc.add_paragraph("Suite sur un paragraphe distinct")
+
+        next_page = doc.add_paragraph("Début de la page suivante")
+        next_page.paragraph_format.page_break_before = True
+
+        two_columns = doc.add_section(WD_SECTION.CONTINUOUS)
+        _set_section_columns(two_columns, 2)
+        doc.add_paragraph("Colonne gauche : structure")
+        doc.add_paragraph("Colonne droite : navigation")
+        one_column = doc.add_section(WD_SECTION.CONTINUOUS)
+        _set_section_columns(one_column, 1)
+    else:
+        doc.add_paragraph("Espacement entre les paragraphes")
+        for _ in range(4):
+            doc.add_paragraph()
+
+        doc.add_paragraph("Retrait du paragraphe    aligné avec le contenu précédent.")
+
+        line = doc.add_paragraph()
+        line_run = line.add_run("Ligne principale")
+        line_run.add_break()
+        line_run.add_text("Suite sur un paragraphe distinct")
+
+        for _ in range(4):
+            doc.add_paragraph()
+        doc.add_paragraph("Début de la page suivante")
+
+        columns = doc.add_paragraph()
+        columns.add_run("Colonne gauche : structure")
+        columns.add_run().add_tab()
+        columns.add_run("Colonne droite : navigation")
+
+    doc.add_paragraph("Fin de la zone Mise en page robuste.")
+    if with_guidance:
+        _add_guidance_comment(doc, zone_heading.runs, _guidance_text(control))
+
+
+def build_inaccessible(
+    chart_path: Path,
+    icon_path: Path = None,
+    organigramme_path: Path = None,
+    texte_image_path: Path = None,
+    with_guidance: bool = False,
+    output_name: str | None = None,
+    matrix=None,
+    output_dir: Path | None = None,
+):
+    matrix = matrix or load_sami_matrix()
+    station_1_controls = _station_controls(matrix, "station-1")
+    station_1_title = _station_title(matrix, "station-1")
+    p01, p02, p03, p04, p05 = station_1_controls
     doc = Document()
+    station_numbering_id = _create_heading_numbering(doc)
     doc.core_properties.title = ""
     doc.core_properties.author = ""
     doc.core_properties.subject = ""
@@ -456,26 +720,23 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     # Erreur 18 : filigrane invisible au lecteur d'ecran
     _add_watermark(doc, "CONFIDENTIEL")
 
-    # Erreur 1 : faux Titre 1 (gras Arial 16, couleur bleu pour simuler un vrai titre)
-    p = doc.add_paragraph()
-    run = p.add_run("Introduction")
-    run.bold = True
-    run.font.name = "Arial"
-    run.font.size = Pt(16)
-    run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
+    _add_station_one_p01(
+        doc,
+        p01,
+        station_1_title,
+        station_numbering_id,
+        with_guidance=with_guidance,
+    )
+    _add_station_one_p02(doc, p02, station_numbering_id, with_guidance=with_guidance)
+
+    p = doc.add_heading("Introduction", level=1)
+    run = p.runs[0]
     if with_guidance:
         _add_guidance_comment(
             doc,
             run,
-            "Critère 1 - Problème : ce titre est seulement mis en forme en "
-            "gras/couleur, il n'est pas reconnu comme titre par Word. Impact : "
-            "la navigation au lecteur d'écran reste plate. Méthode : appliquer "
-            "Accueil > Styles > Titre 1.",
-        )
-        _add_guidance_comment(
-            doc,
-            run,
-            "Critère 14 - Problème : les propriétés du document sont vides. "
+            f"Document {chr(0x2014)} Critère 14 - Problème : les propriétés "
+            "du document sont vides. "
             "Impact : le fichier est moins identifiable pour les aides "
             "techniques et la recherche documentaire. Méthode : Fichier > "
             "Informations > Propriétés. Titre attendu : Rapport trimestriel - "
@@ -510,10 +771,7 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
         _add_guidance_comment(
             doc,
             run,
-            "Critère 19 - Problème : ce sommaire est tapé à la main. Impact : "
-            "il n'est ni navigable ni mis à jour automatiquement. Méthode : "
-            "appliquer les styles de titres, puis Références > Table des "
-            "matières.",
+            _guidance_text(p03, document_level=True),
         )
     for titre_som, page in [
         ("Résultats du trimestre", "2"),
@@ -523,6 +781,8 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
         ("Annexes", "5"),
     ]:
         doc.add_paragraph(f"{titre_som} .............. {page}")
+
+    _add_station_one_control(doc, p03, station_numbering_id)
 
     doc.add_paragraph()
 
@@ -542,25 +802,11 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
             "le gras, et conserver un libellé explicite.",
         )
 
-    doc.add_paragraph(
+    document_guidance_anchor = doc.add_paragraph(
         "La direction demande un retour rapide sur les indicateurs."
     )
 
-    # Erreur 2 : faux Titre 2 (gras Arial 14, couleur bleu pour simuler un vrai titre)
-    p = doc.add_paragraph()
-    run = p.add_run("Résultats du trimestre")
-    run.bold = True
-    run.font.name = "Arial"
-    run.font.size = Pt(14)
-    run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
-    if with_guidance:
-        _add_guidance_comment(
-            doc,
-            run,
-            "Critère 2 - Problème : ce sous-titre est seulement visuel. "
-            "Impact : il ne structure pas le document pour la navigation. "
-            "Méthode : appliquer Accueil > Styles > Titre 2.",
-        )
+    doc.add_heading("Résultats du trimestre", level=2)
 
     # Erreur 4 : tableau sans en-tete balisee
     table = doc.add_table(rows=4, cols=4)
@@ -590,20 +836,7 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
             "d'en-tête.",
         )
 
-    # Erreur 16 : paragraphes vides pour simuler un espacement
-    empty_paragraphs = []
-    for _ in range(4):
-        empty_paragraphs.append(doc.add_paragraph())
-    if with_guidance:
-        _add_guidance_comment(
-            doc,
-            table.cell(0, 1).paragraphs[0].runs,
-            "Critère 16 - Problème : l'espacement est créé avec des "
-            "paragraphes vides. Impact : un lecteur d'écran peut annoncer des "
-            "vides inutiles. Méthode : supprimer ces paragraphes et régler "
-            "l'espacement avec Mise en page > Paragraphe > Espacement "
-            "avant/après ou via les styles.",
-        )
+    _add_station_one_control(doc, p04, station_numbering_id)
 
     # Erreur 11 : fausse liste a puces (puces tapees et indentees manuellement)
     doc.add_paragraph("Objectifs du trimestre :")
@@ -619,49 +852,26 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
         _add_guidance_comment(
             doc,
             first_fake_bullet.runs,
-            "Critère 11 - Problème : les puces sont tapées au clavier. "
-            "Impact : Word ne les expose pas comme une liste structurée. "
-            "Méthode : sélectionner les éléments de liste > Accueil > Puces.",
+            _guidance_text(p04),
         )
 
     # Erreur 12 : fausse liste numerotee (numeros tapes et indentes manuellement)
     doc.add_paragraph("Priorités pour le prochain trimestre :")
-    first_fake_number = None
-    for numero, item in enumerate([
-        "Refonte de la page d'accueil",
-        "Mise en conformité accessibilité",
-        "Déploiement de la newsletter",
-    ], start=1):
-        p = _add_fake_list_item(doc, f"{numero}.", item)
-        first_fake_number = first_fake_number or p
-    if with_guidance and first_fake_number:
-        _add_guidance_comment(
-            doc,
-            first_fake_number.runs,
-            "Critère 12 - Problème : les numéros sont tapés à la main. "
-            "Impact : la numérotation n'est pas reconnue comme liste. "
-            "Méthode : sélectionner les éléments de liste > Accueil > "
-            "Numérotation.",
-        )
+    for numero, item in enumerate(
+        [
+            "Refonte de la page d'accueil",
+            "Mise en conformité accessibilité",
+            "Déploiement de la newsletter",
+        ],
+        start=1,
+    ):
+        _add_fake_list_item(doc, f"{numero}.", item)
+
+    _add_station_one_p05(doc, p05, station_numbering_id, with_guidance=with_guidance)
 
     doc.add_paragraph()
 
-    # Erreur 3 : faux Titre 3 (gras Arial 12 souligne, couleur bleu pour simuler un vrai titre)
-    p = doc.add_paragraph()
-    run = p.add_run("Détail par canal")
-    run.bold = True
-    run.underline = True
-    run.font.name = "Arial"
-    run.font.size = Pt(12)
-    run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
-    if with_guidance:
-        _add_guidance_comment(
-            doc,
-            run,
-            "Critère 3 - Problème : le soulignement et le gras créent "
-            "seulement une apparence de titre. Impact : le niveau de titre est "
-            "absent de la structure. Méthode : Accueil > Styles > Titre 3.",
-        )
+    doc.add_heading("Détail par canal", level=3)
 
     # Erreur 7 : image sans alt + couleurs seules
     doc.add_picture(str(chart_path), width=Inches(4.5))
@@ -682,20 +892,7 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
 
     # Erreur 9 : organigramme avec alt "image.png" (nom de fichier par defaut)
     if organigramme_path:
-        p = doc.add_paragraph()
-        run = p.add_run("Organisation du service")
-        run.bold = True
-        run.font.name = "Arial"
-        run.font.size = Pt(14)
-        run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
-        if with_guidance:
-            _add_guidance_comment(
-                doc,
-                run,
-                "Titre visuel supplémentaire - Problème : ce titre est "
-                "formaté directement. Impact : il n'apparaît pas dans la "
-                "navigation. Méthode : appliquer le style Titre 2.",
-            )
+        doc.add_heading("Organisation du service", level=2)
 
         doc.add_picture(str(organigramme_path), width=Inches(5.0))
         doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -714,20 +911,7 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
 
     # Erreur 10 : icone redondante avec alt "E-mail" au lieu de decoratif
     if icon_path:
-        p = doc.add_paragraph()
-        run = p.add_run("Contact")
-        run.bold = True
-        run.font.name = "Arial"
-        run.font.size = Pt(14)
-        run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
-        if with_guidance:
-            _add_guidance_comment(
-                doc,
-                run,
-                "Titre visuel supplémentaire - Problème : ce titre est "
-                "seulement visuel. Impact : rupture de navigation. Méthode : "
-                "appliquer le style Titre 2.",
-            )
+        doc.add_heading("Contact", level=2)
 
         p = doc.add_paragraph()
         p.add_run("Pour toute question, contactez-nous par ")
@@ -776,12 +960,8 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
 
     # Erreur 21 : tableau avec cellules fusionnees et en-tetes seulement visuels
     doc.add_paragraph()
-    p = doc.add_paragraph()
-    run = p.add_run("Répartition par service")
-    run.bold = True
-    run.font.name = "Arial"
-    run.font.size = Pt(12)
-    run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
+    p = doc.add_heading("Répartition par service", level=3)
+    run = p.runs[0]
     if with_guidance:
         _add_guidance_comment(
             doc,
@@ -826,13 +1006,9 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
 
     doc.add_paragraph()
 
-    # Section Annexes (faux titre + Erreur 17 : majuscules tapees au clavier)
-    p = doc.add_paragraph()
-    run = p.add_run("ANNEXES")
-    run.bold = True
-    run.font.name = "Arial"
-    run.font.size = Pt(14)
-    run.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
+    # Section Annexes : casse encore fautive, mais structure de titre correcte.
+    p = doc.add_heading("ANNEXES", level=2)
+    run = p.runs[0]
     if with_guidance:
         _add_guidance_comment(
             doc,
@@ -863,8 +1039,10 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
 
     # Erreur 6 : contraste ambigu (gris #767676)
     p = doc.add_paragraph()
-    run = p.add_run("Note : les données sont provisoires et susceptibles "
-                     "d’ajustements lors de la consolidation finale.")
+    run = p.add_run(
+        "Note : les données sont provisoires et susceptibles "
+        "d’ajustements lors de la consolidation finale."
+    )
     run.font.color.rgb = RGBColor(0x76, 0x76, 0x76)
     run.font.size = Pt(9)
     run.font.name = "Arial"
@@ -881,14 +1059,18 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
     if with_guidance:
         _add_guidance_comment(
             doc,
-            hp.runs,
-            "Critère 18 - Problème : le filigrane CONFIDENTIEL est un objet "
+            document_guidance_anchor.runs,
+            f"Document {chr(0x2014)} Critère 18 - Problème : le filigrane "
+            "CONFIDENTIEL est un objet "
             "graphique dans l'en-tête. Impact : il peut être invisible pour les "
             "lecteurs d'écran. Méthode : ajouter 'Document confidentiel' en "
             "vrai texte dans le corps du document.",
         )
 
-    output = PROJECT / "_source" / output_name
+    version_key = "avec_pistes" if with_guidance else "inaccessible"
+    output = (output_dir or PROJECT / "_source") / (
+        output_name or matrix["identite_editoriale"]["versions"][version_key]
+    )
     doc.save(str(output))
     _remove_quarantine(output)
     print(f"  -> {output.name}")
@@ -899,10 +1081,22 @@ def build_inaccessible(chart_path: Path, icon_path: Path = None,
 # 3. Document accessible
 # ------------------------------------------------------------------
 
-def build_accessible(chart_path: Path, icon_path: Path = None,
-                     organigramme_path: Path = None,
-                     texte_image_path: Path = None):
+
+def build_accessible(
+    chart_path: Path,
+    icon_path: Path = None,
+    organigramme_path: Path = None,
+    texte_image_path: Path = None,
+    matrix=None,
+    output_dir: Path | None = None,
+    output_name: str | None = None,
+):
+    matrix = matrix or load_sami_matrix()
+    station_1_controls = _station_controls(matrix, "station-1")
+    station_1_title = _station_title(matrix, "station-1")
+    p01, p02, p03, p04, p05 = station_1_controls
     doc = Document()
+    station_numbering_id = _create_heading_numbering(doc)
 
     style_normal = doc.styles["Normal"]
     style_normal.font.name = "Arial"
@@ -931,6 +1125,11 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     _format_header_paragraph(hp)
     _add_page_footer(doc)
 
+    _add_station_one_p01(
+        doc, p01, station_1_title, station_numbering_id, corrected=True
+    )
+    _add_station_one_p02(doc, p02, station_numbering_id, corrected=True)
+
     # Mention confidentiel dans le corps (pas en filigrane)
     p = doc.add_paragraph()
     run = p.add_run("Document confidentiel")
@@ -950,6 +1149,7 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     # Sommaire automatique (table des matieres generee depuis les styles)
     doc.add_heading("Sommaire", level=2)
     _add_toc(doc)
+    _add_station_one_control(doc, p03, station_numbering_id)
 
     # Mention urgente accessible (#C00000 ratio 6.5:1 sur blanc)
     p = doc.add_paragraph()
@@ -959,9 +1159,7 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     run.font.name = "Arial"
     run.font.size = Pt(11)
 
-    doc.add_paragraph(
-        "La direction demande un retour rapide sur les indicateurs."
-    )
+    doc.add_paragraph("La direction demande un retour rapide sur les indicateurs.")
 
     # Titre 2
     doc.add_heading("Résultats du trimestre", level=2)
@@ -996,6 +1194,8 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     tblHeader = parse_xml(f'<w:tblHeader {nsdecls("w")} val="true"/>')
     trPr.append(tblHeader)
 
+    _add_station_one_control(doc, p04, station_numbering_id)
+
     # Vraie liste a puces native
     doc.add_paragraph("Objectifs du trimestre :")
     for item in [
@@ -1014,6 +1214,8 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     ]:
         doc.add_paragraph(item, style="List Number")
 
+    _add_station_one_p05(doc, p05, station_numbering_id, corrected=True)
+
     # Titre 3
     doc.add_heading("Détail par canal", level=3)
 
@@ -1027,10 +1229,12 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     pic = inline_shape._inline
     nvPicPr = pic.find(qn("wp:docPr"))
     if nvPicPr is not None:
-        nvPicPr.set("descr",
+        nvPicPr.set(
+            "descr",
             "Graphique d'évolution du trafic web T1 2025 : "
             "visiteurs uniques en hausse de 12 %, pages vues +11 %, "
-            "taux de rebond en baisse de 4 points.")
+            "taux de rebond en baisse de 4 points.",
+        )
         nvPicPr.set("title", "Trafic web T1 2025")
 
     # Organigramme avec alt court + description detaillee
@@ -1042,7 +1246,7 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
         _set_image_alt(
             doc,
             alt_text="Organigramme de la Direction des affaires juridiques "
-                     "(description ci-dessous).",
+            "(description ci-dessous).",
             title="Organigramme du service",
         )
 
@@ -1052,7 +1256,8 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
             "le Bureau du droit public, le Bureau du droit social, "
             "le Bureau de la communication et le Bureau des affaires "
             "internationales. Chaque bureau est rattaché directement "
-            "à la direction.")
+            "à la direction."
+        )
         run.font.name = "Arial"
         run.font.size = Pt(10)
 
@@ -1071,7 +1276,8 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     p = doc.add_paragraph()
     run = p.add_run(
         "The quarterly report is available upon request. "
-        "Please contact the communication department for further details.")
+        "Please contact the communication department for further details."
+    )
     run.font.name = "Arial"
     run.font.size = Pt(11)
     rPr = run._r.get_or_add_rPr()
@@ -1082,7 +1288,8 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     p = doc.add_paragraph()
     run = p.add_run(
         "Avis important : les indicateurs du T2 2025 "
-        "seront transmis avant le 15 septembre 2025.")
+        "seront transmis avant le 15 septembre 2025."
+    )
     run.font.name = "Arial"
     run.font.size = Pt(11)
 
@@ -1130,7 +1337,8 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
     p = doc.add_paragraph()
     run = p.add_run(
         "Note : les données sont provisoires et susceptibles "
-        "d'ajustements lors de la consolidation finale.")
+        "d'ajustements lors de la consolidation finale."
+    )
     run.font.color.rgb = RGBColor(0x59, 0x59, 0x59)
     run.font.size = Pt(9)
     run.font.name = "Arial"
@@ -1145,7 +1353,9 @@ def build_accessible(chart_path: Path, icon_path: Path = None,
         "communication numérique"
     )
 
-    output = PROJECT / "_source" / "tp-doc-accessible.docx"
+    output = (output_dir or PROJECT / "_source") / (
+        output_name or matrix["identite_editoriale"]["versions"]["corrigee"]
+    )
     doc.save(str(output))
     _remove_quarantine(output)
     print(f"  -> {output.name}")
@@ -1183,12 +1393,18 @@ if __name__ == "__main__":
     print(f"  -> {txt_img.name}")
 
     print("\nGeneration des documents Word...")
-    build_inaccessible(chart_bad, icon_path=icon, organigramme_path=orga,
-                       texte_image_path=txt_img)
-    build_inaccessible(chart_bad, icon_path=icon, organigramme_path=orga,
-                       texte_image_path=txt_img, with_guidance=True,
-                       output_name="tp-doc-aide-correction.docx")
-    build_accessible(chart_good, icon_path=icon, organigramme_path=orga,
-                     texte_image_path=txt_img)
+    build_inaccessible(
+        chart_bad, icon_path=icon, organigramme_path=orga, texte_image_path=txt_img
+    )
+    build_inaccessible(
+        chart_bad,
+        icon_path=icon,
+        organigramme_path=orga,
+        texte_image_path=txt_img,
+        with_guidance=True,
+    )
+    build_accessible(
+        chart_good, icon_path=icon, organigramme_path=orga, texte_image_path=txt_img
+    )
 
     print("\nTermine.")
