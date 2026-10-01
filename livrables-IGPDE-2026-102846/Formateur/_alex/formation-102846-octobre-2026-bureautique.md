@@ -1,361 +1,180 @@
-# Documents bureautiques accessibles
+# Partie II - Documents bureautiques accessibles - Notes formateur
 
-Mise en pratique
+## Intention pédagogique
 
-## Diapositive 1 - Le lecteur d'écran en action
+Le TP fait progresser ensemble règle, manipulation, vérification et synthèse.
+Le support de travail explique lui-même comment rendre un document Word
+accessible. Les formateurs accompagnent les binômes sans corriger à leur place.
 
-Texte, texte, texte, texte, texte, texte ...
-Pendant 4 minutes. Sans titre. Sans repère.
-Sans pouvoir naviguer vers la section qui le concerne.
--> C'est ce qu'entend une personne malvoyante face à votre document Word.
+**Environnement principal** : Word bureau sous Windows. Writer sous Windows est
+présenté en complément ; ses procédures détaillées figurent dans le mémo Writer
+et seront confirmées sur la version installée pendant la recette finale.
 
-15 % de vos destinataires sont concernés
+## Livrables et distribution
 
-• 80 % de ces handicaps sont invisibles
-• Dans une réunion de 12 personnes : au moins 1 daltonien
-• Parmi 30 destinataires : 4 ou 5 ont un handicap
+Disponibles dès le préambule :
 
-## Diapositive 2 - Quiz - lequel de ces deux documents est accessible ?
+- `tp-doc-aide-correction.docx` et `tp-doc-inaccessible.docx` : chaque binôme
+  choisit librement son fichier de départ ;
+- `checklist-accessibilite-bureautique.docx`, avec une version papier possible ;
+- `cartes-criteres-wcag-2-2-a-imprimer.pdf`, utilisées pour rapprocher
+  informellement les contrôles des principes WCAG, jamais pour évaluer.
 
-Ils sont visuellement identiques. Lequel préférez-vous pour NVDA ?
+Productions attendues de chaque binôme :
 
-Document A
+- un DOCX corrigé portant un nom descriptif ;
+- une checklist renseignée progressivement après chaque station ;
+- un PDF exporté, contrôlé avec PAC ou Acrobat Pro, puis relu avec la checklist.
 
-• Titres mis en gras, police Arial 16
-• Image sans description
-• Fichier nommé Document1.docx
+Le fichier `tp-doc-accessible.docx` sert de guide de référence. Il est **remis
+seulement à la fin**, pendant la marge et la remise.
 
-Document B
+## Répartition des deux formateurs
 
-• Titres avec le style « Titre 1 »
-• Image avec texte alternatif
-• Fichier nommé rapport-bilan-2024.docx
+- **Formateur 1** : annonce la station, rappelle le résultat attendu et garde le
+  temps.
+- **Formateur 2** : observe les manipulations, aide par questionnement et relève
+  les difficultés sans prendre la main sur le document.
+- À la fin de chaque station, les deux formateurs conduisent une **synthèse
+  commune** brève à partir des preuves produites par les binômes.
 
-Votre réponse ?
+## Préambule - 5 minutes
 
-## Diapositive 3 - Pourquoi ça vous concerne
+1. Montrer les Documents A et B, visuellement proches, puis demander lequel est
+   accessible.
+2. Faire formuler le message : l'accessibilité ne se voit pas toujours ; elle
+   se manipule et se vérifie.
+3. Présenter les trois productions attendues et le choix guidé ou autonome.
+4. Distribuer la checklist et les cartes WCAG. Faire un premier rapprochement
+   informel, sans notation.
+5. Demander à chaque binôme d'ouvrir son DOCX de départ et d'enregistrer une
+   copie de travail sous un nom descriptif.
 
-15 % de vos destinataires sont concernés par un handicap
+**Point d'attention** : la version avec pistes donne des commentaires ciblés ;
+la version autonome demande de repérer les mêmes défauts sans ces aides.
 
-80 % de ces handicaps sont invisibles - rien ne le montre
+## Structurer et naviguer - 17 minutes
 
-0 ligne de code nécessaire - uniquement des réflexes dans le ruban Word
+**Contrôles travaillés** :
 
-Réponse au quiz : Document B
+- P-01 : distinguer le titre principal des titres hiérarchiques ;
+- P-02 : construire une hiérarchie sans saut de niveau ;
+- P-03 : vérifier le volet de navigation et actualiser le sommaire ;
+- P-04 : remplacer les fausses listes par des listes natives ;
+- P-05 : remplacer espaces, tabulations et paragraphes vides par les fonctions
+  de mise en page adaptées.
 
-• Le style Titre 1 crée une structure de navigation
-• Le texte de remplacement décrit la fonction de l'image
-• Le nom de fichier permet de retrouver le document
+**Animation** : Formateur 1 fait verbaliser le rôle avant l'apparence.
+Formateur 2 vérifie que les binômes utilisent le volet de navigation, les
+marques de mise en forme et le sommaire sans imposer la correction.
 
-## Diapositive 4 - 5 thèmes, 21 critères
+**Preuve et synthèse** : le volet et le sommaire reflètent le même plan, la
+liste est annoncée comme telle et les artifices de mise en page ont disparu.
+Faire renseigner la checklist.
 
-Chaque thème = des critères actionnables immédiatement dans le ruban Word.
+## Rendre les contenus et les liens compréhensibles - 15 minutes
 
-| Thème | Ce que vous allez apprendre |
-| --- | --- |
-| 1. Structure | Titres, listes, colonnes, tableaux, sauts de page |
-| 2. Couleurs | Rapport de contraste, couleur porteuse de sens |
-| 3. Contenu alternatif | Texte alternatif, objets alignés, liens descriptifs |
-| 4. Langue et lisibilité | Balisage linguistique, majuscules, espaces répétés |
-| 5. Finalisation | Vérificateur d'accessibilité, propriétés du document, export PDF |
+**Contrôles travaillés** :
 
-## Diapositive 5 - Les styles de titre : le fondement de tout
+- P-06 : rédiger l'alternative d'une image informative simple ;
+- P-07 : associer une alternative courte et une description détaillée à une
+  image complexe ;
+- P-08 : marquer comme décorative une image réellement redondante ;
+- P-09 : remplacer l'image de texte par du vrai texte ;
+- P-10 : rendre les liens compréhensibles hors contexte ;
+- P-11 : placer toute information essentielle dans le corps du document.
 
-Comment un lecteur d'écran repère-t-il les titres dans Word ?
+**Animation** : Formateur 1 rappelle que toute image n'appelle pas la même
+réponse. Formateur 2 fait vérifier la description complexe par un binôme qui
+masque l'image et fait lire uniquement les intitulés des liens.
 
-Sans styles de titre
+**Preuve et synthèse** : les alternatives correspondent à la fonction des
+images, la description complexe reste compréhensible seule, le vrai texte est
+sélectionnable et les liens sont autonomes. Faire renseigner la checklist.
 
-• Un bloc plat, sans repère de navigation
-• Le lecteur d'écran ne peut pas aller de titre en titre
-• L'utilisateur doit écouter tout le document
+## Sécuriser couleurs, graphiques et tableaux - 15 minutes
 
-Avec Titre 1, Titre 2, Titre 3
+**Contrôles travaillés** :
 
-• Titre 1 : Rapport annuel
-• Titre 2 : Budget / Titre 3 : Prévisions
-• Navigation rapide, comme une table des matières
+- P-12 : mesurer les contrastes et appliquer le seuil correspondant ;
+- P-13 : compléter la couleur par des étiquettes et des motifs distincts ;
+- P-14 : simplifier le tableau, identifier et répéter ses en-têtes.
 
-Comment faire
+**Animation** : Formateur 1 demande de choisir le seuil avant de lire le ratio.
+Formateur 2 aide à reconstruire le graphique directement dans Word et distingue
+tableau de données et tableau de mise en page.
 
-• Appliquer : Accueil > Styles > Titre 1, Titre 2 ou Titre 3
-• Vérifier : Ctrl+F > onglet Titres
+**Preuve et synthèse** : le ratio mesuré est conservé, le graphique reste
+compréhensible sans couleur et le tableau est simple et structuré. Faire
+renseigner la checklist.
 
-## Diapositive 6 - Listes natives
+## Régler langues et lisibilité - 15 minutes
 
-✓ Liste accessible
+**Contrôles travaillés** :
 
-• Le lecteur annonce : liste de 3 éléments, élément 1 sur 3
-• Navigation par élément avec les touches flèches
-• Créer avec : Accueil > Paragraphe > Puces ou Numérotation
+- P-15 : définir la langue principale et celle du passage étranger ;
+- P-16 : régler police, taille, interligne et alignement par les styles ;
+- P-17 : corriger la saisie et appliquer l'apparence en majuscules par la mise
+  en forme ;
+- P-18 : développer les sigles et faire vérifier les mots en majuscules.
 
-✗ Liste inaccessible
+**Animation** : Formateur 1 distingue langue des propriétés et langue du texte.
+Formateur 2 fait constater l'effet global d'une modification du style Normal et
+relie la bonne saisie à la recherche et à la correction orthographique.
 
-• Tirets manuels : le lecteur lit tiret Premier élément
-• Tabulations pour simuler une numérotation
-• Réseaux d'espaces pour aligner visuellement
+**Preuve et synthèse** : les langues sont contrôlables, le corps reste lisible
+et les mots conservent accents et orthographe. Faire renseigner la checklist.
 
-Vérification
+## Finaliser, vérifier, exporter et contrôler - 18 minutes
 
-• Maj+F1 (Révéler la mise en forme) > Puces et numérotation doit apparaître
+**Contrôles travaillés** :
 
-## Diapositive 7 - Tableaux et objets flottants
+- P-19 : renseigner titre, auteur, langue et nom du fichier ;
+- P-20 : exporter un PDF avec propriétés, balises et signets ;
+- C-01 : exécuter le vérificateur, traiter les alertes pertinentes et expliquer
+  les alertes résiduelles ;
+- C-02 : contrôler le PDF dans PAC, ou Acrobat Pro en alternative, puis terminer
+  avec la checklist humaine.
 
-Règle d'or : ne jamais utiliser Tab, Espace ou Entrée pour simuler une mise en page.
-Vous créez un obstacle de structure pour les technologies d'assistance.
+**Contrôles signalés pendant le débrief** :
 
-Tableaux de mise en page
+- S-01 - signalé : conserver un document modifiable quand il doit l'être ;
+- S-02 - signalé : éviter tout contenu clignotant ;
+- S-03 - signalé : réserver les formulaires interactifs à un parcours dédié ;
+- S-04 - signalé : ne pas porter d'information essentielle dans un objet
+  flottant ;
+- S-05 - signalé : ne pas utiliser de tableau de mise en page ou flottant.
 
-• Insertion > Tableau > colonnes et lignes
-• Habillage : Propriétés > Aucun
-• Un tableau flottant (Autour) est lu au mauvais moment
+Ces cinq points restent dans la checklist et le débrief. Ils ne deviennent pas
+des manipulations obligatoires du TP.
 
-Objets flottants : zones de texte et images
+**Animation** : Formateur 1 rappelle que l'outil automatique est un filtre, pas
+un certificat. Formateur 2 aide à lire les alertes et le rapport technique sans
+enseigner la remédiation avancée dans Acrobat Pro.
 
-• Lus dans un ordre aléatoire - solution : colonnes Word ou habillage En ligne
+**Preuve et synthèse** : conserver le DOCX final, les alertes expliquées, le PDF
+exporté et le relevé PAC ou Acrobat Pro. Terminer la checklist humaine.
 
-## Diapositive 8 - Contraste : un seuil chiffré, pas une opinion
+## Marge et remise - 5 minutes
 
-1. Ouvrir le Colour Contrast Analyser (CCA) de TPGi - gratuit Windows et macOS
+1. Absorber au plus trois minutes déplacées entre les stations, sans dépasser
+   le total de 90 minutes.
+2. Faire enregistrer le DOCX, la checklist et le PDF contrôlé.
+3. Recueillir les points restant à approfondir sans rouvrir une station.
+4. Remettre le corrigé de référence et indiquer qu'il sert désormais de guide
+   pratique autonome.
 
-2. Pipette Premier plan sur la couleur du texte
+## Synthèse générale de la matinée, hors TP
 
-3. Pipette Arrière-plan sur la couleur du fond
+La synthèse de 12 h à 12 h 15 reste distincte des 90 minutes. Elle revient sur
+la démarche commune : structurer, rendre les contenus compréhensibles, vérifier
+avec les outils, puis terminer par un contrôle humain. Elle ne rajoute aucune
+manipulation au TP.
 
-4. Lire le ratio : conforme si >= 4,5:1 pour le texte normal
+## Porte humaine avant le deck
 
-5. >= 3:1 pour le grand texte (18 pt+ ou 14 pt gras) 
-4,5:1 Texte normal
-3:1 Grand texte
-
-Scannez-moi !
-
-https://vispero.com/lp/color-contrast-checker/
-
-## Diapositive 6 - La couleur ne doit pas porter l'information à elle seule
-
-8 % des hommes ne distinguent pas toutes les couleurs
-
-| Inaccessible | Accessible |
-| --- | --- |
-| Statut : rouge / vert / jaune (couleur seule) | Statut : En retard / Terminé / En cours (texte + couleur) |
-| Budget : zone verte = OK (couleur seule) | Budget : OK (vert) / Attention (orange) / Dépassé (rouge) |
-
-Doublez toujours la couleur avec une légende textuelle
-et idéalement un motif visuel distinct.
-
-## Diapositive 7 - Texte alternatif sur les images
-
-1 Clic droit sur l'image > Format de l'image > Texte de remplacement
-
-2 Image significative : décrire la fonction, pas l'apparence
-
-3 Image décorative : cocher Marquer comme décoratif
-
-| Mauvais texte alt | Bon texte alt |
-| --- | --- |
-| Photo d'un graphique en barres colorées | Chiffre d'affaires 2020-2024 : hausse de 15 à 23 % |
-| Icône d'enveloppe ou E-mail | alt="" (vide - icône redondante) |
-| image.png | Organigramme du service : 4 équipes, 28 agents |
-
-## Diapositive 8 - Liens et informations essentielles
-
-| Inaccessible | Accessible |
-| --- | --- |
-| Cliquez ici | Consulter le guide d'accessibilité Word |
-| En savoir plus | Télécharger le rapport annuel 2024 (PDF, 2 Mo) |
-| URL brute | Accéder au formulaire de contact |
-
-Informations essentielles dans les zones non lues
-
-• En-têtes et pieds de page : non lus automatiquement
-• Filigranes (Confidentiel, Brouillon) : invisibles
-• Solution : reproduire l'info dans le corps du document
-
-Liens de téléchargement
-
-• Titre + format + poids + langue si différente
-• Exemple : Rapport annuel 2024 (PDF, 2 Mo, anglais)
-
-## Diapositive 9 - Exercice : les erreurs de Sami
-
-Mise en situation
-
-Sami, chargé de communication, envoie son rapport trimestriel à 40 personnes. 1. Quels critères posent problème ? 2. Quelles corrections proposez-vous ?
-
-Le document de Sami contient
-
-• Titres en gras, fausses listes, faux sommaire, tableaux sans en-tête
-• Mention Urgent en rouge, note en gris insuffisant
-• Graphique et organigramme sans alt, icône redondante
-• Texte en image, lien cliquez ici, filigrane invisible
-• Texte justifié, paragraphes vides, majuscules tapées
-
-30 minutes en binôme : repérez les problèmes, puis corrigez-les.
-
-## Diapositive 10 - Langue, majuscules et lisibilité
-
-Balisage de langue
-
-• Langue principale : Fichier > Options > Langue
-• Passage en langue étrangère : sélectionner le texte > Révision > Langue > Définir la langue
-• Sans balisage de langue, le lecteur d'écran prononce mal le mot
-
-Majuscules : deux problèmes
-
-• Difficiles à lire pour les dyslexiques
-• Prononciation ambiguë par les lecteurs d'écran
-• Solution : minuscules d'abord, puis Police > Modifier la casse
-
-Lisibilité
-
-• Police sans serif, 12 pt minimum
-• Interligne 1,15, paragraphes aérés
-• Alignement à gauche, pas de justification
-• Contraste mesuré, fond non dégradé
-
-## Diapositive 11 - Espaces et objets clignotants
-
-Activer les marques de formatage : Accueil > Paragraphe > Afficher tout (signe paragraphe)
-
-• Points = espaces successifs > supprimer et ne garder qu'un seul espace
-• Flèches = tabulations utilisées pour simuler une mise en page
-• Retours à la ligne manuels = utiliser les sauts de page propres à la place
-
-Objets clignotants : tolérance zéro
-
-• Animations, GIF avec flashs, vidéos à plus de 3 Hz : interdits sans exception
-• Risque de crise d'épilepsie photosensible
-• En cas de doute sur un GIF : remplacer par une image statique
-
-## Diapositive 12 - Avant de publier : 5 vérifications en 2 minutes
-
-1 Propriétés (Titre, Auteur, Objet) : Fichier > Informations > Propriétés
-
-2 Nom de fichier descriptif en .docx (pas Document1.docx)
-
-3 Protection : aucune restriction > Révision > Restreindre la modification
-
-4 Formulaires : aucun champ Word interactif dans le document
-
-5 Vérificateur d'accessibilité : Fichier > Vérifier l'accessibilité
-
-Ces 5 vérifications couvrent 80 % des oublis restants.
-
-## Diapositive 13 - Le vérificateur d'accessibilité Word
-
-| Ce qu'il détecte | Ce qu'il ne détecte PAS |
-| --- | --- |
-| Texte alt manquant sur les images | Qualité du texte alt (contenu) |
-| Styles de titre absents | Pertinence des noms de liens |
-| Ordre de lecture problématique | Couleur porteuse de sens seule |
-| Tableaux sans en-tête | Langue des passages étrangers |
-|  | Contraste insuffisant |
-
-Le vérificateur est un premier filtre, pas un certificat de conformité.
-
-• Il signale ce qu'il peut détecter automatiquement - pas ce qui est vraiment accessible
-• Une absence d'erreur ne signifie pas que le document est accessible
-
-## Diapositive 14 - Exporter Word vers PDF sans perdre l'accessibilité
-
-Un Word accessible peut devenir un PDF inaccessible si l'export est mal fait.
-
-1 Vérifier l'accessibilité dans Word
-
-2 Fichier > Enregistrer sous > PDF > Options
-
-3 Cocher les options d'accessibilité avant d'enregistrer
-
-Options à cocher dans Word bureau Windows
-
-• Propriétés du document
-• Balises de structure pour l'accessibilité
-• Créer des signets à l'aide des titres ou en-têtes
-• Ne pas convertir le texte en image bitmap
-
-## Diapositive 15 - Retour sur le document de Sami
-
-Vous vous souvenez ?
-
-Vous avez déjà travaillé la plupart des erreurs de Structure, Couleurs, Contenus et Lisibilité. Il restait 2 erreurs des thèmes Langue et Finalisation que vous n'aviez pas encore les outils pour détecter.
-
-Les 2 erreurs cachées
-
-• Langue : un passage en anglais sans balisage de langue
-• Finalisation : les propriétés du document (titre, auteur) sont vides
-
-Les corrections en 2 minutes
-
-• Langue : sélectionner le passage anglais > Révision > Langue > Définir en anglais
-• Finalisation : Fichier > Informations > renseigner Titre et Auteur
-
-## Diapositive 16 - Par où commencer ?
-
-Tout est important mais commencez par ce qui est le plus facile.
-
-1 Styles de titre sur tous les titres
-
-2 Texte alternatif sur chaque image
-
-3 Lancer le vérificateur d'accessibilité avant d'envoyer
-
-## Diapositive 17 - Quiz final : saurez-vous trouver les 5 erreurs ?
-
-Un collègue vous partage un document Word pour relecture.
-En l'analysant, vous repérez les éléments suivants.
-
-Identifiez les 5 erreurs d'accessibilité :
-
-1. Le titre Introduction est en gras Arial 16 au lieu d'un style de titre
-2. Un tableau de suivi utilise uniquement des lignes rouges et vertes
-3. Un lien est rédigé : cliquez ici pour le formulaire
-4. La langue principale du document n'est pas définie
-5. Les propriétés du fichier (Titre et Auteur) sont vides
-
-## Diapositive 18 - Correction : les 5 erreurs et leurs solutions
-
-5 erreurs, 5 solutions
-
-• Structure : le gras n'est pas reconnu par les lecteurs d'écran - appliquer le style Titre 1
-• Couleurs : l'information ne doit pas reposer sur la couleur seule - ajouter les étiquettes Conforme / Non conforme
-• Contenus : un lien doit être compréhensible hors contexte - renommer en Accéder au formulaire de demande RH
-• Langue : sans déclaration, la synthèse vocale prononce avec le mauvais accent - Révision > Langue > Définir : Français
-• Finalisation : le titre est la première information lue par le lecteur d'écran - Fichier > Informations > saisir Titre et Auteur
-
-## Diapositive 19 - Faites le point
-
-Sans relire le support, complétez de mémoire :
-
-1. La règle la plus importante pour qu'un lecteur d'écran comprenne la structure de votre document : _______________
-
-2. La vérification à faire en 30 secondes avant d'envoyer n'importe quel document : _______________
-
-3. Le geste que vous ferez dès demain sur votre prochain document : _______________
-
-## Diapositive 20 - Faites le point : les réponses
-
-Les réponses
-
-1. Utiliser les styles de titre (Titre 1, Titre 2) pour structurer le document
-2. Lancer le vérificateur d'accessibilité (Révision > Vérifier l'accessibilité)
-3. Ajouter un texte alternatif aux images ou renseigner le titre dans les propriétés
-
-Vous avez ces réflexes ? L'essentiel est acquis.
-Sinon : relisez Structure et Contenus.
-
-## Diapositive 21 - Dès demain, vos trois premiers réflexes
-
-Ctrl+F > onglet Titres
-
-• Vérifier que tous les titres apparaissent dans le volet de navigation
-• Si le volet est vide : appliquer les styles
-
-Clic droit > Texte de remplacement
-
-• Décrire la fonction de chaque image
-• Image décorative : cocher Marquer comme décoratif
-
-Fichier > Vérifier l'accessibilité
-
-• Corriger les erreurs avant d'envoyer
-• Zéro erreur = premier filtre passé
+Chronométrer un binôme novice sur le fichier avec pistes et mener un essai
+fonctionnel distinct depuis le fichier autonome. Consigner séparément le temps,
+les aides nécessaires, les productions obtenues et les écarts de procédure.
+Toute modification du kit après cette porte impose de rejouer le parcours humain
+affecté avant de commencer la refonte du deck.
