@@ -9,246 +9,181 @@ lang: fr
 
 # Mémo accessibilité - Microsoft Word
 
-Aide-mémoire des bonnes pratiques pour créer des documents Word accessibles.
-Formation 102846 - Octobre 2026
+Mode opératoire principal pour Word bureau sous Windows. Les identifiants
+renvoient à la checklist et au guide Sami. Le guide explique les règles et les
+impacts ; ce mémo indique où agir et quoi vérifier.
 
----
+## Station 1 - Structurer et naviguer
 
-## Thème 1 - Structure du document
+### P-01 - Distinguer le titre principal des titres hiérarchiques
 
-La structure permet aux lecteurs d'écran de naviguer dans le document. Sans elle, le contenu est un bloc de texte plat sans repère.
+**Procédure Word** : **Accueil** > **Styles**. Appliquer **Titre** au titre
+principal, puis **Titre 1**, **Titre 2** et les niveaux suivants aux sections.
 
-### Styles de titre
+### P-02 - Construire une hiérarchie cohérente
 
-**Erreur** : simuler un titre en mettant du texte en gras et en changeant la taille (ex : gras Arial 16, gras Arial 14, gras souligné Arial 12). Le lecteur d'écran ne détecte aucun titre : l'utilisateur ne peut pas naviguer entre les sections.
-
-**Procédure** : sélectionner le texte > onglet **Accueil** > zone **Styles** > choisir **Titre 1**, **Titre 2** ou **Titre 3**.
-
-- Commencer par un Titre 1, ne pas sauter de niveau (pas de Titre 3 après un Titre 1)
-- Le style **Titre** (sans numéro) est réservé au titre principal du document, différent du titre dans les propriétés
-
-**Vérifier** : onglet **Affichage** > cocher **Volet de navigation** > onglet **Titres** pour visualiser la hiérarchie.
+**Procédure Word** : **Affichage** > **Volet de navigation**, puis corriger les
+styles depuis **Accueil** > **Styles**. Les niveaux progressent sans saut.
 
 ![Volet de navigation Word montrant la hiérarchie des titres](images-memo-word/word-volet-navigation.png)
 
-### Listes natives
+### P-03 - Naviguer et générer un sommaire automatique
 
-**Erreur** : taper des puces (-, *) ou des numéros (1. 2. 3.) au clavier et indenter manuellement. Le lecteur d'écran lit chaque ligne comme un paragraphe ordinaire au lieu d'annoncer "liste de 3 éléments, élément 1 sur 3".
-
-**Procédure** : sélectionner les paragraphes > **Accueil** > bouton **Puces** ou **Numérotation**.
-
-![Barre d'outils des listes dans Word](images-memo-word/word-listes-toolbar.png)
-
-### Table des matières automatique
-
-**Erreur** : taper un sommaire à la main avec des points de suite et des numéros de page en dur. Ce sommaire n'est pas navigable : le lecteur d'écran ne peut pas sauter directement à une section, et il ne se met pas à jour.
-
-**Procédure** : onglet **Références** > **Table des matières** > **Table des matières personnalisée**.
+**Procédure Word** : **Références** > **Table des matières** > **Table
+automatique**. Après une modification, clic droit dans le sommaire > **Mettre à
+jour les champs**.
 
 ![Boîte de dialogue Table des matières dans Word](images-memo-word/word-table-matieres.png)
 
-### En-têtes de tableau
+### P-04 - Utiliser des listes natives
 
-**Erreur** : créer un tableau de données sans identifier la ligne d'en-tête. Le lecteur d'écran ne peut pas associer chaque cellule à sa colonne : les données deviennent incompréhensibles.
+**Procédure Word** : sélectionner les paragraphes, puis **Accueil** > **Puces**
+ou **Numérotation**. Ne pas saisir les puces, numéros ou retraits au clavier.
 
-**Procédure** :
+![Barre d'outils des listes dans Word](images-memo-word/word-listes-toolbar.png)
 
-1. Cliquer dans le tableau > onglet **Création** > cocher **Ligne d'en-tête**
-2. Clic droit > **Propriétés du tableau** > onglet **Ligne** > cocher **Répéter en haut de chaque page en tant que ligne d'en-tête**
+### P-05 - Employer les fonctions de mise en page adaptées
 
-![Option Répéter la ligne d'en-tête dans les propriétés du tableau Word](images-memo-word/word-tableau-entete.png)
-
-### Cellules fusionnées
-
-**Erreur** : fusionner des cellules pour créer des mises en page complexes (ex : première ligne fusionnée sur 3 colonnes, libellés en gras visuels). Les cellules fusionnées cassent la logique de lecture : le lecteur d'écran ne peut plus associer chaque cellule à son en-tête. Des libellés en gras ne suffisent pas.
-
-**Bonne pratique** : privilégier les tableaux simples en grille sans fusion, avec la **Ligne d'en-tête** cochée. Si un tableau est trop complexe, le scinder en plusieurs tableaux simples.
-
----
-
-## Thème 2 - Couleurs et contrastes
-
-### Information par la couleur seule
-
-**Erreur** : écrire "URGENT" en rouge sans autre indication visuelle (pas de gras, pas de texte explicatif). Une personne daltonienne ou utilisant un écran monochrome ne perçoit aucune urgence : le mot se fond dans le texte courant (WCAG 1.4.1).
-
-**Bonne pratique** : ajouter du **gras** et un texte explicatif en complément de la couleur. Exemple : **URGENT - Retour attendu avant le 30 juin 2025**.
-
-### Contraste minimum
-
-**Erreur** : utiliser du gris clair sur fond blanc (ex : #767676 = ratio 4,48:1, insuffisant pour du texte normal). L'erreur est subtile : le texte semble lisible mais échoue de justesse au test WCAG 1.4.3. Seul un outil de mesure permet de trancher.
-
-**Seuils WCAG** : texte normal **4,5:1** minimum - grand texte (18 pt ou 14 pt gras) **3:1** - icônes et éléments graphiques **3:1**.
-
-**Correction** : remplacer par un gris plus foncé (ex : #595959, ratio 7:1) ou du noir.
-
-**Outil** : Colour Contrast Analyser (CCA), application gratuite pour mesurer le ratio. C'est le type d'erreur qu'on ne peut pas détecter visuellement : il faut systématiquement mesurer le contraste avec un outil, surtout pour les gris clairs et les couleurs proches du seuil.
-
-### Graphiques lisibles sans couleur
-
-**Erreur** : différencier les barres d'un graphique uniquement par la couleur (vert/rouge/orange sans motif ni étiquette). Environ 8 % des hommes sont daltoniens : les barres deviennent indiscernables.
-
-**Bonne pratique** : ajouter des **motifs distincts** (hachures, points, plein) et des **étiquettes** sur chaque barre.
-
----
-
-## Thème 3 - Contenus
-
-### Alternative textuelle des images informatives
-
-**Erreur** : image informative sans texte alternatif. Le lecteur d'écran annonce "image" sans aucune description.
-
-**Procédure** : clic droit sur l'image > **Modifier le texte de remplacement** > saisir 1 à 2 phrases décrivant l'information portée par l'image.
-
-![Menu contextuel Word pour modifier le texte de remplacement](images-memo-word/word-menu-alt-text.png)
-
-Ne jamais utiliser la génération automatique de description (rarement pertinente). Ne jamais laisser le nom de fichier par défaut comme alternative (ex : "image.png" n'apporte aucune information).
-
-### Images complexes
-
-**Erreur** : laisser le nom de fichier par défaut (ex : alt="image.png") ou mettre une longue description dans le champ alt (organigramme, graphique détaillé).
-
-**Bonne pratique** : pour une image complexe, l'alt doit rester court (~80 caractères) et renvoyer vers une description détaillée dans le corps du document. Exemple : alt="Organigramme de la direction (description ci-dessous)." suivi d'une description textuelle adjacente.
-
-### Images décoratives
-
-**Erreur** : mettre un alt "E-mail" sur une icône enveloppe placée juste à côté du mot "e-mail". Le lecteur d'écran lit "E-mail, e-mail" : redondance qui pollue la lecture. L'accessibilité des images ne se limite pas à "mettre un alt partout" : certaines images doivent être explicitement ignorées.
-
-**Procédure** : clic droit > **Modifier le texte de remplacement** > cocher **Marquer comme décoratif**.
-
-![Boîte de dialogue alt text Word avec option Marquer comme décoratif](images-memo-word/word-alt-text-dialog.png)
-
-### Liens explicites
-
-**Erreur** : "cliquez ici" ou "en savoir plus" comme intitulé de lien. Le lecteur d'écran liste les liens par intitulé : "cliquez ici" ne donne aucune information hors contexte visuel.
-
-**Bonne pratique** : intitulé qui décrit la destination. Pour un lien de téléchargement, préciser le titre, le format et le poids. Exemple : "Consulter les annexes du rapport T1 2025 (PDF, 1,2 Mo)".
-
-### Filigrane invisible
-
-**Erreur** : insérer un filigrane "CONFIDENTIEL" dans l'en-tête du document. Les filigranes sont des objets graphiques non lus par les lecteurs d'écran. Un utilisateur aveugle ne sait pas que le document est confidentiel.
-
-**Bonne pratique** : ajouter la mention "Document confidentiel" en texte dans le corps du document.
-
-### Texte sous forme d'image
-
-**Erreur** : insérer une capture d'écran contenant du texte (ex : "Avis important : les indicateurs du T2 2025 seront transmis avant le 15 septembre 2025."). Ce texte ne peut être ni lu par la synthèse vocale, ni agrandi, ni sélectionné, ni recherché.
-
-**Bonne pratique** : toujours saisir le texte directement dans Word. Seuls les logos peuvent rester en image.
-
----
-
-## Thème 4 - Langue et lisibilité
-
-### Balisage des passages en langue étrangère
-
-**Erreur** : insérer un passage en anglais sans changer la langue du texte. Le lecteur d'écran lit le passage avec la prononciation française, ce qui le rend incompréhensible.
-
-**Procédure** : sélectionner le passage > onglet **Révision** > **Langue** > **Définir la langue de vérification** > choisir la langue (ex : Anglais). Alternative rapide : cliquer sur la langue affichée dans la barre d'état (en bas) et choisir la langue.
-
-![Sélection de la langue dans la barre d'état Word](images-memo-word/word-selection-langue.png)
-
-### Alignement à gauche
-
-**Erreur** : justifier tout le document. Le texte justifié crée des espaces inégaux entre les mots (lézardes) qui rendent la lecture difficile pour les personnes dyslexiques ou malvoyantes.
-
-**Procédure** : **Accueil** > **Aligner à gauche**.
-
-### Espacement par les styles
-
-**Erreur** : insérer des paragraphes vides (touche Entrée) pour créer de l'espace. Le lecteur d'écran lit "vide, vide, vide, vide" à chaque paragraphe vide.
-
-**Procédure** : gérer l'espacement par les propriétés du style de paragraphe. Clic droit > **Modifier** > **Format** > **Paragraphe** > ajuster les valeurs **Avant** et **Après**.
-
-**Vérifier** : **Accueil** > bouton **Afficher tout** pour visualiser les marques de formatage (paragraphes vides, sauts de ligne, tabulations, espaces).
+**Procédure Word** : **Accueil** > **Afficher tout**, puis corriger les
+espacements dans **Paragraphe**. Utiliser **Mise en page** > **Sauts** et
+**Mise en page** > **Colonnes** au lieu de paragraphes vides, tabulations ou
+espaces répétés.
 
 ![Bouton Afficher tout dans la barre d'outils Word](images-memo-word/word-marques-formatage.png)
 
-### Majuscules par la mise en forme
+## Station 2 - Rendre les contenus et les liens compréhensibles
 
-**Erreur** : taper "ANNEXES" en majuscules au clavier. Le lecteur d'écran peut épeler lettre par lettre les mots tapés en majuscules.
+### P-06 - Rédiger l'alternative d'une image informative simple
 
-**Procédure** : taper "Annexes" en minuscules > sélectionner > **Accueil** > **Police** > cocher **Tout en majuscules**. Le texte s'affiche en majuscules visuellement mais le lecteur d'écran lit le mot normalement.
+**Procédure Word** : clic droit sur l'image > **Afficher le texte de
+remplacement**, puis décrire brièvement l'information utile. Vérifier la
+description proposée automatiquement au lieu de la valider par défaut.
 
----
+![Menu contextuel Word pour modifier le texte de remplacement](images-memo-word/word-menu-alt-text.png)
 
-## Thème 5 - Finalisation
+### P-07 - Décrire une image complexe
 
-### Propriétés du document
+**Procédure Word** : ajouter une alternative courte, puis saisir la description
+détaillée dans un paragraphe voisin. La description doit rester compréhensible
+quand l'image est masquée.
 
-**Erreur** : laisser les propriétés Titre et Auteur vides. Les propriétés du document sont la première information lue par un lecteur d'écran. Sans titre, l'utilisateur ne sait pas ce qu'il ouvre.
+### P-08 - Marquer une image redondante comme décorative
 
-**Procédure** : **Fichier** > **Informations** > **Propriétés** > renseigner **Titre** et **Auteur**. Vérifier aussi que la langue du document est définie en **Français** (barre d'état).
+**Procédure Word** : afficher le texte de remplacement, puis cocher **Marquer
+comme décoratif** seulement si l'image ne porte aucune information absente du
+texte voisin.
 
-![Propriétés du document dans Word - champ Titre](images-memo-word/word-proprietes-titre.png)
+![Boîte de dialogue du texte de remplacement Word avec l'option décorative](images-memo-word/word-alt-text-dialog.png)
 
-### Vérification de l'accessibilité
+### P-09 - Remplacer une image de texte par du vrai texte
 
-**Procédure** : onglet **Révision** > **Vérifier l'accessibilité**. L'outil est un guide, pas une preuve de conformité : il détecte les problèmes courants (images sans alt, tableaux sans en-tête) mais peut rater certaines erreurs (contraste, faux titres visuels, fausses listes).
+**Procédure Word** : saisir l'information dans un paragraphe structuré,
+appliquer les styles utiles, puis supprimer l'image de texte. Le contenu doit
+pouvoir être sélectionné, agrandi et recherché.
 
-![Volet de vérification de l'accessibilité dans Word](images-memo-word/word-verification-a11y.png)
+### P-10 - Rendre les liens autonomes et identifiables
 
-### Export PDF accessible
+**Procédure Word** : clic droit > **Modifier le lien**, puis remplacer
+« cliquez ici » par un libellé qui décrit la destination. Pour un
+téléchargement, indiquer le titre, le format, le poids et la langue si elle
+diffère de celle du document.
 
-1. **Fichier** > **Exporter** > **Créer PDF/XPS**
-2. Cliquer sur **Options**, cocher :
-   - **Créer des signets à l'aide de : Titres**
-   - **Propriétés du document**
-   - **Balises de structure de document pour l'accessibilité**
+### P-11 - Reprendre une information essentielle dans le corps
+
+**Procédure Word** : ajouter le statut dans le corps avec un style adapté. Un
+filigrane ou un élément d'en-tête éventuel ne doit jamais être l'unique porteur
+de l'information.
+
+## Station 3 - Sécuriser couleurs, graphiques et tableaux
+
+### P-12 - Mesurer les contrastes utiles
+
+**Procédure Word** : relever les couleurs du texte et du fond, les mesurer avec
+Colour Contrast Analyser, puis corriger la couleur du texte si nécessaire.
+
+**Seuils** : au moins **4,5:1** pour le texte normal, **3:1** pour le grand
+texte et **3:1** pour les composants graphiques utiles. Toujours conclure à
+partir du ratio calculé, jamais de l'apparence ou d'un code couleur isolé.
+
+### P-13 - Ne pas transmettre une information par la couleur seule
+
+**Procédure Word** : **Insertion** > **Graphique** > **Histogramme groupé**,
+reporter les valeurs, afficher les étiquettes et appliquer des motifs distincts.
+La correction reste réalisable dans Word, sans logiciel d'image.
+
+### P-14 - Structurer un tableau de données simple
+
+**Procédure Word** : utiliser **Outils de tableau** > **Disposition** pour
+défusionner si nécessaire. Dans **Propriétés du tableau**, répéter la ligne
+d'en-tête et interdire le fractionnement des lignes. Scinder un tableau trop
+complexe plutôt que multiplier les fusions.
+
+![Option de répétition de la ligne d'en-tête dans Word](images-memo-word/word-tableau-entete.png)
+
+## Station 4 - Régler langues et lisibilité
+
+### P-15 - Définir les langues du document et des passages
+
+**Procédure Word** : **Révision** > **Langue** > **Définir la langue de
+vérification** pour le document, puis recommencer sur chaque passage dans une
+autre langue.
+
+![Sélection de la langue dans la barre d'état Word](images-memo-word/word-selection-langue.png)
+
+### P-16 - Régler une typographie lisible par les styles
+
+**Procédure Word** : **Accueil** > **Styles** > modifier le style **Normal**.
+Utiliser une police sans sérif, un corps d'au moins 12 points, un interligne de
+1,15 et un alignement à gauche.
+
+### P-17 - Appliquer la casse par la mise en forme
+
+**Procédure Word** : corriger d'abord le texte avec ses accents, puis utiliser
+**Police** > **Effets** > **Majuscules** si cette apparence est nécessaire.
+
+### P-18 - Développer les sigles et vérifier les majuscules
+
+**Procédure Word** : développer le terme à sa première occurrence. Dans
+**Fichier** > **Options** > **Vérification**, décocher **Ignorer les mots en
+MAJUSCULES** pour que le correcteur les examine.
+
+## Station 5 - Finaliser, vérifier, exporter et contrôler
+
+### P-19 - Renseigner les propriétés et le nom du fichier
+
+**Procédure Word** : **Fichier** > **Informations** > **Propriétés** >
+**Propriétés avancées**, puis **Fichier** > **Enregistrer sous**. Vérifier le
+titre, l'auteur, la langue et un nom de fichier descriptif.
+
+![Propriétés du document dans Word](images-memo-word/word-proprietes-titre.png)
+
+### P-20 - Exporter un PDF structuré
+
+**Procédure Word** : vérifier les propriétés, puis **Fichier** > **Enregistrer
+sous** ou **Exporter** > **PDF** > **Options**. Activer les propriétés du
+document, les balises de structure et les signets issus des titres.
 
 ![Options d'export PDF dans Word](images-memo-word/word-export-pdf.png)
 
-### Vérification post-export
+### C-01 - Utiliser le vérificateur d'accessibilité
 
-Utiliser **PAC** (PDF Accessibility Checker), outil gratuit, pour vérifier la conformité PDF/UA du document exporté.
+**Procédure Word** : **Révision** > **Vérifier l'accessibilité**. Parcourir
+chaque résultat, traiter les alertes pertinentes et expliquer les alertes
+résiduelles. Une absence d'erreur ne prouve pas à elle seule l'accessibilité.
 
-![Interface de PAC 2024](images-memo-word/pac-interface.png)
+![Volet de vérification de l'accessibilité dans Word](images-memo-word/word-verification-a11y.png)
 
----
+### C-02 - Contrôler le PDF après export
 
-## Checklist des bonnes pratiques
+Ouvrir le PDF dans **PAC**, outil principal, ou dans **Acrobat Pro** en
+alternative. Contrôler au minimum le titre, la langue, les balises, les signets
+et l'ordre de lecture, puis terminer par la **checklist humaine**.
 
-### Structure
-
-- Les titres utilisent les styles Titre 1, Titre 2, Titre 3 (pas de gras/taille)
-- Les listes utilisent les puces ou la numérotation natives (pas de puces tapées)
-- La table des matières est générée automatiquement (pas de sommaire tapé)
-- Les tableaux ont une ligne d'en-tête déclarée et répétée
-- Les tableaux n'ont pas de cellules fusionnées
-
-### Couleurs
-
-- L'information n'est pas véhiculée par la couleur seule (gras + texte en complément)
-- Le contraste est suffisant : 4,5:1 texte normal, 3:1 grand texte (vérifier avec CCA)
-- Les graphiques ont des motifs distincts et des étiquettes (pas uniquement des couleurs)
-
-### Contenus
-
-- Les images informatives ont un texte alternatif pertinent (pas le nom de fichier)
-- Les images complexes ont un alt court + une description adjacente dans le document
-- Les images décoratives sont marquées comme décoratives
-- Les liens ont un intitulé explicite (pas "cliquez ici"), avec format et poids si téléchargement
-- Pas de filigrane sans équivalent textuel dans le corps du document
-- Pas de texte inséré sous forme d'image (saisir le texte directement)
-
-### Langue et lisibilité
-
-- Les passages en langue étrangère sont balisés dans la bonne langue
-- Le texte est aligné à gauche (pas justifié)
-- Pas de paragraphes vides : l'espacement est géré par les styles
-- Les majuscules sont appliquées par la mise en forme Police, pas tapées au clavier
-
-### Finalisation
-
-- Le titre, l'auteur et la langue sont renseignés dans les propriétés du document
-- La vérification d'accessibilité intégrée ne remonte pas d'erreur bloquante
-- Le PDF est exporté avec signets, propriétés et balises de structure
-
----
+![Interface de PAC](images-memo-word/pac-interface.png)
 
 ## Ressources
 
-- **Colour Contrast Analyser (CCA)** : https://www.tpgi.com/color-contrast-checker/
-- **PAC - PDF Accessibility Checker** : https://pac.pdf-accessibility.org/
+- **Colour Contrast Analyser** : <https://www.tpgi.com/color-contrast-checker/>
+- **PAC - PDF Accessibility Checker** : <https://pac.pdf-accessibility.org/>
 - **Site d'entraînement** :\
   [https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/){.url-imprimee}

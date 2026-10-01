@@ -1,8 +1,8 @@
-"""Vérifie les ressources générées que ``make pack`` ne régénère pas.
+"""Vérifie la fraîcheur des ressources générées du pack.
 
-Le pack reconstruit le deck, les PDF et les supports. Les documents Sami, la
-grille XLSX et le deck WCAG sont produits par des commandes distinctes : ce
-contrôle empêche de livrer une version plus ancienne que leurs sources.
+Certaines ressources sont reconstruites par ``make pack`` avant ce contrôle,
+d'autres par des commandes distinctes. Ce contrôle empêche de livrer une
+version plus ancienne que ses sources, quelle que soit sa chaîne de génération.
 """
 
 from __future__ import annotations
@@ -11,13 +11,16 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
+from config import load_formation_config
+
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+LIVRABLES = load_formation_config()["livrables"]
 
 
 @dataclass(frozen=True)
 class RessourceGeneree:
-    """Contrat de fraîcheur d'une ressource produite hors de ``make pack``."""
+    """Contrat de fraîcheur d'une ressource générée du pack."""
 
     nom: str
     commande: str
@@ -29,11 +32,49 @@ RESSOURCES_GENEREES = (
     RessourceGeneree(
         nom="documents Sami",
         commande="make sami",
-        sources=("scripts/generate_exercice_sami.py",),
+        sources=(
+            "scripts/generate_exercice_sami.py",
+            "scripts/exercice_sami_matrice.py",
+            "_source/exercice-sami-matrice.yml",
+        ),
         sorties=(
             "_source/tp-doc-inaccessible.docx",
             "_source/tp-doc-aide-correction.docx",
             "_source/tp-doc-accessible.docx",
+        ),
+    ),
+    RessourceGeneree(
+        nom="checklists Sami",
+        commande="make checklist",
+        sources=(
+            "scripts/generate_exercice_sami.py",
+            "scripts/exercice_sami_matrice.py",
+            "scripts/config.py",
+            "config.yml",
+            "_source/exercice-sami-matrice.yml",
+        ),
+        sorties=(
+            "_source/checklist-accessibilite-bureautique.md",
+            f"{LIVRABLES}/Formateur/tp-word-igpde/"
+            "checklist-accessibilite-bureautique.docx",
+        ),
+    ),
+    RessourceGeneree(
+        nom="checklist PDF Sami",
+        commande="make pdf",
+        sources=(
+            "_source/checklist-accessibilite-bureautique.md",
+            "scripts/fabriquer_pack.py",
+            "scripts/pack_supports.py",
+            "scripts/config.py",
+            "config.yml",
+            "vendor/accessible-pdf/scripts/md2pdf.py",
+            "vendor/accessible-pdf/templates/formation.css",
+            "fiche-pratique/bandeau-igpde-logos.jpg",
+        ),
+        sorties=(
+            f"{LIVRABLES}/Formateur/tp-word-igpde/"
+            "checklist-accessibilite-bureautique.pdf",
         ),
     ),
     RessourceGeneree(

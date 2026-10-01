@@ -20,6 +20,7 @@ Les contrôles qui lisent le deck assemblé utilisent le PPTX de travail à la r
 - `test_finalize.py` : langue, alternatives et ordre de lecture du PPTX ;
 - `test_deck_geometry.py` : pied de page, chevauchements, alternatives, taille minimale des polices et accents français ;
 - `test_fabriquer_pack.py`, `test_pack_supports.py` et `test_pdf_ua.py` : intégrité du pack, copies et refus des PDF non conformes PDF/UA-1 ;
+- `test_exercice_sami_memos_notes.py` : alignement des mémos et des notes formateur sur les contrôles et les 90 minutes de la matrice Sami ;
 - `test_qa_*.py` : mécanismes de contrôle qualité et de correction prudente du deck.
 
 ## Écarts connus

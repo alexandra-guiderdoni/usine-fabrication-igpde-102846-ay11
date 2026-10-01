@@ -1,0 +1,637 @@
+# PDG-LARGE-FILE-JUSTIFICATION: source canonique unique des contrôles du TP ;
+# les entrées restent regroupées pour préserver leur ordre et éviter toute liste parallèle.
+version: 1
+
+identite_editoriale:
+  versions:
+    inaccessible: tp-doc-inaccessible.docx
+    avec_pistes: tp-doc-aide-correction.docx
+    corrigee: tp-doc-accessible.docx
+  invariant: Même texte, mêmes informations et même ordre dans le corps des trois DOCX.
+  transformations_autorisees:
+    - P-07
+    - P-09
+    - P-10
+    - P-11
+    - P-13
+    - P-17
+    - P-18
+
+sequence:
+  - id: preambule
+    titre: Préambule
+    duree_minutes: 5
+  - id: station-1
+    titre: Structurer et naviguer
+    duree_minutes: 17
+  - id: station-2
+    titre: Rendre les contenus et les liens compréhensibles
+    duree_minutes: 15
+  - id: station-3
+    titre: Sécuriser couleurs, graphiques et tableaux
+    duree_minutes: 15
+  - id: station-4
+    titre: Régler langues et lisibilité
+    duree_minutes: 15
+  - id: station-5
+    titre: Finaliser, vérifier, exporter et contrôler
+    duree_minutes: 18
+  - id: marge-remise
+    titre: Marge et remise
+    duree_minutes: 5
+
+controles:
+  - id: P-01
+    niveau: P
+    station: station-1
+    intitule: Distinguer le titre principal des titres hiérarchiques
+    impact: Les technologies d'assistance identifient le document et sa structure.
+    regle: Utiliser le style Titre pour le titre principal et les styles Titre 1, Titre 2 et suivants pour la hiérarchie.
+    defaut: Le titre principal et des intertitres sont seulement mis en forme visuellement.
+    action_attendue: Appliquer les styles adaptés sans changer le texte.
+    occurrences_attendues: 1
+    ancrage: Premier titre principal simulé du document.
+    piste: Identifier le rôle du texte avant de choisir le style correspondant.
+    etat_corrige: Un style Titre unique précède une hiérarchie de styles de titres.
+    procedure_word: Accueil > Styles, puis appliquer Titre au titre principal et les niveaux de titre aux sections.
+    procedure_writer: Styles > Gérer les styles, puis appliquer Titre et Titre 1 à Titre 3 selon le niveau.
+    preuve: {mode: automatique_et_humaine, attendu: Styles vérifiables dans le DOCX et structure lisible dans le volet de navigation.}
+    checklist: Le titre principal et les titres de section utilisent des styles adaptés.
+    guide: station-1/styles-et-titres
+    slide: station-1-structure
+    note_formateur: Faire verbaliser la différence entre rôle et apparence.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-05, MS-06]
+    transformations_editoriales: []
+  - id: P-02
+    niveau: P
+    station: station-1
+    intitule: Construire une hiérarchie de titres cohérente
+    impact: Une structure sans saut rend le plan compréhensible et navigable.
+    regle: Enchaîner les niveaux de titres sans saut et conserver une numérotation cohérente.
+    defaut: La hiérarchie saute un niveau et la numérotation visuelle contredit la structure.
+    action_attendue: Réordonner les niveaux de styles et leur numérotation.
+    occurrences_attendues: 1
+    ancrage: Premier sous-titre dont le niveau ne suit pas celui qui le précède.
+    piste: Comparer le niveau du titre avec son parent logique.
+    etat_corrige: Les niveaux progressent sans saut et la numérotation suit la hiérarchie.
+    procedure_word: Affichage > Volet de navigation, puis corriger les styles depuis Accueil > Styles.
+    procedure_writer: Affichage > Navigateur, puis corriger les styles depuis Styles > Gérer les styles.
+    preuve: {mode: automatique_et_humaine, attendu: Ordre des niveaux contrôlé dans le XML et confirmé dans le volet de navigation.}
+    checklist: La hiérarchie des titres ne saute aucun niveau.
+    guide: station-1/hierarchie
+    slide: station-1-structure
+    note_formateur: Vérifier la logique du plan avant la numérotation.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-06]
+    transformations_editoriales: []
+  - id: P-03
+    niveau: P
+    station: station-1
+    intitule: Naviguer et générer un sommaire automatique
+    impact: Le volet et le sommaire donnent deux accès fiables à la structure.
+    regle: Vérifier le plan dans le volet de navigation et insérer un sommaire fondé sur les styles de titres.
+    defaut: Le document ne propose pas de sommaire automatique actualisable.
+    action_attendue: Contrôler le volet, insérer le sommaire et vérifier sa mise à jour.
+    occurrences_attendues: 1
+    ancrage: Paragraphe stable placé avant la première section du guide.
+    piste: Le sommaire doit être produit à partir des styles, jamais saisi à la main.
+    etat_corrige: Le volet reflète le plan et le sommaire peut être actualisé.
+    procedure_word: Références > Table des matières > Table automatique, puis clic droit > Mettre à jour les champs.
+    procedure_writer: Insertion > Table des matières et index > Table des matières, index ou bibliographie.
+    preuve: {mode: humaine, attendu: Navigation cohérente et sommaire actualisable après modification d'un titre.}
+    checklist: Le volet de navigation et le sommaire automatique reflètent le même plan.
+    guide: station-1/navigation-et-sommaire
+    slide: station-1-structure
+    note_formateur: Montrer qu'un sommaire fiable découle des bons styles.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-07, MS-08]
+    transformations_editoriales: []
+  - id: P-04
+    niveau: P
+    station: station-1
+    intitule: Utiliser des listes natives
+    impact: Les lecteurs d'écran annoncent la nature et la longueur des listes.
+    regle: Créer les puces et numéros avec les fonctions de liste du traitement de texte.
+    defaut: Une liste est simulée avec des caractères saisis au début des paragraphes.
+    action_attendue: Remplacer la fausse liste par une liste native.
+    occurrences_attendues: 1
+    ancrage: Première suite de paragraphes commençant par des puces saisies.
+    piste: Sélectionner les éléments puis appliquer la commande de liste appropriée.
+    etat_corrige: Les éléments appartiennent à une liste structurée dans le DOCX.
+    procedure_word: Sélectionner les paragraphes, puis Accueil > Puces ou Numérotation.
+    procedure_writer: Sélectionner les paragraphes, puis Format > Puces et numérotation.
+    preuve: {mode: automatique_et_humaine, attendu: Structure de liste présente dans le DOCX et annoncée comme liste.}
+    checklist: Les listes sont créées avec les fonctions de puces ou de numérotation.
+    guide: station-1/listes
+    slide: station-1-structure
+    note_formateur: Faire comparer une fausse puce et une liste native.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-09]
+    transformations_editoriales: []
+  - id: P-05
+    niveau: P
+    station: station-1
+    intitule: Employer les fonctions de mise en page adaptées
+    impact: Une mise en page robuste reste compréhensible quand l'affichage ou la restitution change.
+    regle: Utiliser espacements, retraits, sauts et colonnes plutôt que paragraphes vides, espaces, tabulations ou retours forcés.
+    defaut: Une zone cumule paragraphes vides, espaces successifs, tabulations, retours forcés et saut inadapté.
+    action_attendue: Afficher les marques puis remplacer chaque artifice par la fonction prévue.
+    occurrences_attendues: 1
+    ancrage: Zone d'exemple intitulée Mise en page robuste.
+    piste: Activer les marques de mise en forme avant de corriger ce qui sert seulement à positionner.
+    etat_corrige: La disposition repose sur les propriétés de paragraphe, les sauts et les colonnes natives.
+    procedure_word: Accueil > Afficher tout, puis régler Paragraphe, Mise en page > Sauts et Mise en page > Colonnes.
+    procedure_writer: Affichage > Marques de formatage, puis Format > Paragraphe et Format > Style de page.
+    preuve: {mode: automatique_et_humaine, attendu: Absence des artifices ciblés dans le XML et contrôle visuel avec marques affichées.}
+    checklist: La mise en page n'est pas simulée par des caractères ou des paragraphes vides.
+    guide: station-1/mise-en-page
+    slide: station-1-structure
+    note_formateur: Corriger les artifices dans l'ordre où ils apparaissent.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-12]
+    transformations_editoriales: []
+  - id: P-06
+    niveau: P
+    station: station-2
+    intitule: Rédiger l'alternative d'une image informative simple
+    impact: Une personne qui ne voit pas l'image reçoit son information utile.
+    regle: Rédiger une alternative concise liée au contexte, sans reprendre automatiquement une description générée.
+    defaut: Une image informative possède une alternative absente ou inadéquate.
+    action_attendue: Observer le rôle de l'image et rédiger soi-même son alternative.
+    occurrences_attendues: 1
+    ancrage: Première image informative simple.
+    piste: Décrire l'information nécessaire ici, pas l'apparence exhaustive de l'image.
+    etat_corrige: L'image porte une alternative concise et contextuelle.
+    procedure_word: Clic droit sur l'image > Afficher le texte de remplacement, puis renseigner la description.
+    procedure_writer: Clic droit sur l'image > Propriétés > Options, puis renseigner le texte alternatif.
+    preuve: {mode: automatique_et_humaine, attendu: Alternative présente dans le DOCX et jugée pertinente par lecture humaine.}
+    checklist: Chaque image informative simple possède une alternative pertinente.
+    guide: station-2/image-simple
+    slide: station-2-contenus
+    note_formateur: Refuser la simple validation d'une description automatique.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-02]
+    transformations_editoriales: []
+  - id: P-07
+    niveau: P
+    station: station-2
+    intitule: Décrire une image complexe
+    impact: Les données ou relations complexes restent disponibles sous forme textuelle.
+    regle: Associer une alternative courte à une description détaillée adjacente dans le corps.
+    defaut: Une image complexe n'offre ni résumé utile ni description détaillée équivalente.
+    action_attendue: Ajouter une alternative courte et une description structurée à proximité.
+    occurrences_attendues: 1
+    ancrage: Graphique ou schéma complexe de la station 2.
+    piste: Résumer la fonction dans l'alternative et placer les données ou conclusions dans le texte voisin.
+    etat_corrige: L'alternative oriente vers une description adjacente qui transmet toutes les informations utiles.
+    procedure_word: Ajouter le texte de remplacement, puis saisir la description détaillée dans un paragraphe voisin.
+    procedure_writer: Renseigner le texte alternatif dans les propriétés, puis ajouter la description dans le corps.
+    preuve: {mode: humaine, attendu: Équivalence d'information vérifiée sans consulter l'image.}
+    checklist: Une image complexe possède une alternative courte et une description détaillée adjacente.
+    guide: station-2/image-complexe
+    slide: station-2-contenus
+    note_formateur: Faire vérifier la description par un binôme qui masque l'image.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-02]
+    transformations_editoriales: [description_image_complexe_vers_texte_adjacent]
+  - id: P-08
+    niveau: P
+    station: station-2
+    intitule: Marquer une image redondante comme décorative
+    impact: Les images sans information n'alourdissent pas la restitution.
+    regle: Déclarer décorative uniquement une image dont l'information est déjà entièrement donnée par le texte voisin.
+    defaut: Une image purement redondante est annoncée comme si elle apportait une information.
+    action_attendue: Vérifier la redondance puis appliquer le traitement décoratif adapté au logiciel.
+    occurrences_attendues: 1
+    ancrage: Pictogramme redondant placé près d'un libellé complet.
+    piste: Supprimer mentalement l'image ; si aucune information ne disparaît, elle peut être décorative.
+    etat_corrige: L'image redondante est ignorée par la restitution sans perte d'information.
+    procedure_word: Afficher le texte de remplacement puis cocher Marquer comme décoratif.
+    procedure_writer: Si l'option Décoratif existe, l'activer ; sinon laisser titre et description vides seulement après vérification de la redondance.
+    preuve: {mode: automatique_et_humaine, attendu: Marqueur décoratif ou équivalent vérifié et absence de perte d'information confirmée.}
+    checklist: Les images redondantes sont traitées comme décoratives sans masquer d'information.
+    guide: station-2/image-decorative
+    slide: station-2-contenus
+    note_formateur: Signaler que l'interface Writer varie selon la version.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-02]
+    transformations_editoriales: []
+  - id: P-09
+    niveau: P
+    station: station-2
+    intitule: Remplacer une image de texte par du vrai texte
+    impact: Le contenu peut être sélectionné, agrandi, recherché et restitué correctement.
+    regle: Saisir en texte réel toute information textuelle qui n'a pas besoin d'être une image.
+    defaut: Une consigne utile est uniquement présente dans une image de texte.
+    action_attendue: Reproduire fidèlement le texte dans le corps puis retirer l'image devenue inutile.
+    occurrences_attendues: 1
+    ancrage: Image contenant la consigne de correction.
+    piste: Vérifier que chaque mot peut être sélectionné et modifié.
+    etat_corrige: La même information et le même ordre sont conservés sous forme de texte réel.
+    procedure_word: Insérer le texte dans un paragraphe structuré, appliquer les styles utiles puis supprimer l'image de texte.
+    procedure_writer: Saisir le texte dans le corps, appliquer les styles utiles puis supprimer l'image de texte.
+    preuve: {mode: automatique_et_humaine, attendu: Texte sélectionnable présent dans le DOCX et image de texte absente.}
+    checklist: Les informations textuelles sont fournies en vrai texte, pas seulement en image.
+    guide: station-2/texte-en-image
+    slide: station-2-contenus
+    note_formateur: Comparer sélection, zoom et recherche avant et après correction.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-02]
+    transformations_editoriales: [texte_image_vers_texte_reel]
+  - id: P-10
+    niveau: P
+    station: station-2
+    intitule: Rendre les liens autonomes et identifiables
+    impact: La destination reste compréhensible hors contexte et repérable visuellement.
+    regle: Employer un libellé explicite et ajouter format, poids et langue d'un téléchargement lorsque ces informations sont connues.
+    defaut: Un lien générique ne décrit pas sa destination et un téléchargement manque d'informations utiles.
+    action_attendue: Réécrire le libellé sans changer la destination puis compléter les informations disponibles.
+    occurrences_attendues: 1
+    ancrage: Premier lien intitulé par une formule générique.
+    piste: Lire le lien isolément et vérifier qu'il annonce sa destination.
+    etat_corrige: Le lien est autonome, visuellement identifiable et documente le téléchargement connu.
+    procedure_word: Modifier le texte affiché du lien via clic droit > Modifier le lien, puis compléter le libellé dans le corps.
+    procedure_writer: Clic droit > Modifier l'hyperlien, puis compléter le libellé dans le corps.
+    preuve: {mode: automatique_et_humaine, attendu: "Destination inchangée, libellé explicite et identification visuelle vérifiées."}
+    checklist: Chaque lien est compréhensible hors contexte et chaque téléchargement est décrit.
+    guide: station-2/liens
+    slide: station-2-contenus
+    note_formateur: Faire lire uniquement la liste des liens du document.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-13]
+    transformations_editoriales: [libelle_lien_explicite]
+  - id: P-11
+    niveau: P
+    station: station-2
+    intitule: Reprendre dans le corps l'information d'un filigrane
+    impact: Une information essentielle reste disponible même si le filigrane n'est pas restitué.
+    regle: Ne jamais faire porter une information essentielle uniquement par un filigrane, un en-tête ou un arrière-plan.
+    defaut: Le statut du document apparaît seulement dans un filigrane.
+    action_attendue: Reprendre le même statut à un emplacement logique du corps.
+    occurrences_attendues: 1
+    ancrage: Premier paragraphe d'introduction du document.
+    piste: Identifier l'information qui disparaîtrait si l'arrière-plan était ignoré.
+    etat_corrige: Le statut est présent dans le corps à l'endroit attendu sans modifier son sens.
+    procedure_word: Ajouter le statut dans le corps avec un style adapté ; conserver ou retirer le filigrane selon son utilité visuelle.
+    procedure_writer: Ajouter le statut dans le corps avec un style adapté ; traiter l'arrière-plan séparément.
+    preuve: {mode: humaine, attendu: Statut compréhensible dans le texte linéarisé sans en-tête ni arrière-plan.}
+    checklist: Toute information essentielle portée par un filigrane est aussi présente dans le corps.
+    guide: station-2/information-essentielle
+    slide: station-2-contenus
+    note_formateur: Tester la lecture du corps seul.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: []
+    transformations_editoriales: [information_filigrane_vers_corps]
+  - id: P-12
+    niveau: P
+    station: station-3
+    intitule: Mesurer les contrastes utiles
+    impact: Les textes et éléments graphiques restent perceptibles avec une vision réduite ou altérée.
+    regle: Mesurer au moins 4,5 pour 1 pour le texte normal et 3 pour 1 pour le grand texte ou les éléments graphiques pertinents.
+    defaut: Une couleur volontairement insuffisante est utilisée sans mesure.
+    action_attendue: Mesurer la combinaison puis choisir une couleur qui atteint le seuil applicable.
+    occurrences_attendues: 1
+    ancrage: Exemple de texte à faible contraste de la station 3.
+    piste: Relever les deux couleurs et vérifier le ratio avec l'outil fourni avant de corriger.
+    etat_corrige: Chaque combinaison utile atteint son seuil mesuré ; la valeur #767676 sur blanc n'est pas présentée comme un échec.
+    procedure_word: Relever les couleurs de police et de fond, mesurer avec l'outil de contraste, puis modifier la couleur de police.
+    procedure_writer: Relever les couleurs de caractère et d'arrière-plan, mesurer, puis modifier la couleur de caractère.
+    preuve: {mode: automatique_et_humaine, attendu: Ratio calculé conservé et couleurs finales vérifiées dans le document.}
+    checklist: Les contrastes sont mesurés et atteignent le seuil correspondant au contenu.
+    guide: station-3/contrastes
+    slide: station-3-couleurs-tableau
+    note_formateur: Faire choisir le seuil avant de lire le résultat du calcul.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-01]
+    transformations_editoriales: []
+  - id: P-13
+    niveau: P
+    station: station-3
+    intitule: Ne pas transmettre une information par la couleur seule
+    impact: L'information reste disponible sans perception fiable des couleurs.
+    regle: Ajouter étiquettes, motifs ou un équivalent textuel complet à tout code couleur porteur d'information.
+    defaut: Un graphique distingue ses séries uniquement par la couleur.
+    action_attendue: Reconstruire dans Word le graphique à partir des valeurs affichées dans l'image, puis ajouter des étiquettes et des motifs ou conserver un équivalent textuel complet.
+    occurrences_attendues: 1
+    ancrage: Image du graphique de la station 3.
+    piste: Imaginer le graphique en niveaux de gris et repérer ce qui devient ambigu.
+    etat_corrige: Les séries restent identifiables sans couleur ; le mot Urgent seul n'est pas traité comme un défaut si son texte transmet déjà le statut.
+    procedure_word: Insertion > Graphique > Histogramme groupé, reporter les valeurs affichées dans l'image, puis afficher les étiquettes et appliquer des motifs distincts.
+    procedure_writer: Insertion > Diagramme, reporter les valeurs affichées dans l'image, puis afficher les étiquettes et choisir des remplissages distincts.
+    preuve: {mode: humaine, attendu: Séries et conclusions identifiables en niveaux de gris et dans l'équivalent textuel.}
+    checklist: Une information donnée par la couleur possède aussi un repère non coloré.
+    guide: station-3/couleur-seule
+    slide: station-3-couleurs-tableau
+    note_formateur: La correction doit rester réalisable dans Word sans logiciel d'image.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-01]
+    transformations_editoriales: [alternative_graphique_complete]
+  - id: P-14
+    niveau: P
+    station: station-3
+    intitule: Structurer un tableau de données simple
+    impact: Les relations entre en-têtes et cellules restent compréhensibles et navigables.
+    regle: Utiliser un tableau de données titré, sans fusion, imbrication, fractionnement de ligne ni usage de mise en page, avec en-tête identifié et répété.
+    defaut: Un tableau de données cumule en-tête non identifié, fusion et ligne fractionnable.
+    action_attendue: Simplifier la structure, identifier l'en-tête et régler sa répétition ainsi que les lignes.
+    occurrences_attendues: 1
+    ancrage: Unique tableau de données de la station 3.
+    piste: Vérifier d'abord que chaque cellule appartient à une grille simple.
+    etat_corrige: Le tableau possède un titre, une grille simple, une ligne d'en-tête répétable et aucune fusion.
+    procedure_word: Outils de tableau > Disposition pour défusionner ; Propriétés du tableau pour répéter l'en-tête et interdire le fractionnement des lignes.
+    procedure_writer: Tableau > Propriétés pour simplifier la grille, répéter les premières lignes et éviter le fractionnement.
+    preuve: {mode: automatique_et_humaine, attendu: XML sans fusion ni imbrication et relations de cellules vérifiées à la lecture.}
+    checklist: Les tableaux de données sont simples, titrés et possèdent des en-têtes identifiés.
+    guide: station-3/tableaux
+    slide: station-3-couleurs-tableau
+    note_formateur: Distinguer tableau de données et mise en page avant toute correction.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-17]
+    transformations_editoriales: []
+  - id: P-15
+    niveau: P
+    station: station-4
+    intitule: Définir les langues du document et des passages
+    impact: La synthèse vocale emploie la prononciation appropriée.
+    regle: Définir la langue principale puis baliser chaque passage dans une autre langue.
+    defaut: Le document et une expression étrangère possèdent une langue absente ou incohérente.
+    action_attendue: Régler la langue principale puis celle du passage étranger.
+    occurrences_attendues: 1
+    ancrage: Paragraphe contenant l'expression anglaise de la station 4.
+    piste: Vérifier séparément la propriété du document et la langue du texte sélectionné.
+    etat_corrige: Le document est en français et le passage étranger porte sa langue réelle.
+    procedure_word: Révision > Langue > Définir la langue de vérification pour le document puis pour le passage sélectionné.
+    procedure_writer: Outils > Langue pour tout le texte, puis langue du caractère pour le passage sélectionné.
+    preuve: {mode: automatique_et_humaine, attendu: Propriétés et XML de langue cohérents, prononciation contrôlée si possible.}
+    checklist: La langue principale et les changements de langue sont correctement définis.
+    guide: station-4/langues
+    slide: station-4-langues-lisibilite
+    note_formateur: Distinguer langue des propriétés et langue appliquée au texte.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-04]
+    transformations_editoriales: []
+  - id: P-16
+    niveau: P
+    station: station-4
+    intitule: Régler une typographie lisible par les styles
+    impact: Le texte demande moins d'effort de lecture et reste homogène.
+    regle: Employer une police sans sérif, au moins 12 points, un interligne d'au moins 1,15 et un alignement à gauche.
+    defaut: Le corps utilise une police, une taille, un interligne ou un alignement qui réduit la lisibilité.
+    action_attendue: Modifier le style du corps plutôt que corriger les paragraphes un par un.
+    occurrences_attendues: 1
+    ancrage: Style appliqué au corps principal.
+    piste: Corriger le style source puis vérifier plusieurs paragraphes.
+    etat_corrige: Le corps utile respecte les quatre réglages sans compression artificielle.
+    procedure_word: Accueil > Styles > Modifier le style Normal, puis régler police, taille, alignement et paragraphe.
+    procedure_writer: Styles > Gérer les styles > modifier Style de paragraphe par défaut, puis régler police et retraits et espacement.
+    preuve: {mode: automatique_et_humaine, attendu: Propriétés typographiques contrôlées dans le DOCX et lisibilité relue.}
+    checklist: Le corps utilise une police sans sérif, au moins 12 points, un interligne de 1,15 et un alignement à gauche.
+    guide: station-4/lisibilite
+    slide: station-4-langues-lisibilite
+    note_formateur: Faire constater l'effet global d'une correction de style.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-05, MS-14]
+    transformations_editoriales: []
+  - id: P-17
+    niveau: P
+    station: station-4
+    intitule: Appliquer la casse par la mise en forme
+    impact: Les accents, la recherche et la restitution du texte restent corrects.
+    regle: Saisir les mots normalement avec leurs accents puis appliquer l'apparence en majuscules par le style.
+    defaut: Un texte est saisi directement en capitales sans accents.
+    action_attendue: Rétablir la saisie normale et appliquer la casse visuelle par la mise en forme.
+    occurrences_attendues: 1
+    ancrage: Premier intertitre saisi en capitales sans accents.
+    piste: Revenir au mot correctement orthographié avant de régler son apparence.
+    etat_corrige: Le texte source conserve sa casse et ses accents ; l'apparence éventuelle est portée par le style.
+    procedure_word: Corriger le texte, puis Police > Effets > Majuscules si cette apparence est nécessaire.
+    procedure_writer: Corriger le texte, puis Format > Caractère > Effets de caractères > Majuscules.
+    preuve: {mode: automatique_et_humaine, attendu: Texte XML accentué et contrôle visuel de la casse.}
+    checklist: Les mots sont saisis normalement avec leurs accents avant toute mise en forme en majuscules.
+    guide: station-4/casse
+    slide: station-4-langues-lisibilite
+    note_formateur: Relier la bonne saisie à la recherche et à l'orthographe.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-10]
+    transformations_editoriales: [retablissement_casse_accents_source]
+  - id: P-18
+    niveau: P
+    station: station-4
+    intitule: Développer les sigles et vérifier les majuscules
+    impact: Les termes abrégés deviennent compréhensibles et les erreurs restent détectables.
+    regle: Développer chaque sigle ou acronyme à sa première occurrence et inclure les mots en majuscules dans la vérification orthographique.
+    defaut: Un acronyme n'est jamais développé et les mots en majuscules échappent à la vérification.
+    action_attendue: Développer la première occurrence et activer l'option de vérification correspondante.
+    occurrences_attendues: 1
+    ancrage: Première occurrence de l'acronyme choisi dans la station 4.
+    piste: Chercher la première apparition avant d'ajouter le développement.
+    etat_corrige: L'acronyme est développé une fois et les mots en majuscules sont vérifiés.
+    procedure_word: Développer le terme dans le corps, puis Fichier > Options > Vérification et décocher Ignorer les mots en MAJUSCULES.
+    procedure_writer: Développer le terme dans le corps, puis Outils > Options > Paramètres linguistiques > Linguistique et vérifier les options de contrôle.
+    preuve: {mode: humaine, attendu: Première occurrence compréhensible et faute témoin en majuscules détectée.}
+    checklist: Les sigles sont développés à leur première occurrence et les majuscules sont vérifiées.
+    guide: station-4/sigles
+    slide: station-4-langues-lisibilite
+    note_formateur: Distinguer développement éditorial et réglage du correcteur.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-11]
+    transformations_editoriales: [developpement_acronyme_premiere_occurrence]
+  - id: P-19
+    niveau: P
+    station: station-5
+    intitule: Renseigner les propriétés et le nom du fichier
+    impact: Le document est identifiable dans les outils, les listes de fichiers et les technologies d'assistance.
+    regle: Renseigner titre, auteur et langue puis enregistrer sous un nom descriptif.
+    defaut: Les propriétés sont absentes et le nom du fichier ne décrit pas son contenu.
+    action_attendue: Compléter les propriétés puis enregistrer une copie sous un nom descriptif.
+    occurrences_attendues: 1
+    ancrage: Paragraphe Document - propriétés placé dans le corps.
+    piste: Distinguer le titre interne, la propriété Titre et le nom de fichier.
+    etat_corrige: Titre, auteur, langue et nom de fichier sont cohérents et descriptifs.
+    procedure_word: Fichier > Informations > Propriétés > Propriétés avancées, puis Fichier > Enregistrer sous.
+    procedure_writer: Fichier > Propriétés, puis Fichier > Enregistrer sous.
+    preuve: {mode: automatique_et_humaine, attendu: Métadonnées inspectées dans le DOCX et nom de sortie relu.}
+    checklist: Le titre, l'auteur, la langue et le nom de fichier sont renseignés de façon descriptive.
+    guide: station-5/proprietes
+    slide: station-5-finalisation
+    note_formateur: Faire vérifier les quatre éléments avant l'export.
+    surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-03, MS-04]
+    transformations_editoriales: []
+  - id: P-20
+    niveau: P
+    station: station-5
+    intitule: Exporter un PDF structuré
+    impact: Le PDF conserve les propriétés, la structure et les accès issus des titres.
+    regle: Exporter avec propriétés, balises de structure et signets générés depuis les titres.
+    defaut: null
+    action_attendue: Exporter le DOCX corrigé en activant les options d'accessibilité prévues.
+    occurrences_attendues: 0
+    ancrage: null
+    piste: null
+    etat_corrige: Le PDF exporté possède titre, langue, balises et signets issus des titres.
+    procedure_word: Vérifier les propriétés dans Fichier > Informations, puis Fichier > Enregistrer sous ou Exporter > PDF > Options et activer les balises de structure ainsi que les signets issus des titres.
+    procedure_writer: Vérifier les propriétés dans Fichier > Propriétés, puis Fichier > Exporter vers > Exporter au format PDF et activer PDF balisé ainsi que l'export des repères.
+    preuve: {mode: automatique_et_humaine, attendu: Propriétés et structure inspectées dans le PDF, puis contrôlées humainement.}
+    checklist: Le PDF est exporté avec ses propriétés, ses balises et ses signets.
+    guide: station-5/export-pdf
+    slide: station-5-finalisation
+    note_formateur: L'export ne vaut pas validation du PDF.
+    surfaces: [checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-16]
+    transformations_editoriales: []
+  - id: C-01
+    niveau: C
+    station: station-5
+    intitule: Utiliser le vérificateur d'accessibilité Word
+    impact: L'outil repère certains défauts mais ne remplace pas le jugement humain.
+    regle: Traiter les alertes pertinentes et expliquer toute alerte résiduelle ; viser zéro erreur sans en faire une preuve de conformité.
+    defaut: null
+    action_attendue: Lancer le vérificateur, corriger les erreurs pertinentes et consigner les alertes restantes.
+    occurrences_attendues: 0
+    ancrage: null
+    piste: null
+    etat_corrige: Aucune erreur pertinente non traitée et toute alerte résiduelle est expliquée.
+    procedure_word: Révision > Vérifier l'accessibilité, parcourir chaque résultat et utiliser les actions recommandées avec discernement.
+    procedure_writer: Outils > Vérification de l'accessibilité, parcourir les résultats et vérifier manuellement les points non couverts.
+    preuve: {mode: automatique_et_humaine, attendu: Relevé du vérificateur conservé et alertes résiduelles justifiées.}
+    checklist: Le vérificateur a été exécuté, ses alertes pertinentes traitées et les alertes résiduelles expliquées.
+    guide: station-5/verificateur
+    slide: station-5-finalisation
+    note_formateur: Répéter que zéro erreur ne signifie pas conformité.
+    surfaces: [checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-15]
+    transformations_editoriales: []
+  - id: C-02
+    niveau: C
+    station: station-5
+    intitule: Contrôler le PDF après export
+    impact: Les pertes introduites à l'export sont détectées avant diffusion.
+    regle: Contrôler avec PAC, ou Acrobat Pro en alternative, le titre, la langue, les balises et l'ordre de lecture, puis terminer par la checklist humaine.
+    defaut: null
+    action_attendue: Exécuter le contrôle du PDF, traiter les alertes pertinentes et consigner le résultat humain.
+    occurrences_attendues: 0
+    ancrage: null
+    piste: null
+    etat_corrige: Le PDF possède les propriétés et la structure attendues ; les alertes restantes sont analysées.
+    procedure_word: Ouvrir le PDF exporté dans PAC ; utiliser Acrobat Pro comme alternative si PAC n'est pas disponible.
+    procedure_writer: Ouvrir le PDF exporté dans PAC ; utiliser Acrobat Pro comme alternative si PAC n'est pas disponible.
+    preuve: {mode: automatique_et_humaine, attendu: Rapport PAC ou Acrobat conservé, ordre de lecture inspecté et checklist renseignée.}
+    checklist: Le PDF a été contrôlé après export avec PAC ou Acrobat Pro puis avec la checklist humaine.
+    guide: station-5/controle-pdf
+    slide: station-5-finalisation
+    note_formateur: PAC est l'outil principal ; son rapport technique doit être commenté.
+    surfaces: [checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
+    references_pedagogiques: [MS-18]
+    transformations_editoriales: []
+  - id: S-01
+    niveau: S
+    station: null
+    intitule: Préserver la possibilité de modifier le document
+    impact: Une protection inadaptée peut empêcher la correction ou l'adaptation du contenu.
+    regle: Laisser le document non protégé lorsque sa modification doit rester possible.
+    defaut: null
+    action_attendue: null
+    occurrences_attendues: 0
+    ancrage: null
+    piste: null
+    etat_corrige: Le document reste modifiable selon son usage prévu.
+    procedure_word: null
+    procedure_writer: null
+    preuve: {mode: humaine, attendu: Point signalé et vérifié dans la checklist sans manipulation obligatoire.}
+    checklist: Le document n'est pas protégé lorsque sa modification doit rester possible.
+    guide: null
+    slide: checklist-controles-signales
+    note_formateur: Présenter ce point sans le qualifier de secondaire.
+    surfaces: [checklist_stagiaire, checklist_formateur, slides_checklist, notes_formateur]
+    references_pedagogiques: []
+    transformations_editoriales: []
+  - id: S-02
+    niveau: S
+    station: null
+    intitule: Éviter les contenus clignotants
+    impact: Le clignotement peut gêner fortement et présenter un risque pour certaines personnes.
+    regle: Ne pas insérer de contenu clignotant dans le document.
+    defaut: null
+    action_attendue: null
+    occurrences_attendues: 0
+    ancrage: null
+    piste: null
+    etat_corrige: Aucun contenu ne clignote.
+    procedure_word: null
+    procedure_writer: null
+    preuve: {mode: humaine, attendu: Point signalé et vérifié dans la checklist sans manipulation obligatoire.}
+    checklist: Le document ne contient aucun contenu clignotant.
+    guide: null
+    slide: checklist-controles-signales
+    note_formateur: Présenter ce point sans ajouter de démonstration au TP.
+    surfaces: [checklist_stagiaire, checklist_formateur, slides_checklist, notes_formateur]
+    references_pedagogiques: []
+    transformations_editoriales: []
+  - id: S-03
+    niveau: S
+    station: null
+    intitule: Éviter les formulaires Word interactifs dans ce parcours
+    impact: Les champs de formulaire exigent une conception et des tests spécifiques.
+    regle: Ne pas employer de formulaire Word interactif dans le document de ce parcours.
+    defaut: null
+    action_attendue: null
+    occurrences_attendues: 0
+    ancrage: null
+    piste: null
+    etat_corrige: Le document ne contient aucun formulaire interactif.
+    procedure_word: null
+    procedure_writer: null
+    preuve: {mode: humaine, attendu: Point signalé et vérifié dans la checklist sans manipulation obligatoire.}
+    checklist: Le document ne contient pas de formulaire Word interactif.
+    guide: null
+    slide: checklist-controles-signales
+    note_formateur: Expliquer que les formulaires demandent un parcours dédié.
+    surfaces: [checklist_stagiaire, checklist_formateur, slides_checklist, notes_formateur]
+    references_pedagogiques: []
+    transformations_editoriales: []
+  - id: S-04
+    niveau: S
+    station: null
+    intitule: Éviter les objets flottants porteurs d'information
+    impact: Un objet flottant peut sortir de l'ordre de lecture ou être ignoré.
+    regle: Ne pas placer d'information essentielle dans un objet ou une zone de texte flottante.
+    defaut: null
+    action_attendue: null
+    occurrences_attendues: 0
+    ancrage: null
+    piste: null
+    etat_corrige: Toute information essentielle appartient au flux principal.
+    procedure_word: null
+    procedure_writer: null
+    preuve: {mode: humaine, attendu: Point signalé et vérifié dans la checklist sans manipulation obligatoire.}
+    checklist: Les objets et zones de texte flottants ne portent aucune information essentielle.
+    guide: null
+    slide: checklist-controles-signales
+    note_formateur: Ne pas transformer ce point en exercice technique.
+    surfaces: [checklist_stagiaire, checklist_formateur, slides_checklist, notes_formateur]
+    references_pedagogiques: []
+    transformations_editoriales: []
+  - id: S-05
+    niveau: S
+    station: null
+    intitule: Éviter les tableaux de mise en page et flottants
+    impact: Une structure de mise en page peut brouiller l'ordre de lecture et les relations de données.
+    regle: Ne pas utiliser de tableau pour la mise en page ni lui appliquer un habillage flottant.
+    defaut: null
+    action_attendue: null
+    occurrences_attendues: 0
+    ancrage: null
+    piste: null
+    etat_corrige: Les tableaux servent uniquement aux données et restent dans le flux du document.
+    procedure_word: null
+    procedure_writer: null
+    preuve: {mode: humaine, attendu: Point signalé et vérifié dans la checklist sans manipulation obligatoire.}
+    checklist: Les tableaux ne servent pas à la mise en page et ne sont pas flottants.
+    guide: null
+    slide: checklist-controles-signales
+    note_formateur: Relier ce signalement à P-14 sans ajouter de manipulation.
+    surfaces: [checklist_stagiaire, checklist_formateur, slides_checklist, notes_formateur]
+    references_pedagogiques: [MS-17]
+    transformations_editoriales: []

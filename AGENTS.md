@@ -6,8 +6,8 @@ Protocole unique pour tout agent (Claude, Codex ou autre) et pour un humain. `CL
 
 - Formation « L'accessibilité numérique pour la bureautique et le web », IGPDE, code 102846 (ex-102638), 1 jour, public communicants, pas développeurs.
 - Session du 9 octobre 2026. Code, date, pied de page, nom du deck, dossier de livraison et URL du site sont centralisés dans `config.yml` : `scripts/config.py` les valide et les expose à la fabrication. Une nouvelle session demande en plus de renommer le dossier du pack, de mettre à jour à la main les documents administratifs, et de rechercher l'ancien code et l'ancienne date dans les sources versionnées (`docs/`, `scripts/`, `tests/` et Markdown structurants), en distinguant les historiques et les fixtures de test.
-- Deck de 138 slides DSFR, 4 modules dans un ordre impératif : 1. communication accessible et cadre légal, 2. Word accessible, 3. points de contrôle rapides W3C, 4. réseaux sociaux.
-- Exercice Sami : 21 critères à vérifier dans 3 DOCX (inaccessible, aide à la correction, accessible), spécification dans `_source/exercice-sami-spec.md`.
+- Deck DSFR généré par scripts, composé de 4 modules dans un ordre impératif : 1. communication accessible et cadre légal, 2. Word accessible, 3. points de contrôle rapides W3C, 4. réseaux sociaux. Le total de slides est une sortie de génération, pas un contrat à maintenir manuellement.
+- Exercice Sami : TP guidé de 90 minutes organisé en stations, avec 3 DOCX (inaccessible, aide à la correction, accessible). Le PRD `notes/prd-refonte-partie-II-tp-sami.md` fait autorité jusqu'à la création de la matrice canonique par T02 ; l'ancienne spécification est historique.
 - Site d'exercice dans `docs/` (versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/`, démo émojis, grille XLSX), publié sur https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/ depuis le dépôt `git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git`.
 - Pack remis à l'IGPDE : `livrables-IGPDE-2026-102846/`, fabriqué par `make pack`.
 
@@ -15,42 +15,43 @@ Protocole unique pour tout agent (Claude, Codex ou autre) et pour un humain. `CL
 
 Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
-- **Cette usine** (`alexandra-guiderdoni/usine-fabrication-igpde-102846-ay11`) est la seule source. Le site se modifie dans `docs/`. Le `README.md`, l'`AGENTS.md` et le `CLAUDE.md` du dépôt publié se modifient dans `publication-site/`, sous les noms `README.md`, `agents-site.md` et `claude-site.md`.
+- **Cette usine** (`alexandra-guiderdoni/usine-fabrication-igpde-102846-ay11`) est la seule source. Les changements du site se font dans `docs/`. Ceux du `README.md`, de l'`AGENTS.md` et du `CLAUDE.md` du dépôt publié se font dans `publication-site/`, sous les noms `README.md`, `agents-site.md` et `claude-site.md`.
 - **Le dépôt du site** (`alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11`) n'est qu'une copie de publication servie par GitHub Pages. Chacun de ses fichiers correspond à `docs/<même chemin>`, sauf `README.md`, `AGENTS.md` et `CLAUDE.md`, qui viennent de `publication-site/`.
 - **Deux clones locaux du site**, en lecture seule pour un humain comme pour un agent (seul `make publier-site` y écrit) :
   - `livrables-IGPDE-2026-102846/Formateur/tp-easy-check-site-web-igpde/` : clone de publication, écrit par `make publier-site` (variable `SITE_CLONE`), ignoré par l'usine ;
   - `../tp-fabrication-igpde-102846-ay11/`, à côté de l'usine quand il existe : clone de consultation, avancé automatiquement à la fin de `make publier-site` (variable `SITE_CONSULTATION`).
 - **MUST** : pour changer le site, éditer `docs/`, lancer `make verifier`, puis `make publier-site`. Pour savoir ce qui est en ligne, lire `docs/` ou l'adresse publique, pas un clone.
-- **MUST NOT** : modifier, commiter ou pousser dans un clone du site. La publication suivante synchronise avec suppression et effacerait la modification ; un commit poussé depuis un clone ferait aussi échouer le push de `make publier-site`.
+- **MUST NOT** : modifier, commiter ou pousser dans un clone du site. La publication suivante effectue une synchronisation avec suppression et effacerait la modification ; un commit poussé depuis un clone ferait aussi échouer le push de `make publier-site`.
 - **MUST NOT** : renommer `publication-site/agents-site.md` ou `claude-site.md` en `AGENTS.md` ou `CLAUDE.md` dans l'usine. Sous ces noms, les agents appliqueraient au dossier `publication-site/` la consigne « ne rien modifier ici », destinée au seul dépôt publié. `make publier-site` leur donne leur vrai nom au moment de la copie.
 
 ## Environnement
 
 - macOS en priorité, Python 3.12 (Homebrew), `uv`, et pour les PDF : `pandoc`, `pango`, `glib` (Homebrew).
 - `make installer` crée `.venv` depuis `requirements.lock` (installation avec vérification des empreintes) et active les hooks git versionnés (`.githooks`).
-- La recette visuelle a son installation autonome : `make installer-recette` clone ShipGuard `v2.14.0` dans `.tools/shipguard/`, installe `agent-browser` 0.38.1 dans `recette/node_modules/` et Chrome for Testing sous `.tools/` après vérification de son empreinte. Ces répertoires sont ignorés par Git. Elle demande `git`, Node.js 24 ou plus et npm, mais aucun plugin Codex ni cache global.
+- La recette visuelle a son installation autonome : `make installer-recette` place ShipGuard `v2.14.0` dans `.tools/shipguard/`, `agent-browser` 0.38.1 dans `recette/node_modules/` et Chrome for Testing sous `.tools/` après vérification de son empreinte. Ces répertoires sont ignorés par Git. Elle demande `git`, Node.js 24 ou plus et npm, mais aucun plugin Codex ni cache global.
 - Sans `.venv`, le `Makefile` utilise `/opt/homebrew/bin/python3.12`, et à défaut le `python3` du système, sans garantie sur les dépendances : lancer `make installer` d'abord. Les commandes courantes passent par `make` (`make aide` les liste) ; les quelques scripts sans cible (test d'une seule slide, diagnostics de `REEXPORTER-DECK-PPTX.md`) s'appellent avec le même interpréteur.
 
 ## Chaîne de fabrication
 
-- **Ne jamais modifier le PPTX directement.** Éditer `scripts/slides/NN_*.py`, puis `make deck`. La prochaine régénération écraserait toute retouche faite dans PowerPoint. État au 2026-09-27 : les 138 slides sont générées par script.
+- **Ne jamais modifier le PPTX directement.** Éditer `scripts/slides/NN_*.py`, puis `make deck`. La prochaine régénération écraserait toute retouche faite dans PowerPoint. Toutes les slides du deck sont générées par script ; leur nombre se vérifie sur la sortie courante.
 - Nommage des modules : `NN_nom.py` ou `NNxx_nom.py` pour intercaler (`02a_`, `02ma_`). L'ordre du deck suit l'ordre alphabétique des fichiers ; le numéro du fichier n'est donc pas la position dans le deck.
 - Chaque module expose `build(prs, layouts, ctx)` et utilise `ctx.page_num`, `ctx.date`, `ctx.footer_base`, jamais de valeur en dur.
 - Composants : exclusivement `scripts/igpde_dsfr_components.py` (grille IGPDE 13,33 x 7,5 pouces), jamais une bibliothèque DSFR extérieure.
 - `finalize_pptx()` est obligatoire (langue, ordre de lecture, métadonnées, quarantaine macOS) ; `scripts/assemble.py` l'appelle.
 - **Images de slides avec ImageGen** : pour toute génération, régénération ou extension d'une série visuelle IGPDE avec ImageGen ou Imagine, lire d'abord `_source/imagegen-igpde/README.md`, puis son guide de style, son preset, son prompt de base, son storyboard et ses références. Ce preset « IGPDE Accessibilité - bleu illustré » est la référence locale ; il prévaut sur le guide visuel générique d'un skill, tandis que les exigences de traçabilité et de contrôle du skill `generer-images-slides-ia` restent obligatoires. Le skill historique `style-igpde`, destiné au tableau blanc ERNIE en 680 x 383, ne s'applique pas à cette famille sauf demande explicite.
 - Tester une seule slide (pas de cible `make`) : `.venv/bin/python scripts/assemble.py --only NN`, ou `/opt/homebrew/bin/python3.12` sans `.venv`. Cette commande écrit un deck partiel à la racine : relancer `make deck` ensuite. Le livrable du pack n'est jamais remplacé par un deck partiel. Même interpréteur pour les autres scripts appelés directement ci-dessous.
-- DOCX de l'exercice Sami : `make sami` (écrit dans `_source/`). Grille d'audit : `make grille`. Deck WCAG condensé : `make wcag`. PDF du pack : `make pdf` (générateur embarqué dans `vendor/`).
+- DOCX de l'exercice Sami : `make sami` (écrit dans `_source/`). Checklist Sami : `make checklist` lit `_source/exercice-sami-matrice.yml`, produit `_source/checklist-accessibilite-bureautique.md` et `livrables-IGPDE-2026-102846/Formateur/tp-word-igpde/checklist-accessibilite-bureautique.docx`, puis `make pdf` produit `checklist-accessibilite-bureautique.pdf` avec le générateur embarqué dans `vendor/`. Grille d'audit : `make grille`. Deck WCAG condensé : `make wcag`.
 - Gabarit IGPDE : `_source/presentations-source/PPT-IGPDE-DSFR-base-intervenant.pptx`. S'il manque : `scripts/rebuild_template_from_demo.py`, depuis `_source/presentations-source/gabarits-ppt-igpde.pptx`. `scripts/build_template.py` est historique : sa source IGPDE native n'est plus dans le dépôt.
 - Le site `docs/` est maintenu à la main page par page : ne pas relancer `scripts/generate_easy_checks_site_skeleton.py` sans comparer ensuite le diff complet, il écraserait les corrections faites depuis juillet.
 
 ## Qui fabrique quoi dans le pack
 
-`make pack` vérifie d'abord la fraîcheur des ressources qu'il ne régénère pas, puis régénère le deck, les PDF, les supports et la vérification des outils. Il ne relance ni `make sami`, ni `make grille`, ni `make wcag` : son contrôle les bloque si leurs sorties sont absentes ou plus anciennes que leurs sources. Chaque livrable relève de l'une de ces trois catégories.
+`make pack` régénère d'abord les PDF, vérifie ensuite leur fraîcheur avec celle des autres ressources, puis régénère le deck, les supports et la vérification des outils. Il ne relance ni `make sami`, ni `make checklist`, ni `make grille`, ni `make wcag` : son contrôle les bloque si leurs sorties sont absentes ou plus anciennes que leurs sources. Chaque livrable relève de l'une de ces trois catégories.
 
 - **Généré par une commande**
   - Deck `support-formation-*.pptx` : `make deck`, qui génère le deck à la racine (sortie de travail, ignorée par git) puis le copie dans le pack (livrable versionné). La copie refuse un deck partiel. Aucun PDF du deck n'est livré.
   - Mémos Word et LibreOffice, fiches WCAG formateur et stagiaire, fiche des liens des TP : `make pdf`, depuis `fiche-pratique/*.md`, `wcag/*.md` et `liens-tp-en-ligne.md`. `make pdf` n'accepte que du PDF/UA-1 : sinon il s'arrête en erreur et laisse le livrable précédent en place (voir `contraintes.md`).
+  - Checklist du TP Word : `make checklist` génère `checklist-accessibilite-bureautique.docx` dans le pack et sa source `_source/checklist-accessibilite-bureautique.md` depuis la matrice canonique ; `make pdf` transforme ensuite cette source en `checklist-accessibilite-bureautique.pdf` dans le même dossier. Ne modifier aucune de ces trois sorties à la main.
   - Documents Sami (`Formateur/tp-word-igpde/`) : `make sami` (écrit dans `_source/`), puis `make supports` ou `make pack` pour la copie dans le pack.
   - Démo réseaux sociaux hors ligne (`Formateur/tp-reseaux-sociaux-igpde/`) : `make supports`, depuis `docs/demo-mauvaise-restitution-emojis.html`.
   - Grille d'audit XLSX : `make grille` (dans `03-easy-checks/` et dans le site).
@@ -69,7 +70,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 ## Vérifier avant de livrer
 
 - `make verifier` : suite pytest (dont la déclaration PDF/UA-1 des PDF livrés), validation du site (`validate.py`), contrôles du dépôt. Le verdict se lit sur le code de sortie.
-- `make fraicheur-pack` : vérifie les documents Sami, la grille XLSX et le deck WCAG que `make pack` ne régénère pas. Cette cible est un prérequis obligatoire de `make pack`.
+- `make fraicheur-pack` : vérifie les documents Sami, les checklists Markdown, DOCX et PDF, la grille XLSX et le deck WCAG. Dans `make pack`, ce contrôle intervient après la régénération des PDF et avant celle du deck. La source Markdown et le DOCX de la checklist doivent donc avoir été régénérés avec `make checklist`.
 - `make qa` : boucle qualité du deck. Lire `.qa/qa-pptx-report.md` et son champ `status` ; le code de sortie seul ne prouve pas la convergence.
 - Relecture, correction et réexport complet du deck : suivre le mode opératoire (runbook) `REEXPORTER-DECK-PPTX.md`, qui couvre le relevé des observations, la correction des sources, la QA, la régénération et la validation humaine du PPTX du pack.
 - Recette visuelle du site corrigé : exécuter une fois `make installer-recette`, puis `make recette`. Les manifestes sont dans `recette/visual-tests/`.
@@ -77,7 +78,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
 ## Publier
 
-- Site : `make publier-site` (valide, synchronise `docs/` et `publication-site/` vers le clone de publication, commit, push, puis avance le clone de consultation). Voir « Deux dépôts liés » ci-dessus et `PUBLIER-SITE.md`.
+- Site : `make publier-site` (validation et synchronisation de `docs/` et `publication-site/` vers le clone de publication, puis commit, push et avance du clone de consultation). Voir « Deux dépôts liés » ci-dessus et `PUBLIER-SITE.md`.
 - Dépôt de l'usine : commits en français, forme nominale, première ligne de 50 caractères au plus, sans point final. Aucune ligne d'attribution d'agent (`Co-Authored-By`, `Generated with` ou signature d'outil).
 - Le hook `.githooks/pre-commit` bloque : fichiers de verrou Office, fichiers de plus de 50 Mo, convocation, installeurs `.msi` et `.exe`, tirets cadratins dans `scripts/`, chemins personnels absolus dans les dossiers qu'il surveille (`scripts/`, `tests/`, `recette/`, `docs/`, `fiche-pratique/`, `wcag/`, `03-easy-checks/`, `Makefile`, `config.yml`, `validate.py`, `liens-tp-en-ligne.md`). Ailleurs, notamment dans `notes/` et `_source/`, la règle reste à appliquer à la main. Ne jamais contourner le hook avec `--no-verify`.
 
@@ -91,7 +92,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - La version accessible du site d'exercice reste sobre, comme un vrai site corrigé, sans pédagogie visible.
 - Les erreurs de formulaire n'apparaissent qu'après une tentative de soumission ou une interaction avec le champ.
 - Les documents accessibles déclarent une langue cohérente (`fr`). Les versions volontairement inaccessibles peuvent garder des défauts pédagogiques explicites.
-- Exercice : ne pas distribuer la checklist au moment de l'identification ; les stagiaires diagnostiquent d'abord sans filet.
+- Exercice : rendre la checklist disponible dès le préambule et la faire renseigner progressivement après chaque station ; les cartes WCAG servent à relier informellement chaque contrôle aux principes concernés.
 - Quiz : questions et réponses sur des slides séparées (suffixe `b`).
 
 ## Compétences recommandées, si l'agent en dispose
@@ -134,7 +135,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
 - Contraintes et limites connues : `contraintes.md`. Leçons techniques : `lessons.md`. Suivi : `todo.md`.
 - Architecture de la chaîne : `architecture-c4-slides.md`. Index slides et modules : `scripts/slides/README.md`.
-- Exercice Sami : `_source/exercice-sami-spec.md`, `_source/exercice-sami-diff.md`.
+- Refonte de l'exercice Sami : `notes/prd-refonte-partie-II-tp-sami.md`, puis `_source/exercice-sami-matrice.yml` à partir de T02. `_source/exercice-sami-spec.md` et `_source/exercice-sami-diff.md` restent des archives transitoires jusqu'à T07.
 - Points de contrôle rapides W3C : `03-easy-checks/w3c-easy-checks-fr.md`. Contrat d'évaluation : `03-easy-checks/evaluation_contract.yml`.
 - Guide « Accessibiliser sa communication » : `_source/references/Guide-2026-Accessibiliser-sa-communication-police-14-coul.md`.
 - Notes de contenu : `corpus-documentaire-preparatoire/04-reseaux-sociaux/md-reseaux-sociaux.md`, `corpus-documentaire-preparatoire/05-falc/md-falc.md`, `corpus-documentaire-preparatoire/06-medias/md-medias.md`.

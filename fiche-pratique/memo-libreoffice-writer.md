@@ -9,248 +9,183 @@ lang: fr
 
 # Mémo accessibilité - LibreOffice Writer
 
-Aide-mémoire des bonnes pratiques pour créer des documents Writer accessibles.
-Formation 102846 - Octobre 2026
+Mode opératoire complémentaire pour Writer sous Windows. Les identifiants
+renvoient à la checklist et au guide Sami. Les libellés peuvent varier selon la
+version installée ; les chemins sont à confirmer pendant la recette Windows.
 
----
+## Station 1 - Structurer et naviguer
 
-## Thème 1 - Structure du document
+### P-01 - Distinguer le titre principal des titres hiérarchiques
 
-La structure permet aux lecteurs d'écran de naviguer dans le document. Sans elle, le contenu est un bloc de texte plat sans repère.
+**Procédure Writer** : **Styles** > **Gérer les styles**. Appliquer **Titre** au
+titre principal, puis **Titre 1**, **Titre 2** et les niveaux suivants aux
+sections.
 
-### Styles de titre
+### P-02 - Construire une hiérarchie cohérente
 
-**Erreur** : simuler un titre en mettant du texte en gras et en changeant la taille (ex : gras Arial 16, gras Arial 14, gras souligné Arial 12). Le lecteur d'écran ne détecte aucun titre : l'utilisateur ne peut pas naviguer entre les sections.
+**Procédure Writer** : **Affichage** > **Navigateur**, puis corriger les styles
+depuis **Styles** > **Gérer les styles**. Les niveaux progressent sans saut.
 
-**Procédure** : sélectionner le texte > dans la barre de formatage, ouvrir la liste des styles (ou **F11** pour le panneau Styles) > choisir **Titre 1**, **Titre 2** ou **Titre 3**.
+![Panneau Propriétés et Navigateur dans Writer](images-memo-writer/writer-navigateur.png)
 
-- Commencer par un Titre 1, ne pas sauter de niveau (pas de Titre 3 après un Titre 1)
-- Le style **Titre principal** est réservé au titre du document, différent du titre dans les propriétés
+### P-03 - Naviguer et générer un sommaire automatique
 
-**Vérifier** : appuyer sur **F5** pour ouvrir le **Navigateur** et visualiser la hiérarchie des titres.
+**Procédure Writer** : **Insertion** > **Table des matières et index** > **Table
+des matières, index ou bibliographie**. Après une modification, clic droit dans
+le sommaire > **Actualiser la table des matières**.
 
-![Panneau Propriétés et Navigateur dans LibreOffice Writer](images-memo-writer/writer-navigateur.png)
+![Boîte de dialogue Table des matières dans Writer](images-memo-writer/writer-table-matieres.png)
 
-### Listes natives
+### P-04 - Utiliser des listes natives
 
-**Erreur** : taper des puces (-, *) ou des numéros (1. 2. 3.) au clavier et indenter manuellement. Le lecteur d'écran lit chaque ligne comme un paragraphe ordinaire au lieu d'annoncer "liste de 3 éléments, élément 1 sur 3".
+**Procédure Writer** : sélectionner les paragraphes, puis **Format** > **Puces
+et numérotation**. Ne pas saisir les puces, numéros ou retraits au clavier.
 
-**Procédure** : sélectionner les paragraphes > barre de formatage > bouton **Puces** ou **Numérotation**.
+![Barre d'outils des listes dans Writer](images-memo-writer/writer-listes-toolbar.png)
 
-![Barre d'outils des listes dans LibreOffice Writer](images-memo-writer/writer-listes-toolbar.png)
+### P-05 - Employer les fonctions de mise en page adaptées
 
-**Numérotation des titres** : **Outils** > **Numérotation des chapitres** pour associer un schéma de numérotation aux styles de titre.
+**Procédure Writer** : **Affichage** > **Marques de formatage**, puis corriger
+les espacements dans **Format** > **Paragraphe**. Utiliser les sauts et le style
+de page au lieu de paragraphes vides, tabulations ou espaces répétés.
 
-### Table des matières automatique
+![Marques de formatage dans Writer](images-memo-writer/writer-marques-formatage.png)
 
-**Erreur** : taper un sommaire à la main avec des points de suite et des numéros de page en dur. Ce sommaire n'est pas navigable : le lecteur d'écran ne peut pas sauter directement à une section, et il ne se met pas à jour.
+## Station 2 - Rendre les contenus et les liens compréhensibles
 
-**Procédure** : **Insertion** > **Table des matières et index** > **Table des matières, index ou bibliographie**.
+### P-06 - Rédiger l'alternative d'une image informative simple
 
-![Boîte de dialogue Table des matières dans LibreOffice Writer](images-memo-writer/writer-table-matieres.png)
+**Procédure Writer** : clic droit sur l'image > **Propriétés** > **Options**,
+puis renseigner le texte alternatif avec l'information utile.
 
-### En-têtes de tableau
+![Menu Propriétés d'une image dans Writer](images-memo-writer/writer-menu-proprietes.png)
 
-**Erreur** : créer un tableau de données sans identifier la ligne d'en-tête. Le lecteur d'écran ne peut pas associer chaque cellule à sa colonne : les données deviennent incompréhensibles.
+### P-07 - Décrire une image complexe
 
-**Procédure** : lors de la création via **Tableau** > **Insérer un tableau**, cocher **En-tête**. Pour un tableau existant : sélectionner la première ligne > **Tableau** > **Propriétés** > onglet **Enchaînements** > cocher **Répéter le titre**.
+**Procédure Writer** : renseigner une alternative courte dans les propriétés,
+puis ajouter la description détaillée dans le corps. La description doit rester
+compréhensible quand l'image est masquée.
 
-### Cellules fusionnées
+### P-08 - Marquer une image redondante comme décorative
 
-**Erreur** : fusionner des cellules pour créer des mises en page complexes (ex : première ligne fusionnée sur 3 colonnes, libellés en gras visuels). Les cellules fusionnées cassent la logique de lecture : le lecteur d'écran ne peut plus associer chaque cellule à son en-tête. Des libellés en gras ne suffisent pas.
+**Procédure Writer** : si l'option **Décoratif** existe selon la version
+installée, l'activer. Sinon, laisser le titre et la description vides seulement
+après avoir vérifié que l'image ne porte aucune information absente du texte.
 
-**Bonne pratique** : privilégier les tableaux simples en grille sans fusion, avec l'en-tête déclaré. Si un tableau est trop complexe, le scinder en plusieurs tableaux simples.
+![Propriétés de l'image avec les champs d'alternative et de description](images-memo-writer/writer-alt-text-dialog.png)
 
----
+### P-09 - Remplacer une image de texte par du vrai texte
 
-## Thème 2 - Couleurs et contrastes
+**Procédure Writer** : saisir l'information dans le corps, appliquer les styles
+utiles, puis supprimer l'image de texte. Le contenu doit pouvoir être
+sélectionné, agrandi et recherché.
 
-### Information par la couleur seule
+### P-10 - Rendre les liens autonomes et identifiables
 
-**Erreur** : écrire "URGENT" en rouge sans autre indication visuelle (pas de gras, pas de texte explicatif). Une personne daltonienne ou utilisant un écran monochrome ne perçoit aucune urgence : le mot se fond dans le texte courant (WCAG 1.4.1).
+**Procédure Writer** : clic droit > **Modifier l'hyperlien**, puis remplacer
+« cliquez ici » par un libellé qui décrit la destination. Pour un
+téléchargement, indiquer le titre, le format, le poids et la langue si elle
+diffère de celle du document.
 
-**Bonne pratique** : ajouter du **gras** et un texte explicatif en complément de la couleur. Exemple : **URGENT - Retour attendu avant le 30 juin 2025**.
+### P-11 - Reprendre une information essentielle dans le corps
 
-### Contraste minimum
+**Procédure Writer** : ajouter le statut dans le corps avec un style adapté et
+traiter l'arrière-plan séparément. Un filigrane éventuel ne doit jamais être
+l'unique porteur de l'information.
 
-**Erreur** : utiliser du gris clair sur fond blanc (ex : #767676 = ratio 4,48:1, insuffisant pour du texte normal). L'erreur est subtile : le texte semble lisible mais échoue de justesse au test WCAG 1.4.3. Seul un outil de mesure permet de trancher.
+## Station 3 - Sécuriser couleurs, graphiques et tableaux
 
-**Seuils WCAG** : texte normal **4,5:1** minimum - grand texte (18 pt ou 14 pt gras) **3:1** - icônes et éléments graphiques **3:1**.
+### P-12 - Mesurer les contrastes utiles
 
-**Correction** : remplacer par un gris plus foncé (ex : #595959, ratio 7:1) ou du noir.
+**Procédure Writer** : relever les couleurs du caractère et de l'arrière-plan,
+les mesurer avec Colour Contrast Analyser, puis corriger la couleur du caractère
+si nécessaire.
 
-**Outil** : Colour Contrast Analyser (CCA), application gratuite. C'est le type d'erreur qu'on ne peut pas détecter visuellement : il faut systématiquement mesurer le contraste avec un outil, surtout pour les gris clairs et les couleurs proches du seuil.
+**Seuils** : au moins **4,5:1** pour le texte normal, **3:1** pour le grand
+texte et **3:1** pour les composants graphiques utiles. Toujours conclure à
+partir du ratio calculé, jamais de l'apparence ou d'un code couleur isolé.
 
-**Appliquer une couleur précise** : sélectionner le texte > bouton **Couleur de police** > **Couleur personnalisée** > saisir le code hexadécimal.
+### P-13 - Ne pas transmettre une information par la couleur seule
 
-### Graphiques lisibles sans couleur
+**Procédure Writer** : **Insertion** > **Diagramme**, reporter les valeurs,
+afficher les étiquettes et choisir des remplissages distincts. La correction
+reste réalisable dans Writer, sans logiciel d'image.
 
-**Erreur** : différencier les barres d'un graphique uniquement par la couleur (vert/rouge/orange sans motif ni étiquette). Environ 8 % des hommes sont daltoniens : les barres deviennent indiscernables.
+### P-14 - Structurer un tableau de données simple
 
-**Bonne pratique** : ajouter des **motifs distincts** (hachures, points, plein) et des **étiquettes** sur chaque barre.
+**Procédure Writer** : **Tableau** > **Propriétés** pour simplifier la grille,
+répéter les premières lignes et éviter le fractionnement. Scinder un tableau
+trop complexe plutôt que multiplier les fusions.
 
----
+## Station 4 - Régler langues et lisibilité
 
-## Thème 3 - Contenus
+### P-15 - Définir les langues du document et des passages
 
-### Alternative textuelle des images informatives
+**Procédure Writer** : **Outils** > **Langue** pour tout le texte, puis choisir
+la langue du caractère pour chaque passage dans une autre langue.
 
-**Erreur** : image informative sans texte alternatif. Le lecteur d'écran annonce "image" sans aucune description.
+### P-16 - Régler une typographie lisible par les styles
 
-**Procédure** : clic droit sur l'image > **Propriétés** > onglet **Options** > remplir le champ **Alternative (texte seul)** avec 1 à 2 phrases décrivant l'information portée par l'image.
+**Procédure Writer** : **Styles** > **Gérer les styles** > modifier **Style de
+paragraphe par défaut**. Utiliser une police sans sérif, un corps d'au moins 12
+points, un interligne de 1,15 et un alignement à gauche.
 
-![Menu contextuel Propriétés dans LibreOffice Writer](images-memo-writer/writer-menu-proprietes.png)
+### P-17 - Appliquer la casse par la mise en forme
 
-Ne jamais laisser le nom de fichier par défaut comme alternative (ex : "image.png" n'apporte aucune information).
+**Procédure Writer** : corriger d'abord le texte avec ses accents, puis utiliser
+**Format** > **Caractère** > **Effets de caractères** > **Majuscules** si cette
+apparence est nécessaire.
 
-### Images complexes
+### P-18 - Développer les sigles et vérifier les majuscules
 
-**Erreur** : laisser le nom de fichier par défaut (ex : alt="image.png") ou mettre une longue description dans le champ alt (organigramme, graphique détaillé).
+**Procédure Writer** : développer le terme à sa première occurrence. Dans
+**Outils** > **Options** > **Paramètres linguistiques** > **Linguistique**,
+vérifier les options de contrôle des mots en majuscules.
 
-**Bonne pratique** : remplir **Alternative** avec un texte court (~80 caractères) et utiliser le champ **Description** pour le détail, ou ajouter la description dans le corps du texte sous l'image. Exemple : Alternative="Organigramme de la direction (description ci-dessous)."
+## Station 5 - Finaliser, vérifier, exporter et contrôler
 
-![Boîte de dialogue Propriétés de l'image avec champs Alternative et Description](images-memo-writer/writer-alt-text-dialog.png)
+### P-19 - Renseigner les propriétés et le nom du fichier
 
-### Images décoratives
+**Procédure Writer** : **Fichier** > **Propriétés**, puis **Fichier** >
+**Enregistrer sous**. Vérifier le titre, l'auteur, la langue et un nom de fichier
+descriptif.
 
-**Erreur** : mettre un alt "E-mail" sur une icône enveloppe placée juste à côté du mot "e-mail". Le lecteur d'écran lit "E-mail, e-mail" : redondance qui pollue la lecture. L'accessibilité des images ne se limite pas à "mettre un alt partout" : certaines images doivent être explicitement ignorées.
+![Propriétés du document dans Writer](images-memo-writer/writer-proprietes-titre.png)
 
-**Procédure** : clic droit > **Propriétés** > onglet **Options** > laisser le champ **Alternative** vide.
+### P-20 - Exporter un PDF structuré
 
-Writer n'a pas d'option "Marquer comme décoratif" comme Word. Laisser le champ vide suffit : lors de l'export PDF, l'image sera traitée comme décorative.
+**Procédure Writer** : vérifier les propriétés, puis **Fichier** > **Exporter
+vers** > **Exporter au format PDF**. Activer **Accessibilité universelle
+(PDF/UA)**, le PDF balisé et l'export des repères ou signets.
 
-### Liens explicites
+![Options d'export PDF/UA dans Writer](images-memo-writer/writer-export-pdf-ua.png)
 
-**Erreur** : "cliquez ici" ou "en savoir plus" comme intitulé de lien. Le lecteur d'écran liste les liens par intitulé : "cliquez ici" ne donne aucune information hors contexte visuel.
+### C-01 - Utiliser le vérificateur d'accessibilité
 
-**Bonne pratique** : intitulé qui décrit la destination. Pour un lien de téléchargement, préciser le titre, le format et le poids. Exemple : "Consulter les annexes du rapport T1 2025 (PDF, 1,2 Mo)".
+**Procédure Writer** : **Outils** > **Vérification de l'accessibilité**.
+Parcourir les résultats, traiter les alertes pertinentes et vérifier
+manuellement les points non couverts. Une absence d'erreur ne prouve pas à elle
+seule l'accessibilité.
 
-### Filigrane invisible
+![Vérification de l'accessibilité dans Writer](images-memo-writer/writer-verification-a11y.png)
 
-**Erreur** : insérer un filigrane "CONFIDENTIEL" via **Format** > **Filigrane**. Les filigranes sont des objets graphiques non lus par les lecteurs d'écran. Un utilisateur aveugle ne sait pas que le document est confidentiel.
+### C-02 - Contrôler le PDF après export
 
-**Bonne pratique** : ajouter la mention "Document confidentiel" en texte dans le corps du document.
+Ouvrir le PDF dans **PAC**, outil principal, ou dans **Acrobat Pro** en
+alternative. Contrôler au minimum le titre, la langue, les balises, les signets
+et l'ordre de lecture, puis terminer par la **checklist humaine**.
 
-### Texte sous forme d'image
+![Interface de PAC](images-memo-writer/pac-interface.png)
 
-**Erreur** : insérer une capture d'écran contenant du texte (ex : "Avis important : les indicateurs du T2 2025 seront transmis avant le 15 septembre 2025."). Ce texte ne peut être ni lu par la synthèse vocale, ni agrandi, ni sélectionné, ni recherché.
+## Point spécifique Writer
 
-**Bonne pratique** : toujours saisir le texte directement dans Writer. Seuls les logos peuvent rester en image.
-
----
-
-## Thème 4 - Langue et lisibilité
-
-### Balisage des passages en langue étrangère
-
-**Erreur** : insérer un passage en anglais sans changer la langue du texte. Le lecteur d'écran lit le passage avec la prononciation française, ce qui le rend incompréhensible.
-
-**Procédure** : sélectionner le passage > cliquer sur la **langue dans la barre d'état** (en bas à gauche) > choisir la langue du passage (ex : Anglais).
-
-### Alignement à gauche
-
-**Erreur** : justifier tout le document. Le texte justifié crée des espaces inégaux entre les mots (lézardes) qui rendent la lecture difficile pour les personnes dyslexiques ou malvoyantes.
-
-**Procédure** : barre de formatage > **Aligner à gauche** (ou **Ctrl+L**).
-
-### Espacement par les styles
-
-**Erreur** : insérer des paragraphes vides (touche Entrée) pour créer de l'espace. Le lecteur d'écran lit "vide, vide, vide, vide" à chaque paragraphe vide.
-
-**Procédure** : gérer l'espacement par les propriétés du style. Clic droit > **Modifier le style** > onglet **Retraits et espacement** > ajuster **Au-dessus du paragraphe** et **En dessous du paragraphe**.
-
-**Vérifier** : **Affichage** > cocher **Marques de formatage** (ou **Ctrl+F10**) pour visualiser les paragraphes vides, sauts de ligne, tabulations et espaces.
-
-![Bouton marques de formatage dans LibreOffice Writer](images-memo-writer/writer-marques-formatage.png)
-
-### Majuscules par la mise en forme
-
-**Erreur** : taper "ANNEXES" en majuscules au clavier. Le lecteur d'écran peut épeler lettre par lettre les mots tapés en majuscules.
-
-**Procédure** : taper "Annexes" en minuscules > sélectionner > **Format** > **Caractère** > onglet **Effets de caractère** > choisir **MAJUSCULES**. Le texte s'affiche en majuscules visuellement mais le lecteur d'écran lit le mot normalement.
-
----
-
-## Thème 5 - Finalisation
-
-### Propriétés du document
-
-**Erreur** : laisser les propriétés Titre et Auteur vides. Les propriétés du document sont la première information lue par un lecteur d'écran. Sans titre, l'utilisateur ne sait pas ce qu'il ouvre.
-
-**Procédure** : **Fichier** > **Propriétés** > onglet **Description** > renseigner **Titre**. Onglet **Général** > renseigner **Auteur**. Vérifier aussi que la langue du document est définie en **Français** (barre d'état).
-
-![Propriétés du document dans Writer - onglet Description](images-memo-writer/writer-proprietes-titre.png)
-
-### Vérification de l'accessibilité
-
-**Procédure** : **Outils** > **Vérification de l'accessibilité**. L'outil est un guide, pas une preuve de conformité : il détecte les problèmes courants (images sans alt, textes flottants) mais peut rater certaines erreurs (contraste, faux titres visuels, fausses listes).
-
-![Fenêtre de vérification de l'accessibilité dans Writer](images-memo-writer/writer-verification-a11y.png)
-
-### Export PDF accessible (PDF/UA)
-
-1. **Fichier** > **Exporter au format PDF**
-2. Onglet **Général**, cocher :
-   - **Accessibilité Universelle (PDF/UA)**
-   - **Exporter le plan et autres éléments de structure**
-
-![Options d'export PDF dans Writer - PDF/UA et structure](images-memo-writer/writer-export-pdf-ua.png)
-
-### Ancrage des images
-
-**Point spécifique Writer** : pour garantir l'ordre de lecture correct, ancrer les images **Comme caractère** (clic droit > **Ancrage** > **Comme caractère**). C'est plus fiable que l'ancrage "Au paragraphe" ou "A la page" qui peut décorréler la position visuelle de l'ordre de lecture.
-
-### Vérification post-export
-
-Utiliser **PAC** (PDF Accessibility Checker), outil gratuit, pour vérifier la conformité PDF/UA du document exporté.
-
-![Interface de PAC 2024](images-memo-writer/pac-interface.png)
-
----
-
-## Checklist des bonnes pratiques
-
-### Structure
-
-- Les titres utilisent les styles Titre 1, Titre 2, Titre 3 (pas de gras/taille)
-- Les listes utilisent les puces ou la numérotation natives (pas de puces tapées)
-- La table des matières est générée automatiquement (pas de sommaire tapé)
-- Les tableaux ont une ligne d'en-tête déclarée et répétée
-- Les tableaux n'ont pas de cellules fusionnées
-
-### Couleurs
-
-- L'information n'est pas véhiculée par la couleur seule (gras + texte en complément)
-- Le contraste est suffisant : 4,5:1 texte normal, 3:1 grand texte (vérifier avec CCA)
-- Les graphiques ont des motifs distincts et des étiquettes (pas uniquement des couleurs)
-
-### Contenus
-
-- Les images informatives ont un texte alternatif pertinent (pas le nom de fichier)
-- Les images complexes ont un alt court + une description adjacente dans le document
-- Les images décoratives ont le champ alternatif vide
-- Les liens ont un intitulé explicite (pas "cliquez ici"), avec format et poids si téléchargement
-- Pas de filigrane sans équivalent textuel dans le corps du document
-- Pas de texte inséré sous forme d'image (saisir le texte directement)
-
-### Langue et lisibilité
-
-- Les passages en langue étrangère sont balisés dans la bonne langue
-- Le texte est aligné à gauche (pas justifié)
-- Pas de paragraphes vides : l'espacement est géré par les styles
-- Les majuscules sont appliquées par la mise en forme Caractère, pas tapées au clavier
-
-### Finalisation
-
-- Le titre, l'auteur et la langue sont renseignés dans les propriétés du document
-- La vérification d'accessibilité intégrée ne remonte pas d'erreur bloquante
-- Le PDF est exporté en PDF/UA avec le plan et les éléments de structure
-
----
+Pour préserver l'ordre de lecture, préférer l'ancrage **Comme caractère** pour
+les images lorsque leur position doit suivre le texte. Vérifier ce comportement
+sur la version installée pendant la recette Windows.
 
 ## Ressources
 
-- **Colour Contrast Analyser (CCA)** : https://www.tpgi.com/color-contrast-checker/
-- **PAC - PDF Accessibility Checker** : https://pac.pdf-accessibility.org/
+- **Colour Contrast Analyser** : <https://www.tpgi.com/color-contrast-checker/>
+- **PAC - PDF Accessibility Checker** : <https://pac.pdf-accessibility.org/>
 - **Site d'entraînement** :\
   [https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/){.url-imprimee}

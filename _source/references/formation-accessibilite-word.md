@@ -1,5 +1,11 @@
 # Rendre un document Word accessible — guide pratique
 
+> **Apport pédagogique non normatif.** Ce guide nourrit les explications et
+> les modes opératoires, mais sa liste de 21 réflexes n'est pas un contrat actif
+> du TP. Le PRD `notes/prd-refonte-partie-II-tp-sami.md` fait autorité jusqu'à
+> T02 ; `_source/exercice-sami-matrice.yml` devient ensuite la source canonique
+> des contrôles, de leur niveau et de leur couverture.
+
 Un lecteur d'écran vient de recevoir votre compte rendu de réunion. Il entend ceci :
 
 > « Texte, texte, texte, texte, texte, texte... »

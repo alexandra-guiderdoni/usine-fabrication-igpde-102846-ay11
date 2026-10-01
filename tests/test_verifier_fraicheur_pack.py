@@ -1,4 +1,4 @@
-"""Tests du contrôle de fraîcheur des ressources hors chaîne de pack."""
+"""Tests du contrôle de fraîcheur des ressources générées du pack."""
 
 from __future__ import annotations
 
@@ -10,7 +10,11 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
-from verifier_fraicheur_pack import RessourceGeneree, verifier_fraicheur  # noqa: E402
+from verifier_fraicheur_pack import (  # noqa: E402
+    RESSOURCES_GENEREES,
+    RessourceGeneree,
+    verifier_fraicheur,
+)
 
 
 RESSOURCE = RessourceGeneree(
@@ -59,3 +63,86 @@ def test_accepte_des_sorties_aussi_recentes_que_les_sources(tmp_path):
     _ecrire(tmp_path, "sorties/copie.txt", "copie", 2_000_000_000)
 
     assert verifier_fraicheur(tmp_path, (RESSOURCE,)) == []
+
+
+def test_la_matrice_est_une_source_du_controle_de_fraicheur_sami():
+    sami = next(
+        resource for resource in RESSOURCES_GENEREES if resource.nom == "documents Sami"
+    )
+
+    assert "_source/exercice-sami-matrice.yml" in sami.sources
+
+
+def test_les_checklists_sont_soumises_au_controle_de_fraicheur():
+    checklist = next(
+        resource
+        for resource in RESSOURCES_GENEREES
+        if resource.nom == "checklists Sami"
+    )
+
+    assert checklist.commande == "make checklist"
+    assert "_source/exercice-sami-matrice.yml" in checklist.sources
+    assert checklist.sorties == (
+        "_source/checklist-accessibilite-bureautique.md",
+        "livrables-IGPDE-2026-102846/Formateur/tp-word-igpde/"
+        "checklist-accessibilite-bureautique.docx",
+    )
+
+
+def _ressource_pdf_checklist():
+    return next(
+        resource
+        for resource in RESSOURCES_GENEREES
+        if resource.nom == "checklist PDF Sami"
+    )
+
+
+def test_le_pdf_checklist_est_soumis_au_controle_de_fraicheur():
+    checklist_pdf = _ressource_pdf_checklist()
+
+    assert checklist_pdf.commande == "make pdf"
+    assert "_source/checklist-accessibilite-bureautique.md" in checklist_pdf.sources
+    assert checklist_pdf.sorties == (
+        "livrables-IGPDE-2026-102846/Formateur/tp-word-igpde/"
+        "checklist-accessibilite-bureautique.pdf",
+    )
+
+
+def test_signale_un_pdf_checklist_absent(tmp_path):
+    checklist_pdf = _ressource_pdf_checklist()
+    for source in checklist_pdf.sources:
+        _ecrire(tmp_path, source, "source", 1_000_000_000)
+
+    problemes = verifier_fraicheur(tmp_path, (checklist_pdf,))
+
+    assert problemes == [
+        "checklist PDF Sami : fichier absent "
+        "(livrables-IGPDE-2026-102846/Formateur/tp-word-igpde/"
+        "checklist-accessibilite-bureautique.pdf) ; lancer make pdf"
+    ]
+
+
+def test_signale_un_pdf_checklist_plus_ancien_que_le_markdown(tmp_path):
+    checklist_pdf = _ressource_pdf_checklist()
+    for source in checklist_pdf.sources:
+        horodatage = (
+            3_000_000_000
+            if source == "_source/checklist-accessibilite-bureautique.md"
+            else 1_000_000_000
+        )
+        _ecrire(tmp_path, source, "source", horodatage)
+    _ecrire(
+        tmp_path,
+        checklist_pdf.sorties[0],
+        "pdf",
+        2_000_000_000,
+    )
+
+    problemes = verifier_fraicheur(tmp_path, (checklist_pdf,))
+
+    assert problemes == [
+        "checklist PDF Sami : plus ancien que "
+        "_source/checklist-accessibilite-bureautique.md "
+        "(livrables-IGPDE-2026-102846/Formateur/tp-word-igpde/"
+        "checklist-accessibilite-bureautique.pdf) ; lancer make pdf"
+    ]
