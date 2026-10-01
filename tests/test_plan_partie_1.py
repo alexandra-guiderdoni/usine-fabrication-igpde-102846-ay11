@@ -24,7 +24,7 @@ def test_plan_partie_1_remplace_la_synthese_de_fin_de_partie():
 
     assert fichiers[14] == SLIDE_FILE
     assert "02t_module1-points-cles.py" not in fichiers
-    assert len(fichiers) == 133
+    assert len(fichiers) == 131
 
 
 def test_plan_partie_1_annonce_les_cinq_sous_parties():

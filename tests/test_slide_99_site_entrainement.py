@@ -20,7 +20,7 @@ def test_slide_93_correspond_aux_signaux_alerte():
     fichiers = [chemin.name for chemin in discover_slides()]
 
     assert fichiers[92] == SLIDE_FILE
-    assert len(fichiers) == 133
+    assert len(fichiers) == 131
 
 
 def test_slide_93_affiche_le_lien_et_son_qrcode_sous_les_cartes():
