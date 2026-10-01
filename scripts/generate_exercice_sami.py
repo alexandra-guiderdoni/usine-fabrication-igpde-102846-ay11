@@ -13,6 +13,7 @@ Produit :
 # PDG-LARGE-FILE-JUSTIFICATION: générateur unique des trois variantes dont les
 # helpers OOXML et l'ordre canonique doivent rester comparables dans un même flux.
 
+import argparse
 import subprocess
 from xml.sax.saxutils import escape
 from pathlib import Path
@@ -34,11 +35,14 @@ from docx.oxml.ns import qn, nsdecls
 from docx.oxml import parse_xml
 from lxml import etree
 
+from config import load_formation_config
 from exercice_sami_matrice import load_sami_matrix
 
 PROJECT = Path(__file__).resolve().parent.parent
 ASSETS = PROJECT / "_assets"
 ASSETS.mkdir(exist_ok=True)
+CHECKLIST_BASENAME = "checklist-accessibilite-bureautique"
+CHECKLIST_MARKDOWN = PROJECT / "_source" / f"{CHECKLIST_BASENAME}.md"
 
 A_NS = "http://schemas.openxmlformats.org/drawingml/2006/main"
 ADEC_NS = "http://schemas.microsoft.com/office/drawing/2017/decorative"
@@ -267,47 +271,6 @@ def generate_texte_image():
 # ------------------------------------------------------------------
 # 3. Document inaccessible
 # ------------------------------------------------------------------
-
-
-def _add_watermark(doc, text):
-    """Ajoute un filigrane texte diagonal au document via VML dans le header."""
-    from lxml import etree
-
-    section = doc.sections[0]
-    header = section.header
-    header.is_linked_to_previous = False
-    p = header.paragraphs[0] if header.paragraphs else header.add_paragraph()
-    ns = {
-        "w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
-        "v": "urn:schemas-microsoft-com:vml",
-        "o": "urn:schemas-microsoft-com:office:office",
-    }
-    pict_xml = (
-        f'<w:r xmlns:w="{ns["w"]}" xmlns:v="{ns["v"]}" xmlns:o="{ns["o"]}">'
-        f"<w:rPr><w:noProof/></w:rPr>"
-        f"<w:pict>"
-        f'<v:shapetype id="_x0000_t136" coordsize="21600,21600" o:spt="136" '
-        f'path="m@7,l@8,m@5,21600l@6,21600e">'
-        f'<v:formulas><v:f eqn="sum #0 0 10800"/></v:formulas>'
-        f'<v:path textpathok="t"/>'
-        f'<v:textpath on="t" fitshape="t"/>'
-        f'<o:lock v:ext="edit" text="t" shapetype="t"/>'
-        f"</v:shapetype>"
-        f'<v:shape id="WaterMark" o:spid="_x0000_s2049" type="#_x0000_t136" '
-        f'style="position:absolute;margin-left:0;margin-top:0;width:500pt;'
-        f"height:100pt;rotation:315;z-index:-251658752;"
-        f"mso-position-horizontal:center;mso-position-horizontal-relative:margin;"
-        f'mso-position-vertical:center;mso-position-vertical-relative:margin" '
-        f'o:allowincell="f" fillcolor="silver" stroked="f">'
-        f'<v:fill opacity=".5"/>'
-        f'<v:textpath style="font-family:&quot;Arial&quot;;font-size:1pt" '
-        f'string="{text}"/>'
-        f"</v:shape>"
-        f"</w:pict>"
-        f"</w:r>"
-    )
-    r_element = etree.fromstring(pict_xml)
-    p._p.append(r_element)
 
 
 def _set_image_alt(doc, alt_text="", title=""):
@@ -1236,9 +1199,6 @@ def build_inaccessible(
     _format_header_paragraph(hp)
     _add_page_footer(doc)
 
-    # Défaut P-11 : filigrane invisible au lecteur d'écran.
-    _add_watermark(doc, "CONFIDENTIEL")
-
     _add_station_one_p01(
         doc,
         p01,
@@ -1708,11 +1668,162 @@ def _remove_quarantine(path: Path):
         pass
 
 
+def _checklist_groups(matrix):
+    """Retourne les contrôles dans l'ordre des stations, puis les signalements."""
+    groups = []
+    for block in matrix["sequence"]:
+        if not block["id"].startswith("station-"):
+            continue
+        controls = [
+            control
+            for control in matrix["controles"]
+            if control["station"] == block["id"]
+        ]
+        groups.append((block["titre"], controls))
+    signalled = [control for control in matrix["controles"] if control["niveau"] == "S"]
+    groups.append(("Contrôles signalés", signalled))
+    return groups
+
+
+def _checklist_markdown(matrix, formation_code):
+    lines = [
+        "---",
+        'title: "Checklist accessibilité des documents bureautiques"',
+        'subtitle: "Suivi progressif du TP Word accessible"',
+        f'author: "IGPDE - Formation {formation_code}"',
+        "lang: fr",
+        "---",
+        "",
+        "<!-- Généré depuis `_source/exercice-sami-matrice.yml` par `make checklist`. Ne pas modifier directement. -->",
+        "",
+        "<style>li { break-inside: avoid; }</style>",
+        "",
+        "# Checklist accessibilité des documents bureautiques",
+        "",
+        "Utilisez cette même checklist dès le début du TP, puis complétez-la après chaque station.",
+        "",
+        "- **P - pratiqué** : une action est réalisée et sa preuve est conservée.",
+        "- **C - contrôlé** : un outil ou une vérification humaine est exécuté et son résultat est noté.",
+        "- **S - signalé** : le point est vérifié dans la checklist, sans manipulation obligatoire pendant le TP.",
+        "",
+    ]
+    for title, controls in _checklist_groups(matrix):
+        lines.extend((f"## {title}", ""))
+        if controls and controls[0]["niveau"] == "S":
+            lines.extend(
+                (
+                    "Ces points sont à vérifier avant diffusion, mais ne constituent pas des manipulations obligatoires du TP.",
+                    "",
+                )
+            )
+        for control in controls:
+            lines.extend(
+                (
+                    f"- **{control['id']} · {control['niveau']}** - {control['checklist']}",
+                    "  - Suivi : ☐ À vérifier · ☐ Fait · ☐ À reprendre",
+                    "  - Notes :",
+                    "",
+                )
+            )
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def _checklist_docx(matrix):
+    doc = Document()
+    doc.core_properties.title = "Checklist accessibilité des documents bureautiques"
+    doc.core_properties.author = "IGPDE"
+    doc.core_properties.subject = "Suivi du TP Word accessible"
+    doc.core_properties.language = "fr-FR"
+
+    normal = doc.styles["Normal"]
+    normal.font.name = "Arial"
+    normal.font.size = Pt(12)
+    normal.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    normal.paragraph_format.space_after = Pt(6)
+    _set_doc_defaults_language(doc, "fr-FR")
+    _set_content_styles_language(doc, "fr-FR")
+
+    doc.add_heading("Checklist accessibilité des documents bureautiques", level=0)
+    doc.add_paragraph(
+        "Utilisez cette même checklist dès le début du TP, puis complétez-la après chaque station."
+    )
+    for definition in (
+        "P - pratiqué : une action est réalisée et sa preuve est conservée.",
+        "C - contrôlé : un outil ou une vérification humaine est exécuté et son résultat est noté.",
+        "S - signalé : le point est vérifié sans manipulation obligatoire pendant le TP.",
+    ):
+        doc.add_paragraph(definition, style="List Bullet")
+
+    for title, controls in _checklist_groups(matrix):
+        doc.add_heading(title, level=1)
+        if controls and controls[0]["niveau"] == "S":
+            doc.add_paragraph(
+                "Ces points sont à vérifier avant diffusion, mais ne constituent pas des manipulations obligatoires du TP."
+            )
+        table = doc.add_table(rows=1, cols=3, style="Table Grid")
+        table.alignment = WD_TABLE_ALIGNMENT.CENTER
+        table.rows[0].cells[0].text = "Identifiant et niveau"
+        table.rows[0].cells[1].text = "Point à vérifier"
+        table.rows[0].cells[2].text = "Suivi"
+        _mark_first_row_as_header(table)
+        for control in controls:
+            cells = table.add_row().cells
+            cells[0].text = f"{control['id']} · {control['niveau']}"
+            cells[1].text = control["checklist"]
+            cells[2].text = "☐ À vérifier\n☐ Fait\n☐ À reprendre\nNotes :"
+        _prevent_table_row_splitting(table)
+
+    return doc
+
+
+def build_checklists(
+    *,
+    matrix=None,
+    markdown_output: Path,
+    docx_output: Path,
+    formation_code: str | None = None,
+):
+    """Génère les deux checklists depuis la matrice canonique."""
+    matrix = matrix or load_sami_matrix()
+    formation_code = formation_code or load_formation_config()["code"]
+    markdown_output = Path(markdown_output)
+    docx_output = Path(docx_output)
+    markdown_output.parent.mkdir(parents=True, exist_ok=True)
+    docx_output.parent.mkdir(parents=True, exist_ok=True)
+    markdown_output.write_text(
+        _checklist_markdown(matrix, formation_code), encoding="utf-8"
+    )
+    _checklist_docx(matrix).save(docx_output)
+    _remove_quarantine(docx_output)
+    return markdown_output, docx_output
+
+
+def build_default_checklists():
+    """Génère les checklists dans leurs emplacements contractuels."""
+    config = load_formation_config()
+    docx_output = (
+        PROJECT
+        / config["livrables"]
+        / "Formateur"
+        / "tp-word-igpde"
+        / f"{CHECKLIST_BASENAME}.docx"
+    )
+    outputs = build_checklists(
+        markdown_output=CHECKLIST_MARKDOWN,
+        docx_output=docx_output,
+    )
+    for output in outputs:
+        print(f"  -> {output.relative_to(PROJECT)}")
+    return outputs
+
+
 # ------------------------------------------------------------------
 # Main
 # ------------------------------------------------------------------
 
-if __name__ == "__main__":
+
+def generate_sami_documents():
+    """Génère les trois DOCX et leurs ressources graphiques."""
     print("Génération des graphiques...")
     chart_bad = generate_chart_inaccessible()
     print(f"  -> {chart_bad.name}")
@@ -1743,3 +1854,23 @@ if __name__ == "__main__":
     )
 
     print("\nTerminé.")
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--checklist",
+        action="store_true",
+        help="génère le DOCX et la source Markdown de la checklist",
+    )
+    args = parser.parse_args(argv)
+    if args.checklist:
+        print("Génération des checklists...")
+        build_default_checklists()
+        print("\nTerminé.")
+    else:
+        generate_sami_documents()
+
+
+if __name__ == "__main__":
+    main()

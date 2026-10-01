@@ -50,6 +50,19 @@ PDFS = [
         FORMATEUR / "tp-word-igpde",
     ),
     (
+        "_source/checklist-accessibilite-bureautique.md",
+        f"{CONFIG['livrables']}/Formateur/tp-word-igpde/checklist-accessibilite-bureautique.pdf",
+        BANDEAU_MEMO,
+        [
+            "--header-text",
+            "Checklist accessibilité des documents bureautiques",
+            "--no-toc",
+            "--subtitle",
+            "Suivi progressif du TP Word accessible",
+        ],
+        None,
+    ),
+    (
         "wcag/fiche-formateur-principes-wcag.md",
         f"{CONFIG['livrables']}/Formateur/fil-rouge-principes-wcag-igpde/fiche-formateur-principes-wcag.pdf",
         BANDEAU_FICHE,
@@ -219,7 +232,9 @@ def main():
     analyseur = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    analyseur.add_argument("commande", choices=["deck", "pdf", "supports", "outils", "tout"])
+    analyseur.add_argument(
+        "commande", choices=["deck", "pdf", "supports", "outils", "tout"]
+    )
     analyseur.add_argument(
         "--telecharger", action="store_true", help="récupère les installeurs manquants"
     )

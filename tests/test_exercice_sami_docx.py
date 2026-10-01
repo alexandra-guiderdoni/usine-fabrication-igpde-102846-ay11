@@ -940,7 +940,7 @@ def test_p10_conserve_la_destination_et_rend_le_lien_autonome(tmp_path):
     assert control["regle"] in comments
 
 
-def test_p11_reprend_dans_le_corps_l_information_du_filigrane(tmp_path):
+def test_p11_est_explique_sans_filigrane_illisible(tmp_path):
     matrix = load_sami_matrix()
     chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
     chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
@@ -966,8 +966,9 @@ def test_p11_reprend_dans_le_corps_l_information_du_filigrane(tmp_path):
         heading = next(p for p in document.paragraphs if p.text == heading_text)
         assert heading.style.name == "Heading 2"
 
-    assert "CONFIDENTIEL" in _archive_text(inaccessible, "word/header1.xml")
-    assert "CONFIDENTIEL" in _archive_text(guided, "word/header1.xml")
+    assert "CONFIDENTIEL" not in _archive_text(inaccessible, "word/header1.xml")
+    assert "CONFIDENTIEL" not in _archive_text(guided, "word/header1.xml")
+    assert "CONFIDENTIEL" not in _archive_text(corrected, "word/header1.xml")
     assert "Document confidentiel" not in {
         p.text for p in Document(inaccessible).paragraphs
     }

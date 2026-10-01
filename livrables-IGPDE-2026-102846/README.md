@@ -17,7 +17,7 @@ Formateur/
   _alex/                         Notes formateur (transcriptions du deck, checklists)
   fil-rouge-principes-wcag-igpde/  Fiches formateur et stagiaire WCAG, cartes des critères WCAG 2.2 (voir son README)
   ice-breaker-idées-recues-cartes-igpde/  6 cartes PDF idées reçues a11y
-  tp-word-igpde/                 Exercice Sami (3 DOCX) + fiches mémo PDF
+  tp-word-igpde/                 Exercice Sami (3 DOCX), checklist DOCX/PDF et fiches mémo PDF
   tp-reseaux-sociaux-igpde/      Démo de mauvaise restitution des emojis
   liens-tp-en-ligne.pdf          Liens en ligne des deux TP (une page)
 
@@ -39,5 +39,7 @@ Dans cet espace de travail, son clone est placé au même niveau que l'usine, so
 
 Ce dossier est un **snapshot livrable** : il contient les fichiers finaux tels que remis à l'IGPDE. Deux cas :
 
-- **Fichiers générés ou récupérés** (deck, PDF, documents Sami, démo hors ligne ; installeurs récupérés par `make outils-telecharger`) : ne pas les modifier ici. Corriger la source à la racine de l'usine, puis lancer la commande indiquée dans « Qui fabrique quoi dans le pack » (`AGENTS.md`) : en général `make pack`, précédé de `make sami`, `make grille` ou `make wcag` si leurs sources ont changé.
-- **Fichiers édités sur place** (documents administratifs de `Formateur/documents-administratifs-igpde/`, notes `Formateur/_alex/*.md`) : ils n'ont pas de générateur, on les modifie directement ici.
+- **Fichiers générés ou récupérés** (deck, PDF, documents Sami, démo hors ligne ; installeurs récupérés par `make outils-telecharger`) : ne pas les modifier ici. Corriger la source à la racine de l'usine, puis lancer la commande indiquée dans « Qui fabrique quoi dans le pack » (`AGENTS.md`) : en général `make pack`, précédé de `make sami`, `make checklist`, `make grille` ou `make wcag` si leurs sources ont changé.
+- **Fichiers édités sur place** (documents administratifs de `Formateur/documents-administratifs-igpde/`, notes `Formateur/_alex/*.md`) : ils n'ont pas de générateur ; leur modification se fait directement ici.
+
+La checklist du TP Word est livrée sous les noms `checklist-accessibilite-bureautique.docx` et `checklist-accessibilite-bureautique.pdf`. `make checklist` fabrique le DOCX et la source `_source/checklist-accessibilite-bureautique.md` depuis la matrice canonique ; `make pdf` fabrique le PDF/UA-1 depuis cette source.

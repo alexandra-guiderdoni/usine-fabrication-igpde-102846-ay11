@@ -28,8 +28,9 @@ Writer détaillées dans le guide corrigé.
   le corrigé.
 - [x] Les liens sont autonomes, visuellement identifiables et complétés par le
   format, le poids et la langue lorsque ces informations sont connues.
-- [x] L’information portée seulement par le filigrane est reprise dans le corps
-  du corrigé.
+- [x] `P-11` reste expliqué dans la station et dans la version guidée, sans
+  filigrane superposé dans les DOCX ; le corrigé illustre la reprise du statut
+  dans le corps.
 - [x] Chaque occurrence fautive possède une piste fiable dans la version
   guidée.
 
@@ -39,7 +40,8 @@ Writer détaillées dans le guide corrigé.
 - [x] Les tests XML distinguent alternative informative, description complexe
   et marqueur décoratif.
 - [x] Les tests confirment la présence de vrai texte, de liens explicites et de
-  l’information essentielle dans le corps.
+  l’information essentielle dans le corps, ainsi que l’absence du filigrane
+  « CONFIDENTIEL » dans les trois DOCX.
 - [x] La visibilité et l’ancrage des pistes sont couverts par le scénario
   humain Word de T09a, puis par la recette finale T16.
 
@@ -53,6 +55,15 @@ Writer détaillées dans le guide corrigé.
 - Modifier les couleurs, tableaux, langues ou procédures d’export.
 - Modifier les slides.
 
+## Décision de lisibilité — 2 octobre 2026
+
+La recette humaine a montré que le filigrane « CONFIDENTIEL » rendait le texte
+du document difficile à lire. Il est supprimé des versions inaccessible et
+guidée, et le générateur ne doit plus l’injecter. Cette suppression ne retire
+pas l’enseignement de `P-11` : la règle reste présentée dans la station, la
+version guidée et la checklist, tandis que le corrigé montre comment placer
+l’information essentielle dans le corps du document.
+
 ## Preuves d’exécution
 
 - `make sami` a régénéré les trois DOCX historiques depuis la matrice, sans
@@ -61,7 +72,7 @@ Writer détaillées dans le guide corrigé.
   80 réussites. Ils vérifient notamment l’ordre canonique de `P-06` à `P-11`,
   les alternatives, la description complexe déclarée comme transformation,
   le marqueur décoratif, le retrait de l’image de texte, le lien ciblé et
-  l’information du filigrane reprise dans le corps.
+  le traitement de `P-11` sans filigrane superposé.
 - Les six pistes sont ancrées sur les occurrences réelles dans le DOCX guidé :
   images pour `P-06`, `P-07` et `P-09`, pictogramme pour `P-08`, paragraphe du
   lien pour `P-10` et premier paragraphe d’introduction pour `P-11`.

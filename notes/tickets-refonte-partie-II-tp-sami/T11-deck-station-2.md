@@ -22,8 +22,10 @@ correction dans le document Sami.
   directement depuis la matrice, sans liste normative recopiée dans le module.
 - [ ] Images simples, images complexes et images décoratives sont distinguées
   par leurs usages et non par un slogan unique sur le texte alternatif.
-- [ ] Le texte sous forme d’image, les liens et le filigrane donnent lieu à une
-  manipulation vérifiable dans le DOCX.
+- [ ] Le texte sous forme d’image et les liens donnent lieu à une manipulation
+  vérifiable dans le DOCX. `P-11` est expliqué à partir de la règle et de la
+  mention placée dans le corps du corrigé, sans réintroduire de filigrane
+  superposé dans les documents d’exercice.
 - [ ] Word est présenté en premier et Writer dans un encadré compact.
 - [ ] Les slides restent synthétiques et renvoient au guide pour les procédures
   détaillées.

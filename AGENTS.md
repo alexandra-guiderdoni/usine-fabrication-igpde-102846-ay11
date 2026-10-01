@@ -39,17 +39,18 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - Composants : exclusivement `scripts/igpde_dsfr_components.py` (grille IGPDE 13,33 x 7,5 pouces), jamais une bibliothèque DSFR extérieure.
 - `finalize_pptx()` est obligatoire (langue, ordre de lecture, métadonnées, quarantaine macOS) ; `scripts/assemble.py` l'appelle.
 - Tester une seule slide (pas de cible `make`) : `.venv/bin/python scripts/assemble.py --only NN`, ou `/opt/homebrew/bin/python3.12` sans `.venv`. Cette commande écrit un deck partiel à la racine : relancer `make deck` ensuite. Le livrable du pack n'est jamais remplacé par un deck partiel. Même interpréteur pour les autres scripts appelés directement ci-dessous.
-- DOCX de l'exercice Sami : `make sami` (écrit dans `_source/`). Grille d'audit : `make grille`. Deck WCAG condensé : `make wcag`. PDF du pack : `make pdf` (générateur embarqué dans `vendor/`).
+- DOCX de l'exercice Sami : `make sami` (écrit dans `_source/`). Checklist Sami : `make checklist` lit `_source/exercice-sami-matrice.yml`, produit `_source/checklist-accessibilite-bureautique.md` et `livrables-IGPDE-2026-102846/Formateur/tp-word-igpde/checklist-accessibilite-bureautique.docx`, puis `make pdf` produit `checklist-accessibilite-bureautique.pdf` avec le générateur embarqué dans `vendor/`. Grille d'audit : `make grille`. Deck WCAG condensé : `make wcag`.
 - Gabarit IGPDE : `_source/presentations-source/PPT-IGPDE-DSFR-base-intervenant.pptx`. S'il manque : `scripts/rebuild_template_from_demo.py`, depuis `_source/presentations-source/gabarits-ppt-igpde.pptx`. `scripts/build_template.py` est historique : sa source IGPDE native n'est plus dans le dépôt.
 - Le site `docs/` est maintenu à la main page par page : ne pas relancer `scripts/generate_easy_checks_site_skeleton.py` sans comparer ensuite le diff complet, il écraserait les corrections faites depuis juillet.
 
 ## Qui fabrique quoi dans le pack
 
-`make pack` vérifie d'abord la fraîcheur des ressources qu'il ne régénère pas, puis régénère le deck, les PDF, les supports et la vérification des outils. Il ne relance ni `make sami`, ni `make grille`, ni `make wcag` : son contrôle les bloque si leurs sorties sont absentes ou plus anciennes que leurs sources. Chaque livrable relève de l'une de ces trois catégories.
+`make pack` régénère d'abord les PDF, vérifie ensuite leur fraîcheur avec celle des autres ressources, puis régénère le deck, les supports et la vérification des outils. Il ne relance ni `make sami`, ni `make checklist`, ni `make grille`, ni `make wcag` : son contrôle les bloque si leurs sorties sont absentes ou plus anciennes que leurs sources. Chaque livrable relève de l'une de ces trois catégories.
 
 - **Généré par une commande**
   - Deck `support-formation-*.pptx` : `make deck`, qui génère le deck à la racine (sortie de travail, ignorée par git) puis le copie dans le pack (livrable versionné). La copie refuse un deck partiel. Aucun PDF du deck n'est livré.
   - Mémos Word et LibreOffice, fiches WCAG formateur et stagiaire, fiche des liens des TP : `make pdf`, depuis `fiche-pratique/*.md`, `wcag/*.md` et `liens-tp-en-ligne.md`. `make pdf` n'accepte que du PDF/UA-1 : sinon il s'arrête en erreur et laisse le livrable précédent en place (voir `contraintes.md`).
+  - Checklist du TP Word : `make checklist` génère `checklist-accessibilite-bureautique.docx` dans le pack et sa source `_source/checklist-accessibilite-bureautique.md` depuis la matrice canonique ; `make pdf` transforme ensuite cette source en `checklist-accessibilite-bureautique.pdf` dans le même dossier. Ne modifier aucune de ces trois sorties à la main.
   - Documents Sami (`Formateur/tp-word-igpde/`) : `make sami` (écrit dans `_source/`), puis `make supports` ou `make pack` pour la copie dans le pack.
   - Démo réseaux sociaux hors ligne (`Formateur/tp-reseaux-sociaux-igpde/`) : `make supports`, depuis `docs/demo-mauvaise-restitution-emojis.html`.
   - Grille d'audit XLSX : `make grille` (dans `03-easy-checks/` et dans le site).
@@ -68,7 +69,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 ## Vérifier avant de livrer
 
 - `make verifier` : suite pytest (dont la déclaration PDF/UA-1 des PDF livrés), validation du site (`validate.py`), contrôles du dépôt. Le verdict se lit sur le code de sortie.
-- `make fraicheur-pack` : vérifie les documents Sami, la grille XLSX et le deck WCAG que `make pack` ne régénère pas. Cette cible est un prérequis obligatoire de `make pack`.
+- `make fraicheur-pack` : vérifie les documents Sami, les checklists Markdown, DOCX et PDF, la grille XLSX et le deck WCAG. Dans `make pack`, ce contrôle intervient après la régénération des PDF et avant celle du deck. La source Markdown et le DOCX de la checklist doivent donc avoir été régénérés avec `make checklist`.
 - `make qa` : boucle qualité du deck. Lire `.qa/qa-pptx-report.md` et son champ `status` ; le code de sortie seul ne prouve pas la convergence.
 - Relecture, correction et réexport complet du deck : suivre le mode opératoire (runbook) `REEXPORTER-DECK-PPTX.md`, qui couvre le relevé des observations, la correction des sources, la QA, la régénération et la validation humaine du PPTX du pack.
 - Recette visuelle du site corrigé : exécuter une fois `make installer-recette`, puis `make recette`. Les manifestes sont dans `recette/visual-tests/`.

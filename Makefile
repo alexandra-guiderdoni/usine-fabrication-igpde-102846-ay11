@@ -12,7 +12,7 @@ endif
 SITE_CLONE ?= $(LIVRABLES)/Formateur/tp-easy-check-site-web-igpde
 SITE_CONSULTATION ?= ../tp-fabrication-igpde-102846-ay11
 
-.PHONY: aide installer installer-recette deck qa tests valider controles verifier grille sami wcag pdf supports outils outils-telecharger fraicheur-pack pack apercu recette publier-site
+.PHONY: aide installer installer-recette deck qa tests valider controles verifier grille sami checklist wcag pdf supports outils outils-telecharger fraicheur-pack pack apercu recette publier-site
 
 aide:
 	@echo "Usine IGPDE - commandes principales (Python : $(PYTHON))"
@@ -23,11 +23,12 @@ aide:
 	@echo "  make verifier            tests + validation du site + contrôles du dépôt"
 	@echo "  make grille              régénère la grille d'audit XLSX et la copie dans le site"
 	@echo "  make sami                régénère les 3 documents Word de l'exercice Sami"
+	@echo "  make checklist           régénère le DOCX et la source Markdown de la checklist Sami"
 	@echo "  make wcag                régénère le deck WCAG en langage clair (condensé) dans wcag/"
-	@echo "  make fraicheur-pack      vérifie les ressources que pack ne régénère pas"
+	@echo "  make fraicheur-pack      vérifie la fraîcheur des ressources du pack"
 	@echo "  make pdf                 régénère les PDF accessibles du pack"
 	@echo "  make supports            démo hors ligne et documents Sami dans le pack"
-	@echo "  make pack                vérifie la fraîcheur, puis deck + PDF + supports + outils"
+	@echo "  make pack                PDF + fraîcheur + deck + supports + outils"
 	@echo "  make outils-telecharger  récupère et vérifie les installeurs"
 	@echo "  make apercu              site d'exercice en local"
 	@echo "  make recette             recette visuelle ShipGuard du site corrigé"
@@ -67,6 +68,9 @@ grille:
 sami:
 	$(PYTHON) scripts/generate_exercice_sami.py
 
+checklist:
+	$(PYTHON) scripts/generate_exercice_sami.py --checklist
+
 wcag:
 	$(PYTHON) scripts/generate_wcag_langage_clair.py --condensed
 
@@ -85,8 +89,12 @@ outils-telecharger:
 fraicheur-pack:
 	$(PYTHON) scripts/verifier_fraicheur_pack.py
 
-pack: fraicheur-pack deck
-	$(PYTHON) scripts/fabriquer_pack.py tout
+pack:
+	$(MAKE) pdf
+	$(MAKE) fraicheur-pack
+	$(MAKE) deck
+	$(PYTHON) scripts/fabriquer_pack.py supports
+	$(PYTHON) scripts/fabriquer_pack.py outils
 
 apercu:
 	bash recette/lancer-site-local.sh
