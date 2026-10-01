@@ -12,7 +12,7 @@ from igpde_dsfr_components import (
 )
 
 URL_PDF = "https://handicap.gouv.fr/sites/handicap/files/2025-03/delegation-interministerielle-accessibilite-rapport-activite-2024.pdf"
-URL_FALC = "https://handicap.gouv.fr/sites/handicap/files/2025-03/delegation-interministerielle-accessibilite-synthese-FLAC-rapport-activite-2024"
+URL_FALC = "https://handicap.gouv.fr/sites/handicap/files/2025-03/delegation-interministerielle-accessibilite-synthese-FLAC-rapport-activite-2024.pdf"
 
 IMG_W = 1.2
 
