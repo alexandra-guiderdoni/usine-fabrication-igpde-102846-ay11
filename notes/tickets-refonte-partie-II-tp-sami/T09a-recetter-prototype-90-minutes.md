@@ -1,6 +1,7 @@
 # T09a — Recetter le prototype complet en 90 minutes
 
-**Statut :** `ready-for-agent`
+**Statut :** `ready-for-human` — protocole validé le 2 octobre 2026 ; recette
+humaine réelle à exécuter.
 
 **PRD :** [Refonte de la partie II et du TP Sami](../prd-refonte-partie-II-tp-sami.md)
 
@@ -8,6 +9,14 @@
 [T09](T09-memos-et-notes-formateur.md).
 
 **Débloque :** [T10](T10-deck-ouverture-et-station-1.md).
+
+## Avancement
+
+Le déroulé guidé et l'essai autonome ont été relus et validés, sans exécution
+sur le poste Windows. La synthèse est conservée dans
+[`notes/recette-tp-sami/README.md`](../recette-tp-sami/README.md). La fusion
+anticipée de T01 à T09 dans `main` a été autorisée explicitement ; elle ne
+constitue pas la preuve humaine attendue par ce ticket et ne débloque pas T10.
 
 ## À construire
 

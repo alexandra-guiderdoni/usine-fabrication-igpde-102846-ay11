@@ -2,13 +2,16 @@
 
 # PRD — Refonte de la partie II et du TP Sami
 
-Statut : validé humainement le 1er octobre 2026 ; prêt pour découpage en tickets locaux.
+Statut : validé humainement le 1er octobre 2026 ; intégration de T01 à T09 dans `main` autorisée le 2 octobre 2026.
 Date de cadrage : 1er octobre 2026.
 Session cible : 9 octobre 2026.
 Paquet de repli : tag `avant-refonte-tp-sami-2026-10-01`.
-Implémentation : non commencée par ce PRD.
+Implémentation : T01 à T09 terminés ; protocole T09a validé, recette humaine réelle à exécuter.
 
-La réalisation reste dans une branche et un worktree isolés. « Remplacer le paquet » signifie fusionner la refonte dans `main` puis remettre ce nouveau paquet à l’IGPDE ; ces deux actions restent interdites tant que la recette complète et une validation humaine explicite ne sont pas obtenues. Le tag de repli reste immuable.
+Par décision explicite d'Alex le 2 octobre 2026, l'état de T01 à T09 et le
+protocole T09a peuvent être fusionnés dans `main` avant la recette humaine
+réelle. Cette exception ne valide pas T09a, ne débloque pas T10 et n'autorise
+pas la remise du nouveau paquet à l'IGPDE. Le tag de repli reste immuable.
 
 ## 1. Mission
 

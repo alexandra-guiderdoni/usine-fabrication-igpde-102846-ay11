@@ -2,13 +2,16 @@
 
 Source de vérité : [PRD validé](../prd-refonte-partie-II-tp-sami.md).
 
-Ce dossier constitue le tracker local du chantier. Chaque ticket porte le statut
-`ready-for-agent`, ce qui signifie que son périmètre est spécifié. Un ticket ne
-doit cependant pas commencer tant que ses blocages ne sont pas levés.
+Ce dossier constitue le tracker local du chantier. Le statut `ready-for-agent`
+signifie que le périmètre est spécifié ; `ready-for-human` signale une porte
+humaine prête mais non exécutée. Un ticket ne doit cependant pas commencer tant
+que ses blocages ne sont pas levés.
 
 Aucune issue GitHub n’est créée par ce découpage. L’implémentation reste dans le
-worktree isolé et ne peut être fusionnée ni livrée avant la recette complète et
-une validation humaine explicite.
+worktree isolé jusqu'à sa vérification. Par exception explicite du 2 octobre
+2026, T01 à T09 et le protocole T09a peuvent être fusionnés dans `main` avant
+la recette réelle. Cette exception ne débloque pas T10 et n'autorise aucune
+livraison à l'IGPDE.
 
 ## Frontier initiale
 
@@ -31,7 +34,7 @@ ses tests et sa cohérence pédagogique.
 7. [T07 — Finaliser la station 5 et le prototype DOCX](T07-docx-station-5-et-prototype.md) — bloqué par T06.
 8. [T08 — Générer les checklists accessibles](T08-checklists-accessibles.md) — bloqué par T07.
 9. [T09 — Aligner les mémos et les notes formateur](T09-memos-et-notes-formateur.md) — bloqué par T07.
-10. [T09a — Recetter le prototype complet en 90 minutes](T09a-recetter-prototype-90-minutes.md) — bloqué par T08 et T09.
+10. [T09a — Recetter le prototype complet en 90 minutes](T09a-recetter-prototype-90-minutes.md) — protocole validé ; recette humaine réelle à exécuter.
 11. [T10 — Reconstruire l’ouverture du deck et la station 1](T10-deck-ouverture-et-station-1.md) — bloqué par T09a.
 12. [T11 — Construire les slides de la station 2](T11-deck-station-2.md) — bloqué par T10.
 13. [T12 — Construire les slides de la station 3](T12-deck-station-3.md) — bloqué par T11.
@@ -60,8 +63,11 @@ ses tests et sa cohérence pédagogique.
 
 ## Condition de livraison
 
-T16 produit les preuves de recette. Il ne fusionne pas la branche, ne pousse
-pas et ne remet aucun paquet à l’IGPDE.
+T16 produit les preuves de recette. Il ne pousse pas et ne remet aucun paquet
+à l’IGPDE.
+
+La fusion anticipée de T01 à T09 dans `main` ne vaut ni réalisation de T09a,
+ni autorisation de T10, ni validation du paquet final.
 
 Si les sources du kit pratique changent après la porte T09a, le parcours humain
 affecté doit être rejoué. Sinon, T16 peut réutiliser les preuves datées de T09a
