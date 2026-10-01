@@ -10,6 +10,9 @@ Produit :
 - tp-doc-accessible.docx             (version corrigée)
 """
 
+# PDG-LARGE-FILE-JUSTIFICATION: générateur unique des trois variantes dont les
+# helpers OOXML et l'ordre canonique doivent rester comparables dans un même flux.
+
 import subprocess
 from xml.sax.saxutils import escape
 from pathlib import Path
@@ -357,7 +360,7 @@ def _set_style_language(style, lang):
 
 
 def _set_doc_defaults_language(doc, lang):
-    """Pose la langue par defaut du document dans styles.xml."""
+    """Pose la langue par défaut du document dans styles.xml."""
     styles = doc.styles.element
     doc_defaults = styles.find(qn("w:docDefaults"))
     if doc_defaults is None:
@@ -385,6 +388,21 @@ def _set_doc_defaults_language(doc, lang):
         lang_el.set(qn("w:val"), lang)
         lang_el.set(qn("w:eastAsia"), lang)
         lang_el.set(qn("w:bidi"), lang)
+
+
+def _set_content_styles_language(doc, lang):
+    """Pose la langue sur les styles réellement utilisés dans le document."""
+    for style_name in (
+        "Normal",
+        "Title",
+        "Heading 1",
+        "Heading 2",
+        "Heading 3",
+        "Heading 4",
+        "List Bullet",
+        "List Number",
+    ):
+        _set_style_language(doc.styles[style_name], lang)
 
 
 def _add_hyperlink(paragraph, text, url):
@@ -450,19 +468,19 @@ HEADER_TEXT = "Direction des affaires juridiques - Rapport trimestriel T1 2025"
 GUIDE_TITLE = "Rendre un document Word accessible"
 
 
-def _format_header_footer_run(run):
-    """Applique le style explicite aux textes d'en-tete et pied de page."""
+def _format_header_footer_run(run, font_size=9):
+    """Applique le style explicite aux textes d'en-tête et pied de page."""
     run.font.name = "Arial"
-    run.font.size = Pt(9)
+    run.font.size = Pt(font_size)
     run.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
 
 
-def _format_header_paragraph(paragraph):
+def _format_header_paragraph(paragraph, font_size=9):
     for run in paragraph.runs:
-        _format_header_footer_run(run)
+        _format_header_footer_run(run, font_size)
 
 
-def _add_page_footer(doc, document_name=DOCUMENT_TITLE):
+def _add_page_footer(doc, document_name=DOCUMENT_TITLE, font_size=9):
     """Ajoute un pied de page Page X / Y avec champs Word natifs."""
     footer = doc.sections[0].footer
     footer.is_linked_to_previous = False
@@ -477,7 +495,7 @@ def _add_page_footer(doc, document_name=DOCUMENT_TITLE):
     p.add_run(" / ")
     _add_simple_field(p, "NUMPAGES")
     for run in p.runs:
-        _format_header_footer_run(run)
+        _format_header_footer_run(run, font_size)
 
 
 def _add_fake_list_item(doc, marker, text):
@@ -1012,6 +1030,105 @@ def _add_station_three_p14(
             )
 
 
+def _add_station_four_p15(
+    doc,
+    control,
+    station_title,
+    numbering_id,
+    *,
+    corrected=False,
+    with_guidance=False,
+):
+    """Ajoute le passage anglais de la station 4 et son balisage de langue."""
+    station_heading = doc.add_heading(station_title, level=1)
+    _apply_heading_numbering(station_heading, numbering_id, 0)
+    _add_station_one_control(doc, control, numbering_id)
+
+    paragraph = doc.add_paragraph()
+    run = paragraph.add_run(
+        "The quarterly report is available upon request. "
+        "Please contact the communication department for further details."
+    )
+    run.font.name = "Arial"
+    run.font.size = Pt(11)
+    if corrected:
+        run_properties = run._r.get_or_add_rPr()
+        run_properties.append(parse_xml(f'<w:lang {nsdecls("w")} w:val="en-US"/>'))
+    if with_guidance:
+        _add_guidance_comment(doc, run, _guidance_text(control))
+
+
+def _add_station_four_p16(
+    doc,
+    control,
+    numbering_id,
+    *,
+    with_guidance=False,
+):
+    """Ajoute un paragraphe qui hérite du style Normal à corriger."""
+    _add_station_one_control(doc, control, numbering_id)
+    paragraph = doc.add_paragraph(
+        "La mise en forme du corps du document est pilotée par le style Normal."
+    )
+    if with_guidance:
+        _add_guidance_comment(doc, paragraph.runs, _guidance_text(control))
+
+
+def _add_station_four_p17(
+    doc,
+    control,
+    numbering_id,
+    *,
+    corrected=False,
+    with_guidance=False,
+):
+    """Ajoute l'intertitre saisi ou mis en forme en majuscules."""
+    _add_station_one_control(doc, control, numbering_id)
+    if corrected:
+        heading = doc.add_heading("Annexes - accessibilité", level=3)
+        for run in heading.runs:
+            run.font.all_caps = True
+    else:
+        heading = doc.add_heading("ANNEXES - ACCESSIBILITE", level=3)
+    if with_guidance:
+        _add_guidance_comment(doc, heading.runs, _guidance_text(control))
+
+
+def _add_station_four_p18(
+    doc,
+    control,
+    numbering_id,
+    *,
+    corrected=False,
+    with_guidance=False,
+):
+    """Ajoute la première occurrence d'un acronyme à développer."""
+    _add_station_one_control(doc, control, numbering_id)
+    if corrected:
+        text = (
+            "Le Référentiel général d’amélioration de l’accessibilité (RGAA) "
+            "structure le contrôle des documents numériques."
+        )
+    else:
+        text = "Le RGAA structure le contrôle des documents numériques."
+    paragraph = doc.add_paragraph(text)
+    if with_guidance:
+        _add_guidance_comment(doc, paragraph.runs, _guidance_text(control))
+
+
+def _ensure_minimum_body_font_size(doc, minimum_points):
+    """Relève les tailles directes du corps sans réduire les titres."""
+    paragraphs = list(doc.paragraphs)
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                paragraphs.extend(cell.paragraphs)
+    for paragraph in paragraphs:
+        for run in paragraph.runs:
+            if run.font.size is not None and run.font.size.pt < minimum_points:
+                run.font.size = Pt(minimum_points)
+
+
 def build_inaccessible(
     chart_path: Path,
     icon_path: Path = None,
@@ -1030,19 +1147,25 @@ def build_inaccessible(
     station_2_title = _station_title(matrix, "station-2")
     p12, p13, p14 = _station_controls(matrix, "station-3")
     station_3_title = _station_title(matrix, "station-3")
+    p15, p16, p17, p18 = _station_controls(matrix, "station-4")
+    station_4_title = _station_title(matrix, "station-4")
     doc = Document()
     station_numbering_id = _create_heading_numbering(doc)
     doc.core_properties.title = ""
     doc.core_properties.author = ""
     doc.core_properties.subject = ""
+    doc.core_properties.language = "de-DE"
 
     style_normal = doc.styles["Normal"]
     style_normal.font.name = "Arial"
     style_normal.font.size = Pt(11)
-    # Erreur 15 : texte justifie (cree des espaces inegaux, difficile pour dyslexiques)
+    # Défaut P-16 : texte justifié, interligne simple et corps inférieur à 12 pt.
     style_normal.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    style_normal.paragraph_format.line_spacing = 1.0
+    _set_doc_defaults_language(doc, "de-DE")
+    _set_content_styles_language(doc, "de-DE")
 
-    # En-tete fictif
+    # En-tête fictif
     header = doc.sections[0].header
     hp = header.paragraphs[0]
     hp.text = HEADER_TEXT
@@ -1052,7 +1175,7 @@ def build_inaccessible(
     _format_header_paragraph(hp)
     _add_page_footer(doc)
 
-    # Erreur 18 : filigrane invisible au lecteur d'ecran
+    # Défaut P-11 : filigrane invisible au lecteur d'écran.
     _add_watermark(doc, "CONFIDENTIEL")
 
     _add_station_one_p01(
@@ -1084,16 +1207,6 @@ def build_inaccessible(
         "trimestre 2025. Il couvre les principaux indicateurs de performance "
         "de nos canaux digitaux."
     )
-    if with_guidance:
-        _add_guidance_comment(
-            doc,
-            intro_paragraph.runs,
-            "Critère 15 - Problème : le texte courant est justifié. Impact : "
-            "les espaces irréguliers entre les mots peuvent gêner la lecture, "
-            "notamment pour des personnes dyslexiques ou malvoyantes. Méthode : "
-            "sélectionner le texte ou le style Normal, puis choisir "
-            "Accueil > Aligner à gauche.",
-        )
 
     # Erreur 19 : faux sommaire tape a la main (points de suite manuels)
     p = doc.add_paragraph()
@@ -1146,8 +1259,9 @@ def build_inaccessible(
             cell = table.cell(i, j)
             cell.text = cell_text
             for paragraph in cell.paragraphs:
-                paragraph.style.font.name = "Arial"
-                paragraph.style.font.size = Pt(10)
+                for run in paragraph.runs:
+                    run.font.name = "Arial"
+                    run.font.size = Pt(10)
     _mark_first_row_as_header(table)
     _prevent_table_row_splitting(table)
 
@@ -1248,33 +1362,31 @@ def build_inaccessible(
         with_guidance=with_guidance,
     )
 
-    # Erreur 13 : passage anglais sans balisage de langue
-    p = doc.add_paragraph(
-        "The quarterly report is available upon request. "
-        "Please contact the communication department for further details."
+    _add_station_four_p15(
+        doc,
+        p15,
+        station_4_title,
+        station_numbering_id,
+        with_guidance=with_guidance,
     )
-    if with_guidance:
-        _add_guidance_comment(
-            doc,
-            p.runs,
-            "Critère 13 - Problème : ce passage anglais n'est pas balisé dans "
-            "sa langue. Impact : il peut être prononcé avec une voix française. "
-            "Méthode : sélectionner le texte > Révision > Langue > Définir la "
-            "langue de vérification > Anglais.",
-        )
-
-    # Section Annexes : casse encore fautive, mais structure de titre correcte.
-    p = doc.add_heading("ANNEXES", level=2)
-    run = p.runs[0]
-    if with_guidance:
-        _add_guidance_comment(
-            doc,
-            run,
-            "Critère 17 - Problème : le mot est tapé entièrement en capitales. "
-            "Impact : certaines aides peuvent l'épeler ou le prononcer moins "
-            "naturellement. Méthode : saisir 'Annexes' en minuscules puis "
-            "appliquer Police > Tout en majuscules si l'effet visuel est voulu.",
-        )
+    _add_station_four_p16(
+        doc,
+        p16,
+        station_numbering_id,
+        with_guidance=with_guidance,
+    )
+    _add_station_four_p17(
+        doc,
+        p17,
+        station_numbering_id,
+        with_guidance=with_guidance,
+    )
+    _add_station_four_p18(
+        doc,
+        p18,
+        station_numbering_id,
+        with_guidance=with_guidance,
+    )
 
     version_key = "avec_pistes" if with_guidance else "inaccessible"
     output = (output_dir or PROJECT / "_source") / (
@@ -1308,18 +1420,21 @@ def build_accessible(
     station_2_title = _station_title(matrix, "station-2")
     p12, p13, p14 = _station_controls(matrix, "station-3")
     station_3_title = _station_title(matrix, "station-3")
+    p15, p16, p17, p18 = _station_controls(matrix, "station-4")
+    station_4_title = _station_title(matrix, "station-4")
     doc = Document()
     station_numbering_id = _create_heading_numbering(doc)
 
     style_normal = doc.styles["Normal"]
     style_normal.font.name = "Arial"
-    style_normal.font.size = Pt(11)
-    # Alignement a gauche (pas de justification)
+    style_normal.font.size = Pt(12)
+    # Alignement à gauche, sans justification.
     style_normal.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    style_normal.paragraph_format.line_spacing = 1.15
 
-    # Langue du document : fr-FR par defaut, passage anglais balise plus bas.
+    # Langue du document : fr-FR par défaut, passage anglais balisé plus bas.
     _set_doc_defaults_language(doc, "fr-FR")
-    _set_style_language(style_normal, "fr-FR")
+    _set_content_styles_language(doc, "fr-FR")
 
     # Configurer les styles de titre
     for level, size in [(1, 16), (2, 14), (3, 12)]:
@@ -1328,15 +1443,15 @@ def build_accessible(
         style.font.size = Pt(size)
         style.font.color.rgb = RGBColor(0x00, 0x00, 0x91)
 
-    # En-tete
+    # En-tête
     header = doc.sections[0].header
     hp = header.paragraphs[0]
     hp.text = HEADER_TEXT
     hp.style.font.name = "Arial"
-    hp.style.font.size = Pt(9)
+    hp.style.font.size = Pt(12)
     hp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-    _format_header_paragraph(hp)
-    _add_page_footer(doc)
+    _format_header_paragraph(hp, font_size=12)
+    _add_page_footer(doc, font_size=12)
 
     _add_station_one_p01(
         doc, p01, station_1_title, station_numbering_id, corrected=True
@@ -1482,22 +1597,26 @@ def build_accessible(
         corrected=True,
     )
 
-    # Passage anglais avec balisage de langue
-    p = doc.add_paragraph()
-    run = p.add_run(
-        "The quarterly report is available upon request. "
-        "Please contact the communication department for further details."
+    _add_station_four_p15(
+        doc,
+        p15,
+        station_4_title,
+        station_numbering_id,
+        corrected=True,
     )
-    run.font.name = "Arial"
-    run.font.size = Pt(11)
-    rPr = run._r.get_or_add_rPr()
-    lang_en = parse_xml(f'<w:lang {nsdecls("w")} w:val="en-US"/>')
-    rPr.append(lang_en)
-
-    # Annexes (Titre 2, majuscules via all_caps, pas tapees au clavier)
-    h = doc.add_heading("Annexes", level=2)
-    for run in h.runs:
-        run.font.all_caps = True
+    _add_station_four_p16(doc, p16, station_numbering_id)
+    _add_station_four_p17(
+        doc,
+        p17,
+        station_numbering_id,
+        corrected=True,
+    )
+    _add_station_four_p18(
+        doc,
+        p18,
+        station_numbering_id,
+        corrected=True,
+    )
 
     # Proprietes du document
     doc.core_properties.title = DOCUMENT_TITLE
@@ -1508,6 +1627,7 @@ def build_accessible(
         "accessibilité, document bureautique, Word, rapport trimestriel, "
         "communication numérique"
     )
+    _ensure_minimum_body_font_size(doc, 12)
 
     output = (output_dir or PROJECT / "_source") / (
         output_name or matrix["identite_editoriale"]["versions"]["corrigee"]

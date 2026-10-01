@@ -14,6 +14,7 @@ identite_editoriale:
     - P-10
     - P-11
     - P-13
+    - P-17
     - P-18
 
 sequence:
@@ -413,7 +414,7 @@ controles:
     note_formateur: Relier la bonne saisie à la recherche et à l'orthographe.
     surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
     references_pedagogiques: [MS-10]
-    transformations_editoriales: []
+    transformations_editoriales: [retablissement_casse_accents_source]
   - id: P-18
     niveau: P
     station: station-4

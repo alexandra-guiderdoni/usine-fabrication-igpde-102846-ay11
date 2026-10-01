@@ -1,5 +1,8 @@
 """Tests d'intégration XML des trois DOCX de l'exercice Sami."""
 
+# PDG-LARGE-FILE-JUSTIFICATION: suite d'intégration unique qui compare les
+# trois variantes DOCX et leurs contrats OOXML station par station.
+
 from __future__ import annotations
 
 from copy import deepcopy
@@ -8,6 +11,7 @@ import re
 from zipfile import ZipFile
 
 from docx import Document
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.ns import qn
 from lxml import etree
 from PIL import Image
@@ -54,6 +58,17 @@ def _comment_anchor(path: Path, marker: str) -> dict[str, object]:
         "drawing": bool(paragraph.xpath(".//w:drawing", namespaces=namespaces)),
         "hyperlink": bool(paragraph.xpath(".//w:hyperlink", namespaces=namespaces)),
     }
+
+
+def _comment_text(path: Path, marker: str) -> str:
+    namespaces = {"w": WORD_NS}
+    with ZipFile(path) as archive:
+        comments_root = etree.fromstring(archive.read("word/comments.xml"))
+    return next(
+        "".join(item.xpath(".//w:t/text()", namespaces=namespaces))
+        for item in comments_root.xpath("//w:comment", namespaces=namespaces)
+        if marker in "".join(item.xpath(".//w:t/text()", namespaces=namespaces))
+    )
 
 
 def _embedded_asset_count(path: Path, asset_path: Path) -> int:
@@ -137,6 +152,52 @@ def _table_tokens(table) -> list[str]:
             seen_cells.add(cell._tc)
             tokens.extend(token for token in cell.text.splitlines() if token)
     return tokens
+
+
+def _direct_run_language(run):
+    run_properties = run._r.rPr
+    if run_properties is None:
+        return None
+    language = run_properties.find(qn("w:lang"))
+    return None if language is None else language.get(qn("w:val"))
+
+
+def _style_language(document, style_name):
+    run_properties = document.styles[style_name].element.rPr
+    if run_properties is None:
+        return None
+    language = run_properties.find(qn("w:lang"))
+    return None if language is None else language.get(qn("w:val"))
+
+
+def _default_document_language(document):
+    styles = document.styles.element
+    defaults = styles.find(qn("w:docDefaults"))
+    run_defaults = defaults.find(qn("w:rPrDefault")) if defaults is not None else None
+    run_properties = (
+        run_defaults.find(qn("w:rPr")) if run_defaults is not None else None
+    )
+    language = run_properties.find(qn("w:lang")) if run_properties is not None else None
+    return None if language is None else language.get(qn("w:val"))
+
+
+def _body_runs(document):
+    for paragraph in document.paragraphs:
+        yield from paragraph.runs
+    for table in document.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                for paragraph in cell.paragraphs:
+                    yield from paragraph.runs
+
+
+def _useful_document_runs(document):
+    """Parcourt le corps et les informations utiles d'en-tête et de pied."""
+    yield from _body_runs(document)
+    for section in document.sections:
+        for story in (section.header, section.footer):
+            for paragraph in story.paragraphs:
+                yield from paragraph.runs
 
 
 def _paragraph_region(path: Path, start: str, end: str):
@@ -264,35 +325,12 @@ def test_les_titres_hors_station_un_restant_ne_creent_pas_d_occurrence_cachee(
         "Résultats du trimestre": "Heading 2",
         "Détail par canal": "Heading 3",
         "Répartition par service": "Heading 3",
-        "ANNEXES": "Heading 2",
+        "ANNEXES - ACCESSIBILITE": "Heading 3",
     }
 
     for text, style_name in expected_styles.items():
         paragraph = next(item for item in document.paragraphs if item.text == text)
         assert paragraph.style.name == style_name
-
-
-def test_la_partie_non_migree_annexes_conserve_son_defaut_de_casse(tmp_path):
-    matrix = load_sami_matrix()
-    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
-    chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
-    inaccessible = build_inaccessible(
-        chart_bad,
-        output_name="inaccessible.docx",
-        matrix=matrix,
-        output_dir=tmp_path,
-    )
-    corrected = build_accessible(chart_good, matrix=matrix, output_dir=tmp_path)
-
-    inaccessible_annexes = next(
-        item for item in Document(inaccessible).paragraphs if item.text == "ANNEXES"
-    )
-    corrected_annexes = next(
-        item for item in Document(corrected).paragraphs if item.text == "Annexes"
-    )
-
-    assert "w:caps" not in inaccessible_annexes._p.xml
-    assert "w:caps" in corrected_annexes._p.xml
 
 
 def test_p03_guide_le_sommaire_manuel_et_le_corrige_le_rend_actualisable(
@@ -1291,3 +1329,286 @@ def test_p14_corrige_la_structure_du_tableau_de_donnees(tmp_path):
         for paragraph in good_document.paragraphs
     )
     assert _comment_anchor(guided, "P-14 -")["text"].startswith("Effectif")
+
+
+def test_p15_distingue_la_langue_principale_et_le_passage_anglais(tmp_path):
+    matrix = load_sami_matrix()
+    control = next(item for item in matrix["controles"] if item["id"] == "P-15")
+    station_title = next(
+        block["titre"] for block in matrix["sequence"] if block["id"] == "station-4"
+    )
+    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
+    chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
+    inaccessible = build_inaccessible(
+        chart_bad,
+        output_name="inaccessible.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    guided = build_inaccessible(
+        chart_bad,
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    corrected = build_accessible(chart_good, matrix=matrix, output_dir=tmp_path)
+    documents = [Document(path) for path in (inaccessible, guided, corrected)]
+    english_text = (
+        "The quarterly report is available upon request. "
+        "Please contact the communication department for further details."
+    )
+    heading_text = f"{control['id']} - {control['intitule']}"
+
+    for document in documents:
+        texts = [paragraph.text for paragraph in document.paragraphs]
+        assert texts.count(station_title) == 1
+        assert texts.count(heading_text) == 1
+
+    bad_document, guided_document, good_document = documents
+    for document in (bad_document, guided_document):
+        assert document.core_properties.language == "de-DE"
+        assert _default_document_language(document) == "de-DE"
+        for style_name in ("Normal", "Title", "Heading 1", "Heading 2"):
+            assert _style_language(document, style_name) == "de-DE"
+
+    assert good_document.core_properties.language == "fr-FR"
+    assert _default_document_language(good_document) == "fr-FR"
+    for style_name in ("Normal", "Title", "Heading 1", "Heading 2"):
+        assert _style_language(good_document, style_name) == "fr-FR"
+
+    bad_english = next(p for p in bad_document.paragraphs if p.text == english_text)
+    guided_english = next(
+        p for p in guided_document.paragraphs if p.text == english_text
+    )
+    good_english = next(p for p in good_document.paragraphs if p.text == english_text)
+    assert all(_direct_run_language(run) is None for run in bad_english.runs)
+    assert all(_direct_run_language(run) is None for run in guided_english.runs)
+    assert {_direct_run_language(run) for run in good_english.runs} == {"en-US"}
+
+    comments = _archive_text(guided, "word/comments.xml")
+    assert comments.count("P-15 -") == 1
+    assert control["regle"] in comments
+    assert _comment_anchor(guided, "P-15 -")["text"] == english_text
+
+
+def test_p16_corrige_la_lisibilite_par_le_style_normal(tmp_path):
+    matrix = load_sami_matrix()
+    control = next(item for item in matrix["controles"] if item["id"] == "P-16")
+    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
+    chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
+    inaccessible = build_inaccessible(
+        chart_bad,
+        output_name="inaccessible.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    guided = build_inaccessible(
+        chart_bad,
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    corrected = build_accessible(chart_good, matrix=matrix, output_dir=tmp_path)
+    bad_document = Document(inaccessible)
+    guided_document = Document(guided)
+    good_document = Document(corrected)
+    sample_text = (
+        "La mise en forme du corps du document est pilotée par le style Normal."
+    )
+
+    for document in (bad_document, guided_document, good_document):
+        heading_text = f"{control['id']} - {control['intitule']}"
+        assert sum(p.text == heading_text for p in document.paragraphs) == 1
+        sample = next(p for p in document.paragraphs if p.text == sample_text)
+        assert sample.style.name == "Normal"
+        assert all(run.font.size is None for run in sample.runs)
+
+    for document in (bad_document, guided_document):
+        normal = document.styles["Normal"]
+        assert normal.font.name == "Arial"
+        assert normal.font.size.pt == 11
+        assert normal.paragraph_format.line_spacing == 1.0
+        assert normal.paragraph_format.alignment == WD_ALIGN_PARAGRAPH.JUSTIFY
+
+    normal = good_document.styles["Normal"]
+    assert normal.font.name == "Arial"
+    assert normal.font.size.pt == 12
+    assert normal.paragraph_format.line_spacing >= 1.15
+    assert normal.paragraph_format.alignment == WD_ALIGN_PARAGRAPH.LEFT
+    explicit_sizes = [
+        run.font.size.pt
+        for run in _useful_document_runs(good_document)
+        if run.font.size is not None and run.text.strip()
+    ]
+    assert explicit_sizes
+    assert min(explicit_sizes) >= 12
+
+    comments = _archive_text(guided, "word/comments.xml")
+    assert comments.count("P-16 -") == 1
+    assert control["procedure_word"] in _comment_text(guided, "P-16 -")
+    assert _comment_anchor(guided, "P-16 -")["text"] == sample_text
+
+
+def test_p17_conserve_les_accents_et_applique_la_casse_par_la_forme(tmp_path):
+    matrix = load_sami_matrix()
+    control = next(item for item in matrix["controles"] if item["id"] == "P-17")
+    assert control["transformations_editoriales"] == [
+        "retablissement_casse_accents_source"
+    ]
+    assert "P-17" in matrix["identite_editoriale"]["transformations_autorisees"]
+    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
+    chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
+    inaccessible = build_inaccessible(
+        chart_bad,
+        output_name="inaccessible.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    guided = build_inaccessible(
+        chart_bad,
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    corrected = build_accessible(chart_good, matrix=matrix, output_dir=tmp_path)
+    bad_document = Document(inaccessible)
+    guided_document = Document(guided)
+    good_document = Document(corrected)
+    heading_text = f"{control['id']} - {control['intitule']}"
+
+    for document in (bad_document, guided_document, good_document):
+        assert sum(p.text == heading_text for p in document.paragraphs) == 1
+
+    for document in (bad_document, guided_document):
+        target = next(
+            p for p in document.paragraphs if p.text == "ANNEXES - ACCESSIBILITE"
+        )
+        assert target.style.name == "Heading 3"
+        assert "w:caps" not in target._p.xml
+
+    corrected_target = next(
+        p for p in good_document.paragraphs if p.text == "Annexes - accessibilité"
+    )
+    assert corrected_target.style.name == "Heading 3"
+    assert corrected_target.runs
+    assert all(run.font.all_caps for run in corrected_target.runs)
+    assert "ACCESSIBILITE" not in corrected_target._p.xml
+    assert "accessibilité" in corrected_target._p.xml
+
+    comments = _archive_text(guided, "word/comments.xml")
+    assert comments.count("P-17 -") == 1
+    assert "Critère 17 -" not in comments
+    assert control["regle"] in _comment_text(guided, "P-17 -")
+    assert _comment_anchor(guided, "P-17 -")["text"] == ("ANNEXES - ACCESSIBILITE")
+
+
+def test_p18_developpe_le_rgaa_et_documente_le_reglage_du_correcteur(tmp_path):
+    matrix = load_sami_matrix()
+    control = next(item for item in matrix["controles"] if item["id"] == "P-18")
+    assert control["transformations_editoriales"] == [
+        "developpement_acronyme_premiere_occurrence"
+    ]
+    assert "P-18" in matrix["identite_editoriale"]["transformations_autorisees"]
+    assert "Ignorer les mots en MAJUSCULES" in control["procedure_word"]
+    assert "Paramètres linguistiques" in control["procedure_writer"]
+
+    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
+    chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
+    inaccessible = build_inaccessible(
+        chart_bad,
+        output_name="inaccessible.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    guided = build_inaccessible(
+        chart_bad,
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    corrected = build_accessible(chart_good, matrix=matrix, output_dir=tmp_path)
+    bad_document = Document(inaccessible)
+    guided_document = Document(guided)
+    good_document = Document(corrected)
+    bad_text = "Le RGAA structure le contrôle des documents numériques."
+    good_text = (
+        "Le Référentiel général d’amélioration de l’accessibilité (RGAA) "
+        "structure le contrôle des documents numériques."
+    )
+    heading_text = f"{control['id']} - {control['intitule']}"
+
+    for document in (bad_document, guided_document, good_document):
+        assert sum(p.text == heading_text for p in document.paragraphs) == 1
+        body_text = {paragraph.text for paragraph in document.paragraphs}
+        assert f"Dans Word : {control['procedure_word']}" in body_text
+        assert f"Dans LibreOffice Writer : {control['procedure_writer']}" in body_text
+
+    for document in (bad_document, guided_document):
+        assert sum(p.text == bad_text for p in document.paragraphs) == 1
+        assert good_text not in {p.text for p in document.paragraphs}
+
+    assert sum(p.text == good_text for p in good_document.paragraphs) == 1
+    assert bad_text not in {p.text for p in good_document.paragraphs}
+    first_rgaa = next(p.text for p in good_document.paragraphs if "RGAA" in p.text)
+    assert first_rgaa == good_text
+
+    comments = _archive_text(guided, "word/comments.xml")
+    assert comments.count("P-18 -") == 1
+    assert control["procedure_word"] in _comment_text(guided, "P-18 -")
+    assert _comment_anchor(guided, "P-18 -")["text"] == bad_text
+
+
+def test_la_station_quatre_est_ordonnee_et_pilotee_par_la_matrice(tmp_path):
+    matrix = load_sami_matrix()
+    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
+    chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
+    paths = [
+        build_inaccessible(
+            chart_bad,
+            output_name="inaccessible.docx",
+            matrix=matrix,
+            output_dir=tmp_path,
+        ),
+        build_inaccessible(
+            chart_bad,
+            with_guidance=True,
+            output_name="guide.docx",
+            matrix=matrix,
+            output_dir=tmp_path,
+        ),
+        build_accessible(chart_good, matrix=matrix, output_dir=tmp_path),
+    ]
+    controls = [item for item in matrix["controles"] if item["station"] == "station-4"]
+    station_title = next(
+        item["titre"] for item in matrix["sequence"] if item["id"] == "station-4"
+    )
+
+    for path in paths:
+        texts = [paragraph.text for paragraph in Document(path).paragraphs]
+        assert texts.count(station_title) == 1
+        heading_indexes = []
+        for control in controls:
+            heading_text = f"{control['id']} - {control['intitule']}"
+            heading_indexes.append(texts.index(heading_text))
+            for expected in (
+                f"Problème : {control['defaut']}",
+                f"Pourquoi : {control['impact']}",
+                f"Règle : {control['regle']}",
+                f"Dans Word : {control['procedure_word']}",
+                f"Dans LibreOffice Writer : {control['procedure_writer']}",
+                f"À faire : {control['action_attendue']}",
+                f"Preuve : {control['preuve']['attendu']}",
+            ):
+                assert expected in texts
+        assert heading_indexes == sorted(heading_indexes)
+
+    comments = _archive_text(paths[1], "word/comments.xml")
+    for control in controls:
+        assert comments.count(f"{control['id']} -") == 1
+        assert control["regle"] in _comment_text(paths[1], f"{control['id']} -")
+    for legacy_label in ("Critère 13 -", "Critère 15 -", "Critère 17 -"):
+        assert legacy_label not in comments
