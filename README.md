@@ -75,6 +75,7 @@ Les installeurs remis aux stagiaires (NVDA, Colour Contrast Analyser, Focus High
 ## Documentation
 
 - Protocole pour les agents et les humains : [AGENTS.md](AGENTS.md)
+- Générer des images de slides dans le style IGPDE Accessibilité : [_source/imagegen-igpde/README.md](_source/imagegen-igpde/README.md)
 - Réexporter le deck : [REEXPORTER-DECK-PPTX.md](REEXPORTER-DECK-PPTX.md)
 - Publier le site : [PUBLIER-SITE.md](PUBLIER-SITE.md)
 - Architecture de la chaîne : [architecture-c4-slides.md](architecture-c4-slides.md)

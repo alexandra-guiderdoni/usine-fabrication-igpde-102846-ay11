@@ -1,0 +1,115 @@
+version: 1
+name: IGPDE Accessibilité - bleu illustré
+status: canonique
+purpose: Générer des images de slides pédagogiques IGPDE cohérentes avec la série Réseaux sociaux accessible V4.
+
+workflow:
+  primary_skill: generer-images-slides-ia
+  generation_engine: image_gen
+  historical_style_skill:
+    name: style-igpde
+    use_for_this_family: false
+    reason: Le skill historique produit un tableau blanc ERNIE en 680x383, différent du style bleu illustré validé.
+  generic_style_override: Le présent preset prévaut pour l'apparence visuelle ; le workflow, les reçus et les contrôles du skill générique restent obligatoires.
+
+reference_series:
+  title: Publier de façon accessible sur les réseaux sociaux
+  version: 4
+  public_url: https://alexandra-guiderdoni.github.io/slides-miweb/publier-de-facon-accessible-sur-les-reseaux-sociaux-v4/
+  immutable: true
+  images:
+    - path: references/reference-01-ouverture.png
+      family: ouverture_illustree
+    - path: references/reference-02-avant-apres.png
+      family: comparaison_transformation
+    - path: references/reference-03-tableau.png
+      family: tableau_pedagogique
+    - path: references/reference-04-checklist.png
+      family: checklist_processus
+
+canvas:
+  width_px: 1672
+  height_px: 941
+  ratio: "16:9"
+  background: "#FFFFFF"
+  title_alignment: left
+  footer: absent_by_default
+
+palette:
+  navy: "#000091"
+  action_blue: "#2B6DE8"
+  pale_blue: "#E3EEFF"
+  blue_grey: "#D7E1F0"
+  success_green: "#00A95F"
+  problem_red: "#E1000F"
+  white: "#FFFFFF"
+  notes:
+    - Couleurs indicatives, non charte officielle.
+    - Le rouge signale uniquement un problème ou une erreur.
+    - Le vert signale uniquement une validation ou un résultat accessible.
+    - Les dégradés légers sont autorisés dans les bleus et les états sémantiques.
+
+typography:
+  preferred: Marianne
+  fallback: Arial
+  title:
+    weight: bold_to_extra_bold
+    color: "#000091"
+    case: sentence
+    lines_max: 2
+  labels:
+    length: short
+    weight: semibold_or_bold
+
+visual_language:
+  mood:
+    - institutionnel
+    - pédagogique
+    - accueillant
+    - lisible_en_projection
+  illustration:
+    - semi_flat_blue_volumes
+    - subtle_gradients
+    - consistent_line_icons
+    - concrete_objects
+    - inclusive_people_when_useful
+  cards:
+    radius: moderate
+    border: thin_blue
+    shadow: none_or_very_light
+  reading_direction: left_to_right
+  labels_per_slide: 3_to_5
+  central_messages: 1
+
+layout_families:
+  - ouverture_illustree
+  - comparaison_transformation
+  - processus_horizontal
+  - tableau_pedagogique
+  - checklist_processus
+  - synthese_action
+
+forbidden:
+  - fake_logo
+  - invented_emblem
+  - photorealism
+  - dark_dominant_background
+  - whiteboard_sketch
+  - paper_texture
+  - heavy_3d
+  - decorative_blobs
+  - heavy_shadows
+  - decorative_red
+  - tiny_text
+  - paragraphs_inside_cards
+  - unlisted_visible_text
+  - invented_content
+  - developer_jargon
+
+required_evidence:
+  - storyboard
+  - per_slide_prompts
+  - imagegen_receipt
+  - contact_sheet
+  - original_resolution_inspection
+  - four_reference_slides_validation_for_long_series
