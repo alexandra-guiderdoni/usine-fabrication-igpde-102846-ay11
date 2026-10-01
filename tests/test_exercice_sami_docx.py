@@ -10,9 +10,11 @@ from pathlib import Path
 import re
 from zipfile import ZipFile
 
+import pytest
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.ns import qn
+from docx.shared import Pt, RGBColor
 from lxml import etree
 from PIL import Image
 
@@ -198,6 +200,46 @@ def _useful_document_runs(document):
         for story in (section.header, section.footer):
             for paragraph in story.paragraphs:
                 yield from paragraph.runs
+
+
+def _body_signature(document):
+    return (
+        [paragraph.text for paragraph in document.paragraphs],
+        [_table_tokens(table) for table in document.tables],
+    )
+
+
+def _assert_detectable_station_families_are_corrected(path):
+    """Oracle indépendant couvrant un signal automatisable par station."""
+    document = Document(path)
+    introduction = next(
+        paragraph
+        for paragraph in document.paragraphs
+        if paragraph.text == "Introduction"
+    )
+    assert introduction.style.name == "Heading 1", "station-1"
+
+    links = _external_hyperlinks(path)
+    assert links and all(
+        "cliquez ici" not in link["text"].casefold() for link in links
+    ), "station-2"
+
+    contrast_run = next(
+        paragraph.runs[0]
+        for paragraph in document.paragraphs
+        if paragraph.text == "Information complémentaire : résultats provisoires."
+    )
+    assert _contrast_ratio(str(contrast_run.font.color.rgb)) >= 4.5, "station-3"
+
+    normal = document.styles["Normal"]
+    assert normal.font.size.pt >= 12, "station-4"
+    assert normal.paragraph_format.alignment == WD_ALIGN_PARAGRAPH.LEFT, "station-4"
+
+    assert document.core_properties.title == "Rendre un document Word accessible", (
+        "station-5"
+    )
+    assert document.core_properties.author == "Sami Dupont", "station-5"
+    assert document.core_properties.language == "fr-FR", "station-5"
 
 
 def _paragraph_region(path: Path, start: str, end: str):
@@ -1055,7 +1097,7 @@ def test_les_pistes_de_station_deux_sont_ancrees_sur_les_occurrences(tmp_path):
     assert p08["drawing"] and "contactez-nous" in p08["text"]
     assert p09["drawing"] and not p09["text"]
     assert p10["hyperlink"] and "cliquez ici" in p10["text"]
-    assert p11["text"].startswith("Ce rapport trimestriel présente")
+    assert p11["text"].startswith("Ce guide pratique présente")
 
 
 def test_le_faux_sommaire_ne_reference_plus_les_titres_supprimes(tmp_path):
@@ -1612,3 +1654,270 @@ def test_la_station_quatre_est_ordonnee_et_pilotee_par_la_matrice(tmp_path):
         assert control["regle"] in _comment_text(paths[1], f"{control['id']} -")
     for legacy_label in ("Critère 13 -", "Critère 15 -", "Critère 17 -"):
         assert legacy_label not in comments
+
+
+def test_p19_renseigne_les_proprietes_et_preserve_les_noms_des_versions(tmp_path):
+    matrix = load_sami_matrix()
+    control = next(item for item in matrix["controles"] if item["id"] == "P-19")
+    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
+    chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
+    paths = [
+        build_inaccessible(chart_bad, matrix=matrix, output_dir=tmp_path),
+        build_inaccessible(
+            chart_bad,
+            with_guidance=True,
+            matrix=matrix,
+            output_dir=tmp_path,
+        ),
+        build_accessible(chart_good, matrix=matrix, output_dir=tmp_path),
+    ]
+    documents = [Document(path) for path in paths]
+    anchor_text = (
+        "Document — propriétés : vérifiez le titre, l’auteur, la langue et le "
+        "nom de votre copie de travail."
+    )
+
+    assert [path.name for path in paths] == [
+        "tp-doc-inaccessible.docx",
+        "tp-doc-aide-correction.docx",
+        "tp-doc-accessible.docx",
+    ]
+    for document in documents:
+        texts = [paragraph.text for paragraph in document.paragraphs]
+        assert f"{control['id']} - {control['intitule']}" in texts
+        assert texts.count(anchor_text) == 1
+
+    for document in documents[:2]:
+        assert document.core_properties.title == ""
+        assert document.core_properties.author == ""
+        assert document.core_properties.language == "de-DE"
+
+    corrected = documents[2]
+    assert corrected.core_properties.title == "Rendre un document Word accessible"
+    assert corrected.core_properties.author == "Sami Dupont"
+    assert corrected.core_properties.language == "fr-FR"
+
+    comments = _archive_text(paths[1], "word/comments.xml")
+    assert comments.count("P-19 -") == 1
+    assert "Critère 14 -" not in comments
+    assert control["regle"] in _comment_text(paths[1], "P-19 -")
+    assert _comment_anchor(paths[1], "P-19 -")["text"] == anchor_text
+
+
+def test_la_station_cinq_est_complete_ordonnee_et_identique_dans_les_trois_docx(
+    tmp_path,
+):
+    matrix = load_sami_matrix()
+    controls = [item for item in matrix["controles"] if item["station"] == "station-5"]
+    assert [control["id"] for control in controls] == [
+        "P-19",
+        "P-20",
+        "C-01",
+        "C-02",
+    ]
+    station_title = next(
+        item["titre"] for item in matrix["sequence"] if item["id"] == "station-5"
+    )
+    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
+    chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
+    paths = [
+        build_inaccessible(
+            chart_bad,
+            output_name="inaccessible.docx",
+            matrix=matrix,
+            output_dir=tmp_path,
+        ),
+        build_inaccessible(
+            chart_bad,
+            with_guidance=True,
+            output_name="guide.docx",
+            matrix=matrix,
+            output_dir=tmp_path,
+        ),
+        build_accessible(chart_good, matrix=matrix, output_dir=tmp_path),
+    ]
+    station_bodies = []
+    no_injected_defect = (
+        "Cette étape de finalisation ne peut pas être prouvée par le DOCX seul."
+    )
+
+    for path in paths:
+        texts = [paragraph.text for paragraph in Document(path).paragraphs]
+        assert texts.count(station_title) == 1
+        heading_indexes = []
+        for control in controls:
+            heading_text = f"{control['id']} - {control['intitule']}"
+            heading_indexes.append(texts.index(heading_text))
+            problem = control["defaut"] or no_injected_defect
+            for expected in (
+                f"Problème : {problem}",
+                f"Pourquoi : {control['impact']}",
+                f"Règle : {control['regle']}",
+                f"Dans Word : {control['procedure_word']}",
+                f"Dans LibreOffice Writer : {control['procedure_writer']}",
+                f"À faire : {control['action_attendue']}",
+                f"Preuve : {control['preuve']['attendu']}",
+            ):
+                assert expected in texts
+        assert heading_indexes == sorted(heading_indexes)
+        station_bodies.append(texts[texts.index(station_title) :])
+
+    assert station_bodies[0] == station_bodies[1] == station_bodies[2]
+
+    comments = _archive_text(paths[1], "word/comments.xml")
+    assert comments.count("P-19 -") == 1
+    for control_id in ("P-20", "C-01", "C-02"):
+        assert comments.count(f"{control_id} -") == 0
+
+    c01 = next(control for control in controls if control["id"] == "C-01")
+    assert "zéro erreur" in c01["regle"]
+    assert "ne remplace pas" in c01["impact"]
+    p20 = next(control for control in controls if control["id"] == "P-20")
+    assert all(
+        term in p20["procedure_word"] for term in ("propriétés", "balises", "signets")
+    )
+    c02 = next(control for control in controls if control["id"] == "C-02")
+    assert "PAC" in c02["regle"]
+    assert "Acrobat Pro" in c02["regle"]
+    assert "checklist humaine" in c02["regle"]
+
+
+def test_le_guide_couvre_exactement_les_occurrences_et_preserve_le_corps(tmp_path):
+    matrix = load_sami_matrix()
+    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
+    icon = PROJECT_ROOT / "_assets" / "icone-enveloppe.png"
+    organigramme = PROJECT_ROOT / "_assets" / "organigramme.png"
+    texte_image = PROJECT_ROOT / "_assets" / "texte-image.png"
+    inaccessible = build_inaccessible(
+        chart_bad,
+        icon_path=icon,
+        organigramme_path=organigramme,
+        texte_image_path=texte_image,
+        output_name="inaccessible.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    guided = build_inaccessible(
+        chart_bad,
+        icon_path=icon,
+        organigramme_path=organigramme,
+        texte_image_path=texte_image,
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    corrected = build_accessible(
+        PROJECT_ROOT / "_assets" / "graphique-accessible.png",
+        icon_path=icon,
+        organigramme_path=organigramme,
+        texte_image_path=texte_image,
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+
+    assert _body_signature(Document(inaccessible)) == _body_signature(Document(guided))
+    assert "word/comments.xml" not in _archive_members(inaccessible)
+    assert "word/comments.xml" not in _archive_members(corrected)
+
+    comments_xml = _archive_text(guided, "word/comments.xml")
+    comments_root = etree.fromstring(comments_xml.encode("utf-8"))
+    expected_count = sum(
+        control["occurrences_attendues"] for control in matrix["controles"]
+    )
+    assert len(comments_root.xpath("//w:comment", namespaces={"w": WORD_NS})) == (
+        expected_count
+    )
+    for control in matrix["controles"]:
+        assert (
+            comments_xml.count(f"{control['id']} -") == control["occurrences_attendues"]
+        )
+        if control["occurrences_attendues"]:
+            comment = _comment_text(guided, f"{control['id']} -")
+            for expected in (
+                f"Problème : {control['defaut']}",
+                f"Impact : {control['impact']}",
+                f"Règle : {control['regle']}",
+                f"Première action : {control['action_attendue']}",
+            ):
+                assert expected in comment
+
+
+def test_le_controle_negatif_detecte_un_defaut_reinjecte_par_station(tmp_path):
+    corrected = build_accessible(
+        PROJECT_ROOT / "_assets" / "graphique-accessible.png",
+        matrix=load_sami_matrix(),
+        output_dir=tmp_path,
+    )
+    _assert_detectable_station_families_are_corrected(corrected)
+
+    def reintroduce_structure(document):
+        next(
+            paragraph
+            for paragraph in document.paragraphs
+            if paragraph.text == "Introduction"
+        ).style = document.styles["Normal"]
+
+    def reintroduce_link(document):
+        document.element.xpath("//w:hyperlink//w:t")[0].text = "cliquez ici"
+
+    def reintroduce_contrast(document):
+        run = next(
+            paragraph.runs[0]
+            for paragraph in document.paragraphs
+            if paragraph.text == "Information complémentaire : résultats provisoires."
+        )
+        run.font.color.rgb = RGBColor(0xB5, 0xB5, 0xB5)
+
+    def reintroduce_typography(document):
+        document.styles["Normal"].font.size = Pt(11)
+
+    def reintroduce_metadata(document):
+        document.core_properties.title = ""
+
+    for family, mutate in (
+        ("station-1", reintroduce_structure),
+        ("station-2", reintroduce_link),
+        ("station-3", reintroduce_contrast),
+        ("station-4", reintroduce_typography),
+        ("station-5", reintroduce_metadata),
+    ):
+        document = Document(corrected)
+        mutate(document)
+        candidate = tmp_path / f"defaut-{family}.docx"
+        document.save(candidate)
+        with pytest.raises(AssertionError, match=family):
+            _assert_detectable_station_families_are_corrected(candidate)
+
+
+def test_le_corrige_decoupe_le_guide_en_unites_imprimables_sans_titre_orphelin(
+    tmp_path,
+):
+    matrix = load_sami_matrix()
+    corrected = build_accessible(
+        PROJECT_ROOT / "_assets" / "graphique-accessible.png",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    document = Document(corrected)
+    paragraphs = {paragraph.text: paragraph for paragraph in document.paragraphs}
+
+    for station in (
+        block for block in matrix["sequence"] if block["id"].startswith("station-")
+    ):
+        station_heading = paragraphs[station["titre"]]
+        assert station_heading.paragraph_format.page_break_before is True
+        assert station_heading.paragraph_format.keep_with_next is True
+
+        controls = [
+            control
+            for control in matrix["controles"]
+            if control["station"] == station["id"]
+        ]
+        for index, control in enumerate(controls):
+            heading = paragraphs[f"{control['id']} - {control['intitule']}"]
+            assert heading.paragraph_format.keep_with_next is True
+            if index:
+                assert heading.paragraph_format.page_break_before is True
+            else:
+                assert heading.paragraph_format.page_break_before is not True

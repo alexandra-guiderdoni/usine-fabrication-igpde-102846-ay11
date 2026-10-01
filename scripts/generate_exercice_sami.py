@@ -5,7 +5,7 @@ Produit :
 - _assets/graphique-accessible.png    (barres avec motifs + étiquettes)
 - _assets/icone-enveloppe.png         (icône e-mail)
 - _assets/organigramme.png            (organigramme du service)
-- tp-doc-inaccessible.docx           (21 erreurs intentionnelles)
+- tp-doc-inaccessible.docx           (version fautive sans aide)
 - tp-doc-aide-correction.docx        (version fautive annotée)
 - tp-doc-accessible.docx             (version corrigée)
 """
@@ -463,9 +463,14 @@ def _add_simple_field(paragraph, instr):
     return run_result
 
 
-DOCUMENT_TITLE = "Rapport trimestriel - Bilan T1 2025"
-HEADER_TEXT = "Direction des affaires juridiques - Rapport trimestriel T1 2025"
 GUIDE_TITLE = "Rendre un document Word accessible"
+DOCUMENT_TITLE = GUIDE_TITLE
+HEADER_TEXT = "Guide pratique - Rendre un document Word accessible"
+INTRO_TEXT = (
+    "Ce guide pratique présente les principales vérifications à effectuer pour "
+    "rendre un document Word accessible. Il associe chaque règle à une "
+    "manipulation et à une preuve de correction."
+)
 
 
 def _format_header_footer_run(run, font_size=9):
@@ -552,8 +557,11 @@ def _guidance_text(control, *, document_level=False):
 
 
 def _add_control_details(doc, control):
-    """Ajoute le contenu éditorial commun d'un contrôle pratiqué."""
-    doc.add_paragraph(f"Problème : {control['defaut']}")
+    """Ajoute le contenu éditorial commun d'un contrôle."""
+    problem = control["defaut"] or (
+        "Cette étape de finalisation ne peut pas être prouvée par le DOCX seul."
+    )
+    doc.add_paragraph(f"Problème : {problem}")
     doc.add_paragraph(f"Pourquoi : {control['impact']}")
     doc.add_paragraph(f"Règle : {control['regle']}")
     doc.add_paragraph(f"Dans Word : {control['procedure_word']}")
@@ -1116,6 +1124,57 @@ def _add_station_four_p18(
         _add_guidance_comment(doc, paragraph.runs, _guidance_text(control))
 
 
+def _add_station_five_p19(
+    doc,
+    control,
+    station_title,
+    numbering_id,
+    *,
+    with_guidance=False,
+):
+    """Ajoute le contrôle des propriétés et son ancre documentaire stable."""
+    station_heading = doc.add_heading(station_title, level=1)
+    _apply_heading_numbering(station_heading, numbering_id, 0)
+    _add_station_one_control(doc, control, numbering_id)
+    anchor = doc.add_paragraph(
+        f"Document {chr(0x2014)} propriétés : vérifiez le titre, l’auteur, la "
+        "langue et le nom de votre copie de travail."
+    )
+    if with_guidance:
+        _add_guidance_comment(
+            doc,
+            anchor.runs,
+            _guidance_text(control, document_level=True),
+        )
+
+
+def _add_station_five_followups(doc, controls, numbering_id):
+    """Ajoute les contrôles de finalisation sans défaut injecté."""
+    for control in controls:
+        _add_station_one_control(doc, control, numbering_id)
+
+
+def _paginate_corrected_guide(doc, matrix):
+    """Découpe le guide par station et par contrôle sans réduire le texte."""
+    paragraphs = {paragraph.text: paragraph for paragraph in doc.paragraphs}
+    for station in (
+        block for block in matrix["sequence"] if block["id"].startswith("station-")
+    ):
+        station_heading = paragraphs[station["titre"]]
+        station_heading.paragraph_format.page_break_before = True
+        station_heading.paragraph_format.keep_with_next = True
+        controls = [
+            control
+            for control in matrix["controles"]
+            if control["station"] == station["id"]
+        ]
+        for index, control in enumerate(controls):
+            heading = paragraphs[f"{control['id']} - {control['intitule']}"]
+            heading.paragraph_format.keep_with_next = True
+            if index:
+                heading.paragraph_format.page_break_before = True
+
+
 def _ensure_minimum_body_font_size(doc, minimum_points):
     """Relève les tailles directes du corps sans réduire les titres."""
     paragraphs = list(doc.paragraphs)
@@ -1149,6 +1208,8 @@ def build_inaccessible(
     station_3_title = _station_title(matrix, "station-3")
     p15, p16, p17, p18 = _station_controls(matrix, "station-4")
     station_4_title = _station_title(matrix, "station-4")
+    p19, *station_5_followups = _station_controls(matrix, "station-5")
+    station_5_title = _station_title(matrix, "station-5")
     doc = Document()
     station_numbering_id = _create_heading_numbering(doc)
     doc.core_properties.title = ""
@@ -1187,28 +1248,11 @@ def build_inaccessible(
     )
     _add_station_one_p02(doc, p02, station_numbering_id, with_guidance=with_guidance)
 
-    p = doc.add_heading("Introduction", level=1)
-    run = p.runs[0]
-    if with_guidance:
-        _add_guidance_comment(
-            doc,
-            run,
-            f"Document {chr(0x2014)} Critère 14 - Problème : les propriétés "
-            "du document sont vides. "
-            "Impact : le fichier est moins identifiable pour les aides "
-            "techniques et la recherche documentaire. Méthode : Fichier > "
-            "Informations > Propriétés. Titre attendu : Rapport trimestriel - "
-            "Bilan T1 2025 ; auteur : Sami Dupont.",
-        )
+    doc.add_heading("Introduction", level=1)
 
-    intro_paragraph = doc.add_paragraph(
-        "Ce rapport trimestriel présente les résultats de communication "
-        "numérique de la Direction des affaires juridiques pour le premier "
-        "trimestre 2025. Il couvre les principaux indicateurs de performance "
-        "de nos canaux digitaux."
-    )
+    intro_paragraph = doc.add_paragraph(INTRO_TEXT)
 
-    # Erreur 19 : faux sommaire tape a la main (points de suite manuels)
+    # Défaut P-03 : faux sommaire tapé à la main avec points de suite manuels.
     p = doc.add_paragraph()
     run = p.add_run("Sommaire")
     run.bold = True
@@ -1267,7 +1311,7 @@ def build_inaccessible(
 
     _add_station_one_control(doc, p04, station_numbering_id)
 
-    # Erreur 11 : fausse liste a puces (puces tapees et indentees manuellement)
+    # Défaut P-04 : fausse liste à puces saisie et indentée manuellement.
     doc.add_paragraph("Objectifs du trimestre :")
     first_fake_bullet = None
     for item in [
@@ -1284,7 +1328,7 @@ def build_inaccessible(
             _guidance_text(p04),
         )
 
-    # Erreur 12 : fausse liste numerotee (numeros tapes et indentes manuellement)
+    # Défaut P-04 : fausse liste numérotée saisie et indentée manuellement.
     doc.add_paragraph("Priorités pour le prochain trimestre :")
     for numero, item in enumerate(
         [
@@ -1387,6 +1431,14 @@ def build_inaccessible(
         station_numbering_id,
         with_guidance=with_guidance,
     )
+    _add_station_five_p19(
+        doc,
+        p19,
+        station_5_title,
+        station_numbering_id,
+        with_guidance=with_guidance,
+    )
+    _add_station_five_followups(doc, station_5_followups, station_numbering_id)
 
     version_key = "avec_pistes" if with_guidance else "inaccessible"
     output = (output_dir or PROJECT / "_source") / (
@@ -1422,6 +1474,8 @@ def build_accessible(
     station_3_title = _station_title(matrix, "station-3")
     p15, p16, p17, p18 = _station_controls(matrix, "station-4")
     station_4_title = _station_title(matrix, "station-4")
+    p19, *station_5_followups = _station_controls(matrix, "station-5")
+    station_5_title = _station_title(matrix, "station-5")
     doc = Document()
     station_numbering_id = _create_heading_numbering(doc)
 
@@ -1461,12 +1515,7 @@ def build_accessible(
     # Titre 1
     doc.add_heading("Introduction", level=1)
 
-    doc.add_paragraph(
-        "Ce rapport trimestriel présente les résultats de communication "
-        "numérique de la Direction des affaires juridiques pour le premier "
-        "trimestre 2025. Il couvre les principaux indicateurs de performance "
-        "de nos canaux digitaux."
-    )
+    doc.add_paragraph(INTRO_TEXT)
 
     # Sommaire automatique (table des matieres generee depuis les styles)
     doc.add_heading("Sommaire", level=2)
@@ -1617,16 +1666,26 @@ def build_accessible(
         station_numbering_id,
         corrected=True,
     )
+    _add_station_five_p19(
+        doc,
+        p19,
+        station_5_title,
+        station_numbering_id,
+    )
+    _add_station_five_followups(doc, station_5_followups, station_numbering_id)
 
     # Proprietes du document
     doc.core_properties.title = DOCUMENT_TITLE
     doc.core_properties.author = "Sami Dupont"
     doc.core_properties.language = "fr-FR"
-    doc.core_properties.subject = "Bilan communication numérique T1 2025"
-    doc.core_properties.keywords = (
-        "accessibilité, document bureautique, Word, rapport trimestriel, "
-        "communication numérique"
+    doc.core_properties.subject = (
+        "Guide pratique de mise en accessibilité d’un document Word"
     )
+    doc.core_properties.keywords = (
+        "accessibilité, document bureautique, Word, guide pratique, "
+        "communication accessible"
+    )
+    _paginate_corrected_guide(doc, matrix)
     _ensure_minimum_body_font_size(doc, 12)
 
     output = (output_dir or PROJECT / "_source") / (

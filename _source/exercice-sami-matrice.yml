@@ -471,8 +471,8 @@ controles:
     ancrage: null
     piste: null
     etat_corrige: Le PDF exporté possède titre, langue, balises et signets issus des titres.
-    procedure_word: Fichier > Enregistrer sous ou Exporter > PDF > Options, puis activer les balises de structure et les signets issus des titres.
-    procedure_writer: Fichier > Exporter vers > Exporter au format PDF, puis activer PDF balisé et exporter les repères.
+    procedure_word: Vérifier les propriétés dans Fichier > Informations, puis Fichier > Enregistrer sous ou Exporter > PDF > Options et activer les balises de structure ainsi que les signets issus des titres.
+    procedure_writer: Vérifier les propriétés dans Fichier > Propriétés, puis Fichier > Exporter vers > Exporter au format PDF et activer PDF balisé ainsi que l'export des repères.
     preuve: {mode: automatique_et_humaine, attendu: Propriétés et structure inspectées dans le PDF, puis contrôlées humainement.}
     checklist: Le PDF est exporté avec ses propriétés, ses balises et ses signets.
     guide: station-5/export-pdf

@@ -90,6 +90,38 @@ def test_charge_la_sequence_et_tous_les_controles_dans_l_ordre():
     assert covered_codes == load_coverage_codes()
 
 
+def test_les_anciens_contrats_renvoient_a_la_matrice_sans_liste_normative():
+    forbidden_patterns = (
+        "21 critères",
+        "25 min",
+        "25 minutes",
+        "sans checklist",
+        "sans filet",
+        "rapport trimestriel",
+        "102638",
+    )
+    for relative_path in (
+        "_source/exercice-sami-spec.md",
+        "_source/exercice-sami-diff.md",
+    ):
+        content = (PROJECT_ROOT / relative_path).read_text(encoding="utf-8")
+        normalized = content.casefold()
+        assert "_source/exercice-sami-matrice.yml" in content
+        assert "source normative" in normalized
+        for pattern in forbidden_patterns:
+            assert pattern.casefold() not in normalized
+
+
+def test_le_generateur_ne_conserve_plus_les_marqueurs_normatifs_historiques():
+    content = (PROJECT_ROOT / "scripts/generate_exercice_sami.py").read_text(
+        encoding="utf-8"
+    )
+
+    assert "21 erreurs" not in content
+    assert "# Erreur " not in content
+    assert "rapport trimestriel" not in content.casefold()
+
+
 def test_refuse_une_sequence_dont_le_total_n_est_pas_90_minutes():
     matrix = deepcopy(load_sami_matrix())
     matrix["sequence"][0]["duree_minutes"] = 4
