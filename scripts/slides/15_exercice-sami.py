@@ -49,7 +49,7 @@ def build(prs, layouts, ctx):
              left=COL_R, width=COL_W, height=card_h)
 
     stack.gap = 0.30
-    accroche = "30 minutes en binôme : repérez les problèmes, puis corrigez-les."
+    accroche = "En binôme, repérez les problèmes, puis corrigez-les."
     add_highlight(slide, accroche,
                   top=stack.push(estimate_highlight_height(accroche, CONTENT_W)))
 

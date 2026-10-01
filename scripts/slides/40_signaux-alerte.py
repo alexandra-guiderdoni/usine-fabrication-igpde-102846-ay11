@@ -6,9 +6,14 @@ Règles neuropédagogie appliquées :
 - R18 : sécurité psychologique - l'erreur est normale, on l'apprend à la détecter
 """
 
+from config import load_formation_config
 from igpde_dsfr_components import (
-    add_card, add_notes, estimate_card_height, new_slide,
+    CONTENT_W, MARGIN_L,
+    add_card, add_notes, add_qrcode, estimate_card_height, new_slide,
 )
+
+
+SITE_ENTRAINEMENT = load_formation_config()["site_url"]
 
 
 def build(prs, layouts, ctx):
@@ -48,7 +53,9 @@ def build(prs, layouts, ctx):
             3,
         ),
     ]
-    HEIGHT = max(estimate_card_height(t, c, CARD_W, n) for t, c, n in cards)
+    HEIGHT = max(
+        estimate_card_height(t, c, CARD_W, n, compact=True) for t, c, n in cards
+    )
 
     for i, (titre_c, contenu, numero) in enumerate(cards):
         add_card(
@@ -58,13 +65,28 @@ def build(prs, layouts, ctx):
             top=TOP, left=MARGIN + i * (CARD_W + GAP),
             width=CARD_W, height=HEIGHT,
             numero=numero,
+            numero_en_ligne=True,
+            body_line_spacing=1.15,
+            compact=True,
         )
+
+    add_qrcode(
+        slide,
+        "scripts/images/qrcode-site-entrainement.png",
+        url=SITE_ENTRAINEMENT,
+        top=5.10,
+        left=MARGIN_L,
+        size=1.10,
+        label_width=CONTENT_W - 1.24,
+        url_size=10,
+    )
 
     add_notes(
         slide,
         "Avant de révéler les 3 cartes, demander : « Quel est le signal qui vous semble le plus grave ? » "
         "Laisser parler 2 stagiaires. "
         "Rappel rassurant (R18) : détecter un de ces signaux ne sert pas à désigner un coupable, "
-        "mais à prouver qu’un test clavier doit entrer dans la routine de publication.",
+        "mais à prouver qu’un test clavier doit entrer dans la routine de publication. "
+        f"Faire ouvrir le site d’entraînement : {SITE_ENTRAINEMENT}",
     )
     return slide

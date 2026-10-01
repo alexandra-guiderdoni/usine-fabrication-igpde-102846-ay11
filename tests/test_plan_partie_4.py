@@ -1,4 +1,4 @@
-"""Tests de l'annonce et du plan de la partie II."""
+"""Tests de l'annonce et du plan de la partie IV."""
 
 import sys
 from pathlib import Path
@@ -9,27 +9,28 @@ from igpde_dsfr_components import create_presentation
 from slides import SlideContext, discover_slides, load_slide_module
 
 
-SLIDE_FILE = "03_chapitre-word.py"
+SLIDE_FILE = "53_chapitre-reseaux-sociaux.py"
 ETAPES = [
-    "Structurer le document",
-    "Rendre les couleurs accessibles",
-    "Décrire les contenus visuels",
-    "Améliorer la langue et la lisibilité",
-    "Vérifier et finaliser",
+    "Comprendre les enjeux des réseaux sociaux",
+    "Décrire les images et choisir les plateformes",
+    "Rendre les textes et les caractères lisibles",
+    "Représenter les publics et écrire clairement",
+    "Vérifier avant de publier",
 ]
 
 
-def test_plan_partie_2_occupe_la_slide_54_dans_le_deck_complet():
+def test_plan_partie_4_occupe_la_slide_111_apres_la_mission_web():
     fichiers = [chemin.name for chemin in discover_slides()]
 
-    assert fichiers[53] == SLIDE_FILE
+    assert fichiers[109] == "52_mission-13-checks.py"
+    assert fichiers[110] == SLIDE_FILE
     assert len(fichiers) == 134
 
 
-def test_plan_partie_2_annonce_les_cinq_sous_parties():
+def test_plan_partie_4_annonce_les_cinq_sous_parties():
     prs, layouts = create_presentation()
     ctx = SlideContext(
-        page_num=54,
+        page_num=111,
         date="9 octobre 2026",
         footer_base="Formation 102846",
         formation_code="102846",
@@ -40,9 +41,7 @@ def test_plan_partie_2_annonce_les_cinq_sous_parties():
     ).build(prs, layouts, ctx)
 
     assert slide.shapes.title is not None
-    assert (
-        slide.shapes.title.text == "Partie II - Documents bureautiques accessibles - TP"
-    )
+    assert slide.shapes.title.text == ("Partie IV - Réseaux sociaux accessibles - TP")
 
     etapes = [
         shape.text

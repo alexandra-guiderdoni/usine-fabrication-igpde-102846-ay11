@@ -25,7 +25,7 @@ def build(prs, layouts, ctx):
     stack = Stack(top=2.05, gap=0.20)
 
     message = (
-        "Il est tres difficile de faire simple ! "
+        "Il est très difficile de faire simple ! "
         "Le FALC suit un processus rigoureux."
     )
     add_highlight(

@@ -78,16 +78,11 @@ Généré depuis les noms de fichiers dans `scripts/slides/`.
 | 20 | export pdf accessible | `20_export-pdf-accessible.py` |
 | 21 | etude cas sophie | `21_etude-cas-sophie.py` |
 | 22 | par ou commencer | `22_par-ou-commencer.py` |
-| 23 | quiz final | `23_quiz-final.py` |
 | 23b | quiz final reponses | `23b_quiz-final-reponses.py` |
-| 24 | faites le point | `24_faites-le-point.py` |
-| 24b | faites le point reponses | `24b_faites-le-point-reponses.py` |
-| 25 | demain 9h | `25_demain-9h.py` |
 | 26 | checklist 21 criteres | `26_checklist-21-criteres.py` |
 | 26a | checklist exercice 2 | `26a_checklist-exercice-2.py` |
 | 26b | checklist autres | `26b_checklist-autres.py` |
 | 26c | checklist autres 2 | `26c_checklist-autres-2.py` |
-| 27 | revenez 7 jours | `27_revenez-7-jours.py` |
 | 28 | chapitre easy checks | `28_chapitre-easy-checks.py` |
 | 28a | webaim million 2026 | `28a_webaim-million-2026.py` |
 | 28b | webaim erreurs frequentes | `28b_webaim-erreurs-frequentes.py` |

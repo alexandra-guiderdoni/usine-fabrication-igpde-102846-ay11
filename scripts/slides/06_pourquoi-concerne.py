@@ -18,7 +18,7 @@ def build(prs, layouts, ctx):
     slide = new_slide(
         prs, layouts,
         layout_name="titre_contenu",
-        titre="Pourquoi ça vous concerne",
+        titre="Pourquoi ça vous concerne ?",
         fil_ariane="2. Documents accessibles",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Pourquoi",
         date_text=ctx.date,

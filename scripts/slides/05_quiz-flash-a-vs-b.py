@@ -6,11 +6,17 @@ Règles neuropédagogie appliquées :
 - R16 : Pause délibérée avant la réponse pour la récupération active
 """
 
+from pptx.enum.text import PP_ALIGN
+
 from igpde_dsfr_components import (
-    COL_R, COL_W, CONTENT_W, MARGIN_L, Stack,
-    add_card, add_highlight, add_notes,
-    estimate_card_height, estimate_highlight_height, new_slide,
+    COL_R, COL_W, CONTENT_W, MARGIN_L,
+    add_highlight, add_image, add_notes, add_texte_libre,
+    estimate_highlight_height, new_slide,
 )
+
+IMAGE_W = 2.15
+IMAGE_TOP = 3.45
+LABEL_TOP = 3.00
 
 
 def build(prs, layouts, ctx):
@@ -25,34 +31,29 @@ def build(prs, layouts, ctx):
     )
 
     texte_hl = "Ils sont visuellement identiques. Lequel préférez-vous pour NVDA ?"
-    stack = Stack(top=2.30, gap=0.35)
     add_highlight(slide, texte_hl,
-                  top=stack.push(estimate_highlight_height(texte_hl, CONTENT_W)))
+                  top=2.15)
 
-    bullets_a = [
-        "Titres mis en gras, police Arial 16",
-        "Image sans description",
-        "Fichier nommé Document1.docx",
+    documents = [
+        ("Document A", "scripts/images/quiz-document-a-dsfr.png", MARGIN_L),
+        ("Document B", "scripts/images/quiz-document-b-dsfr.png", COL_R),
     ]
-    bullets_b = [
-        "Titres avec le style « Titre 1 »",
-        "Image avec texte alternatif",
-        "Fichier nommé rapport-bilan-2024.docx",
-    ]
-
-    card_h = max(
-        estimate_card_height("Document A", bullets_a, COL_W),
-        estimate_card_height("Document B", bullets_b, COL_W),
-    ) + 0.5
-    cards_top = stack.push(card_h)
-
-    add_card(slide, titre="Document A", contenu=bullets_a,
-             top=cards_top, left=MARGIN_L, width=COL_W, height=card_h)
-    add_card(slide, titre="Document B", contenu=bullets_b,
-             top=cards_top, left=COL_R, width=COL_W, height=card_h)
-
-    add_highlight(slide, "Votre réponse ?",
-                  top=stack.cursor)
+    for label, image_path, col_left in documents:
+        add_texte_libre(
+            slide, label,
+            top=LABEL_TOP, left=col_left, width=COL_W, height=0.40,
+            size=18, bold=True, align=PP_ALIGN.CENTER,
+        )
+        add_image(
+            slide, image_path,
+            top=IMAGE_TOP,
+            left=col_left + (COL_W - IMAGE_W) / 2,
+            width=IMAGE_W,
+            alt_text=(
+                f"Aperçu stylisé du {label.lower()}, visuellement identique "
+                "à l'autre document."
+            ),
+        )
 
     add_notes(
         slide,

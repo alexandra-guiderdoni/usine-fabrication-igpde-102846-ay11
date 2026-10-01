@@ -18,7 +18,7 @@ def build(prs, layouts, ctx):
         layouts,
         layout_name="titre_contenu",
         fil_ariane="Partie II | Plan",
-        titre="Partie II - Documents bureautiques accessibles",
+        titre="Partie II - Documents bureautiques accessibles - TP",
         footer_text=f"{ctx.footer_base} / Partie II",
         date_text=ctx.date,
         page_num=ctx.page_num,
