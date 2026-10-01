@@ -6,8 +6,7 @@
 
 **Bloqué par :** [T07](T07-docx-station-5-et-prototype.md).
 
-**Débloque :** [T09a](T09a-recetter-prototype-90-minutes.md) et
-[T15](T15-aligner-le-pack-et-les-documents-igpde.md).
+**Débloque :** [T15](T15-aligner-le-pack-et-les-documents-igpde.md).
 
 ## À construire
 
@@ -46,8 +45,7 @@ DOCX remplissable, utilisables dès le préambule puis après chaque station.
   matrice.
 - [x] `make fraicheur-pack` détecte une checklist absente ou plus ancienne que
   sa source.
-- [ ] L’usage papier et la saisie dans le DOCX sont éprouvés dans T09a, puis
-  rejoués dans T16 si la source de la checklist a changé.
+- [ ] L’usage papier et la saisie dans le DOCX sont éprouvés dans T16.
 
 ## Réalisation et vérifications
 

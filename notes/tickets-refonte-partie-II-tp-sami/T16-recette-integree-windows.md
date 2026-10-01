@@ -17,8 +17,8 @@ observés dans leur ticket d’origine et constituer la preuve de validation fin
 
 - [ ] Deux parcours distincts sont couverts : le parcours guidé chronométré
   avec un binôme novice et le parcours fonctionnel autonome depuis le DOCX
-  inaccessible. Les preuves T09a peuvent être réutilisées si leurs sources
-  n’ont pas changé ; sinon le parcours affecté est rejoué.
+  inaccessible. T09a ayant été annulé, T16 constitue l'unique porte humaine et
+  doit produire toutes les preuves correspondantes.
 - [ ] Les procédures sont vérifiées dans Microsoft Word bureau sous Windows et
   LibreOffice Writer sous Windows sur les versions installées.
 - [ ] Le résultat du vérificateur Word est conservé pour le fichier inaccessible

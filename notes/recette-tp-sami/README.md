@@ -2,18 +2,23 @@
 
 Date : 2 octobre 2026
 Ticket : [T09a - Recetter le prototype complet en 90 minutes](../tickets-refonte-partie-II-tp-sami/T09a-recetter-prototype-90-minutes.md)
-Statut : protocole validé ; recette réelle à exécuter
+Statut : protocole validé ; recette annulée faute de binôme disponible
 
 ## Résumé courant
 
 - Format du protocole validé par Alex.
-- Préconditions annoncées : poste Windows avec Word bureau et binôme novice ;
-  elles n'ont pas été observées pendant cette validation.
+- Préconditions annoncées : poste Windows avec Word bureau ; aucun binôme
+  novice n'est disponible pour exécuter la recette.
 - Préambule et stations 1 à 5 : déroulé validé, non exécuté.
 - Marge et remise : déroulé validé, non exécuté.
-- Parcours guidé : protocole validé, recette réelle à exécuter.
-- Essai autonome distinct : protocole validé, recette réelle à exécuter.
-- Verdict autorisant T10 : non, faute de preuve humaine réelle.
+- Parcours guidé : protocole validé, non exécuté et abandonné pour T09a.
+- Essai autonome distinct : protocole validé, non exécuté et abandonné pour
+  T09a.
+- Verdict autorisant T10 : oui, par dérogation explicite et sans preuve humaine.
+
+Les éléments « à mesurer » conservés ci-dessous décrivent le protocole archivé.
+Ils ne constituent plus des actions attendues dans T09a ; les contrôles utiles
+sont reportés sur T16.
 
 ## Règles de preuve et de confidentialité
 
@@ -219,12 +224,11 @@ aides demandées et les différences avec le parcours guidé.
 - Respect des 90 minutes : non vérifié.
 - Productions guidées obtenues : non vérifiées.
 - Essai autonome concluant : non vérifié.
-- Rejeu nécessaire après correction : non déterminé avant la recette réelle.
-- Autorisation de commencer T10 : non, recette humaine réelle requise.
+- Rejeu T09a nécessaire après correction : non applicable, ticket annulé.
+- Autorisation de commencer T10 : oui, par décision explicite d'Alex malgré
+  l'absence de recette humaine.
 
 ## Drapeaux ouverts
 
-- Parcours guidé réel à chronométrer et documenter bloc par bloc.
-- Essai autonome réel à exécuter séparément du parcours guidé.
-- Chemins Word Windows à confirmer pendant le test.
-- Procédures Writer Windows reportées à T16.
+- Parcours guidé, essai autonome et chemins Word à vérifier dans T16.
+- Procédures Writer Windows à vérifier dans T16.

@@ -2,16 +2,17 @@
 
 # PRD — Refonte de la partie II et du TP Sami
 
-Statut : validé humainement le 1er octobre 2026 ; intégration de T01 à T09 dans `main` autorisée le 2 octobre 2026.
+Statut : validé humainement le 1er octobre 2026 ; intégration de T01 à T09 dans `main` et démarrage de T10 autorisés le 2 octobre 2026.
 Date de cadrage : 1er octobre 2026.
 Session cible : 9 octobre 2026.
 Paquet de repli : tag `avant-refonte-tp-sami-2026-10-01`.
-Implémentation : T01 à T09 terminés ; protocole T09a validé, recette humaine réelle à exécuter.
+Implémentation : T01 à T09 terminés ; T09a annulé faute de binôme disponible ; T10 prêt à démarrer.
 
-Par décision explicite d'Alex le 2 octobre 2026, l'état de T01 à T09 et le
-protocole T09a peuvent être fusionnés dans `main` avant la recette humaine
-réelle. Cette exception ne valide pas T09a, ne débloque pas T10 et n'autorise
-pas la remise du nouveau paquet à l'IGPDE. Le tag de repli reste immuable.
+Par décision explicite d'Alex le 2 octobre 2026, l'état de T01 à T09 peut être
+fusionné dans `main` et T10 peut commencer sans exécution de T09a, faute de
+binôme novice disponible. Le protocole T09a reste archivé comme procédure, mais
+ses contrôles humains sont reportés sur T16. Cette exception n'autorise pas la
+remise du nouveau paquet à l'IGPDE. Le tag de repli reste immuable.
 
 ## 1. Mission
 

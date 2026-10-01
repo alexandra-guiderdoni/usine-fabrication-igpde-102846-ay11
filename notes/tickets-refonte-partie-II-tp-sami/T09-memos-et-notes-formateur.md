@@ -6,8 +6,7 @@
 
 **Bloqué par :** [T07](T07-docx-station-5-et-prototype.md).
 
-**Débloque :** [T09a](T09a-recetter-prototype-90-minutes.md) et
-[T15](T15-aligner-le-pack-et-les-documents-igpde.md).
+**Débloque :** [T15](T15-aligner-le-pack-et-les-documents-igpde.md).
 
 ## À construire
 
@@ -59,8 +58,8 @@ La note formateur active est
   autorisée dans `fiche-pratique/memo-word.md`,
   `fiche-pratique/memo-libreoffice-writer.md`, la note formateur active et le
   pointeur de checklist retiré. La recherche globale reste portée par T15.
-- [ ] Les chemins Word sont vérifiés dans T09a, puis les chemins Word et Writer
-  sur les versions installées dans T16.
+- [ ] Les chemins Word et Writer sont vérifiés sur les versions installées dans
+  T16.
 
 ## Réalisation et vérifications
 

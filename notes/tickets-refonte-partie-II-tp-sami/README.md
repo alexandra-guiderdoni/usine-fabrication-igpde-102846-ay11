@@ -3,25 +3,24 @@
 Source de vérité : [PRD validé](../prd-refonte-partie-II-tp-sami.md).
 
 Ce dossier constitue le tracker local du chantier. Le statut `ready-for-agent`
-signifie que le périmètre est spécifié ; `ready-for-human` signale une porte
-humaine prête mais non exécutée. Un ticket ne doit cependant pas commencer tant
-que ses blocages ne sont pas levés.
+signifie que le périmètre est spécifié ; `cancelled` signale un ticket abandonné
+par décision humaine. Un ticket ne doit cependant pas commencer tant que ses
+blocages ne sont pas levés.
 
 Aucune issue GitHub n’est créée par ce découpage. L’implémentation reste dans le
-worktree isolé jusqu'à sa vérification. Par exception explicite du 2 octobre
-2026, T01 à T09 et le protocole T09a peuvent être fusionnés dans `main` avant
-la recette réelle. Cette exception ne débloque pas T10 et n'autorise aucune
+worktree isolé jusqu'à sa vérification. Par décision explicite du 2 octobre
+2026, T01 à T09 peuvent être fusionnés dans `main` et T10 peut démarrer sans
+exécution de T09a, faute de binôme disponible. Cette décision n'autorise aucune
 livraison à l'IGPDE.
 
 ## Frontier initiale
 
 - [T01 — Verrouiller le chantier et inventorier l’existant](T01-verrouiller-et-inventorier.md)
 
-Après T07, T08 et T09 peuvent avancer en parallèle. T09a vérifie ensuite le
-prototype complet : un binôme novice réalise le parcours guidé en 90 minutes,
-puis un essai distinct vérifie le parcours autonome avant toute réécriture du deck. Les
-tickets du deck restent séquentiels afin d’éviter les conflits sur son ordre,
-ses tests et sa cohérence pédagogique.
+Après T07, T08 et T09 peuvent avancer en parallèle. La porte T09a prévue avant
+le deck a été annulée faute de binôme disponible ; ses contrôles sont reportés
+sur T16. Les tickets du deck restent séquentiels afin d’éviter les conflits sur
+son ordre, ses tests et sa cohérence pédagogique.
 
 ## Tickets et blocages
 
@@ -34,8 +33,8 @@ ses tests et sa cohérence pédagogique.
 7. [T07 — Finaliser la station 5 et le prototype DOCX](T07-docx-station-5-et-prototype.md) — bloqué par T06.
 8. [T08 — Générer les checklists accessibles](T08-checklists-accessibles.md) — bloqué par T07.
 9. [T09 — Aligner les mémos et les notes formateur](T09-memos-et-notes-formateur.md) — bloqué par T07.
-10. [T09a — Recetter le prototype complet en 90 minutes](T09a-recetter-prototype-90-minutes.md) — protocole validé ; recette humaine réelle à exécuter.
-11. [T10 — Reconstruire l’ouverture du deck et la station 1](T10-deck-ouverture-et-station-1.md) — bloqué par T09a.
+10. [T09a — Recetter le prototype complet en 90 minutes](T09a-recetter-prototype-90-minutes.md) — annulé faute de binôme disponible ; protocole conservé.
+11. [T10 — Reconstruire l’ouverture du deck et la station 1](T10-deck-ouverture-et-station-1.md) — aucun blocage.
 12. [T11 — Construire les slides de la station 2](T11-deck-station-2.md) — bloqué par T10.
 13. [T12 — Construire les slides de la station 3](T12-deck-station-3.md) — bloqué par T11.
 14. [T13 — Construire les slides de la station 4](T13-deck-station-4.md) — bloqué par T12.
@@ -66,9 +65,6 @@ ses tests et sa cohérence pédagogique.
 T16 produit les preuves de recette. Il ne pousse pas et ne remet aucun paquet
 à l’IGPDE.
 
-La fusion anticipée de T01 à T09 dans `main` ne vaut ni réalisation de T09a,
-ni autorisation de T10, ni validation du paquet final.
-
-Si les sources du kit pratique changent après la porte T09a, le parcours humain
-affecté doit être rejoué. Sinon, T16 peut réutiliser les preuves datées de T09a
-sans répéter artificiellement le même essai de 90 minutes.
+L'annulation de T09a et l'autorisation de T10 ne valent pas validation du paquet
+final. T16 doit produire l'ensemble des preuves humaines qui étaient initialement
+réparties entre T09a et la recette finale.

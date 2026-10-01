@@ -4,7 +4,8 @@
 
 **PRD :** [Refonte de la partie II et du TP Sami](../prd-refonte-partie-II-tp-sami.md)
 
-**Bloqué par :** [T09a](T09a-recetter-prototype-90-minutes.md).
+**Bloqué par :** aucun. T09a a été annulé faute de binôme disponible et Alex a
+explicitement autorisé le démarrage de T10.
 
 **Débloque :** [T11](T11-deck-station-2.md).
 

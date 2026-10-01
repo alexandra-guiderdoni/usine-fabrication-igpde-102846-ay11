@@ -1,7 +1,7 @@
 # T09a — Recetter le prototype complet en 90 minutes
 
-**Statut :** `ready-for-human` — protocole validé le 2 octobre 2026 ; recette
-humaine réelle à exécuter.
+**Statut :** `cancelled` — protocole validé le 2 octobre 2026, puis porte
+humaine abandonnée faute de binôme disponible.
 
 **PRD :** [Refonte de la partie II et du TP Sami](../prd-refonte-partie-II-tp-sami.md)
 
@@ -14,9 +14,9 @@ humaine réelle à exécuter.
 
 Le déroulé guidé et l'essai autonome ont été relus et validés, sans exécution
 sur le poste Windows. La synthèse est conservée dans
-[`notes/recette-tp-sami/README.md`](../recette-tp-sami/README.md). La fusion
-anticipée de T01 à T09 dans `main` a été autorisée explicitement ; elle ne
-constitue pas la preuve humaine attendue par ce ticket et ne débloque pas T10.
+[`notes/recette-tp-sami/README.md`](../recette-tp-sami/README.md). Alex a décidé
+de ne pas exécuter cette porte faute de binôme disponible et a autorisé le
+démarrage de T10. Les contrôles humains non produits ici sont reportés sur T16.
 
 ## À construire
 
