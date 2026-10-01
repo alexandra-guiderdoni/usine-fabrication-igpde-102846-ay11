@@ -1,13 +1,13 @@
-"""Generateur des fichiers de l'exercice Sami.
+"""Générateur des fichiers de l'exercice Sami.
 
 Produit :
 - _assets/graphique-inaccessible.png  (barres couleurs seules)
-- _assets/graphique-accessible.png    (barres avec motifs + etiquettes)
-- _assets/icone-enveloppe.png         (icone e-mail)
+- _assets/graphique-accessible.png    (barres avec motifs + étiquettes)
+- _assets/icone-enveloppe.png         (icône e-mail)
 - _assets/organigramme.png            (organigramme du service)
 - tp-doc-inaccessible.docx           (21 erreurs intentionnelles)
-- tp-doc-aide-correction.docx        (version fautive annotee)
-- tp-doc-accessible.docx             (version corrigee)
+- tp-doc-aide-correction.docx        (version fautive annotée)
+- tp-doc-accessible.docx             (version corrigée)
 """
 
 import subprocess
@@ -46,23 +46,57 @@ DECORATIVE_EXT_URI = "{C183D7F6-B498-43B3-948B-1728B52AA6E4}"
 # 1. Graphiques PNG
 # ------------------------------------------------------------------
 
-INDICATEURS = ["Visiteurs\nuniques", "Pages\nvues", "Taux de\nrebond"]
-T4_2024 = [45200, 128000, 42]
-T1_2025 = [50600, 142000, 38]
-EVOL = ["+12 %", "+11 %", "-4 pts"]
+INDICATEURS = ["Accès\ndirects", "Moteurs de\nrecherche", "Sites\nréférents"]
+T4_2024 = [18200, 21000, 6000]
+T1_2025 = [20400, 23400, 6800]
+EVOL = ["+12 %", "+11 %", "+13 %"]
+CHART_TITLE = "Évolution du trafic web"
+CHART_ALT_INACCESSIBLE = "Graphique : évolution du trafic web entre T4 2024 et T1 2025."
+CHART_ALT_ACCESSIBLE = (
+    "T4 2024 puis T1 2025 : accès directs, 18 200 puis 20 400 (+12 %) ; "
+    "moteurs de recherche, 21 000 puis 23 400 (+11 %) ; sites référents, "
+    "6 000 puis 6 800 (+13 %)."
+)
+CONTRAST_SAMPLE_TEXT = "Information complémentaire : résultats provisoires."
 
 
 def generate_chart_inaccessible():
-    """Barres vert/rouge/orange sans motif ni etiquette."""
+    """Barres dont les deux séries ne se distinguent que par la couleur."""
     fig, ax = plt.subplots(figsize=(5, 3))
     x = np.arange(len(INDICATEURS))
     w = 0.35
-    ax.bar(x - w / 2, T4_2024, w, color="#E74C3C")
-    ax.bar(x + w / 2, T1_2025, w, color="#27AE60")
+    bars1 = ax.bar(
+        x - w / 2,
+        T4_2024,
+        w,
+        color="#D00000",
+        label="T4 2024",
+    )
+    bars2 = ax.bar(
+        x + w / 2,
+        T1_2025,
+        w,
+        color="#18753C",
+        label="T1 2025",
+    )
+    ax.bar_label(
+        bars1,
+        labels=[f"{value:,}".replace(",", " ") for value in T4_2024],
+        padding=2,
+        fontsize=6,
+    )
+    ax.bar_label(
+        bars2,
+        labels=[f"{value:,}".replace(",", " ") for value in T1_2025],
+        padding=2,
+        fontsize=6,
+    )
     ax.set_xticks(x)
     ax.set_xticklabels(INDICATEURS, fontsize=8)
-    ax.set_title("Evolution du trafic web", fontsize=10)
+    ax.set_title(CHART_TITLE, fontsize=10)
+    ax.set_ylim(0, max(T1_2025) * 1.25)
     ax.tick_params(axis="y", labelsize=7)
+    ax.legend(fontsize=7, loc="upper left")
     fig.tight_layout()
     path = ASSETS / "graphique-inaccessible.png"
     fig.savefig(path, dpi=150)
@@ -71,7 +105,7 @@ def generate_chart_inaccessible():
 
 
 def generate_chart_accessible():
-    """Barres avec motifs distincts + etiquettes sur chaque barre."""
+    """Barres avec motifs distincts et étiquettes sur chaque barre."""
     fig, ax = plt.subplots(figsize=(5, 3))
     x = np.arange(len(INDICATEURS))
     w = 0.35
@@ -117,7 +151,8 @@ def generate_chart_accessible():
 
     ax.set_xticks(x)
     ax.set_xticklabels(INDICATEURS, fontsize=8)
-    ax.set_title("Evolution du trafic web", fontsize=10)
+    ax.set_title(CHART_TITLE, fontsize=10)
+    ax.set_ylim(0, max(T1_2025) * 1.25)
     ax.tick_params(axis="y", labelsize=7)
     ax.legend(fontsize=7, loc="upper left")
     fig.tight_layout()
@@ -865,6 +900,118 @@ def _add_station_two_p11(
         )
 
 
+def _mark_first_row_as_header(table):
+    """Déclare la première ligne comme en-tête répétable."""
+    tr_pr = table.rows[0]._tr.get_or_add_trPr()
+    for current in list(tr_pr.findall(qn("w:tblHeader"))):
+        tr_pr.remove(current)
+    tr_pr.append(parse_xml(f'<w:tblHeader {nsdecls("w")} w:val="true"/>'))
+
+
+def _prevent_table_row_splitting(table):
+    """Interdit le fractionnement des lignes sur deux pages."""
+    for row in table.rows:
+        tr_pr = row._tr.get_or_add_trPr()
+        for current in list(tr_pr.findall(qn("w:cantSplit"))):
+            tr_pr.remove(current)
+        tr_pr.append(parse_xml(f'<w:cantSplit {nsdecls("w")} w:val="true"/>'))
+
+
+def _add_station_three_p12(
+    doc,
+    control,
+    station_title,
+    numbering_id,
+    *,
+    corrected=False,
+    with_guidance=False,
+):
+    """Ajoute l'exemple de contraste textuel à mesurer."""
+    station_heading = doc.add_heading(station_title, level=1)
+    _apply_heading_numbering(station_heading, numbering_id, 0)
+    _add_station_one_control(doc, control, numbering_id)
+
+    paragraph = doc.add_paragraph()
+    run = paragraph.add_run(CONTRAST_SAMPLE_TEXT)
+    run.font.name = "Arial"
+    run.font.size = Pt(11)
+    run.font.color.rgb = (
+        RGBColor(0x59, 0x59, 0x59) if corrected else RGBColor(0x9A, 0x9A, 0x9A)
+    )
+    if with_guidance:
+        _add_guidance_comment(doc, run, _guidance_text(control))
+
+
+def _add_station_three_p13(
+    doc,
+    control,
+    numbering_id,
+    chart_path,
+    *,
+    corrected=False,
+    with_guidance=False,
+):
+    """Ajoute le graphique fautif ou corrigé de la station 3."""
+    _add_station_one_control(doc, control, numbering_id)
+    doc.add_heading("Détail par canal", level=3)
+    doc.add_picture(str(chart_path), width=Inches(4.5))
+    chart_paragraph = doc.paragraphs[-1]
+    chart_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    alt_text = CHART_ALT_ACCESSIBLE if corrected else CHART_ALT_INACCESSIBLE
+    _set_image_alt(doc, alt_text=alt_text, title="Trafic web T1 2025")
+    if with_guidance:
+        _add_guidance_comment(doc, chart_paragraph.runs, _guidance_text(control))
+
+
+def _add_station_three_p14(
+    doc,
+    control,
+    numbering_id,
+    *,
+    corrected=False,
+    with_guidance=False,
+):
+    """Ajoute le tableau de données fautif ou corrigé de la station 3."""
+    _add_station_one_control(doc, control, numbering_id)
+    doc.add_heading("Répartition par service", level=3)
+    doc.add_paragraph("Périmètre : Direction des affaires juridiques.")
+    table = doc.add_table(rows=3, cols=3, style="Table Grid")
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    data = [
+        ["Service", "Effectif", "Budget"],
+        ["Communication", "12", "45 000"],
+        ["Juridique", "28", "120 000"],
+    ]
+    for row_index, row_data in enumerate(data):
+        for column_index, cell_text in enumerate(row_data):
+            cell = table.cell(row_index, column_index)
+            cell.text = cell_text
+            for paragraph in cell.paragraphs:
+                for run in paragraph.runs:
+                    run.font.name = "Arial"
+                    run.font.size = Pt(10)
+                    if row_index == 0:
+                        run.bold = True
+
+    if corrected:
+        _mark_first_row_as_header(table)
+        _prevent_table_row_splitting(table)
+    else:
+        merged_header = table.cell(0, 1).merge(table.cell(0, 2))
+        merged_header.text = "Effectif\nBudget"
+        for paragraph in merged_header.paragraphs:
+            for run in paragraph.runs:
+                run.bold = True
+                run.font.name = "Arial"
+                run.font.size = Pt(10)
+        if with_guidance:
+            _add_guidance_comment(
+                doc,
+                merged_header.paragraphs[0].runs,
+                _guidance_text(control),
+            )
+
+
 def build_inaccessible(
     chart_path: Path,
     icon_path: Path = None,
@@ -881,6 +1028,8 @@ def build_inaccessible(
     p01, p02, p03, p04, p05 = station_1_controls
     p06, p07, p08, p09, p10, p11 = _station_controls(matrix, "station-2")
     station_2_title = _station_title(matrix, "station-2")
+    p12, p13, p14 = _station_controls(matrix, "station-3")
+    station_3_title = _station_title(matrix, "station-3")
     doc = Document()
     station_numbering_id = _create_heading_numbering(doc)
     doc.core_properties.title = ""
@@ -971,27 +1120,19 @@ def build_inaccessible(
 
     doc.add_paragraph()
 
-    # Erreur 5 : couleur seule (rouge #FF0000 sans gras, meme texte que l'accessible)
+    # La mention explicite ne repose pas sur la couleur seule et reste contrastée.
     p = doc.add_paragraph()
     run = p.add_run("Urgent - Retour attendu avant le 30 juin 2025")
-    run.font.color.rgb = RGBColor(0xFF, 0x00, 0x00)
+    run.bold = True
+    run.font.color.rgb = RGBColor(0xC0, 0x00, 0x00)
     run.font.name = "Arial"
     run.font.size = Pt(11)
-    if with_guidance:
-        _add_guidance_comment(
-            doc,
-            run,
-            "Critère 5 - Problème : l'urgence repose surtout sur le rouge. "
-            "Impact : l'information peut être perdue sans perception de la "
-            "couleur. Méthode : ajouter une emphase non colorée, par exemple "
-            "le gras, et conserver un libellé explicite.",
-        )
 
     doc.add_paragraph("La direction demande un retour rapide sur les indicateurs.")
 
     doc.add_heading("Résultats du trimestre", level=2)
 
-    # Erreur 4 : tableau sans en-tete balisee
+    # Tableau historique déjà structuré : la station 3 utilise un autre tableau cible.
     table = doc.add_table(rows=4, cols=4)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     data = [
@@ -1007,17 +1148,8 @@ def build_inaccessible(
             for paragraph in cell.paragraphs:
                 paragraph.style.font.name = "Arial"
                 paragraph.style.font.size = Pt(10)
-    # Pas de ligne d'en-tete balisee (pas de tblHeader)
-    if with_guidance:
-        _add_guidance_comment(
-            doc,
-            table.cell(0, 0).paragraphs[0].runs,
-            "Critère 4 - Problème : la première ligne du tableau n'est pas "
-            "déclarée comme en-tête. Impact : les cellules ne sont pas "
-            "associées à leurs colonnes. Méthode : sélectionner le tableau > "
-            "Création de tableau > Options de style de tableau > Ligne "
-            "d'en-tête.",
-        )
+    _mark_first_row_as_header(table)
+    _prevent_table_row_splitting(table)
 
     _add_station_one_control(doc, p04, station_numbering_id)
 
@@ -1095,26 +1227,26 @@ def build_inaccessible(
         guidance_anchor=intro_paragraph,
     )
 
-    doc.add_paragraph()
-
-    doc.add_heading("Détail par canal", level=3)
-
-    # Erreur 7 : image sans alt + couleurs seules
-    doc.add_picture(str(chart_path), width=Inches(4.5))
-    last_paragraph = doc.paragraphs[-1]
-    last_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    if with_guidance:
-        _add_guidance_comment(
-            doc,
-            last_paragraph.runs,
-            "Critère 7 - Problème : le graphique n'a pas d'alternative et "
-            "s'appuie sur la couleur seule. Impact : il est inaccessible au "
-            "lecteur d'écran et difficile pour certains daltonismes. Méthode : "
-            "ajouter un texte alternatif descriptif, puis utiliser motifs, "
-            "étiquettes et légende textuelle.",
-        )
-
-    doc.add_paragraph()
+    _add_station_three_p12(
+        doc,
+        p12,
+        station_3_title,
+        station_numbering_id,
+        with_guidance=with_guidance,
+    )
+    _add_station_three_p13(
+        doc,
+        p13,
+        station_numbering_id,
+        chart_path,
+        with_guidance=with_guidance,
+    )
+    _add_station_three_p14(
+        doc,
+        p14,
+        station_numbering_id,
+        with_guidance=with_guidance,
+    )
 
     # Erreur 13 : passage anglais sans balisage de langue
     p = doc.add_paragraph(
@@ -1131,54 +1263,6 @@ def build_inaccessible(
             "langue de vérification > Anglais.",
         )
 
-    # Erreur 21 : tableau avec cellules fusionnees et en-tetes seulement visuels
-    doc.add_paragraph()
-    p = doc.add_heading("Répartition par service", level=3)
-    run = p.runs[0]
-    if with_guidance:
-        _add_guidance_comment(
-            doc,
-            run,
-            "Critère 21 - Problème : la première ligne fusionnée complexifie "
-            "la structure du tableau. Impact : les associations cellules/"
-            "en-têtes deviennent fragiles. Méthode : refaire un tableau simple "
-            "sans fusion et cocher Ligne d'en-tête.",
-        )
-    table = doc.add_table(rows=4, cols=3, style="Table Grid")
-    table.alignment = WD_TABLE_ALIGNMENT.CENTER
-    # Fusionner la premiere ligne sur 3 colonnes
-    table.cell(0, 0).merge(table.cell(0, 2))
-    data = [
-        ["Direction des affaires juridiques", "", ""],
-        ["Service", "Effectif", "Budget"],
-        ["Communication", "12", "45 000"],
-        ["Juridique", "28", "120 000"],
-    ]
-    for i, row_data in enumerate(data):
-        for j, cell_text in enumerate(row_data):
-            if i == 0 and j > 0:
-                continue
-            cell = table.cell(i, j)
-            cell.text = cell_text
-            for paragraph in cell.paragraphs:
-                for cell_run in paragraph.runs:
-                    cell_run.font.name = "Arial"
-                    cell_run.font.size = Pt(10)
-                    if i in (0, 1):
-                        cell_run.bold = True
-    # Pas de tblHeader : les libelles sont visuels, pas declares comme en-tetes Word.
-    if with_guidance:
-        _add_guidance_comment(
-            doc,
-            table.cell(1, 0).paragraphs[0].runs,
-            "Critère 21 - Problème : les libellés en gras sont seulement "
-            "visuels. Impact : ils ne sont pas annoncés comme en-têtes. "
-            "Méthode : déclarer la ligne d'en-tête avec l'option Word et "
-            "supprimer la ligne fusionnée.",
-        )
-
-    doc.add_paragraph()
-
     # Section Annexes : casse encore fautive, mais structure de titre correcte.
     p = doc.add_heading("ANNEXES", level=2)
     run = p.runs[0]
@@ -1190,24 +1274,6 @@ def build_inaccessible(
             "Impact : certaines aides peuvent l'épeler ou le prononcer moins "
             "naturellement. Méthode : saisir 'Annexes' en minuscules puis "
             "appliquer Police > Tout en majuscules si l'effet visuel est voulu.",
-        )
-
-    # Erreur 6 : contraste ambigu (gris #767676)
-    p = doc.add_paragraph()
-    run = p.add_run(
-        "Note : les données sont provisoires et susceptibles "
-        "d’ajustements lors de la consolidation finale."
-    )
-    run.font.color.rgb = RGBColor(0x76, 0x76, 0x76)
-    run.font.size = Pt(9)
-    run.font.name = "Arial"
-    if with_guidance:
-        _add_guidance_comment(
-            doc,
-            run,
-            "Critère 6 - Problème : le gris #767676 sur blanc est trop juste "
-            "pour du petit texte. Impact : la note peut être difficile à lire. "
-            "Méthode : mesurer le contraste, puis utiliser #595959 ou du noir.",
         )
 
     version_key = "avec_pistes" if with_guidance else "inaccessible"
@@ -1240,6 +1306,8 @@ def build_accessible(
     p01, p02, p03, p04, p05 = station_1_controls
     p06, p07, p08, p09, p10, p11 = _station_controls(matrix, "station-2")
     station_2_title = _station_title(matrix, "station-2")
+    p12, p13, p14 = _station_controls(matrix, "station-3")
+    station_3_title = _station_title(matrix, "station-3")
     doc = Document()
     station_numbering_id = _create_heading_numbering(doc)
 
@@ -1326,12 +1394,8 @@ def build_accessible(
                     for run in paragraph.runs:
                         run.bold = True
 
-    # Baliser la premiere ligne comme en-tete
-    tbl = table._tbl
-    first_row = tbl.tr_lst[0]
-    trPr = first_row.get_or_add_trPr()
-    tblHeader = parse_xml(f'<w:tblHeader {nsdecls("w")} val="true"/>')
-    trPr.append(tblHeader)
+    _mark_first_row_as_header(table)
+    _prevent_table_row_splitting(table)
 
     _add_station_one_control(doc, p04, station_numbering_id)
 
@@ -1397,26 +1461,26 @@ def build_accessible(
         corrected=True,
     )
 
-    # Titre 3
-    doc.add_heading("Détail par canal", level=3)
-
-    # Image avec alt text
-    doc.add_picture(str(chart_path), width=Inches(4.5))
-    last_paragraph = doc.paragraphs[-1]
-    last_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
-
-    # Ajouter alt text a l'image
-    inline_shape = doc.inline_shapes[-1]
-    pic = inline_shape._inline
-    nvPicPr = pic.find(qn("wp:docPr"))
-    if nvPicPr is not None:
-        nvPicPr.set(
-            "descr",
-            "Graphique d'évolution du trafic web T1 2025 : "
-            "visiteurs uniques en hausse de 12 %, pages vues +11 %, "
-            "taux de rebond en baisse de 4 points.",
-        )
-        nvPicPr.set("title", "Trafic web T1 2025")
+    _add_station_three_p12(
+        doc,
+        p12,
+        station_3_title,
+        station_numbering_id,
+        corrected=True,
+    )
+    _add_station_three_p13(
+        doc,
+        p13,
+        station_numbering_id,
+        chart_path,
+        corrected=True,
+    )
+    _add_station_three_p14(
+        doc,
+        p14,
+        station_numbering_id,
+        corrected=True,
+    )
 
     # Passage anglais avec balisage de langue
     p = doc.add_paragraph()
@@ -1430,47 +1494,10 @@ def build_accessible(
     lang_en = parse_xml(f'<w:lang {nsdecls("w")} w:val="en-US"/>')
     rPr.append(lang_en)
 
-    # Tableau simple sans cellules fusionnees
-    doc.add_heading("Répartition par service", level=3)
-    table = doc.add_table(rows=3, cols=3, style="Table Grid")
-    table.alignment = WD_TABLE_ALIGNMENT.CENTER
-    data = [
-        ["Service", "Effectif", "Budget"],
-        ["Communication", "12", "45 000"],
-        ["Juridique", "28", "120 000"],
-    ]
-    for i, row_data in enumerate(data):
-        for j, cell_text in enumerate(row_data):
-            cell = table.cell(i, j)
-            cell.text = cell_text
-            for paragraph in cell.paragraphs:
-                for run in paragraph.runs:
-                    run.font.name = "Arial"
-                    run.font.size = Pt(10)
-            if i == 0:
-                for paragraph in cell.paragraphs:
-                    for run in paragraph.runs:
-                        run.bold = True
-    tbl = table._tbl
-    first_row = tbl.tr_lst[0]
-    trPr = first_row.get_or_add_trPr()
-    tblHeader = parse_xml(f'<w:tblHeader {nsdecls("w")} val="true"/>')
-    trPr.append(tblHeader)
-
     # Annexes (Titre 2, majuscules via all_caps, pas tapees au clavier)
     h = doc.add_heading("Annexes", level=2)
     for run in h.runs:
         run.font.all_caps = True
-
-    # Note avec contraste suffisant (#595959 -> ratio 7:1)
-    p = doc.add_paragraph()
-    run = p.add_run(
-        "Note : les données sont provisoires et susceptibles "
-        "d'ajustements lors de la consolidation finale."
-    )
-    run.font.color.rgb = RGBColor(0x59, 0x59, 0x59)
-    run.font.size = Pt(9)
-    run.font.name = "Arial"
 
     # Proprietes du document
     doc.core_properties.title = DOCUMENT_TITLE
@@ -1507,13 +1534,13 @@ def _remove_quarantine(path: Path):
 # ------------------------------------------------------------------
 
 if __name__ == "__main__":
-    print("Generation des graphiques...")
+    print("Génération des graphiques...")
     chart_bad = generate_chart_inaccessible()
     print(f"  -> {chart_bad.name}")
     chart_good = generate_chart_accessible()
     print(f"  -> {chart_good.name}")
 
-    print("\nGeneration des images supplementaires...")
+    print("\nGénération des images supplémentaires...")
     icon = generate_icon_enveloppe()
     print(f"  -> {icon.name}")
     orga = generate_organigramme()
@@ -1521,7 +1548,7 @@ if __name__ == "__main__":
     txt_img = generate_texte_image()
     print(f"  -> {txt_img.name}")
 
-    print("\nGeneration des documents Word...")
+    print("\nGénération des documents Word...")
     build_inaccessible(
         chart_bad, icon_path=icon, organigramme_path=orga, texte_image_path=txt_img
     )
@@ -1536,4 +1563,4 @@ if __name__ == "__main__":
         chart_good, icon_path=icon, organigramme_path=orga, texte_image_path=txt_img
     )
 
-    print("\nTermine.")
+    print("\nTerminé.")

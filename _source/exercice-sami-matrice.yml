@@ -13,6 +13,7 @@ identite_editoriale:
     - P-09
     - P-10
     - P-11
+    - P-13
     - P-18
 
 sequence:
@@ -310,13 +311,13 @@ controles:
     impact: L'information reste disponible sans perception fiable des couleurs.
     regle: Ajouter étiquettes, motifs ou un équivalent textuel complet à tout code couleur porteur d'information.
     defaut: Un graphique distingue ses séries uniquement par la couleur.
-    action_attendue: Ajouter dans Word des étiquettes et des motifs ou fournir un équivalent textuel complet.
+    action_attendue: Reconstruire dans Word le graphique à partir des valeurs affichées dans l'image, puis ajouter des étiquettes et des motifs ou conserver un équivalent textuel complet.
     occurrences_attendues: 1
-    ancrage: Graphique éditable de la station 3.
+    ancrage: Image du graphique de la station 3.
     piste: Imaginer le graphique en niveaux de gris et repérer ce qui devient ambigu.
     etat_corrige: Les séries restent identifiables sans couleur ; le mot Urgent seul n'est pas traité comme un défaut si son texte transmet déjà le statut.
-    procedure_word: Sélectionner le graphique, ajouter les étiquettes de données puis appliquer des motifs ou compléter par un tableau textuel.
-    procedure_writer: Modifier le diagramme, afficher les étiquettes puis choisir des remplissages distincts ou ajouter un équivalent textuel.
+    procedure_word: Insertion > Graphique > Histogramme groupé, reporter les valeurs affichées dans l'image, puis afficher les étiquettes et appliquer des motifs distincts.
+    procedure_writer: Insertion > Diagramme, reporter les valeurs affichées dans l'image, puis afficher les étiquettes et choisir des remplissages distincts.
     preuve: {mode: humaine, attendu: Séries et conclusions identifiables en niveaux de gris et dans l'équivalent textuel.}
     checklist: Une information donnée par la couleur possède aussi un repère non coloré.
     guide: station-3/couleur-seule
@@ -324,7 +325,7 @@ controles:
     note_formateur: La correction doit rester réalisable dans Word sans logiciel d'image.
     surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
     references_pedagogiques: [MS-01]
-    transformations_editoriales: []
+    transformations_editoriales: [alternative_graphique_complete]
   - id: P-14
     niveau: P
     station: station-3

@@ -10,6 +10,7 @@ from zipfile import ZipFile
 from docx import Document
 from docx.oxml.ns import qn
 from lxml import etree
+from PIL import Image
 
 from exercice_sami_matrice import load_sami_matrix
 from generate_exercice_sami import build_accessible, build_inaccessible
@@ -97,6 +98,45 @@ def _external_hyperlinks(path: Path) -> list[dict[str, object]]:
         }
         for link in document_root.xpath("//w:hyperlink", namespaces=document_namespaces)
     ]
+
+
+def _linear_channel(value: int) -> float:
+    channel = value / 255
+    return channel / 12.92 if channel <= 0.04045 else ((channel + 0.055) / 1.055) ** 2.4
+
+
+def _contrast_ratio(foreground: str, background: str = "FFFFFF") -> float:
+    """Calcule le contraste WCAG de deux couleurs hexadécimales."""
+    colors = []
+    for value in (foreground, background):
+        rgb = tuple(int(value[index : index + 2], 16) for index in (0, 2, 4))
+        colors.append(
+            0.2126 * _linear_channel(rgb[0])
+            + 0.7152 * _linear_channel(rgb[1])
+            + 0.0722 * _linear_channel(rgb[2])
+        )
+    light, dark = sorted(colors, reverse=True)
+    return (light + 0.05) / (dark + 0.05)
+
+
+def _table_containing(document: Document, expected_text: str):
+    return next(
+        table
+        for table in document.tables
+        if any(expected_text in cell.text for row in table.rows for cell in row.cells)
+    )
+
+
+def _table_tokens(table) -> list[str]:
+    tokens = []
+    seen_cells = set()
+    for row in table.rows:
+        for cell in row.cells:
+            if cell._tc in seen_cells:
+                continue
+            seen_cells.add(cell._tc)
+            tokens.extend(token for token in cell.text.splitlines() if token)
+    return tokens
 
 
 def _paragraph_region(path: Path, start: str, end: str):
@@ -997,3 +1037,257 @@ def test_le_faux_sommaire_ne_reference_plus_les_titres_supprimes(tmp_path):
     assert not any(text.startswith("Organisation du service ") for text in texts)
     assert not any(text.startswith("Contact ") for text in texts)
     assert any(text.startswith(f"{station_title} ") for text in texts)
+
+
+def test_la_station_trois_est_ordonnee_et_pilotee_par_la_matrice(tmp_path):
+    matrix = load_sami_matrix()
+    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
+    chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
+    paths = [
+        build_inaccessible(
+            chart_bad,
+            output_name="inaccessible.docx",
+            matrix=matrix,
+            output_dir=tmp_path,
+        ),
+        build_inaccessible(
+            chart_bad,
+            with_guidance=True,
+            output_name="guide.docx",
+            matrix=matrix,
+            output_dir=tmp_path,
+        ),
+        build_accessible(
+            chart_good,
+            matrix=matrix,
+            output_dir=tmp_path,
+        ),
+    ]
+    controls = [item for item in matrix["controles"] if item["station"] == "station-3"]
+    station_title = next(
+        item["titre"] for item in matrix["sequence"] if item["id"] == "station-3"
+    )
+
+    for path in paths:
+        texts = [paragraph.text for paragraph in Document(path).paragraphs]
+        assert texts.count(station_title) == 1
+        heading_indexes = []
+        for control in controls:
+            heading_text = f"{control['id']} - {control['intitule']}"
+            heading_indexes.append(texts.index(heading_text))
+            for expected in (
+                f"Problème : {control['defaut']}",
+                f"Pourquoi : {control['impact']}",
+                f"Règle : {control['regle']}",
+                f"Dans Word : {control['procedure_word']}",
+                f"Dans LibreOffice Writer : {control['procedure_writer']}",
+                f"À faire : {control['action_attendue']}",
+                f"Preuve : {control['preuve']['attendu']}",
+            ):
+                assert expected in texts
+        assert heading_indexes == sorted(heading_indexes)
+
+    comments = _archive_text(paths[1], "word/comments.xml")
+    for control in controls:
+        assert comments.count(f"{control['id']} -") == control["occurrences_attendues"]
+        assert control["regle"] in comments
+    for legacy_label in (
+        "Critère 4 -",
+        "Critère 5 -",
+        "Critère 6 -",
+        "Critère 7 -",
+        "Critère 21 -",
+    ):
+        assert legacy_label not in comments
+
+    p12 = _comment_anchor(paths[1], "P-12 -")
+    p13 = _comment_anchor(paths[1], "P-13 -")
+    p14 = _comment_anchor(paths[1], "P-14 -")
+    assert p12["text"].startswith("Information complémentaire")
+    assert p13["drawing"]
+    assert "Effectif" in p14["text"]
+
+
+def test_p12_calcule_un_vrai_defaut_de_contraste_et_sa_correction(tmp_path):
+    matrix = load_sami_matrix()
+    text = "Information complémentaire : résultats provisoires."
+    inaccessible = build_inaccessible(
+        PROJECT_ROOT / "_assets" / "graphique-inaccessible.png",
+        output_name="inaccessible.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    guided = build_inaccessible(
+        PROJECT_ROOT / "_assets" / "graphique-inaccessible.png",
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    corrected = build_accessible(
+        PROJECT_ROOT / "_assets" / "graphique-accessible.png",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+
+    bad_run = next(
+        paragraph.runs[0]
+        for paragraph in Document(inaccessible).paragraphs
+        if paragraph.text == text
+    )
+    good_run = next(
+        paragraph.runs[0]
+        for paragraph in Document(corrected).paragraphs
+        if paragraph.text == text
+    )
+    bad_color = str(bad_run.font.color.rgb)
+    good_color = str(good_run.font.color.rgb)
+    assert bad_run.font.size.pt == 11
+    assert _contrast_ratio(bad_color) < 4.5
+    assert _contrast_ratio(good_color) >= 4.5
+
+    comments = _archive_text(guided, "word/comments.xml")
+    document_xml = _archive_text(guided, "word/document.xml")
+    assert "#767676" not in comments
+    assert "4,48" not in comments
+    assert "#767676" not in document_xml
+    assert "4,48" not in document_xml
+    assert "l'urgence repose surtout sur le rouge" not in comments
+
+    with Image.open(PROJECT_ROOT / "_assets" / "graphique-inaccessible.png") as image:
+        pixels = set(image.convert("RGB").get_flattened_data())
+    for color in ((208, 0, 0), (24, 117, 60)):
+        assert color in pixels
+        assert _contrast_ratio("".join(f"{channel:02X}" for channel in color)) >= 3
+
+
+def test_p13_fournit_dans_word_les_donnees_pour_corriger_le_graphique(tmp_path):
+    matrix = load_sami_matrix()
+    control = next(item for item in matrix["controles"] if item["id"] == "P-13")
+    assert control["ancrage"] == "Image du graphique de la station 3."
+    assert control["procedure_word"].startswith("Insertion > Graphique")
+    assert "valeurs affichées" in control["procedure_word"]
+    assert control["transformations_editoriales"] == ["alternative_graphique_complete"]
+    assert "P-13" in matrix["identite_editoriale"]["transformations_autorisees"]
+    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
+    chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
+    inaccessible = build_inaccessible(
+        chart_bad,
+        output_name="inaccessible.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    guided = build_inaccessible(
+        chart_bad,
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    corrected = build_accessible(
+        chart_good,
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    for path in (inaccessible, guided):
+        document = Document(path)
+        alt_values = [
+            shape._inline.find(qn("wp:docPr")).get("descr")
+            for shape in document.inline_shapes
+        ]
+        assert (
+            alt_values.count(
+                "Graphique : évolution du trafic web entre T4 2024 et T1 2025."
+            )
+            == 1
+        )
+        document_text = "\n".join(
+            [paragraph.text for paragraph in document.paragraphs]
+            + [
+                cell.text
+                for table in document.tables
+                for row in table.rows
+                for cell in row.cells
+            ]
+        )
+        for value in (
+            "18 200",
+            "20 400",
+            "21 000",
+            "23 400",
+            "6 000",
+            "6 800",
+        ):
+            assert value not in document_text
+            assert value not in "\n".join(alt_values)
+
+    corrected_document = Document(corrected)
+    corrected_alt_values = [
+        shape._inline.find(qn("wp:docPr")).get("descr")
+        for shape in corrected_document.inline_shapes
+    ]
+    assert (
+        corrected_alt_values.count(
+            "T4 2024 puis T1 2025 : accès directs, 18 200 puis 20 400 "
+            "(+12 %) ; moteurs de recherche, 21 000 puis 23 400 (+11 %) ; "
+            "sites référents, 6 000 puis 6 800 (+13 %)."
+        )
+        == 1
+    )
+
+    generator_source = (
+        PROJECT_ROOT / "scripts" / "generate_exercice_sami.py"
+    ).read_text(encoding="utf-8")
+    assert 'ax.set_title("Evolution du trafic web"' not in generator_source
+    assert generator_source.count("ax.set_title(CHART_TITLE") == 2
+    assert 'label="T4 2024"' in generator_source
+    assert 'label="T1 2025"' in generator_source
+
+    assert _embedded_asset_count(inaccessible, chart_bad) == 1
+    assert _embedded_asset_count(guided, chart_bad) == 1
+    assert _embedded_asset_count(corrected, chart_bad) == 0
+    assert _embedded_asset_count(corrected, chart_good) == 1
+    assert _comment_anchor(guided, "P-13 -")["drawing"]
+
+
+def test_p14_corrige_la_structure_du_tableau_de_donnees(tmp_path):
+    matrix = load_sami_matrix()
+    inaccessible = build_inaccessible(
+        PROJECT_ROOT / "_assets" / "graphique-inaccessible.png",
+        output_name="inaccessible.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    guided = build_inaccessible(
+        PROJECT_ROOT / "_assets" / "graphique-inaccessible.png",
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    corrected = build_accessible(
+        PROJECT_ROOT / "_assets" / "graphique-accessible.png",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    bad_table = _table_containing(Document(inaccessible), "120 000")
+    guided_table = _table_containing(Document(guided), "120 000")
+    good_document = Document(corrected)
+    good_table = _table_containing(good_document, "120 000")
+
+    assert _table_tokens(bad_table) == _table_tokens(good_table)
+    assert bad_table._tbl.xpath(".//w:gridSpan")
+    assert guided_table._tbl.xpath(".//w:gridSpan")
+    assert not good_table._tbl.xpath(".//w:gridSpan")
+    assert not good_table._tbl.xpath(".//w:vMerge")
+    assert not bad_table.rows[0]._tr.xpath("./w:trPr/w:tblHeader")
+    assert good_table.rows[0]._tr.xpath("./w:trPr/w:tblHeader")
+    assert any(not row._tr.xpath("./w:trPr/w:cantSplit") for row in bad_table.rows)
+    assert all(row._tr.xpath("./w:trPr/w:cantSplit") for row in good_table.rows)
+    assert not any(cell.tables for row in good_table.rows for cell in row.cells)
+    assert any(
+        paragraph.text == "Répartition par service"
+        and paragraph.style.name == "Heading 3"
+        for paragraph in good_document.paragraphs
+    )
+    assert _comment_anchor(guided, "P-14 -")["text"].startswith("Effectif")
