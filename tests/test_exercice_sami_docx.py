@@ -8,12 +8,17 @@ import re
 from zipfile import ZipFile
 
 from docx import Document
+from docx.oxml.ns import qn
+from lxml import etree
 
 from exercice_sami_matrice import load_sami_matrix
 from generate_exercice_sami import build_accessible, build_inaccessible
 
 
 PROJECT_ROOT = Path(__file__).parent.parent
+WORD_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+OFFICE_REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+PACKAGE_REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships"
 
 
 def _archive_text(path: Path, member: str) -> str:
@@ -24,6 +29,74 @@ def _archive_text(path: Path, member: str) -> str:
 def _archive_members(path: Path) -> set[str]:
     with ZipFile(path) as archive:
         return set(archive.namelist())
+
+
+def _comment_anchor(path: Path, marker: str) -> dict[str, object]:
+    """Retourne le paragraphe réellement couvert par un commentaire."""
+    namespaces = {"w": WORD_NS, "r": OFFICE_REL_NS}
+    with ZipFile(path) as archive:
+        comments_root = etree.fromstring(archive.read("word/comments.xml"))
+        document_root = etree.fromstring(archive.read("word/document.xml"))
+
+    comment = next(
+        item
+        for item in comments_root.xpath("//w:comment", namespaces=namespaces)
+        if marker in "".join(item.xpath(".//w:t/text()", namespaces=namespaces))
+    )
+    comment_id = comment.get(qn("w:id"))
+    paragraph = document_root.xpath(
+        f'//w:p[.//w:commentRangeStart[@w:id="{comment_id}"]]',
+        namespaces=namespaces,
+    )[0]
+    return {
+        "text": "".join(paragraph.xpath(".//w:t/text()", namespaces=namespaces)),
+        "drawing": bool(paragraph.xpath(".//w:drawing", namespaces=namespaces)),
+        "hyperlink": bool(paragraph.xpath(".//w:hyperlink", namespaces=namespaces)),
+    }
+
+
+def _embedded_asset_count(path: Path, asset_path: Path) -> int:
+    """Compte les médias embarqués identiques à un fichier source."""
+    expected = asset_path.read_bytes()
+    with ZipFile(path) as archive:
+        return sum(
+            archive.read(member) == expected
+            for member in archive.namelist()
+            if member.startswith("word/media/")
+        )
+
+
+def _external_hyperlinks(path: Path) -> list[dict[str, object]]:
+    """Retourne les liens et leur mise en forme depuis leur nœud OOXML."""
+    document_namespaces = {"w": WORD_NS, "r": OFFICE_REL_NS}
+    relationship_namespaces = {"pr": PACKAGE_REL_NS}
+    with ZipFile(path) as archive:
+        document_root = etree.fromstring(archive.read("word/document.xml"))
+        relationships_root = etree.fromstring(
+            archive.read("word/_rels/document.xml.rels")
+        )
+    targets = {
+        item.get("Id"): item.get("Target")
+        for item in relationships_root.xpath(
+            "//pr:Relationship", namespaces=relationship_namespaces
+        )
+        if item.get("Type", "").endswith("/hyperlink")
+    }
+    return [
+        {
+            "target": targets.get(link.get(qn("r:id"))),
+            "text": "".join(
+                link.xpath(".//w:t/text()", namespaces=document_namespaces)
+            ),
+            "colors": link.xpath(
+                ".//w:rPr/w:color/@w:val", namespaces=document_namespaces
+            ),
+            "underlines": link.xpath(
+                ".//w:rPr/w:u/@w:val", namespaces=document_namespaces
+            ),
+        }
+        for link in document_root.xpath("//w:hyperlink", namespaces=document_namespaces)
+    ]
 
 
 def _paragraph_region(path: Path, start: str, end: str):
@@ -150,8 +223,6 @@ def test_les_titres_hors_station_un_restant_ne_creent_pas_d_occurrence_cachee(
         "Introduction": "Heading 1",
         "Résultats du trimestre": "Heading 2",
         "Détail par canal": "Heading 3",
-        "Organisation du service": "Heading 2",
-        "Contact": "Heading 2",
         "Répartition par service": "Heading 3",
         "ANNEXES": "Heading 2",
     }
@@ -462,4 +533,467 @@ def test_les_pistes_documentaires_sont_ancrees_dans_le_corps(tmp_path):
 
     comments = _archive_text(output, "word/comments.xml")
     assert "Document — P-03" in comments
-    assert "Document — Critère 18" in comments
+    assert "Document — P-11" in comments
+
+
+def test_p06_demande_une_alternative_redigee_puis_l_applique(tmp_path):
+    matrix = load_sami_matrix()
+    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
+    chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
+    icon = PROJECT_ROOT / "_assets" / "icone-enveloppe.png"
+    inaccessible = build_inaccessible(
+        chart_bad,
+        icon_path=icon,
+        output_name="inaccessible.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    guided = build_inaccessible(
+        chart_bad,
+        icon_path=icon,
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    corrected = build_accessible(
+        chart_good,
+        icon_path=icon,
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+
+    control = next(item for item in matrix["controles"] if item["id"] == "P-06")
+    station_title = next(
+        item["titre"] for item in matrix["sequence"] if item["id"] == "station-2"
+    )
+    heading_text = f"{control['id']} - {control['intitule']}"
+    for path in (inaccessible, guided, corrected):
+        document = Document(path)
+        station = next(p for p in document.paragraphs if p.text == station_title)
+        heading = next(p for p in document.paragraphs if p.text == heading_text)
+        assert station.style.name == "Heading 1"
+        assert heading.style.name == "Heading 2"
+        assert f"Problème : {control['defaut']}" in {
+            p.text for p in document.paragraphs
+        }
+
+    bad_doc_pr = Document(inaccessible).inline_shapes[0]._inline.find(qn("wp:docPr"))
+    good_doc_pr = Document(corrected).inline_shapes[0]._inline.find(qn("wp:docPr"))
+    assert not bad_doc_pr.get("descr")
+    assert good_doc_pr.get("descr") == "Contact par courriel."
+
+    comments = _archive_text(guided, "word/comments.xml")
+    assert comments.count("P-06 -") == 1
+    assert control["regle"] in comments
+    assert control["action_attendue"] in comments
+
+
+def test_p07_associe_l_image_complexe_a_une_description_detaillee(tmp_path):
+    matrix = load_sami_matrix()
+    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
+    chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
+    organigramme = PROJECT_ROOT / "_assets" / "organigramme.png"
+    inaccessible = build_inaccessible(
+        chart_bad,
+        organigramme_path=organigramme,
+        output_name="inaccessible.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    guided = build_inaccessible(
+        chart_bad,
+        organigramme_path=organigramme,
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    corrected = build_accessible(
+        chart_good,
+        organigramme_path=organigramme,
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+
+    control = next(item for item in matrix["controles"] if item["id"] == "P-07")
+    assert "P-07" in matrix["identite_editoriale"]["transformations_autorisees"]
+    assert control["transformations_editoriales"] == [
+        "description_image_complexe_vers_texte_adjacent"
+    ]
+    heading_text = f"{control['id']} - {control['intitule']}"
+    for path in (inaccessible, guided, corrected):
+        document = Document(path)
+        heading = next(p for p in document.paragraphs if p.text == heading_text)
+        assert heading.style.name == "Heading 2"
+
+    bad_alts = [
+        shape._inline.find(qn("wp:docPr")).get("descr")
+        for shape in Document(inaccessible).inline_shapes
+    ]
+    good_alts = [
+        shape._inline.find(qn("wp:docPr")).get("descr")
+        for shape in Document(corrected).inline_shapes
+    ]
+    assert bad_alts.count("image.png") == 1
+    assert (
+        good_alts.count(
+            "Organigramme de la Direction des affaires juridiques "
+            "(description ci-dessous)."
+        )
+        == 1
+    )
+
+    description = (
+        "La Direction des affaires juridiques comprend 4 bureaux : "
+        "le Bureau du droit public, le Bureau du droit social, "
+        "le Bureau de la communication et le Bureau des affaires "
+        "internationales. Chaque bureau est rattaché directement à la direction."
+    )
+    assert description not in {p.text for p in Document(inaccessible).paragraphs}
+    assert description in {p.text for p in Document(corrected).paragraphs}
+
+    comments = _archive_text(guided, "word/comments.xml")
+    assert comments.count("P-07 -") == 1
+    assert control["regle"] in comments
+
+
+def test_p08_marque_l_image_redondante_comme_decorative(tmp_path):
+    matrix = load_sami_matrix()
+    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
+    chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
+    icon = PROJECT_ROOT / "_assets" / "icone-enveloppe.png"
+    inaccessible = build_inaccessible(
+        chart_bad,
+        icon_path=icon,
+        output_name="inaccessible.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    guided = build_inaccessible(
+        chart_bad,
+        icon_path=icon,
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    corrected = build_accessible(
+        chart_good,
+        icon_path=icon,
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+
+    control = next(item for item in matrix["controles"] if item["id"] == "P-08")
+    heading_text = f"{control['id']} - {control['intitule']}"
+    for path in (inaccessible, guided, corrected):
+        document = Document(path)
+        heading = next(p for p in document.paragraphs if p.text == heading_text)
+        assert heading.style.name == "Heading 2"
+        assert f"Dans LibreOffice Writer : {control['procedure_writer']}" in {
+            p.text for p in document.paragraphs
+        }
+
+    bad_alts = [
+        shape._inline.find(qn("wp:docPr")).get("descr")
+        for shape in Document(inaccessible).inline_shapes
+    ]
+    assert bad_alts.count("E-mail") == 1
+    decorative_marker = "C183D7F6-B498-43B3-948B-1728B52AA6E4"
+    assert decorative_marker not in _archive_text(inaccessible, "word/document.xml")
+    assert _archive_text(corrected, "word/document.xml").count(decorative_marker) == 1
+
+    contact = (
+        "Pour toute question, contactez-nous par  e-mail pour plus d'informations."
+    )
+    assert contact in {p.text for p in Document(inaccessible).paragraphs}
+    assert contact in {p.text for p in Document(corrected).paragraphs}
+
+    comments = _archive_text(guided, "word/comments.xml")
+    assert comments.count("P-08 -") == 1
+    assert control["regle"] in comments
+
+
+def test_p09_remplace_l_image_de_texte_par_un_texte_selectionnable(tmp_path):
+    matrix = load_sami_matrix()
+    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
+    chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
+    text_image = PROJECT_ROOT / "_assets" / "texte-image.png"
+    inaccessible = build_inaccessible(
+        chart_bad,
+        texte_image_path=text_image,
+        output_name="inaccessible.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    guided = build_inaccessible(
+        chart_bad,
+        texte_image_path=text_image,
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    corrected = build_accessible(
+        chart_good,
+        texte_image_path=text_image,
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+
+    control = next(item for item in matrix["controles"] if item["id"] == "P-09")
+    heading_text = f"{control['id']} - {control['intitule']}"
+    for path in (inaccessible, guided, corrected):
+        document = Document(path)
+        heading = next(p for p in document.paragraphs if p.text == heading_text)
+        assert heading.style.name == "Heading 2"
+
+    real_text = (
+        "Avis important : les indicateurs du T2 2025 "
+        "seront transmis avant le 15 septembre 2025."
+    )
+    assert real_text not in {p.text for p in Document(inaccessible).paragraphs}
+    assert real_text not in {p.text for p in Document(guided).paragraphs}
+    assert real_text in {p.text for p in Document(corrected).paragraphs}
+    assert _embedded_asset_count(inaccessible, text_image) == 1
+    assert _embedded_asset_count(guided, text_image) == 1
+    assert _embedded_asset_count(corrected, text_image) == 0
+
+    comments = _archive_text(guided, "word/comments.xml")
+    assert comments.count("P-09 -") == 1
+    assert control["action_attendue"] in comments
+
+
+def test_p10_conserve_la_destination_et_rend_le_lien_autonome(tmp_path):
+    matrix = load_sami_matrix()
+    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
+    chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
+    inaccessible = build_inaccessible(
+        chart_bad,
+        output_name="inaccessible.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    guided = build_inaccessible(
+        chart_bad,
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    corrected = build_accessible(chart_good, matrix=matrix, output_dir=tmp_path)
+
+    control = next(item for item in matrix["controles"] if item["id"] == "P-10")
+    expected_proof = (
+        "Destination inchangée, libellé explicite et identification visuelle vérifiées."
+    )
+    assert control["preuve"]["attendu"] == expected_proof
+    heading_text = f"{control['id']} - {control['intitule']}"
+    for path in (inaccessible, guided, corrected):
+        document = Document(path)
+        heading = next(p for p in document.paragraphs if p.text == heading_text)
+        assert heading.style.name == "Heading 2"
+        assert f"Preuve : {expected_proof}" in {
+            paragraph.text for paragraph in document.paragraphs
+        }
+        links = _external_hyperlinks(path)
+        assert [link["target"] for link in links].count(
+            "https://example.org/annexes-rapport-t1-2025.pdf"
+        ) == 1
+
+    bad_xml = _archive_text(inaccessible, "word/document.xml")
+    assert "cliquez ici" in bad_xml
+    corrected_link = next(
+        link
+        for link in _external_hyperlinks(corrected)
+        if link["target"] == "https://example.org/annexes-rapport-t1-2025.pdf"
+    )
+    assert corrected_link["text"] == (
+        "Consulter les annexes du rapport T1 2025 (PDF, 1,2 Mo, français)"
+    )
+    assert corrected_link["colors"] == ["0000FF"]
+    assert corrected_link["underlines"] == ["single"]
+
+    comments = _archive_text(guided, "word/comments.xml")
+    assert comments.count("P-10 -") == 1
+    assert control["regle"] in comments
+
+
+def test_p11_reprend_dans_le_corps_l_information_du_filigrane(tmp_path):
+    matrix = load_sami_matrix()
+    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
+    chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
+    inaccessible = build_inaccessible(
+        chart_bad,
+        output_name="inaccessible.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    guided = build_inaccessible(
+        chart_bad,
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    corrected = build_accessible(chart_good, matrix=matrix, output_dir=tmp_path)
+
+    control = next(item for item in matrix["controles"] if item["id"] == "P-11")
+    heading_text = f"{control['id']} - {control['intitule']}"
+    for path in (inaccessible, guided, corrected):
+        document = Document(path)
+        heading = next(p for p in document.paragraphs if p.text == heading_text)
+        assert heading.style.name == "Heading 2"
+
+    assert "CONFIDENTIEL" in _archive_text(inaccessible, "word/header1.xml")
+    assert "CONFIDENTIEL" in _archive_text(guided, "word/header1.xml")
+    assert "Document confidentiel" not in {
+        p.text for p in Document(inaccessible).paragraphs
+    }
+    assert "Document confidentiel" not in {p.text for p in Document(guided).paragraphs}
+    assert "Document confidentiel" in {p.text for p in Document(corrected).paragraphs}
+
+    comments = _archive_text(guided, "word/comments.xml")
+    assert comments.count("Document — P-11 -") == 1
+    assert "Document — Critère 18" not in comments
+    assert "commentReference" not in _archive_text(guided, "word/header1.xml")
+
+
+def test_la_station_deux_est_ordonnee_et_pilotee_par_la_matrice(tmp_path):
+    matrix = load_sami_matrix()
+    chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
+    assets = {
+        "icon_path": PROJECT_ROOT / "_assets" / "icone-enveloppe.png",
+        "organigramme_path": PROJECT_ROOT / "_assets" / "organigramme.png",
+        "texte_image_path": PROJECT_ROOT / "_assets" / "texte-image.png",
+    }
+    paths = [
+        build_inaccessible(
+            chart_bad,
+            output_name="inaccessible.docx",
+            matrix=matrix,
+            output_dir=tmp_path,
+            **assets,
+        ),
+        build_inaccessible(
+            chart_bad,
+            with_guidance=True,
+            output_name="guide.docx",
+            matrix=matrix,
+            output_dir=tmp_path,
+            **assets,
+        ),
+        build_accessible(
+            PROJECT_ROOT / "_assets" / "graphique-accessible.png",
+            matrix=matrix,
+            output_dir=tmp_path,
+            **assets,
+        ),
+    ]
+    controls = [item for item in matrix["controles"] if item["station"] == "station-2"]
+    station_title = next(
+        item["titre"] for item in matrix["sequence"] if item["id"] == "station-2"
+    )
+
+    for path in paths:
+        paragraphs = Document(path).paragraphs
+        texts = [paragraph.text for paragraph in paragraphs]
+        assert texts.count(station_title) == 1
+        heading_indexes = []
+        for control in controls:
+            heading_text = f"{control['id']} - {control['intitule']}"
+            heading_indexes.append(texts.index(heading_text))
+            for expected in (
+                f"Problème : {control['defaut']}",
+                f"Pourquoi : {control['impact']}",
+                f"Règle : {control['regle']}",
+                f"Dans Word : {control['procedure_word']}",
+                f"Dans LibreOffice Writer : {control['procedure_writer']}",
+                f"À faire : {control['action_attendue']}",
+                f"Preuve : {control['preuve']['attendu']}",
+            ):
+                assert expected in texts
+        assert heading_indexes == sorted(heading_indexes)
+
+    comments = _archive_text(paths[1], "word/comments.xml")
+    for control in controls:
+        assert comments.count(f"{control['id']} -") == control["occurrences_attendues"]
+        assert control["regle"] in comments
+        assert control["action_attendue"] in comments
+    assert sum(comments.count(f"{control['id']} -") for control in controls) == 6
+    for legacy_label in (
+        "Critère 8 -",
+        "Critère 9 -",
+        "Critère 10 -",
+        "Critère 18 -",
+        "Critère 20 -",
+    ):
+        assert legacy_label not in comments
+
+
+def test_la_station_deux_consomme_un_libelle_injecte_depuis_la_matrice(tmp_path):
+    matrix = deepcopy(load_sami_matrix())
+    control = next(item for item in matrix["controles"] if item["id"] == "P-06")
+    control["intitule"] = "Libellé P-06 injecté depuis la matrice"
+    output = build_inaccessible(
+        PROJECT_ROOT / "_assets" / "graphique-inaccessible.png",
+        icon_path=PROJECT_ROOT / "_assets" / "icone-enveloppe.png",
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+
+    texts = {paragraph.text for paragraph in Document(output).paragraphs}
+    assert "P-06 - Libellé P-06 injecté depuis la matrice" in texts
+    assert "Libellé P-06 injecté depuis la matrice" in _archive_text(
+        output, "word/comments.xml"
+    )
+
+
+def test_les_pistes_de_station_deux_sont_ancrees_sur_les_occurrences(tmp_path):
+    matrix = load_sami_matrix()
+    guided = build_inaccessible(
+        PROJECT_ROOT / "_assets" / "graphique-inaccessible.png",
+        icon_path=PROJECT_ROOT / "_assets" / "icone-enveloppe.png",
+        organigramme_path=PROJECT_ROOT / "_assets" / "organigramme.png",
+        texte_image_path=PROJECT_ROOT / "_assets" / "texte-image.png",
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+
+    p06 = _comment_anchor(guided, "P-06 -")
+    p07 = _comment_anchor(guided, "P-07 -")
+    p08 = _comment_anchor(guided, "P-08 -")
+    p09 = _comment_anchor(guided, "P-09 -")
+    p10 = _comment_anchor(guided, "P-10 -")
+    p11 = _comment_anchor(guided, "Document — P-11 -")
+
+    assert p06["drawing"] and not p06["text"]
+    assert p07["drawing"] and not p07["text"]
+    assert p08["drawing"] and "contactez-nous" in p08["text"]
+    assert p09["drawing"] and not p09["text"]
+    assert p10["hyperlink"] and "cliquez ici" in p10["text"]
+    assert p11["text"].startswith("Ce rapport trimestriel présente")
+
+
+def test_le_faux_sommaire_ne_reference_plus_les_titres_supprimes(tmp_path):
+    matrix = load_sami_matrix()
+    guided = build_inaccessible(
+        PROJECT_ROOT / "_assets" / "graphique-inaccessible.png",
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=matrix,
+        output_dir=tmp_path,
+    )
+    texts = {paragraph.text for paragraph in Document(guided).paragraphs}
+    station_title = next(
+        block["titre"] for block in matrix["sequence"] if block["id"] == "station-2"
+    )
+
+    assert not any(text.startswith("Organisation du service ") for text in texts)
+    assert not any(text.startswith("Contact ") for text in texts)
+    assert any(text.startswith(f"{station_title} ") for text in texts)

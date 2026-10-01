@@ -9,6 +9,7 @@ identite_editoriale:
     corrigee: tp-doc-accessible.docx
   invariant: Même texte, mêmes informations et même ordre dans le corps des trois DOCX.
   transformations_autorisees:
+    - P-07
     - P-09
     - P-10
     - P-11
@@ -191,7 +192,7 @@ controles:
     note_formateur: Faire vérifier la description par un binôme qui masque l'image.
     surfaces: [docx, checklist_stagiaire, checklist_formateur, guide, slides_station, notes_formateur, tests]
     references_pedagogiques: [MS-02]
-    transformations_editoriales: []
+    transformations_editoriales: [description_image_complexe_vers_texte_adjacent]
   - id: P-08
     niveau: P
     station: station-2
@@ -250,7 +251,7 @@ controles:
     etat_corrige: Le lien est autonome, visuellement identifiable et documente le téléchargement connu.
     procedure_word: Modifier le texte affiché du lien via clic droit > Modifier le lien, puis compléter le libellé dans le corps.
     procedure_writer: Clic droit > Modifier l'hyperlien, puis compléter le libellé dans le corps.
-    preuve: {mode: automatique_et_humaine, attendu: Destination inchangée, libellé explicite et identification visuelle vérifiées.}
+    preuve: {mode: automatique_et_humaine, attendu: "Destination inchangée, libellé explicite et identification visuelle vérifiées."}
     checklist: Chaque lien est compréhensible hors contexte et chaque téléchargement est décrit.
     guide: station-2/liens
     slide: station-2-contenus

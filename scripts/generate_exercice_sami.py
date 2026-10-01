@@ -681,6 +681,190 @@ def _add_station_one_p05(
         _add_guidance_comment(doc, zone_heading.runs, _guidance_text(control))
 
 
+def _add_station_two_p06(
+    doc,
+    control,
+    station_title,
+    numbering_id,
+    icon_path,
+    *,
+    corrected=False,
+    with_guidance=False,
+):
+    """Ajoute l'image informative simple de la station 2."""
+    station_heading = doc.add_heading(station_title, level=1)
+    _apply_heading_numbering(station_heading, numbering_id, 0)
+    _add_station_one_control(doc, control, numbering_id)
+    occurrence_paragraph = None
+
+    if icon_path:
+        doc.add_picture(str(icon_path), width=Inches(0.5))
+        occurrence_paragraph = doc.paragraphs[-1]
+        occurrence_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        if corrected:
+            _set_image_alt(
+                doc,
+                alt_text="Contact par courriel.",
+                title="Contact par courriel",
+            )
+        else:
+            _set_image_alt(doc, alt_text="", title="")
+
+    if with_guidance and occurrence_paragraph is not None:
+        _add_guidance_comment(doc, occurrence_paragraph.runs, _guidance_text(control))
+
+
+def _add_station_two_p07(
+    doc,
+    control,
+    numbering_id,
+    organigramme_path,
+    *,
+    corrected=False,
+    with_guidance=False,
+):
+    """Ajoute l'image complexe et son équivalent textuel."""
+    _add_station_one_control(doc, control, numbering_id)
+    occurrence_paragraph = None
+
+    if organigramme_path:
+        doc.add_picture(str(organigramme_path), width=Inches(5.0))
+        occurrence_paragraph = doc.paragraphs[-1]
+        occurrence_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        if corrected:
+            _set_image_alt(
+                doc,
+                alt_text="Organigramme de la Direction des affaires juridiques "
+                "(description ci-dessous).",
+                title="Organigramme du service",
+            )
+            description = doc.add_paragraph(
+                "La Direction des affaires juridiques comprend 4 bureaux : "
+                "le Bureau du droit public, le Bureau du droit social, "
+                "le Bureau de la communication et le Bureau des affaires "
+                "internationales. Chaque bureau est rattaché directement "
+                "à la direction."
+            )
+            for run in description.runs:
+                run.font.name = "Arial"
+                run.font.size = Pt(10)
+        else:
+            _set_image_alt(doc, alt_text="image.png")
+
+    if with_guidance and occurrence_paragraph is not None:
+        _add_guidance_comment(doc, occurrence_paragraph.runs, _guidance_text(control))
+
+
+def _add_station_two_p08(
+    doc,
+    control,
+    numbering_id,
+    icon_path,
+    *,
+    corrected=False,
+    with_guidance=False,
+):
+    """Ajoute le pictogramme redondant à traiter comme décoratif."""
+    _add_station_one_control(doc, control, numbering_id)
+    occurrence_run = None
+
+    if icon_path:
+        paragraph = doc.add_paragraph()
+        paragraph.add_run("Pour toute question, contactez-nous par ")
+        image_run = paragraph.add_run()
+        image_run.add_picture(str(icon_path), width=Inches(0.18))
+        occurrence_run = image_run
+        if corrected:
+            _mark_image_decorative(doc)
+        else:
+            _set_image_alt(doc, alt_text="E-mail")
+        paragraph.add_run(" e-mail pour plus d'informations.")
+
+    if with_guidance and occurrence_run is not None:
+        _add_guidance_comment(doc, occurrence_run, _guidance_text(control))
+
+
+def _add_station_two_p09(
+    doc,
+    control,
+    numbering_id,
+    texte_image_path,
+    *,
+    corrected=False,
+    with_guidance=False,
+):
+    """Ajoute la transformation d'une image de texte en texte réel."""
+    _add_station_one_control(doc, control, numbering_id)
+    occurrence_paragraph = None
+    if corrected:
+        paragraph = doc.add_paragraph()
+        run = paragraph.add_run(
+            "Avis important : les indicateurs du T2 2025 "
+            "seront transmis avant le 15 septembre 2025."
+        )
+        run.font.name = "Arial"
+        run.font.size = Pt(11)
+    elif texte_image_path:
+        doc.add_picture(str(texte_image_path), width=Inches(4.5))
+        occurrence_paragraph = doc.paragraphs[-1]
+        occurrence_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+
+    if with_guidance and occurrence_paragraph is not None:
+        _add_guidance_comment(doc, occurrence_paragraph.runs, _guidance_text(control))
+
+
+def _add_station_two_p10(
+    doc,
+    control,
+    numbering_id,
+    *,
+    corrected=False,
+    with_guidance=False,
+):
+    """Ajoute le téléchargement avec un libellé adapté à la variante."""
+    _add_station_one_control(doc, control, numbering_id)
+    paragraph = doc.add_paragraph("Pour accéder aux annexes, ")
+    label = (
+        "Consulter les annexes du rapport T1 2025 (PDF, 1,2 Mo, français)"
+        if corrected
+        else "cliquez ici"
+    )
+    _add_hyperlink(
+        paragraph,
+        label,
+        "https://example.org/annexes-rapport-t1-2025.pdf",
+    )
+    paragraph.add_run(".")
+
+    if with_guidance:
+        _add_guidance_comment(doc, paragraph.runs, _guidance_text(control))
+
+
+def _add_station_two_p11(
+    doc,
+    control,
+    numbering_id,
+    *,
+    corrected=False,
+    with_guidance=False,
+    guidance_anchor=None,
+):
+    """Reprend dans le corps l'information portée par le filigrane."""
+    _add_station_one_control(doc, control, numbering_id)
+    if corrected:
+        paragraph = doc.add_paragraph()
+        run = paragraph.add_run("Document confidentiel")
+        run.font.name = "Arial"
+        run.font.size = Pt(11)
+
+    if with_guidance and guidance_anchor is not None:
+        _add_guidance_comment(
+            doc,
+            guidance_anchor.runs,
+            _guidance_text(control, document_level=True),
+        )
+
+
 def build_inaccessible(
     chart_path: Path,
     icon_path: Path = None,
@@ -695,6 +879,8 @@ def build_inaccessible(
     station_1_controls = _station_controls(matrix, "station-1")
     station_1_title = _station_title(matrix, "station-1")
     p01, p02, p03, p04, p05 = station_1_controls
+    p06, p07, p08, p09, p10, p11 = _station_controls(matrix, "station-2")
+    station_2_title = _station_title(matrix, "station-2")
     doc = Document()
     station_numbering_id = _create_heading_numbering(doc)
     doc.core_properties.title = ""
@@ -775,9 +961,8 @@ def build_inaccessible(
         )
     for titre_som, page in [
         ("Résultats du trimestre", "2"),
-        ("Détail par canal", "3"),
-        ("Organisation du service", "4"),
-        ("Contact", "5"),
+        (station_2_title, "3"),
+        ("Détail par canal", "4"),
         ("Annexes", "5"),
     ]:
         doc.add_paragraph(f"{titre_som} .............. {page}")
@@ -802,9 +987,7 @@ def build_inaccessible(
             "le gras, et conserver un libellé explicite.",
         )
 
-    document_guidance_anchor = doc.add_paragraph(
-        "La direction demande un retour rapide sur les indicateurs."
-    )
+    doc.add_paragraph("La direction demande un retour rapide sur les indicateurs.")
 
     doc.add_heading("Résultats du trimestre", level=2)
 
@@ -869,6 +1052,49 @@ def build_inaccessible(
 
     _add_station_one_p05(doc, p05, station_numbering_id, with_guidance=with_guidance)
 
+    _add_station_two_p06(
+        doc,
+        p06,
+        station_2_title,
+        station_numbering_id,
+        icon_path,
+        with_guidance=with_guidance,
+    )
+    _add_station_two_p07(
+        doc,
+        p07,
+        station_numbering_id,
+        organigramme_path,
+        with_guidance=with_guidance,
+    )
+    _add_station_two_p08(
+        doc,
+        p08,
+        station_numbering_id,
+        icon_path,
+        with_guidance=with_guidance,
+    )
+    _add_station_two_p09(
+        doc,
+        p09,
+        station_numbering_id,
+        texte_image_path,
+        with_guidance=with_guidance,
+    )
+    _add_station_two_p10(
+        doc,
+        p10,
+        station_numbering_id,
+        with_guidance=with_guidance,
+    )
+    _add_station_two_p11(
+        doc,
+        p11,
+        station_numbering_id,
+        with_guidance=with_guidance,
+        guidance_anchor=intro_paragraph,
+    )
+
     doc.add_paragraph()
 
     doc.add_heading("Détail par canal", level=3)
@@ -890,45 +1116,6 @@ def build_inaccessible(
 
     doc.add_paragraph()
 
-    # Erreur 9 : organigramme avec alt "image.png" (nom de fichier par defaut)
-    if organigramme_path:
-        doc.add_heading("Organisation du service", level=2)
-
-        doc.add_picture(str(organigramme_path), width=Inches(5.0))
-        doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
-        _set_image_alt(doc, alt_text="image.png")
-        if with_guidance:
-            _add_guidance_comment(
-                doc,
-                doc.paragraphs[-1].runs,
-                "Critère 9 - Problème : l'alternative 'image.png' ne décrit "
-                "pas l'organigramme. Impact : l'information est perdue. "
-                "Méthode : mettre une alternative courte qui renvoie vers une "
-                "description détaillée dans le corps.",
-            )
-
-        doc.add_paragraph()
-
-    # Erreur 10 : icone redondante avec alt "E-mail" au lieu de decoratif
-    if icon_path:
-        doc.add_heading("Contact", level=2)
-
-        p = doc.add_paragraph()
-        p.add_run("Pour toute question, contactez-nous par ")
-        r = p.add_run()
-        r.add_picture(str(icon_path), width=Inches(0.18))
-        _set_image_alt(doc, alt_text="E-mail")
-        p.add_run(" e-mail pour plus d'informations.")
-        if with_guidance:
-            _add_guidance_comment(
-                doc,
-                r,
-                "Critère 10 - Problème : l'icône répète le mot e-mail déjà "
-                "présent dans le texte. Impact : redondance à la lecture "
-                "vocale. Méthode : clic droit sur l'image > Afficher le texte "
-                "de remplacement > Marquer comme décoratif.",
-            )
-
     # Erreur 13 : passage anglais sans balisage de langue
     p = doc.add_paragraph(
         "The quarterly report is available upon request. "
@@ -943,20 +1130,6 @@ def build_inaccessible(
             "Méthode : sélectionner le texte > Révision > Langue > Définir la "
             "langue de vérification > Anglais.",
         )
-
-    # Erreur 20 : texte sous forme d'image
-    if texte_image_path:
-        doc.add_paragraph()
-        doc.add_picture(str(texte_image_path), width=Inches(4.5))
-        doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
-        if with_guidance:
-            _add_guidance_comment(
-                doc,
-                doc.paragraphs[-1].runs,
-                "Critère 20 - Problème : ce texte est une image. Impact : il "
-                "n'est ni sélectionnable, ni recherchable, ni fiable en "
-                "synthèse vocale. Méthode : le ressaisir en vrai texte Word.",
-            )
 
     # Erreur 21 : tableau avec cellules fusionnees et en-tetes seulement visuels
     doc.add_paragraph()
@@ -1019,24 +1192,6 @@ def build_inaccessible(
             "appliquer Police > Tout en majuscules si l'effet visuel est voulu.",
         )
 
-    # Erreur 8 : lien non descriptif
-    p = doc.add_paragraph("Pour accéder aux annexes, ")
-    _add_hyperlink(
-        p,
-        "cliquez ici",
-        "https://example.org/annexes-rapport-t1-2025.pdf",
-    )
-    p.add_run(".")
-    if with_guidance:
-        _add_guidance_comment(
-            doc,
-            p.runs,
-            "Critère 8 - Problème : 'cliquez ici' n'est pas descriptif. "
-            "Impact : hors contexte, le lien ne dit pas où il mène. Méthode : "
-            "remplacer par 'Consulter les annexes du rapport T1 2025 (PDF, "
-            "1,2 Mo)'.",
-        )
-
     # Erreur 6 : contraste ambigu (gris #767676)
     p = doc.add_paragraph()
     run = p.add_run(
@@ -1053,18 +1208,6 @@ def build_inaccessible(
             "Critère 6 - Problème : le gris #767676 sur blanc est trop juste "
             "pour du petit texte. Impact : la note peut être difficile à lire. "
             "Méthode : mesurer le contraste, puis utiliser #595959 ou du noir.",
-        )
-
-    # Erreur 14 : pas de proprietes document
-    if with_guidance:
-        _add_guidance_comment(
-            doc,
-            document_guidance_anchor.runs,
-            f"Document {chr(0x2014)} Critère 18 - Problème : le filigrane "
-            "CONFIDENTIEL est un objet "
-            "graphique dans l'en-tête. Impact : il peut être invisible pour les "
-            "lecteurs d'écran. Méthode : ajouter 'Document confidentiel' en "
-            "vrai texte dans le corps du document.",
         )
 
     version_key = "avec_pistes" if with_guidance else "inaccessible"
@@ -1095,6 +1238,8 @@ def build_accessible(
     station_1_controls = _station_controls(matrix, "station-1")
     station_1_title = _station_title(matrix, "station-1")
     p01, p02, p03, p04, p05 = station_1_controls
+    p06, p07, p08, p09, p10, p11 = _station_controls(matrix, "station-2")
+    station_2_title = _station_title(matrix, "station-2")
     doc = Document()
     station_numbering_id = _create_heading_numbering(doc)
 
@@ -1129,12 +1274,6 @@ def build_accessible(
         doc, p01, station_1_title, station_numbering_id, corrected=True
     )
     _add_station_one_p02(doc, p02, station_numbering_id, corrected=True)
-
-    # Mention confidentiel dans le corps (pas en filigrane)
-    p = doc.add_paragraph()
-    run = p.add_run("Document confidentiel")
-    run.font.name = "Arial"
-    run.font.size = Pt(11)
 
     # Titre 1
     doc.add_heading("Introduction", level=1)
@@ -1216,6 +1355,48 @@ def build_accessible(
 
     _add_station_one_p05(doc, p05, station_numbering_id, corrected=True)
 
+    _add_station_two_p06(
+        doc,
+        p06,
+        station_2_title,
+        station_numbering_id,
+        icon_path,
+        corrected=True,
+    )
+    _add_station_two_p07(
+        doc,
+        p07,
+        station_numbering_id,
+        organigramme_path,
+        corrected=True,
+    )
+    _add_station_two_p08(
+        doc,
+        p08,
+        station_numbering_id,
+        icon_path,
+        corrected=True,
+    )
+    _add_station_two_p09(
+        doc,
+        p09,
+        station_numbering_id,
+        texte_image_path,
+        corrected=True,
+    )
+    _add_station_two_p10(
+        doc,
+        p10,
+        station_numbering_id,
+        corrected=True,
+    )
+    _add_station_two_p11(
+        doc,
+        p11,
+        station_numbering_id,
+        corrected=True,
+    )
+
     # Titre 3
     doc.add_heading("Détail par canal", level=3)
 
@@ -1237,41 +1418,6 @@ def build_accessible(
         )
         nvPicPr.set("title", "Trafic web T1 2025")
 
-    # Organigramme avec alt court + description detaillee
-    if organigramme_path:
-        doc.add_heading("Organisation du service", level=2)
-
-        doc.add_picture(str(organigramme_path), width=Inches(5.0))
-        doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
-        _set_image_alt(
-            doc,
-            alt_text="Organigramme de la Direction des affaires juridiques "
-            "(description ci-dessous).",
-            title="Organigramme du service",
-        )
-
-        p = doc.add_paragraph()
-        run = p.add_run(
-            "La Direction des affaires juridiques comprend 4 bureaux : "
-            "le Bureau du droit public, le Bureau du droit social, "
-            "le Bureau de la communication et le Bureau des affaires "
-            "internationales. Chaque bureau est rattaché directement "
-            "à la direction."
-        )
-        run.font.name = "Arial"
-        run.font.size = Pt(10)
-
-    # Icone decorative + paragraphe contact
-    if icon_path:
-        doc.add_heading("Contact", level=2)
-
-        p = doc.add_paragraph()
-        p.add_run("Pour toute question, contactez-nous par ")
-        r = p.add_run()
-        r.add_picture(str(icon_path), width=Inches(0.18))
-        _mark_image_decorative(doc)
-        p.add_run(" e-mail pour plus d'informations.")
-
     # Passage anglais avec balisage de langue
     p = doc.add_paragraph()
     run = p.add_run(
@@ -1283,15 +1429,6 @@ def build_accessible(
     rPr = run._r.get_or_add_rPr()
     lang_en = parse_xml(f'<w:lang {nsdecls("w")} w:val="en-US"/>')
     rPr.append(lang_en)
-
-    # Texte en clair (pas sous forme d'image)
-    p = doc.add_paragraph()
-    run = p.add_run(
-        "Avis important : les indicateurs du T2 2025 "
-        "seront transmis avant le 15 septembre 2025."
-    )
-    run.font.name = "Arial"
-    run.font.size = Pt(11)
 
     # Tableau simple sans cellules fusionnees
     doc.add_heading("Répartition par service", level=3)
@@ -1324,14 +1461,6 @@ def build_accessible(
     h = doc.add_heading("Annexes", level=2)
     for run in h.runs:
         run.font.all_caps = True
-
-    # Lien descriptif
-    p = doc.add_paragraph()
-    _add_hyperlink(
-        p,
-        "Consulter les annexes du rapport T1 2025 (PDF, 1,2 Mo)",
-        "https://example.org/annexes-rapport-t1-2025.pdf",
-    )
 
     # Note avec contraste suffisant (#595959 -> ratio 7:1)
     p = doc.add_paragraph()
