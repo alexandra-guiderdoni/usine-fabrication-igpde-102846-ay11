@@ -43,5 +43,6 @@ def build(prs, layouts, ctx):
             question="Le réglage est-il porté par les propriétés et les styles, ou seulement par l'apparence ?",
             help_text="Faire corriger le style source et la langue du passage plutôt que les paragraphes un par un.",
         ),
+        structure=True,
     )
     return slide

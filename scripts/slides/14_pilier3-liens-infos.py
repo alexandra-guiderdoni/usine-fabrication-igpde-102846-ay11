@@ -44,10 +44,12 @@ def build(prs, layouts, ctx):
         top=3.27,
         left=MARGIN_L,
         width=COL_W,
-        height=2.65,
+        height=3.15,
         body_size=14,
-        body_line_spacing=1.08,
+        body_line_spacing=1.3,
         compact=True,
+        item_space_after=10,
+        emphasize_ids=True,
     )
     add_card(
         slide,
@@ -56,10 +58,12 @@ def build(prs, layouts, ctx):
         top=3.27,
         left=COL_R,
         width=COL_W,
-        height=2.65,
+        height=3.15,
         body_size=14,
-        body_line_spacing=1.08,
+        body_line_spacing=1.3,
         compact=True,
+        item_space_after=10,
+        emphasize_ids=True,
     )
 
     add_notes(
@@ -70,5 +74,6 @@ def build(prs, layouts, ctx):
             question="Le statut reste-t-il compréhensible quand on lit uniquement le corps ?",
             help_text="Faire masquer mentalement l'en-tête et l'arrière-plan, sans recréer de filigrane dans l'exercice.",
         ),
+        structure=True,
     )
     return slide

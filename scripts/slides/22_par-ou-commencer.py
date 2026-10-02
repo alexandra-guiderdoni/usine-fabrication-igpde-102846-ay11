@@ -43,5 +43,6 @@ def build(prs, layouts, ctx):
             question="Qu'est-ce que l'outil automatique ne peut pas décider à votre place ?",
             help_text="Faire distinguer propriété, vérification Word, export PDF et contrôle post-export.",
         ),
+        structure=True,
     )
     return slide

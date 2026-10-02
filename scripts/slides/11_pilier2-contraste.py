@@ -43,5 +43,6 @@ def build(prs, layouts, ctx):
             question="L'information reste-t-elle compréhensible si l'image ou le contexte disparaît ?",
             help_text="Faire identifier la fonction de chaque contenu avant d'ouvrir le volet du texte alternatif.",
         ),
+        structure=True,
     )
     return slide

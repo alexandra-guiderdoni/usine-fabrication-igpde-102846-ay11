@@ -34,15 +34,18 @@ def build(prs, layouts, ctx):
             top=2.30,
             left=left,
             width=COL_W,
-            height=4.10,
+            height=4.50,
             body_size=14,
-            body_line_spacing=1.05,
+            body_line_spacing=1.2,
             compact=True,
+            item_space_after=6,
+            emphasize_ids=True,
         )
 
     add_notes(
         slide,
         "Faire terminer la checklist humaine. Les contrôles signalés restent importants, "
         "mais ne deviennent pas des manipulations obligatoires dans ce TP.",
+        structure=True,
     )
     return slide

@@ -77,5 +77,6 @@ def build(prs, layouts, ctx):
         "15 % = moyenne "
         "nationale Source : OMS 2024. Le chiffre 0 ligne de code est le déclencheur de "
         "confiance : tout le monde peut le faire.",
+        structure=True,
     )
     return slide

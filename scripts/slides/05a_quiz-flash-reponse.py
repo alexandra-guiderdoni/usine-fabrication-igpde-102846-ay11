@@ -65,6 +65,9 @@ def build(prs, layouts, ctx):
         left=MARGIN_L,
         width=COL_W,
         height=card_h,
+        body_line_spacing=1.3,
+        item_space_after=10,
+        emphasize_ids=True,
     )
     add_card(
         slide,
@@ -74,6 +77,9 @@ def build(prs, layouts, ctx):
         left=COL_R,
         width=COL_W,
         height=card_h,
+        body_line_spacing=1.3,
+        item_space_after=10,
+        emphasize_ids=True,
     )
 
     add_highlight(
@@ -87,5 +93,6 @@ def build(prs, layouts, ctx):
         "Donner la réponse : le document B. Expliquer que les deux documents "
         "peuvent être identiques à l'écran, mais que NVDA dépend des styles de "
         "titres, des textes alternatifs et d'un nom de fichier explicite.",
+        structure=True,
     )
     return slide

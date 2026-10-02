@@ -22,6 +22,7 @@ Grille IGPDE-DSFR (13,33" x 7,5") :
 """
 
 import math
+import re
 import shutil
 import tempfile
 import zipfile
@@ -164,6 +165,23 @@ def _plain_text(item):
     return str(item)
 
 
+# Identifiant de contrôle en tête de point (« P-01 - ... ») ou court intitulé
+# suivi de deux-points (« Preuve : ... »), mis en gras pour la lisibilité.
+_EMPHASIS_ID = re.compile(r"^([PCS]-\d+(?: \[[PCS]\])?)( - .*)$", re.S)
+_EMPHASIS_LABEL = re.compile(r"^([A-ZÀ-Ÿ][^.:;,]{0,40} :)(?:( .*))?$", re.S)
+
+
+def _emphasis_segments(text):
+    """Découpe un point en segments (texte, gras) autour de son identifiant."""
+    match = _EMPHASIS_ID.match(text) or _EMPHASIS_LABEL.match(text)
+    if not match:
+        return [(text, False)]
+    segments = [(match.group(1), True)]
+    if match.group(2):
+        segments.append((match.group(2), False))
+    return segments
+
+
 def _add_bullets(
     tf,
     items,
@@ -173,6 +191,8 @@ def _add_bullets(
     bold_first=False,
     line_spacing=1.5,
     bullet_prefix="\u2022 ",
+    space_after=None,
+    emphasize_ids=False,
 ):
     tf.word_wrap = True
     tf.margin_left = Inches(0.08)
@@ -189,11 +209,16 @@ def _add_bullets(
             p = tf.add_paragraph()
         p.alignment = PP_ALIGN.LEFT
         p.line_spacing = line_spacing
-        segments = (
-            item
-            if isinstance(item, (list, tuple)) and not isinstance(item, str)
-            else [(item, False)]
-        )
+        if space_after is not None:
+            p.space_after = Pt(space_after)
+        if emphasize_ids and isinstance(item, str):
+            segments = _emphasis_segments(item)
+        else:
+            segments = (
+                item
+                if isinstance(item, (list, tuple)) and not isinstance(item, str)
+                else [(item, False)]
+            )
         if bullet_prefix:
             run = p.add_run()
             run.text = bullet_prefix
@@ -586,7 +611,32 @@ def new_slide(
     return slide
 
 
-def add_notes(slide, texte, lang="fr-FR"):
+def _write_structured_notes(tf, phrases):
+    """Ecrit les notes en paragraphes hierarchises (intitules, sous-lignes)."""
+    entries = []
+    for phrase in phrases:
+        match = _EMPHASIS_LABEL.match(phrase)
+        if match and match.group(2) and ";" in match.group(2):
+            entries.append((0, [(match.group(1), True)]))
+            for part in re.split(r"\s*;\s*", match.group(2).strip()):
+                if part:
+                    entries.append((1, _emphasis_segments(part)))
+        else:
+            entries.append((0, _emphasis_segments(phrase)))
+    tf.text = ""
+    for index, (level, segments) in enumerate(entries):
+        paragraph = tf.paragraphs[0] if index == 0 else tf.add_paragraph()
+        paragraph.level = level
+        paragraph.line_spacing = 1.5
+        paragraph.space_after = Pt(6)
+        for text, bold in segments:
+            run = paragraph.add_run()
+            run.text = text
+            if bold:
+                run.font.bold = True
+
+
+def add_notes(slide, texte, lang="fr-FR", structure=False):
     """Ajoute des notes presentateur en francais (lang=fr-FR par defaut).
 
     Le texte est decoupe automatiquement : une phrase par paragraphe, pour
@@ -599,20 +649,26 @@ def add_notes(slide, texte, lang="fr-FR"):
     texte selon la langue systeme (souvent en-US), ce qui produit un
     soulignement rouge du correcteur et une lecture avec accent anglais.
     On pose donc lang=fr-FR sur chaque run des notes des la creation.
-    """
-    import re
 
+    Avec structure=True, les notes sont hierarchisees pour la lecture en
+    mode orateur : intitule en gras avant les deux-points, enumeration
+    separee par des points-virgules decoupee en sous-lignes, interligne 1,5
+    et espace apres chaque paragraphe. Le texte reste identique.
+    """
     # Une phrase par ligne : split sur ponctuation finale + espace + majuscule/guillemet
     phrases = re.split(r'(?<=[.!?…])\s+(?=[A-ZÀ-Ÿ«"])', texte.strip())
     phrases = [p.strip() for p in phrases if p.strip()]
 
     notes = slide.notes_slide
     tf = notes.notes_text_frame
-    # Nettoyer le text frame et poser la premiere phrase
-    tf.text = phrases[0] if phrases else ""
-    for phrase in phrases[1:]:
-        p = tf.add_paragraph()
-        p.text = phrase
+    if structure:
+        _write_structured_notes(tf, phrases)
+    else:
+        # Nettoyer le text frame et poser la premiere phrase
+        tf.text = phrases[0] if phrases else ""
+        for phrase in phrases[1:]:
+            p = tf.add_paragraph()
+            p.text = phrase
     # Filet de securite : lang=fr-FR sur chaque run
     _set_lang_on_runs(tf._txBody, lang=lang)
 
@@ -1207,6 +1263,8 @@ def add_card(
     numero_en_ligne=False,
     body_line_spacing=1.25,
     compact=False,
+    item_space_after=None,
+    emphasize_ids=False,
 ):
     """Carte DSFR : accent bleu + fond gris clair + titre + contenu.
 
@@ -1303,6 +1361,8 @@ def add_card(
                 size=body_size,
                 color=NOIR,
                 line_spacing=body_line_spacing,
+                space_after=item_space_after,
+                emphasize_ids=emphasize_ids,
             )
         else:
             body_paragraph = _apply_text(
@@ -1322,6 +1382,8 @@ def add_card(
             "numero": numero,
             "numero_en_ligne": numero_en_ligne,
             "body_line_spacing": body_line_spacing,
+            "item_space_after": item_space_after,
+            "emphasize_ids": emphasize_ids,
             "compact": compact,
             "top": top,
             "left": left,

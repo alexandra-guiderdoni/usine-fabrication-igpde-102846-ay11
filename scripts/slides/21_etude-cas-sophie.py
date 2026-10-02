@@ -35,8 +35,10 @@ def build(prs, layouts, ctx):
         width=COL_W,
         height=2.95,
         body_size=14,
-        body_line_spacing=1.08,
+        body_line_spacing=1.3,
         compact=True,
+        item_space_after=10,
+        emphasize_ids=True,
     )
     add_card(
         slide,
@@ -47,8 +49,10 @@ def build(prs, layouts, ctx):
         width=COL_W,
         height=2.95,
         body_size=14,
-        body_line_spacing=1.08,
+        body_line_spacing=1.3,
         compact=True,
+        item_space_after=10,
+        emphasize_ids=True,
     )
     add_highlight(
         slide,
@@ -64,5 +68,6 @@ def build(prs, layouts, ctx):
             question="Le texte reste-t-il correctement écrit sous son apparence visuelle ?",
             help_text="Faire restaurer la saisie normale avant d'appliquer la casse, puis rechercher la première occurrence du sigle.",
         ),
+        structure=True,
     )
     return slide

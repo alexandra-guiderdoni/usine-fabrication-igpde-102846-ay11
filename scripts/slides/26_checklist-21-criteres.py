@@ -47,8 +47,10 @@ def build(prs, layouts, ctx):
             width=COL_W,
             height=3.20,
             body_size=14,
-            body_line_spacing=1.07,
+            body_line_spacing=1.3,
             compact=True,
+            item_space_after=10,
+            emphasize_ids=True,
         )
     add_texte_libre(
         slide,
@@ -69,5 +71,6 @@ def build(prs, layouts, ctx):
             question="Une absence d'erreur suffit-elle à prouver l'accessibilité ?",
             help_text="Faire renseigner les propriétés avant l'analyse, puis discuter chaque alerte au lieu de viser un écran vert à tout prix.",
         ),
+        structure=True,
     )
     return slide

@@ -63,23 +63,29 @@ def build(prs, layouts, ctx):
         slide,
         "Dans Word - procédure principale",
         [control["procedure_word"], control["action_attendue"]],
-        top=4.80,
+        top=4.55,
         left=MARGIN_L,
         width=COL_W,
-        height=1.65,
+        height=2.20,
         body_size=14,
         compact=True,
+        body_line_spacing=1.3,
+        item_space_after=10,
+        emphasize_ids=True,
     )
     add_card(
         slide,
         "Dans Writer - complément",
         [control["procedure_writer"]],
-        top=4.80,
+        top=4.55,
         left=COL_R,
         width=COL_W,
-        height=1.65,
+        height=2.20,
         body_size=14,
         compact=True,
+        body_line_spacing=1.3,
+        item_space_after=10,
+        emphasize_ids=True,
     )
 
     add_notes(
@@ -90,5 +96,6 @@ def build(prs, layouts, ctx):
             question="Quel seuil s'applique avant même de lire le résultat ?",
             help_text="Faire relever les couleurs, choisir le seuil, puis seulement lancer l'outil de mesure.",
         ),
+        structure=True,
     )
     return slide

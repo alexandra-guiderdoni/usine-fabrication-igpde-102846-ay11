@@ -47,8 +47,10 @@ def build(prs, layouts, ctx):
             width=COL_W,
             height=3.30,
             body_size=14,
-            body_line_spacing=1.07,
+            body_line_spacing=1.3,
             compact=True,
+            item_space_after=10,
+            emphasize_ids=True,
         )
     add_texte_libre(
         slide,
@@ -69,5 +71,6 @@ def build(prs, layouts, ctx):
             question="Le PDF conserve-t-il le titre, la langue, les balises, les signets et un ordre lisible ?",
             help_text="Faire vérifier les options avant l'export, puis commenter le rapport PAC sans enseigner la remédiation avancée.",
         ),
+        structure=True,
     )
     return slide

@@ -27,8 +27,10 @@ def build(prs, layouts, ctx):
         width=COL_W,
         height=3.85,
         body_size=14,
-        body_line_spacing=1.08,
+        body_line_spacing=1.3,
         compact=True,
+        item_space_after=10,
+        emphasize_ids=True,
     )
     add_card(
         slide,
@@ -39,8 +41,10 @@ def build(prs, layouts, ctx):
         width=COL_W,
         height=3.85,
         body_size=14,
-        body_line_spacing=1.08,
+        body_line_spacing=1.3,
         compact=True,
+        item_space_after=10,
+        emphasize_ids=True,
     )
 
     add_notes(
@@ -51,5 +55,6 @@ def build(prs, layouts, ctx):
             question="Le volet et le sommaire racontent-ils le même plan ?",
             help_text="Faire ouvrir le volet avant de corriger les styles et rappeler que le sommaire en découle.",
         ),
+        structure=True,
     )
     return slide

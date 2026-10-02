@@ -43,5 +43,6 @@ def build(prs, layouts, ctx):
             question="Quelle preuve distingue une impression visuelle d'un contrôle vérifiable ?",
             help_text="Faire choisir le seuil avant la mesure et rappeler que le graphique se reconstruit directement dans Word.",
         ),
+        structure=True,
     )
     return slide

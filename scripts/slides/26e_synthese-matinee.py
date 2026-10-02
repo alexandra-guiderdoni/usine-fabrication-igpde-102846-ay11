@@ -35,6 +35,9 @@ def build(prs, layouts, ctx):
         left=MARGIN_L,
         width=COL_W,
         height=2.65,
+        body_line_spacing=1.3,
+        item_space_after=10,
+        emphasize_ids=True,
     )
     add_card(
         slide,
@@ -48,6 +51,9 @@ def build(prs, layouts, ctx):
         left=COL_R,
         width=COL_W,
         height=2.65,
+        body_line_spacing=1.3,
+        item_space_after=10,
+        emphasize_ids=True,
     )
     add_highlight(
         slide,
@@ -60,5 +66,6 @@ def build(prs, layouts, ctx):
         "Cette synthèse dure 15 minutes, de 12 h à 12 h 15, hors des 90 minutes du TP. "
         "Recueillir les questions, faire formuler un acquis transférable et annoncer la "
         "partie III consacrée aux points de contrôle rapides sur le Web.",
+        structure=True,
     )
     return slide

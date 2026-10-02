@@ -43,6 +43,9 @@ def build(prs, layouts, ctx):
         left=MARGIN_L,
         width=COL_W,
         height=2.05,
+        body_line_spacing=1.3,
+        item_space_after=10,
+        emphasize_ids=True,
     )
     add_card(
         slide,
@@ -56,6 +59,9 @@ def build(prs, layouts, ctx):
         left=COL_R,
         width=COL_W,
         height=2.05,
+        body_line_spacing=1.3,
+        item_space_after=10,
+        emphasize_ids=True,
     )
     add_highlight(
         slide,
@@ -65,5 +71,5 @@ def build(prs, layouts, ctx):
         width=CONTENT_W,
     )
 
-    add_notes(slide, preamble_notes())
+    add_notes(slide, preamble_notes(), structure=True)
     return slide

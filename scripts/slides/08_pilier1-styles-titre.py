@@ -43,5 +43,6 @@ def build(prs, layouts, ctx):
             question="Comment prouver que le document est réellement navigable ?",
             help_text="Faire distinguer le rôle du texte de son apparence avant d'ouvrir le ruban.",
         ),
+        structure=True,
     )
     return slide

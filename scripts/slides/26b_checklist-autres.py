@@ -30,15 +30,18 @@ def build(prs, layouts, ctx):
             top=2.30,
             left=left,
             width=COL_W,
-            height=4.10,
+            height=4.50,
             body_size=14,
-            body_line_spacing=1.05,
+            body_line_spacing=1.15,
             compact=True,
+            item_space_after=4,
+            emphasize_ids=True,
         )
 
     add_notes(
         slide,
         "Faire relire les cases renseignées après les deux premières stations. "
         "La formulation et l'ordre proviennent de la matrice et de la checklist distribuée.",
+        structure=True,
     )
     return slide

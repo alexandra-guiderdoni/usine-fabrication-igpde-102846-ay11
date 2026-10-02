@@ -35,8 +35,10 @@ def build(prs, layouts, ctx):
         width=COL_W,
         height=2.75,
         body_size=14,
-        body_line_spacing=1.10,
+        body_line_spacing=1.3,
         compact=True,
+        item_space_after=10,
+        emphasize_ids=True,
     )
     add_card(
         slide,
@@ -47,8 +49,10 @@ def build(prs, layouts, ctx):
         width=COL_W,
         height=2.75,
         body_size=14,
-        body_line_spacing=1.10,
+        body_line_spacing=1.3,
         compact=True,
+        item_space_after=10,
+        emphasize_ids=True,
     )
     add_highlight(
         slide,
@@ -64,5 +68,6 @@ def build(prs, layouts, ctx):
             question="Le texte peut-il être sélectionné et le lien compris tout seul ?",
             help_text="Faire tester la sélection du texte puis lire uniquement le libellé du lien.",
         ),
+        structure=True,
     )
     return slide

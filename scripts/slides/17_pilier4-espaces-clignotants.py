@@ -44,10 +44,12 @@ def build(prs, layouts, ctx):
         top=3.30,
         left=MARGIN_L,
         width=COL_W,
-        height=2.70,
+        height=3.40,
         body_size=14,
-        body_line_spacing=1.08,
+        body_line_spacing=1.3,
         compact=True,
+        item_space_after=10,
+        emphasize_ids=True,
     )
     add_card(
         slide,
@@ -56,10 +58,12 @@ def build(prs, layouts, ctx):
         top=3.30,
         left=COL_R,
         width=COL_W,
-        height=2.70,
+        height=3.40,
         body_size=14,
-        body_line_spacing=1.08,
+        body_line_spacing=1.3,
         compact=True,
+        item_space_after=10,
+        emphasize_ids=True,
     )
 
     add_notes(
@@ -70,5 +74,6 @@ def build(prs, layouts, ctx):
             question="Les séries restent-elles identifiables en niveaux de gris ?",
             help_text="Faire reconstruire le graphique dans Word à partir des valeurs, puis ajouter étiquettes et motifs.",
         ),
+        structure=True,
     )
     return slide

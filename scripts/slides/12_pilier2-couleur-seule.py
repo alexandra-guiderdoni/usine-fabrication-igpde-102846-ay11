@@ -27,8 +27,10 @@ def build(prs, layouts, ctx):
         width=COL_W,
         height=3.95,
         body_size=14,
-        body_line_spacing=1.07,
+        body_line_spacing=1.3,
         compact=True,
+        item_space_after=10,
+        emphasize_ids=True,
     )
     add_card(
         slide,
@@ -39,8 +41,10 @@ def build(prs, layouts, ctx):
         width=COL_W,
         height=3.95,
         body_size=14,
-        body_line_spacing=1.07,
+        body_line_spacing=1.3,
         compact=True,
+        item_space_after=10,
+        emphasize_ids=True,
     )
 
     add_notes(
@@ -51,5 +55,6 @@ def build(prs, layouts, ctx):
             question="Que perd-on si l'image est masquée ?",
             help_text="Faire verbaliser l'information utile avant de rédiger ou de supprimer une alternative.",
         ),
+        structure=True,
     )
     return slide

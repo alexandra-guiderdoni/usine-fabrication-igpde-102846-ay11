@@ -60,5 +60,6 @@ def build(prs, layouts, ctx):
         "Laisser 30 secondes pour que chacun vote. Demander à main levée. "
         "Ne pas donner la réponse maintenant - la curiosité crée l'attention. "
         "Zeigarnik : la boucle ouverte maintient l'engagement.",
+        structure=True,
     )
     return slide

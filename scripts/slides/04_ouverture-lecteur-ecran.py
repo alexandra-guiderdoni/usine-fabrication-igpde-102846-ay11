@@ -56,13 +56,16 @@ def build(prs, layouts, ctx):
             width=COL_W,
             height=card_height,
             title_size=16,
-            body_line_spacing=1.25,
+            body_line_spacing=1.3,
+            item_space_after=10,
+            emphasize_ids=True,
         )
 
     add_notes(
         slide,
         "Lire la citation à voix haute, lentement, avec des pauses. Ne pas commenter. "
         "Laisser le silence s'installer 5 secondes. Demander : est-ce que vous avez déjà reçu "
-        "un document ou un email illisible ? Cette personne vivait ça tous les jours."
+        "un document ou un email illisible ? Cette personne vivait ça tous les jours.",
+        structure=True,
     )
     return slide

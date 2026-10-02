@@ -170,3 +170,83 @@ class TestAddEncadre:
         add_encadre(slide, top=TOP_CONTENT, left=MARGIN_L, width=CONTENT_W,
                     height=2.0, titre="Encadre", bullets=["Point 1"])
         assert len(slide.shapes) > n_before
+
+
+def _card_body(slide):
+    return next(shape for shape in slide.shapes if shape.name == "DSFR-card-contenu")
+
+
+class TestCarteLisible:
+    ITEMS = [
+        "P-01 - Accueil > Styles, puis appliquer Titre.",
+        "S-05 [S] - Les tableaux ne servent pas à la mise en page.",
+        "Preuve : styles vérifiables dans le DOCX.",
+        "Une phrase longue, avec une virgule : pas d'intitulé.",
+    ]
+
+    def test_options_inactives_par_defaut(self, slide):
+        add_card(slide, "Titre", self.ITEMS, top=TOP_CONTENT, left=MARGIN_L, width=COL_W)
+        for paragraph in _card_body(slide).text_frame.paragraphs:
+            assert paragraph.space_after is None
+            assert not any(run.font.bold for run in paragraph.runs)
+
+    def test_espace_et_gras_des_identifiants_et_intitules(self, slide):
+        from pptx.util import Pt
+
+        add_card(
+            slide,
+            "Titre",
+            self.ITEMS,
+            top=TOP_CONTENT,
+            left=MARGIN_L,
+            width=COL_W,
+            body_line_spacing=1.4,
+            item_space_after=8,
+            emphasize_ids=True,
+        )
+        paragraphs = _card_body(slide).text_frame.paragraphs
+        assert [p.text for p in paragraphs] == [f"• {item}" for item in self.ITEMS]
+        for paragraph in paragraphs:
+            assert paragraph.space_after == Pt(8)
+            assert paragraph.line_spacing == 1.4
+        bold = [[run.text for run in p.runs if run.font.bold] for p in paragraphs]
+        assert bold == [["P-01"], ["S-05 [S]"], ["Preuve :"], []]
+
+
+class TestNotesStructurees:
+    TEXTE = (
+        "Minutage de la station : 17 minutes, synthèse comprise. "
+        "Lire la citation lentement.\n\n"
+        "Preuves attendues : P-01 : Styles vérifiables. ; P-02 : Ordre contrôlé."
+    )
+
+    def test_notes_inchangees_par_defaut(self, slide):
+        add_notes(slide, self.TEXTE)
+        for paragraph in slide.notes_slide.notes_text_frame.paragraphs:
+            assert paragraph.line_spacing is None
+            assert not any(run.font.bold for run in paragraph.runs)
+
+    def test_intitules_en_gras_enumerations_et_interligne(self, slide):
+        from pptx.util import Pt
+
+        add_notes(slide, self.TEXTE, structure=True)
+        paragraphs = slide.notes_slide.notes_text_frame.paragraphs
+        assert [(p.level, p.text) for p in paragraphs] == [
+            (0, "Minutage de la station : 17 minutes, synthèse comprise."),
+            (0, "Lire la citation lentement."),
+            (0, "Preuves attendues :"),
+            (1, "P-01 : Styles vérifiables."),
+            (1, "P-02 : Ordre contrôlé."),
+        ]
+        bold = [[run.text for run in p.runs if run.font.bold] for p in paragraphs]
+        assert bold == [
+            ["Minutage de la station :"],
+            [],
+            ["Preuves attendues :"],
+            ["P-01 :"],
+            ["P-02 :"],
+        ]
+        for paragraph in paragraphs:
+            assert paragraph.line_spacing == 1.5
+            assert paragraph.space_after == Pt(6)
+            assert all(run.font.language_id is not None for run in paragraph.runs)
