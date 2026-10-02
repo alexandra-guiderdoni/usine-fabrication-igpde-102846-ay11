@@ -448,7 +448,15 @@ def test_p04_remplace_les_marqueurs_saisis_par_des_listes_natives(tmp_path):
     assert bad_number.style.name == "Normal"
     assert good_bullet.style.name == "List Bullet"
     assert good_number.style.name == "List Number"
-    assert comments.count("P-04 -") == 1
+    assert comments.count("P-04 -") == 2
+    bullet_anchor = _comment_anchor(
+        guided, "P-04 - Utiliser des listes natives (liste à puces)"
+    )
+    number_anchor = _comment_anchor(
+        guided, "P-04 - Utiliser des listes natives (liste numérotée)"
+    )
+    assert bullet_anchor["text"].endswith("Augmenter le trafic de 10 %")
+    assert number_anchor["text"].endswith("Refonte de la page d'accueil")
 
 
 def test_p05_remplace_les_artifices_par_des_fonctions_de_mise_en_page(tmp_path):
@@ -566,7 +574,7 @@ def test_le_guide_contient_une_piste_par_occurrence_de_la_station_un(tmp_path):
         assert comments.count(f"{control['id']} -") == control["occurrences_attendues"]
         assert control["regle"] in comments
         assert control["action_attendue"] in comments
-    assert sum(comments.count(f"{control['id']} -") for control in controls) == 5
+    assert sum(comments.count(f"{control['id']} -") for control in controls) == 6
     assert "word/comments.xml" not in _archive_members(inaccessible)
     assert "word/comments.xml" not in _archive_members(corrected)
 
@@ -1946,3 +1954,28 @@ def test_commentaires_de_correction_en_francais_sans_corriger_le_defaut_de_langu
     # Le défaut pédagogique de la station 4 reste dans le document lui-même.
     styles = _archive_text(guided, "word/styles.xml")
     assert re.search(r'<w:docDefaults>.*w:val="de-DE"', styles, re.S)
+
+
+def test_commentaires_de_correction_en_14_points_et_interligne_1_5(tmp_path):
+    guided = build_inaccessible(
+        PROJECT_ROOT / "_assets" / "graphique-inaccessible.png",
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=load_sami_matrix(),
+        output_dir=tmp_path,
+    )
+    namespaces = {"w": WORD_NS}
+    comments_root = etree.fromstring(
+        _archive_text(guided, "word/comments.xml").encode("utf-8")
+    )
+    paragraphs = comments_root.xpath("//w:comment/w:p", namespaces=namespaces)
+    runs = comments_root.xpath("//w:comment//w:r[w:t]", namespaces=namespaces)
+
+    assert paragraphs and runs
+    for paragraph in paragraphs:
+        spacing = paragraph.xpath("w:pPr/w:spacing", namespaces=namespaces)
+        assert len(spacing) == 1
+        assert spacing[0].get(qn("w:line")) == "360"
+        assert spacing[0].get(qn("w:lineRule")) == "auto"
+    for run in runs:
+        assert run.xpath("w:rPr/w:sz/@w:val", namespaces=namespaces) == ["28"]

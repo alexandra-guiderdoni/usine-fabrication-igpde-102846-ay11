@@ -493,8 +493,11 @@ def _add_guidance_comment(doc, runs, text):
         )
         # Le commentaire est rédigé en français : sans langue propre, il hérite
         # du défaut de langue volontaire du document et Word le souligne.
+        # Corps 14 pt et interligne 1,5 pour la lisibilité des pistes.
         for paragraph in comment.paragraphs:
+            paragraph.paragraph_format.line_spacing = 1.5
             for run in paragraph.runs:
+                run.font.size = Pt(14)
                 run._element.get_or_add_rPr().append(
                     parse_xml(
                         f'<w:lang {nsdecls("w")} w:val="fr-FR" '
@@ -517,11 +520,14 @@ def _station_title(matrix, station_id):
     )
 
 
-def _guidance_text(control, *, document_level=False):
+def _guidance_text(control, *, document_level=False, precision=None):
     """Compose une piste à partir du contrôle canonique."""
     prefix = f"Document {chr(0x2014)} " if document_level else ""
+    intitule = (
+        f"{control['intitule']} ({precision})" if precision else control["intitule"]
+    )
     return (
-        f"{prefix}{control['id']} - {control['intitule']}. "
+        f"{prefix}{control['id']} - {intitule}. "
         f"Problème : {control['defaut']} Impact : {control['impact']} "
         f"Règle : {control['regle']} Piste : {control['piste']} "
         f"Première action : {control['action_attendue']} Procédure Word : "
@@ -1295,11 +1301,12 @@ def build_inaccessible(
         _add_guidance_comment(
             doc,
             first_fake_bullet.runs,
-            _guidance_text(p04),
+            _guidance_text(p04, precision="liste à puces"),
         )
 
     # Défaut P-04 : fausse liste numérotée saisie et indentée manuellement.
     doc.add_paragraph("Priorités pour le prochain trimestre :")
+    first_fake_number = None
     for numero, item in enumerate(
         [
             "Refonte de la page d'accueil",
@@ -1308,7 +1315,14 @@ def build_inaccessible(
         ],
         start=1,
     ):
-        _add_fake_list_item(doc, f"{numero}.", item)
+        p = _add_fake_list_item(doc, f"{numero}.", item)
+        first_fake_number = first_fake_number or p
+    if with_guidance and first_fake_number:
+        _add_guidance_comment(
+            doc,
+            first_fake_number.runs,
+            _guidance_text(p04, precision="liste numérotée"),
+        )
 
     _add_station_one_p05(doc, p05, station_numbering_id, with_guidance=with_guidance)
 

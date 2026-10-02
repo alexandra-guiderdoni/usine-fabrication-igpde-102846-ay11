@@ -115,8 +115,8 @@ controles:
     regle: Créer les puces et numéros avec les fonctions de liste du traitement de texte.
     defaut: Une liste est simulée avec des caractères saisis au début des paragraphes.
     action_attendue: Remplacer la fausse liste par une liste native.
-    occurrences_attendues: 1
-    ancrage: Première suite de paragraphes commençant par des puces saisies.
+    occurrences_attendues: 2
+    ancrage: Premier élément de la fausse liste à puces, puis premier élément de la fausse liste numérotée.
     piste: Sélectionner les éléments puis appliquer la commande de liste appropriée.
     etat_corrige: Les éléments appartiennent à une liste structurée dans le DOCX.
     procedure_word: Sélectionner les paragraphes, puis Accueil > Puces ou Numérotation.
