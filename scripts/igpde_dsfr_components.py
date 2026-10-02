@@ -22,8 +22,12 @@ Grille IGPDE-DSFR (13,33" x 7,5") :
 """
 
 import math
+import shutil
+import tempfile
+import zipfile
 from pathlib import Path
 from copy import deepcopy
+from datetime import datetime, timezone
 
 from pptx import Presentation
 from pptx.util import Inches, Emu, Pt
@@ -71,12 +75,12 @@ SLIDE_H = 7.5
 MARGIN_L = 0.52
 CONTENT_W = 12.28
 GAP = 0.33
-COL_W = (CONTENT_W - GAP) / 2          # ~5.975"
-COL_R = MARGIN_L + COL_W + GAP         # ~6.825"
-TOP_CONTENT = 2.68                     # debut zone contenu (sous titre)
-TOP_CARDS = 2.45                       # debut zone cartes (gap serre au titre)
-BOTTOM_CONTENT = 6.80                  # fin zone contenu (au-dessus footer)
-FOOTER_Y = 6.98                        # y du footer IGPDE
+COL_W = (CONTENT_W - GAP) / 2  # ~5.975"
+COL_R = MARGIN_L + COL_W + GAP  # ~6.825"
+TOP_CONTENT = 2.68  # debut zone contenu (sous titre)
+TOP_CARDS = 2.45  # debut zone cartes (gap serre au titre)
+BOTTOM_CONTENT = 6.80  # fin zone contenu (au-dessus footer)
+FOOTER_Y = 6.98  # y du footer IGPDE
 
 # Layouts IGPDE (index dans le template)
 LAYOUT_COUVERTURE = 0
@@ -87,7 +91,12 @@ LAYOUT_3_COLONNES = 4
 LAYOUT_TITRE_CONTENU = 5
 
 PROJECT_ROOT = Path(__file__).parent.parent
-TEMPLATE_PATH = PROJECT_ROOT / "_source" / "presentations-source" / "PPT-IGPDE-DSFR-base-intervenant.pptx"
+TEMPLATE_PATH = (
+    PROJECT_ROOT
+    / "_source"
+    / "presentations-source"
+    / "PPT-IGPDE-DSFR-base-intervenant.pptx"
+)
 
 
 # ----------------------------------------------------------------------
@@ -97,6 +106,7 @@ def detect_font():
     """Marianne si installee, sinon Arial (police IGPDE native)."""
     try:
         import subprocess
+
         result = subprocess.run(
             ["fc-list", ":family"], capture_output=True, text=True, timeout=2
         )
@@ -110,8 +120,17 @@ def detect_font():
 FONT = detect_font()
 
 
-def _apply_text(tf, texte, font=FONT, size=14, bold=False, italic=False,
-                color=NOIR, align=PP_ALIGN.LEFT, anchor=MSO_ANCHOR.TOP):
+def _apply_text(
+    tf,
+    texte,
+    font=FONT,
+    size=14,
+    bold=False,
+    italic=False,
+    color=NOIR,
+    align=PP_ALIGN.LEFT,
+    anchor=MSO_ANCHOR.TOP,
+):
     tf.word_wrap = True
     tf.vertical_anchor = anchor
     tf.margin_left = Inches(0.08)
@@ -145,8 +164,16 @@ def _plain_text(item):
     return str(item)
 
 
-def _add_bullets(tf, items, font=FONT, size=14, color=NOIR, bold_first=False,
-                  line_spacing=1.5, bullet_prefix="\u2022 "):
+def _add_bullets(
+    tf,
+    items,
+    font=FONT,
+    size=14,
+    color=NOIR,
+    bold_first=False,
+    line_spacing=1.5,
+    bullet_prefix="\u2022 ",
+):
     tf.word_wrap = True
     tf.margin_left = Inches(0.08)
     tf.margin_right = Inches(0.08)
@@ -162,7 +189,11 @@ def _add_bullets(tf, items, font=FONT, size=14, color=NOIR, bold_first=False,
             p = tf.add_paragraph()
         p.alignment = PP_ALIGN.LEFT
         p.line_spacing = line_spacing
-        segments = item if isinstance(item, (list, tuple)) and not isinstance(item, str) else [(item, False)]
+        segments = (
+            item
+            if isinstance(item, (list, tuple)) and not isinstance(item, str)
+            else [(item, False)]
+        )
         if bullet_prefix:
             run = p.add_run()
             run.text = bullet_prefix
@@ -287,8 +318,10 @@ def _add_footer_line(slide):
     """Ajoute la ligne separatrice IGPDE au-dessus du footer (y=6.97")."""
     line = slide.shapes.add_connector(
         1,  # MSO_CONNECTOR.STRAIGHT
-        Inches(MARGIN_L), Inches(FOOTER_Y - 0.01),
-        Inches(MARGIN_L + CONTENT_W), Inches(FOOTER_Y - 0.01),
+        Inches(MARGIN_L),
+        Inches(FOOTER_Y - 0.01),
+        Inches(MARGIN_L + CONTENT_W),
+        Inches(FOOTER_Y - 0.01),
     )
     line.name = "IGPDE-footer-ligne-decoratif"
     line.line.color.rgb = RGBColor(0x99, 0x99, 0x99)
@@ -321,15 +354,28 @@ def _clone_layout_placeholder(slide, layout_ph, text_override=None):
         # Retrouver le placeholder clone via slide.placeholders
         for sph in slide.placeholders:
             if sph._element is sp_clone and sph.has_text_frame:
-                _apply_text(sph.text_frame, text_override, font=FONT, size=10,
-                            bold=False, color=GRIS_MENTION)
+                _apply_text(
+                    sph.text_frame,
+                    text_override,
+                    font=FONT,
+                    size=10,
+                    bold=False,
+                    color=GRIS_MENTION,
+                )
                 break
     return sp_clone
 
 
-def new_slide(prs, layouts, layout_name="titre_contenu", titre=None,
-              fil_ariane=None, footer_text=None, date_text=None,
-              page_num=None):
+def new_slide(
+    prs,
+    layouts,
+    layout_name="titre_contenu",
+    titre=None,
+    fil_ariane=None,
+    footer_text=None,
+    date_text=None,
+    page_num=None,
+):
     """Cree une slide a partir d'un layout IGPDE natif.
 
     - Recopie les placeholders date/pied de page/n° depuis le layout pour affichage
@@ -355,26 +401,29 @@ def new_slide(prs, layouts, layout_name="titre_contenu", titre=None,
         name_low = (layout_ph.name or "").lower()
         if "date" in name_low:
             cloned_date = _clone_layout_placeholder(
-                slide, layout_ph, text_override=date_text or "")
+                slide, layout_ph, text_override=date_text or ""
+            )
         elif "pied de page" in name_low:
-            default_footer = ("Institut de la Gestion publique "
-                              "et du Développement économique")
+            default_footer = (
+                "Institut de la Gestion publique et du Développement économique"
+            )
             cloned_footer = _clone_layout_placeholder(
-                slide, layout_ph,
-                text_override=footer_text or default_footer)
+                slide, layout_ph, text_override=footer_text or default_footer
+            )
         elif "numero" in name_low or "num\u00e9ro" in name_low:
             cloned_num = _clone_layout_placeholder(
-                slide, layout_ph,
-                text_override=str(page_num) if page_num else None)
+                slide, layout_ph, text_override=str(page_num) if page_num else None
+            )
 
     # Pour la couverture : forcer les placeholders footer aux positions standard IGPDE
     if layout_name == "couverture":
-        _reposition_shape(cloned_footer, left=MARGIN_L, top=FOOTER_Y,
-                          width=8.61, height=0.52)
-        _reposition_shape(cloned_date, left=11.10, top=FOOTER_Y,
-                          width=1.71, height=0.52)
-        _reposition_shape(cloned_num, left=9.13, top=FOOTER_Y,
-                          width=1.97, height=0.52)
+        _reposition_shape(
+            cloned_footer, left=MARGIN_L, top=FOOTER_Y, width=8.61, height=0.52
+        )
+        _reposition_shape(
+            cloned_date, left=11.10, top=FOOTER_Y, width=1.71, height=0.52
+        )
+        _reposition_shape(cloned_num, left=9.13, top=FOOTER_Y, width=1.97, height=0.52)
         # Ajouter la ligne separatrice (presente dans les autres layouts)
         _add_footer_line(slide)
 
@@ -408,16 +457,26 @@ def new_slide(prs, layouts, layout_name="titre_contenu", titre=None,
                     ph.height = Inches(1.05)
                 except Exception:
                     pass
-                _apply_text(ph.text_frame, titre, font=FONT, size=28, bold=True,
-                            color=BLEU_FRANCE)
+                _apply_text(
+                    ph.text_frame,
+                    titre,
+                    font=FONT,
+                    size=28,
+                    bold=True,
+                    color=BLEU_FRANCE,
+                )
                 titre_pose = True
             continue
         # Le titre natif minuscule reste le titre semantique :
         # le repositionner dans la zone visible plutot que le remplacer par
         # une textbox ordinaire.
         if is_title and _is_title_useless(ph):
-            if (layout_name in ("couverture", "titre_soustitre")
-                    and titre and not titre_pose and ph.has_text_frame):
+            if (
+                layout_name in ("couverture", "titre_soustitre")
+                and titre
+                and not titre_pose
+                and ph.has_text_frame
+            ):
                 if layout_name == "couverture":
                     left, top, width, height = 5.8, 4.5, 7.1, 1.3
                     size, align = 32, PP_ALIGN.RIGHT
@@ -428,8 +487,15 @@ def new_slide(prs, layouts, layout_name="titre_contenu", titre=None,
                 ph.top = Inches(top)
                 ph.width = Inches(width)
                 ph.height = Inches(height)
-                _apply_text(ph.text_frame, titre, font=FONT, size=size, bold=True,
-                            color=BLEU_FRANCE, align=align)
+                _apply_text(
+                    ph.text_frame,
+                    titre,
+                    font=FONT,
+                    size=size,
+                    bold=True,
+                    color=BLEU_FRANCE,
+                    align=align,
+                )
                 titre_pose = True
                 continue
             # Sur les autres layouts, supprimer ce titre inutilisable pour
@@ -441,8 +507,15 @@ def new_slide(prs, layouts, layout_name="titre_contenu", titre=None,
             try:
                 if ph.top is not None and Emu(ph.top).inches < 0.5:
                     tf = ph.text_frame
-                    _apply_text(tf, fil_ariane, font=FONT, size=11,
-                                bold=False, color=GRIS_MENTION, align=PP_ALIGN.RIGHT)
+                    _apply_text(
+                        tf,
+                        fil_ariane,
+                        font=FONT,
+                        size=11,
+                        bold=False,
+                        color=GRIS_MENTION,
+                        align=PP_ALIGN.RIGHT,
+                    )
                     # Neutraliser la numerotation automatique heritee du layout
                     # (lstStyle > lvl1pPr > buAutoNum type="arabicPeriod") qui,
                     # sans cette neutralisation, affiche « 1. » en prefixe du fil
@@ -454,8 +527,12 @@ def new_slide(prs, layouts, layout_name="titre_contenu", titre=None,
                 pass
         # Preserver les placeholders date/ftr/sldNum qu'on vient de cloner
         low = name.lower()
-        if ("date" in low or "pied de page" in low
-                or "numero" in low or "num\u00e9ro" in low):
+        if (
+            "date" in low
+            or "pied de page" in low
+            or "numero" in low
+            or "num\u00e9ro" in low
+        ):
             continue
         # Tout autre placeholder (Text/Content) : retirer
         a_supprimer.append(ph)
@@ -472,21 +549,39 @@ def new_slide(prs, layouts, layout_name="titre_contenu", titre=None,
             # Logo secondaire a (8.94, 0.85) size 3.43x3.43 -> finit a y=4.28.
             # Zone titre : moitie droite au-dessus du pied de page (x=5.8, y=4.5)
             t_box = slide.shapes.add_textbox(
-                Inches(5.8), Inches(4.5),
-                Inches(7.1), Inches(1.3),
+                Inches(5.8),
+                Inches(4.5),
+                Inches(7.1),
+                Inches(1.3),
             )
             t_box.name = "Title-DSFR-couverture"
-            _apply_text(t_box.text_frame, titre, font=FONT, size=32, bold=True,
-                        color=BLEU_FRANCE, align=PP_ALIGN.RIGHT)
+            _apply_text(
+                t_box.text_frame,
+                titre,
+                font=FONT,
+                size=32,
+                bold=True,
+                color=BLEU_FRANCE,
+                align=PP_ALIGN.RIGHT,
+            )
         elif layout_name == "titre_soustitre":
             # Titre remonte pour laisser la zone de contenu libre en dessous
             t_box = slide.shapes.add_textbox(
-                Inches(MARGIN_L), Inches(2.5),
-                Inches(CONTENT_W), Inches(1.1),
+                Inches(MARGIN_L),
+                Inches(2.5),
+                Inches(CONTENT_W),
+                Inches(1.1),
             )
             t_box.name = "Title-DSFR-soustitre"
-            _apply_text(t_box.text_frame, titre, font=FONT, size=36, bold=True,
-                        color=BLEU_FRANCE, align=PP_ALIGN.LEFT)
+            _apply_text(
+                t_box.text_frame,
+                titre,
+                font=FONT,
+                size=36,
+                bold=True,
+                color=BLEU_FRANCE,
+                align=PP_ALIGN.LEFT,
+            )
 
     return slide
 
@@ -506,6 +601,7 @@ def add_notes(slide, texte, lang="fr-FR"):
     On pose donc lang=fr-FR sur chaque run des notes des la creation.
     """
     import re
+
     # Une phrase par ligne : split sur ponctuation finale + espace + majuscule/guillemet
     phrases = re.split(r'(?<=[.!?…])\s+(?=[A-ZÀ-Ÿ«"])', texte.strip())
     phrases = [p.strip() for p in phrases if p.strip()]
@@ -532,6 +628,7 @@ def _safe_top(top, height, component="composant"):
     """
     if top + height > BOTTOM_CONTENT:
         import sys
+
         safe = round(BOTTOM_CONTENT - height, 3)
         print(
             f"[WARN footer] {component} : top={top:.2f} + h={height:.2f}"
@@ -542,8 +639,9 @@ def _safe_top(top, height, component="composant"):
     return top
 
 
-def _estimate_height(content, available_width, size=11, line_height_mult=1.35,
-                     chars_per_inch_base=9.0):
+def _estimate_height(
+    content, available_width, size=11, line_height_mult=1.35, chars_per_inch_base=9.0
+):
     """Estime la hauteur (pouces) necessaire pour afficher un contenu.
 
     - content : str (1 texte) ou list[str] (bullets)
@@ -571,26 +669,35 @@ def _estimate_height(content, available_width, size=11, line_height_mult=1.35,
     return total_lines * line_height_inches
 
 
-def estimate_callout_height(titre, bullets, width=None, line_spacing=1.5,
-                            compact=False):
+def estimate_callout_height(
+    titre, bullets, width=None, line_spacing=1.5, compact=False
+):
     """Hauteur auto d'un callout ou d'une alert (meme formule)."""
     if width is None:
         width = CONTENT_W
     chars_per_inch_base = 13.0 if compact else 9.0
     if compact:
-        h_titre_box = max(
-            _estimate_height(
-                titre, width - 0.35, size=14,
-                chars_per_inch_base=chars_per_inch_base,
-            ),
-            0.35,
-        ) if titre else 0
+        h_titre_box = (
+            max(
+                _estimate_height(
+                    titre,
+                    width - 0.35,
+                    size=14,
+                    chars_per_inch_base=chars_per_inch_base,
+                ),
+                0.35,
+            )
+            if titre
+            else 0
+        )
         h_titre = (0.10 + h_titre_box + 0.10) if titre else 0.15
     else:
         h_titre = 0.55 if titre else 0.15
     adjusted_lhm = 1.35 * (line_spacing / 1.25)
     h_body = _estimate_height(
-        bullets, width - 0.5, size=14,
+        bullets,
+        width - 0.5,
+        size=14,
         line_height_mult=adjusted_lhm,
         chars_per_inch_base=chars_per_inch_base,
     )
@@ -656,22 +763,35 @@ def estimate_card_height(titre, contenu, width, numero=None, compact=False):
     h_titre = 0.50 if titre else 0.15
     chars_per_inch_base = 13.0 if compact else 9.0
     h_body = _estimate_height(
-        contenu, width - 0.5, size=14,
+        contenu,
+        width - 0.5,
+        size=14,
         chars_per_inch_base=chars_per_inch_base,
     )
     h_padding = 0.24 if compact else 0.30
     return max(h_numero + h_titre + h_body + h_padding, 1.0)
 
 
-def _make_box(slide, top, left, width, height, fill_color,
-              accent_color=None, accent_w=0.08, border_color=None):
+def _make_box(
+    slide,
+    top,
+    left,
+    width,
+    height,
+    fill_color,
+    accent_color=None,
+    accent_w=0.08,
+    border_color=None,
+):
     """Rectangle DSFR : fond couleur, accent gauche optionnel."""
     # Accent vertical
     if accent_color is not None and accent_w > 0:
         accent = slide.shapes.add_shape(
             MSO_SHAPE.RECTANGLE,
-            Inches(left), Inches(top),
-            Inches(accent_w), Inches(height),
+            Inches(left),
+            Inches(top),
+            Inches(accent_w),
+            Inches(height),
         )
         accent.name = "DSFR-accent-decoratif"
         accent.fill.solid()
@@ -681,8 +801,10 @@ def _make_box(slide, top, left, width, height, fill_color,
     # Fond
     box = slide.shapes.add_shape(
         MSO_SHAPE.RECTANGLE,
-        Inches(left + accent_w), Inches(top),
-        Inches(width - accent_w), Inches(height),
+        Inches(left + accent_w),
+        Inches(top),
+        Inches(width - accent_w),
+        Inches(height),
     )
     box.name = "DSFR-box"
     box.fill.solid()
@@ -699,9 +821,19 @@ def _make_box(slide, top, left, width, height, fill_color,
 # ----------------------------------------------------------------------
 # Composants DSFR
 # ----------------------------------------------------------------------
-def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height=None,
-                line_spacing=1.25, bullet_prefix="\u2022 ", compact=False,
-                extra_height=0.0):
+def add_callout(
+    slide,
+    titre,
+    bullets,
+    top,
+    left=MARGIN_L,
+    width=CONTENT_W,
+    height=None,
+    line_spacing=1.25,
+    bullet_prefix="\u2022 ",
+    compact=False,
+    extra_height=0.0,
+):
     """Callout bleu : accent gauche Bleu France + fond bleu clair + titre bold + bullets.
 
     La hauteur est calculee automatiquement a partir du contenu (titre +
@@ -715,17 +847,25 @@ def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, heig
     # qui respecte max(height, auto).
     qa_start = qa_source_map.shape_count(slide)
     chars_per_inch_base = 13.0 if compact else 9.0
-    h_titre_box = max(
-        _estimate_height(
-            titre, width - 0.35, size=14,
-            chars_per_inch_base=chars_per_inch_base,
-        ),
-        0.35,
-    ) if titre else 0
+    h_titre_box = (
+        max(
+            _estimate_height(
+                titre,
+                width - 0.35,
+                size=14,
+                chars_per_inch_base=chars_per_inch_base,
+            ),
+            0.35,
+        )
+        if titre
+        else 0
+    )
     h_titre = (0.10 + h_titre_box + 0.10) if titre else 0.15
     adjusted_lhm = 1.35 * (line_spacing / 1.25)
     h_body = _estimate_height(
-        bullets, width - 0.5, size=14,
+        bullets,
+        width - 0.5,
+        size=14,
         line_height_mult=adjusted_lhm,
         chars_per_inch_base=chars_per_inch_base,
     )
@@ -733,37 +873,76 @@ def add_callout(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, heig
     height = max(h_titre + h_body + h_padding, 0.90) + max(0.0, float(extra_height))
     top = _safe_top(top, height, "add_callout")
 
-    _make_box(slide, top, left, width, height,
-              fill_color=BLEU_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.08)
+    _make_box(
+        slide,
+        top,
+        left,
+        width,
+        height,
+        fill_color=BLEU_CLAIR,
+        accent_color=BLEU_FRANCE,
+        accent_w=0.08,
+    )
     # Titre
     if titre:
         t_box = slide.shapes.add_textbox(
-            Inches(left + 0.25), Inches(top + 0.10),
-            Inches(width - 0.35), Inches(h_titre_box),
+            Inches(left + 0.25),
+            Inches(top + 0.10),
+            Inches(width - 0.35),
+            Inches(h_titre_box),
         )
         t_box.name = "DSFR-callout-titre"
-        _apply_text(t_box.text_frame, titre, font=FONT, size=14, bold=True,
-                    color=BLEU_FRANCE)
+        _apply_text(
+            t_box.text_frame, titre, font=FONT, size=14, bold=True, color=BLEU_FRANCE
+        )
     # Bullets
     if bullets:
         body_top = (top + h_titre) if titre else (top + 0.15)
         body_h = height - (h_titre + 0.10 if titre else 0.25)
         b_box = slide.shapes.add_textbox(
-            Inches(left + 0.25), Inches(body_top),
-            Inches(width - 0.35), Inches(body_h),
+            Inches(left + 0.25),
+            Inches(body_top),
+            Inches(width - 0.35),
+            Inches(body_h),
         )
         b_box.name = "DSFR-callout-body"
-        _add_bullets(b_box.text_frame, bullets, font=FONT, size=14, color=NOIR,
-                     line_spacing=line_spacing, bullet_prefix=bullet_prefix)
+        _add_bullets(
+            b_box.text_frame,
+            bullets,
+            font=FONT,
+            size=14,
+            color=NOIR,
+            line_spacing=line_spacing,
+            bullet_prefix=bullet_prefix,
+        )
     qa_source_map.record_component(
-        "add_callout", slide, qa_start,
-        {"titre": str(titre)[:80], "top": top, "left": left, "width": width, "height": height, "compact": compact},
+        "add_callout",
+        slide,
+        qa_start,
+        {
+            "titre": str(titre)[:80],
+            "top": top,
+            "left": left,
+            "width": width,
+            "height": height,
+            "compact": compact,
+        },
     )
     return slide
 
 
-def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height=None,
-              alert_type="info", line_spacing=1.5, compact=False):
+def add_alert(
+    slide,
+    titre,
+    bullets,
+    top,
+    left=MARGIN_L,
+    width=CONTENT_W,
+    height=None,
+    alert_type="info",
+    line_spacing=1.5,
+    compact=False,
+):
     """Alerte DSFR - rendu uniformise en gris/bleu DSFR.
 
     Le parametre alert_type (success, warning, error, info) est conserve
@@ -779,45 +958,74 @@ def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height
     fond, accent = GRIS_CLAIR, BLEU_FRANCE
     # Calcul auto TOUJOURS (voir add_callout pour le rationnel)
     chars_per_inch_base = 13.0 if compact else 9.0
-    h_titre_box = max(
-        _estimate_height(
-            titre, width - 0.35, size=14,
-            chars_per_inch_base=chars_per_inch_base,
-        ),
-        0.35,
-    ) if titre else 0
+    h_titre_box = (
+        max(
+            _estimate_height(
+                titre,
+                width - 0.35,
+                size=14,
+                chars_per_inch_base=chars_per_inch_base,
+            ),
+            0.35,
+        )
+        if titre
+        else 0
+    )
     h_titre = (0.10 + h_titre_box + 0.10) if titre else 0.15
     adjusted_lhm = 1.35 * (line_spacing / 1.25)
     h_body = _estimate_height(
-        bullets, width - 0.5, size=14,
+        bullets,
+        width - 0.5,
+        size=14,
         line_height_mult=adjusted_lhm,
         chars_per_inch_base=chars_per_inch_base,
     )
     h_padding = 0.24 if compact else 0.25
     height = max(h_titre + h_body + h_padding, 0.90)
     top = _safe_top(top, height, "add_alert")
-    _make_box(slide, top, left, width, height,
-              fill_color=fond, accent_color=accent, accent_w=0.08)
+    _make_box(
+        slide,
+        top,
+        left,
+        width,
+        height,
+        fill_color=fond,
+        accent_color=accent,
+        accent_w=0.08,
+    )
     if titre:
         t_box = slide.shapes.add_textbox(
-            Inches(left + 0.25), Inches(top + 0.10),
-            Inches(width - 0.35), Inches(h_titre_box),
+            Inches(left + 0.25),
+            Inches(top + 0.10),
+            Inches(width - 0.35),
+            Inches(h_titre_box),
         )
         t_box.name = f"DSFR-alert-{alert_type}-titre"
-        _apply_text(t_box.text_frame, titre, font=FONT, size=14, bold=True,
-                    color=accent)
+        _apply_text(
+            t_box.text_frame, titre, font=FONT, size=14, bold=True, color=accent
+        )
     if bullets:
         body_top = (top + h_titre) if titre else (top + 0.15)
         body_h = height - (h_titre + 0.10 if titre else 0.25)
         b_box = slide.shapes.add_textbox(
-            Inches(left + 0.25), Inches(body_top),
-            Inches(width - 0.35), Inches(body_h),
+            Inches(left + 0.25),
+            Inches(body_top),
+            Inches(width - 0.35),
+            Inches(body_h),
         )
         b_box.name = f"DSFR-alert-{alert_type}-body"
-        _add_bullets(b_box.text_frame, bullets, font=FONT, size=14, color=NOIR,
-                     line_spacing=line_spacing)
+        _add_bullets(
+            b_box.text_frame,
+            bullets,
+            font=FONT,
+            size=14,
+            color=NOIR,
+            line_spacing=line_spacing,
+        )
     qa_source_map.record_component(
-        "add_alert", slide, qa_start,
+        "add_alert",
+        slide,
+        qa_start,
         {
             "titre": str(titre)[:80],
             "alert_type": alert_type,
@@ -831,7 +1039,9 @@ def add_alert(slide, titre, bullets, top, left=MARGIN_L, width=CONTENT_W, height
     return slide
 
 
-def add_highlight(slide, texte, top, left=MARGIN_L, width=CONTENT_W, height=None, url=None):
+def add_highlight(
+    slide, texte, top, left=MARGIN_L, width=CONTENT_W, height=None, url=None
+):
     """Highlight : accent bleu gauche + texte emphase 18pt.
 
     Hauteur calculee automatiquement a partir du texte (ignore `height`
@@ -843,16 +1053,33 @@ def add_highlight(slide, texte, top, left=MARGIN_L, width=CONTENT_W, height=None
     # Calcul auto TOUJOURS
     height = max(h_text + 0.3, 0.70)
     top = _safe_top(top, height, "add_highlight")
-    _make_box(slide, top, left, width, height,
-              fill_color=GRIS_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.08)
+    _make_box(
+        slide,
+        top,
+        left,
+        width,
+        height,
+        fill_color=GRIS_CLAIR,
+        accent_color=BLEU_FRANCE,
+        accent_w=0.08,
+    )
     t_box = slide.shapes.add_textbox(
-        Inches(left + 0.3), Inches(top + 0.1),
-        Inches(width - 0.4), Inches(height - 0.2),
+        Inches(left + 0.3),
+        Inches(top + 0.1),
+        Inches(width - 0.4),
+        Inches(height - 0.2),
     )
     t_box.name = "DSFR-highlight"
-    lines = str(texte).split('\n')
-    p = _apply_text(t_box.text_frame, lines[0], font=FONT, size=18, bold=True,
-                    color=BLEU_FRANCE, anchor=MSO_ANCHOR.MIDDLE)
+    lines = str(texte).split("\n")
+    p = _apply_text(
+        t_box.text_frame,
+        lines[0],
+        font=FONT,
+        size=18,
+        bold=True,
+        color=BLEU_FRANCE,
+        anchor=MSO_ANCHOR.MIDDLE,
+    )
     for line in lines[1:]:
         new_p = t_box.text_frame.add_paragraph()
         run = new_p.add_run()
@@ -874,33 +1101,61 @@ def add_highlight(slide, texte, top, left=MARGIN_L, width=CONTENT_W, height=None
         hlinkClick = etree.SubElement(
             rPr,
             f"{{{NSMAP_A}}}hlinkClick",
-            {"{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id": rId},
+            {
+                "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id": rId
+            },
         )
     qa_source_map.record_component(
-        "add_highlight", slide, qa_start,
-        {"texte": str(texte)[:80], "top": top, "left": left, "width": width, "height": height},
+        "add_highlight",
+        slide,
+        qa_start,
+        {
+            "texte": str(texte)[:80],
+            "top": top,
+            "left": left,
+            "width": width,
+            "height": height,
+        },
     )
     return slide
 
 
-def add_quote(slide, texte, auteur="", top=TOP_CONTENT, left=MARGIN_L,
-              width=CONTENT_W, height=None):
+def add_quote(
+    slide,
+    texte,
+    auteur="",
+    top=TOP_CONTENT,
+    left=MARGIN_L,
+    width=CONTENT_W,
+    height=None,
+):
     """Citation italique + auteur. Hauteur calculee automatiquement."""
     qa_start = qa_source_map.shape_count(slide)
     h_text = _estimate_height(texte, width - 0.4, size=16)
     h_auteur = 0.50 if auteur else 0
     auto_h = max(h_text + h_auteur + 0.30, 0.90)
     height = max(height, auto_h) if height is not None else auto_h
-    _make_box(slide, top, left, width, height,
-              fill_color=BLEU_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.08)
+    _make_box(
+        slide,
+        top,
+        left,
+        width,
+        height,
+        fill_color=BLEU_CLAIR,
+        accent_color=BLEU_FRANCE,
+        accent_w=0.08,
+    )
     t_box = slide.shapes.add_textbox(
-        Inches(left + 0.3), Inches(top + 0.15),
-        Inches(width - 0.4), Inches(height - (0.6 if auteur else 0.3)),
+        Inches(left + 0.3),
+        Inches(top + 0.15),
+        Inches(width - 0.4),
+        Inches(height - (0.6 if auteur else 0.3)),
     )
     t_box.name = "DSFR-quote-texte"
     segments = str(texte).split("\n")
-    _apply_text(t_box.text_frame, segments[0], font=FONT, size=16,
-                italic=True, color=NOIR)
+    _apply_text(
+        t_box.text_frame, segments[0], font=FONT, size=16, italic=True, color=NOIR
+    )
     for seg in segments[1:]:
         p = t_box.text_frame.add_paragraph()
         p.alignment = PP_ALIGN.LEFT
@@ -913,22 +1168,46 @@ def add_quote(slide, texte, auteur="", top=TOP_CONTENT, left=MARGIN_L,
         run.font.color.rgb = NOIR
     if auteur:
         a_box = slide.shapes.add_textbox(
-            Inches(left + 0.3), Inches(top + height - 0.5),
-            Inches(width - 0.4), Inches(0.4),
+            Inches(left + 0.3),
+            Inches(top + height - 0.5),
+            Inches(width - 0.4),
+            Inches(0.4),
         )
         a_box.name = "DSFR-quote-auteur"
-        _apply_text(a_box.text_frame, auteur, font=FONT, size=14,
-                    bold=True, color=BLEU_FRANCE)
+        _apply_text(
+            a_box.text_frame, auteur, font=FONT, size=14, bold=True, color=BLEU_FRANCE
+        )
     qa_source_map.record_component(
-        "add_quote", slide, qa_start,
-        {"texte": str(texte)[:80], "auteur": str(auteur)[:80], "top": top, "left": left, "width": width, "height": height},
+        "add_quote",
+        slide,
+        qa_start,
+        {
+            "texte": str(texte)[:80],
+            "auteur": str(auteur)[:80],
+            "top": top,
+            "left": left,
+            "width": width,
+            "height": height,
+        },
     )
     return slide
 
 
-def add_card(slide, titre, contenu, top, left, width=3.78, height=None,
-             numero=None, title_size=14, body_size=14,
-             numero_en_ligne=False, body_line_spacing=1.25, compact=False):
+def add_card(
+    slide,
+    titre,
+    contenu,
+    top,
+    left,
+    width=3.78,
+    height=None,
+    numero=None,
+    title_size=14,
+    body_size=14,
+    numero_en_ligne=False,
+    body_line_spacing=1.25,
+    compact=False,
+):
     """Carte DSFR : accent bleu + fond gris clair + titre + contenu.
 
     Si numero est fourni (1, 2, 3...), affiche une pastille ronde bleue en haut.
@@ -942,8 +1221,16 @@ def add_card(slide, titre, contenu, top, left, width=3.78, height=None,
     qa_start = qa_source_map.shape_count(slide)
     auto_h = estimate_card_height(titre, contenu, width, numero, compact=compact)
     height = auto_h if height is None else height
-    _make_box(slide, top, left, width, height,
-              fill_color=GRIS_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.08)
+    _make_box(
+        slide,
+        top,
+        left,
+        width,
+        height,
+        fill_color=GRIS_CLAIR,
+        accent_color=BLEU_FRANCE,
+        accent_w=0.08,
+    )
     y_titre = top + 0.15
     title_left = left + 0.25
     title_width = width - 0.4
@@ -955,18 +1242,26 @@ def add_card(slide, titre, contenu, top, left, width=3.78, height=None,
         numero_font_size = 20 if numero_en_ligne else 16
         pastille = slide.shapes.add_shape(
             MSO_SHAPE.OVAL,
-            Inches(left + 0.25), Inches(pastille_top),
-            Inches(pastille_size), Inches(pastille_size),
+            Inches(left + 0.25),
+            Inches(pastille_top),
+            Inches(pastille_size),
+            Inches(pastille_size),
         )
         pastille.name = "DSFR-card-numero"
         pastille.fill.solid()
         pastille.fill.fore_color.rgb = BLEU_FRANCE
         pastille.line.fill.background()
         pastille.shadow.inherit = False
-        _apply_text(pastille.text_frame, str(numero), font=FONT,
-                    size=numero_font_size,
-                    bold=True, color=BLANC, align=PP_ALIGN.CENTER,
-                    anchor=MSO_ANCHOR.MIDDLE)
+        _apply_text(
+            pastille.text_frame,
+            str(numero),
+            font=FONT,
+            size=numero_font_size,
+            bold=True,
+            color=BLANC,
+            align=PP_ALIGN.CENTER,
+            anchor=MSO_ANCHOR.MIDDLE,
+        )
         if numero_en_ligne:
             y_titre = pastille_top
             title_left = left + 1.02
@@ -976,29 +1271,52 @@ def add_card(slide, titre, contenu, top, left, width=3.78, height=None,
         else:
             y_titre = top + 0.75
     t_box = slide.shapes.add_textbox(
-        Inches(title_left), Inches(y_titre),
-        Inches(title_width), Inches(title_h),
+        Inches(title_left),
+        Inches(y_titre),
+        Inches(title_width),
+        Inches(title_h),
     )
     t_box.name = "DSFR-card-titre"
-    _apply_text(t_box.text_frame, titre, font=FONT, size=title_size, bold=True,
-                color=BLEU_FRANCE, anchor=title_anchor)
+    _apply_text(
+        t_box.text_frame,
+        titre,
+        font=FONT,
+        size=title_size,
+        bold=True,
+        color=BLEU_FRANCE,
+        anchor=title_anchor,
+    )
     if contenu:
         c_top = top + 0.95 if numero_en_ligne else y_titre + title_h + 0.05
         c_box = slide.shapes.add_textbox(
-            Inches(left + 0.25), Inches(c_top),
-            Inches(width - 0.4), Inches(height - (c_top - top) - 0.10),
+            Inches(left + 0.25),
+            Inches(c_top),
+            Inches(width - 0.4),
+            Inches(height - (c_top - top) - 0.10),
         )
         c_box.name = "DSFR-card-contenu"
         if isinstance(contenu, list):
-            _add_bullets(c_box.text_frame, contenu, font=FONT, size=body_size,
-                         color=NOIR, line_spacing=body_line_spacing)
+            _add_bullets(
+                c_box.text_frame,
+                contenu,
+                font=FONT,
+                size=body_size,
+                color=NOIR,
+                line_spacing=body_line_spacing,
+            )
         else:
             body_paragraph = _apply_text(
-                c_box.text_frame, contenu, font=FONT, size=body_size, color=NOIR,
+                c_box.text_frame,
+                contenu,
+                font=FONT,
+                size=body_size,
+                color=NOIR,
             )
             body_paragraph.line_spacing = body_line_spacing
     qa_source_map.record_component(
-        "add_card", slide, qa_start,
+        "add_card",
+        slide,
+        qa_start,
         {
             "titre": str(titre)[:80],
             "numero": numero,
@@ -1019,27 +1337,55 @@ def add_pave_chiffre(slide, valeur, label, top, left, width=3.78, height=1.5):
     qa_start = qa_source_map.shape_count(slide)
     pave = slide.shapes.add_shape(
         MSO_SHAPE.RECTANGLE,
-        Inches(left), Inches(top),
-        Inches(width), Inches(height * 0.65),
+        Inches(left),
+        Inches(top),
+        Inches(width),
+        Inches(height * 0.65),
     )
     pave.name = "DSFR-kpi-pave"
     pave.fill.solid()
     pave.fill.fore_color.rgb = BLEU_FRANCE
     pave.line.fill.background()
     pave.shadow.inherit = False
-    _apply_text(pave.text_frame, str(valeur), font=FONT, size=32, bold=True,
-                color=BLANC, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+    _apply_text(
+        pave.text_frame,
+        str(valeur),
+        font=FONT,
+        size=32,
+        bold=True,
+        color=BLANC,
+        align=PP_ALIGN.CENTER,
+        anchor=MSO_ANCHOR.MIDDLE,
+    )
     # Label
     l_box = slide.shapes.add_textbox(
-        Inches(left), Inches(top + height * 0.7),
-        Inches(width), Inches(height * 0.3),
+        Inches(left),
+        Inches(top + height * 0.7),
+        Inches(width),
+        Inches(height * 0.3),
     )
     l_box.name = "DSFR-kpi-label"
-    _apply_text(l_box.text_frame, label, font=FONT, size=14, bold=False,
-                color=NOIR, align=PP_ALIGN.CENTER)
+    _apply_text(
+        l_box.text_frame,
+        label,
+        font=FONT,
+        size=14,
+        bold=False,
+        color=NOIR,
+        align=PP_ALIGN.CENTER,
+    )
     qa_source_map.record_component(
-        "add_pave_chiffre", slide, qa_start,
-        {"valeur": str(valeur)[:80], "label": str(label)[:80], "top": top, "left": left, "width": width, "height": height},
+        "add_pave_chiffre",
+        slide,
+        qa_start,
+        {
+            "valeur": str(valeur)[:80],
+            "label": str(label)[:80],
+            "top": top,
+            "left": left,
+            "width": width,
+            "height": height,
+        },
     )
     return slide
 
@@ -1057,16 +1403,26 @@ def add_stepper(slide, etapes, top, left=MARGIN_L, width=CONTENT_W, height=2.5):
         # Pastille
         pastille = slide.shapes.add_shape(
             MSO_SHAPE.OVAL,
-            Inches(x + (item_w - pastille_size) / 2), Inches(top),
-            Inches(pastille_size), Inches(pastille_size),
+            Inches(x + (item_w - pastille_size) / 2),
+            Inches(top),
+            Inches(pastille_size),
+            Inches(pastille_size),
         )
-        pastille.name = f"DSFR-stepper-pastille-{i+1}"
+        pastille.name = f"DSFR-stepper-pastille-{i + 1}"
         pastille.fill.solid()
         pastille.fill.fore_color.rgb = BLEU_FRANCE
         pastille.line.fill.background()
         pastille.shadow.inherit = False
-        _apply_text(pastille.text_frame, str(i + 1), font=FONT, size=18, bold=True,
-                    color=BLANC, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+        _apply_text(
+            pastille.text_frame,
+            str(i + 1),
+            font=FONT,
+            size=18,
+            bold=True,
+            color=BLANC,
+            align=PP_ALIGN.CENTER,
+            anchor=MSO_ANCHOR.MIDDLE,
+        )
         # Ligne de connexion entre pastilles
         if i < n - 1:
             line = slide.shapes.add_shape(
@@ -1076,28 +1432,47 @@ def add_stepper(slide, etapes, top, left=MARGIN_L, width=CONTENT_W, height=2.5):
                 Inches(item_w + GAP - pastille_size),
                 Inches(0.04),
             )
-            line.name = f"DSFR-stepper-connecteur-{i+1}-decoratif"
+            line.name = f"DSFR-stepper-connecteur-{i + 1}-decoratif"
             line.fill.solid()
             line.fill.fore_color.rgb = BLEU_MOYEN
             line.line.fill.background()
             line.shadow.inherit = False
         # Texte etape
         t_box = slide.shapes.add_textbox(
-            Inches(x), Inches(top + pastille_size + 0.1),
-            Inches(item_w), Inches(height - pastille_size - 0.1),
+            Inches(x),
+            Inches(top + pastille_size + 0.1),
+            Inches(item_w),
+            Inches(height - pastille_size - 0.1),
         )
-        t_box.name = f"DSFR-stepper-texte-{i+1}"
-        _apply_text(t_box.text_frame, etape, font=FONT, size=14, bold=False,
-                    color=NOIR, align=PP_ALIGN.CENTER)
+        t_box.name = f"DSFR-stepper-texte-{i + 1}"
+        _apply_text(
+            t_box.text_frame,
+            etape,
+            font=FONT,
+            size=14,
+            bold=False,
+            color=NOIR,
+            align=PP_ALIGN.CENTER,
+        )
     qa_source_map.record_component(
-        "add_stepper", slide, qa_start,
+        "add_stepper",
+        slide,
+        qa_start,
         {"nb_etapes": n, "top": top, "left": left, "width": width, "height": height},
     )
     return slide
 
 
-def add_tableau(slide, headers, rows, top, left=MARGIN_L, width=CONTENT_W,
-                col_widths=None, row_h=0.45):
+def add_tableau(
+    slide,
+    headers,
+    rows,
+    top,
+    left=MARGIN_L,
+    width=CONTENT_W,
+    col_widths=None,
+    row_h=0.45,
+):
     """Tableau DSFR : en-tetes bleu fonce + lignes alternees."""
     qa_start = qa_source_map.shape_count(slide)
     ncols = len(headers)
@@ -1105,9 +1480,12 @@ def add_tableau(slide, headers, rows, top, left=MARGIN_L, width=CONTENT_W,
     if col_widths is None:
         col_widths = [width / ncols] * ncols
     table_shape = slide.shapes.add_table(
-        nrows, ncols,
-        Inches(left), Inches(top),
-        Inches(width), Inches(row_h * nrows),
+        nrows,
+        ncols,
+        Inches(left),
+        Inches(top),
+        Inches(width),
+        Inches(row_h * nrows),
     )
     tbl = table_shape.table
     tbl.name = "DSFR-tableau"
@@ -1127,8 +1505,9 @@ def add_tableau(slide, headers, rows, top, left=MARGIN_L, width=CONTENT_W,
         cell.margin_top = Inches(0.05)
         cell.margin_bottom = Inches(0.05)
         tf = cell.text_frame
-        _apply_text(tf, h, font=FONT, size=14, bold=True, color=BLANC,
-                    anchor=MSO_ANCHOR.MIDDLE)
+        _apply_text(
+            tf, h, font=FONT, size=14, bold=True, color=BLANC, anchor=MSO_ANCHOR.MIDDLE
+        )
     # Corps
     for r, row in enumerate(rows):
         for c, val in enumerate(row):
@@ -1140,35 +1519,67 @@ def add_tableau(slide, headers, rows, top, left=MARGIN_L, width=CONTENT_W,
             cell.margin_top = Inches(0.05)
             cell.margin_bottom = Inches(0.05)
             tf = cell.text_frame
-            _apply_text(tf, val, font=FONT, size=14, color=NOIR,
-                        anchor=MSO_ANCHOR.MIDDLE)
+            _apply_text(
+                tf, val, font=FONT, size=14, color=NOIR, anchor=MSO_ANCHOR.MIDDLE
+            )
     # Marquer la premiere ligne comme header (a11y)
-    tblPr = tbl._tbl.find(".//{http://schemas.openxmlformats.org/drawingml/2006/main}tblPr")
+    tblPr = tbl._tbl.find(
+        ".//{http://schemas.openxmlformats.org/drawingml/2006/main}tblPr"
+    )
     if tblPr is not None:
         tblPr.set("firstRow", "1")
         tblPr.set("bandRow", "1")
     qa_source_map.record_component(
-        "add_tableau", slide, qa_start,
-        {"headers": [str(h)[:40] for h in headers], "rows": len(rows), "top": top, "left": left, "width": width},
+        "add_tableau",
+        slide,
+        qa_start,
+        {
+            "headers": [str(h)[:40] for h in headers],
+            "rows": len(rows),
+            "top": top,
+            "left": left,
+            "width": width,
+        },
     )
     return Emu(table_shape.height).inches
 
 
-def add_texte_libre(slide, texte, top, left=MARGIN_L, width=CONTENT_W,
-                    height=0.6, size=14, bold=False, color=NOIR,
-                    align=PP_ALIGN.LEFT):
+def add_texte_libre(
+    slide,
+    texte,
+    top,
+    left=MARGIN_L,
+    width=CONTENT_W,
+    height=0.6,
+    size=14,
+    bold=False,
+    color=NOIR,
+    align=PP_ALIGN.LEFT,
+):
     """Zone de texte positionnee librement."""
     qa_start = qa_source_map.shape_count(slide)
     box = slide.shapes.add_textbox(
-        Inches(left), Inches(top),
-        Inches(width), Inches(height),
+        Inches(left),
+        Inches(top),
+        Inches(width),
+        Inches(height),
     )
     box.name = "DSFR-texte-libre"
-    _apply_text(box.text_frame, texte, font=FONT, size=size, bold=bold,
-                color=color, align=align)
+    _apply_text(
+        box.text_frame, texte, font=FONT, size=size, bold=bold, color=color, align=align
+    )
     qa_source_map.record_component(
-        "add_texte_libre", slide, qa_start,
-        {"texte": str(texte)[:80], "top": top, "left": left, "width": width, "height": height, "size": size},
+        "add_texte_libre",
+        slide,
+        qa_start,
+        {
+            "texte": str(texte)[:80],
+            "top": top,
+            "left": left,
+            "width": width,
+            "height": height,
+            "size": size,
+        },
     )
     return slide
 
@@ -1177,6 +1588,7 @@ def add_image(slide, image_path, top, left, width, height=None, alt_text=""):
     """Image positionnee librement avec alt text accessible."""
     qa_start = qa_source_map.shape_count(slide)
     from pathlib import Path
+
     img_path = Path(image_path)
     if not img_path.is_absolute():
         img_path = PROJECT_ROOT / img_path
@@ -1184,7 +1596,10 @@ def add_image(slide, image_path, top, left, width, height=None, alt_text=""):
     if height is not None:
         kwargs["height"] = Inches(height)
     pic = slide.shapes.add_picture(
-        str(img_path), Inches(left), Inches(top), **kwargs,
+        str(img_path),
+        Inches(left),
+        Inches(top),
+        **kwargs,
     )
     if alt_text:
         pic._element.find(
@@ -1193,8 +1608,17 @@ def add_image(slide, image_path, top, left, width, height=None, alt_text=""):
     else:
         pic.name = "DSFR-image-decoratif"
     qa_source_map.record_component(
-        "add_image", slide, qa_start,
-        {"image_path": str(image_path), "top": top, "left": left, "width": width, "height": height, "has_alt": bool(alt_text)},
+        "add_image",
+        slide,
+        qa_start,
+        {
+            "image_path": str(image_path),
+            "top": top,
+            "left": left,
+            "width": width,
+            "height": height,
+            "has_alt": bool(alt_text),
+        },
     )
     return pic
 
@@ -1211,13 +1635,25 @@ def _set_run_hyperlink(slide, run, url):
     hlinkClick = etree.SubElement(
         rPr,
         f"{{{NSMAP_A}}}hlinkClick",
-        {"{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id": rId},
+        {
+            "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id": rId
+        },
     )
     return hlinkClick
 
 
-def add_qrcode(slide, image_path, url, top, left, size=1.10,
-               label=None, label_width=2.80, label_position="right", url_size=8.5):
+def add_qrcode(
+    slide,
+    image_path,
+    url,
+    top,
+    left,
+    size=1.10,
+    label=None,
+    label_width=2.80,
+    label_position="right",
+    url_size=8.5,
+):
     """QR code imprime avec alternative visible : CTA + URL lisible."""
     qa_start = qa_source_map.shape_count(slide)
     pic = add_image(
@@ -1239,8 +1675,10 @@ def add_qrcode(slide, image_path, url, top, left, size=1.10,
         text_left = left + size + gap
 
     cta_box = slide.shapes.add_textbox(
-        Inches(text_left), Inches(top + 0.08),
-        Inches(label_width), Inches(0.28),
+        Inches(text_left),
+        Inches(top + 0.08),
+        Inches(label_width),
+        Inches(0.28),
     )
     cta_box.name = "DSFR-qrcode-cta"
     _apply_text(
@@ -1253,8 +1691,10 @@ def add_qrcode(slide, image_path, url, top, left, size=1.10,
     )
 
     url_box = slide.shapes.add_textbox(
-        Inches(text_left), Inches(top + 0.40),
-        Inches(label_width), Inches(max(size - 0.30, 0.55)),
+        Inches(text_left),
+        Inches(top + 0.40),
+        Inches(label_width),
+        Inches(max(size - 0.30, 0.55)),
     )
     url_box.name = "DSFR-qrcode-url-visible"
     p = _apply_text(
@@ -1269,7 +1709,9 @@ def add_qrcode(slide, image_path, url, top, left, size=1.10,
         _set_run_hyperlink(slide, p.runs[0], url)
 
     qa_source_map.record_component(
-        "add_qrcode", slide, qa_start,
+        "add_qrcode",
+        slide,
+        qa_start,
         {
             "image_path": str(image_path),
             "url": url,
@@ -1287,8 +1729,10 @@ def add_fleche(slide, top, left, width=0.8):
     qa_start = qa_source_map.shape_count(slide)
     fleche = slide.shapes.add_shape(
         MSO_SHAPE.RIGHT_ARROW,
-        Inches(left), Inches(top),
-        Inches(width), Inches(0.35),
+        Inches(left),
+        Inches(top),
+        Inches(width),
+        Inches(0.35),
     )
     fleche.name = "DSFR-fleche-decoratif"
     fleche.fill.solid()
@@ -1296,14 +1740,17 @@ def add_fleche(slide, top, left, width=0.8):
     fleche.line.fill.background()
     fleche.shadow.inherit = False
     qa_source_map.record_component(
-        "add_fleche", slide, qa_start,
+        "add_fleche",
+        slide,
+        qa_start,
         {"top": top, "left": left, "width": width},
     )
     return slide
 
 
-def add_checklist(slide, items, top, left=MARGIN_L, width=CONTENT_W,
-                  height=None, size=14):
+def add_checklist(
+    slide, items, top, left=MARGIN_L, width=CONTENT_W, height=None, size=14
+):
     """Liste a cocher DSFR : case Unicode + texte.
 
     items : liste d'items. Chaque item peut etre :
@@ -1314,8 +1761,10 @@ def add_checklist(slide, items, top, left=MARGIN_L, width=CONTENT_W,
     if height is None:
         height = len(items) * 0.45 + 0.3
     box = slide.shapes.add_textbox(
-        Inches(left), Inches(top),
-        Inches(width), Inches(height),
+        Inches(left),
+        Inches(top),
+        Inches(width),
+        Inches(height),
     )
     box.name = "DSFR-checklist"
     tf = box.text_frame
@@ -1348,76 +1797,158 @@ def add_checklist(slide, items, top, left=MARGIN_L, width=CONTENT_W,
         run_text.font.size = Pt(size)
         run_text.font.color.rgb = NOIR
     qa_source_map.record_component(
-        "add_checklist", slide, qa_start,
-        {"items": len(items), "top": top, "left": left, "width": width, "height": height, "size": size},
+        "add_checklist",
+        slide,
+        qa_start,
+        {
+            "items": len(items),
+            "top": top,
+            "left": left,
+            "width": width,
+            "height": height,
+            "size": size,
+        },
     )
     return slide
 
 
-def add_avant_apres(slide, avant_titre, avant_bullets, apres_titre, apres_bullets,
-                    top=None, height=3.5):
+def add_avant_apres(
+    slide, avant_titre, avant_bullets, apres_titre, apres_bullets, top=None, height=3.5
+):
     """Comparaison avant/apres en 2 colonnes : rouge clair (avant) / vert clair (apres)."""
     if top is None:
         top = TOP_CARDS
-    add_alert(slide, avant_titre, avant_bullets,
-              top=top, left=MARGIN_L, width=COL_W, height=height,
-              alert_type="error")
-    add_alert(slide, apres_titre, apres_bullets,
-              top=top, left=COL_R, width=COL_W, height=height,
-              alert_type="success")
+    add_alert(
+        slide,
+        avant_titre,
+        avant_bullets,
+        top=top,
+        left=MARGIN_L,
+        width=COL_W,
+        height=height,
+        alert_type="error",
+    )
+    add_alert(
+        slide,
+        apres_titre,
+        apres_bullets,
+        top=top,
+        left=COL_R,
+        width=COL_W,
+        height=height,
+        alert_type="success",
+    )
     return slide
 
 
-def add_exemple_contre_exemple(slide, bon_titre, bon_bullets,
-                                mauvais_titre, mauvais_bullets,
-                                top=None, height=3.5):
+def add_exemple_contre_exemple(
+    slide, bon_titre, bon_bullets, mauvais_titre, mauvais_bullets, top=None, height=3.5
+):
     """2 colonnes pedagogiques : bon exemple (vert, check) / contre-exemple (rouge, croix)."""
     if top is None:
         top = TOP_CARDS
-    add_alert(slide, f"\u2713  {bon_titre}", bon_bullets,
-              top=top, left=MARGIN_L, width=COL_W, height=height,
-              alert_type="success")
-    add_alert(slide, f"\u2717  {mauvais_titre}", mauvais_bullets,
-              top=top, left=COL_R, width=COL_W, height=height,
-              alert_type="error")
+    add_alert(
+        slide,
+        f"\u2713  {bon_titre}",
+        bon_bullets,
+        top=top,
+        left=MARGIN_L,
+        width=COL_W,
+        height=height,
+        alert_type="success",
+    )
+    add_alert(
+        slide,
+        f"\u2717  {mauvais_titre}",
+        mauvais_bullets,
+        top=top,
+        left=COL_R,
+        width=COL_W,
+        height=height,
+        alert_type="error",
+    )
     return slide
 
 
-def add_encadre(slide, top, left, width, height, titre="", bullets=None,
-                couleur_fond=GRIS_CLAIR, couleur_accent=BLEU_FRANCE):
+def add_encadre(
+    slide,
+    top,
+    left,
+    width,
+    height,
+    titre="",
+    bullets=None,
+    couleur_fond=GRIS_CLAIR,
+    couleur_accent=BLEU_FRANCE,
+):
     """Encadre parametrable (titre + bullets)."""
     qa_start = qa_source_map.shape_count(slide)
-    _make_box(slide, top, left, width, height,
-              fill_color=couleur_fond, accent_color=couleur_accent, accent_w=0.08)
+    _make_box(
+        slide,
+        top,
+        left,
+        width,
+        height,
+        fill_color=couleur_fond,
+        accent_color=couleur_accent,
+        accent_w=0.08,
+    )
     y = top + 0.15
     if titre:
         if not bullets:
             t_box = slide.shapes.add_textbox(
-                Inches(left + 0.25), Inches(top),
-                Inches(width - 0.4), Inches(height),
+                Inches(left + 0.25),
+                Inches(top),
+                Inches(width - 0.4),
+                Inches(height),
             )
             t_box.name = "DSFR-encadre-titre"
-            _apply_text(t_box.text_frame, titre, font=FONT, size=14, bold=True,
-                        color=couleur_accent, anchor=MSO_ANCHOR.MIDDLE)
+            _apply_text(
+                t_box.text_frame,
+                titre,
+                font=FONT,
+                size=14,
+                bold=True,
+                color=couleur_accent,
+                anchor=MSO_ANCHOR.MIDDLE,
+            )
         else:
             t_box = slide.shapes.add_textbox(
-                Inches(left + 0.25), Inches(y),
-                Inches(width - 0.4), Inches(0.45),
+                Inches(left + 0.25),
+                Inches(y),
+                Inches(width - 0.4),
+                Inches(0.45),
             )
             t_box.name = "DSFR-encadre-titre"
-            _apply_text(t_box.text_frame, titre, font=FONT, size=14, bold=True,
-                        color=couleur_accent)
+            _apply_text(
+                t_box.text_frame,
+                titre,
+                font=FONT,
+                size=14,
+                bold=True,
+                color=couleur_accent,
+            )
         y += 0.5
     if bullets:
         b_box = slide.shapes.add_textbox(
-            Inches(left + 0.25), Inches(y),
-            Inches(width - 0.4), Inches(height - (y - top) - 0.15),
+            Inches(left + 0.25),
+            Inches(y),
+            Inches(width - 0.4),
+            Inches(height - (y - top) - 0.15),
         )
         b_box.name = "DSFR-encadre-bullets"
         _add_bullets(b_box.text_frame, bullets, font=FONT, size=14, color=NOIR)
     qa_source_map.record_component(
-        "add_encadre", slide, qa_start,
-        {"titre": str(titre)[:80], "top": top, "left": left, "width": width, "height": height},
+        "add_encadre",
+        slide,
+        qa_start,
+        {
+            "titre": str(titre)[:80],
+            "top": top,
+            "left": left,
+            "width": width,
+            "height": height,
+        },
     )
     return slide
 
@@ -1438,8 +1969,16 @@ def compose_sommaire(slide, titre, parties):
     card_top = TOP_CARDS
     for i, (titre_partie, description) in enumerate(parties[:n]):
         x = MARGIN_L + i * (card_w + GAP)
-        add_card(slide, titre_partie, description, top=card_top, left=x,
-                 width=card_w, height=card_h, numero=i + 1)
+        add_card(
+            slide,
+            titre_partie,
+            description,
+            top=card_top,
+            left=x,
+            width=card_w,
+            height=card_h,
+            numero=i + 1,
+        )
     return slide
 
 
@@ -1458,14 +1997,24 @@ def compose_chapitre(slide, numero, titre, sous_titre=None):
     # Highlight DSFR centre verticalement dans la zone libre (y=0.9 -> 6.95)
     top = 3.0
     height = 2.2 if sous_titre else 1.8
-    _make_box(slide, top, MARGIN_L, CONTENT_W, height,
-              fill_color=GRIS_CLAIR, accent_color=BLEU_FRANCE, accent_w=0.16)
+    _make_box(
+        slide,
+        top,
+        MARGIN_L,
+        CONTENT_W,
+        height,
+        fill_color=GRIS_CLAIR,
+        accent_color=BLEU_FRANCE,
+        accent_w=0.16,
+    )
 
     # Texte « N. Titre » sur une ligne
     texte = f"{numero}. {titre}"
     t_box = slide.shapes.add_textbox(
-        Inches(MARGIN_L + 0.45), Inches(top + 0.15),
-        Inches(CONTENT_W - 0.6), Inches(height - 0.3),
+        Inches(MARGIN_L + 0.45),
+        Inches(top + 0.15),
+        Inches(CONTENT_W - 0.6),
+        Inches(height - 0.3),
     )
     t_box.name = "DSFR-section-titre"
     tf = t_box.text_frame
@@ -1481,6 +2030,7 @@ def compose_chapitre(slide, numero, titre, sous_titre=None):
 
     if sous_titre:
         from pptx.util import Pt as _Pt
+
         p2 = tf.add_paragraph()
         p2.alignment = PP_ALIGN.LEFT
         p2.space_before = _Pt(8)
@@ -1492,7 +2042,6 @@ def compose_chapitre(slide, numero, titre, sous_titre=None):
         run2.font.color.rgb = RGBColor(*BLEU_FRANCE)
 
     tf.paragraphs[0].space_before = Pt(0)
-    from pptx.enum.text import MSO_ANCHOR as _A
     tf.word_wrap = True
     t_box.text_frame.auto_size = None
     # Centrage vertical manuel
@@ -1593,8 +2142,12 @@ def _reorder_shapes(slide):
                 shapes_by_category["decoratif"].append(child)
             elif name.startswith("Titre") or "chapitre-titre" in name_low:
                 shapes_by_category["titre"].append(child)
-            elif ("pied de page" in name_low or "numero" in name_low
-                  or "date" in name_low or "connecteur" in name_low):
+            elif (
+                "pied de page" in name_low
+                or "numero" in name_low
+                or "date" in name_low
+                or "connecteur" in name_low
+            ):
                 shapes_by_category["footer"].append(child)
             else:
                 shapes_by_category["contenu"].append(child)
@@ -1615,8 +2168,49 @@ def _reorder_shapes(slide):
         spTree.append(child)
 
 
-def finalize_pptx(prs, output, title="", author="Alex", subject="",
-                  lang="fr-FR"):
+def _normalize_extended_properties(output, slides, hidden_slides, notes):
+    """Aligne les compteurs PowerPoint de ``app.xml`` sur le contenu réel."""
+    output = Path(output)
+    namespace = (
+        "http://schemas.openxmlformats.org/officeDocument/2006/extended-properties"
+    )
+    values = {
+        "Slides": slides,
+        "HiddenSlides": hidden_slides,
+        "Notes": notes,
+    }
+    with tempfile.NamedTemporaryFile(
+        dir=output.parent, suffix=".pptx", delete=False
+    ) as temporary:
+        temporary_path = Path(temporary.name)
+    try:
+        with (
+            zipfile.ZipFile(output, "r") as source,
+            zipfile.ZipFile(temporary_path, "w") as target,
+        ):
+            for info in source.infolist():
+                data = source.read(info.filename)
+                if info.filename == "docProps/app.xml":
+                    root = etree.fromstring(data)
+                    for name, value in values.items():
+                        node = root.find(f"{{{namespace}}}{name}")
+                        if node is None:
+                            node = etree.SubElement(root, f"{{{namespace}}}{name}")
+                        node.text = str(value)
+                    data = etree.tostring(
+                        root,
+                        xml_declaration=True,
+                        encoding="UTF-8",
+                        standalone=True,
+                    )
+                target.writestr(info, data)
+        shutil.copymode(output, temporary_path)
+        temporary_path.replace(output)
+    finally:
+        temporary_path.unlink(missing_ok=True)
+
+
+def finalize_pptx(prs, output, title="", author="Alex", subject="", lang="fr-FR"):
     """Post-traitement a11y + sauvegarde.
 
     - Ordre de lecture XML (titre -> contenu -> footer -> decoratifs)
@@ -1641,16 +2235,32 @@ def finalize_pptx(prs, output, title="", author="Alex", subject="",
         cp.author = author
     if subject:
         cp.subject = subject
+    cp.last_modified_by = author
+    cp.modified = datetime.now(timezone.utc).replace(tzinfo=None)
     cp.language = lang
+    slide_count = len(prs.slides)
+    hidden_slide_count = sum(
+        1 for slide in prs.slides if slide._element.get("show") == "0"
+    )
+    notes_count = sum(1 for slide in prs.slides if slide.has_notes_slide)
     prs.save(output)
+    _normalize_extended_properties(
+        output,
+        slides=slide_count,
+        hidden_slides=hidden_slide_count,
+        notes=notes_count,
+    )
     # macOS : retirer le flag com.apple.quarantine pose par Gatekeeper
     # Sans ce fix, PowerPoint ouvre le PPTX en mode protege et refuse
     # d'enregistrer les modifications manuelles de l'utilisateur.
     try:
         import subprocess
+
         subprocess.run(
             ["xattr", "-d", "com.apple.quarantine", str(output)],
-            capture_output=True, check=False, timeout=5,
+            capture_output=True,
+            check=False,
+            timeout=5,
         )
     except Exception:
         pass

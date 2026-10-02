@@ -37,14 +37,16 @@ def qa_report(deck):
 
 def _violations_by_type(report, violation_type):
     return [
-        violation for violation in report["violations"]
+        violation
+        for violation in report["violations"]
         if violation["type"] == violation_type
     ]
 
 
 def _new_violations(report, violation_type):
     return [
-        violation for violation in _violations_by_type(report, violation_type)
+        violation
+        for violation in _violations_by_type(report, violation_type)
         if violation["status"] == "new"
     ]
 
@@ -69,8 +71,7 @@ class TestFooterZone:
         _assert_no_new(qa_report, "footer")
         assert len(violations) <= KNOWN_FOOTER_VIOLATIONS, (
             f"{len(violations)} violations footer "
-            f"(seuil={KNOWN_FOOTER_VIOLATIONS}).\n"
-            + _format_messages(violations)
+            f"(seuil={KNOWN_FOOTER_VIOLATIONS}).\n" + _format_messages(violations)
         )
 
 
@@ -94,8 +95,7 @@ class TestAltText:
         _assert_no_new(qa_report, "alt_text")
         assert len(violations) <= KNOWN_ALT_VIOLATIONS, (
             f"{len(violations)} images sans alt "
-            f"(seuil={KNOWN_ALT_VIOLATIONS}).\n"
-            + _format_messages(violations)
+            f"(seuil={KNOWN_ALT_VIOLATIONS}).\n" + _format_messages(violations)
         )
 
 
@@ -107,8 +107,7 @@ class TestPoliceMinimale:
         _assert_no_new(qa_report, "font_size")
         assert len(violations) <= KNOWN_FONT_VIOLATIONS, (
             f"{len(violations)} runs < {MIN_FONT_PT}pt "
-            f"(seuil={KNOWN_FONT_VIOLATIONS}).\n"
-            + _format_messages(violations)
+            f"(seuil={KNOWN_FONT_VIOLATIONS}).\n" + _format_messages(violations)
         )
 
 
@@ -136,4 +135,22 @@ class TestAccentsFrancais:
             "regle",
             "securite",
             "video",
+        }
+
+    def test_detecte_les_formes_non_accentuees_des_textes_pedagogiques(self):
+        texte = (
+            "une idee, des textes justifies, acces a l'information, Cloture, "
+            "enervement, Decrochage et des polices a empattement"
+        )
+
+        issues = find_accent_issues(texte)
+
+        assert {issue["expected"] for issue in issues} == {
+            "idée",
+            "justifiés",
+            "accès à",
+            "clôture",
+            "énervement",
+            "décrochage",
+            "à empattement",
         }

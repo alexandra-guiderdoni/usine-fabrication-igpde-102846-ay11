@@ -9,11 +9,13 @@ from zipfile import ZipFile
 from docx import Document
 
 import fabriquer_pack
+from config import load_formation_config
 from exercice_sami_matrice import load_sami_matrix
 from generate_exercice_sami import build_checklists
 
 
 PROJECT_ROOT = Path(__file__).parent.parent
+PACK = PROJECT_ROOT / load_formation_config()["livrables"]
 CHECKLIST_DOCX = "checklist-accessibilite-bureautique.docx"
 CHECKLIST_PDF = "checklist-accessibilite-bureautique.pdf"
 CHECKLIST_MARKDOWN = "_source/checklist-accessibilite-bureautique.md"
@@ -193,16 +195,10 @@ def test_markdown_utilise_le_code_de_formation_configure(tmp_path):
 
 def test_checklists_sont_declarees_sans_liste_normative_parallele():
     agents = (PROJECT_ROOT / "AGENTS.md").read_text(encoding="utf-8")
-    pack_readme = (
-        PROJECT_ROOT / "livrables-IGPDE-2026-102846" / "README.md"
-    ).read_text(encoding="utf-8")
-    legacy = (
-        PROJECT_ROOT
-        / "livrables-IGPDE-2026-102846"
-        / "Formateur"
-        / "_alex"
-        / "checklist-bureautique.md"
-    ).read_text(encoding="utf-8")
+    pack_readme = (PACK / "README.md").read_text(encoding="utf-8")
+    legacy = (PACK / "Formateur" / "_alex" / "checklist-bureautique.md").read_text(
+        encoding="utf-8"
+    )
 
     for filename in (CHECKLIST_DOCX, CHECKLIST_PDF, CHECKLIST_MARKDOWN):
         assert filename in agents

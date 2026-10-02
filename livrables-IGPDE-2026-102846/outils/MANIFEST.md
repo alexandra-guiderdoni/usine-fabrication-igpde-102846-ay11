@@ -5,10 +5,13 @@ Installeurs remis aux stagiaires sur clé USB le jour de la formation. Ils ne so
 ## Récupérer et vérifier
 
 ```bash
-make outils
+make outils-telecharger  # récupère les trois fichiers avec adresse directe
+make outils              # vérifie les quatre fichiers, PAC compris
 ```
 
-Le script télécharge les installeurs qui ont une adresse directe, puis vérifie la taille et l'empreinte SHA-256 de chacun. Un fichier dont l'empreinte diffère est refusé.
+PAC doit être téléchargé manuellement depuis sa page officielle et déposé dans
+ce dossier. La vérification contrôle ensuite la taille et l'empreinte SHA-256 de
+chaque fichier ; une empreinte différente est refusée.
 
 ## Liste
 

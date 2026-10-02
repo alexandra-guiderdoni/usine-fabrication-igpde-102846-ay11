@@ -96,6 +96,47 @@ def test_make_lit_le_dossier_de_livraison_par_le_chargeur(tmp_path):
     assert "LIVRABLES := pack-de-test" in result.stdout
 
 
+def test_make_propage_la_configuration_aux_generateurs(tmp_path):
+    config_path = tmp_path / "config.yml"
+    config_path.write_text(
+        """formation:
+    code: "999999"
+    date: 9 octobre 2026
+    footer: Formation alternative
+    output: deck-alternatif.pptx
+    livrables: pack-alternatif
+    site_url: https://example.test/alternative/
+""",
+        encoding="utf-8",
+    )
+
+    makefile = tmp_path / "Makefile"
+    makefile.write_text(
+        f"include {PROJECT_ROOT / 'Makefile'}\n"
+        "afficher-config-test:\n"
+        f"\t@$(PYTHON) {CONFIG_CLI} --value code\n",
+        encoding="utf-8",
+    )
+
+    result = subprocess.run(
+        [
+            "make",
+            "-s",
+            "-f",
+            str(makefile),
+            f"CONFIG={config_path}",
+            "afficher-config-test",
+        ],
+        capture_output=True,
+        cwd=PROJECT_ROOT,
+        encoding="utf-8",
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert result.stdout == "999999\n"
+
+
 def test_make_installer_ne_depend_pas_du_chargeur_de_configuration():
     result = subprocess.run(
         ["make", "-n", "installer", "PYTHON=false"],

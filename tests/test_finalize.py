@@ -1,7 +1,9 @@
 """Tests du post-traitement a11y (finalize_pptx et helpers associes)."""
 
+import stat
 import sys
-import tempfile
+import zipfile
+from datetime import datetime
 from pathlib import Path
 
 import pytest
@@ -17,10 +19,9 @@ from igpde_dsfr_components import (
     finalize_pptx,
     _set_lang_on_runs,
     _mark_decoratives,
+    _normalize_extended_properties,
     _reorder_shapes,
     NSMAP_A,
-    MARGIN_L,
-    CONTENT_W,
     TOP_CONTENT,
 )
 
@@ -29,8 +30,9 @@ from igpde_dsfr_components import (
 def prs_with_content():
     """Presentation avec une slide contenant du contenu."""
     prs, layouts = create_presentation()
-    slide = new_slide(prs, layouts, layout_name="titre_contenu",
-                      titre="Slide test a11y", page_num=1)
+    slide = new_slide(
+        prs, layouts, layout_name="titre_contenu", titre="Slide test a11y", page_num=1
+    )
     add_callout(slide, "Rappel", ["Point important"], top=TOP_CONTENT)
     add_notes(slide, "Notes du presentateur")
     return prs
@@ -63,7 +65,10 @@ class TestMarkDecoratives:
 
         shape = slide.shapes.add_shape(
             MSO_SHAPE.RECTANGLE,
-            Inches(0), Inches(0), Inches(1), Inches(1),
+            Inches(0),
+            Inches(0),
+            Inches(1),
+            Inches(1),
         )
         shape.name = "accent-decoratif-gauche"
         _mark_decoratives(slide)
@@ -71,6 +76,7 @@ class TestMarkDecoratives:
         cNvPr = shape._element.find(f".//{{{NSMAP_A}}}cNvPr")
         if cNvPr is None:
             from igpde_dsfr_components import NSMAP_P
+
             cNvPr = shape._element.find(f".//{{{NSMAP_P}}}cNvPr")
         assert cNvPr is not None
         assert cNvPr.get("descr") == ""
@@ -81,7 +87,10 @@ class TestMarkDecoratives:
 
         shape = slide.shapes.add_shape(
             MSO_SHAPE.RECTANGLE,
-            Inches(0), Inches(0), Inches(1), Inches(1),
+            Inches(0),
+            Inches(0),
+            Inches(1),
+            Inches(1),
         )
         shape.name = "contenu-principal"
         _mark_decoratives(slide)
@@ -109,19 +118,32 @@ class TestReorderShapes:
                 break
         if titre_idx is not None:
             # Tous les contenus apres le titre
-            for i, n in enumerate(names[titre_idx + 1:], titre_idx + 1):
+            for i, n in enumerate(names[titre_idx + 1 :], titre_idx + 1):
                 if "decoratif" in n.lower():
-                    for j, n2 in enumerate(names[i + 1:], i + 1):
-                        assert "decoratif" in n2.lower() or "pied" in n2.lower() \
-                            or "numero" in n2.lower() or "date" in n2.lower(), \
-                            f"Shape non-decoratif '{n2}' apres decoratif '{n}'"
+                    for j, n2 in enumerate(names[i + 1 :], i + 1):
+                        assert (
+                            "decoratif" in n2.lower()
+                            or "pied" in n2.lower()
+                            or "numero" in n2.lower()
+                            or "date" in n2.lower()
+                        ), f"Shape non-decoratif '{n2}' apres decoratif '{n}'"
 
 
 class TestFinalizePptx:
+    def test_normalisation_preserve_les_permissions(self, prs_with_content, tmp_path):
+        output = tmp_path / "test-mode.pptx"
+        prs_with_content.save(output)
+        output.chmod(0o640)
+
+        _normalize_extended_properties(output, slides=1, hidden_slides=0, notes=1)
+
+        assert stat.S_IMODE(output.stat().st_mode) == 0o640
+
     def test_sauvegarde_fichier(self, prs_with_content, tmp_path):
         output = tmp_path / "test-output.pptx"
-        result = finalize_pptx(prs_with_content, str(output),
-                               title="Test", author="Test")
+        result = finalize_pptx(
+            prs_with_content, str(output), title="Test", author="Test"
+        )
         assert output.exists()
         assert output.stat().st_size > 0
         assert str(result) == str(output)
@@ -130,12 +152,35 @@ class TestFinalizePptx:
         from pptx import Presentation as PrsLoad
 
         output = tmp_path / "test-props.pptx"
-        finalize_pptx(prs_with_content, str(output),
-                      title="Mon titre", author="Alex", subject="A11y")
+        finalize_pptx(
+            prs_with_content,
+            str(output),
+            title="Mon titre",
+            author="Alex",
+            subject="A11y",
+        )
         prs_reload = PrsLoad(str(output))
         assert prs_reload.core_properties.title == "Mon titre"
         assert prs_reload.core_properties.author == "Alex"
         assert prs_reload.core_properties.subject == "A11y"
+        assert prs_reload.core_properties.last_modified_by == "Alex"
+        assert prs_reload.core_properties.modified >= datetime(2026, 1, 1)
+
+    def test_compteurs_etendus_correspondent_au_contenu(
+        self, prs_with_content, tmp_path
+    ):
+        output = tmp_path / "test-compteurs.pptx"
+
+        finalize_pptx(prs_with_content, str(output), author="Alex")
+
+        namespace = {
+            "ep": "http://schemas.openxmlformats.org/officeDocument/2006/extended-properties"
+        }
+        with zipfile.ZipFile(output) as package:
+            app = etree.fromstring(package.read("docProps/app.xml"))
+        assert app.findtext("ep:Slides", namespaces=namespace) == "1"
+        assert app.findtext("ep:HiddenSlides", namespaces=namespace) == "0"
+        assert app.findtext("ep:Notes", namespaces=namespace) == "1"
 
     def test_lang_appliquee_sur_runs(self, prs_with_content, tmp_path):
         from pptx import Presentation as PrsLoad

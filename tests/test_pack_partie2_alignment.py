@@ -1,12 +1,18 @@
 """Cohérence finale du pack avec le TP Sami organisé en stations."""
 
+import sys
 from pathlib import Path
 
 from docx import Document
 
 
 ROOT = Path(__file__).parent.parent
-PACK = ROOT / "livrables-IGPDE-2026-102846"
+sys.path.insert(0, str(ROOT / "scripts"))
+
+from config import load_formation_config  # noqa: E402
+
+
+PACK = ROOT / load_formation_config()["livrables"]
 ADMIN = PACK / "Formateur" / "documents-administratifs-igpde"
 TP_WORD = PACK / "Formateur" / "tp-word-igpde"
 

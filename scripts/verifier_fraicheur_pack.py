@@ -11,11 +11,15 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
-from config import load_formation_config
+from config import DEFAULT_CONFIG_PATH, load_formation_config
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 LIVRABLES = load_formation_config()["livrables"]
+try:
+    CONFIG_SOURCE = str(DEFAULT_CONFIG_PATH.resolve().relative_to(PROJECT_ROOT))
+except ValueError:
+    CONFIG_SOURCE = str(DEFAULT_CONFIG_PATH.resolve())
 
 
 @dataclass(frozen=True)
@@ -50,7 +54,7 @@ RESSOURCES_GENEREES = (
             "scripts/generate_exercice_sami.py",
             "scripts/exercice_sami_matrice.py",
             "scripts/config.py",
-            "config.yml",
+            CONFIG_SOURCE,
             "_source/exercice-sami-matrice.yml",
         ),
         sorties=(
@@ -67,7 +71,7 @@ RESSOURCES_GENEREES = (
             "scripts/fabriquer_pack.py",
             "scripts/pack_supports.py",
             "scripts/config.py",
-            "config.yml",
+            CONFIG_SOURCE,
             "vendor/accessible-pdf/scripts/md2pdf.py",
             "vendor/accessible-pdf/templates/formation.css",
             "fiche-pratique/bandeau-igpde-logos.jpg",
@@ -83,7 +87,7 @@ RESSOURCES_GENEREES = (
         sources=(
             "scripts/generate_grille_audit.py",
             "scripts/config.py",
-            "config.yml",
+            CONFIG_SOURCE,
         ),
         sorties=(
             "03-easy-checks/grille-audit-easy-checks.xlsx",
@@ -97,12 +101,21 @@ RESSOURCES_GENEREES = (
             "scripts/generate_wcag_langage_clair.py",
             "scripts/igpde_dsfr_components.py",
             "scripts/config.py",
-            "config.yml",
+            CONFIG_SOURCE,
+            "_assets/qr-wcag-plain-english.png",
             "_source/presentations-source/PPT-IGPDE-DSFR-base-intervenant.pptx",
         ),
         sorties=("wcag/WCAG en langage clair - condensé.pptx",),
     ),
 )
+
+
+def _chemin_affichable(racine: Path, chemin: Path) -> str:
+    """Affiche un chemin relatif à l'usine, ou absolu s'il est extérieur."""
+    try:
+        return str(chemin.relative_to(racine))
+    except ValueError:
+        return str(chemin)
 
 
 def verifier_fraicheur(
@@ -116,7 +129,9 @@ def verifier_fraicheur(
         sorties = [racine / chemin for chemin in ressource.sorties]
         manquantes = [chemin for chemin in sources + sorties if not chemin.is_file()]
         if manquantes:
-            noms = ", ".join(str(chemin.relative_to(racine)) for chemin in manquantes)
+            noms = ", ".join(
+                _chemin_affichable(racine, chemin) for chemin in manquantes
+            )
             problemes.append(
                 f"{ressource.nom} : fichier absent ({noms}) ; lancer {ressource.commande}"
             )
@@ -130,10 +145,11 @@ def verifier_fraicheur(
         ]
         if sorties_obsoletes:
             noms = ", ".join(
-                str(chemin.relative_to(racine)) for chemin in sorties_obsoletes
+                _chemin_affichable(racine, chemin) for chemin in sorties_obsoletes
             )
             problemes.append(
-                f"{ressource.nom} : plus ancien que {source_recente.relative_to(racine)} "
+                f"{ressource.nom} : plus ancien que "
+                f"{_chemin_affichable(racine, source_recente)} "
                 f"({noms}) ; lancer {ressource.commande}"
             )
     return problemes

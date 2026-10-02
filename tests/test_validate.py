@@ -65,7 +65,9 @@ def site_minimal(tmp_path, monkeypatch):
         if include_nojekyll:
             (docs / ".nojekyll").touch()
 
-        (docs / "index.html").write_text('<html lang="fr"><body></body></html>', encoding="utf-8")
+        (docs / "index.html").write_text(
+            '<html lang="fr"><body></body></html>', encoding="utf-8"
+        )
         for number in range(8):
             (docs / f"annexe-{number}.html").write_text(
                 '<html lang="fr"><body></body></html>', encoding="utf-8"
@@ -76,7 +78,12 @@ def site_minimal(tmp_path, monkeypatch):
                 path.parent.mkdir(parents=True, exist_ok=True)
                 content = ['<html lang="fr"><body>']
                 if variant == "site-aide-correction":
-                    content.extend(['<h2 id="help-title">Aide</h2>', '<h1 id="content-title">Contenu</h1>'])
+                    content.extend(
+                        [
+                            '<h2 id="help-title">Aide</h2>',
+                            '<h1 id="content-title">Contenu</h1>',
+                        ]
+                    )
                 elif page_id != "ec06-keyboard-focus" or variant == "site-accessible":
                     content.append('<h1 id="content-title">Contenu</h1>')
                 if page_id == "ec06-keyboard-focus" and variant != "site-accessible":
@@ -118,6 +125,18 @@ def test_refuse_un_lien_local_qui_sort_de_docs(site_minimal):
     )
 
     with pytest.raises(ValueError, match="hors de docs"):
+        validate.validate_docs()
+
+
+def test_refuse_un_lien_markdown_absent_de_la_publication(site_minimal):
+    docs = site_minimal()
+    page = docs / "index.html"
+    page.write_text(
+        '<html lang="fr"><body><a href="manifest.md">Manifeste</a></body></html>',
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="Markdown non publié"):
         validate.validate_docs()
 
 

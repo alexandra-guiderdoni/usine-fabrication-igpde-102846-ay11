@@ -54,7 +54,7 @@ Le flux est volontairement à sens unique : les pages modifiées dans `docs/` so
 | Orchestrateur local | Application en ligne de commande : `make` et le `Makefile` | Choisit l'interpréteur, enchaîne les cibles et porte les points d'entrée de l'usine. | Reçoit `make deck`, `make pack`, `make verifier`, `make publier-site` et les autres cibles ; lance les scripts Python. |
 | Assembleur de deck | Application Python en ligne de commande : `scripts/assemble.py` | Découvre les modules, construit toutes les slides, applique les composants IGPDE-DSFR et finalise le PPTX. | Lit la configuration, le gabarit et les modules ; écrit le deck de travail puis le deck du pack par `make deck`. |
 | Fabrication des ressources du pack | Applications Python : `scripts/fabriquer_pack.py` et `scripts/pack_supports.py` | Copie le deck complet, produit les PDF autorisés, prépare la démo hors ligne et rassemble les supports. | Lit les sources, les DOCX Sami et le deck complet ; écrit dans `livrables-IGPDE-2026-102846/`. |
-| Vérification et recette | Commandes locales : `pytest`, `validate.py`, hooks Git, QA PPTX et ShipGuard | Détecte les régressions de dépôt, de site, de géométrie et de rendu avant livraison ou publication. | Lit les sources et les livrables ; écrit, selon la commande, les rapports sous `.qa/` ou `recette/reports/`. |
+| Vérification et recette | Commandes locales : `pytest`, `validate.py`, hooks Git, QA PPTX et ShipGuard | Détecte les régressions de dépôt, de site, de géométrie et de rendu avant livraison ou publication. | Lit les sources et les livrables ; écrit, selon la commande, les rapports sous `.qa/` ou `recette/visual-tests/_results/`. |
 | Publication du site | Procédure locale portée par `make publier-site` | Valide la source du site, effectue sa synchronisation, copie les trois fichiers racine de publication puis pousse la copie vers le dépôt des TP. | Lit `docs/` et `publication-site/` ; écrit uniquement dans le clone de publication et avance le clone de consultation. |
 | Sources versionnées | Stockage de fichiers Git | Conserve les paramètres, contenus, scripts, gabarits, tests, recette et ressources nécessaires à la fabrication. | Inclut notamment `config.yml`, `scripts/`, `docs/`, `_source/`, `fiche-pratique/`, `wcag/`, `03-easy-checks/` et le corpus préparatoire. |
 | Pack de livraison | Stockage de fichiers versionné | Réunit les livrables destinés à l'IGPDE. | Dossier `livrables-IGPDE-2026-102846/`, alimenté par les commandes de fabrication. |
@@ -89,12 +89,12 @@ Le générateur PDF contenu dans `vendor/` est une bibliothèque appelée par la
 |---|---|---|
 | Préparer l'environnement | `make installer` | Crée `.venv` depuis `requirements.lock` et active les hooks versionnés. |
 | Générer le deck | `make deck` | Deck complet à la racine, avec total calculé depuis les modules, puis copie dans le pack. |
-| Générer les dépendances ciblées | `make sami`, `make grille`, `make wcag` | Ressources Sami, grille XLSX ou deck WCAG avant un pack si leurs sources ont changé. |
+| Générer les dépendances ciblées | `make sami`, `make checklist`, `make grille`, `make wcag` | Ressources Sami, checklists, grille XLSX ou deck WCAG avant un pack si leurs sources ont changé. |
 | Fabriquer les documents et supports | `make pdf`, `make supports`, `make pack` | PDF/UA-1 contrôlés, démo hors ligne, documents du pack et deck copié. |
 | Vérifier | `make verifier`, puis si nécessaire `make qa` et `make recette` | Tests, validation du site, contrôles Git, QA de deck et recette visuelle. |
 | Publier le site | `make publier-site` | Validation, synchronisation, commit et push dans le dépôt des TP. |
 
-`make pack` relance le deck et la fabrication du pack, mais ne régénère pas les documents Sami, la grille ni le deck WCAG. Ces trois cibles doivent donc être lancées au préalable lorsque leurs sources ont changé.
+`make pack` relance les PDF, le contrôle de fraîcheur, le deck et la fabrication du pack, mais ne régénère pas les documents Sami, la checklist DOCX, la grille ni le deck WCAG. Ces quatre cibles doivent donc être lancées au préalable lorsque leurs sources ont changé.
 
 ## C3 - Composants de l'assembleur de deck
 
@@ -137,10 +137,10 @@ La reconstruction du gabarit n'appartient pas au chemin normal : `scripts/rebuil
 
 ```text
 1. Le mainteneur modifie une source versionnée.
-2. Si nécessaire, il régénère Sami, la grille ou le deck WCAG.
-3. `make deck` lance l'assembleur ; celui-ci charge la configuration,
+2. Si nécessaire, il régénère Sami, les checklists, la grille ou le deck WCAG.
+3. `make pack` régénère les PDF, puis contrôle la fraîcheur des ressources.
+4. `make deck`, appelé par `make pack`, lance l'assembleur ; celui-ci charge la configuration,
    trie les modules, compose les slides et exécute `finalize_pptx()`.
-4. `make pack` relance le deck puis appelle la fabrication du pack.
 5. La fabrication refuse un deck partiel et compare le contenu OOXML
    avant de remplacer la copie livrée.
 6. Les PDF ne remplacent le livrable précédent que lorsqu'ils déclarent PDF/UA-1.

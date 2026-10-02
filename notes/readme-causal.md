@@ -4,7 +4,7 @@
 
 ## En bref
 
-Support de formation accessibilité numérique d'une journée, destiné aux communicants de l'administration (pas aux développeurs). Le projet produit un deck PPTX de 138 slides conformes au Design System de l'État (DSFR), un site d'exercices « points de contrôle rapides » W3C, un exercice sur document Word (Sami, 21 critères), une grille d'audit XLSX et des fiches PDF accessibles. Le deck est entièrement généré par des scripts Python : on n'édite jamais le PPTX à la main.
+Support de formation accessibilité numérique d'une journée, destiné aux communicants de l'administration (pas aux développeurs). Le projet produit un deck PPTX dont le total est calculé à la fabrication, un site d'exercices « points de contrôle rapides » W3C, un TP Word guidé en cinq stations, une grille d'audit XLSX et des fiches PDF accessibles. Le deck est entièrement généré par des scripts Python : on n'édite jamais le PPTX à la main.
 
 Depuis le 2026-09-27, le projet vit dans ce dépôt autonome, l'usine, qui est sa seule source de référence. Le site d'exercice est publié depuis `docs/` sur un dépôt séparé (voir `PUBLIER-SITE.md`).
 
@@ -45,7 +45,7 @@ Ces cinq contraintes simultanées excluent les alternatives : un générateur Ma
 **Pattern** : pipeline programmatique à trois couches. Un assembleur orchestre des modules de contenu qui consomment une bibliothèque de composants DSFR, et un post-traitement garantit l'accessibilité.
 
 - **`scripts/assemble.py`** (orchestrateur) répond à la contrainte de reproductibilité. Il découvre les modules `scripts/slides/*.py` par tri alphabétique, les exécute avec un contexte injecté (`page_num`, `date`, `footer_base`, tirés de `config.yml`) et appelle `finalize_pptx()` en sortie.
-- **`scripts/slides/`** (138 modules) répond à la contrainte de modularité. Chaque module expose `build(prs, layouts, ctx)` ; le suffixe alphabétique (`02ma_`) permet d'intercaler une slide sans renuméroter.
+- **`scripts/slides/`** répond à la contrainte de modularité. Chaque module expose `build(prs, layouts, ctx)` ; le suffixe alphabétique (`02ma_`) permet d'intercaler une slide sans renuméroter.
 - **`scripts/igpde_dsfr_components.py`** répond à la contrainte de cohérence DSFR : palette, grille IGPDE (13,33" x 7,5"), composants de composition (`add_callout`, `add_alert`, `add_stepper`, etc.), positionnement vertical (`Stack`, `_safe_top`, estimateurs de hauteur).
 - **`finalize_pptx()`** répond à la contrainte d'accessibilité : réordonnancement des formes (titre, contenu, pied de page, décoratifs), `lang=fr-FR` sur chaque run, alt text vide sur les décoratifs, métadonnées, retrait de la quarantaine macOS.
 - **Le gabarit** `_source/presentations-source/PPT-IGPDE-DSFR-base-intervenant.pptx` a d'abord été produit par `scripts/build_template.py` (mise à l'échelle 10" vers 13,33" et DSFRisation), dont la source IGPDE native n'est plus dans le dépôt. Pour le reconstruire aujourd'hui : `scripts/rebuild_template_from_demo.py` (voir `AGENTS.md`).
@@ -87,5 +87,5 @@ Ces cinq contraintes simultanées excluent les alternatives : un générateur Ma
 - Réexport du deck : `REEXPORTER-DECK-PPTX.md`
 - Publication du site : `PUBLIER-SITE.md`
 - Contraintes, leçons, suivi : `contraintes.md`, `lessons.md`, `todo.md`
-- Exercice Sami : `_source/exercice-sami-spec.md`
+- Exercice Sami : `_source/exercice-sami-matrice.yml`
 - Passations de mai 2026 (historique) : `_source/passation-session-2026-05-03.md`, `_source/passation-session-2026-05-04.md`

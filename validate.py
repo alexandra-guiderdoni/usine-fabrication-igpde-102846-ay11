@@ -114,7 +114,9 @@ def validate_contract() -> list[dict]:
     for page in pages:
         missing = sorted(required - set(page))
         if missing:
-            raise ValueError(f"{page.get('id', 'page inconnue')}: champs manquants {missing}")
+            raise ValueError(
+                f"{page.get('id', 'page inconnue')}: champs manquants {missing}"
+            )
         for key in ("hint", "problem", "fix"):
             if key not in page["help"]:
                 raise ValueError(f"{page['id']}: help.{key} manquant")
@@ -137,8 +139,7 @@ def validate_docs(contract_pages: list[dict] | None = None) -> None:
     ]
     for variant in ("site-inaccessible", "site-aide-correction", "site-accessible"):
         required_files.extend(
-            DOCS / variant / f"{page['id']}.html"
-            for page in contract_pages
+            DOCS / variant / f"{page['id']}.html" for page in contract_pages
         )
     for file in required_files:
         if not file.exists():
@@ -151,6 +152,7 @@ def validate_docs(contract_pages: list[dict] | None = None) -> None:
     docs_root = DOCS.resolve()
     missing: list[tuple[Path, str]] = []
     outside_docs: list[tuple[Path, str]] = []
+    unpublished_markdown: list[tuple[Path, str]] = []
     missing_anchors: list[tuple[Path, str]] = []
     target_ids: dict[Path, set[str]] = {}
     bad_refs: list[tuple[Path, str]] = []
@@ -163,6 +165,8 @@ def validate_docs(contract_pages: list[dict] | None = None) -> None:
             path = (file.parent / value).resolve()
             if not path.is_relative_to(docs_root):
                 outside_docs.append((file, value))
+            elif path.suffix.lower() == ".md":
+                unpublished_markdown.append((file, value))
             elif not path.exists():
                 missing.append((file, value))
             elif fragment and path.suffix == ".html":
@@ -178,6 +182,11 @@ def validate_docs(contract_pages: list[dict] | None = None) -> None:
     if outside_docs:
         details = "\n".join(f"{file}: {value}" for file, value in outside_docs[:20])
         raise ValueError(f"Références locales hors de docs détectées:\n{details}")
+    if unpublished_markdown:
+        details = "\n".join(
+            f"{file}: {value}" for file, value in unpublished_markdown[:20]
+        )
+        raise ValueError(f"Liens vers du Markdown non publié détectés:\n{details}")
     if missing:
         details = "\n".join(f"{file}: {value}" for file, value in missing[:20])
         raise FileNotFoundError(f"Liens ou assets locaux manquants:\n{details}")
@@ -201,15 +210,21 @@ def validate_docs(contract_pages: list[dict] | None = None) -> None:
         parser = LinkParser(file)
         parser.feed(text)
         if parser.html_lang != "fr":
-            accessible_errors.append(f"{file}: lang attendu fr, trouvé {parser.html_lang!r}")
+            accessible_errors.append(
+                f"{file}: lang attendu fr, trouvé {parser.html_lang!r}"
+            )
         for fragment in parser.fragments:
             if fragment and fragment not in parser.ids:
                 accessible_errors.append(f"{file}: ancre locale absente #{fragment}")
         for marker in forbidden_accessible_markers:
             if marker in text:
-                accessible_errors.append(f"{file}: marqueur interdit en version accessible: {marker}")
+                accessible_errors.append(
+                    f"{file}: marqueur interdit en version accessible: {marker}"
+                )
         if parser.images_without_alt:
-            accessible_errors.append(f"{file}: image(s) sans alt: {', '.join(parser.images_without_alt)}")
+            accessible_errors.append(
+                f"{file}: image(s) sans alt: {', '.join(parser.images_without_alt)}"
+            )
     if accessible_errors:
         details = "\n".join(accessible_errors[:30])
         raise ValueError(f"Contrôles version accessible en échec:\n{details}")
@@ -224,7 +239,9 @@ def validate_docs(contract_pages: list[dict] | None = None) -> None:
         elif content_pos == -1:
             help_errors.append(f"{file}: contenu principal de l'exercice absent")
         elif help_pos > content_pos:
-            help_errors.append(f"{file}: l'aide doit être placée avant le contenu d'exercice")
+            help_errors.append(
+                f"{file}: l'aide doit être placée avant le contenu d'exercice"
+            )
     if help_errors:
         details = "\n".join(help_errors[:30])
         raise ValueError(f"Contrôles version aide à la correction en échec:\n{details}")
@@ -242,17 +259,29 @@ def validate_docs(contract_pages: list[dict] | None = None) -> None:
         text = (DOCS / variant / "ec06-keyboard-focus.html").read_text(encoding="utf-8")
         for snippet in ec06_bad_snippets:
             if snippet not in text:
-                ec06_errors.append(f"{variant}/ec06-keyboard-focus.html: piège clavier attendu absent: {snippet}")
+                ec06_errors.append(
+                    f"{variant}/ec06-keyboard-focus.html: piège clavier attendu absent: {snippet}"
+                )
 
-    accessible_ec06 = (DOCS / "site-accessible" / "ec06-keyboard-focus.html").read_text(encoding="utf-8")
+    accessible_ec06 = (DOCS / "site-accessible" / "ec06-keyboard-focus.html").read_text(
+        encoding="utf-8"
+    )
     if 'tabindex="-1">Publier la session' in accessible_ec06:
-        ec06_errors.append("site-accessible/ec06-keyboard-focus.html: le bouton Publier ne doit pas être retiré de l'ordre de tabulation")
+        ec06_errors.append(
+            "site-accessible/ec06-keyboard-focus.html: le bouton Publier ne doit pas être retiré de l'ordre de tabulation"
+        )
     if 'href="ec12-form-labels.html" tabindex="-1"' in accessible_ec06:
-        ec06_errors.append("site-accessible/ec06-keyboard-focus.html: le lien Vérifier le formulaire doit rester dans l'ordre de tabulation")
+        ec06_errors.append(
+            "site-accessible/ec06-keyboard-focus.html: le lien Vérifier le formulaire doit rester dans l'ordre de tabulation"
+        )
     if 'href="#participants-notification" tabindex="-1"' in accessible_ec06:
-        ec06_errors.append("site-accessible/ec06-keyboard-focus.html: le lien Prévenir les participants doit rester dans l'ordre de tabulation")
+        ec06_errors.append(
+            "site-accessible/ec06-keyboard-focus.html: le lien Prévenir les participants doit rester dans l'ordre de tabulation"
+        )
     if "demo-modal-keyboard-trap" in accessible_ec06:
-        ec06_errors.append("site-accessible/ec06-keyboard-focus.html: la modale corrigée ne doit pas contenir le piège clavier")
+        ec06_errors.append(
+            "site-accessible/ec06-keyboard-focus.html: la modale corrigée ne doit pas contenir le piège clavier"
+        )
     if ec06_errors:
         details = "\n".join(ec06_errors[:30])
         raise ValueError(f"Contrôles spécifiques EC06 en échec:\n{details}")

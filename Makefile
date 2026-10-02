@@ -3,6 +3,7 @@
 
 PYTHON ?= $(shell if [ -x .venv/bin/python ]; then echo .venv/bin/python; elif [ -x /opt/homebrew/bin/python3.12 ]; then echo /opt/homebrew/bin/python3.12; else echo python3; fi)
 CONFIG ?= config.yml
+export FORMATION_CONFIG := $(abspath $(CONFIG))
 ifneq ($(strip $(MAKECMDGOALS)),installer)
 LIVRABLES := $(shell $(PYTHON) scripts/config.py --config "$(CONFIG)" --value livrables)
 ifeq ($(strip $(LIVRABLES)),)

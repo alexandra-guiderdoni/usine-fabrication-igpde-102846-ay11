@@ -18,6 +18,7 @@ import sys
 import urllib.request
 import zipfile
 from pathlib import Path
+from xml.etree import ElementTree
 
 from config import load_formation_config
 import pack_supports
@@ -113,7 +114,17 @@ def nombre_slides(pptx):
 def contenu_deck(pptx):
     # Compare les parties, pas les octets : l'archive date chaque régénération.
     with zipfile.ZipFile(pptx) as archive:
-        return {nom: archive.read(nom) for nom in archive.namelist()}
+        parties = {}
+        for nom in archive.namelist():
+            contenu = archive.read(nom)
+            if nom == "docProps/core.xml":
+                racine = ElementTree.fromstring(contenu)
+                date_modification = racine.find("{http://purl.org/dc/terms/}modified")
+                if date_modification is not None:
+                    date_modification.text = ""
+                contenu = ElementTree.tostring(racine, encoding="utf-8")
+            parties[nom] = contenu
+        return parties
 
 
 def deck():

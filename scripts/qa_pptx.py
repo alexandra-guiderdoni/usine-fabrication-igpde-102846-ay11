@@ -104,6 +104,10 @@ def run_loop(
 
         geometry = _run_geometry_tests(project_root, deck_path)
         commands.append(geometry)
+        if not geometry.ok:
+            status = "GEOMETRY_TESTS_FAILED"
+            iterations.append(_failed_iteration(index, commands, status))
+            break
 
         qa_report_path = project_root / QA_REPORT_PATH
         if not qa_report_path.exists():
@@ -275,7 +279,9 @@ def _run_command(
     )
 
 
-def _failed_iteration(index: int, commands: list[CommandResult], status: str) -> Iteration:
+def _failed_iteration(
+    index: int, commands: list[CommandResult], status: str
+) -> Iteration:
     return Iteration(
         index=index,
         report_summary={},
@@ -286,7 +292,9 @@ def _failed_iteration(index: int, commands: list[CommandResult], status: str) ->
     )
 
 
-def _snapshot_patch_targets(project_root: Path, corrections: dict[str, Any]) -> dict[Path, str]:
+def _snapshot_patch_targets(
+    project_root: Path, corrections: dict[str, Any]
+) -> dict[Path, str]:
     snapshots: dict[Path, str] = {}
     for action in corrections.get("actions", []):
         if action.get("decision") != "PATCH_SAFE":
@@ -315,7 +323,9 @@ def _load_json(path: Path) -> dict[str, Any]:
 
 def _write_json(path: Path, data: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
 
 
 def _resolve(project_root: Path, path: Path) -> Path:
@@ -357,27 +367,36 @@ def _markdown_report(result: dict[str, Any]) -> str:
                 hash=fingerprint_hash[:12],
             )
         )
-    lines.extend([
-        "",
-        "## Sorties",
-        "",
-        f"- Rapport QA : `{result['outputs']['qa_report']}`",
-        f"- Correcteur JSON : `{result['outputs']['qa_corrections_json']}`",
-        f"- Correcteur Markdown : `{result['outputs']['qa_corrections_md']}`",
-        f"- Rapport boucle JSON : `{result['outputs']['run_json']}`",
-        "",
-        "## Commandes",
-        "",
-    ])
+    lines.extend(
+        [
+            "",
+            "## Sorties",
+            "",
+            f"- Rapport QA : `{result['outputs']['qa_report']}`",
+            f"- Correcteur JSON : `{result['outputs']['qa_corrections_json']}`",
+            f"- Correcteur Markdown : `{result['outputs']['qa_corrections_md']}`",
+            f"- Rapport boucle JSON : `{result['outputs']['run_json']}`",
+            "",
+            "## Commandes",
+            "",
+        ]
+    )
     for iteration in result["iterations"]:
         lines.append(f"### Itération {iteration['index']}")
         for command in iteration.get("commands", []):
             rendered = " ".join(command["command"])
-            lines.append(f"- `{command['name']}` exit={command['returncode']} : `{rendered}`")
+            lines.append(
+                f"- `{command['name']}` exit={command['returncode']} : `{rendered}`"
+            )
     return "\n".join(lines) + "\n"
 
 
-def main() -> None:
+def status_exit_code(status: str) -> int:
+    """Retourne zéro uniquement lorsque la boucle QA a convergé."""
+    return 0 if status == "CONVERGED" else 1
+
+
+def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("project", nargs="?", type=Path, default=PROJECT_ROOT)
     parser.add_argument("--max-iterations", type=int, default=5)
@@ -421,7 +440,8 @@ def main() -> None:
             f"new={summary.get('new', '')} total={summary.get('total', '')} "
             f"by_type={summary.get('new_by_type', {})}"
         )
+    return status_exit_code(result["status"])
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

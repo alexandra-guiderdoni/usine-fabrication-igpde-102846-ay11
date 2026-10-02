@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import subprocess
 import sys
 from pathlib import Path
 
@@ -71,6 +72,71 @@ def test_la_matrice_est_une_source_du_controle_de_fraicheur_sami():
     )
 
     assert "_source/exercice-sami-matrice.yml" in sami.sources
+
+
+def test_le_qr_code_est_une_source_du_deck_wcag():
+    wcag = next(
+        resource
+        for resource in RESSOURCES_GENEREES
+        if resource.nom == "deck WCAG condensé"
+    )
+
+    assert "_assets/qr-wcag-plain-english.png" in wcag.sources
+
+
+def test_la_fraicheur_suit_le_fichier_de_configuration_alternatif(tmp_path):
+    config_path = tmp_path / "session.yml"
+    config_path.write_text(
+        """formation:
+  code: "999999"
+  date: 9 octobre 2026
+  footer: Formation alternative
+  output: deck-alternatif.pptx
+  livrables: pack-alternatif
+  site_url: https://example.test/alternative/
+""",
+        encoding="utf-8",
+    )
+    env = os.environ.copy()
+    env["FORMATION_CONFIG"] = str(config_path)
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            "import verifier_fraicheur_pack as v; "
+            "print(v.LIVRABLES); "
+            "print(next(r for r in v.RESSOURCES_GENEREES "
+            "if r.nom == 'checklists Sami').sources)",
+        ],
+        cwd=PROJECT_ROOT / "scripts",
+        env=env,
+        capture_output=True,
+        encoding="utf-8",
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert "pack-alternatif" in result.stdout
+    assert str(config_path) in result.stdout
+
+
+def test_signale_une_source_de_configuration_exterieure_sans_erreur(tmp_path):
+    racine = tmp_path / "projet"
+    source = _ecrire(tmp_path, "session.yml", "source", 3_000_000_000)
+    _ecrire(racine, "sortie.txt", "sortie", 1_000_000_000)
+    ressource = RessourceGeneree(
+        nom="configuration extérieure",
+        commande="make sortie",
+        sources=(str(source),),
+        sorties=("sortie.txt",),
+    )
+
+    problemes = verifier_fraicheur(racine, (ressource,))
+
+    assert problemes == [
+        f"configuration extérieure : plus ancien que {source} "
+        "(sortie.txt) ; lancer make sortie"
+    ]
 
 
 def test_les_checklists_sont_soumises_au_controle_de_fraicheur():

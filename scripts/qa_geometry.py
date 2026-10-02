@@ -20,7 +20,12 @@ NSMAP_P = "http://schemas.openxmlformats.org/presentationml/2006/main"
 LAYOUT_PATTERNS = {"espace réservé", "placeholder", "title 1"}
 
 DECORATIVE_PATTERNS = {
-    "decorat", "accent", "logo", "ligne", "separator", "connecteur",
+    "decorat",
+    "accent",
+    "logo",
+    "ligne",
+    "separator",
+    "connecteur",
 }
 
 FOOTER_EXTRA_EXCL = {"qrcode", "qr-code"}
@@ -44,6 +49,7 @@ ACCENT_TERMS = {
     "conformite": "conformité",
     "critere": "critère",
     "criteres": "critères",
+    "cloture": "clôture",
     "decrire": "décrire",
     "decrit": "décrit",
     "decrite": "décrite",
@@ -52,18 +58,22 @@ ACCENT_TERMS = {
     "deficiences": "déficiences",
     "donnee": "donnée",
     "donnees": "données",
+    "decrochage": "décrochage",
     "ecran": "écran",
     "ecrans": "écrans",
     "element": "élément",
     "elements": "éléments",
     "etiquette": "étiquette",
     "etiquettes": "étiquettes",
+    "enervement": "énervement",
     "evitement": "évitement",
     "general": "général",
     "legale": "légale",
     "legales": "légales",
     "methode": "méthode",
     "methodes": "méthodes",
+    "idee": "idée",
+    "justifies": "justifiés",
     "numerique": "numérique",
     "numeriques": "numériques",
     "redaction": "rédaction",
@@ -79,10 +89,14 @@ ACCENT_TERMS = {
     "thematiques": "thématiques",
     "video": "vidéo",
     "videos": "vidéos",
+    "acces a": "accès à",
+    "a empattement": "à empattement",
 }
 
 ACCENT_PATTERN = re.compile(
-    r"\b(" + "|".join(re.escape(term) for term in sorted(ACCENT_TERMS, key=len, reverse=True)) + r")\b",
+    r"\b("
+    + "|".join(re.escape(term) for term in sorted(ACCENT_TERMS, key=len, reverse=True))
+    + r")\b",
     re.IGNORECASE,
 )
 
@@ -116,7 +130,13 @@ def _rect_key(rect: dict[str, float]) -> str:
     )
 
 
-def _fingerprint(violation_type: str, slide_index: int, shape_name: str, rect: dict[str, float], detail: str) -> str:
+def _fingerprint(
+    violation_type: str,
+    slide_index: int,
+    shape_name: str,
+    rect: dict[str, float],
+    detail: str,
+) -> str:
     return (
         f"{violation_type}|slide={slide_index}|shape={shape_name}|"
         f"{_rect_key(rect)}|{detail}"
@@ -127,7 +147,9 @@ def _shape_text(shape: Any) -> str:
     if not getattr(shape, "has_text_frame", False):
         return ""
     try:
-        return "\n".join(paragraph.text for paragraph in shape.text_frame.paragraphs).strip()
+        return "\n".join(
+            paragraph.text for paragraph in shape.text_frame.paragraphs
+        ).strip()
     except Exception:
         return ""
 
@@ -139,7 +161,12 @@ def _text_excerpt(text: str, limit: int = 60) -> str:
 
 def _is_url_context(line: str) -> bool:
     lowered = line.lower()
-    return "http://" in lowered or "https://" in lowered or "www." in lowered or "@" in lowered
+    return (
+        "http://" in lowered
+        or "https://" in lowered
+        or "www." in lowered
+        or "@" in lowered
+    )
 
 
 def _base_violation(
@@ -159,13 +186,17 @@ def _base_violation(
         "rect": rect,
         "detail": detail,
         "message": message,
-        "fingerprint": _fingerprint(violation_type, slide_index, shape_name, rect, detail),
+        "fingerprint": _fingerprint(
+            violation_type, slide_index, shape_name, rect, detail
+        ),
     }
     data.update(extra)
     return data
 
 
-def _rects_overlap_2d(a: dict[str, float], b: dict[str, float], tol: float = 0.02) -> bool:
+def _rects_overlap_2d(
+    a: dict[str, float], b: dict[str, float], tol: float = 0.02
+) -> bool:
     v_overlap = (a["bottom"] > b["top"] + tol) and (b["bottom"] > a["top"] + tol)
     h_overlap = (a["right"] > b["left"] + tol) and (b["right"] > a["left"] + tol)
     return v_overlap and h_overlap
@@ -188,7 +219,7 @@ def _collect_footer(deck: Any) -> list[dict[str, Any]]:
                         shape,
                         rect,
                         detail,
-                        f"Slide {slide_index}: \"{shape.name}\" bottom={rect['bottom']:.3f}\" > {BOTTOM_CONTENT}\"",
+                        f'Slide {slide_index}: "{shape.name}" bottom={rect["bottom"]:.3f}" > {BOTTOM_CONTENT}"',
                     )
                 )
     return violations
@@ -216,9 +247,9 @@ def _collect_overlaps(deck: Any) -> list[dict[str, Any]]:
                         rect_a,
                         detail,
                         (
-                            f"Slide {slide_index}: box@({rect_a['top']:.2f}\","
-                            f"{rect_a['left']:.2f}\") vs box@({rect_b['top']:.2f}\","
-                            f"{rect_b['left']:.2f}\")"
+                            f'Slide {slide_index}: box@({rect_a["top"]:.2f}",'
+                            f'{rect_a["left"]:.2f}") vs box@({rect_b["top"]:.2f}",'
+                            f'{rect_b["left"]:.2f}")'
                         ),
                         other_shape_name=shape_b.name or "",
                         other_rect=rect_b,
@@ -251,7 +282,7 @@ def _collect_alt_text(deck: Any) -> list[dict[str, Any]]:
                         shape,
                         rect,
                         "missing_descr",
-                        f"Slide {slide_index}: image \"{shape.name}\" sans alt-text",
+                        f'Slide {slide_index}: image "{shape.name}" sans alt-text',
                     )
                 )
     return violations
@@ -287,7 +318,7 @@ def _collect_font_size(deck: Any) -> list[dict[str, Any]]:
                             shape,
                             rect,
                             detail,
-                            f"Slide {slide_index}: \"{shape.name}\" \"{txt}\" = {size_pt}pt",
+                            f'Slide {slide_index}: "{shape.name}" "{txt}" = {size_pt}pt',
                             size_pt=round(size_pt, 2),
                             text=txt,
                         )
@@ -304,11 +335,13 @@ def find_accent_issues(text: str) -> list[dict[str, str]]:
         for match in ACCENT_PATTERN.finditer(line):
             found = match.group(0)
             expected = ACCENT_TERMS[found.lower()]
-            issues.append({
-                "found": found,
-                "expected": expected,
-                "context": _text_excerpt(line),
-            })
+            issues.append(
+                {
+                    "found": found,
+                    "expected": expected,
+                    "context": _text_excerpt(line),
+                }
+            )
     return issues
 
 
@@ -321,7 +354,9 @@ def _collect_accents(deck: Any) -> list[dict[str, Any]]:
                 continue
             rect = _shape_rect(shape)
             for issue in find_accent_issues(text):
-                detail = f"{issue['found'].lower()}->{issue['expected']}:{issue['context']}"
+                detail = (
+                    f"{issue['found'].lower()}->{issue['expected']}:{issue['context']}"
+                )
                 violations.append(
                     _base_violation(
                         "accent_fr",
@@ -330,8 +365,8 @@ def _collect_accents(deck: Any) -> list[dict[str, Any]]:
                         rect,
                         detail,
                         (
-                            f"Slide {slide_index}: \"{shape.name}\" contient "
-                            f"\"{issue['found']}\" sans accent"
+                            f'Slide {slide_index}: "{shape.name}" contient '
+                            f'"{issue["found"]}" sans accent'
                         ),
                         found=issue["found"],
                         expected=issue["expected"],
@@ -407,7 +442,9 @@ def build_report(deck: Any, project_root: Path) -> dict[str, Any]:
     }
 
 
-def write_report(deck: Any, project_root: Path, report_path: Path | None = None) -> dict[str, Any]:
+def write_report(
+    deck: Any, project_root: Path, report_path: Path | None = None
+) -> dict[str, Any]:
     """Écrit `.qa/qa-report.json` et retourne le rapport."""
     report = build_report(deck, project_root)
     output = project_root / (report_path or REPORT_PATH)
@@ -419,7 +456,9 @@ def write_report(deck: Any, project_root: Path, report_path: Path | None = None)
     return report
 
 
-def _enrich_with_source_map(violations: list[dict[str, Any]], source_map: dict[str, Any] | None) -> int:
+def _enrich_with_source_map(
+    violations: list[dict[str, Any]], source_map: dict[str, Any] | None
+) -> int:
     if not source_map:
         return 0
     components = source_map.get("components", [])
@@ -457,6 +496,10 @@ def _find_component_for_violation(
     return None
 
 
-def _rect_close(a: dict[str, float], b: dict[str, float], tolerance: float = 0.011) -> bool:
+def _rect_close(
+    a: dict[str, float], b: dict[str, float], tolerance: float = 0.011
+) -> bool:
     keys = ("top", "left", "height", "width")
-    return all(abs(float(a.get(key, 0)) - float(b.get(key, 0))) <= tolerance for key in keys)
+    return all(
+        abs(float(a.get(key, 0)) - float(b.get(key, 0))) <= tolerance for key in keys
+    )

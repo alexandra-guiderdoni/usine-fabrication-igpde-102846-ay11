@@ -137,6 +137,4 @@ Généré depuis les noms de fichiers dans `scripts/slides/`.
 | 55r | checklist anticiper | `55r_checklist-anticiper.py` |
 | 55s | checklist rediger | `55s_checklist-rediger.py` |
 | 55t | checklist publier | `55t_checklist-publier.py` |
-| 55u | quiz cloture | `55u_quiz-cloture.py` |
-| 55v | plan action | `55v_plan-action.py` |
 | 55w | questions contact | `55w_questions-contact.py` |

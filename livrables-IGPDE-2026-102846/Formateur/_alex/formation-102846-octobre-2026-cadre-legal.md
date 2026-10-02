@@ -400,7 +400,7 @@ Formation 102846 / Module 1
 26
 Ses besoins au quotidien
 • Phrases courtes et simples, sans double négation
-• Mise en page aérée, une idee par paragraphe
+• Mise en page aérée, une idée par paragraphe
 • Pictogrammes pour accompagner le texte
 • Navigation prévisible, sans changements inattendus
 Comprendre
@@ -418,14 +418,14 @@ Formation 102846 / Module 1
 27
 Ses besoins au quotidien
 • Mettre en pause les animations (carrousels, vidéo autoplay)
-• Textes non justifies, avec un espacement suffisant
+• Textes non justifiés, avec un espacement suffisant
 • Polices lisibles, sans empattement (sans serif)
 • Mise en page aérée, paragraphes courts
 Comprendre + Percevoir
 Profil
 • Consulte quotidiennement des sites d'info pour ses revues de presse
 • Trouble de l'attention : les animations non contrôlables le déconcentrent
-• Dyslexie : le texte justifié et les polices a empattement ralentissent sa lecture
+• Dyslexie : le texte justifié et les polices à empattement ralentissent sa lecture
 9 octobre 2026
 Formation 102846 / Module 1
 
@@ -724,16 +724,16 @@ Formation 102846 / Module 1
 1. Q4 - Pourquoi | Droit et charte
 43
 Un droit, pas une faveur
-• Droit fondamental d'acces a l'information
+• Droit fondamental d'accès à l'information
 • Lutte contre la discrimination numérique
 • Inclusion dans la vie professionnelle et citoyenne
 Communication inaccessible
 Communication accessible
 Non compréhension
-Acces a l'information
-Frustration, enervement
+Accès à l'information
+Frustration, énervement
 Confiance en soi
-Decrochage
+Décrochage
 Autonomie
 Exclusion
 Inclusion sociale

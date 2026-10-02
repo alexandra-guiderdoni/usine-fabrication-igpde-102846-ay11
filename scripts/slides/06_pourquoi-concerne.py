@@ -72,9 +72,9 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Répondre au quiz de la slide précédente. Document B - mais les deux semblent "
-        "identiques à l'écran. Faire formuler le message : l'accessibilité ne se voit "
-        "pas, elle se manipule et se vérifie. 15 % = moyenne "
+        "Faire formuler le message : l'accessibilité ne se voit pas, elle se manipule "
+        "et se vérifie. Revenir sur les propriétés qui distinguent les deux documents. "
+        "15 % = moyenne "
         "nationale Source : OMS 2024. Le chiffre 0 ligne de code est le déclencheur de "
         "confiance : tout le monde peut le faire.",
     )

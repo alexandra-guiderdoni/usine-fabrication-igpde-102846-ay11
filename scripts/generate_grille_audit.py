@@ -181,91 +181,91 @@ EXERCICE_PAGES = [
     {
         "id": "ec01-images",
         "title": "Actualité illustrée",
-        "slides": "53-55",
+        "slides": "84-86",
         "recommended_sheet": "10. Article",
         "minimal_task": "Qualifier le rôle de chaque image puis vérifier si l'alternative transmet l'information ou l'action utile.",
     },
     {
         "id": "ec02-page-title",
         "title": "Résultats de recherche RGAA",
-        "slides": "56",
+        "slides": "87",
         "recommended_sheet": "8. Recherche",
         "minimal_task": "Vérifier que le titre de page identifie la requête, la pagination et le site dans un ordre utile.",
     },
     {
         "id": "ec03-headings",
         "title": "Guide du RGAA",
-        "slides": "57-58",
+        "slides": "88-89",
         "recommended_sheet": "10. Article",
         "minimal_task": "Comparer le plan visuel et le plan technique des titres.",
     },
     {
         "id": "ec04-contrast",
         "title": "Charte de publication",
-        "slides": "59-60",
+        "slides": "90-91",
         "recommended_sheet": "10. Article",
         "minimal_task": "Mesurer le contraste d'un texte, d'un lien, d'un bouton ou d'un statut.",
     },
     {
         "id": "ec05-skiplinks",
         "title": "Accès rapide aux contenus",
-        "slides": "61",
+        "slides": "92",
         "recommended_sheet": "1. Accueil",
         "minimal_task": "Appuyer sur Tab au chargement et vérifier la présence, la visibilité et la cible du lien d'évitement.",
     },
     {
         "id": "ec06-keyboard-focus",
         "title": "Parcours clavier",
-        "slides": "62-65",
+        "slides": "93-96",
         "recommended_sheet": "11. Formulaire",
         "minimal_task": "Parcourir la page au clavier : focus visible, ordre logique, activation clavier, absence de piège.",
     },
     {
         "id": "ec07-language",
         "title": "Atelier international",
-        "slides": "66",
+        "slides": "97",
         "recommended_sheet": "10. Article",
         "minimal_task": "Vérifier la langue principale et les changements de langue ou de sens de lecture.",
     },
     {
         "id": "ec08-zoom",
         "title": "Ressources à zoomer",
-        "slides": "67",
+        "slides": "98",
         "recommended_sheet": "12. Liste",
         "minimal_task": "Zoomer à 200 % et vérifier qu'aucun contenu utile n'est coupé, masqué ou inutilisable.",
     },
     {
         "id": "ec09-captions",
         "title": "Vidéo de sensibilisation",
-        "slides": "68-69",
+        "slides": "99-100",
         "recommended_sheet": "10. Article",
         "minimal_task": "Couper le son et vérifier la présence de sous-titres synchronisés et relus.",
     },
     {
         "id": "ec10-transcript",
         "title": "Écouter un podcast",
-        "slides": "70",
+        "slides": "101",
         "recommended_sheet": "10. Article",
         "minimal_task": "Vérifier qu'une transcription proche du lecteur permet de comprendre le contenu sans écouter l'audio.",
     },
     {
         "id": "ec11-audio-description",
         "title": "Démonstration vidéo",
-        "slides": "71",
+        "slides": "102",
         "recommended_sheet": "10. Article",
         "minimal_task": "Commencer par la version audiodécrite et vérifier quelles informations visuelles deviennent disponibles sans voir l'image.",
     },
     {
         "id": "ec12-form-labels",
         "title": "Inscription à un webinaire",
-        "slides": "72-74",
+        "slides": "105-107",
         "recommended_sheet": "11. Formulaire",
         "minimal_task": "Vérifier l'étiquette visible, son association au champ et les légendes des groupes.",
     },
     {
         "id": "ec13-required-errors",
         "title": "Formulaire de contact",
-        "slides": "75",
+        "slides": "108",
         "recommended_sheet": "5. Contact",
         "minimal_task": "Soumettre le formulaire et vérifier l'annonce des champs obligatoires et des erreurs.",
     },
@@ -1252,9 +1252,7 @@ def main():
     cp.creator = (
         "IGPDE - Institut de la Gestion publique et du Développement économique"
     )
-    cp.keywords = (
-        f"IGPDE, {FORMATION['code']}, accessibilité, RGAA, WCAG, points de contrôle rapides, audit"
-    )
+    cp.keywords = f"IGPDE, {FORMATION['code']}, accessibilité, RGAA, WCAG, points de contrôle rapides, audit"
     cp.language = "fr-FR"
 
     out = (

@@ -304,7 +304,7 @@ Les tickets seront rédigés en Markdown local après validation de ce PRD. Aucu
 - **Dérive entre sorties** : matrice canonique, égalité des identifiants et contrôle de fraîcheur étendu.
 - **Fausse confiance automatisée** : outils automatiques suivis d’une vérification humaine obligatoire.
 - **Document trop dense** : priorité au corps de 12 points, aux stations et à la divulgation progressive.
-- **Échéance proche** : la refonte vise la session du 9 octobre 2026 ; les générations restent dans le worktree et aucune sortie partielle n’est fusionnée dans `main` ni remise à l’IGPDE tant que toute la recette n’est pas obtenue.
+- **Échéance proche** : la refonte vise la session du 9 octobre 2026 ; T01 à T15 sont fusionnés dans `main`, mais aucune sortie ne doit être remise à l’IGPDE avant la recette finale T16.
 
 ## 16. Sources et ancrage
 
@@ -325,11 +325,11 @@ Source pédagogique inspectée : support Markdown Martine Sutra de juin 2025, no
 ## 17. Inconnues et portes de validation
 
 - Le rendu visuel du PPTX Martine n’a pas été réévalué pendant la rédaction de ce PRD ; il reste une référence humaine, pas une source mécanique.
-- Le mémo Writer actuel et les autres scripts individuels de la partie II n’ont pas fait l’objet d’une revue de contenu exhaustive ; ils doivent être inventoriés avant modification.
+- Les mémos et les scripts de la partie II ont été alignés sur la matrice canonique ; leurs procédures restent à rejouer sur les versions Windows installées.
 - Les chemins de menus n’ont pas été rejoués sur les versions installées de Word et Writer.
-- Aucun DOCX généré n’a encore été ouvert dans Word pour cette future version.
+- Les DOCX générés ont passé les contrôles structurels et une réouverture LibreOffice sans réparation ; leur recette dans Word bureau sous Windows reste à effectuer.
 - Le résultat PAC, le résultat du vérificateur Word et le minutage restent à produire pendant la réalisation.
-- Le choix technique exact pour rendre le graphique corrigeable reste ouvert, mais le résultat praticable est obligatoire.
+- La reconstruction du graphique à partir des valeurs visibles est décrite dans la matrice et les mémos ; sa manipulation réelle reste à vérifier sous Word et Writer.
 - La présence d’une option « Décoratif » dans Writer dépend de la version installée et doit être rejouée avant de figer la procédure.
 
 ## 18. PDG pass
@@ -342,5 +342,5 @@ Source pédagogique inspectée : support Markdown Martine Sutra de juin 2025, no
 - **Mauvais chemin** : retoucher directement le PPTX et les DOCX, conserver les 21 critères, ou déclarer la réussite sur un outil automatique.
 - **Garde-fou** : matrice canonique, tests négatifs, commandes réelles et preuves humaines Windows.
 - **Comportements préservés** : noms des trois DOCX, générateur Sami, composants DSFR-IGPDE, commandes de fabrication, autres parties de la formation et site d’exercice.
-- **Fichiers matériels non inspectés visuellement** : PPTX Martine, PPTX IGPDE, DOCX générés et PDF ; leurs rendus restent donc inconnus jusqu’à la recette humaine.
+- **Fichiers matériels contrôlés** : les sorties PPTX, DOCX et PDF ont passé les contrôles structurels automatisés ; la relecture complète sous Word et Writer Windows, le contrôle PAC et le minutage restent à produire pendant T16.
 - **Revue** : contre-revue Claude du cadrage obtenue avant rédaction ; cette passe finale reste un auto-contrôle PDG et nécessite la validation humaine du PRD.

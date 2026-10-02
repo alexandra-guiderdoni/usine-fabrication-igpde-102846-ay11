@@ -20,7 +20,7 @@ while IFS= read -r f; do
   [[ -f "$f" ]] || continue
   base="$(basename -- "$f")"
   case "$base" in
-    '~$'*) signaler "fichier de verrou Office : $f" ;;
+    '~$'*|.~lock.*\#) signaler "fichier de verrou Office : $f" ;;
     convocation-intervenants.pdf) signaler "convocation nominative, hors dépôt : $f" ;;
     *.msi|*.exe) signaler "installeur binaire, récupéré par make outils : $f" ;;
   esac

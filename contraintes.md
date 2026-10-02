@@ -86,9 +86,9 @@ Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les
 - **Date** : 2026-09-28
 - **Source** : `Makefile`, `AGENTS.md`.
 - **Statut** : active.
-- **Contrainte** : `make pack` vérifie d'abord avec `make fraicheur-pack` que les documents Sami, la grille XLSX et le deck WCAG ne sont ni absents ni plus anciens que leurs sources. Il régénère ensuite le deck, les PDF, les supports et vérifie les outils, sans relancer ces trois cibles.
+- **Contrainte** : `make pack` régénère les PDF, puis vérifie avec `make fraicheur-pack` que les documents Sami, les checklists, la grille XLSX et le deck WCAG ne sont ni absents ni plus anciens que leurs sources. Il régénère ensuite le deck, copie les supports et vérifie les outils, sans relancer `make sami`, `make checklist`, `make grille` ni `make wcag`.
 - **Impact** : aucun pack ne peut être construit avec une version silencieusement dépassée de ces ressources.
-- **Décision / prochaine vérification** : lorsque le contrôle bloque, exécuter uniquement la commande indiquée (`make sami`, `make grille` ou `make wcag`), vérifier son résultat, puis relancer `make pack`.
+- **Décision / prochaine vérification** : lorsque le contrôle bloque, exécuter uniquement la commande indiquée (`make sami`, `make checklist`, `make pdf`, `make grille` ou `make wcag`), vérifier son résultat, puis relancer `make pack`.
 - **Composants affectés** : `_source/`, `03-easy-checks/`, `wcag/`, `livrables-IGPDE-2026-102846/`.
 
 ## 3. Sources, livrables et patrimoine pédagogique
@@ -106,7 +106,7 @@ Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les
 ### Ressources pédagogiques
 
 - **Date** : 2026-09-28
-- **Source** : `AGENTS.md`, `_source/exercice-sami-spec.md`, `03-easy-checks/evaluation_contract.yml`.
+- **Source** : `AGENTS.md`, `_source/exercice-sami-matrice.yml`, `03-easy-checks/evaluation_contract.yml`.
 - **Statut** : active.
 - **Contrainte** : les documents Sami sont générés depuis `_source/`; la grille d'audit est générée dans `03-easy-checks/` et dans le site ; le deck WCAG condensé est régénéré par `make wcag`. Les cartes, bandeaux et autres ressources fixes ne sont pas régénérés.
 - **Impact** : il faut distinguer les ressources à reconstruire, les sources éditées à la main et les ressources fournies, afin de ne pas écraser un livrable ou une correction pédagogique.
@@ -142,7 +142,7 @@ Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les
 | Finalisation accessible du PPTX | Disponible | `finalize_pptx()` | Une relecture visuelle humaine demeure nécessaire. |
 | Documents Sami, grille XLSX et deck WCAG | Disponible | cibles `sami`, `grille`, `wcag` | À régénérer avant `make pack` si leurs sources changent. |
 | PDF du pack et démo hors ligne | Disponible | cibles `pdf`, `supports` | Les PDF livrés doivent être PDF/UA-1 ; LibreOffice est requis pour les supports. |
-| Validation et recette du site | Disponible | `validate.py`, `make recette` | La recette visuelle requiert le plugin ShipGuard. |
+| Validation et recette du site | Disponible | `validate.py`, `make recette` | La recette visuelle requiert l’installation locale verrouillée via `make installer-recette`. |
 | Publication GitHub Pages | Disponible | `make publier-site` | Publication contrôlée depuis `docs/` ; aucun édit direct du clone. |
 
 ## 5. Sécurité, Git et dépôt public
@@ -298,7 +298,7 @@ Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les
 - **Date** : 2026-09-28
 - **Source** : `AGENTS.md`, `Makefile`, `PUBLIER-SITE.md`.
 - **Statut** : active.
-- **Contrainte** : `make publier-site` valide le site puis effectue sa synchronisation vers le clone de publication, copie les trois documents racine adaptés, effectue le commit et le push du dépôt du site, puis avance le clone de consultation lorsqu'il existe. Les installeurs ne sont pas versionnés ; `make outils-telecharger` les récupère et vérifie leurs empreintes, tandis que PAC est déposé manuellement selon son manifeste.
+- **Contrainte** : `make publier-site` valide le site puis effectue sa synchronisation vers le clone de publication, copie les trois documents racine adaptés, effectue le commit et le push du dépôt du site, puis avance le clone de consultation lorsqu'il existe. Les installeurs ne sont pas versionnés ; `make outils-telecharger` récupère les trois fichiers disposant d'une adresse directe, tandis que PAC est déposé manuellement ; `make outils` vérifie ensuite leurs empreintes.
 - **Impact** : une publication est une opération distincte d'un commit de l'usine et les clones restent des destinations gérées par la cible.
 - **Décision / prochaine vérification** : préparer et vérifier l'usine, puis publier uniquement par la cible prévue ; contrôler le manifeste des outils avant constitution du pack.
 - **Composants affectés** : `docs/`, `publication-site/`, clones locaux du site, `livrables-IGPDE-2026-102846/outils/`.

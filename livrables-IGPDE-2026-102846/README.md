@@ -1,6 +1,8 @@
 # Livrables formation 102846 — octobre 2026
 
-Pack livrable complet pour la session du 9 octobre 2026, sous le code 102846.
+Snapshot du pack pour la session du 9 octobre 2026, sous le code 102846. Les
+quatre installeurs externes du dossier `outils/` doivent encore être déposés et
+vérifiés avant la remise à l'IGPDE.
 
 ## Structure
 
@@ -27,10 +29,10 @@ Formateur/
   liens-tp-en-ligne.pdf          Liens en ligne des deux TP (une page)
 
 outils/
-  CCA-Setup-3.5.4.msi           Colour Contrast Analyser (Windows)
-  focusHighlight-6.6.nvda-addon.zip   Extension NVDA FocusHighlight
-  nvda_2024.4.1.exe             Lecteur d'écran NVDA (Windows)
-  PAC_24.3.1.0.zip              PDF Accessibility Checker
+  CCA-Setup-3.5.4.msi           Attendu avant remise, externe à Git
+  focusHighlight-6.6.nvda-addon.zip   Attendu avant remise, externe à Git
+  nvda_2024.4.1.exe             Attendu avant remise, externe à Git
+  PAC_24.3.1.0.zip              Attendu avant remise, téléchargement manuel
 ```
 
 ## Site d'exercice

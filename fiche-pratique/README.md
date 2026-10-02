@@ -1,6 +1,6 @@
 # Fiches pratiques - Formation 102846
 
-Mémos accessibilité distribués aux stagiaires après la formation. Deux versions : une pour Microsoft Word, une pour LibreOffice Writer.
+Mémos accessibilité remis aux stagiaires à la fin du TP. Deux versions : une pour Microsoft Word, une pour LibreOffice Writer.
 
 ---
 
@@ -99,7 +99,7 @@ canonique `_source/exercice-sami-matrice.yml` :
 Les contrôles signalés sans manipulation obligatoire restent dans la checklist
 et les notes formateur ; ils ne créent pas une sixième station.
 
-Les procédures sont spécifiques à chaque suite (Word ou Writer). Les différences notables sont documentées dans chaque mémo (ex : Writer n'a pas d'option "Marquer comme décoratif", l'ancrage d'images diffère).
+Les procédures sont spécifiques à chaque suite (Word ou Writer). Les différences notables sont documentées dans chaque mémo : selon la version de Writer, l'option « Marquer comme décoratif » peut être absente ou présentée différemment ; l'ancrage des images diffère également.
 
 ---
 

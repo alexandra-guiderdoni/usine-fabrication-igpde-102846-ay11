@@ -51,16 +51,16 @@ observés dans leur ticket d’origine et constituer la preuve de validation fin
 - [ ] La recette vérifie le moment réel de distribution : DOCX de départ,
   checklist et ressources d’appui au début ; DOCX corrigé de référence pendant
   la remise finale seulement.
-- [ ] Une validation humaine explicite autorise seulement ensuite la fusion et
-  la remise du nouveau paquet.
+- [ ] Une validation humaine explicite autorise seulement ensuite la remise du
+  nouveau paquet à l'IGPDE.
 
 ## À préserver
 
 - Le tag de repli `avant-refonte-tp-sami-2026-10-01`, qui reste immuable.
-- Le dépôt principal et le paquet actuellement validé jusqu’à la décision
-  humaine finale.
+- Les sources T01 à T15 déjà fusionnées dans `main` et le paquet préparatoire,
+  qui ne devient livrable qu'après la décision humaine finale.
 
 ## Hors périmètre
 
-- Fusionner, committer, pousser ou publier la refonte.
+- Publier le site pendant cette recette Windows.
 - Remettre une sortie partielle à l’IGPDE.

@@ -3,13 +3,16 @@
 from __future__ import annotations
 
 import argparse
+import os
 from pathlib import Path
 
 import yaml
 
 
 PROJECT_ROOT = Path(__file__).parent.parent
-DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config.yml"
+DEFAULT_CONFIG_PATH = Path(
+    os.environ.get("FORMATION_CONFIG", PROJECT_ROOT / "config.yml")
+)
 REQUIRED_FIELDS = ("code", "date", "footer", "output", "livrables", "site_url")
 
 

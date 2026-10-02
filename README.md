@@ -62,7 +62,7 @@ rejoue ce contrôle de fraîcheur, régénère le deck et copie les supports.
 
 Pour modifier le site, éditer exclusivement `docs/`, lancer `make verifier`, puis `make publier-site`. Les deux clones locaux du site sont des destinations de publication : ne jamais les modifier, commiter ou pousser.
 
-Les installeurs remis aux stagiaires (NVDA, Colour Contrast Analyser, Focus Highlight, PAC) ne sont pas versionnés : `make outils-telecharger` les récupère et vérifie leur empreinte SHA-256 (voir `livrables-IGPDE-2026-102846/outils/MANIFEST.md`).
+Les installeurs remis aux stagiaires (NVDA, Colour Contrast Analyser, Focus Highlight, PAC) ne sont pas versionnés. `make outils-telecharger` récupère les trois outils disposant d'une adresse directe ; PAC doit être téléchargé manuellement. `make outils` vérifie ensuite la présence, la taille et l'empreinte SHA-256 des quatre fichiers (voir `livrables-IGPDE-2026-102846/outils/MANIFEST.md`).
 
 ## Structure
 
@@ -97,4 +97,4 @@ Licence Ouverte 2.0 (etalab-2.0), voir [LICENSE](LICENSE). Les documents de tier
 ---
 
 Date de création : 2026-03-11 (projet), 2026-09-27 (usine autonome)
-Dernière mise à jour : 2026-09-28
+Dernière mise à jour : 2026-10-02

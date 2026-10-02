@@ -1,8 +1,14 @@
 """Slide 02nda : persona Anatole - handicap cognitif (trisomie 21)."""
 
 from igpde_dsfr_components import (
-    CONTENT_W, MARGIN_L, ORANGE_CLAIR, ORANGE_WARN,
-    add_callout, add_encadre, add_image, add_notes,
+    CONTENT_W,
+    MARGIN_L,
+    ORANGE_CLAIR,
+    ORANGE_WARN,
+    add_callout,
+    add_encadre,
+    add_image,
+    add_notes,
     new_slide,
 )
 
@@ -13,7 +19,8 @@ BIO_W = round(CONTENT_W - PHOTO_W - 0.30, 2)
 
 def build(prs, layouts, ctx):
     slide = new_slide(
-        prs, layouts,
+        prs,
+        layouts,
         layout_name="titre_contenu",
         titre="Anatole, lycéen - handicap cognitif",
         fil_ariane="1. Q2 - Pour qui | Anatole",
@@ -25,28 +32,40 @@ def build(prs, layouts, ctx):
     add_image(
         slide,
         "scripts/images/personas-extraites/anatole-1.png",
-        top=2.20, left=MARGIN_L, width=PHOTO_W, height=PHOTO_W,
+        top=2.20,
+        left=MARGIN_L,
+        width=PHOTO_W,
+        height=PHOTO_W,
         alt_text="Portrait illustratif - Anatole",
     )
 
     titre_besoin = "Ses besoins au quotidien"
     bullets_besoin = [
         "Phrases courtes et simples, sans double négation",
-        "Mise en page aérée, une idee par paragraphe",
+        "Mise en page aérée, une idée par paragraphe",
         "Pictogrammes pour accompagner le texte",
         "Navigation prévisible, sans changements inattendus",
     ]
     add_callout(
-        slide, titre_besoin, bullets_besoin,
-        top=2.20, left=BIO_LEFT, width=BIO_W,
+        slide,
+        titre_besoin,
+        bullets_besoin,
+        top=2.20,
+        left=BIO_LEFT,
+        width=BIO_W,
         line_spacing=1.3,
         compact=True,
     )
 
     add_encadre(
-        slide, top=4.42, left=MARGIN_L, width=PHOTO_W, height=0.45,
+        slide,
+        top=4.42,
+        left=MARGIN_L,
+        width=PHOTO_W,
+        height=0.45,
         titre="Comprendre",
-        couleur_fond=ORANGE_CLAIR, couleur_accent=ORANGE_WARN,
+        couleur_fond=ORANGE_CLAIR,
+        couleur_accent=ORANGE_WARN,
     )
 
     add_callout(
@@ -58,7 +77,9 @@ def build(prs, layouts, ctx):
             "Il comprend mieux les phrases simples et courtes",
             "Le langage clair et le FALC lui sont indispensables",
         ],
-        top=4.92, left=MARGIN_L, width=CONTENT_W,
+        top=4.92,
+        left=MARGIN_L,
+        width=CONTENT_W,
         line_spacing=1.2,
         compact=True,
     )

@@ -1,14 +1,17 @@
 # TODO - Formation 102846 (IGPDE)
 
-Dernière revue des actions : 2026-09-30.
+Dernière revue des actions : 2026-10-02.
 
 ## En cours
 
-### Cet après-midi - 30 septembre 2026
+### Avant la remise à l'IGPDE
 
-- [ ] Réaliser la relecture visuelle humaine complète du deck dans PowerPoint, corriger les sources `scripts/slides/` si nécessaire, puis suivre `REEXPORTER-DECK-PPTX.md` : `make qa` et lecture du statut, `make deck`, `make verifier`, contrôle `unzip -t` du PPTX du pack. Le livrable à diffuser est `livrables-IGPDE-2026-102846/Formateur/support-formation-102846-2026-IGPDE.pptx`.
+- [ ] Terminer la recette humaine T16 sous Word et Writer Windows, avec contrôle PAC, puis autoriser explicitement la remise du pack.
+- [ ] Déposer les quatre installeurs externes dans `livrables-IGPDE-2026-102846/outils/` : trois via `make outils-telecharger`, PAC manuellement, puis lancer `make outils`.
+- [ ] Publier le site corrigé avec `make publier-site` après validation locale ; cette publication reste une action distincte et explicite.
+- [ ] Réaliser la relecture visuelle humaine complète du deck dans PowerPoint, corriger les sources `scripts/slides/` si nécessaire, puis suivre `REEXPORTER-DECK-PPTX.md`.
 
-### Demain - 1er octobre 2026
+### Pour la formation
 
 - [ ] Imprimer les cartes idées reçues pour l'ice-breaker.
 - [ ] Imprimer les cartes des critères WCAG 2.2 (`fil-rouge-principes-wcag-igpde/cartes-criteres-wcag-2-2-a-imprimer.pdf`).

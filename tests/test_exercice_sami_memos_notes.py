@@ -3,30 +3,25 @@
 from __future__ import annotations
 
 import re
+import sys
 from pathlib import Path
 
-from exercice_sami_matrice import load_sami_matrix
-
-
 PROJECT_ROOT = Path(__file__).parent.parent
+sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
+
+from config import load_formation_config  # noqa: E402
+from exercice_sami_matrice import load_sami_matrix  # noqa: E402
+
+
+PACK = PROJECT_ROOT / load_formation_config()["livrables"]
 MEMO_PATHS = (
     PROJECT_ROOT / "fiche-pratique" / "memo-word.md",
     PROJECT_ROOT / "fiche-pratique" / "memo-libreoffice-writer.md",
 )
 NOTES_PATH = (
-    PROJECT_ROOT
-    / "livrables-IGPDE-2026-102846"
-    / "Formateur"
-    / "_alex"
-    / "formation-102846-octobre-2026-bureautique.md"
+    PACK / "Formateur" / "_alex" / "formation-102846-octobre-2026-bureautique.md"
 )
-LEGACY_CHECKLIST_PATH = (
-    PROJECT_ROOT
-    / "livrables-IGPDE-2026-102846"
-    / "Formateur"
-    / "_alex"
-    / "checklist-bureautique.md"
-)
+LEGACY_CHECKLIST_PATH = PACK / "Formateur" / "_alex" / "checklist-bureautique.md"
 
 
 def _read(path: Path) -> str:
