@@ -130,7 +130,8 @@ def test_deroule_et_fiche_technique_sont_alignes():
     assert "12h00 - 12h15" in deroule
     assert "slides 54 à 79" in deroule
     assert "slide 80" in deroule
-    assert "PDF Accessibility Checker 2024 préinstallé" in technique
+    assert "PDF Accessibility Checker 2024" in technique
+    assert "installé sur chaque poste" in technique
     assert "Acrobat Pro" in technique
 
 
