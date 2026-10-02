@@ -1,6 +1,6 @@
 # Manifeste des outils - formation 102846
 
-Installeurs remis aux stagiaires sur clé USB le jour de la formation. Ils ne sont pas versionnés : trop volumineux, et redistribuables depuis leurs sources officielles. La liste de référence, avec empreintes, est `outils.json`.
+Installeurs déposés dans le dossier partagé de la formation, puis installés sur chaque poste, formateur et stagiaires, avant la session. Ils ne sont pas versionnés : trop volumineux, et redistribuables depuis leurs sources officielles. La liste de référence, avec empreintes, est `outils.json`.
 
 ## Récupérer et vérifier
 

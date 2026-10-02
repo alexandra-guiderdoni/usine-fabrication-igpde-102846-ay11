@@ -1,8 +1,10 @@
 # Livrables formation 102846 — octobre 2026
 
 Snapshot du pack pour la session du 9 octobre 2026, sous le code 102846. Les
-quatre installeurs externes du dossier `outils/` doivent encore être déposés et
-vérifiés avant la remise à l'IGPDE.
+quatre installeurs externes du dossier `outils/` ne sont pas versionnés :
+`make outils-telecharger` les récupère (PAC se dépose à la main) et `make outils`
+vérifie leurs empreintes. Ils sont déposés dans le dossier partagé, puis
+installés sur chaque poste avant la session.
 
 ## Structure
 
@@ -29,10 +31,10 @@ Formateur/
   liens-tp-en-ligne.pdf          Liens en ligne des deux TP (une page)
 
 outils/
-  CCA-Setup-3.5.4.msi           Attendu avant remise, externe à Git
-  focusHighlight-6.6.nvda-addon.zip   Attendu avant remise, externe à Git
-  nvda_2024.4.1.exe             Attendu avant remise, externe à Git
-  PAC_24.3.1.0.zip              Attendu avant remise, téléchargement manuel
+  CCA-Setup-3.5.4.msi           Externe à Git, vérifié par make outils
+  focusHighlight-6.6.nvda-addon.zip   Externe à Git, vérifié par make outils
+  nvda_2024.4.1.exe             Externe à Git, vérifié par make outils
+  PAC_24.3.1.0.zip              Externe à Git, téléchargement manuel
 ```
 
 ## Site d'exercice

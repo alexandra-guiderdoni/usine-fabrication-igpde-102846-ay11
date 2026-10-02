@@ -1,5 +1,5 @@
 {
-  "description": "Installeurs remis aux stagiaires sur clé USB. Non versionnés : récupérés et vérifiés par scripts/fabriquer_pack.py.",
+  "description": "Installeurs déposés dans le dossier partagé, puis installés sur chaque poste avant la session. Non versionnés : récupérés et vérifiés par scripts/fabriquer_pack.py.",
   "outils": [
     {
       "fichier": "nvda_2024.4.1.exe",
