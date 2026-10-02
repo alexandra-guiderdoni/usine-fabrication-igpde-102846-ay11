@@ -960,6 +960,17 @@ def _mark_first_row_as_header(table):
     tr_pr.append(parse_xml(f'<w:tblHeader {nsdecls("w")} w:val="true"/>'))
 
 
+def _set_table_alt_text(table, title, description):
+    """Renseigne le titre et la description du tableau (texte de remplacement)."""
+    tbl_pr = table._tbl.tblPr
+    for tag in ("w:tblCaption", "w:tblDescription"):
+        for current in list(tbl_pr.findall(qn(tag))):
+            tbl_pr.remove(current)
+    for tag, value in (("w:tblCaption", title), ("w:tblDescription", description)):
+        value = escape(value, {'"': "&quot;"})
+        tbl_pr.append(parse_xml(f'<{tag} {nsdecls("w")} w:val="{value}"/>'))
+
+
 def _prevent_table_row_splitting(table):
     """Interdit le fractionnement des lignes sur deux pages."""
     for row in table.rows:
@@ -1827,7 +1838,10 @@ def _checklist_docx(matrix):
         "C - contrôlé : un outil ou une vérification humaine est exécuté et son résultat est noté.",
         "S - signalé : le point est vérifié sans manipulation obligatoire pendant le TP.",
     ):
-        doc.add_paragraph(definition, style="List Bullet")
+        label, explanation = definition.split(" : ", 1)
+        paragraph = doc.add_paragraph(style="List Bullet")
+        paragraph.add_run(f"{label} :").bold = True
+        paragraph.add_run(f" {explanation}")
 
     for title, controls in _checklist_groups(matrix):
         doc.add_heading(title, level=1)
@@ -1840,7 +1854,16 @@ def _checklist_docx(matrix):
         table.rows[0].cells[0].text = "Identifiant et niveau"
         table.rows[0].cells[1].text = "Point à vérifier"
         table.rows[0].cells[2].text = "Suivi"
+        for cell in table.rows[0].cells:
+            for run in cell.paragraphs[0].runs:
+                run.bold = True
         _mark_first_row_as_header(table)
+        _set_table_alt_text(
+            table,
+            title,
+            "Une ligne par point : identifiant et niveau, point à vérifier, "
+            "cases de suivi et notes.",
+        )
         for control in controls:
             cells = table.add_row().cells
             cells[0].text = f"{control['id']} · {control['niveau']}"

@@ -224,3 +224,62 @@ def test_la_checklist_docx_est_paginee_page_x_sur_y(tmp_path):
     texts = re.findall(r"<w:t(?: [^>]*)?>([^<]*)</w:t>", footer_xml)
     assert "".join(texts) == "Page 1 sur 1"
     assert set(re.findall(r'<w:sz w:val="(\d+)"/>', footer_xml)) == {"24"}
+
+
+def test_la_checklist_docx_met_en_gras_les_niveaux_p_c_s(tmp_path):
+    markdown = tmp_path / "checklist.md"
+    docx = tmp_path / CHECKLIST_DOCX
+    build_checklists(
+        matrix=load_sami_matrix(), markdown_output=markdown, docx_output=docx
+    )
+    definitions = {
+        paragraph.text.split(" : ", 1)[0]: paragraph
+        for paragraph in Document(docx).paragraphs
+        if paragraph.style.name == "List Bullet"
+    }
+
+    for label in ("P - pratiqué", "C - contrôlé", "S - signalé"):
+        first, *rest = definitions[label].runs
+        assert first.text == f"{label} :"
+        assert first.bold is True
+        assert rest and not any(run.bold for run in rest)
+
+
+def test_les_tableaux_de_la_checklist_suivent_les_regles_d_accessibilite(tmp_path):
+    markdown = tmp_path / "checklist.md"
+    docx = tmp_path / CHECKLIST_DOCX
+    matrix = load_sami_matrix()
+    build_checklists(matrix=matrix, markdown_output=markdown, docx_output=docx)
+    document = Document(docx)
+    titles = [
+        paragraph.text
+        for paragraph in document.paragraphs
+        if paragraph.style.name == "Heading 1"
+    ]
+
+    assert len(document.tables) == len(titles)
+    for table, title in zip(document.tables, titles):
+        table_xml = table._tbl.xml
+        header = table.rows[0]
+        assert [cell.text for cell in header.cells] == [
+            "Identifiant et niveau",
+            "Point à vérifier",
+            "Suivi",
+        ]
+        assert all(
+            run.bold is True
+            for cell in header.cells
+            for paragraph in cell.paragraphs
+            for run in paragraph.runs
+        )
+        # Titre et description du tableau (Texte de remplacement dans Word).
+        caption = re.findall(r'<w:tblCaption w:val="([^"]*)"/>', table_xml)
+        description = re.findall(r'<w:tblDescription w:val="([^"]*)"/>', table_xml)
+        assert caption == [title]
+        assert len(description) == 1 and description[0]
+        # Règle P-14 : en-tête répété, lignes insécables, ni fusion ni flottant.
+        assert "w:tblHeader" in table_xml
+        assert table_xml.count("<w:cantSplit") == len(table.rows)
+        assert "w:gridSpan" not in table_xml and "w:vMerge" not in table_xml
+        assert "w:tblpPr" not in table_xml
+        assert not table._tbl.xpath(".//w:tbl")
