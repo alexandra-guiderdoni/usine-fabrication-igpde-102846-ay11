@@ -51,7 +51,7 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Faire ouvrir 03-easy-checks/grille-audit-easy-checks.xlsx. "
+        "Faire ouvrir la grille d’audit grille-audit-easy-checks.xlsx, téléchargeable depuis la page d’accueil du site d’exercice. "
         "Expliquer que l’objectif n’est pas seulement de dire « ça passe » ou « ça échoue ». "
         "Une remontée utile doit permettre à l’équipe web de comprendre le problème, mesurer l’impact, "
         "retrouver l’endroit exact et corriger sans refaire toute l’enquête. "

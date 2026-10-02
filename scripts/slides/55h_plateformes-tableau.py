@@ -57,6 +57,6 @@ def build(prs, layouts, ctx):
         "Insister : sur X/Twitter il faut le faire AVANT de publier, "
         "on ne peut pas l'ajouter après. "
         "Sur LinkedIn c'est possible après coup, donc pas d'excuse. "
-        "Un mémo PDF plus complet sera distribué à la fin du module.",
+        "La checklist réseaux sociaux de fin de module reprend ces réflexes.",
     )
     return slide

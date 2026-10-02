@@ -46,7 +46,7 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Distribuer la grille d’audit : 03-easy-checks/grille-audit-easy-checks.xlsx. "
+        "Distribuer la grille d’audit : grille-audit-easy-checks.xlsx, téléchargeable depuis la page d’accueil du site d’exercice. "
         "Expliquer la logique du site d’exercice : 13 pages, 13 points de contrôle, une page par point. "
         "Les binômes ne doivent pas tout auditer : ils choisissent quelques points ou pages. "
         "Répartir le groupe : certains binômes commencent par le début du site, d’autres par la fin, pour que les 13 points soient couverts à la restitution. "
