@@ -64,6 +64,14 @@ pas l’enseignement de `P-11` : la règle reste présentée dans la station, la
 version guidée et la checklist, tandis que le corrigé montre comment placer
 l’information essentielle dans le corps du document.
 
+Complément du 2 octobre 2026, décision d’Alex : sans filigrane, la piste `P-11`
+décrivait un défaut absent du document. Le statut « Document confidentiel »
+est désormais porté par l’en-tête des trois versions, et `P-11` redevient une
+manipulation : reprendre ce statut dans le corps. La matrice remplace
+« filigrane » par « en-tête » dans l’intitulé, l’impact, le défaut, la piste,
+les procédures et la checklist ; la règle continue de citer filigrane, en-tête
+et arrière-plan.
+
 ## Preuves d’exécution
 
 - `make sami` a régénéré les trois DOCX historiques depuis la matrice, sans

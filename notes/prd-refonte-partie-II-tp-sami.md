@@ -106,7 +106,7 @@ Preuve : le volet présente la hiérarchie attendue, le sommaire est actualisabl
 - `P-08` : marquer une image redondante comme décorative, avec la procédure Writer explicitement adaptée.
 - `P-09` : remplacer un texte sous forme d’image par du vrai texte.
 - `P-10` : donner aux liens un intitulé autonome et visuellement identifiable, puis ajouter format, poids et langue aux téléchargements quand ils sont connus.
-- `P-11` : fournir dans le corps l’information essentielle portée seulement par un filigrane.
+- `P-11` : fournir dans le corps l’information essentielle portée seulement par l’en-tête (filigrane retiré le 2 octobre 2026 pour lisibilité, voir T04).
 
 Preuve : toutes les images ont le traitement approprié, le texte reste sélectionnable et chaque lien est compréhensible hors contexte.
 

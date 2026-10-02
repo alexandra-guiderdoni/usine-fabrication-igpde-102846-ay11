@@ -264,19 +264,19 @@ controles:
   - id: P-11
     niveau: P
     station: station-2
-    intitule: Reprendre dans le corps l'information d'un filigrane
-    impact: Une information essentielle reste disponible même si le filigrane n'est pas restitué.
+    intitule: Reprendre dans le corps l'information d'un en-tête
+    impact: Une information essentielle reste disponible même si l'en-tête n'est pas restitué.
     regle: Ne jamais faire porter une information essentielle uniquement par un filigrane, un en-tête ou un arrière-plan.
-    defaut: Le statut du document apparaît seulement dans un filigrane.
+    defaut: Le statut du document apparaît seulement dans l'en-tête.
     action_attendue: Reprendre le même statut à un emplacement logique du corps.
     occurrences_attendues: 1
     ancrage: Premier paragraphe d'introduction du document.
-    piste: Identifier l'information qui disparaîtrait si l'arrière-plan était ignoré.
+    piste: Identifier l'information qui disparaîtrait si l'en-tête et l'arrière-plan étaient ignorés.
     etat_corrige: Le statut est présent dans le corps à l'endroit attendu sans modifier son sens.
-    procedure_word: Ajouter le statut dans le corps avec un style adapté ; conserver ou retirer le filigrane selon son utilité visuelle.
-    procedure_writer: Ajouter le statut dans le corps avec un style adapté ; traiter l'arrière-plan séparément.
+    procedure_word: Ajouter le statut dans le corps avec un style adapté ; l'en-tête peut le conserver, sans en être l'unique porteur.
+    procedure_writer: Ajouter le statut dans le corps avec un style adapté ; l'en-tête peut le conserver, sans en être l'unique porteur.
     preuve: {mode: humaine, attendu: Statut compréhensible dans le texte linéarisé sans en-tête ni arrière-plan.}
-    checklist: Toute information essentielle portée par un filigrane est aussi présente dans le corps.
+    checklist: Toute information essentielle portée par un en-tête, un filigrane ou un arrière-plan est aussi présente dans le corps.
     guide: station-2/information-essentielle
     slide: station-2-contenus
     note_formateur: Tester la lecture du corps seul.

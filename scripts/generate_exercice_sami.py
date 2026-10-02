@@ -429,6 +429,13 @@ def _add_simple_field(paragraph, instr):
 GUIDE_TITLE = "Rendre un document Word accessible"
 DOCUMENT_TITLE = GUIDE_TITLE
 HEADER_TEXT = "Guide pratique - Rendre un document Word accessible"
+AFFICHE_P06 = ASSETS / "affiche-sig-handicap.jpg"
+STATUT_DOCUMENT = "Document confidentiel"
+AFFICHE_ALT = (
+    "Affiche des 20 ans de la loi handicap : Agents publics, changeons "
+    "cette réalité grâce aux outils disponibles sur accessibilite.gouv.fr. "
+    "Le handicap n'est pas un choix. L'accessibilité non plus."
+)
 INTRO_TEXT = (
     "Ce guide pratique présente les principales vérifications à effectuer pour "
     "rendre un document Word accessible. Il associe chaque règle à une "
@@ -446,6 +453,13 @@ def _format_header_footer_run(run, font_size=9):
 def _format_header_paragraph(paragraph, font_size=9):
     for run in paragraph.runs:
         _format_header_footer_run(run, font_size)
+
+
+def _add_header_status(header, font_size=9):
+    """Porte le statut du document dans l'en-tête, support de P-11."""
+    paragraph = header.add_paragraph(STATUT_DOCUMENT)
+    paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    _format_header_paragraph(paragraph, font_size=font_size)
 
 
 def _add_page_footer(doc, document_name=DOCUMENT_TITLE, font_size=9):
@@ -726,7 +740,7 @@ def _add_station_two_p06(
     control,
     station_title,
     numbering_id,
-    icon_path,
+    image_path,
     *,
     corrected=False,
     with_guidance=False,
@@ -737,15 +751,17 @@ def _add_station_two_p06(
     _add_station_one_control(doc, control, numbering_id)
     occurrence_paragraph = None
 
-    if icon_path:
-        doc.add_picture(str(icon_path), width=Inches(0.5))
+    # L'affiche porte son message dans l'image : il ne peut pas être remplacé
+    # par du texte réel (cas de P-09), l'alternative doit le restituer.
+    if image_path:
+        doc.add_picture(str(image_path), width=Inches(2.2))
         occurrence_paragraph = doc.paragraphs[-1]
         occurrence_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
         if corrected:
             _set_image_alt(
                 doc,
-                alt_text="Contact par courriel.",
-                title="Contact par courriel",
+                alt_text=AFFICHE_ALT,
+                title="Affiche des 20 ans de la loi handicap",
             )
         else:
             _set_image_alt(doc, alt_text="", title="")
@@ -889,11 +905,11 @@ def _add_station_two_p11(
     with_guidance=False,
     guidance_anchor=None,
 ):
-    """Reprend dans le corps l'information portée par le filigrane."""
+    """Reprend dans le corps le statut porté par l'en-tête."""
     _add_station_one_control(doc, control, numbering_id)
     if corrected:
         paragraph = doc.add_paragraph()
-        run = paragraph.add_run("Document confidentiel")
+        run = paragraph.add_run(STATUT_DOCUMENT)
         run.font.name = "Arial"
         run.font.size = Pt(11)
 
@@ -1176,6 +1192,7 @@ def build_inaccessible(
     output_name: str | None = None,
     matrix=None,
     output_dir: Path | None = None,
+    affiche_path: Path | None = None,
 ):
     matrix = matrix or load_sami_matrix()
     station_1_controls = _station_controls(matrix, "station-1")
@@ -1213,6 +1230,7 @@ def build_inaccessible(
     hp.style.font.size = Pt(9)
     hp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     _format_header_paragraph(hp)
+    _add_header_status(header)
     _add_page_footer(doc)
 
     _add_station_one_p01(
@@ -1331,7 +1349,7 @@ def build_inaccessible(
         p06,
         station_2_title,
         station_numbering_id,
-        icon_path,
+        affiche_path,
         with_guidance=with_guidance,
     )
     _add_station_two_p07(
@@ -1447,6 +1465,7 @@ def build_accessible(
     matrix=None,
     output_dir: Path | None = None,
     output_name: str | None = None,
+    affiche_path: Path | None = None,
 ):
     matrix = matrix or load_sami_matrix()
     station_1_controls = _station_controls(matrix, "station-1")
@@ -1489,6 +1508,7 @@ def build_accessible(
     hp.style.font.size = Pt(12)
     hp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     _format_header_paragraph(hp, font_size=12)
+    _add_header_status(header, font_size=12)
     _add_page_footer(doc, font_size=12)
 
     _add_station_one_p01(
@@ -1572,7 +1592,7 @@ def build_accessible(
         p06,
         station_2_title,
         station_numbering_id,
-        icon_path,
+        affiche_path,
         corrected=True,
     )
     _add_station_two_p07(
@@ -1864,7 +1884,11 @@ def generate_sami_documents():
 
     print("\nGénération des documents Word...")
     build_inaccessible(
-        chart_bad, icon_path=icon, organigramme_path=orga, texte_image_path=txt_img
+        chart_bad,
+        icon_path=icon,
+        organigramme_path=orga,
+        texte_image_path=txt_img,
+        affiche_path=AFFICHE_P06,
     )
     build_inaccessible(
         chart_bad,
@@ -1872,9 +1896,14 @@ def generate_sami_documents():
         organigramme_path=orga,
         texte_image_path=txt_img,
         with_guidance=True,
+        affiche_path=AFFICHE_P06,
     )
     build_accessible(
-        chart_good, icon_path=icon, organigramme_path=orga, texte_image_path=txt_img
+        chart_good,
+        icon_path=icon,
+        organigramme_path=orga,
+        texte_image_path=txt_img,
+        affiche_path=AFFICHE_P06,
     )
 
     print("\nTerminé.")

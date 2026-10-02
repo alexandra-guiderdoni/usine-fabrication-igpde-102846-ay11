@@ -61,7 +61,7 @@ Utilisez cette même checklist dès le début du TP, puis complétez-la après c
   - Suivi : ☐ À vérifier · ☐ Fait · ☐ À reprendre
   - Notes :
 
-- **P-11 · P** - Toute information essentielle portée par un filigrane est aussi présente dans le corps.
+- **P-11 · P** - Toute information essentielle portée par un en-tête, un filigrane ou un arrière-plan est aussi présente dans le corps.
   - Suivi : ☐ À vérifier · ☐ Fait · ☐ À reprendre
   - Notes :
 

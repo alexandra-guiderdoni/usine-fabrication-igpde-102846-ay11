@@ -356,6 +356,7 @@ def test_les_titres_hors_station_un_restant_ne_creent_pas_d_occurrence_cachee(
     output = build_inaccessible(
         PROJECT_ROOT / "_assets" / "graphique-inaccessible.png",
         icon_path=PROJECT_ROOT / "_assets" / "icone-enveloppe.png",
+        affiche_path=PROJECT_ROOT / "_assets" / "affiche-sig-handicap.jpg",
         organigramme_path=PROJECT_ROOT / "_assets" / "organigramme.png",
         output_name="inaccessible.docx",
         matrix=matrix,
@@ -669,9 +670,11 @@ def test_p06_demande_une_alternative_redigee_puis_l_applique(tmp_path):
     chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
     chart_good = PROJECT_ROOT / "_assets" / "graphique-accessible.png"
     icon = PROJECT_ROOT / "_assets" / "icone-enveloppe.png"
+    affiche = PROJECT_ROOT / "_assets" / "affiche-sig-handicap.jpg"
     inaccessible = build_inaccessible(
         chart_bad,
         icon_path=icon,
+        affiche_path=affiche,
         output_name="inaccessible.docx",
         matrix=matrix,
         output_dir=tmp_path,
@@ -679,6 +682,7 @@ def test_p06_demande_une_alternative_redigee_puis_l_applique(tmp_path):
     guided = build_inaccessible(
         chart_bad,
         icon_path=icon,
+        affiche_path=affiche,
         with_guidance=True,
         output_name="guide.docx",
         matrix=matrix,
@@ -687,6 +691,7 @@ def test_p06_demande_une_alternative_redigee_puis_l_applique(tmp_path):
     corrected = build_accessible(
         chart_good,
         icon_path=icon,
+        affiche_path=affiche,
         matrix=matrix,
         output_dir=tmp_path,
     )
@@ -706,10 +711,19 @@ def test_p06_demande_une_alternative_redigee_puis_l_applique(tmp_path):
             p.text for p in document.paragraphs
         }
 
+    for path in (inaccessible, guided, corrected):
+        document = Document(path)
+        blip = document.inline_shapes[0]._inline.xpath(".//a:blip")[0]
+        image = document.part.related_parts[blip.get(qn("r:embed"))]
+        assert image.blob == affiche.read_bytes()
     bad_doc_pr = Document(inaccessible).inline_shapes[0]._inline.find(qn("wp:docPr"))
     good_doc_pr = Document(corrected).inline_shapes[0]._inline.find(qn("wp:docPr"))
     assert not bad_doc_pr.get("descr")
-    assert good_doc_pr.get("descr") == "Contact par courriel."
+    assert good_doc_pr.get("descr") == (
+        "Affiche des 20 ans de la loi handicap : Agents publics, changeons "
+        "cette réalité grâce aux outils disponibles sur accessibilite.gouv.fr. "
+        "Le handicap n'est pas un choix. L'accessibilité non plus."
+    )
 
     comments = _archive_text(guided, "word/comments.xml")
     assert comments.count("P-06 -") == 1
@@ -794,6 +808,7 @@ def test_p08_marque_l_image_redondante_comme_decorative(tmp_path):
     inaccessible = build_inaccessible(
         chart_bad,
         icon_path=icon,
+        affiche_path=PROJECT_ROOT / "_assets" / "affiche-sig-handicap.jpg",
         output_name="inaccessible.docx",
         matrix=matrix,
         output_dir=tmp_path,
@@ -801,6 +816,7 @@ def test_p08_marque_l_image_redondante_comme_decorative(tmp_path):
     guided = build_inaccessible(
         chart_bad,
         icon_path=icon,
+        affiche_path=PROJECT_ROOT / "_assets" / "affiche-sig-handicap.jpg",
         with_guidance=True,
         output_name="guide.docx",
         matrix=matrix,
@@ -809,6 +825,7 @@ def test_p08_marque_l_image_redondante_comme_decorative(tmp_path):
     corrected = build_accessible(
         chart_good,
         icon_path=icon,
+        affiche_path=PROJECT_ROOT / "_assets" / "affiche-sig-handicap.jpg",
         matrix=matrix,
         output_dir=tmp_path,
     )
@@ -977,6 +994,13 @@ def test_p11_est_explique_sans_filigrane_illisible(tmp_path):
     assert "CONFIDENTIEL" not in _archive_text(inaccessible, "word/header1.xml")
     assert "CONFIDENTIEL" not in _archive_text(guided, "word/header1.xml")
     assert "CONFIDENTIEL" not in _archive_text(corrected, "word/header1.xml")
+    # Le statut est porté par l'en-tête : le stagiaire doit le reprendre dans le corps.
+    for docx_path in (inaccessible, guided, corrected):
+        header_root = etree.fromstring(
+            _archive_text(docx_path, "word/header1.xml").encode("utf-8")
+        )
+        header_text = "".join(header_root.xpath("//w:t/text()", namespaces={"w": WORD_NS}))
+        assert "Document confidentiel" in header_text
     assert "Document confidentiel" not in {
         p.text for p in Document(inaccessible).paragraphs
     }
@@ -994,6 +1018,7 @@ def test_la_station_deux_est_ordonnee_et_pilotee_par_la_matrice(tmp_path):
     chart_bad = PROJECT_ROOT / "_assets" / "graphique-inaccessible.png"
     assets = {
         "icon_path": PROJECT_ROOT / "_assets" / "icone-enveloppe.png",
+        "affiche_path": PROJECT_ROOT / "_assets" / "affiche-sig-handicap.jpg",
         "organigramme_path": PROJECT_ROOT / "_assets" / "organigramme.png",
         "texte_image_path": PROJECT_ROOT / "_assets" / "texte-image.png",
     }
@@ -1068,6 +1093,7 @@ def test_la_station_deux_consomme_un_libelle_injecte_depuis_la_matrice(tmp_path)
     output = build_inaccessible(
         PROJECT_ROOT / "_assets" / "graphique-inaccessible.png",
         icon_path=PROJECT_ROOT / "_assets" / "icone-enveloppe.png",
+        affiche_path=PROJECT_ROOT / "_assets" / "affiche-sig-handicap.jpg",
         with_guidance=True,
         output_name="guide.docx",
         matrix=matrix,
@@ -1086,6 +1112,7 @@ def test_les_pistes_de_station_deux_sont_ancrees_sur_les_occurrences(tmp_path):
     guided = build_inaccessible(
         PROJECT_ROOT / "_assets" / "graphique-inaccessible.png",
         icon_path=PROJECT_ROOT / "_assets" / "icone-enveloppe.png",
+        affiche_path=PROJECT_ROOT / "_assets" / "affiche-sig-handicap.jpg",
         organigramme_path=PROJECT_ROOT / "_assets" / "organigramme.png",
         texte_image_path=PROJECT_ROOT / "_assets" / "texte-image.png",
         with_guidance=True,
@@ -1800,6 +1827,7 @@ def test_le_guide_couvre_exactement_les_occurrences_et_preserve_le_corps(tmp_pat
     inaccessible = build_inaccessible(
         chart_bad,
         icon_path=icon,
+        affiche_path=PROJECT_ROOT / "_assets" / "affiche-sig-handicap.jpg",
         organigramme_path=organigramme,
         texte_image_path=texte_image,
         output_name="inaccessible.docx",
@@ -1809,6 +1837,7 @@ def test_le_guide_couvre_exactement_les_occurrences_et_preserve_le_corps(tmp_pat
     guided = build_inaccessible(
         chart_bad,
         icon_path=icon,
+        affiche_path=PROJECT_ROOT / "_assets" / "affiche-sig-handicap.jpg",
         organigramme_path=organigramme,
         texte_image_path=texte_image,
         with_guidance=True,
@@ -1819,6 +1848,7 @@ def test_le_guide_couvre_exactement_les_occurrences_et_preserve_le_corps(tmp_pat
     corrected = build_accessible(
         PROJECT_ROOT / "_assets" / "graphique-accessible.png",
         icon_path=icon,
+        affiche_path=PROJECT_ROOT / "_assets" / "affiche-sig-handicap.jpg",
         organigramme_path=organigramme,
         texte_image_path=texte_image,
         matrix=matrix,
