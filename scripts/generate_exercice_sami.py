@@ -971,6 +971,29 @@ def _set_table_alt_text(table, title, description):
         tbl_pr.append(parse_xml(f'<{tag} {nsdecls("w")} w:val="{value}"/>'))
 
 
+def _set_table_column_widths(table, widths):
+    """Fixe la largeur de chaque colonne, dans la grille et dans les cellules."""
+    table.autofit = False
+    for column, width in zip(table.columns, widths):
+        column.width = width
+        for cell in column.cells:
+            cell.width = width
+
+
+def _set_style_font_family(style, font_name):
+    """Remplace les polices de thème d'un style par une police explicite."""
+    rpr = style.element.get_or_add_rPr()
+    for current in list(rpr.findall(qn("w:rFonts"))):
+        rpr.remove(current)
+    rpr.insert(
+        0,
+        parse_xml(
+            f'<w:rFonts {nsdecls("w")} w:ascii="{font_name}" w:hAnsi="{font_name}" '
+            f'w:eastAsia="{font_name}" w:cs="{font_name}"/>'
+        ),
+    )
+
+
 def _prevent_table_row_splitting(table):
     """Interdit le fractionnement des lignes sur deux pages."""
     for row in table.rows:
@@ -1828,6 +1851,8 @@ def _checklist_docx(matrix):
     normal.paragraph_format.space_after = Pt(6)
     _set_doc_defaults_language(doc, "fr-FR")
     _set_content_styles_language(doc, "fr-FR")
+    for style_name in ("Title", "Heading 1"):
+        _set_style_font_family(doc.styles[style_name], "Arial")
 
     doc.add_heading("Checklist accessibilité des documents bureautiques", level=0)
     doc.add_paragraph(
@@ -1869,6 +1894,8 @@ def _checklist_docx(matrix):
             cells[0].text = f"{control['id']} · {control['niveau']}"
             cells[1].text = control["checklist"]
             cells[2].text = "☐ À vérifier\n☐ Fait\n☐ À reprendre\nNotes :"
+        # Colonne des points à vérifier élargie : la largeur utile fait 6 pouces.
+        _set_table_column_widths(table, (Inches(1.3), Inches(3.2), Inches(1.5)))
         _prevent_table_row_splitting(table)
 
     _add_page_footer(doc, document_name=None, font_size=12, separator=" sur ")

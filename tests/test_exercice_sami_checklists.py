@@ -283,3 +283,32 @@ def test_les_tableaux_de_la_checklist_suivent_les_regles_d_accessibilite(tmp_pat
         assert "w:gridSpan" not in table_xml and "w:vMerge" not in table_xml
         assert "w:tblpPr" not in table_xml
         assert not table._tbl.xpath(".//w:tbl")
+
+
+def test_la_checklist_docx_a_des_titres_arial_et_une_colonne_de_points_large(
+    tmp_path,
+):
+    markdown = tmp_path / "checklist.md"
+    docx = tmp_path / CHECKLIST_DOCX
+    build_checklists(
+        matrix=load_sami_matrix(), markdown_output=markdown, docx_output=docx
+    )
+    document = Document(docx)
+
+    for style_name in ("Title", "Heading 1"):
+        fonts = re.findall(r"<w:rFonts [^>]*>", document.styles[style_name].element.xml)
+        assert len(fonts) == 1
+        assert 'w:ascii="Arial"' in fonts[0] and 'w:hAnsi="Arial"' in fonts[0]
+        assert "Theme" not in fonts[0] and "theme" not in fonts[0]
+
+    # 1,3 + 3,2 + 1,5 pouces : la largeur utile de 6 pouces, en twips.
+    expected = ["1872", "4608", "2160"]
+    for table in document.tables:
+        table_xml = table._tbl.xml
+        assert re.findall(r'<w:gridCol w:w="(\d+)"/>', table_xml) == expected
+        for row in table.rows:
+            widths = [
+                re.findall(r'<w:tcW [^>]*w:w="(\d+)"', cell._tc.xml)[0]
+                for cell in row.cells
+            ]
+            assert widths == expected
