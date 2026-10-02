@@ -2,18 +2,29 @@
 
 Source : `support-formation-102846-2026-IGPDE.pptx`.
 
-Périmètre : diapositives 84 à 114 du deck, correspondant à la partie 3 sur les points de contrôle rapides W3C pour le web.
+Périmètre : diapositives 81 à 111 du deck, correspondant à la partie 3 sur les points de contrôle rapides W3C pour le web.
 
-## Diapositive 84 - 3. Les 13 points de contrôle rapides du W3C
+## Diapositive 81 - Partie III - Web accessible - TP
 
-84
+Partie III | Plan
+81
+1
+Repérer les erreurs fréquentes
+2
+Vérifier les images et les titres
+3
+Contrôler les contrastes, les liens et le clavier
+4
+Tester la langue, le zoom et les médias
+5
+Examiner les formulaires et réaliser un audit rapide
 9 octobre 2026
-Formation 102846 / points de contrôle rapides
+Formation 102846 / Partie III
 
-## Diapositive 85 - WebAIM Million 2026 : le constat
+## Diapositive 82 - WebAIM Million 2026 : le constat
 
 3. points de contrôle rapides | WebAIM Million 2026
-85
+82
 95,9 %
 des pages d’accueil ont au moins une erreur WCAG détectée
 56,1
@@ -27,10 +38,10 @@ Comment lire ces chiffres
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - WebAIM
 
-## Diapositive 86 - Six erreurs qui justifient les points de contrôle rapides
+## Diapositive 83 - Six erreurs qui justifient les points de contrôle rapides
 
 3. points de contrôle rapides | WebAIM Million 2026
-86
+83
 Erreur fréquente
 Pages concernées
 Point d’entrée
@@ -58,10 +69,10 @@ Langue
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - WebAIM
 
-## Diapositive 87 - Texte alternatif : 4 types d’images, 4 décisions
+## Diapositive 84 - Texte alternatif : 4 types d’images, 4 décisions
 
 3. points de contrôle rapides | 1. Texte alternatif des images
-87
+84
 Le texte alternatif est le sous-titre de l’image - sans lui, une partie du message devient muette.
 Informative
 Apporte une info : photo d’un bâtiment, graphique.
@@ -82,10 +93,10 @@ Formation 102846 / points de contrôle rapides - Texte alternatif des images
 3
 4
 
-## Diapositive 88 - Rédiger un texte alternatif qui sert vraiment
+## Diapositive 85 - Rédiger un texte alternatif qui sert vraiment
 
 3. points de contrôle rapides | 1. Texte alternatif des images
-88
+85
 5 règles pour un texte alternatif utile :
 • Concis : une phrase courte, centrée sur l’information utile
 • Objectif : décrit, ne commente pas
@@ -98,10 +109,10 @@ Piège fréquent
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Texte alternatif des images
 
-## Diapositive 89 - Texte alternatif : passe ou échoue ?
+## Diapositive 86 - Texte alternatif : passe ou échoue ?
 
 3. points de contrôle rapides | 1. Texte alternatif des images
-89
+86
 Image
 Alt proposé
 Verdict
@@ -123,10 +134,10 @@ KO - décrit l’image, pas l’action (devrait être « Rechercher »)
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Texte alternatif des images
 
-## Diapositive 90 - Titre de page : l’étiquette qui oriente
+## Diapositive 87 - Titre de page : l’étiquette qui oriente
 
 3. points de contrôle rapides | 2. Titre de page
-90
+87
 Le titre de page est la 1ʳᵉ chose que lit un lecteur d’écran et la seule chose visible dans l’onglet.
 Ce qu’il faut vérifier :
 • Chaque page a un titre unique, différent des autres pages du site
@@ -139,10 +150,10 @@ Exemples
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Titre de page
 
-## Diapositive 91 - Titres : la hiérarchie qui structure
+## Diapositive 88 - Titres : la hiérarchie qui structure
 
 3. points de contrôle rapides | 3. Titres et hiérarchie
-91
+88
 Un utilisateur de lecteur d’écran navigue de titre en titre comme on navigue dans une table des matières.
 3 règles qui font passer le check :
 • Un seul H1 par page, qui reprend le sujet principal
@@ -151,10 +162,10 @@ Un utilisateur de lecteur d’écran navigue de titre en titre comme on navigue 
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Titres et hiérarchie
 
-## Diapositive 92 - Titres : 3 façons de vérifier
+## Diapositive 89 - Titres : 3 façons de vérifier
 
 3. points de contrôle rapides | 3. Titres et hiérarchie
-92
+89
 Méthode
 Comment faire
 Ce que vous cherchez
@@ -170,10 +181,10 @@ Un seul <h1>, pas de saut, pas de titre factice (<div class="titre">).
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Titres et hiérarchie
 
-## Diapositive 93 - Contraste : un seuil chiffré, pas une opinion
+## Diapositive 90 - Contraste : un seuil chiffré, pas une opinion
 
 3. points de contrôle rapides | 4. Contraste des couleurs
-93
+90
 Ce que vous trouvez « joli gris » peut devenir illisible selon l’écran, la lumière ou la vision de l’utilisateur.
 4,5:1
 Texte normal (sous 18 pt)
@@ -188,10 +199,10 @@ Ce qui compte :
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Contraste des couleurs
 
-## Diapositive 94 - Contraste : 3 outils à avoir sous la main
+## Diapositive 91 - Contraste : 3 outils à avoir sous la main
 
 3. points de contrôle rapides | 4. Contraste des couleurs
-94
+91
 Outil
 Usage
 Quand l’utiliser
@@ -210,10 +221,10 @@ Piège classique
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Contraste des couleurs
 
-## Diapositive 95 - Lien d’évitement : le raccourci vers le contenu
+## Diapositive 92 - Lien d’évitement : le raccourci vers le contenu
 
 3. points de contrôle rapides | 5. Lien d'évitement
-95
+92
 Sans lien d’évitement, un utilisateur clavier doit souvent traverser tout le menu avant d’atteindre le contenu.
 Ce qu’il faut vérifier :
 • Le premier lien interactif permet d’aller directement au contenu principal
@@ -225,10 +236,10 @@ Démo en 3 Tab
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Lien d’évitement
 
-## Diapositive 96 - Naviguer sans souris : le test qui change tout
+## Diapositive 93 - Naviguer sans souris : le test qui change tout
 
 3. points de contrôle rapides | 6. Focus et navigation clavier
-96
+93
 Quand on navigue au clavier, un focus invisible suffit à perdre toute la page.
 En 15 minutes, vous saurez :
 • Utiliser 5 touches pour tester n’importe quelle page
@@ -237,10 +248,10 @@ En 15 minutes, vous saurez :
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Focus et navigation clavier
 
-## Diapositive 97 - 5 touches, 3 intentions
+## Diapositive 94 - 5 touches, 3 intentions
 
 3. points de contrôle rapides | 6. Focus et navigation clavier
-97
+94
 Naviguer → Tab / Shift+Tab    Agir → Entrée / Espace    Lire → Flèches ↑ ↓
 Touche
 À quoi elle sert
@@ -263,27 +274,29 @@ Le texte alternatif des images est lu à haute voix.
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Focus et navigation clavier
 
-## Diapositive 98 - 3 signaux qui trahissent un défaut
+## Diapositive 95 - 3 signaux qui trahissent un défaut
 
 3. points de contrôle rapides | 6. Focus et navigation clavier
-98
+95
 Le focus disparaît
 Plus de contour visible pendant la tabulation. L’utilisateur est perdu dès la 3ᵉ touche Tab.
 L’ordre est illogique
 Le focus saute à droite avant le menu à gauche. Le lecteur d’écran parcourt la page dans le désordre.
 L’état n’est pas annoncé
 Une case qui coche sans dire « coché ». L’information est invisible pour qui ne voit pas l’écran.
+Scannez-moi !
+https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Focus et navigation clavier
 1
 2
 3
 
-## Diapositive 99 - Votre mission
+## Diapositive 96 - Votre mission
 
 3. points de contrôle rapides | 6. Focus et navigation clavier
-99
-Sur le site d’entraînement qui vous sera fourni :
+96
+Site d’entraînement :
 • Cachez votre souris derrière l’écran
 • Tabulez 10 fois et notez chaque fois que le focus disparaît
 • Essayez Entrée sur un bouton, Espace sur une case à cocher
@@ -291,13 +304,15 @@ Sur le site d’entraînement qui vous sera fourni :
 Objectif : votre permis clavier
 • 1 signal détecté = vous avez l’œil
 • 3 signaux détectés = vous êtes auditeur clavier
+Scannez-moi !
+https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Focus et navigation clavier
 
-## Diapositive 100 - Langue de la page : l’accent juste du lecteur d’écran
+## Diapositive 97 - Langue de la page : l’accent juste du lecteur d’écran
 
 3. points de contrôle rapides | 7. Langue de la page
-100
+97
 Sans langue déclarée, le lecteur d’écran peut choisir une mauvaise prononciation et rendre le texte pénible à écouter.
 Ce qu’il faut vérifier :
 • La balise <html> porte un attribut lang (ex. lang="fr")
@@ -309,10 +324,10 @@ Comment vérifier sans coder
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Langue de la page
 
-## Diapositive 101 - Zoom à 200 % : tout doit rester lisible
+## Diapositive 98 - Zoom à 200 % : tout doit rester lisible
 
 3. points de contrôle rapides | 8. Zoom à 200 %
-101
+98
 À 200 %, votre site doit rester le même service : lisible, navigable et utilisable.
 Ce qu’il faut vérifier :
 • À 200 % de zoom, aucun texte n’est coupé ni superposé
@@ -324,10 +339,10 @@ Comment tester
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Zoom à 200 %
 
-## Diapositive 102 - Sous-titres : le son que tout le monde lit
+## Diapositive 99 - Sous-titres : le son que tout le monde lit
 
 3. points de contrôle rapides | 9. Sous-titres vidéo
-102
+99
 Une vidéo sans sous-titres devient inutilisable dès que le son manque, est coupé ou ne peut pas être entendu.
 Ce qu’il faut vérifier :
 • La vidéo propose des sous-titres synchronisés (pas seulement une transcription)
@@ -336,10 +351,10 @@ Ce qu’il faut vérifier :
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Sous-titres vidéo
 
-## Diapositive 103 - Sous-titres auto : brouillon utile, livrable à relire
+## Diapositive 100 - Sous-titres auto : brouillon utile, livrable à relire
 
 3. points de contrôle rapides | 9. Sous-titres vidéo
-103
+100
 Pourquoi l’auto ne suffit pas :
 • Les sous-titres automatiques peuvent déformer les mots, surtout les noms propres et acronymes
 • Noms propres, acronymes, chiffres : souvent mal reconnus
@@ -352,10 +367,10 @@ Méthode recommandée
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Sous-titres vidéo
 
-## Diapositive 104 - Transcription : la version texte qui accompagne
+## Diapositive 101 - Transcription : la version texte qui accompagne
 
 3. points de contrôle rapides | 10. Transcriptions audio et vidéo
-104
+101
 La transcription est au podcast ce que le script est au film : la version lisible, indexable, citable.
 Ce qu'il faut vérifier :
 • Toute vidéo / audio propose un lien visible « Lire la transcription »
@@ -368,10 +383,10 @@ Bonus souvent oublié
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Transcriptions audio et vidéo
 
-## Diapositive 105 - Audiodescription : la voix qui montre
+## Diapositive 102 - Audiodescription : la voix qui montre
 
 3. points de contrôle rapides | 11. Audiodescription
-105
+102
 L’audiodescription ajoute une voix off qui décrit les images clés pendant les silences.
 Ce qu’il faut vérifier :
 • La vidéo propose une piste audiodécrite activable (bouton AD)
@@ -383,10 +398,10 @@ Principe d’accessibilité vidéo
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Audiodescription
 
-## Diapositive 106 - Bonus médias : toujours 2 accès
+## Diapositive 103 - Bonus médias : toujours 2 accès
 
 3. points de contrôle rapides | Bonus médias
-106
+103
 Règle d'or : un média en ligne doit rester compréhensible par au moins deux chemins : voir, lire ou écouter.
 Le réflexe
 • Image, schéma ou plan -> description ou texte alternatif
@@ -399,16 +414,16 @@ Les pièges à repérer
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Bonus médias
 
-## Diapositive 107 - Bonus médias : VSME et transcriptions
+## Diapositive 104 - Bonus médias : Audio-description et transcription
 
 3. points de contrôle rapides | Bonus médias
-107
-Quand le son porte de l'information, la transcription des paroles ne suffit pas toujours.
-VSME : ce que ça ajoute
-• Dialogues visibles et hors champ
-• Bruits utiles, effets sonores et musique
-• Voix off, narration, pensée intérieure
-• Langue étrangère et son venant d'un haut-parleur
+104
+Image et son : proposer un autre accès à toute information utile.
+Audio-description : ce que ça ajoute
+• Décors, lieux et changements de scène utiles
+• Actions, gestes et expressions qui ne s’entendent pas
+• Textes et informations importantes affichés à l’écran
+• Une voix placée dans les silences, sans couvrir les dialogues
 Transcription : choisir le niveau
 • Semi-intégrale : résumé détaillé + citations
 • Intégrale éditée : texte complet, corrigé et lisible
@@ -417,10 +432,10 @@ IA utile pour brouillonner. Publication seulement après relecture humaine.
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Bonus médias
 
-## Diapositive 108 - Étiquettes : chaque champ a un nom
+## Diapositive 105 - Étiquettes : chaque champ a un nom
 
 3. points de contrôle rapides | 12. Étiquettes de formulaire
-108
+105
 Sans étiquette, un champ est comme une boîte aux lettres sans nom - on ne sait pas ce qu’on glisse dedans.
 Ce qu’il faut vérifier :
 • Chaque champ (texte, case, menu déroulant) a une étiquette visible à côté
@@ -430,10 +445,10 @@ Ce qu’il faut vérifier :
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Étiquettes de formulaire
 
-## Diapositive 109 - Placeholder ≠ étiquette
+## Diapositive 106 - Placeholder ≠ étiquette
 
 3. points de contrôle rapides | 12. Étiquettes de formulaire
-109
+106
 Pourquoi le placeholder ne remplace pas l’étiquette :
 • Il disparaît dès qu’on commence à saisir - on oublie ce qu’on remplit
 • Son contraste est souvent trop faible pour passer le check 4
@@ -446,10 +461,10 @@ Pattern recommandé
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Étiquettes de formulaire
 
-## Diapositive 110 - Groupes de champs : l’étiquette commune
+## Diapositive 107 - Groupes de champs : l’étiquette commune
 
 3. points de contrôle rapides | 12. Étiquettes de formulaire
-110
+107
 Quand regrouper :
 • Plusieurs boutons radio qui répondent à la même question (« Civilité : M / Mme / autre »)
 • Plusieurs cases à cocher qui partagent un thème (« Jours travaillés »)
@@ -466,10 +481,10 @@ Chaque radio a son label seul
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Étiquettes de formulaire
 
-## Diapositive 111 - Champs obligatoires : prévenir puis guider
+## Diapositive 108 - Champs obligatoires : prévenir puis guider
 
 3. points de contrôle rapides | 13. Champs obligatoires et erreurs
-111
+108
 Test #13 = avant envoi + après soumission vide : l'obligation prévient, l'erreur guide.
 Avant soumission
 • Obligation écrite : « obligatoire » ou règle « tous sauf téléphone »
@@ -482,10 +497,10 @@ Après soumission
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Champs obligatoires et erreurs
 
-## Diapositive 112 - Ce qu’on remonte dans la grille
+## Diapositive 109 - Ce qu’on remonte dans la grille
 
 3. points de contrôle rapides | Grille d’audit
-112
+109
 Champ
 Ce qu’il faut écrire
 Exemple court
@@ -510,10 +525,10 @@ Règle de travail
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Grille
 
-## Diapositive 113 - Bonus site web : liens et PDF à repérer
+## Diapositive 110 - Bonus site web : liens et PDF à repérer
 
 3. points de contrôle rapides | Bonus
-113
+110
 Pendant l'audit, ces points ne remplacent pas les 13 checks. Mais si vous les voyez, notez-les : ils améliorent vraiment l'expérience utilisateur.
 Liens
 • Éviter les pages saturées de liens sans hiérarchie
@@ -528,10 +543,10 @@ Documents PDF
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Bonus web
 
-## Diapositive 114 - Votre mission : audit en binôme (30 min)
+## Diapositive 111 - Votre mission : audit en binôme
 
 3. points de contrôle rapides | Mission finale
-114
+111
 Le site d’exercice contient 13 pages : 1 page correspond à 1 point de contrôle.
 • Choisissez quelques points avec votre binôme : vous n’avez pas à tout couvrir
 • Une seule NC prouvée suffit à invalider le critère

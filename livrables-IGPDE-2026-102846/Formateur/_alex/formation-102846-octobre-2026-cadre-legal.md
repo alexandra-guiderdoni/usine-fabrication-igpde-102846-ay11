@@ -4,7 +4,7 @@ Source : `support-formation-102846-2026-IGPDE.pptx`.
 
 Périmètre : diapositives 1 à 53 du deck, correspondant au module 1 de la formation 102846.
 
-## Diapositive 1 - Accessibilité numérique
+## Diapositive 1 - L'accessibilité numérique pour la bureautique et le web
 
 1
 Formation 102846 | Bureautique et web
@@ -14,7 +14,6 @@ Institut de la Gestion publique et du Développement économique
 ## Diapositive 2 - Objectifs pédagogiques
 
 2
-Cette formation vous permettra de :
 • Expliquer les enjeux de l'accessibilité numérique et son cadre légal dans le contexte de la communication
 • Identifier et évaluer les principales erreurs d'accessibilité
 • Rendre des contenus numériques accessibles
@@ -31,9 +30,9 @@ Accessibilité et cadre légal
 • Enjeux et obligations des acteurs publics
 • Déclaration d'accessibilité
 Bureautique accessible
-• Documents Word et LibreOffice
+• Documents Word (LibreOffice)
 • Export PDF accessible
-points de contrôle rapides W3C
+Points de contrôle rapides W3C
 • 13 vérifications rapides W3C WAI
 • Démonstration et exercice pratique
 Réseaux sociaux
@@ -46,7 +45,7 @@ Formation 102846 / Programme
 3
 4
 
-## Diapositive 4 - Intervenant 1
+## Diapositive 4 - Bertrand Matge
 
 1. Introduction | Intervenants
 4
@@ -55,11 +54,11 @@ Responsable pôle support web - Mission Ingénierie du Web, SG-SNUM
 • Forme et sensibilise à l'accessibilité depuis plusieurs années
 • Passionné par la conception inclusive et l'expérience utilisateur
 • Formé à l'audit d'accessibilité numérique
-• Contact : coordonnée masquée
+• Email : bertrand.matge@finances.gouv.fr
 9 octobre 2026
 Formation 102846 / Intervenants
 
-## Diapositive 5 - Intervenante 2
+## Diapositive 5 - Alexandra Guiderdoni
 
 1. Introduction | Intervenants
 5
@@ -69,7 +68,7 @@ Chef de projet - Mission Ingénierie du Web, SG-SNUM
 • DU-RAN (diplôme universitaire référent accessibilité numérique), 1re session 2024
 • Formée à l'audit d'accessibilité numérique RGAA
 • Formatrice et Référente en Assurance Qualité pour le Web - Opquast
-• Contact : coordonnée masquée
+• Email : alexandra.guiderdoni@finances.gouv.fr
 9 octobre 2026
 Formation 102846 / Intervenants
 
@@ -84,17 +83,14 @@ chez [direction / service]
 depuis [durée]
 Mon rapport à l'accessibilité
 Quand j'entends « accessibilité numérique », je pense à [premier mot]
-
 Je me situe plutôt :
 [ ] Complet débutant
 [ ] J'en ai entendu parler
 [ ] J'ai déjà appliqué quelques règles
 Ce que j'attends
 Je produis principalement [type de contenu]
-
 Pour un usage :
 [ ] Interne   [ ] Grand public
-
 Ce que j'espère retirer :
 J'aimerais [objectif personnel]
 9 octobre 2026
@@ -231,16 +227,33 @@ https://ideance.net/blog/4602/idees-recues-a11y
 Formation 102846 / Accueil
 6
 
-## Diapositive 15 - 1. L'accessibilité numérique, c'est quoi ?
+## Diapositive 15 - Partie I - Accessibilité et cadre légal
 
+Partie I | Plan
 15
+1
+L'accessibilité numérique, c'est quoi ?
+2
+L'accessibilité numérique, c'est pour qui ?
+3
+L'accessibilité numérique, quel cadre légal ?
+4
+L'accessibilité numérique, pourquoi ?
+5
+L'accessibilité numérique, comment s'y mettre ?
+9 octobre 2026
+Formation 102846 / Partie I
+
+## Diapositive 16 - 1. L'accessibilité numérique, c'est quoi ?
+
+16
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 16 - L'accessibilité numérique, c'est quoi ?
+## Diapositive 17 - L'accessibilité numérique, c'est quoi ?
 
 1. Q1 - C'est quoi | Définition
-16
+17
 Rendre possible l'accès à l'information et aux fonctionnalités numériques aux personnes en situation de handicap, quels que soient leur matériel, leur logiciel ou leur situation.
 Tous les contenus sont concernés
 • Sites web, applications, newsletters, courriels
@@ -255,36 +268,31 @@ Utile pour tous, indispensable pour certains
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 17 - Point sur l'accessibilité numérique
+## Diapositive 18 - Point sur l'accessibilité numérique
 
 1. Q1 - C'est quoi | WCAG et RGAA
-17
+18
 L'accessibilité numérique permet d'accéder à l'information quel que soit le support, l'outil ou la situation.
 WCAG
-référence internationale
-du W3C.
 RGAA
-référentiel français
-publié par la DINUM.
-106
-critères regroupés
-en 13 thématiques.
+106 / 13
+WCAG : référence internationale du W3C. RGAA : référentiel français publié par la DINUM. 106 critères regroupés en 13 thématiques.
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 18 - 4 principes pour tout retenir
+## Diapositive 19 - 4 principes pour tout retenir
 
 1. Q1 - C'est quoi | 4 principes WCAG
-18
+19
 Les WCAG reposent sur 4 principes. Chacun se résume en une question à poser devant tout contenu.
 Percevoir
 L'information reste-t-elle disponible si je ne vois pas ou n'entends pas ?
 Utiliser
-Puis-je naviguer et agir sans souris, sans geste impose ?
+Puis-je naviguer et agir sans souris, sans geste imposé ?
 Comprendre
-Les mots, formulaires et comportements sont-ils previsibles ?
+Les mots, formulaires et comportements sont-ils prévisibles ?
 Compatible
-Les aides techniques peuvent-elles interpreter l'interface ?
+Les aides techniques peuvent-elles interpréter l'interface ?
 9 octobre 2026
 Formation 102846 / Module 1
 1
@@ -292,16 +300,16 @@ Formation 102846 / Module 1
 3
 4
 
-## Diapositive 19 - 2. L'accessibilité numérique, c'est pour qui ?
+## Diapositive 20 - 2. L'accessibilité numérique, c'est pour qui ?
 
-19
+20
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 20 - C'est pour qui ? 4 familles de besoins
+## Diapositive 21 - C'est pour qui ? 4 familles de besoins
 
 1. Q2 - Pour qui | 4 familles
-20
+21
 Chaque type de handicap implique des besoins concrets que vos contenus doivent prendre en compte.
 Visuelle
 • Lecteur d'écran, loupe, contraste
@@ -318,10 +326,10 @@ Cognitive
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 21 - Comprendre pour mieux agir
+## Diapositive 22 - Comprendre pour mieux agir
 
 1. Q2 - Pour qui | Comprendre
-21
+22
 Il ne s’agit pas de se mettre à la place d’une personne handicapée, mais d’observer ce que nos choix numériques peuvent faciliter ou bloquer.
 Testez les simulations suivantes
 • Daltonisme
@@ -333,10 +341,10 @@ L'accessibilité numérique, et si nous agissions ?
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 22 - Amir, charge d'études - cécité
+## Diapositive 23 - Amir, chargé d'études - cécité
 
 1. Q2 - Pour qui | Amir
-22
+23
 Ses besoins au quotidien
 • Alternative textuelle sur chaque image (attribut alt)
 • Structure logique du document (titres, listes, tableaux)
@@ -349,55 +357,55 @@ Synthèse vocale
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 23 - Anaïs, gestionnaire RH - malvoyance
+## Diapositive 24 - Anaïs, gestionnaire RH - malvoyance
 
 1. Q2 - Pour qui | Anaïs
-23
+24
 Ses besoins au quotidien
 • Agrandir la taille des textes et des interfaces
 • Contraste suffisant entre texte et fond (ratio 4.5:1 minimum)
 • Pouvoir naviguer sans dépendre uniquement des couleurs
 Percevoir
-Clavier adapté
-Clavier guide-doigts
-Paramètres accessibilité
+Agrandissement
+Contraste renforcé
+Synthèse vocale
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 24 - Justine, chargée de communication - surdité
+## Diapositive 25 - Justine, chargée de communication - surdité
 
 1. Q2 - Pour qui | Justine
-24
+25
 Ses besoins au quotidien
 • Sous-titres sur toutes les vidéos et contenus audio
 • Transcription textuelle des podcasts et webinaires
 • Alertes visuelles, jamais uniquement sonores
 Percevoir
+Sous-titres relus
 Transcription
-Vérificateur accessibilité
-NVDA - lecteur d'écran
+Alertes visuelles
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 25 - Agathe, chargée de mission - déficience motrice
+## Diapositive 26 - Agathe, chargée de mission - déficience motrice
 
 1. Q2 - Pour qui | Agathe
-25
+26
 Ses besoins au quotidien
 • Naviguer sans souris, avec des contacteurs adaptés
 • Cibles cliquables suffisamment larges (44 x 44 px minimum)
-• Convertisseur texte-parole pour communiquer plus facilement
+• Commande vocale pour piloter l'interface
 Utiliser
+Clavier et contacteurs
 Souris trackball
-Plage braille / contacteurs
-Contrôle vocal
+Commande vocale
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 26 - Anatole, lyceen - handicap cognitif
+## Diapositive 27 - Anatole, lycéen - handicap cognitif
 
 1. Q2 - Pour qui | Anatole
-26
+27
 Ses besoins au quotidien
 • Phrases courtes et simples, sans double négation
 • Mise en page aérée, une idée par paragraphe
@@ -412,10 +420,10 @@ Profil
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 27 - Paul, attache de presse - TDAH et dyslexie
+## Diapositive 28 - Paul, attaché de presse - TDAH et dyslexie
 
 1. Q2 - Pour qui | Paul
-27
+28
 Ses besoins au quotidien
 • Mettre en pause les animations (carrousels, vidéo autoplay)
 • Textes non justifiés, avec un espacement suffisant
@@ -429,10 +437,10 @@ Profil
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 28 - 6 profils, 4 questions - votre boussole WCAG
+## Diapositive 29 - 6 profils, 4 questions - votre boussole WCAG
 
 1. Q2 - Pour qui | Synthèse
-28
+29
 Persona
 Percevoir
 Utiliser
@@ -441,7 +449,7 @@ Compatible
 Amir (aveugle)
 Alt text, structure
 Lecteur d'écran
-Anais (malvoyante)
+Anaïs (malvoyante)
 Contrastes, taille
 Justine (sourde)
 Sous-titres, transcription
@@ -455,10 +463,10 @@ Pas de justification
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 29 - Solutions par type de déficience (1/2)
+## Diapositive 30 - Solutions par type de déficience (1/2)
 
 1. Q2 - Pour qui | Fiches solutions
-29
+30
 Chaque déficience appelle des solutions et des technologies d'assistance spécifiques.
 Aveugle
 Malvoyant
@@ -485,10 +493,10 @@ Appareil auditif, boucle magnétique
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 30 - Solutions par type de déficience (2/2)
+## Diapositive 31 - Solutions par type de déficience (2/2)
 
 1. Q2 - Pour qui | Fiches solutions
-30
+31
 Les déficiences motrices et cognitives impliquent des réponses différentes, mais un principe commun : simplifier l'interaction.
 Handicap moteur
 Dyslexie / troubles dys
@@ -515,20 +523,17 @@ Pas de technologie d'assistance spécifique
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 31 - Handicap : sortir de l'angle mort
+## Diapositive 32 - Handicap : sortir de l'angle mort
 
 1. Q2 - Pour qui | Chiffres
-31
+32
 L'accessibilité n'est pas une faveur : c'est une condition d'accès équitable à l'information.
-1 sur 5
-personne en situation
-de handicap ou trouble invalidant.
-85 %
-des handicaps sont acquis
-au cours de la vie.
+1/5
+1 personne sur 5 est en situation de handicap ou connaît un trouble invalidant.
+85%
+des handicaps sont acquis au cours de la vie
 1er
-facteur de discrimination
-selon le Défenseur des droits.
+Le handicap est le 1er facteur de discrimination selon le Défenseur des droits
 Validisme : le piège à déconstruire
 • Penser le public comme valide par défaut
 • Confondre bonne intention et accès réel
@@ -536,36 +541,36 @@ Validisme : le piège à déconstruire
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 32 - Déficience n'est pas situation de handicap
+## Diapositive 33 - Déficience n'est pas situation de handicap
 
 1. Q2 - Pour qui | Déficience vs situation
-32
+33
 Le handicap n'est pas un état fixe : c'est la rencontre entre une déficience et un environnement inadapté.
 Ce que ça change pour vous
 • C'est l'environnement qui crée le handicap, pas la personne
 • Un document inaccessible = une barrière que vous pouvez lever
-• Une communication accessibilisée lève la situation de handicap
+• Mettre en accessibilité votre communication supprime la situation de handicap
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 33 - Le spectre du handicap
+## Diapositive 34 - Le spectre du handicap
 
 1. Q2 - Pour qui | Spectre du handicap
-33
+34
 Le handicap n'est pas binaire. Il peut être permanent, temporaire, situationnel ou lié au vieillissement.
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 34 - 3. L'accessibilité numérique, quel cadre légal ?
+## Diapositive 35 - 3. L'accessibilité numérique, quel cadre légal ?
 
-34
+35
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 35 - Le cadre légal : de 2005 à aujourd'hui
+## Diapositive 36 - Le cadre légal : de 2005 à aujourd'hui
 
 1. Q3 - Cadre légal | Jalons législatifs
-35
+36
 1
 Loi Handicap 2005 : 1re obligation d'accessibilité
 2
@@ -573,18 +578,19 @@ Directive européenne 2016 : extension au secteur public
 3
 RGAA 4.1.2 (décret 2019-768) : référentiel opposable
 4
-Contrôle Arcom effectif - contrôle DINUM en cours de mise en place
+2023 : l'Arcom devient l'autorité de contrôle
 Qui est concerné ?
 • État, collectivités, établissements publics
 • Entreprises privées gérant un service public ou CA > 250 M EUR
-• Pénalité jusqu'à 25 000 EUR par service non conforme
+• Jusqu'à 50 000 EUR : accessibilité des organismes publics et assimilés
+• Jusqu'à 25 000 EUR : obligations déclaratives
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 36 - Le cadre européen
+## Diapositive 37 - Le cadre européen
 
 1. Q3 - Cadre légal | Directives européennes
-36
+37
 Deux directives européennes structurent l'obligation d'accessibilité numérique en France.
 Directive 2016/2102 - secteur public
 • Sites web et applications mobiles du secteur public
@@ -599,10 +605,10 @@ Directive 2019/882 - secteur privé
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 37 - RGAA : 13 thèmes, 3 niveaux de conformité
+## Diapositive 38 - RGAA : 13 thèmes, 3 niveaux de conformité
 
 1. Q3 - Cadre légal | 13 thèmes RGAA
-37
+38
 Les 13 thèmes du RGAA
 1. Images
 8. Éléments obligatoires
@@ -617,22 +623,22 @@ Les 13 thèmes du RGAA
 6. Liens
 13. Consultation
 7. Scripts
-Obligations de publication
-• Schéma pluriannuel d'accessibilité (SPAN) sur 3 ans
+SPAN
+Schéma pluriannuel d'accessibilité sur 3 ans
+Trois niveaux de conformité
 • Non conforme : moins de 50 % des critères
 • Partiellement conforme : de 50 % à 99 %
 • Totalement conforme : 100 % des critères applicables
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 38 - Le RGAA - Référentiel général d'amélioration de l'accessibilité
+## Diapositive 39 - Le RGAA - Référentiel Général d'Amélioration de l'Accessibilité
 
 1. Q3 - Cadre légal | RGAA détail
-38
+39
 Structure en 2 parties
 • Obligations légales
 • Méthode technique
-•
 • 13 thématiques
 • 106 critères au total
 • 258 tests unitaires
@@ -652,16 +658,14 @@ Images
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 39 - Quelles obligations pour votre structure ?
+## Diapositive 40 - Quelles obligations pour votre structure ?
 
 1. Q3 - Cadre légal | Obligations
-39
+40
 Vous connaissez le cadre. Mais concrètement, quelles obligations s'appliquent à votre poste et à votre structure ?
 Activité - simulateur Obligally (10 min)
 • Cliquez sur Simuler et répondez aux questions
 • Notez le résultat : quelles normes s'appliquent à vous ?
-• Visualiser (infographie) : .../fr/visualisation/
-• Approfondir (article détaillé) : .../fr/comprendre/
 Scannez-moi !
 https://obligations-legales-accessibilite-numerique.fr/fr/
 Simuler : https://obligations-legales-accessibilite-numerique.fr/fr/simulation/
@@ -669,10 +673,10 @@ Comprendre : https://obligations-legales-accessibilite-numerique.fr/fr/comprendr
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 40 - La déclaration d'accessibilité
+## Diapositive 41 - La déclaration d'accessibilité
 
 1. Q3 - Cadre légal | Déclaration
-40
+41
 Que doit-elle contenir ?
 Exemple concret
 Taux de conformité RGAA
@@ -684,7 +688,7 @@ HTML5, CSS3, JavaScript
 Environnements de test
 Chrome + NVDA, Safari + VoiceOver
 Contact et voie de recours
-Contact accessibilité du ministère
+accessibilite@mon-ministere.gouv.fr
 Exercice pratique
 • Cherchez la déclaration d'accessibilité de votre site
 • URL type : /déclaration-accessibilité
@@ -692,16 +696,16 @@ Exercice pratique
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 41 - Les obligations légales de mise en accessibilité
+## Diapositive 42 - Les obligations légales de mise en accessibilité
 
 1. Q3 - Cadre légal | Récap obligations
-41
+42
 Documents obligatoires
 • Schéma pluriannuel d'accessibilité numérique (SPAN)
 • Plan d'action annuel
 • Audit d'accessibilité RGAA en version 4.1.2
 • Un moyen de contact
-• RAN (Référent accessibilité numérique)
+• RAN (Référent Accessibilité Numérique)
 Mention
 Signification
 Accessibilité : non conforme
@@ -713,16 +717,16 @@ Accessibilité : totalement conforme
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 42 - 4. L'accessibilité numérique, pourquoi ?
+## Diapositive 43 - 4. L'accessibilité numérique, pourquoi ?
 
-42
+43
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 43 - Pourquoi agir ?
+## Diapositive 44 - Pourquoi agir ?
 
 1. Q4 - Pourquoi | Droit et charte
-43
+44
 Un droit, pas une faveur
 • Droit fondamental d'accès à l'information
 • Lutte contre la discrimination numérique
@@ -740,11 +744,11 @@ Inclusion sociale
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 44 - Accessibiliser sa communication : de quoi parle-t-on ?
+## Diapositive 45 - Communication accessible, de quoi parle-t-on ?
 
 1. Q4 - Pourquoi | Communication accessible
-44
-Transformer une intention d'inclusion en contenus que les publics peuvent lire, comprendre et utiliser.
+45
+Contenus que le public peut lire, comprendre et utiliser.
 3 questions à garder en tête
 • Qui risque d'être empêché par ce support ?
 • Quel autre chemin donne accès à la même information ?
@@ -757,16 +761,16 @@ Les supports concernés
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 45 - 5. L'accessibilité numérique, comment s'y mettre ?
+## Diapositive 46 - 5. L'accessibilité numérique, comment s'y mettre ?
 
-45
+46
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 46 - Des outils déjà intégrés à vos postes
+## Diapositive 47 - Des outils déjà intégrés à vos postes
 
 1. Q5 - Comment | Outils intégrés
-46
+47
 Les systèmes d'exploitation et les suites bureautiques intègrent déjà des fonctions d'accessibilité. Pas besoin de tout réinventer.
 Vision
 • Loupe et zoom intégrés
@@ -781,10 +785,10 @@ Audition et interaction
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 47 - Règles transversales : texte, contraste, QR
+## Diapositive 48 - Règles transversales : texte, contraste, QR
 
 1. Q5 - Comment | Règles transversales
-47
+48
 Textes lisibles
 • Police simple, sans empattement
 • Alignement à gauche
@@ -807,10 +811,10 @@ Formation 102846 / Module 1
 2
 3
 
-## Diapositive 48 - FALC et langage clair
+## Diapositive 49 - FALC et langage clair
 
 1. Q5 - Comment | FALC et langage clair
-48
+49
 Simplifier ne veut pas dire appauvrir : c'est rendre le message accessible au plus grand nombre.
 FALC - Facile à lire et à comprendre
 • Règles européennes d'accessibilité cognitive
@@ -825,10 +829,10 @@ Langage clair
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 49 - Comment s'y mettre ?
+## Diapositive 50 - Comment s'y mettre ?
 
 1. Q5 - Comment | Premiers pas
-49
+50
 Des règles et bonnes pratiques simples permettent de garantir l'accessibilité à toutes et tous.
 4 étapes pour avancer
 • Être sensibilisé - c'est ce qu'on fait aujourd'hui
@@ -842,28 +846,28 @@ Offre de formation
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 50 - FALC : la méthode en 5 étapes
+## Diapositive 51 - FALC : la méthode en 5 étapes
 
 1. Q5 - Comment | FALC méthode
-50
+51
 Il est très difficile de faire simple ! Le FALC suit un processus rigoureux.
 Les 5 étapes
-• 1. Préparatoire : recherches, résumé simplifié, contrôle des contre-sens
-• 2. Transcription en duo : simplification, illustrations, mise en page
-• 3. Validation : relecture par des personnes handicapées intellectuelles
-• 4. Publication : logo FALC, crédit des personnes impliquées
-• 5. Itération : savoir dire stop - un texte ne sera jamais compris à 100 %
+1. Préparatoire : recherches, résumé simplifié, contrôle des contre-sens
+2. Transcription en duo : simplification, illustrations, mise en page
+3. Validation : relecture par des personnes handicapees intellectuelles
+4. Publication : logo FALC, credit des personnes impliquees
+5. Itération : savoir dire stop - un texte ne sera jamais compris a 100 %
 Conditions obligatoires
 • Validation par des personnes concernées (obligatoire)
-• 80 % des critères FALC respectés (Unapei)
-• Logo européen FALC + crédit des valideurs
+• 80 % des critères FALC respectes (Unapei)
+• Logo europeen FALC + credit des valideurs
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 51 - Exemple : le rapport DIA en version accessible et FALC
+## Diapositive 52 - Exemple : le rapport DIA en version accessible et FALC
 
 1. Q5 - Comment | FALC exemple
-51
+52
 Le rapport d'activité 2024 de la Délégation interministérielle à l'accessibilité existe en PDF accessible et en version FALC.
 PDF accessible
 • Structure balisée (titres, listes, tableaux)
@@ -876,32 +880,14 @@ Version FALC
 9 octobre 2026
 Formation 102846 / Module 1
 
-## Diapositive 52 - L'accessibilité dès la conception
+## Diapositive 53 - L'accessibilité dès la conception
 
 1. Q5 - Comment | Conception accessible
-52
+53
 L'accessibilité rend les choses possibles pour certains et plus simples pour tous.
 Concevoir accessible, pas adapter après
 • Intégrer l'accessibilité dès le début, pas en rattrapage
 • Un document bien structuré profite à tous les lecteurs
 • La rampe intégrée est plus élégante que la rampe ajoutée
-9 octobre 2026
-Formation 102846 / Module 1
-
-## Diapositive 53 - Module 1 - ce que vous retenez
-
-1. Introduction | Points clés
-53
-3 points à retenir
-• L'accessibilité relève de l'équité et du droit, pas de la bonne volonté
-• Les WCAG et le RGAA donnent un cadre pour vérifier ce qui est conforme
-• Les premiers réflexes : texte lisible, contraste testé, alternative disponible
-Dès demain matin
-• Relire une communication récente
-• Vérifier texte et contraste
-• Chercher la déclaration d'accessibilité du site
-Cette semaine
-• Partager les constats avec l'équipe
-• Choisir 3 règles transversales à appliquer à chaque publication
 9 octobre 2026
 Formation 102846 / Module 1
