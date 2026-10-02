@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import re
 import subprocess
 from zipfile import ZipFile
 
@@ -208,3 +209,18 @@ def test_checklists_sont_declarees_sans_liste_normative_parallele():
     assert CHECKLIST_DOCX in legacy
     assert CHECKLIST_PDF in legacy
     assert "_source/exercice-sami-matrice.yml" in legacy
+
+
+def test_la_checklist_docx_est_paginee_page_x_sur_y(tmp_path):
+    markdown = tmp_path / "checklist.md"
+    docx = tmp_path / CHECKLIST_DOCX
+    build_checklists(
+        matrix=load_sami_matrix(), markdown_output=markdown, docx_output=docx
+    )
+    footer_xml = Document(docx).sections[0].footer._element.xml
+
+    instructions = re.findall(r"<w:instrText[^>]*>([^<]*)</w:instrText>", footer_xml)
+    assert [instruction.strip() for instruction in instructions] == ["PAGE", "NUMPAGES"]
+    texts = re.findall(r"<w:t(?: [^>]*)?>([^<]*)</w:t>", footer_xml)
+    assert "".join(texts) == "Page 1 sur 1"
+    assert set(re.findall(r'<w:sz w:val="(\d+)"/>', footer_xml)) == {"24"}

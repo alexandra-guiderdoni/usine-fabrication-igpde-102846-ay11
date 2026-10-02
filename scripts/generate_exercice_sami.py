@@ -14,6 +14,7 @@ Produit :
 # helpers OOXML et l'ordre canonique doivent rester comparables dans un même flux.
 
 import argparse
+import re
 import subprocess
 from xml.sax.saxutils import escape
 from pathlib import Path
@@ -462,7 +463,7 @@ def _add_header_status(header, font_size=9):
     _format_header_paragraph(paragraph, font_size=font_size)
 
 
-def _add_page_footer(doc, document_name=DOCUMENT_TITLE, font_size=9):
+def _add_page_footer(doc, document_name=DOCUMENT_TITLE, font_size=9, separator=" / "):
     """Ajoute un pied de page Page X / Y avec champs Word natifs."""
     footer = doc.sections[0].footer
     footer.is_linked_to_previous = False
@@ -474,7 +475,7 @@ def _add_page_footer(doc, document_name=DOCUMENT_TITLE, font_size=9):
         p.add_run(" - ")
     p.add_run("Page ")
     _add_simple_field(p, "PAGE")
-    p.add_run(" / ")
+    p.add_run(separator)
     _add_simple_field(p, "NUMPAGES")
     for run in p.runs:
         _format_header_footer_run(run, font_size)
@@ -491,6 +492,26 @@ def _add_fake_list_item(doc, marker, text):
     return p
 
 
+# Identifiant en tête de piste et intitulés des rubriques, mis en gras.
+GUIDANCE_LABELS = re.compile(
+    r"^(?:Document \u2014 )?P-\d+"
+    r"|(?<=\s)(?:Problème|Impact|Règle|Piste|Première action|Procédure Word) :"
+)
+
+
+def _guidance_segments(text):
+    """Découpe une piste en segments (texte, gras) autour des intitulés."""
+    segments, position = [], 0
+    for match in GUIDANCE_LABELS.finditer(text):
+        if match.start() > position:
+            segments.append((text[position : match.start()], False))
+        segments.append((match.group(), True))
+        position = match.end()
+    if position < len(text):
+        segments.append((text[position:], False))
+    return segments
+
+
 def _add_guidance_comment(doc, runs, text):
     """Ajoute un commentaire Word de correction sur un ou plusieurs runs."""
     if not runs:
@@ -501,15 +522,19 @@ def _add_guidance_comment(doc, runs, text):
     if runs:
         comment = doc.add_comment(
             runs,
-            text=text,
+            text="",
             author="Formation IGPDE",
             initials="IGPDE",
         )
+        for segment, bold in _guidance_segments(text):
+            run = comment.paragraphs[0].add_run(segment)
+            if bold:
+                run.bold = True
         # Le commentaire est rédigé en français : sans langue propre, il hérite
         # du défaut de langue volontaire du document et Word le souligne.
-        # Corps 14 pt et interligne 1,5 pour la lisibilité des pistes.
+        # Corps 14 pt et interligne double pour la lisibilité des pistes.
         for paragraph in comment.paragraphs:
-            paragraph.paragraph_format.line_spacing = 1.5
+            paragraph.paragraph_format.line_spacing = 2.0
             for run in paragraph.runs:
                 run.font.size = Pt(14)
                 run._element.get_or_add_rPr().append(
@@ -554,13 +579,19 @@ def _add_control_details(doc, control):
     problem = control["defaut"] or (
         "Cette étape de finalisation ne peut pas être prouvée par le DOCX seul."
     )
-    doc.add_paragraph(f"Problème : {problem}")
-    doc.add_paragraph(f"Pourquoi : {control['impact']}")
-    doc.add_paragraph(f"Règle : {control['regle']}")
-    doc.add_paragraph(f"Dans Word : {control['procedure_word']}")
-    doc.add_paragraph(f"Dans LibreOffice Writer : {control['procedure_writer']}")
-    doc.add_paragraph(f"À faire : {control['action_attendue']}")
-    doc.add_paragraph(f"Preuve : {control['preuve']['attendu']}")
+    for label, value in (
+        ("Problème", problem),
+        ("Pourquoi", control["impact"]),
+        ("Règle", control["regle"]),
+        ("Dans Word", control["procedure_word"]),
+        ("Dans LibreOffice Writer", control["procedure_writer"]),
+        ("À faire", control["action_attendue"]),
+        ("Preuve", control["preuve"]["attendu"]),
+    ):
+        # Intitulé en gras pour repérer chaque rubrique d'un coup d'œil.
+        paragraph = doc.add_paragraph()
+        paragraph.add_run(f"{label} :").bold = True
+        paragraph.add_run(f" {value}")
 
 
 def _create_heading_numbering(doc):
@@ -1817,6 +1848,7 @@ def _checklist_docx(matrix):
             cells[2].text = "☐ À vérifier\n☐ Fait\n☐ À reprendre\nNotes :"
         _prevent_table_row_splitting(table)
 
+    _add_page_footer(doc, document_name=None, font_size=12, separator=" sur ")
     return doc
 
 

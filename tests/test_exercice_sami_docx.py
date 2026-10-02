@@ -33,6 +33,16 @@ def _archive_text(path: Path, member: str) -> str:
         return archive.read(member).decode("utf-8")
 
 
+def _comments_text(path: Path) -> str:
+    """Texte de chaque commentaire, indépendant de son découpage en runs."""
+    namespaces = {"w": WORD_NS}
+    root = etree.fromstring(_archive_text(path, "word/comments.xml").encode("utf-8"))
+    return "\n".join(
+        "".join(comment.xpath(".//w:t/text()", namespaces=namespaces))
+        for comment in root.xpath("//w:comment", namespaces=namespaces)
+    )
+
+
 def _archive_members(path: Path) -> set[str]:
     with ZipFile(path) as archive:
         return set(archive.namelist())
@@ -268,7 +278,7 @@ def test_le_docx_guide_consomme_directement_le_libelle_de_la_matrice(tmp_path):
         output_dir=tmp_path,
     )
 
-    comments = _archive_text(output, "word/comments.xml")
+    comments = _comments_text(output)
     assert "Libellé injecté depuis la matrice" in comments
 
 
@@ -400,7 +410,7 @@ def test_p03_guide_le_sommaire_manuel_et_le_corrige_le_rend_actualisable(
     inaccessible_xml = _archive_text(inaccessible, "word/document.xml")
     guided_xml = _archive_text(guided, "word/document.xml")
     corrected_xml = _archive_text(corrected, "word/document.xml")
-    comments = _archive_text(guided, "word/comments.xml")
+    comments = _comments_text(guided)
 
     assert "TOC \\o" not in inaccessible_xml
     assert "TOC \\o" not in guided_xml
@@ -443,7 +453,7 @@ def test_p04_remplace_les_marqueurs_saisis_par_des_listes_natives(tmp_path):
         for paragraph in corrected_doc.paragraphs
         if paragraph.text == "Refonte de la page d'accueil"
     )
-    comments = _archive_text(guided, "word/comments.xml")
+    comments = _comments_text(guided)
 
     assert bad_bullet.style.name == "Normal"
     assert bad_number.style.name == "Normal"
@@ -480,7 +490,7 @@ def test_p05_remplace_les_artifices_par_des_fonctions_de_mise_en_page(tmp_path):
     bad_xml = "".join(paragraph._p.xml for paragraph in bad_region)
     good_xml = "".join(paragraph._p.xml for paragraph in good_region)
     corrected_xml = _archive_text(corrected, "word/document.xml")
-    comments = _archive_text(guided, "word/comments.xml")
+    comments = _comments_text(guided)
 
     assert sum(not paragraph.text for paragraph in bad_region) >= 4
     assert any("  " in paragraph.text for paragraph in bad_region)
@@ -566,7 +576,7 @@ def test_le_guide_contient_une_piste_par_occurrence_de_la_station_un(tmp_path):
         matrix=matrix,
         output_dir=tmp_path,
     )
-    comments = _archive_text(guided, "word/comments.xml")
+    comments = _comments_text(guided)
     controls = [
         control for control in matrix["controles"] if control["station"] == "station-1"
     ]
@@ -660,7 +670,7 @@ def test_les_pistes_documentaires_sont_ancrees_dans_le_corps(tmp_path):
             assert "commentRangeStart" not in xml
             assert "commentReference" not in xml
 
-    comments = _archive_text(output, "word/comments.xml")
+    comments = _comments_text(output)
     assert "Document — P-03" in comments
     assert "Document — P-11" in comments
 
@@ -725,7 +735,7 @@ def test_p06_demande_une_alternative_redigee_puis_l_applique(tmp_path):
         "Le handicap n'est pas un choix. L'accessibilité non plus."
     )
 
-    comments = _archive_text(guided, "word/comments.xml")
+    comments = _comments_text(guided)
     assert comments.count("P-06 -") == 1
     assert control["regle"] in comments
     assert control["action_attendue"] in comments
@@ -795,7 +805,7 @@ def test_p07_associe_l_image_complexe_a_une_description_detaillee(tmp_path):
     assert description not in {p.text for p in Document(inaccessible).paragraphs}
     assert description in {p.text for p in Document(corrected).paragraphs}
 
-    comments = _archive_text(guided, "word/comments.xml")
+    comments = _comments_text(guided)
     assert comments.count("P-07 -") == 1
     assert control["regle"] in comments
 
@@ -855,7 +865,7 @@ def test_p08_marque_l_image_redondante_comme_decorative(tmp_path):
     assert contact in {p.text for p in Document(inaccessible).paragraphs}
     assert contact in {p.text for p in Document(corrected).paragraphs}
 
-    comments = _archive_text(guided, "word/comments.xml")
+    comments = _comments_text(guided)
     assert comments.count("P-08 -") == 1
     assert control["regle"] in comments
 
@@ -905,7 +915,7 @@ def test_p09_remplace_l_image_de_texte_par_un_texte_selectionnable(tmp_path):
     assert _embedded_asset_count(guided, text_image) == 1
     assert _embedded_asset_count(corrected, text_image) == 0
 
-    comments = _archive_text(guided, "word/comments.xml")
+    comments = _comments_text(guided)
     assert comments.count("P-09 -") == 1
     assert control["action_attendue"] in comments
 
@@ -960,7 +970,7 @@ def test_p10_conserve_la_destination_et_rend_le_lien_autonome(tmp_path):
     assert corrected_link["colors"] == ["0000FF"]
     assert corrected_link["underlines"] == ["single"]
 
-    comments = _archive_text(guided, "word/comments.xml")
+    comments = _comments_text(guided)
     assert comments.count("P-10 -") == 1
     assert control["regle"] in comments
 
@@ -1007,7 +1017,7 @@ def test_p11_est_explique_sans_filigrane_illisible(tmp_path):
     assert "Document confidentiel" not in {p.text for p in Document(guided).paragraphs}
     assert "Document confidentiel" in {p.text for p in Document(corrected).paragraphs}
 
-    comments = _archive_text(guided, "word/comments.xml")
+    comments = _comments_text(guided)
     assert comments.count("Document — P-11 -") == 1
     assert "Document — Critère 18" not in comments
     assert "commentReference" not in _archive_text(guided, "word/header1.xml")
@@ -1070,7 +1080,7 @@ def test_la_station_deux_est_ordonnee_et_pilotee_par_la_matrice(tmp_path):
                 assert expected in texts
         assert heading_indexes == sorted(heading_indexes)
 
-    comments = _archive_text(paths[1], "word/comments.xml")
+    comments = _comments_text(paths[1])
     for control in controls:
         assert comments.count(f"{control['id']} -") == control["occurrences_attendues"]
         assert control["regle"] in comments
@@ -1203,7 +1213,7 @@ def test_la_station_trois_est_ordonnee_et_pilotee_par_la_matrice(tmp_path):
                 assert expected in texts
         assert heading_indexes == sorted(heading_indexes)
 
-    comments = _archive_text(paths[1], "word/comments.xml")
+    comments = _comments_text(paths[1])
     for control in controls:
         assert comments.count(f"{control['id']} -") == control["occurrences_attendues"]
         assert control["regle"] in comments
@@ -1262,7 +1272,7 @@ def test_p12_calcule_un_vrai_defaut_de_contraste_et_sa_correction(tmp_path):
     assert _contrast_ratio(bad_color) < 4.5
     assert _contrast_ratio(good_color) >= 4.5
 
-    comments = _archive_text(guided, "word/comments.xml")
+    comments = _comments_text(guided)
     document_xml = _archive_text(guided, "word/document.xml")
     assert "#767676" not in comments
     assert "4,48" not in comments
@@ -1464,7 +1474,7 @@ def test_p15_distingue_la_langue_principale_et_le_passage_anglais(tmp_path):
     assert all(_direct_run_language(run) is None for run in guided_english.runs)
     assert {_direct_run_language(run) for run in good_english.runs} == {"en-US"}
 
-    comments = _archive_text(guided, "word/comments.xml")
+    comments = _comments_text(guided)
     assert comments.count("P-15 -") == 1
     assert control["regle"] in comments
     assert _comment_anchor(guided, "P-15 -")["text"] == english_text
@@ -1523,7 +1533,7 @@ def test_p16_corrige_la_lisibilite_par_le_style_normal(tmp_path):
     assert explicit_sizes
     assert min(explicit_sizes) >= 12
 
-    comments = _archive_text(guided, "word/comments.xml")
+    comments = _comments_text(guided)
     assert comments.count("P-16 -") == 1
     assert control["procedure_word"] in _comment_text(guided, "P-16 -")
     assert _comment_anchor(guided, "P-16 -")["text"] == sample_text
@@ -1576,7 +1586,7 @@ def test_p17_conserve_les_accents_et_applique_la_casse_par_la_forme(tmp_path):
     assert "ACCESSIBILITE" not in corrected_target._p.xml
     assert "accessibilité" in corrected_target._p.xml
 
-    comments = _archive_text(guided, "word/comments.xml")
+    comments = _comments_text(guided)
     assert comments.count("P-17 -") == 1
     assert "Critère 17 -" not in comments
     assert control["regle"] in _comment_text(guided, "P-17 -")
@@ -1634,7 +1644,7 @@ def test_p18_developpe_le_rgaa_et_documente_le_reglage_du_correcteur(tmp_path):
     first_rgaa = next(p.text for p in good_document.paragraphs if "RGAA" in p.text)
     assert first_rgaa == good_text
 
-    comments = _archive_text(guided, "word/comments.xml")
+    comments = _comments_text(guided)
     assert comments.count("P-18 -") == 1
     assert control["procedure_word"] in _comment_text(guided, "P-18 -")
     assert _comment_anchor(guided, "P-18 -")["text"] == bad_text
@@ -1684,7 +1694,7 @@ def test_la_station_quatre_est_ordonnee_et_pilotee_par_la_matrice(tmp_path):
                 assert expected in texts
         assert heading_indexes == sorted(heading_indexes)
 
-    comments = _archive_text(paths[1], "word/comments.xml")
+    comments = _comments_text(paths[1])
     for control in controls:
         assert comments.count(f"{control['id']} -") == 1
         assert control["regle"] in _comment_text(paths[1], f"{control['id']} -")
@@ -1733,7 +1743,7 @@ def test_p19_renseigne_les_proprietes_et_preserve_les_noms_des_versions(tmp_path
     assert corrected.core_properties.author == "Sami Dupont"
     assert corrected.core_properties.language == "fr-FR"
 
-    comments = _archive_text(paths[1], "word/comments.xml")
+    comments = _comments_text(paths[1])
     assert comments.count("P-19 -") == 1
     assert "Critère 14 -" not in comments
     assert control["regle"] in _comment_text(paths[1], "P-19 -")
@@ -1800,7 +1810,7 @@ def test_la_station_cinq_est_complete_ordonnee_et_identique_dans_les_trois_docx(
 
     assert station_bodies[0] == station_bodies[1] == station_bodies[2]
 
-    comments = _archive_text(paths[1], "word/comments.xml")
+    comments = _comments_text(paths[1])
     assert comments.count("P-19 -") == 1
     for control_id in ("P-20", "C-01", "C-02"):
         assert comments.count(f"{control_id} -") == 0
@@ -1869,7 +1879,8 @@ def test_le_guide_couvre_exactement_les_occurrences_et_preserve_le_corps(tmp_pat
     )
     for control in matrix["controles"]:
         assert (
-            comments_xml.count(f"{control['id']} -") == control["occurrences_attendues"]
+            _comments_text(guided).count(f"{control['id']} -")
+            == control["occurrences_attendues"]
         )
         if control["occurrences_attendues"]:
             comment = _comment_text(guided, f"{control['id']} -")
@@ -1986,7 +1997,7 @@ def test_commentaires_de_correction_en_francais_sans_corriger_le_defaut_de_langu
     assert re.search(r'<w:docDefaults>.*w:val="de-DE"', styles, re.S)
 
 
-def test_commentaires_de_correction_en_14_points_et_interligne_1_5(tmp_path):
+def test_commentaires_de_correction_en_14_points_et_interligne_double(tmp_path):
     guided = build_inaccessible(
         PROJECT_ROOT / "_assets" / "graphique-inaccessible.png",
         with_guidance=True,
@@ -2005,7 +2016,101 @@ def test_commentaires_de_correction_en_14_points_et_interligne_1_5(tmp_path):
     for paragraph in paragraphs:
         spacing = paragraph.xpath("w:pPr/w:spacing", namespaces=namespaces)
         assert len(spacing) == 1
-        assert spacing[0].get(qn("w:line")) == "360"
+        assert spacing[0].get(qn("w:line")) == "480"
         assert spacing[0].get(qn("w:lineRule")) == "auto"
     for run in runs:
         assert run.xpath("w:rPr/w:sz/@w:val", namespaces=namespaces) == ["28"]
+
+
+def test_commentaires_de_correction_mettent_les_intitules_en_gras(tmp_path):
+    guided = build_inaccessible(
+        PROJECT_ROOT / "_assets" / "graphique-inaccessible.png",
+        icon_path=PROJECT_ROOT / "_assets" / "icone-enveloppe.png",
+        organigramme_path=PROJECT_ROOT / "_assets" / "organigramme.png",
+        texte_image_path=PROJECT_ROOT / "_assets" / "texte-image.png",
+        affiche_path=PROJECT_ROOT / "_assets" / "affiche-sig-handicap.jpg",
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=load_sami_matrix(),
+        output_dir=tmp_path,
+    )
+    namespaces = {"w": WORD_NS}
+    comments_root = etree.fromstring(
+        _archive_text(guided, "word/comments.xml").encode("utf-8")
+    )
+    labels = [
+        "Problème :",
+        "Impact :",
+        "Règle :",
+        "Piste :",
+        "Première action :",
+        "Procédure Word :",
+    ]
+    comments = comments_root.xpath("//w:comment", namespaces=namespaces)
+
+    assert len(comments) == 20
+    for comment in comments:
+        runs = comment.xpath(".//w:r[w:t]", namespaces=namespaces)
+        bold = [
+            "".join(run.xpath("w:t/text()", namespaces=namespaces))
+            for run in runs
+            if run.xpath(
+                "w:rPr/w:b[not(@w:val) or @w:val='1' or @w:val='true']",
+                namespaces=namespaces,
+            )
+        ]
+        text = "".join(comment.xpath(".//w:t/text()", namespaces=namespaces))
+        assert re.fullmatch(r"(Document — )?P-\d+", bold[0])
+        assert text.startswith(f"{bold[0]} - ")
+        assert bold[1:] == labels
+
+
+def test_les_rubriques_des_controles_ont_leur_intitule_en_gras(tmp_path):
+    assets = PROJECT_ROOT / "_assets"
+    images = {
+        "icon_path": assets / "icone-enveloppe.png",
+        "organigramme_path": assets / "organigramme.png",
+        "texte_image_path": assets / "texte-image.png",
+        "affiche_path": assets / "affiche-sig-handicap.jpg",
+        "matrix": load_sami_matrix(),
+        "output_dir": tmp_path,
+    }
+    documents = (
+        build_inaccessible(
+            assets / "graphique-inaccessible.png", output_name="i.docx", **images
+        ),
+        build_inaccessible(
+            assets / "graphique-inaccessible.png",
+            with_guidance=True,
+            output_name="g.docx",
+            **images,
+        ),
+        build_accessible(
+            assets / "graphique-accessible.png", output_name="a.docx", **images
+        ),
+    )
+    labels = (
+        "Problème",
+        "Pourquoi",
+        "Règle",
+        "Dans Word",
+        "Dans LibreOffice Writer",
+        "À faire",
+        "Preuve",
+    )
+
+    for docx_path in documents:
+        rubriques = 0
+        for paragraph in Document(docx_path).paragraphs:
+            label = next(
+                (item for item in labels if paragraph.text.startswith(f"{item} : ")),
+                None,
+            )
+            if label is None:
+                continue
+            rubriques += 1
+            first, *rest = paragraph.runs
+            assert first.text == f"{label} :"
+            assert first.bold is True
+            assert not any(run.bold for run in rest)
+        assert rubriques == 22 * len(labels)
