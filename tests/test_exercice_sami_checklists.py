@@ -312,3 +312,21 @@ def test_la_checklist_docx_a_des_titres_arial_et_une_colonne_de_points_large(
                 for cell in row.cells
             ]
             assert widths == expected
+
+
+def test_la_checklist_pdf_reprend_la_mise_en_forme_de_la_docx(tmp_path):
+    markdown = tmp_path / "checklist.md"
+    docx = tmp_path / CHECKLIST_DOCX
+    build_checklists(
+        matrix=load_sami_matrix(), markdown_output=markdown, docx_output=docx
+    )
+    text = markdown.read_text(encoding="utf-8")
+    style = re.search(r"<style>(.*?)</style>", text, re.S).group(1)
+
+    for label in ("P - pratiqué", "C - contrôlé", "S - signalé"):
+        assert f"- **{label} :** " in text
+    assert "break-inside: avoid" in style
+    assert "font-family: Arial" in style
+    # Sans césure : pas de mot coupé, comme dans la checklist DOCX.
+    assert "hyphens: manual" in style
+    assert 'content: "Page " counter(page) " sur " counter(pages)' in style

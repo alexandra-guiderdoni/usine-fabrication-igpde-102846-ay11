@@ -7,15 +7,23 @@ lang: fr
 
 <!-- Généré depuis `_source/exercice-sami-matrice.yml` par `make checklist`. Ne pas modifier directement. -->
 
-<style>li { break-inside: avoid; }</style>
+<style>
+li { break-inside: avoid; }
+:root { font-family: Arial, sans-serif; }
+body { hyphens: manual; }
+@page { font-family: Arial, sans-serif;
+  @top-center { font-family: Arial, sans-serif; }
+  @bottom-center { content: "Page " counter(page) " sur " counter(pages);
+    font-family: Arial, sans-serif; } }
+</style>
 
 # Checklist accessibilité des documents bureautiques
 
 Utilisez cette même checklist dès le début du TP, puis complétez-la après chaque station.
 
-- **P - pratiqué** : une action est réalisée et sa preuve est conservée.
-- **C - contrôlé** : un outil ou une vérification humaine est exécuté et son résultat est noté.
-- **S - signalé** : le point est vérifié dans la checklist, sans manipulation obligatoire pendant le TP.
+- **P - pratiqué :** une action est réalisée et sa preuve est conservée.
+- **C - contrôlé :** un outil ou une vérification humaine est exécuté et son résultat est noté.
+- **S - signalé :** le point est vérifié dans la checklist, sans manipulation obligatoire pendant le TP.
 
 ## Structurer et naviguer
 
