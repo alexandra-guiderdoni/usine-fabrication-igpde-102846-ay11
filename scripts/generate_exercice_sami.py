@@ -485,12 +485,22 @@ def _add_guidance_comment(doc, runs, text):
         runs = [runs]
     runs = [run for run in runs if run is not None]
     if runs:
-        doc.add_comment(
+        comment = doc.add_comment(
             runs,
             text=text,
             author="Formation IGPDE",
             initials="IGPDE",
         )
+        # Le commentaire est rédigé en français : sans langue propre, il hérite
+        # du défaut de langue volontaire du document et Word le souligne.
+        for paragraph in comment.paragraphs:
+            for run in paragraph.runs:
+                run._element.get_or_add_rPr().append(
+                    parse_xml(
+                        f'<w:lang {nsdecls("w")} w:val="fr-FR" '
+                        f'w:eastAsia="fr-FR" w:bidi="fr-FR"/>'
+                    )
+                )
 
 
 def _station_controls(matrix, station_id):

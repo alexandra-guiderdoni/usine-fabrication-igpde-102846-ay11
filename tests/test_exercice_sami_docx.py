@@ -1922,3 +1922,27 @@ def test_le_corrige_decoupe_le_guide_en_unites_imprimables_sans_titre_orphelin(
                 assert heading.paragraph_format.page_break_before is True
             else:
                 assert heading.paragraph_format.page_break_before is not True
+
+
+def test_commentaires_de_correction_en_francais_sans_corriger_le_defaut_de_langue(
+    tmp_path,
+):
+    guided = build_inaccessible(
+        PROJECT_ROOT / "_assets" / "graphique-inaccessible.png",
+        with_guidance=True,
+        output_name="guide.docx",
+        matrix=load_sami_matrix(),
+        output_dir=tmp_path,
+    )
+    namespaces = {"w": WORD_NS}
+    comments_root = etree.fromstring(
+        _archive_text(guided, "word/comments.xml").encode("utf-8")
+    )
+    runs = comments_root.xpath("//w:comment//w:r[w:t]", namespaces=namespaces)
+
+    assert runs
+    for run in runs:
+        assert run.xpath("w:rPr/w:lang/@w:val", namespaces=namespaces) == ["fr-FR"]
+    # Le défaut pédagogique de la station 4 reste dans le document lui-même.
+    styles = _archive_text(guided, "word/styles.xml")
+    assert re.search(r'<w:docDefaults>.*w:val="de-DE"', styles, re.S)
