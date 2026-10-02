@@ -1,54 +1,47 @@
-"""Slide 46 : Par ou commencer ?
+"""Vue d'ensemble de la station 5."""
 
-Règles neuropedagogie appliquees :
-- R2 : Priorisation par facilite (pas par importance - tout est important)
-- R9 : Deconstruction (3 reflexes, pas 50)
-- R12 : Ordre d'action clair et immediat
-"""
-
-from igpde_dsfr_components import (
-    add_highlight, add_stepper, add_notes, new_slide,
-    estimate_highlight_height,
-    MARGIN_L, CONTENT_W, Stack,
-)
+from igpde_dsfr_components import add_highlight, add_notes, add_tableau, new_slide
+from sami_slide_data import sequence_block, station_controls, station_notes
 
 
 def build(prs, layouts, ctx):
+    block = sequence_block("station-5")
+    controls = station_controls(block["id"])
     slide = new_slide(
-        prs, layouts,
+        prs,
+        layouts,
         layout_name="titre_contenu",
-        titre="Par où commencer ?",
-        fil_ariane="2. Documents accessibles | Priorités",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Priorités",
+        titre=f"Station 5 - {block['titre']}",
+        fil_ariane="2. Documents accessibles | Station 5",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 5",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.3, gap=0.30)
-
-    accroche = "Tout est important mais commencez par ce qui est le plus facile."
-    add_highlight(
-        slide, accroche,
-        top=stack.push(estimate_highlight_height(accroche, CONTENT_W)),
-    )
-
-    add_stepper(
+    add_tableau(
         slide,
+        ["ID", "Niveau", "Points travaillés"],
         [
-            "Styles de titre sur tous les titres",
-            "Texte alternatif sur chaque image",
-            "Lancer le vérificateur d'accessibilité avant d'envoyer",
+            [control["id"], control["niveau"], control["intitule"]]
+            for control in controls
         ],
-        top=stack.push(2.5),
-        height=2.5,
+        top=2.30,
+        col_widths=[1.15, 1.25, 9.88],
+        row_h=0.62,
+    )
+    add_highlight(
+        slide,
+        "Les outils automatiques filtrent ; la checklist et la vérification humaine concluent.",
+        top=5.55,
     )
 
     add_notes(
         slide,
-        "Ne pas hiérarchiser les thèmes entre eux : tous sont obligatoires. "
-        "La logique ici est l'effort, pas l'importance. Ces 3 réflexes couvrent "
-        "Structure, Contenus et Finalisation et prennent moins d'une minute chacun. "
-        "Le reste (contraste, langue, propriétés, listes) vient naturellement "
-        "une fois que ces 3 réflexes sont installés.",
+        station_notes(
+            block["id"],
+            controls=controls,
+            question="Qu'est-ce que l'outil automatique ne peut pas décider à votre place ?",
+            help_text="Faire distinguer propriété, vérification Word, export PDF et contrôle post-export.",
+        ),
     )
     return slide

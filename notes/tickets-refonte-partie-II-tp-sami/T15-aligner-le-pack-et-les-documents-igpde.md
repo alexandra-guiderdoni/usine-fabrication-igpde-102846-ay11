@@ -1,6 +1,8 @@
 # T15 — Aligner le pack et les documents IGPDE
 
-**Statut :** `ready-for-agent`
+**Statut :** `completed` — 2 octobre 2026 ; alignement, génération et contrôles
+du chantier vérifiés. Le contrôle global de `make pack` reste rouge uniquement
+sur les quatre installeurs externes absents, non versionnés.
 
 **PRD :** [Refonte de la partie II et du TP Sami](../prd-refonte-partie-II-tp-sami.md)
 
@@ -17,48 +19,66 @@ de fraîcheur avec le TP de 90 minutes et ses livrables réels.
 
 ## Critères d’acceptation
 
-- [ ] Le déroulé pédagogique place le TP de 10 h 30 à 12 h, y inclut ses
+- [x] Le déroulé pédagogique place le TP de 10 h 30 à 12 h, y inclut ses
   synthèses techniques et maintient la synthèse générale de 12 h à 12 h 15.
-- [ ] Le quiz final, toute ancienne plage de slides et toute mention devenue
+- [x] Le quiz final, toute ancienne plage de slides et toute mention devenue
   fausse du contrat de 21 critères sont retirés du déroulé.
-- [ ] La fiche technique demande PAC préinstallé ou conserve une consigne de
+- [x] La fiche technique demande PAC préinstallé ou conserve une consigne de
   préparation explicite, avec Acrobat Pro comme alternative.
-- [ ] Le README et le dossier `tp-word-igpde` inventorient les trois DOCX, la
+- [x] Le README et le dossier `tp-word-igpde` inventorient les trois DOCX, la
   checklist DOCX, la checklist PDF, les mémos et la ressource de correction du
   graphique.
-- [ ] Le README du paquet distingue ce qui est remis au début du TP de ce qui
+- [x] Le README du paquet distingue ce qui est remis au début du TP de ce qui
   est remis à la fin : le DOCX corrigé de référence n’est jamais présenté comme
   document de départ, même s’il se trouve dans le paquet formateur.
-- [ ] Le README du paquet ne fige plus le total obsolète de 138 slides.
-- [ ] Les scripts du pack copient chaque sortie attendue et le contrôle de
+- [x] Le README du paquet ne fige plus le total obsolète de 138 slides.
+- [x] Les scripts du pack copient chaque sortie attendue et le contrôle de
   fraîcheur relie chaque sortie à ses sources.
-- [ ] Pour chaque DOCX administratif édité manuellement, le texte est extrait
+- [x] Pour chaque DOCX administratif édité manuellement, le texte est extrait
   avant et après, le document source est modifié dans Word ou LibreOffice, le
   diff textuel est limité aux passages attendus, puis le DOCX est rouvert sans
   demande de réparation. Aucun binaire généré n’est retouché à la main.
-- [ ] Les anciens contrats sont absents du périmètre de recherche fermé défini
+- [x] Les anciens contrats sont absents du périmètre de recherche fermé défini
   par le PRD, hors exception historique autorisée.
-- [ ] Le balayage global final confirme aussi qu’aucune source active ne
+- [x] Le balayage global final confirme aussi qu’aucune source active ne
   présente `#767676` ou `4,48` comme un échec de contraste.
-- [ ] `fiche-pratique/README.md` et `scripts/slides/README.md` sont alignés sur
+- [x] `fiche-pratique/README.md` et `scripts/slides/README.md` sont alignés sur
   la matrice et l’inventaire final ; les motifs `21 bonnes pratiques` et
   `21 criteres` sont intégrés au balayage des anciens contrats et supprimés
   avec leurs renvois obsolètes.
-- [ ] La procédure de livraison indique que `make pack` ne régénère pas Sami et
+- [x] La procédure de livraison indique que `make pack` ne régénère pas Sami et
   impose la régénération des sources avant le contrôle de fraîcheur.
 
 ## Preuves attendues
 
-- [ ] `make sami`, `make checklist` et `make pdf` produisent les ressources
+- [x] `make sami`, `make checklist` et `make pdf` produisent les ressources
   attendues.
-- [ ] `make fraicheur-pack` confirme que les sorties ne sont pas obsolètes.
+- [x] `make fraicheur-pack` confirme que les sorties ne sont pas obsolètes.
 - [ ] `make pack` fabrique un paquet qui contient tous les fichiers inventoriés.
-- [ ] Les tests ciblés du pack, de l’inventaire et des anciens contrats passent.
-- [ ] Une inspection du paquet confirme les noms, formats et emplacements des
+- [x] Les tests ciblés du pack, de l’inventaire et des anciens contrats passent.
+- [x] Une inspection du paquet confirme les noms, formats et emplacements des
   livrables.
-- [ ] Si la recette complète ne peut pas être obtenue avant la session, le
+- [x] Si la recette complète ne peut pas être obtenue avant la session, le
   paquet existant et le tag de repli sont conservés ; aucune sortie partielle
   n’est fusionnée ni livrée.
+
+## Réalisation et vérifications
+
+- Le déroulé et la fiche technique ont été extraits avant modification,
+  normalisés puis rouverts par LibreOffice sans demande de réparation. Leurs
+  huit pages rendues ont été relues sans coupe ni chevauchement visible.
+- `make sami`, `make checklist`, `make pdf`, `make deck`,
+  `make fraicheur-pack` et `make qa` réussissent. Les six PDF produits déclarent
+  PDF/UA-1 ; la QA du deck converge en une itération sans anomalie.
+- `make pack` régénère les PDF et le deck, puis copie les trois DOCX et les
+  supports attendus. Son dernier contrôle s’arrête avec un code non nul parce
+  que NVDA, Colour Contrast Analyser, Focus Highlight et PAC sont absents du
+  dossier `outils/`. Aucun téléchargement implicite n’a été effectué.
+- Les tests ciblés réussissent : 89 tests. Le contrôle final `make verifier`
+  réussit : 254 tests, validation des points de contrôle rapides et hook sur
+  2 976 fichiers.
+- Le paquet n’a pas été remis à l’IGPDE. La validation humaine Word, Writer,
+  PowerPoint et PAC reste `NOT VERIFIED` et appartient à T16.
 
 ## À préserver
 

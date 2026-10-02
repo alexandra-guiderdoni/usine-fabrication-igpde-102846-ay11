@@ -1,77 +1,68 @@
-"""Slide 45 : Retour sur le document de Sami - Langue et Finalisation.
-
-Règles neuropedagogie appliquees :
-- R13 : Repetition espacee (retour sur un exercice deja fait)
-- R10 : Effet Zeigarnik (exercice non termine revele)
-- R16 : Interleaving (les 2 derniers thèmes appliques au même document)
-"""
+"""Casse et sigles de la station 4."""
 
 from igpde_dsfr_components import (
-    add_card, add_callout, add_notes, new_slide,
-    estimate_card_height, estimate_callout_height,
-    MARGIN_L, CONTENT_W, COL_W, COL_R, Stack,
+    COL_R,
+    COL_W,
+    MARGIN_L,
+    add_card,
+    add_highlight,
+    add_notes,
+    new_slide,
 )
+from sami_slide_data import sequence_block, station_controls, station_notes
 
 
 def build(prs, layouts, ctx):
+    block = sequence_block("station-4")
+    controls = station_controls(block["id"])[2:]
     slide = new_slide(
-        prs, layouts,
+        prs,
+        layouts,
         layout_name="titre_contenu",
-        titre="Retour sur le document de Sami",
-        fil_ariane="2. Documents accessibles | Retour exercice",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Retour exercice",
+        titre="Station 4 - Casse, accents et sigles",
+        fil_ariane="2. Documents accessibles | Station 4",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 4",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.3, gap=0.20)
-
-    card1_titre = "Vous vous souvenez ?"
-    card1_contenu = (
-        "Vous avez déjà travaillé la plupart des erreurs "
-        "de Structure, Couleurs, Contenus et Lisibilité.\n\n"
-        "Il restait 2 erreurs des thèmes Langue et Finalisation "
-        "que vous n'aviez pas encore les outils pour détecter."
-    )
-
-    card2_titre = "Les 2 erreurs cachées"
-    card2_contenu = [
-        "Langue : un passage en anglais sans balisage de langue",
-        "Finalisation : les propriétés du document (titre, auteur) sont vides",
-    ]
-
-    card_h = max(
-        estimate_card_height(card1_titre, card1_contenu, COL_W),
-        estimate_card_height(card2_titre, card2_contenu, COL_W),
-    )
-    cards_top = stack.push(card_h)
-
-    add_card(slide, card1_titre, card1_contenu, top=cards_top,
-             left=MARGIN_L, width=COL_W, height=card_h)
-    add_card(slide, card2_titre, card2_contenu, top=cards_top,
-             left=COL_R, width=COL_W, height=card_h)
-
-    callout_titre = "Les corrections en 2 minutes"
-    callout_bullets = [
-        "Langue : sélectionner le passage anglais > Révision > Langue > Définir en anglais",
-        "Finalisation : Fichier > Informations > renseigner Titre et Auteur",
-    ]
-    stack.gap = 0.30
-    add_callout(
+    add_card(
         slide,
-        callout_titre,
-        callout_bullets,
-        top=stack.push(estimate_callout_height(callout_titre, callout_bullets,
-                                               CONTENT_W)),
+        "Dans Word - procédure principale",
+        [f"{control['id']} - {control['procedure_word']}" for control in controls],
+        top=2.30,
+        left=MARGIN_L,
+        width=COL_W,
+        height=2.95,
+        body_size=14,
+        body_line_spacing=1.08,
+        compact=True,
+    )
+    add_card(
+        slide,
+        "Dans Writer - complément",
+        [f"{control['id']} - {control['procedure_writer']}" for control in controls],
+        top=2.30,
+        left=COL_R,
+        width=COL_W,
+        height=2.95,
+        body_size=14,
+        body_line_spacing=1.08,
+        compact=True,
+    )
+    add_highlight(
+        slide,
+        "Preuve : texte source accentué, première occurrence développée et majuscules contrôlées.",
+        top=5.57,
     )
 
     add_notes(
         slide,
-        "Effet de surprise : les stagiaires pensaient avoir repéré toutes les "
-        "catégories visibles à ce stade. Révéler les 2 derniers critères montre que "
-        "l'accessibilité a des dimensions qu'on ne voit pas sans formation.\n\n"
-        "Proposer aux stagiaires de rouvrir tp-doc-inaccessible.docx et de "
-        "corriger ces 2 erreurs en 2 minutes. Le passage anglais est dans la "
-        "section Contact. Les propriétés sont dans Fichier > Informations.",
+        station_notes(
+            block["id"],
+            controls=controls,
+            question="Le texte reste-t-il correctement écrit sous son apparence visuelle ?",
+            help_text="Faire restaurer la saisie normale avant d'appliquer la casse, puis rechercher la première occurrence du sigle.",
+        ),
     )
     return slide

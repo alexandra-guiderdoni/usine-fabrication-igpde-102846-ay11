@@ -8,7 +8,7 @@ Dépôt autonome qui fabrique, à partir de sources versionnées, tous les suppo
 
 ## Vue d'ensemble
 
-- **Deck** : 138 slides DSFR accessibles, générées par des scripts Python (`scripts/slides/`), jamais retouchées à la main.
+- **Deck** : support DSFR accessible généré par les scripts Python de `scripts/slides/`, dont le nombre de slides est déterminé à chaque fabrication et jamais figé manuellement.
 - **Site d'exercice** : `docs/`, trois versions d'un site à auditer (inaccessible, aide à la correction, corrigée) et une démo « émojis et lecteurs d'écran », publiées sur https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/.
 - **Exercice Word** : trois documents Sami générés par `scripts/generate_exercice_sami.py`.
 - **Grille d'audit** : classeur XLSX des 13 points de contrôle rapides du W3C.
@@ -27,13 +27,18 @@ make installer
 
 La commande crée `.venv` depuis `requirements.lock`, en vérifiant l'empreinte de chaque paquet, et active les contrôles git versionnés du dépôt (`.githooks`).
 
-La recette visuelle est optionnelle pour la fabrication du pack. Elle demande `git`, Node.js 24 ou plus et npm, puis s'installe intégralement dans le projet :
+La recette visuelle est optionnelle pour la fabrication du pack. Elle demande
+`git`, Node.js 24 ou plus et npm ; son installation reste intégralement dans le
+projet :
 
 ```bash
 make installer-recette
 ```
 
-Cette cible installe `agent-browser` dans `recette/node_modules/`, Chrome for Testing dans `.tools/` avec une empreinte vérifiée et clone ShipGuard `v2.14.0` dans `.tools/shipguard/`. Ces répertoires sont ignorés par Git : aucun plugin Codex global ni cache de navigateur global n'est requis.
+Cette cible place `agent-browser` dans `recette/node_modules/`, Chrome for
+Testing dans `.tools/` avec une empreinte vérifiée et clone ShipGuard `v2.14.0`
+dans `.tools/shipguard/`. Ces répertoires sont ignorés par Git : aucun plugin
+Codex global ni cache de navigateur global n'est requis.
 
 ## Usage
 
@@ -43,14 +48,17 @@ make deck          # régénère le deck et met à jour sa copie dans le pack
 make qa            # qualité du deck ; lire le statut CONVERGED dans .qa/qa-pptx-report.md
 make verifier      # tests, validation du site, contrôles du dépôt
 make fraicheur-pack # contrôle les ressources que pack ne régénère pas
-make pack          # fraîcheur, deck, PDF accessibles, supports, outils
+make pack          # PDF accessibles, fraîcheur, deck, supports, outils
 make apercu        # site d'exercice en local
 make installer-recette # dépendances locales de la recette visuelle
 make recette       # recette visuelle du site corrigé
 make publier-site  # publication du site, seulement après le succès de make verifier
 ```
 
-`make pack` ne relance pas `make sami`, `make grille` ni `make wcag`. Il exécute d'abord `make fraicheur-pack` et s'arrête avec la commande de régénération attendue si leurs sorties sont absentes ou plus anciennes que leurs sources.
+`make pack` ne relance pas `make sami`, `make checklist`, `make grille` ni
+`make wcag`. Avant de fabriquer le paquet, régénérer les sources concernées,
+puis lancer `make fraicheur-pack`. `make pack` reconstruit ensuite les PDF,
+rejoue ce contrôle de fraîcheur, régénère le deck et copie les supports.
 
 Pour modifier le site, éditer exclusivement `docs/`, lancer `make verifier`, puis `make publier-site`. Les deux clones locaux du site sont des destinations de publication : ne jamais les modifier, commiter ou pousser.
 

@@ -83,13 +83,21 @@ Les chemins d'images restent **relatifs** dans les sources Markdown. `md2pdf.py`
 
 ## Alignement pédagogique
 
-Les deux mémos reprennent les 21 bonnes pratiques de l'exercice "Les erreurs de Sami" (`_source/exercice-sami-spec.md`), organisées en 5 thèmes :
+Les deux mémos suivent les cinq stations et les contrôles de la matrice
+canonique `_source/exercice-sami-matrice.yml` :
 
-1. **Structure** : styles de titre, listes natives, table des matières automatique, en-têtes de tableau, pas de cellules fusionnées
-2. **Couleurs** : pas d'information par la couleur seule, contraste minimum 4,5:1, graphiques avec motifs
-3. **Contenus** : alt text, images complexes, images décoratives, liens explicites, filigrane, texte en image
-4. **Langue et lisibilité** : balisage langue étrangère, alignement à gauche, espacement par les styles, majuscules par mise en forme
-5. **Finalisation** : propriétés du document, vérification d'accessibilité, export PDF accessible
+1. **Structurer et naviguer** : titres, sommaire, listes et mise en page robuste.
+2. **Rendre les contenus et les liens compréhensibles** : images, textes,
+   liens et informations essentielles.
+3. **Sécuriser couleurs, graphiques et tableaux** : contrastes, informations
+   non portées par la couleur seule et tableaux de données simples.
+4. **Régler langues et lisibilité** : langues, styles typographiques, casse,
+   accents et sigles.
+5. **Finaliser et publier** : propriétés, vérificateur, export PDF et contrôle
+   avec PAC ou Acrobat Pro.
+
+Les contrôles signalés sans manipulation obligatoire restent dans la checklist
+et les notes formateur ; ils ne créent pas une sixième station.
 
 Les procédures sont spécifiques à chaque suite (Word ou Writer). Les différences notables sont documentées dans chaque mémo (ex : Writer n'a pas d'option "Marquer comme décoratif", l'ancrage d'images diffère).
 

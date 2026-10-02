@@ -1,6 +1,7 @@
 # T13 — Construire les slides de la station 4
 
-**Statut :** `ready-for-agent`
+**Statut :** `completed` — 2 octobre 2026 ; génération, tests et relecture
+visuelle vérifiés. La validation humaine finale reste affectée à T16.
 
 **PRD :** [Refonte de la partie II et du TP Sami](../prd-refonte-partie-II-tp-sami.md)
 
@@ -15,29 +16,37 @@ propriétés du document, les styles et la lecture effective du guide Sami.
 
 ## Critères d’acceptation
 
-- [ ] La station couvre `P-15` à `P-18` sans ajouter de règle absente de la
+- [x] La station couvre `P-15` à `P-18` sans ajouter de règle absente de la
   matrice et des trois DOCX.
-- [ ] Les identifiants, libellés, niveaux et ordre de la station sont consommés
+- [x] Les identifiants, libellés, niveaux et ordre de la station sont consommés
   directement depuis la matrice, sans liste normative recopiée dans le module.
-- [ ] La langue principale et le passage dans une autre langue donnent lieu à
+- [x] La langue principale et le passage dans une autre langue donnent lieu à
   une manipulation vérifiable.
-- [ ] La procédure par les styles couvre une police sans sérif, un corps utile
+- [x] La procédure par les styles couvre une police sans sérif, un corps utile
   d’au moins 12 points, un interligne d’au moins 1,15 et l’alignement à gauche.
-- [ ] La casse est appliquée par la mise en forme et les accents sont
+- [x] La casse est appliquée par la mise en forme et les accents sont
   conservés.
-- [ ] Les sigles et acronymes sont développés à la première occurrence et la
+- [x] Les sigles et acronymes sont développés à la première occurrence et la
   vérification orthographique des majuscules est explicitée.
-- [ ] Word est présenté en premier et Writer dans un encadré compact.
-- [ ] Les notes formateur précisent durée, manipulation, preuve et point de
+- [x] Word est présenté en premier et Writer dans un encadré compact.
+- [x] Les notes formateur précisent durée, manipulation, preuve et point de
   synthèse de la station.
-- [ ] L’ordre est testé relativement aux stations 3 et 5, sans index absolu.
+- [x] L’ordre est testé relativement aux stations 3 et 5, sans index absolu.
 
 ## Preuves attendues
 
-- [ ] Les tests ciblés de contenu, notes et ordre passent.
-- [ ] `make deck` produit le deck complet sans avertissement de pied de page.
-- [ ] La relecture visuelle confirme qu’aucun contenu utile n’est réduit sous
+- [x] Les tests ciblés de contenu, notes et ordre passent.
+- [x] `make deck` produit le deck complet sans avertissement de pied de page.
+- [x] La relecture visuelle confirme qu’aucun contenu utile n’est réduit sous
   12 points et que les exemples restent lisibles.
+
+## Réalisation et vérifications
+
+- La station 4 est générée depuis `P-15` à `P-18` avec Word en procédure
+  principale et Writer en complément.
+- Le test de taille minimale confirme qu’aucun texte utile n’est inférieur à
+  12 points.
+- Les notes et l’ordre relatif sont couverts par les tests structurels.
 
 ## À préserver
 

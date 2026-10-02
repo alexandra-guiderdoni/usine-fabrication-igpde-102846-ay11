@@ -1,58 +1,74 @@
-"""Slide 42 : Espaces et objets clignotants.
-
-Règles neuropédagogie appliquées :
-- R21 : Révéler les caractères invisibles (symboles de paragraphe)
-- R11 : Alerte zéro-tolérance sur l'épilepsie (sécurité avant pédagogie)
-- R15 : Démonstration directe du mode Afficher tout
-"""
+"""Graphique compréhensible sans la couleur dans la station 3."""
 
 from igpde_dsfr_components import (
-    add_callout, add_alert, add_notes, new_slide,
-    estimate_callout_height, estimate_alert_height
+    COL_R,
+    COL_W,
+    MARGIN_L,
+    add_card,
+    add_highlight,
+    add_notes,
+    new_slide,
+)
+from sami_slide_data import (
+    control_heading,
+    sequence_block,
+    station_controls,
+    station_notes,
 )
 
 
 def build(prs, layouts, ctx):
+    block = sequence_block("station-3")
+    controls = station_controls(block["id"])[1:2]
+    control = controls[0]
     slide = new_slide(
-        prs, layouts,
+        prs,
+        layouts,
         layout_name="titre_contenu",
-        titre="Espaces et objets clignotants",
-        fil_ariane="2. Documents accessibles | 4. Langue",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Langue",
+        titre="Station 3 - Un graphique compréhensible sans la couleur",
+        fil_ariane="2. Documents accessibles | Station 3",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 3",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
-    callout_bullets = [
-        "Points = espaces successifs > supprimer et ne garder qu'un seul espace",
-        "Flèches = tabulations utilisées pour simuler une mise en page",
-        "Retours à la ligne manuels = utiliser les sauts de page propres à la place"
-    ]
-    add_callout(
+    add_highlight(
         slide,
-        "Activer les marques de formatage : Accueil > Paragraphe > Afficher tout (signe paragraphe)",
-        callout_bullets,
-        top=2.3
+        control_heading(control),
+        top=2.20,
     )
-
-    alert_bullets = [
-        "Animations, GIF avec flashs, vidéos à plus de 3 Hz : interdits sans exception",
-        "Risque de crise d'épilepsie photosensible",
-        "En cas de doute sur un GIF : remplacer par une image statique"
-    ]
-    add_alert(
+    add_card(
         slide,
-        "Objets clignotants : tolérance zéro",
-        alert_bullets,
-        top=4.25,
-        alert_type="error"
+        "Dans Word - procédure principale",
+        [control["regle"], control["procedure_word"], control["action_attendue"]],
+        top=3.30,
+        left=MARGIN_L,
+        width=COL_W,
+        height=2.70,
+        body_size=14,
+        body_line_spacing=1.08,
+        compact=True,
+    )
+    add_card(
+        slide,
+        "Dans Writer - complément",
+        [control["procedure_writer"], f"Preuve : {control['preuve']['attendu']}"],
+        top=3.30,
+        left=COL_R,
+        width=COL_W,
+        height=2.70,
+        body_size=14,
+        body_line_spacing=1.08,
+        compact=True,
     )
 
     add_notes(
         slide,
-        "Les espaces parasites sont invisibles mais cassent la structure du document. "
-        "Montrer la différence entre Afficher tout activé et désactivé. Pour les objets "
-        "clignotants : c'est une règle de sécurité, pas de préférence. Un seul incident "
-        "suffira pour comprendre pourquoi."
+        station_notes(
+            block["id"],
+            controls=controls,
+            question="Les séries restent-elles identifiables en niveaux de gris ?",
+            help_text="Faire reconstruire le graphique dans Word à partir des valeurs, puis ajouter étiquettes et motifs.",
+        ),
     )
     return slide

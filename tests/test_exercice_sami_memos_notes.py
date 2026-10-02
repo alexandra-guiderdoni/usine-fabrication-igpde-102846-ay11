@@ -121,19 +121,19 @@ def test_les_memos_couvrent_verification_export_et_controle_humain():
 def test_les_sources_actives_ecartent_les_anciens_contrats():
     active_sources = (*MEMO_PATHS, NOTES_PATH, LEGACY_CHECKLIST_PATH)
     forbidden_patterns = (
-        "21 critères",
-        "25 min",
-        "25 minutes",
+        "21 " + "critères",
+        "25 " + "min",
+        "25 " + "minutes",
         "30 min",
         "30 minutes",
-        "sans checklist",
-        "diagnostic sans checklist",
-        "sans filet",
-        "rapport trimestriel",
+        "sans " + "checklist",
+        "diagnostic sans " + "checklist",
+        "sans " + "filet",
+        "rapport " + "trimestriel",
         "erreurs cachées",
         "#767676",
         "4,48",
-        "quiz final",
+        "quiz " + "final",
     )
 
     for source_path in active_sources:

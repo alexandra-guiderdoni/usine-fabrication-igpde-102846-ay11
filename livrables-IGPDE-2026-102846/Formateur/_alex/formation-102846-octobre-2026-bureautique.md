@@ -171,10 +171,10 @@ la démarche commune : structurer, rendre les contenus compréhensibles, vérifi
 avec les outils, puis terminer par un contrôle humain. Elle ne rajoute aucune
 manipulation au TP.
 
-## Porte humaine avant le deck
+## Recette humaine avant livraison
 
-Chronométrer un binôme novice sur le fichier avec pistes et mener un essai
-fonctionnel distinct depuis le fichier autonome. Consigner séparément le temps,
-les aides nécessaires, les productions obtenues et les écarts de procédure.
-Toute modification du kit après cette porte impose de rejouer le parcours humain
-affecté avant de commencer la refonte du deck.
+La refonte du deck peut avancer sans binôme disponible. Avant toute livraison à
+l'IGPDE, chronométrer néanmoins un binôme novice sur le fichier avec pistes et
+mener un essai fonctionnel distinct depuis le fichier autonome. Consigner le
+temps, les aides nécessaires, les productions obtenues et les écarts de
+procédure, puis rejouer tout parcours affecté par une modification ultérieure.

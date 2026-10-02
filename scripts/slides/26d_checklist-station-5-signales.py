@@ -1,31 +1,35 @@
-"""Checklist progressive des stations 1 et 2."""
+"""Checklist de la station 5 et contrôles signalés."""
 
 from igpde_dsfr_components import COL_R, COL_W, MARGIN_L, add_card, add_notes, new_slide
-from sami_slide_data import checklist_item, sequence_block, station_controls
+from sami_slide_data import (
+    checklist_item,
+    sequence_block,
+    signalled_controls,
+    station_controls,
+)
 
 
 def build(prs, layouts, ctx):
-    station_1 = sequence_block("station-1")
-    station_2 = sequence_block("station-2")
+    station = sequence_block("station-5")
     groups = (
-        (station_1, station_controls(station_1["id"]), MARGIN_L),
-        (station_2, station_controls(station_2["id"]), COL_R),
+        (station["titre"], station_controls(station["id"]), MARGIN_L),
+        ("Contrôles signalés", signalled_controls(), COL_R),
     )
     slide = new_slide(
         prs,
         layouts,
         layout_name="titre_contenu",
-        titre="Checklist progressive - Stations 1 et 2",
+        titre="Checklist progressive - Station 5 et points signalés",
         fil_ariane="2. Documents accessibles | Checklist",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Checklist",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
-    for block, controls, left in groups:
+    for title, controls, left in groups:
         add_card(
             slide,
-            block["titre"],
+            title,
             [checklist_item(control) for control in controls],
             top=2.30,
             left=left,
@@ -38,7 +42,7 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Faire relire les cases renseignées après les deux premières stations. "
-        "La formulation et l'ordre proviennent de la matrice et de la checklist distribuée.",
+        "Faire terminer la checklist humaine. Les contrôles signalés restent importants, "
+        "mais ne deviennent pas des manipulations obligatoires dans ce TP.",
     )
     return slide

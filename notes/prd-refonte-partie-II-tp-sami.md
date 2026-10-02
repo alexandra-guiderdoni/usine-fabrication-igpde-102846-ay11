@@ -2,11 +2,14 @@
 
 # PRD — Refonte de la partie II et du TP Sami
 
-Statut : validé humainement le 1er octobre 2026 ; intégration de T01 à T09 dans `main` et démarrage de T10 autorisés le 2 octobre 2026.
+Statut : validé humainement le 1er octobre 2026 ; T01 à T15 terminés le
+2 octobre 2026, avec relecture humaine finale reportée sur T16.
 Date de cadrage : 1er octobre 2026.
 Session cible : 9 octobre 2026.
 Paquet de repli : tag `avant-refonte-tp-sami-2026-10-01`.
-Implémentation : T01 à T09 terminés ; T09a annulé faute de binôme disponible ; T10 prêt à démarrer.
+Implémentation : T01 à T15 terminés ; T09a annulé faute de binôme disponible ;
+T16 reste à exécuter. Le dernier contrôle de `make pack` signale encore les
+quatre installeurs externes absents du dépôt.
 
 Par décision explicite d'Alex le 2 octobre 2026, l'état de T01 à T09 peut être
 fusionné dans `main` et T10 peut commencer sans exécution de T09a, faute de

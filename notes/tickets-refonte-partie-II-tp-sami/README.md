@@ -7,11 +7,10 @@ signifie que le périmètre est spécifié ; `cancelled` signale un ticket aband
 par décision humaine. Un ticket ne doit cependant pas commencer tant que ses
 blocages ne sont pas levés.
 
-Aucune issue GitHub n’est créée par ce découpage. L’implémentation reste dans le
-worktree isolé jusqu'à sa vérification. Par décision explicite du 2 octobre
-2026, T01 à T09 peuvent être fusionnés dans `main` et T10 peut démarrer sans
-exécution de T09a, faute de binôme disponible. Cette décision n'autorise aucune
-livraison à l'IGPDE.
+Aucune issue GitHub n’est créée par ce découpage. Par décision explicite du
+2 octobre 2026, T01 à T09 ont été fusionnés dans `main` et T10 a pu démarrer
+sans exécution de T09a, faute de binôme disponible. T10 à T15 ont ensuite été
+implémentés et vérifiés ; cette décision n'autorise aucune livraison à l'IGPDE.
 
 ## Frontier initiale
 
@@ -34,13 +33,13 @@ son ordre, ses tests et sa cohérence pédagogique.
 8. [T08 — Générer les checklists accessibles](T08-checklists-accessibles.md) — bloqué par T07.
 9. [T09 — Aligner les mémos et les notes formateur](T09-memos-et-notes-formateur.md) — bloqué par T07.
 10. [T09a — Recetter le prototype complet en 90 minutes](T09a-recetter-prototype-90-minutes.md) — annulé faute de binôme disponible ; protocole conservé.
-11. [T10 — Reconstruire l’ouverture du deck et la station 1](T10-deck-ouverture-et-station-1.md) — aucun blocage.
-12. [T11 — Construire les slides de la station 2](T11-deck-station-2.md) — bloqué par T10.
-13. [T12 — Construire les slides de la station 3](T12-deck-station-3.md) — bloqué par T11.
-14. [T13 — Construire les slides de la station 4](T13-deck-station-4.md) — bloqué par T12.
-15. [T14 — Finaliser le deck de la partie II et la synthèse](T14-deck-station-5-et-synthese.md) — bloqué par T13.
-16. [T15 — Aligner le pack et les documents IGPDE](T15-aligner-le-pack-et-les-documents-igpde.md) — bloqué par T08, T09 et T14.
-17. [T16 — Exécuter la recette intégrée sous Windows](T16-recette-integree-windows.md) — bloqué par T15.
+11. [T10 — Reconstruire l’ouverture du deck et la station 1](T10-deck-ouverture-et-station-1.md) — terminé.
+12. [T11 — Construire les slides de la station 2](T11-deck-station-2.md) — terminé.
+13. [T12 — Construire les slides de la station 3](T12-deck-station-3.md) — terminé.
+14. [T13 — Construire les slides de la station 4](T13-deck-station-4.md) — terminé.
+15. [T14 — Finaliser le deck de la partie II et la synthèse](T14-deck-station-5-et-synthese.md) — terminé, relecture humaine finale reportée sur T16.
+16. [T15 — Aligner le pack et les documents IGPDE](T15-aligner-le-pack-et-les-documents-igpde.md) — terminé ; quatre installeurs externes restent à déposer avant la recette.
+17. [T16 — Exécuter la recette intégrée sous Windows](T16-recette-integree-windows.md) — reste à exécuter humainement après préparation des outils.
 
 ## Invariants communs
 

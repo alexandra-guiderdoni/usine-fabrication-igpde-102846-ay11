@@ -76,7 +76,7 @@ Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les
 - **Date** : 2026-09-28
 - **Source** : `AGENTS.md`, `scripts/assemble.py`, `scripts/slides/`, `scripts/igpde_dsfr_components.py`.
 - **Statut** : active et vérifiée.
-- **Contrainte** : les 138 slides sont générées par les modules Python de `scripts/slides/`. Le PPTX ne se modifie jamais directement : une régénération l'écraserait. Les composants de la grille IGPDE-DSFR sont centralisés dans `scripts/igpde_dsfr_components.py` et `finalize_pptx()` finalise langue, ordre de lecture, métadonnées et quarantaine macOS.
+- **Contrainte** : toutes les slides sont générées par les modules Python de `scripts/slides/` ; leur total est une sortie de fabrication. Le PPTX ne doit jamais être modifié directement : une régénération l'écraserait. Les composants de la grille IGPDE-DSFR sont centralisés dans `scripts/igpde_dsfr_components.py` et `finalize_pptx()` finalise langue, ordre de lecture, métadonnées et quarantaine macOS.
 - **Impact** : toute correction de contenu ou de mise en page doit être faite dans le module source, puis régénérée par `make deck`.
 - **Décision / prochaine vérification** : conserver les paramètres de session lus depuis `config.yml` et vérifier les avertissements de pied de page lors de toute modification visuelle.
 - **Composants affectés** : `scripts/slides/`, `scripts/assemble.py`, `scripts/igpde_dsfr_components.py`, `config.yml`, PPTX du pack.
@@ -138,7 +138,7 @@ Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les
 | Fonctionnalité | État | Source de preuve | Limite ou contrainte |
 |---|---|---|---|
 | Environnement reproductible et hooks Git | Disponible | `Makefile`, `requirements.lock`, `.githooks/` | Requiert l'outillage macOS et `uv`. |
-| Deck IGPDE-DSFR de 138 slides | Disponible | `scripts/assemble.py`, `scripts/slides/` | Sources Python uniquement ; aucune retouche directe du PPTX. |
+| Deck IGPDE-DSFR généré | Disponible | `scripts/assemble.py`, `scripts/slides/` | Sources Python uniquement ; total déterminé par la génération ; aucune retouche directe du PPTX. |
 | Finalisation accessible du PPTX | Disponible | `finalize_pptx()` | Une relecture visuelle humaine demeure nécessaire. |
 | Documents Sami, grille XLSX et deck WCAG | Disponible | cibles `sami`, `grille`, `wcag` | À régénérer avant `make pack` si leurs sources changent. |
 | PDF du pack et démo hors ligne | Disponible | cibles `pdf`, `supports` | Les PDF livrés doivent être PDF/UA-1 ; LibreOffice est requis pour les supports. |
@@ -298,7 +298,7 @@ Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les
 - **Date** : 2026-09-28
 - **Source** : `AGENTS.md`, `Makefile`, `PUBLIER-SITE.md`.
 - **Statut** : active.
-- **Contrainte** : `make publier-site` valide puis synchronise le site vers le clone de publication, copie les trois documents racine adaptés, effectue le commit et le push du dépôt du site, puis avance le clone de consultation lorsqu'il existe. Les installeurs ne sont pas versionnés ; `make outils-telecharger` les récupère et vérifie leurs empreintes, tandis que PAC est déposé manuellement selon son manifeste.
+- **Contrainte** : `make publier-site` valide le site puis effectue sa synchronisation vers le clone de publication, copie les trois documents racine adaptés, effectue le commit et le push du dépôt du site, puis avance le clone de consultation lorsqu'il existe. Les installeurs ne sont pas versionnés ; `make outils-telecharger` les récupère et vérifie leurs empreintes, tandis que PAC est déposé manuellement selon son manifeste.
 - **Impact** : une publication est une opération distincte d'un commit de l'usine et les clones restent des destinations gérées par la cible.
 - **Décision / prochaine vérification** : préparer et vérifier l'usine, puis publier uniquement par la cible prévue ; contrôler le manifeste des outils avant constitution du pack.
 - **Composants affectés** : `docs/`, `publication-site/`, clones locaux du site, `livrables-IGPDE-2026-102846/outils/`.

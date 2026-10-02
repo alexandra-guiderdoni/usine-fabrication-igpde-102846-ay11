@@ -1,43 +1,73 @@
-"""Slide : Checklist exercice - Couleurs, langue, finalisation."""
+"""Export et contrôle du PDF dans la station 5."""
 
 from igpde_dsfr_components import (
-    add_checklist, add_highlight, add_notes, new_slide,
-    MARGIN_L, CONTENT_W,
+    COL_R,
+    COL_W,
+    CONTENT_W,
+    MARGIN_L,
+    add_card,
+    add_notes,
+    add_texte_libre,
+    new_slide,
+)
+from sami_slide_data import (
+    control_heading,
+    sequence_block,
+    station_controls,
+    station_notes,
 )
 
 
 def build(prs, layouts, ctx):
+    block = sequence_block("station-5")
+    station = station_controls(block["id"])
+    controls = (station[1], station[3])
     slide = new_slide(
-        prs, layouts,
+        prs,
+        layouts,
         layout_name="titre_contenu",
-        titre="Checklist : pratiqué dans l'exercice (2/2)",
-        fil_ariane="2. Documents accessibles | Checklist",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Checklist",
+        titre="Station 5 - Exporter puis contrôler le PDF",
+        fil_ariane="2. Documents accessibles | Station 5",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 5",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
-    accroche = "Couleurs, langue et finalisation."
-    add_highlight(slide, accroche, top=2.3)
-
-    items = [
-        "Liens descriptifs (pas cliquez ici)",
-        "Passages en langue étrangère balisés",
-        "Contraste >= 4,5:1 texte standard, >= 3:1 grand texte",
-        "Couleur doublée en texte",
-        "Propriétés renseignées (Titre, Auteur)",
-    ]
-
-    add_checklist(
-        slide, items,
-        top=3.3, left=MARGIN_L, width=CONTENT_W,
-        height=None, size=14,
+    for control, left in zip(controls, (MARGIN_L, COL_R), strict=True):
+        add_card(
+            slide,
+            f"Dans Word - {control_heading(control)}",
+            [
+                control["regle"],
+                control["procedure_word"],
+                f"Preuve : {control['preuve']['attendu']}",
+            ],
+            top=2.30,
+            left=left,
+            width=COL_W,
+            height=3.30,
+            body_size=14,
+            body_line_spacing=1.07,
+            compact=True,
+        )
+    add_texte_libre(
+        slide,
+        "Dans Writer - complément : "
+        + " | ".join(control["procedure_writer"] for control in controls),
+        top=5.72,
+        left=MARGIN_L,
+        width=CONTENT_W,
+        height=0.90,
+        size=14,
     )
 
     add_notes(
         slide,
-        "Deuxième moitié des critères pratiqués. Liens, couleurs, langue "
-        "et propriétés du document. Demander : « Levez la main si vous êtes "
-        "capables de corriger ces 10 points sans aide. »",
+        station_notes(
+            block["id"],
+            controls=controls,
+            question="Le PDF conserve-t-il le titre, la langue, les balises, les signets et un ordre lisible ?",
+            help_text="Faire vérifier les options avant l'export, puis commenter le rapport PAC sans enseigner la remédiation avancée.",
+        ),
     )
     return slide

@@ -1,6 +1,7 @@
 # T11 — Construire les slides de la station 2
 
-**Statut :** `ready-for-agent`
+**Statut :** `completed` — 2 octobre 2026 ; génération, tests et relecture
+visuelle vérifiés. La validation humaine finale reste affectée à T16.
 
 **PRD :** [Refonte de la partie II et du TP Sami](../prd-refonte-partie-II-tp-sami.md)
 
@@ -16,30 +17,37 @@ correction dans le document Sami.
 
 ## Critères d’acceptation
 
-- [ ] La station couvre `P-06` à `P-11` sans ajouter de règle absente de la
+- [x] La station couvre `P-06` à `P-11` sans ajouter de règle absente de la
   matrice et des trois DOCX.
-- [ ] Les identifiants, libellés, niveaux et ordre de la station sont consommés
+- [x] Les identifiants, libellés, niveaux et ordre de la station sont consommés
   directement depuis la matrice, sans liste normative recopiée dans le module.
-- [ ] Images simples, images complexes et images décoratives sont distinguées
+- [x] Images simples, images complexes et images décoratives sont distinguées
   par leurs usages et non par un slogan unique sur le texte alternatif.
-- [ ] Le texte sous forme d’image et les liens donnent lieu à une manipulation
+- [x] Le texte sous forme d’image et les liens donnent lieu à une manipulation
   vérifiable dans le DOCX. `P-11` est expliqué à partir de la règle et de la
   mention placée dans le corps du corrigé, sans réintroduire de filigrane
   superposé dans les documents d’exercice.
-- [ ] Word est présenté en premier et Writer dans un encadré compact.
-- [ ] Les slides restent synthétiques et renvoient au guide pour les procédures
+- [x] Word est présenté en premier et Writer dans un encadré compact.
+- [x] Les slides restent synthétiques et renvoient au guide pour les procédures
   détaillées.
-- [ ] Les notes formateur indiquent la durée, les questions de synthèse et les
+- [x] Les notes formateur indiquent la durée, les questions de synthèse et les
   points d’aide possibles.
-- [ ] L’ordre des modules est testé relativement à la station 1 et à la station
+- [x] L’ordre des modules est testé relativement à la station 1 et à la station
   suivante.
 
 ## Preuves attendues
 
-- [ ] Les tests ciblés de contenu, notes et ordre passent.
-- [ ] `make deck` produit un deck complet sans avertissement de pied de page.
-- [ ] La relecture visuelle contrôle les images, alternatives, espacements et
+- [x] Les tests ciblés de contenu, notes et ordre passent.
+- [x] `make deck` produit un deck complet sans avertissement de pied de page.
+- [x] La relecture visuelle contrôle les images, alternatives, espacements et
   ordre de lecture.
+
+## Réalisation et vérifications
+
+- La station 2 est générée depuis les contrôles `P-06` à `P-11` de la matrice.
+- Les variantes Word et Writer, les notes formateur et l’ordre relatif sont
+  couverts par les tests structurels.
+- La relecture du PDF rendu confirme l’absence de chevauchement et de coupe.
 
 ## À préserver
 

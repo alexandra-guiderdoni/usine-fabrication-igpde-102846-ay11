@@ -31,11 +31,15 @@ def _build_slide(filename, page_num):
     ).build(prs, layouts, ctx)
 
 
-def test_quiz_et_reponse_occupent_les_slides_56_et_57():
+def test_quiz_reponse_et_transition_se_suivent_dans_le_preambule():
     fichiers = [chemin.name for chemin in discover_slides()]
 
-    assert fichiers[55:58] == [QUESTION_FILE, ANSWER_FILE, NEXT_FILE]
-    assert len(fichiers) == 131
+    opening_index = fichiers.index(OPENING_FILE)
+    assert fichiers[opening_index + 1 : opening_index + 4] == [
+        QUESTION_FILE,
+        ANSWER_FILE,
+        NEXT_FILE,
+    ]
 
 
 def test_slide_55_presente_deux_cartes_cote_a_cote():
@@ -101,3 +105,13 @@ def test_slide_reponse_explique_pourquoi_le_document_b_est_accessible():
     assert "Image avec texte alternatif" in textes
     assert "rapport-bilan-2024.docx" in textes
     assert slide.notes_slide.notes_text_frame.text.strip()
+
+
+def test_transition_explicite_le_message_du_preambule():
+    slide = _build_slide(NEXT_FILE, 58)
+    textes = "\n".join(
+        shape.text
+        for shape in slide.shapes
+        if getattr(shape, "has_text_frame", False) and shape.text.strip()
+    )
+    assert "L'accessibilité ne se voit pas : elle se manipule et se vérifie" in textes

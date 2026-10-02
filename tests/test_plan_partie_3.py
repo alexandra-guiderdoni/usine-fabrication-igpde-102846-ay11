@@ -33,11 +33,12 @@ def test_les_six_slides_demandees_sont_retirees_du_deck():
     assert fichiers.isdisjoint(SLIDES_RETIREES)
 
 
-def test_plan_partie_3_occupe_la_slide_79_dans_le_deck_complet():
+def test_plan_partie_3_suit_la_sequence_bureautique():
     fichiers = [chemin.name for chemin in discover_slides()]
 
-    assert fichiers[78] == SLIDE_FILE
-    assert len(fichiers) == 131
+    assert fichiers.index("03_chapitre-word.py") < fichiers.index(SLIDE_FILE)
+    assert fichiers.index("26e_synthese-matinee.py") < fichiers.index(SLIDE_FILE)
+    assert fichiers.index(SLIDE_FILE) < fichiers.index("28a_webaim-million-2026.py")
 
 
 def test_plan_partie_3_annonce_les_cinq_sous_parties():

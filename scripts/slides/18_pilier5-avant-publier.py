@@ -1,49 +1,74 @@
-"""Slide 43 : Avant de publier : 5 vérifications en 2 minutes.
+"""Tableau de données simple dans la station 3."""
 
-Règles neuropédagogie appliquées :
-- R7 : Procédure stepper (5 étapes mécaniques)
-- R12 : Seuil objectif (80 % des oublis restants)
-- R2 : Checklist finale crée un sentiment de contrôle
-"""
-
-from igpde_dsfr_components import add_stepper, add_highlight, add_notes, new_slide
+from igpde_dsfr_components import (
+    COL_R,
+    COL_W,
+    MARGIN_L,
+    add_card,
+    add_highlight,
+    add_notes,
+    new_slide,
+)
+from sami_slide_data import (
+    control_heading,
+    sequence_block,
+    station_controls,
+    station_notes,
+)
 
 
 def build(prs, layouts, ctx):
+    block = sequence_block("station-3")
+    controls = station_controls(block["id"])[2:]
+    control = controls[0]
     slide = new_slide(
-        prs, layouts,
+        prs,
+        layouts,
         layout_name="titre_contenu",
-        titre="Avant de publier : 5 vérifications en 2 minutes",
-        fil_ariane="2. Documents accessibles | 5. Finalisation",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Finalisation",
+        titre="Station 3 - Un tableau de données simple",
+        fil_ariane="2. Documents accessibles | Station 3",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 3",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
-    add_stepper(
-        slide,
-        [
-            "Propriétés (Titre, Auteur, Objet) : Fichier > Informations > Propriétés",
-            "Nom de fichier descriptif en .docx (pas Document1.docx)",
-            "Protection : aucune restriction > Révision > Restreindre la modification",
-            "Formulaires : aucun champ Word interactif dans le document",
-            "Vérificateur d'accessibilité : Fichier > Vérifier l'accessibilité"
-        ],
-        top=2.3,
-        height=2.5
-    )
-
     add_highlight(
         slide,
-        "Ces 5 vérifications couvrent 80 % des oublis restants.",
-        top=5.05
+        control_heading(control),
+        top=2.20,
+    )
+    add_card(
+        slide,
+        "Dans Word - procédure principale",
+        [control["regle"], control["procedure_word"], control["action_attendue"]],
+        top=3.30,
+        left=MARGIN_L,
+        width=COL_W,
+        height=2.75,
+        body_size=14,
+        body_line_spacing=1.08,
+        compact=True,
+    )
+    add_card(
+        slide,
+        "Dans Writer - complément",
+        [control["procedure_writer"], f"Preuve : {control['preuve']['attendu']}"],
+        top=3.30,
+        left=COL_R,
+        width=COL_W,
+        height=2.75,
+        body_size=14,
+        body_line_spacing=1.08,
+        compact=True,
     )
 
     add_notes(
         slide,
-        "La finalisation est la checklist finale avant envoi. 2 minutes maximum. Le vérificateur "
-        "Word est le dernier filet de sécurité - mais il ne détecte pas tout (voir slide "
-        "suivante). Insister sur le nom de fichier : c'est le seul identifiant visible "
-        "avant d'ouvrir le document."
+        station_notes(
+            block["id"],
+            controls=controls,
+            question="Chaque cellule appartient-elle à une grille de données simple ?",
+            help_text="Faire distinguer tableau de données et mise en page avant d'ouvrir les propriétés du tableau.",
+        ),
     )
     return slide

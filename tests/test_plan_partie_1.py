@@ -19,12 +19,12 @@ ETAPES = [
 ]
 
 
-def test_plan_partie_1_remplace_la_synthese_de_fin_de_partie():
+def test_plan_partie_1_precede_le_premier_chapitre():
     fichiers = [path.name for path in discover_slides()]
 
-    assert fichiers[14] == SLIDE_FILE
+    assert fichiers.index("02l_idee-recue-6.py") < fichiers.index(SLIDE_FILE)
+    assert fichiers.index(SLIDE_FILE) < fichiers.index("02m_chapitre-cadre-legal.py")
     assert "02t_module1-points-cles.py" not in fichiers
-    assert len(fichiers) == 131
 
 
 def test_plan_partie_1_annonce_les_cinq_sous_parties():

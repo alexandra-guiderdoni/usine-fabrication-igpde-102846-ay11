@@ -24,7 +24,7 @@ Limite du système : dépôt usine-fabrication-igpde-102846-ay11
 
 | Élément | Type C4 | Rôle et relation avec l'usine |
 |---|---|---|
-| Formateur ou mainteneur | Personne | Modifie les sources, lance les fabrications, interprète les contrôles et effectue la relecture humaine. |
+| Formateur ou mainteneur | Personne | Met à jour les sources, lance les fabrications, interprète les contrôles et effectue la relecture humaine. |
 | Usine de formation 102846 | Système logiciel | Fabrique le deck, les ressources du pack, les documents PDF et le site des TP depuis ses sources versionnées. |
 | IGPDE | Organisation | Reçoit le pack de formation préparé pour la session. |
 | Stagiaire | Personne | Consulte les travaux pratiques publiés et utilise les ressources distribuées pendant la formation. |
@@ -52,10 +52,10 @@ Le flux est volontairement à sens unique : les pages modifiées dans `docs/` so
 | Élément | Nature | Responsabilité | Entrées et sorties principales |
 |---|---|---|---|
 | Orchestrateur local | Application en ligne de commande : `make` et le `Makefile` | Choisit l'interpréteur, enchaîne les cibles et porte les points d'entrée de l'usine. | Reçoit `make deck`, `make pack`, `make verifier`, `make publier-site` et les autres cibles ; lance les scripts Python. |
-| Assembleur de deck | Application Python en ligne de commande : `scripts/assemble.py` | Découvre les modules, construit les 138 slides, applique les composants IGPDE-DSFR et finalise le PPTX. | Lit la configuration, le gabarit et les modules ; écrit le deck de travail puis le deck du pack par `make deck`. |
+| Assembleur de deck | Application Python en ligne de commande : `scripts/assemble.py` | Découvre les modules, construit toutes les slides, applique les composants IGPDE-DSFR et finalise le PPTX. | Lit la configuration, le gabarit et les modules ; écrit le deck de travail puis le deck du pack par `make deck`. |
 | Fabrication des ressources du pack | Applications Python : `scripts/fabriquer_pack.py` et `scripts/pack_supports.py` | Copie le deck complet, produit les PDF autorisés, prépare la démo hors ligne et rassemble les supports. | Lit les sources, les DOCX Sami et le deck complet ; écrit dans `livrables-IGPDE-2026-102846/`. |
 | Vérification et recette | Commandes locales : `pytest`, `validate.py`, hooks Git, QA PPTX et ShipGuard | Détecte les régressions de dépôt, de site, de géométrie et de rendu avant livraison ou publication. | Lit les sources et les livrables ; écrit, selon la commande, les rapports sous `.qa/` ou `recette/reports/`. |
-| Publication du site | Procédure locale portée par `make publier-site` | Valide, synchronise la source du site, copie les trois fichiers racine de publication puis pousse la copie vers le dépôt des TP. | Lit `docs/` et `publication-site/` ; écrit uniquement dans le clone de publication et avance le clone de consultation. |
+| Publication du site | Procédure locale portée par `make publier-site` | Valide la source du site, effectue sa synchronisation, copie les trois fichiers racine de publication puis pousse la copie vers le dépôt des TP. | Lit `docs/` et `publication-site/` ; écrit uniquement dans le clone de publication et avance le clone de consultation. |
 | Sources versionnées | Stockage de fichiers Git | Conserve les paramètres, contenus, scripts, gabarits, tests, recette et ressources nécessaires à la fabrication. | Inclut notamment `config.yml`, `scripts/`, `docs/`, `_source/`, `fiche-pratique/`, `wcag/`, `03-easy-checks/` et le corpus préparatoire. |
 | Pack de livraison | Stockage de fichiers versionné | Réunit les livrables destinés à l'IGPDE. | Dossier `livrables-IGPDE-2026-102846/`, alimenté par les commandes de fabrication. |
 
@@ -88,7 +88,7 @@ Le générateur PDF contenu dans `vendor/` est une bibliothèque appelée par la
 | Intention | Commande | Résultat attendu |
 |---|---|---|
 | Préparer l'environnement | `make installer` | Crée `.venv` depuis `requirements.lock` et active les hooks versionnés. |
-| Générer le deck | `make deck` | Deck complet de 138 slides à la racine puis copie dans le pack. |
+| Générer le deck | `make deck` | Deck complet à la racine, avec total calculé depuis les modules, puis copie dans le pack. |
 | Générer les dépendances ciblées | `make sami`, `make grille`, `make wcag` | Ressources Sami, grille XLSX ou deck WCAG avant un pack si leurs sources ont changé. |
 | Fabriquer les documents et supports | `make pdf`, `make supports`, `make pack` | PDF/UA-1 contrôlés, démo hors ligne, documents du pack et deck copié. |
 | Vérifier | `make verifier`, puis si nécessaire `make qa` et `make recette` | Tests, validation du site, contrôles Git, QA de deck et recette visuelle. |
@@ -104,7 +104,7 @@ L'assembleur est le seul conteneur qui mérite une vue interne détaillée : il 
 |---|---|---|
 | Chargeur de configuration | `scripts/config.py`, `config.yml` | Valide et expose le code de formation, la date, le pied de page, le nom du deck et le dossier de livraison aux générateurs et au Makefile. |
 | Découverte et chargement des slides | `scripts/slides/__init__.py` | Trie les fichiers `NN_*.py` et leurs intercalaires alphabétiques, importe chaque module et exige une fonction `build(...)`. |
-| Modules pédagogiques | `scripts/slides/*.py` | Produisent les 138 slides des quatre modules dans leur ordre lexical contrôlé. |
+| Modules pédagogiques | `scripts/slides/*.py` | Produisent les slides des quatre parties dans leur ordre lexical contrôlé. |
 | Composants IGPDE-DSFR | `scripts/igpde_dsfr_components.py` | Crée les six layouts, les 17 composants `add_*`, les deux compositions `compose_*` et applique la grille visuelle. |
 | Contexte de génération | `SlideContext` | Porte le numéro de slide, la date et le pied de page calculés au lieu de valeurs répétées dans les modules. |
 | Carte de traçabilité QA | `scripts/qa_source_map.py` | Associe, si disponible, des éléments générés à leurs sources pour la boucle QA. |
@@ -192,8 +192,8 @@ Il n'y a pas de chaîne CI déclarée dans ce dépôt : l'installation, la gén�
 | Mise en page du deck | `make qa`, contrôles géométriques et relecture humaine. | Les superpositions fines exigent toujours une inspection visuelle. |
 | Pied de page | La génération limite les composants à la zone de contenu et les tests imposent désormais zéro forme de contenu sous `BOTTOM_CONTENT` (6,80 pouces). | `_safe_top()` reste un filet de sécurité : son avertissement signale une mise en page à corriger et une relecture visuelle reste nécessaire pour exclure un chevauchement. |
 | PDF | La fabrication vérifie la déclaration PDF/UA-1 avant de remplacer un PDF livré. | Les tableaux Markdown doivent rester composables sur une page, sinon la production est bloquée. |
-| Site | `validate.py` contrôle le contrat de l'exercice, les liens, les ressources et les règles d'accessibilité ciblées. | La recette visuelle s'installe localement par `make installer-recette` et ne remplace pas un contrôle humain. |
-| Publication | Une seule commande synchronise, commit et pousse vers le dépôt des TP. | Toute modification directe d'un clone local serait écrasée ou ferait échouer une publication ultérieure. |
+| Site | `validate.py` contrôle le contrat de l'exercice, les liens, les ressources et les règles d'accessibilité ciblées. | La recette visuelle dispose d'une installation locale par `make installer-recette` et ne remplace pas un contrôle humain. |
+| Publication | Une seule commande assure la synchronisation, le commit et le push vers le dépôt des TP. | Toute modification directe d'un clone local serait écrasée ou ferait échouer une publication ultérieure. |
 
 ## Règles de maintenance qui découlent de l'architecture
 

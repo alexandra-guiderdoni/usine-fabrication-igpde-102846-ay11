@@ -38,7 +38,7 @@ Toute modification se fait dans l'usine, puis se publie depuis celle-ci avec `ma
 
 L'usine fabrique, à partir de sources versionnées, tous les supports de la formation :
 
-- le deck de 138 slides au format DSFR, généré par des scripts ;
+- le deck au format DSFR, généré par des scripts dont la sortie détermine le nombre courant de slides ;
 - ce site d'exercice et la démo ;
 - l'exercice Word (trois documents) et la grille d'audit ;
 - les fiches PDF accessibles (mémos Word et LibreOffice, fiches WCAG, fiche des liens des TP) ;

@@ -1,73 +1,47 @@
-"""Slide 44 : Le vérificateur d'accessibilité Word.
+"""Vue d'ensemble de la station 4."""
 
-Règles neuropédagogie appliquées :
-- R14 : Tableau montrant détecte vs ne détecte pas
-- R3 : Démystification des limites de l'outil
-- R9 : Réalisme pédagogique (pas de faux sentiment de sécurité)
-"""
-
-from igpde_dsfr_components import (
-    add_tableau, add_alert, add_notes, new_slide,
-)
+from igpde_dsfr_components import add_highlight, add_notes, add_tableau, new_slide
+from sami_slide_data import sequence_block, station_controls, station_notes
 
 
 def build(prs, layouts, ctx):
+    block = sequence_block("station-4")
+    controls = station_controls(block["id"])
     slide = new_slide(
-        prs, layouts,
+        prs,
+        layouts,
         layout_name="titre_contenu",
-        titre="Le vérificateur d'accessibilité Word",
-        fil_ariane="2. Documents accessibles | 5. Finalisation",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Finalisation",
+        titre=f"Station 4 - {block['titre']}",
+        fil_ariane="2. Documents accessibles | Station 4",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 4",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
     add_tableau(
         slide,
-        ["Ce qu'il détecte", "Ce qu'il ne détecte PAS"],
+        ["ID", "Niveau", "Points travaillés"],
         [
-            [
-                "Texte alt manquant sur les images",
-                "Qualité du texte alt (contenu)"
-            ],
-            [
-                "Styles de titre absents",
-                "Pertinence des noms de liens"
-            ],
-            [
-                "Ordre de lecture problématique",
-                "Couleur porteuse de sens seule"
-            ],
-            [
-                "Tableaux sans en-tête",
-                "Langue des passages étrangers"
-            ],
-            [
-                "",
-                "Contraste insuffisant"
-            ]
+            [control["id"], control["niveau"], control["intitule"]]
+            for control in controls
         ],
-        top=2.3,
-        col_widths=[6.14, 6.14]
+        top=2.30,
+        col_widths=[1.15, 1.25, 9.88],
+        row_h=0.62,
     )
-
-    alert_bullets = [
-        "Il signale ce qu'il peut détecter automatiquement - pas ce qui est vraiment accessible",
-        "Une absence d'erreur ne signifie pas que le document est accessible"
-    ]
-    add_alert(
+    add_highlight(
         slide,
-        "Le vérificateur est un premier filtre, pas un certificat de conformité.",
-        alert_bullets,
-        top=5.05,
-        alert_type="warning"
+        "Corriger les styles sources : la langue et la lisibilité se règlent à l'échelle du document.",
+        top=5.55,
     )
 
     add_notes(
         slide,
-        "Analogie : le vérificateur d'orthographe ne détecte pas les fautes de sens "
-        "(il accepte et la et à). Le vérificateur d'accessibilité ne détecte pas un texte "
-        "alt vide de sens. Les 5 colonnes du tableau montrent la limite de l'outil. "
-        "Toujours faire une relecture humaine."
+        station_notes(
+            block["id"],
+            controls=controls,
+            question="Le réglage est-il porté par les propriétés et les styles, ou seulement par l'apparence ?",
+            help_text="Faire corriger le style source et la langue du passage plutôt que les paragraphes un par un.",
+        ),
     )
     return slide

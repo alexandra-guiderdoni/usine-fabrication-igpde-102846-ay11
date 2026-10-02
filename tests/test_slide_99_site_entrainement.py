@@ -1,4 +1,4 @@
-"""Tests du lien vers le site d'entraînement sur la slide 93."""
+"""Tests du lien vers le site d'entraînement."""
 
 import sys
 from pathlib import Path
@@ -16,14 +16,14 @@ SLIDE_FILE = "40_signaux-alerte.py"
 SITE_ENTRAINEMENT = load_formation_config()["site_url"]
 
 
-def test_slide_93_correspond_aux_signaux_alerte():
+def test_slide_signaux_alerte_reste_dans_la_sequence_clavier():
     fichiers = [chemin.name for chemin in discover_slides()]
 
-    assert fichiers[92] == SLIDE_FILE
-    assert len(fichiers) == 131
+    assert fichiers.index("39_cinq-touches.py") < fichiers.index(SLIDE_FILE)
+    assert fichiers.index(SLIDE_FILE) < fichiers.index("41_mission-clavier.py")
 
 
-def test_slide_93_affiche_le_lien_et_son_qrcode_sous_les_cartes():
+def test_slide_signaux_alerte_affiche_le_lien_et_son_qrcode_sous_les_cartes():
     prs, layouts = create_presentation()
     ctx = SlideContext(
         page_num=93,

@@ -1,18 +1,11 @@
-"""Slide 03 : annonce et plan de la partie II."""
+"""Annonce et plan de la partie II."""
 
 from igpde_dsfr_components import add_notes, add_stepper, new_slide
-
-
-ETAPES = [
-    "Structurer le document",
-    "Rendre les couleurs accessibles",
-    "Décrire les contenus visuels",
-    "Améliorer la langue et la lisibilité",
-    "Vérifier et finaliser",
-]
+from sami_slide_data import station_blocks, tp_duration
 
 
 def build(prs, layouts, ctx):
+    blocks = station_blocks()
     slide = new_slide(
         prs,
         layouts,
@@ -26,14 +19,15 @@ def build(prs, layouts, ctx):
 
     add_stepper(
         slide,
-        ETAPES,
+        [block["titre"] for block in blocks],
         top=2.45,
         height=3.65,
     )
 
     add_notes(
         slide,
-        "Annoncer les cinq thèmes qui structurent la partie II. "
-        "Préciser que la progression va de la structure du document à sa vérification finale.",
+        f"Annoncer un TP guidé de {tp_duration()} minutes organisé en "
+        f"{len(blocks)} stations. La théorie, la manipulation et la preuve avancent "
+        "ensemble dans le document de Sami.",
     )
     return slide

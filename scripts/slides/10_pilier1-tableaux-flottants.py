@@ -1,63 +1,68 @@
-"""Slide 35 : Tableaux et objets flottants.
-
-Règles neuropédagogie appliquées :
-- R1 : Citation fondatrice pour ancrer la règle d'or
-- R19 : Procédure détaillée (propriétés du tableau, habillage)
-- R11 : Alerte pour piège courant
-"""
+"""Listes et mise en page robuste de la station 1."""
 
 from igpde_dsfr_components import (
-    Stack, MARGIN_L, CONTENT_W,
-    add_highlight, add_callout, add_alert, add_notes, new_slide,
-    estimate_highlight_height, estimate_callout_height,
+    COL_R,
+    COL_W,
+    MARGIN_L,
+    add_card,
+    add_highlight,
+    add_notes,
+    new_slide,
 )
+from sami_slide_data import sequence_block, station_controls, station_notes
 
 
 def build(prs, layouts, ctx):
+    block = sequence_block("station-1")
+    controls = station_controls(block["id"])[3:]
     slide = new_slide(
-        prs, layouts,
+        prs,
+        layouts,
         layout_name="titre_contenu",
-        titre="Tableaux et objets flottants",
-        fil_ariane="2. Documents accessibles | 1. Structure",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Structure",
+        titre="Station 1 - Listes et mise en page robuste",
+        fil_ariane="2. Documents accessibles | Station 1",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 1",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
-    stack = Stack(top=2.3, gap=0.20)
-
-    regle_texte = (
-        "Règle d'or : ne jamais utiliser Tab, Espace ou Entrée pour simuler une mise en page.\n"
-        "Vous créez un obstacle de structure pour les technologies d'assistance."
+    add_card(
+        slide,
+        "Dans Word - procédure principale",
+        [f"{control['id']} - {control['procedure_word']}" for control in controls],
+        top=2.30,
+        left=MARGIN_L,
+        width=COL_W,
+        height=2.85,
+        body_size=14,
+        body_line_spacing=1.10,
+        compact=True,
     )
-    add_highlight(slide, regle_texte,
-                  top=stack.push(estimate_highlight_height(regle_texte, CONTENT_W)),
-                  left=MARGIN_L, width=CONTENT_W)
-
-    callout1_titre = "Tableaux de mise en page"
-    callout1_bullets = [
-        "Insertion > Tableau > colonnes et lignes",
-        "Habillage : Propriétés > Aucun",
-        "Un tableau flottant (Autour) est lu au mauvais moment",
-    ]
-    add_callout(slide, callout1_titre, callout1_bullets,
-                top=stack.push(estimate_callout_height(callout1_titre, callout1_bullets, line_spacing=1.15)),
-                left=MARGIN_L, width=CONTENT_W, line_spacing=1.15)
-
-    alert_titre = "Objets flottants : zones de texte et images"
-    alert_bullets = [
-        "Lus dans un ordre aléatoire - solution : colonnes Word ou habillage En ligne",
-    ]
-    add_alert(slide, alert_titre, alert_bullets,
-              top=5.75,
-              left=MARGIN_L, width=CONTENT_W,
-              alert_type="warning", line_spacing=1.15)
+    add_card(
+        slide,
+        "Dans Writer - complément",
+        [f"{control['id']} - {control['procedure_writer']}" for control in controls],
+        top=2.30,
+        left=COL_R,
+        width=COL_W,
+        height=2.85,
+        body_size=14,
+        body_line_spacing=1.10,
+        compact=True,
+    )
+    add_highlight(
+        slide,
+        "Manipulation : afficher les marques, corriger les artifices, puis vérifier la structure.",
+        top=5.47,
+    )
 
     add_notes(
         slide,
-        "Piège le plus fréquent pour les communicants : la mise en page par espaces "
-        "et tabulations. Montrer le mode Afficher tout (symbole paragraphe) pour révéler "
-        "les espaces parasites. Les zones de texte flottantes sont un piège classique "
-        "dans les documents Word avec mise en page élaborée."
+        station_notes(
+            block["id"],
+            controls=controls,
+            question="Les listes sont-elles annoncées comme telles et la mise en page résiste-t-elle aux marques affichées ?",
+            help_text="Faire activer les marques avant toute correction et traiter les artifices dans leur ordre d'apparition.",
+        ),
     )
     return slide

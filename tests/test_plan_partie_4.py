@@ -19,12 +19,11 @@ ETAPES = [
 ]
 
 
-def test_plan_partie_4_occupe_la_slide_110_apres_la_mission_web():
+def test_plan_partie_4_suit_immediatement_la_mission_web():
     fichiers = [chemin.name for chemin in discover_slides()]
 
-    assert fichiers[108] == "52_mission-13-checks.py"
-    assert fichiers[109] == SLIDE_FILE
-    assert len(fichiers) == 131
+    mission_index = fichiers.index("52_mission-13-checks.py")
+    assert fichiers[mission_index + 1] == SLIDE_FILE
 
 
 def test_plan_partie_4_annonce_les_cinq_sous_parties():

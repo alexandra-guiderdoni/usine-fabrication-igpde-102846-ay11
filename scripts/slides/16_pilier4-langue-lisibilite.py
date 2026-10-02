@@ -1,77 +1,94 @@
-"""Slide 41 : Langue, majuscules et lisibilité.
+"""Mesure du contraste dans la station 3."""
 
-Règles neuropédagogie appliquées :
-- R19 : Procédures détaillées (balisage de langue, casse)
-- R18 : Analogues pour dyslexie et prononciation (e vs è)
-- R14 : Stack avec 3 callouts pour multiples procédures
-"""
+import re
 
 from igpde_dsfr_components import (
-    add_callout, add_notes, new_slide,
-    COL_R, COL_W, MARGIN_L,
+    COL_R,
+    COL_W,
+    MARGIN_L,
+    add_card,
+    add_highlight,
+    add_notes,
+    add_pave_chiffre,
+    new_slide,
+)
+from sami_slide_data import (
+    control_heading,
+    sequence_block,
+    station_controls,
+    station_notes,
 )
 
 
 def build(prs, layouts, ctx):
+    block = sequence_block("station-3")
+    controls = station_controls(block["id"])[:1]
+    control = controls[0]
+    ratios = re.findall(r"(\d+(?:,\d+)?) pour 1", control["regle"])
     slide = new_slide(
-        prs, layouts,
+        prs,
+        layouts,
         layout_name="titre_contenu",
-        titre="Langue, majuscules et lisibilité",
-        fil_ariane="2. Documents accessibles | 4. Langue",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Langue",
+        titre="Station 3 - Le contraste se mesure",
+        fil_ariane="2. Documents accessibles | Station 3",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 3",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
-    balise_bullets = [
-        "Langue principale : Fichier > Options > Langue",
-        "Passage en langue étrangère : sélectionner le texte > Révision > Langue > Définir la langue",
-        "Sans balisage de langue, le lecteur d'écran prononce mal le mot"
-    ]
-    add_callout(
+    add_highlight(
         slide,
-        "Balisage de langue",
-        balise_bullets,
-        top=2.3,
+        control_heading(control),
+        top=2.15,
     )
-
-    maj_bullets = [
-        "Difficiles à lire pour les dyslexiques",
-        "Prononciation ambiguë par les lecteurs d'écran",
-        "Solution : minuscules d'abord, puis Police > Modifier la casse",
-    ]
-    add_callout(
+    add_pave_chiffre(
         slide,
-        "Majuscules : deux problèmes",
-        maj_bullets,
-        top=4.55,
+        valeur=f"{ratios[0]}:1",
+        label="Texte normal",
+        top=3.20,
         left=MARGIN_L,
         width=COL_W,
+        height=1.20,
     )
-
-    lisibilite_bullets = [
-        "Police sans serif, 12 pt minimum",
-        "Interligne 1,15, paragraphes aérés",
-        "Alignement à gauche, pas de justification",
-        "Contraste mesuré, fond non dégradé",
-    ]
-    add_callout(
+    add_pave_chiffre(
         slide,
-        "Lisibilité",
-        lisibilite_bullets,
-        top=4.55,
+        valeur=f"{ratios[1]}:1",
+        label="Grand texte et éléments graphiques",
+        top=3.20,
         left=COL_R,
         width=COL_W,
-        line_spacing=1.2,
+        height=1.20,
+    )
+    add_card(
+        slide,
+        "Dans Word - procédure principale",
+        [control["procedure_word"], control["action_attendue"]],
+        top=4.80,
+        left=MARGIN_L,
+        width=COL_W,
+        height=1.65,
+        body_size=14,
+        compact=True,
+    )
+    add_card(
+        slide,
+        "Dans Writer - complément",
+        [control["procedure_writer"]],
+        top=4.80,
+        left=COL_R,
+        width=COL_W,
+        height=1.65,
+        body_size=14,
+        compact=True,
     )
 
     add_notes(
         slide,
-        "Exemple concret de balisage : un document français avec un titre en anglais "
-        "Annual Report. Sans balisage, le lecteur d'écran français prononce les mots "
-        "anglais avec un accent français incompréhensible. Majuscules : UN INTERNE TUE - "
-        "donne le ton d'une phrase choc en majuscules, pas d'un texte en majuscules. "
-        "Pour la lisibilité, faire le lien avec les règles transversales vues en module 1 : "
-        "police simple, texte aligné à gauche, paragraphes aérés, contraste mesuré et fonds non dégradés."
+        station_notes(
+            block["id"],
+            controls=controls,
+            question="Quel seuil s'applique avant même de lire le résultat ?",
+            help_text="Faire relever les couleurs, choisir le seuil, puis seulement lancer l'outil de mesure.",
+        ),
     )
     return slide

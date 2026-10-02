@@ -1,60 +1,55 @@
-"""Slide 34 : Listes natives.
+"""Procédures de structure et de navigation de la station 1."""
 
-Règles neuropédagogie appliquées :
-- R10 : Bon/Mauvais contrastant pour discrimination
-- R19 : Procédure action avec boutons dans le ruban
-- R15 : Démonstration pratique proposée
-"""
-
-from igpde_dsfr_components import (
-    add_exemple_contre_exemple, add_callout, add_notes, new_slide,
-    estimate_callout_height
-)
+from igpde_dsfr_components import COL_R, COL_W, MARGIN_L, add_card, add_notes, new_slide
+from sami_slide_data import sequence_block, station_controls, station_notes
 
 
 def build(prs, layouts, ctx):
+    block = sequence_block("station-1")
+    controls = station_controls(block["id"])[:3]
     slide = new_slide(
-        prs, layouts,
+        prs,
+        layouts,
         layout_name="titre_contenu",
-        titre="Listes natives",
-        fil_ariane="2. Documents accessibles | 1. Structure",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Structure",
+        titre="Station 1 - Titres, hiérarchie et sommaire",
+        fil_ariane="2. Documents accessibles | Station 1",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 1",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
-    add_exemple_contre_exemple(
+    add_card(
         slide,
-        "Liste accessible",
-        [
-            "Le lecteur annonce : liste de 3 éléments, élément 1 sur 3",
-            "Navigation par élément avec les touches flèches",
-            "Créer avec : Accueil > Paragraphe > Puces ou Numérotation"
-        ],
-        "Liste inaccessible",
-        [
-            "Tirets manuels : le lecteur lit tiret Premier élément",
-            "Tabulations pour simuler une numérotation",
-            "Réseaux d'espaces pour aligner visuellement"
-        ],
-        top=2.45,
-        height=3.0
+        "Dans Word - procédure principale",
+        [f"{control['id']} - {control['procedure_word']}" for control in controls],
+        top=2.30,
+        left=MARGIN_L,
+        width=COL_W,
+        height=3.85,
+        body_size=14,
+        body_line_spacing=1.08,
+        compact=True,
     )
-
-    callout_bullets = [
-        "Maj+F1 (Révéler la mise en forme) > Puces et numérotation doit apparaître"
-    ]
-    add_callout(
+    add_card(
         slide,
-        "Vérification",
-        callout_bullets,
-        top=5.40
+        "Dans Writer - complément",
+        [f"{control['id']} - {control['procedure_writer']}" for control in controls],
+        top=2.30,
+        left=COL_R,
+        width=COL_W,
+        height=3.85,
+        body_size=14,
+        body_line_spacing=1.08,
+        compact=True,
     )
 
     add_notes(
         slide,
-        "Démonstration rapide : créer une liste avec tirets manuels, passer en mode "
-        "lecteur d'écran ou montrer la capture. Refaire avec la fonctionnalité native. "
-        "L'annonce change complètement. Ce réflexe s'acquiert en 2 minutes."
+        station_notes(
+            block["id"],
+            controls=controls,
+            question="Le volet et le sommaire racontent-ils le même plan ?",
+            help_text="Faire ouvrir le volet avant de corriger les styles et rappeler que le sommaire en découle.",
+        ),
     )
     return slide

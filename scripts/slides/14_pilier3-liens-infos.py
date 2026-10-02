@@ -1,82 +1,74 @@
-"""Slide 39 : Liens et informations essentielles.
-
-Règles neuropédagogie appliquées :
-- R10 : Tableau mauvais/bon pour discrimination des liens
-- R11 : Alerte sur les zones invisibles (en-têtes, pieds, filigranes)
-- R19 : Procédure enrichie pour liens de téléchargement
-"""
+"""Information essentielle portée dans le corps du document."""
 
 from igpde_dsfr_components import (
-    add_tableau, add_callout, add_alert, add_notes, new_slide,
-    MARGIN_L, COL_W, COL_R,
+    COL_R,
+    COL_W,
+    MARGIN_L,
+    add_card,
+    add_highlight,
+    add_notes,
+    new_slide,
+)
+from sami_slide_data import (
+    control_heading,
+    sequence_block,
+    station_controls,
+    station_notes,
 )
 
 
 def build(prs, layouts, ctx):
+    block = sequence_block("station-2")
+    controls = station_controls(block["id"])[5:]
+    control = controls[0]
     slide = new_slide(
-        prs, layouts,
+        prs,
+        layouts,
         layout_name="titre_contenu",
-        titre="Liens et informations essentielles",
-        fil_ariane="2. Documents accessibles | 3. Contenus",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Contenus",
+        titre="Station 2 - L'information essentielle reste dans le corps",
+        fil_ariane="2. Documents accessibles | Station 2",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 2",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )
 
-    add_tableau(
+    add_highlight(
         slide,
-        ["Inaccessible", "Accessible"],
-        [
-            [
-                "Cliquez ici",
-                "Consulter le guide d'accessibilité Word"
-            ],
-            [
-                "En savoir plus",
-                "Télécharger le rapport annuel 2024 (PDF, 2 Mo)"
-            ],
-            [
-                "URL brute",
-                "Accéder au formulaire de contact"
-            ]
-        ],
-        top=2.3,
-        col_widths=[4.5, 7.78]
+        control_heading(control),
+        top=2.20,
     )
-
-    add_alert(
+    add_card(
         slide,
-        "Informations essentielles dans les zones non lues",
-        [
-            "En-têtes et pieds de page : non lus automatiquement",
-            "Filigranes (Confidentiel, Brouillon) : invisibles",
-            "Solution : reproduire l'info dans le corps du document",
-        ],
-        top=4.37,
+        "Dans Word - procédure principale",
+        [control["regle"], control["procedure_word"], control["action_attendue"]],
+        top=3.27,
         left=MARGIN_L,
         width=COL_W,
-        alert_type="warning",
-        line_spacing=1.15,
+        height=2.65,
+        body_size=14,
+        body_line_spacing=1.08,
+        compact=True,
     )
-
-    add_callout(
+    add_card(
         slide,
-        "Liens de téléchargement",
-        [
-            "Titre + format + poids + langue si différente",
-            "Exemple : Rapport annuel 2024 (PDF, 2 Mo, anglais)",
-        ],
-        top=4.37,
+        "Dans Writer - complément",
+        [control["procedure_writer"], f"Preuve : {control['preuve']['attendu']}"],
+        top=3.27,
         left=COL_R,
         width=COL_W,
-        line_spacing=1.15,
+        height=2.65,
+        body_size=14,
+        body_line_spacing=1.08,
+        compact=True,
     )
 
     add_notes(
         slide,
-        "Lire à voix haute les liens inaccessibles puis les accessibles. La différence "
-        "est immédiate. Pour les filigranes : montrer un vrai document avec CONFIDENTIEL "
-        "en filigrane. Demander : est-ce que votre lecteur d'écran l'annonce ? Non - "
-        "il faut reproduire l'information dans le corps du document."
+        station_notes(
+            block["id"],
+            controls=controls,
+            question="Le statut reste-t-il compréhensible quand on lit uniquement le corps ?",
+            help_text="Faire masquer mentalement l'en-tête et l'arrière-plan, sans recréer de filigrane dans l'exercice.",
+        ),
     )
     return slide

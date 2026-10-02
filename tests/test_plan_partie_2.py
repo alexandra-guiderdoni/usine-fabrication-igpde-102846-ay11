@@ -6,24 +6,18 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
 from igpde_dsfr_components import create_presentation
+from sami_slide_data import station_blocks
 from slides import SlideContext, discover_slides, load_slide_module
 
 
 SLIDE_FILE = "03_chapitre-word.py"
-ETAPES = [
-    "Structurer le document",
-    "Rendre les couleurs accessibles",
-    "Décrire les contenus visuels",
-    "Améliorer la langue et la lisibilité",
-    "Vérifier et finaliser",
-]
 
 
-def test_plan_partie_2_occupe_la_slide_54_dans_le_deck_complet():
+def test_plan_partie_2_ouvre_la_sequence_bureautique():
     fichiers = [chemin.name for chemin in discover_slides()]
 
-    assert fichiers[53] == SLIDE_FILE
-    assert len(fichiers) == 131
+    assert fichiers.index("02qd_by-design.py") < fichiers.index(SLIDE_FILE)
+    assert fichiers.index(SLIDE_FILE) < fichiers.index("04_ouverture-lecteur-ecran.py")
 
 
 def test_plan_partie_2_annonce_les_cinq_sous_parties():
@@ -54,6 +48,6 @@ def test_plan_partie_2_annonce_les_cinq_sous_parties():
         for shape in slide.shapes
         if shape.name.startswith("DSFR-stepper-pastille-")
     ]
-    assert etapes == ETAPES
+    assert etapes == [block["titre"] for block in station_blocks()]
     assert numeros == ["1", "2", "3", "4", "5"]
     assert slide.notes_slide.notes_text_frame.text.strip()
