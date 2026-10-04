@@ -55,7 +55,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
   - Documents Sami (`Livrables-Stagiaires/tp-word-igpde/`) : `make sami` (écrit dans `_source/`), puis `make supports` ou `make pack` pour la copie dans le pack.
   - Démo réseaux sociaux hors ligne (`Livrables-Stagiaires/tp-reseaux-sociaux-igpde/`) : `make supports`, depuis `docs/demo-mauvaise-restitution-emojis.html`.
   - Grille d'audit XLSX : `make grille` crée `03-easy-checks/grille-audit-easy-checks.xlsx`, `docs/grille-audit-easy-checks.xlsx` à la racine du site et `docs/assets/downloads/grille-audit-easy-checks.xlsx` pour le lien de téléchargement.
-  - Installeurs (`livrables-IGPDE-2026-102846/outils/`) : `make outils-telecharger`, sauf PAC à déposer à la main (voir `MANIFEST.md` dans ce dossier).
+  - Outils (`livrables-IGPDE-2026-102846/outils/`) : `make outils-telecharger` récupère les 27 paquets courants, dont PAC portable, et crée les deux favoris ANDI ; `make outils` contrôle leurs tailles et empreintes à partir de `outils.json`. Le guide `LIENS-INSTALLATION.md` indique les catalogues, les procédures Windows et les limites à vérifier sur les postes.
 - **Document source édité à la main** (pas de générateur : modifier le fichier ; les versions précédentes restent dans l'historique git, pas de copie sur le disque)
   - Fiche catalogue, fiche technique, programme et déroulé (`Livrables-Formateur/documents-administratifs-igpde/`), au format Word de l'IGPDE.
   - Site d'exercice `docs/`, publié par `make publier-site`.
@@ -85,7 +85,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 ## Dépôt public : règles de contenu
 
 - Ce dépôt est public. Ne jamais ajouter aux fichiers de travail (Markdown, scripts, notes, todo) de coordonnées personnelles de tiers (téléphone, adresse), de convocation nominative, de transcription de conversation d'agent, ni d'informations logistiques de session (salle, horaires, gestionnaire) : ces informations restent dans la convocation, hors dépôt. Les documents administratifs IGPDE du pack (fiche catalogue, fiche technique, programme, déroulé) sont publiés tels quels, par décision d'Alex.
-- Les installeurs du pack ne sont pas versionnés : `make outils-telecharger` les récupère et vérifie leur empreinte (`livrables-IGPDE-2026-102846/outils/outils.json`).
+- Les paquets et favoris du pack ne sont pas versionnés : seuls les guides et `outils.json` le sont. `make outils-telecharger` reconstitue les fichiers courants et vérifie leur empreinte. Les quatre anciennes archives locales ne sont pas nécessaires à la livraison.
 
 ## Règles pédagogiques validées
 

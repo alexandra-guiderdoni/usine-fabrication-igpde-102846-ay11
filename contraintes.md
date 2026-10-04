@@ -299,7 +299,7 @@ Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les
 - **Date** : 2026-09-28
 - **Source** : `AGENTS.md`, `Makefile`, `PUBLIER-SITE.md`.
 - **Statut** : active.
-- **Contrainte** : `make publier-site` valide le site puis effectue sa synchronisation vers le clone de publication, copie les trois documents racine adaptés, effectue le commit et le push du dépôt du site, puis avance le clone de consultation lorsqu'il existe. Les installeurs ne sont pas versionnés ; `make outils-telecharger` récupère les trois fichiers disposant d'une adresse directe, tandis que PAC est déposé manuellement ; `make outils` vérifie ensuite leurs empreintes.
+- **Contrainte** : `make publier-site` valide le site puis effectue sa synchronisation vers le clone de publication, copie les trois documents racine adaptés, effectue le commit et le push du dépôt du site, puis avance le clone de consultation lorsqu'il existe. Les paquets d'outils et les favoris ANDI ne sont pas versionnés ; `make outils-telecharger` reconstitue les 29 fichiers courants, y compris PAC portable, et `make outils` vérifie ensuite leurs tailles et empreintes.
 - **Impact** : une publication est une opération distincte d'un commit de l'usine et les clones restent des destinations gérées par la cible.
 - **Décision / prochaine vérification** : préparer et vérifier l'usine, puis publier uniquement par la cible prévue ; contrôler le manifeste des outils avant constitution du pack.
 - **Composants affectés** : `docs/`, `publication-site/`, clones locaux du site, `livrables-IGPDE-2026-102846/outils/`.
