@@ -3,19 +3,21 @@
 # PRD — Refonte de la partie II et du TP Sami
 
 Statut : validé humainement le 1er octobre 2026 ; T01 à T15 terminés le
-2 octobre 2026, avec relecture humaine finale reportée sur T16.
+2 octobre 2026 ; T16 clos le 4 octobre sur déclaration d'Alex après la recette
+humaine du 3 octobre 2026. L'envoi des livrables à l'IGPDE reste à effectuer.
 Date de cadrage : 1er octobre 2026.
 Session cible : 9 octobre 2026.
 Paquet de repli : tag `avant-refonte-tp-sami-2026-10-01`.
-Implémentation : T01 à T15 terminés ; T09a annulé faute de binôme disponible ;
-T16 reste à exécuter. Le dernier contrôle de `make pack` signale encore les
-quatre installeurs externes absents du dépôt.
+Implémentation : T01 à T16 terminés ; T09a annulé faute de binôme disponible.
+Les quatre installeurs externes sont présents localement et exclus de Git.
 
 Par décision explicite d'Alex le 2 octobre 2026, l'état de T01 à T09 peut être
 fusionné dans `main` et T10 peut commencer sans exécution de T09a, faute de
 binôme novice disponible. Le protocole T09a reste archivé comme procédure, mais
 ses contrôles humains sont reportés sur T16. Cette exception n'autorise pas la
-remise du nouveau paquet à l'IGPDE. Le tag de repli reste immuable.
+remise du nouveau paquet à l'IGPDE. La recette humaine du 3 octobre, déclarée
+satisfaisante par Alex le 4 octobre, lève ce verrou ; le tag de repli reste
+immuable.
 
 ## 1. Mission
 
@@ -322,7 +324,11 @@ Source pédagogique inspectée : support Markdown Martine Sutra de juin 2025, no
 - **Affirmation** : le déroulé prévoit 1 h 30 puis 15 minutes de synthèse de la matinée. **Source** : DOCX du déroulé converti en texte. **Verdict** : confirmé et maintenu. **Impact** : actualiser le contenu du créneau sans le supprimer ni rallonger le TP.
 - **Affirmation** : PAC doit être demandé à l’IGPDE. **Source** : fiche technique convertie en texte. **Verdict** : partiel, car PAC y figure déjà avec une formulation conditionnelle. **Impact** : confirmer l’installation ou renforcer la consigne, sans créer un doublon.
 
-## 17. Inconnues et portes de validation
+## 17. Inconnues et portes de validation au cadrage
+
+Les points ci-dessous décrivent l'état lors de la rédaction du PRD. La clôture
+de la recette humaine est consignée dans le ticket T16 ; ses relevés détaillés
+ne sont pas présents dans ce dépôt public.
 
 - Le rendu visuel du PPTX Martine n’a pas été réévalué pendant la rédaction de ce PRD ; il reste une référence humaine, pas une source mécanique.
 - Les mémos et les scripts de la partie II ont été alignés sur la matrice canonique ; leurs procédures restent à rejouer sur les versions Windows installées.
@@ -333,6 +339,9 @@ Source pédagogique inspectée : support Markdown Martine Sutra de juin 2025, no
 - La présence d’une option « Décoratif » dans Writer dépend de la version installée et doit être rejouée avant de figer la procédure.
 
 ## 18. PDG pass
+
+Cette section conserve l'auto-contrôle du cadrage initial, avant l'exécution
+de T16.
 
 - **Déclenchement** : oui, car ce PRD sera exécuté par d’autres agents et porte sur plusieurs sources de vérité et sorties générées.
 - **Compétence** : `to-spec` pour rendre les exigences testables ; `progressive-disclosure-guard` pour borner le chantier et interdire les raccourcis.

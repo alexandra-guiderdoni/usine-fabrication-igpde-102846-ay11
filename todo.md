@@ -1,15 +1,12 @@
 # TODO - Formation 102846 (IGPDE)
 
-Dernière revue des actions : 2026-10-03.
+Dernière revue des actions : 2026-10-04.
 
 ## En cours
 
 ### Avant la remise à l'IGPDE
 
-- [ ] Terminer la recette humaine T16 sous Word et Writer Windows, avec contrôle PAC, puis autoriser explicitement la remise du pack.
-- [x] Déposer les quatre installeurs externes dans `livrables-IGPDE-2026-102846/outils/` : trois via `make outils-telecharger`, PAC manuellement, puis lancer `make outils` (2026-10-03 : quatre empreintes conformes ; installation prévue sur chaque poste depuis le dossier partagé).
-- [x] Publier le site corrigé avec `make publier-site` après validation locale ; cette publication reste une action distincte et explicite (2026-10-03, commit `c5b3fd5` du site : grille XLSX à jour).
-- [ ] Réaliser la relecture visuelle humaine complète du deck dans PowerPoint, corriger les sources `scripts/slides/` si nécessaire, puis suivre `REEXPORTER-DECK-PPTX.md`.
+- [ ] Envoyer les livrables à l'IGPDE.
 
 ### Pour la formation
 
@@ -21,6 +18,12 @@ Dernière revue des actions : 2026-10-03.
 - [ ] Supprimer l'ancien dossier du projet dans l'espace de travail personnel d'Alex, après la formation du 9 octobre 2026 et uniquement sur son GO explicite.
 
 ## Fait
+
+### Validation et préparation de la remise
+
+- [x] Recette humaine T16 réalisée le 3 octobre sous Word et Writer Windows, avec contrôle du PDF et relecture du support dans PowerPoint : résultat déclaré satisfaisant par Alex le 4 octobre ; relevés détaillés non versés dans le dépôt public.
+- [x] Quatre installeurs externes déposés dans `livrables-IGPDE-2026-102846/outils/` et empreintes vérifiées le 3 octobre.
+- [x] Site corrigé publié après validation locale ; la publication est distincte de l'envoi du paquet à l'IGPDE.
 
 ### Arbitrages pédagogiques
 

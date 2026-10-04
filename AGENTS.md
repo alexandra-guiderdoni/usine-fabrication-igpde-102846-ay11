@@ -7,9 +7,9 @@ Protocole unique pour tout agent (Claude, Codex ou autre) et pour un humain. `CL
 - Formation « L'accessibilité numérique pour la bureautique et le web », IGPDE, code 102846 (ex-102638), 1 jour, public communicants, pas développeurs.
 - Session du 9 octobre 2026. Code, date, pied de page, nom du deck, dossier de livraison et URL du site sont centralisés dans `config.yml` : `scripts/config.py` les valide et les expose à la fabrication. Une nouvelle session demande en plus de renommer le dossier du pack, de mettre à jour à la main les documents administratifs, et de rechercher l'ancien code et l'ancienne date dans les sources versionnées (`docs/`, `scripts/`, `tests/` et Markdown structurants), en distinguant les historiques et les fixtures de test.
 - Deck DSFR généré par scripts, composé de 4 modules dans un ordre impératif : 1. communication accessible et cadre légal, 2. Word accessible, 3. points de contrôle rapides W3C, 4. réseaux sociaux. Le total de slides est une sortie de génération, pas un contrat à maintenir manuellement.
-- Exercice Sami : TP guidé de 90 minutes organisé en stations, avec 3 DOCX (inaccessible, aide à la correction, accessible). Le PRD `notes/prd-refonte-partie-II-tp-sami.md` fait autorité jusqu'à la création de la matrice canonique par T02 ; l'ancienne spécification est historique.
+- Exercice Sami : TP guidé de 90 minutes organisé en stations, avec 3 DOCX (inaccessible, aide à la correction, accessible). `_source/exercice-sami-matrice.yml` est la source canonique des contrôles ; le PRD `notes/prd-refonte-partie-II-tp-sami.md` conserve les décisions du chantier. L'ancienne spécification et la liste des différences sont historiques.
 - Site d'exercice dans `docs/` (versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/`, démo émojis, grille XLSX), publié sur https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/ depuis le dépôt `git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git`.
-- Pack remis à l'IGPDE : `livrables-IGPDE-2026-102846/`, fabriqué par `make pack`.
+- Pack préparé pour l'IGPDE : `livrables-IGPDE-2026-102846/`, fabriqué par `make pack`. Son envoi reste distinct de sa fabrication.
 
 ## Deux dépôts liés : l'usine et le site publié
 
@@ -74,7 +74,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - `make qa` : boucle qualité du deck. Lire `.qa/qa-pptx-report.md` et son champ `status` ; le code de sortie seul ne prouve pas la convergence.
 - Relecture, correction et réexport complet du deck : suivre le mode opératoire (runbook) `REEXPORTER-DECK-PPTX.md`, qui couvre le relevé des observations, la correction des sources, la QA, la régénération et la validation humaine du PPTX du pack.
 - Recette visuelle du site corrigé : exécuter une fois `make installer-recette`, puis `make recette`. Les manifestes sont dans `recette/visual-tests/`.
-- Une relecture visuelle humaine du deck reste nécessaire : les contrôles automatiques ne voient pas les chevauchements fins.
+- Après toute régénération du deck, effectuer une relecture visuelle humaine : les contrôles automatiques ne voient pas les chevauchements fins.
 
 ## Publier
 
@@ -135,7 +135,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
 - Contraintes et limites connues : `contraintes.md`. Leçons techniques : `lessons.md`. Suivi : `todo.md`.
 - Architecture de la chaîne : `architecture-c4-slides.md`. Index slides et modules : `scripts/slides/README.md`.
-- Refonte de l'exercice Sami : `notes/prd-refonte-partie-II-tp-sami.md`, puis `_source/exercice-sami-matrice.yml` à partir de T02. `_source/exercice-sami-spec.md` et `_source/exercice-sami-diff.md` restent des archives transitoires jusqu'à T07.
+- Refonte de l'exercice Sami : `_source/exercice-sami-matrice.yml` pour les contrôles et `notes/prd-refonte-partie-II-tp-sami.md` pour les décisions. `_source/exercice-sami-spec.md` et `_source/exercice-sami-diff.md` sont des archives conservées pour la traçabilité et les tests de migration.
 - Points de contrôle rapides W3C : `03-easy-checks/w3c-easy-checks-fr.md`. Contrat d'évaluation : `03-easy-checks/evaluation_contract.yml`.
 - Guide « Accessibiliser sa communication » : `_source/references/Guide-2026-Accessibiliser-sa-communication-police-14-coul.md`.
 - Notes de contenu : `corpus-documentaire-preparatoire/04-reseaux-sociaux/md-reseaux-sociaux.md`, `corpus-documentaire-preparatoire/05-falc/md-falc.md`, `corpus-documentaire-preparatoire/06-medias/md-medias.md`.

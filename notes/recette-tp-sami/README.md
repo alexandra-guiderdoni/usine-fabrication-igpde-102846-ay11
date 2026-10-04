@@ -4,7 +4,16 @@ Date : 2 octobre 2026
 Ticket : [T09a - Recetter le prototype complet en 90 minutes](../tickets-refonte-partie-II-tp-sami/T09a-recetter-prototype-90-minutes.md)
 Statut : protocole validé ; recette annulée faute de binôme disponible
 
-## Résumé courant
+## Mise à jour du 4 octobre 2026
+
+Ce document conserve la recette T09a du 2 octobre, annulée à cette date. Alex
+déclare que les contrôles humains reportés sur T16 ont été réalisés le 3 octobre
+avec un résultat satisfaisant et demande la clôture de T16. Les relevés détaillés
+Word, Writer, PAC ou Acrobat Pro et le minutage ne sont pas versés dans ce dépôt
+public. Le [ticket T16](../tickets-refonte-partie-II-tp-sami/T16-recette-integree-windows.md)
+porte le statut courant ; l'envoi du paquet à l'IGPDE reste à faire.
+
+## Résumé du protocole T09a au 2 octobre
 
 - Format du protocole validé par Alex.
 - Préconditions annoncées : poste Windows avec Word bureau ; aucun binôme
@@ -228,7 +237,7 @@ aides demandées et les différences avec le parcours guidé.
 - Autorisation de commencer T10 : oui, par décision explicite d'Alex malgré
   l'absence de recette humaine.
 
-## Drapeaux ouverts
+## Drapeaux constatés le 2 octobre pour T09a
 
 - Parcours guidé, essai autonome et chemins Word à vérifier dans T16.
 - Procédures Writer Windows à vérifier dans T16.

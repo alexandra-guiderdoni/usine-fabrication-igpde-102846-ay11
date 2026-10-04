@@ -60,7 +60,7 @@ reste aussi disponible dans `assets/downloads/` pour le téléchargement depuis 
 
 ## Relation avec le dépôt
 
-Ce dossier est un **snapshot livrable** : il contient les fichiers finaux tels que remis à l'IGPDE. Deux cas :
+Ce dossier est un **snapshot livrable** : il contient les fichiers préparés pour l'envoi à l'IGPDE, qui reste à effectuer. Deux cas :
 
 - **Fichiers générés ou récupérés** (deck, PDF, documents Sami, démo hors ligne ; installeurs récupérés par `make outils-telecharger`) : ne pas les modifier ici. Corriger la source à la racine de l'usine, puis lancer la commande indiquée dans « Qui fabrique quoi dans le pack » (`AGENTS.md`) : en général `make pack`, précédé de `make sami`, `make checklist`, `make grille` ou `make wcag` si leurs sources ont changé.
 - **Fichiers édités sur place** (documents administratifs de `Livrables-Formateur/documents-administratifs-igpde/`, notes `Livrables-Formateur/_alex/*.md`) : ils n'ont pas de générateur ; leur modification se fait directement ici.

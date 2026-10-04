@@ -1,6 +1,7 @@
 # Contraintes — Usine IGPDE 102846
 
 - **Compilé le** : 2026-09-28
+- **Mise à jour ciblée** : 2026-10-04
 - **Compilateur** : `contraintes-vivantes` v1
 - **Portée** : fabrication locale du pack de formation et publication contrôlée du site d'exercice.
 - **Sources de compilation** : `AGENTS.md`, `Makefile`, `config.yml`, `requirements.txt`, `requirements.lock`, `scripts/`, `tests/`, `docs/`, `publication-site/`, `validate.py`, `PUBLIER-SITE.md`, `architecture-c4-slides.md` et l'état vérifié par `make verifier` et `make qa`.
@@ -16,7 +17,7 @@ Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les
 - **Statut** : active et vérifiée.
 - **Contrainte** : la fabrication s'appuie sur Python 3.12 et sur des dépendances aux versions verrouillées : `python-pptx` 1.0.2, `lxml` 6.0.2, `openpyxl` 3.1.5, `python-docx` 1.2.0, `PyYAML` 6.0.3, `matplotlib` 3.10.9, `numpy` 2.4.4, `Pillow` 12.1.1, `WeasyPrint` 68.1, `pikepdf` 10.6 et `pytest` 9.0.3.
 - **Impact** : une dépendance installée hors de ces versions peut changer la génération des PPTX, DOCX, XLSX ou PDF, ou invalider les contrôles.
-- **Décision / prochaine vérification** : installer avec `make installer`, qui crée `.venv` et exécute `uv pip sync --require-hashes -r requirements.lock`.
+- **Décision / prochaine vérification** : installer avec `make installer`, qui crée `.venv` et exécute `uv pip sync --require-hashes --python .venv/bin/python requirements.lock`.
 - **Composants affectés** : `.venv/`, `requirements.txt`, `requirements.lock`, scripts de fabrication et tests.
 
 ### Outillage hôte
@@ -24,10 +25,10 @@ Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les
 - **Date** : 2026-09-28
 - **Source** : `AGENTS.md`, `Makefile`.
 - **Statut** : active.
-- **Contrainte** : macOS est l'environnement de référence. La chaîne attend `uv`, `/opt/homebrew/bin/python3.12`, Pandoc, Pango et GLib ; LibreOffice est nécessaire aux exports de supports.
+- **Contrainte** : macOS est l'environnement de référence. La chaîne attend `uv`, `/opt/homebrew/bin/python3.12`, Pandoc, Pango et GLib. LibreOffice sert aux vérifications et exports manuels ; les cibles de fabrication du pack ne l'appellent pas.
 - **Impact** : sans l'outillage hôte, les commandes de fabrication concernées échouent ou ne garantissent pas le même résultat.
 - **Décision / prochaine vérification** : privilégier `.venv/bin/python` après `make installer`. Le repli sur Python système n'offre pas de garantie de dépendances.
-- **Composants affectés** : `Makefile`, `scripts/`, génération PDF et export LibreOffice.
+- **Composants affectés** : `Makefile`, `scripts/`, génération PDF et vérifications manuelles dans LibreOffice.
 
 ### Recette visuelle autonome
 
@@ -141,7 +142,7 @@ Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les
 | Deck IGPDE-DSFR généré | Disponible | `scripts/assemble.py`, `scripts/slides/` | Sources Python uniquement ; total déterminé par la génération ; aucune retouche directe du PPTX. |
 | Finalisation accessible du PPTX | Disponible | `finalize_pptx()` | Une relecture visuelle humaine demeure nécessaire. |
 | Documents Sami, grille XLSX et deck WCAG | Disponible | cibles `sami`, `grille`, `wcag` | À régénérer avant `make pack` si leurs sources changent. |
-| PDF du pack et démo hors ligne | Disponible | cibles `pdf`, `supports` | Les PDF livrés doivent être PDF/UA-1 ; LibreOffice est requis pour les supports. |
+| PDF générés et démo hors ligne | Disponible | cibles `pdf`, `supports` | Les six PDF générés doivent être PDF/UA-1. Les deux jeux de cartes externes sont destinés à l'impression et ne déclarent pas PDF/UA-1 ; LibreOffice n'est pas appelé par ces cibles. |
 | Validation et recette du site | Disponible | `validate.py`, `make recette` | La recette visuelle requiert l’installation locale verrouillée via `make installer-recette`. |
 | Publication GitHub Pages | Disponible | `make publier-site` | Publication contrôlée depuis `docs/` ; aucun édit direct du clone. |
 

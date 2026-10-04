@@ -11,6 +11,8 @@ Aucune issue GitHub n’est créée par ce découpage. Par décision explicite d
 2 octobre 2026, T01 à T09 ont été fusionnés dans `main` et T10 a pu démarrer
 sans exécution de T09a, faute de binôme disponible. T10 à T15 ont ensuite été
 implémentés et vérifiés ; cette décision n'autorise aucune livraison à l'IGPDE.
+Alex a ensuite déclaré la recette T16 du 3 octobre satisfaisante et demandé sa
+clôture le 4 octobre. L'envoi des livrables reste à effectuer.
 
 ## Frontier initiale
 
@@ -38,8 +40,8 @@ son ordre, ses tests et sa cohérence pédagogique.
 13. [T12 — Construire les slides de la station 3](T12-deck-station-3.md) — terminé.
 14. [T13 — Construire les slides de la station 4](T13-deck-station-4.md) — terminé.
 15. [T14 — Finaliser le deck de la partie II et la synthèse](T14-deck-station-5-et-synthese.md) — terminé, relecture humaine finale reportée sur T16.
-16. [T15 — Aligner le pack et les documents IGPDE](T15-aligner-le-pack-et-les-documents-igpde.md) — terminé ; quatre installeurs externes restent à déposer avant la recette.
-17. [T16 — Exécuter la recette intégrée sous Windows](T16-recette-integree-windows.md) — reste à exécuter humainement après préparation des outils.
+16. [T15 — Aligner le pack et les documents IGPDE](T15-aligner-le-pack-et-les-documents-igpde.md) — terminé ; quatre installeurs externes présents localement, hors Git.
+17. [T16 — Exécuter la recette intégrée sous Windows](T16-recette-integree-windows.md) — clos sur validation humaine déclarée par Alex le 4 octobre 2026.
 
 ## Invariants communs
 
@@ -61,9 +63,11 @@ son ordre, ses tests et sa cohérence pédagogique.
 
 ## Condition de livraison
 
-T16 produit les preuves de recette. Il ne pousse pas et ne remet aucun paquet
-à l’IGPDE.
+T16 consigne la validation humaine de la recette. Il ne pousse pas et ne remet
+aucun paquet à l’IGPDE. L'envoi du paquet est une action distincte, encore à
+effectuer.
 
 L'annulation de T09a et l'autorisation de T10 ne valent pas validation du paquet
-final. T16 doit produire l'ensemble des preuves humaines qui étaient initialement
-réparties entre T09a et la recette finale.
+final. Les critères initialement répartis entre T09a et la recette finale ont
+été repris dans T16 ; la clôture repose sur la déclaration d'Alex et non sur
+des relevés détaillés consultables dans ce dépôt.
