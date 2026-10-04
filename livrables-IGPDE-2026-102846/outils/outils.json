@@ -1,38 +1,269 @@
 {
-  "description": "Installeurs déposés dans le dossier partagé, puis installés sur chaque poste avant la session. Non versionnés : récupérés et vérifiés par scripts/fabriquer_pack.py.",
+  "description": "26 paquets courants pour les postes Windows et Focus Highlight 6.6 fourni à la demande pour essai avec NVDA. Les fichiers sont classés dans application-windows, extension-firefox et extension-edge. Les anciennes versions figurent dans application-windows/archives. Les binaires ne sont pas versionnés ; le manifeste conserve les empreintes contrôlées le 4 octobre 2026.",
   "outils": [
     {
-      "fichier": "nvda_2024.4.1.exe",
-      "nom": "Lecteur d'écran NVDA (Windows)",
-      "version": "2024.4.1",
-      "taille": 40334480,
-      "sha256": "37b6f52473a0a08df52f928f718e773768c8bc02304678ec615a5c222b5ba97c",
-      "url": "https://download.nvaccess.org/releases/2024.4.1/nvda_2024.4.1.exe"
+      "fichier": "application-windows/nvda_2026.2.exe",
+      "nom": "Lecteur d’écran NVDA pour Windows",
+      "version": "2026.2",
+      "taille": 64530776,
+      "sha256": "f3f8d29974a88d687b3c4809be192219ec579c5bdabcda5aaf53635288bca824",
+      "url": "https://download.nvaccess.org/releases/2026.2/nvda_2026.2.exe"
     },
     {
-      "fichier": "CCA-Setup-3.5.4.msi",
-      "nom": "Colour Contrast Analyser (Windows)",
-      "version": "3.5.4",
-      "taille": 91496448,
-      "sha256": "3fb3b9450494dbdd8b97300b39cfec377e297b5139e2f46f92c6a8540bad1782",
-      "url": "https://github.com/ThePacielloGroup/CCAe/releases/download/v3.5.4/CCA-Setup-3.5.4.msi"
-    },
-    {
-      "fichier": "focusHighlight-6.6.nvda-addon.zip",
-      "nom": "Extension NVDA Focus Highlight",
+      "fichier": "application-windows/focusHighlight-6.6.nvda-addon",
+      "nom": "Focus Highlight, module complémentaire NVDA à tester",
       "version": "6.6",
       "taille": 166852,
       "sha256": "73b93e77aa1b8fce4e7c9db516af24acd3a7af5dfd51c17442ddb6375e62c68a",
-      "url": "https://github.com/nvdajp/focusHighlight/releases/download/6.6/focusHighlight-6.6.nvda-addon"
+      "url": "https://github.com/nvdajp/focusHighlight/releases/download/6.6/focusHighlight-6.6.nvda-addon",
+      "compatibilite_declaree": "NVDA 2014.1 à 2023.1 ; non validé avec NVDA 2026.2"
     },
     {
-      "fichier": "PAC_24.3.1.0.zip",
-      "nom": "PDF Accessibility Checker",
-      "version": "24.3.1.0",
-      "taille": 77817513,
-      "sha256": "361b602db5907ded0156d207755083e5219deec9ba4d97445b6e84898a9e8a07",
-      "url": null,
-      "page": "https://pac.pdf-accessibility.org/en/download"
+      "fichier": "application-windows/CCA-Portable-x64-3.5.5.exe",
+      "nom": "Colour Contrast Analyser portable pour Windows x64",
+      "version": "3.5.5",
+      "taille": 88123744,
+      "sha256": "0b09a7399f68b766e24072efe251affc834c3b36be795783dd8dcdd530e526c4",
+      "url": "https://github.com/ThePacielloGroup/CCAe/releases/download/v3.5.5/CCA-Portable-x64-3.5.5.exe"
+    },
+    {
+      "fichier": "application-windows/PAC_24.4.4.0.zip",
+      "nom": "PDF Accessibility Checker, dernière archive portable",
+      "version": "24.4.4.0",
+      "taille": 79450860,
+      "sha256": "2fe32ea34daa05710b5df2bcbd978d6fc35e08ef848dbc8d64c63fab0263978f",
+      "url": "https://pac.pdf-accessibility.org/_Resources/Persistent/1/e/a/d/1eadc9e5427cf1ff0d6b8de042e848aecac91dc7/PAC_24.4.4.0.zip"
+    },
+    {
+      "fichier": "extension-firefox/headingsmap-4.10.12.xpi",
+      "nom": "HeadingsMap pour Firefox",
+      "version": "4.10.12",
+      "taille": 658484,
+      "sha256": "aa4718d0258d45c055dd51fda12e8a2bd4844712ec5e572fc5a4102d31a24f87",
+      "url": "https://addons.mozilla.org/firefox/downloads/file/5073216/headingsmap-4.10.12.xpi"
+    },
+    {
+      "fichier": "extension-firefox/web_developer-3.0.1.xpi",
+      "nom": "Web Developer pour Firefox",
+      "version": "3.0.1",
+      "taille": 583456,
+      "sha256": "4d2ce2773186faa385bd95cfff10e244e37a288800497b750bab665d7be21a3d",
+      "url": "https://addons.mozilla.org/firefox/downloads/file/4306323/web_developer-3.0.1.xpi"
+    },
+    {
+      "fichier": "extension-firefox/styl_us-2.4.14.xpi",
+      "nom": "Stylus pour Firefox",
+      "version": "2.4.14",
+      "taille": 1261257,
+      "sha256": "51d4efd6aa6484a749b97e36222f7bbe2ff699ed16b9a13adf40ecb6a0597081",
+      "url": "https://addons.mozilla.org/firefox/downloads/file/5044316/styl_us-2.4.14.xpi"
+    },
+    {
+      "fichier": "extension-firefox/wcag_contrast_checker-3.8.5.xpi",
+      "nom": "WCAG Contrast Checker pour Firefox",
+      "version": "3.8.5",
+      "taille": 171225,
+      "sha256": "548192bb0a05626893eba59772fb3eadf8fbdd6ea6113ed3360dfa1a39679c83",
+      "url": "https://addons.mozilla.org/firefox/downloads/file/4650806/wcag_contrast_checker-3.8.5.xpi"
+    },
+    {
+      "fichier": "extension-firefox/wave_accessibility_tool-3.3.1.0.xpi",
+      "nom": "WAVE Accessibility Extension pour Firefox",
+      "version": "3.3.1.0",
+      "taille": 451142,
+      "sha256": "27bfadfc72b713ba1feaa7c257fedc5282221a15269f90d6a219348a3b49bf3b",
+      "url": "https://addons.mozilla.org/firefox/downloads/file/4796228/wave_accessibility_tool-3.3.1.0.xpi"
+    },
+    {
+      "fichier": "extension-firefox/assistant_rgaa-2.1.2.xpi",
+      "nom": "Assistant RGAA de Boscop pour Firefox",
+      "version": "2.1.2",
+      "taille": 1316601,
+      "sha256": "ecccee65941e65950405aec569eef2fb56a99eeb0d3d8ccb70e2022773bc16e5",
+      "url": "https://addons.mozilla.org/firefox/downloads/file/4723246/assistant_rgaa-2.1.2.xpi"
+    },
+    {
+      "fichier": "extension-firefox/arc_toolkit-5.7.11.xpi",
+      "nom": "ARC Toolkit de TPGi pour Firefox",
+      "version": "5.7.11",
+      "taille": 518960,
+      "sha256": "ecdce561c08033a28e1c638fa8330d4811ffc02cd50087d0c46a7b17484cf028",
+      "url": "https://addons.mozilla.org/firefox/downloads/file/5006600/arc_toolkit-5.7.11.xpi"
+    },
+    {
+      "fichier": "extension-firefox/tanaguru_webext-5.1.1.xpi",
+      "nom": "Tanaguru webext pour Firefox",
+      "version": "5.1.1",
+      "taille": 1088389,
+      "sha256": "324f86c3375210688384ed250428e3d721fae5fe4c873ad8799fff8e7ba7c265",
+      "url": "https://addons.mozilla.org/firefox/downloads/file/4021497/tanaguru_webext-5.1.1.xpi"
+    },
+    {
+      "fichier": "extension-firefox/axe_devtools-4.117.1.xpi",
+      "nom": "axe DevTools de Deque pour Firefox",
+      "version": "4.117.1",
+      "taille": 2648183,
+      "sha256": "e2f34cbfa6aa2abb5e81a464fe6b306bb0073c6f4c315a2448a14c001d0d46ea",
+      "url": "https://addons.mozilla.org/firefox/downloads/file/4617009/axe_devtools-4.117.1.xpi"
+    },
+    {
+      "fichier": "extension-firefox/rgaa_checker-0.28.0.xpi",
+      "nom": "RGAA Checker d’Arneo pour Firefox",
+      "version": "0.28.0",
+      "taille": 283751,
+      "sha256": "2b0d073e94b01e671a223b4b519f40d4f627b3a68fd2b732532e3e869047709e",
+      "url": "https://addons.mozilla.org/firefox/downloads/file/4417428/rgaa_checker-0.28.0.xpi"
+    },
+    {
+      "fichier": "extension-firefox/rgaa_checker_companion-0.2.5.xpi",
+      "nom": "RGAA Checker Companion de rgaa-checker.com pour Firefox",
+      "version": "0.2.5",
+      "taille": 359145,
+      "sha256": "74b5b3b476105426fee7e0b120d5bf394cf98d797207c0f736e64a7e72a27bcd",
+      "url": "https://addons.mozilla.org/firefox/downloads/file/4932474/rgaa_checker_companion-0.2.5.xpi"
+    },
+    {
+      "fichier": "extension-edge/headingsmap-4.10.12.crx",
+      "nom": "HeadingsMap pour Edge",
+      "version": "4.10.12",
+      "taille": 641592,
+      "sha256": "b546ca514d702df75a29ad1834668738fb6aaf4910e8981b72250ce6ff5208f4",
+      "url": "https://edge.microsoft.com/extensionwebstorebase/v1/crx?response=redirect&prod=chromiumcrx&prodchannel=&x=id%3Dbokekiiaddinealohkmhjcgfanndmcgo%26installsource%3Dondemand%26uc",
+      "page": "https://microsoftedge.microsoft.com/addons/detail/headingsmap/bokekiiaddinealohkmhjcgfanndmcgo",
+      "catalogue": "edge",
+      "id": "bokekiiaddinealohkmhjcgfanndmcgo"
+    },
+    {
+      "fichier": "extension-edge/web-developer-3.0.1.crx",
+      "nom": "Web Developer pour Edge",
+      "version": "3.0.1",
+      "taille": 559426,
+      "sha256": "eaf32bc10bb328955eaa9fa26e11cdc3d594c268ef572295f526a38aedac86e9",
+      "url": "https://edge.microsoft.com/extensionwebstorebase/v1/crx?response=redirect&prod=chromiumcrx&prodchannel=&x=id%3Dilbdhapjffldgngebmnkdodohjapjccm%26installsource%3Dondemand%26uc",
+      "page": "https://microsoftedge.microsoft.com/addons/detail/web-developer/ilbdhapjffldgngebmnkdodohjapjccm",
+      "catalogue": "edge",
+      "id": "ilbdhapjffldgngebmnkdodohjapjccm"
+    },
+    {
+      "fichier": "extension-edge/stylus-2.4.14.crx",
+      "nom": "Stylus pour Edge",
+      "version": "2.4.14",
+      "taille": 1235979,
+      "sha256": "f36b68096a79bff0ab7f7e5eb79d0848ec3643ae99849ac2c79f6b84355344f9",
+      "url": "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=130.0.0.0&acceptformat=crx3&x=id%3Dclngdbkpkpeebahjckkjfobafhncgmne%26uc",
+      "page": "https://chromewebstore.google.com/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne",
+      "catalogue": "chrome",
+      "id": "clngdbkpkpeebahjckkjfobafhncgmne"
+    },
+    {
+      "fichier": "extension-edge/wcag-color-contrast-check-3.8.5.crx",
+      "nom": "WCAG Color Contrast Check pour Edge",
+      "version": "3.8.5",
+      "taille": 162284,
+      "sha256": "ed8c198422c40ed3f1cf484f934eb03d8602fb5ebb9bba316e56220b9ae2cf66",
+      "url": "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=130.0.0.0&acceptformat=crx3&x=id%3Dplnahcmalebffmaghcpcmpaciebdhgdf%26uc",
+      "page": "https://chromewebstore.google.com/detail/wcag-color-contrast-check/plnahcmalebffmaghcpcmpaciebdhgdf",
+      "catalogue": "chrome",
+      "id": "plnahcmalebffmaghcpcmpaciebdhgdf"
+    },
+    {
+      "fichier": "extension-edge/wave-evaluation-tool-3.3.1.0.crx",
+      "nom": "WAVE Evaluation Tool pour Edge",
+      "version": "3.3.1.0",
+      "taille": 401221,
+      "sha256": "10613309d62a1ea12dbefdc1113c052cda78f225934c179e65890ab720aebdfd",
+      "url": "https://edge.microsoft.com/extensionwebstorebase/v1/crx?response=redirect&prod=chromiumcrx&prodchannel=&x=id%3Dkhapceneeednkiopkkbgkibbdoajpkoj%26installsource%3Dondemand%26uc",
+      "page": "https://microsoftedge.microsoft.com/addons/detail/wave-evaluation-tool/khapceneeednkiopkkbgkibbdoajpkoj",
+      "catalogue": "edge",
+      "id": "khapceneeednkiopkkbgkibbdoajpkoj"
+    },
+    {
+      "fichier": "extension-edge/assistant-rgaa-2.1.2.crx",
+      "nom": "Assistant RGAA pour Edge",
+      "version": "2.1.2",
+      "taille": 1280255,
+      "sha256": "7d2fe2a7b18c26c7f7fd54947544dcef86729af9478c3a091fc7fbfd0ff31996",
+      "url": "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=130.0.0.0&acceptformat=crx3&x=id%3Dcgpmofepeeiaaljkcclfldhaalfpcand%26uc",
+      "page": "https://chromewebstore.google.com/detail/assistant-rgaa/cgpmofepeeiaaljkcclfldhaalfpcand",
+      "catalogue": "chrome",
+      "id": "cgpmofepeeiaaljkcclfldhaalfpcand"
+    },
+    {
+      "fichier": "extension-edge/arc-toolkit-5.7.11.crx",
+      "nom": "ARC Toolkit pour Edge",
+      "version": "5.7.11",
+      "taille": 660846,
+      "sha256": "577ba608ae409d92ab29f709aaf8697687c55f081718d5f76484710e6589f037",
+      "url": "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=130.0.0.0&acceptformat=crx3&x=id%3Dchdkkkccnlfncngelccgbgfmjebmkmce%26uc",
+      "page": "https://chromewebstore.google.com/detail/arc-toolkit/chdkkkccnlfncngelccgbgfmjebmkmce",
+      "catalogue": "chrome",
+      "id": "chdkkkccnlfncngelccgbgfmjebmkmce"
+    },
+    {
+      "fichier": "extension-edge/tanaguru-webext-6.0.1.crx",
+      "nom": "Tanaguru webext pour Edge",
+      "version": "6.0.1",
+      "taille": 1087320,
+      "sha256": "d606d81e9455edf4d45fefd9f2c9ff0837368c74ad43d96f477186f618ed58ba",
+      "url": "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=130.0.0.0&acceptformat=crx3&x=id%3Dhhopdkekcmkdfpdjbpajmmfbheglcaac%26uc",
+      "page": "https://chromewebstore.google.com/detail/tanaguru-webext/hhopdkekcmkdfpdjbpajmmfbheglcaac",
+      "catalogue": "chrome",
+      "id": "hhopdkekcmkdfpdjbpajmmfbheglcaac"
+    },
+    {
+      "fichier": "extension-edge/axe-devtools-4.138.0.crx",
+      "nom": "axe DevTools pour Edge",
+      "version": "4.138.0",
+      "taille": 5069420,
+      "sha256": "f71f34ec95c017cd60497cee25d98ad5fbd574769a35a3b1ac8ce2f0d28d9842",
+      "url": "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=130.0.0.0&acceptformat=crx3&x=id%3Dlhdoppojpmngadmnindnejefpokejbdd%26uc",
+      "page": "https://chromewebstore.google.com/detail/axe-devtools-web-accessib/lhdoppojpmngadmnindnejefpokejbdd",
+      "catalogue": "chrome",
+      "id": "lhdoppojpmngadmnindnejefpokejbdd"
+    },
+    {
+      "fichier": "extension-edge/silktide-accessibility-checker-3.0.9.crx",
+      "nom": "Silktide Accessibility Checker pour Edge",
+      "version": "3.0.9",
+      "taille": 12309440,
+      "sha256": "41e262a7b3767e3ec224b8b700e6bc4b06dc34773efa4224b7f823777e62871e",
+      "url": "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=130.0.0.0&acceptformat=crx3&x=id%3Dmpobacholfblmnpnfbiomjkecoojakah%26uc",
+      "page": "https://chromewebstore.google.com/detail/silktide-accessibility-ch/mpobacholfblmnpnfbiomjkecoojakah",
+      "catalogue": "chrome",
+      "id": "mpobacholfblmnpnfbiomjkecoojakah"
+    },
+    {
+      "fichier": "extension-edge/rgaa-checker-arneo-0.28.0.crx",
+      "nom": "RGAA Checker Arneo pour Edge",
+      "version": "0.28.0",
+      "taille": 278820,
+      "sha256": "a7f42289ed76b4ac65604fcba11cc1264eeb1a05d4cb26ed3efb567caa18e338",
+      "url": "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=130.0.0.0&acceptformat=crx3&x=id%3Deenibcgdpolkdophaaiikdcofgkjlllm%26uc",
+      "page": "https://chromewebstore.google.com/detail/rgaa-checker/eenibcgdpolkdophaaiikdcofgkjlllm",
+      "catalogue": "chrome",
+      "id": "eenibcgdpolkdophaaiikdcofgkjlllm"
+    },
+    {
+      "fichier": "extension-edge/rgaa-checker-companion-0.2.5.crx",
+      "nom": "RGAA Checker Companion pour Edge",
+      "version": "0.2.5",
+      "taille": 350027,
+      "sha256": "eb1acb0ffa45df2f6d6d87e1a02c714251065930987095a4fd4c5395782102ea",
+      "url": "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=130.0.0.0&acceptformat=crx3&x=id%3Dignlacbeeoohadiojeajmnnghbpokllj%26uc",
+      "page": "https://chromewebstore.google.com/detail/rgaa-checker-companion/ignlacbeeoohadiojeajmnnghbpokllj",
+      "catalogue": "chrome",
+      "id": "ignlacbeeoohadiojeajmnnghbpokllj"
     }
-  ]
+  ],
+  "favori_andi": {
+    "description": "Favori ANDI à importer dans Edge ou Firefox, généré depuis le code officiel de la SSA.",
+    "source": "https://github.com/SSAgov/ANDI/blob/master/andi/help/install.html",
+    "url": "javascript:void((function(){andiHost='https://www.ssa.gov/accessibility/';andiScript=document.createElement('script');andiScript.src=andiHost+'andi/andi.js';document.body.appendChild(andiScript);function andiCSPcheck(){if (typeof andiVersionNumber === 'undefined')alert('This page has a Content Security Policy that blocks scripts like ANDI. For help, visit the ANDI Help FAQ page.');window.open(andiHost+'andi/help/faq.html#csp');};document.addEventListener('securitypolicyviolation',andiCSPcheck);setTimeout(function(){document.removeEventListener('securitypolicyviolation',andiCSPcheck),100});})());",
+    "fichiers": [
+      "extension-edge/ANDI-favori-a-importer.html",
+      "extension-firefox/ANDI-favori-a-importer.html"
+    ],
+    "taille": 907,
+    "sha256": "47c5400ef7e73d66b6d3e11c73db8d82fea6e7468c5a99134aeacd859061fa04"
+  }
 }

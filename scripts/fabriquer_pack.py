@@ -10,6 +10,7 @@ Commandes :
 
 import argparse
 import hashlib
+import html
 import json
 import re
 import shutil
@@ -205,6 +206,18 @@ def sha256(chemin):
     return empreinte.hexdigest()
 
 
+def contenu_favori_andi(url):
+    return (
+        '<!DOCTYPE NETSCAPE-Bookmark-file-1>\n'
+        '<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">\n'
+        '<TITLE>ANDI - favori à importer</TITLE>\n'
+        '<H1>ANDI - favori à importer</H1>\n'
+        '<DL><p>\n'
+        f'    <DT><A HREF="{html.escape(url, quote=True)}">ANDI</A>\n'
+        '</DL><p>\n'
+    ).encode("utf-8")
+
+
 def outils(telecharger=False):
     dossier = PACK / "outils"
     manifeste = json.loads((dossier / "outils.json").read_text(encoding="utf-8"))
@@ -213,8 +226,15 @@ def outils(telecharger=False):
         cible = dossier / outil["fichier"]
         if not cible.exists() and telecharger and outil.get("url"):
             print(f"[outils] téléchargement de {outil['fichier']}")
+            cible.parent.mkdir(parents=True, exist_ok=True)
             temporaire = cible.with_suffix(cible.suffix + ".partiel")
-            urllib.request.urlretrieve(outil["url"], temporaire)
+            try:
+                urllib.request.urlretrieve(outil["url"], temporaire)
+            except Exception as erreur:
+                temporaire.unlink(missing_ok=True)
+                print(f"[outils] ÉCHEC {outil['fichier']} : {erreur}")
+                problemes += 1
+                continue
             if sha256(temporaire) != outil["sha256"]:
                 temporaire.unlink()
                 print(
@@ -238,6 +258,21 @@ def outils(telecharger=False):
             problemes += 1
         else:
             print(f"[outils] OK {outil['fichier']}")
+    favori = manifeste["favori_andi"]
+    contenu = contenu_favori_andi(favori["url"])
+    for fichier in favori["fichiers"]:
+        cible = dossier / fichier
+        if not cible.exists() and telecharger:
+            cible.parent.mkdir(parents=True, exist_ok=True)
+            cible.write_bytes(contenu)
+        if not cible.exists():
+            print(f"[outils] MANQUANT {fichier} (source : make outils-telecharger)")
+            problemes += 1
+        elif cible.stat().st_size != favori["taille"] or sha256(cible) != favori["sha256"]:
+            print(f"[outils] INVALIDE {fichier} : taille ou empreinte différente du manifeste")
+            problemes += 1
+        else:
+            print(f"[outils] OK {fichier}")
     return problemes
 
 

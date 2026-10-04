@@ -24,8 +24,8 @@ outputs/
 # Pack livrable : installeurs récupérés par make outils (voir outils/outils.json)
 livrables-IGPDE-*/outils/*
 livrables-IGPDE-*/outils.zip
-!livrables-IGPDE-*/outils/MANIFEST.md
-!livrables-IGPDE-*/outils/outils.json
+!livrables-IGPDE-*/outils/*.md
+!livrables-IGPDE-*/outils/*.json
 *.partiel
 
 # Clone de travail du dépôt du site (publié par make publier-site)
