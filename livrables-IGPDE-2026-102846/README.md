@@ -28,7 +28,7 @@ Formateur/
     memo-word-accessibilite.pdf          Procédures Microsoft Word
     memo-libreoffice-writer-accessibilite.pdf  Procédures LibreOffice Writer
   tp-reseaux-sociaux-igpde/      Démo de mauvaise restitution des emojis
-  liens-tp-en-ligne.pdf          Liens en ligne des deux TP (une page)
+  liens-pour-les-stagiaires.pdf  Présentations projetées et liens des deux TP (une page)
 
 outils/
   CCA-Setup-3.5.4.msi           Externe à Git, vérifié par make outils

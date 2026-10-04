@@ -1,12 +1,22 @@
-# Accéder aux TP en ligne
+# Liens pour les stagiaires
 
 <!-- Document d'une seule page : les templates accessible-pdf imposent une
      page de garde (header#title-block-header avec saut de page). Elle est
      masquée ici ; le titre visible reste le H1 ci-dessus. -->
 <!-- Adresses imprimées d'un seul tenant : pas de césure, pas de retour à la ligne. -->
-<style>header#title-block-header { display: none; } a { hyphens: none; white-space: nowrap; font-size: 8pt; }</style>
+<style>header#title-block-header { display: none; } :root { line-height: 1.3; } h2 { margin-top: 0.8em; } a { hyphens: none; white-space: nowrap; font-size: 8pt; } a strong { font-size: 10.5pt; }</style>
 
 Formation 102846 - L'accessibilité numérique pour la bureautique et le web - Session du 9 octobre 2026
+
+## Présentations projetées en séance
+
+Le PowerPoint du pack est le support officiel IGPDE. Les présentations ci-dessous sont celles projetées pendant la formation.
+
+- [**Partie 0 - Introduction et idées reçues**](https://alexandra-guiderdoni.github.io/slides-miweb/introduction-et-idees-recues/)
+- [**Partie I - Accessibilité numérique et cadre légal**](https://alexandra-guiderdoni.github.io/slides-miweb/partie-1-accessibilite-numerique-et-cadre-legal/)
+- [**Partie II - Documents bureautiques accessibles - TP**](https://alexandra-guiderdoni.github.io/slides-miweb/partie-2-documents-bureautiques-accessibles/#slide-01)
+- [**Partie III - Web accessible - TP**](https://alexandra-guiderdoni.github.io/slides-miweb/web-accessible-points-de-controle-rapides/)
+- [**Partie IV - Réseaux sociaux accessibles**](https://alexandra-guiderdoni.github.io/slides-miweb/publier-de-facon-accessible-sur-les-reseaux-sociaux-v5/)
 
 ## TP points de contrôle rapides
 

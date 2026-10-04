@@ -12,7 +12,7 @@ Dépôt autonome qui fabrique, à partir de sources versionnées, tous les suppo
 - **Site d'exercice** : `docs/`, trois versions d'un site à auditer (inaccessible, aide à la correction, corrigée) et une démo « émojis et lecteurs d'écran », publiées sur https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/.
 - **Exercice Word** : trois documents Sami générés par `scripts/generate_exercice_sami.py`.
 - **Grille d'audit** : classeur XLSX des 13 points de contrôle rapides du W3C.
-- **Fiches PDF accessibles** : mémos Word et LibreOffice, fiches WCAG, fiche des liens des TP.
+- **Fiches PDF accessibles** : mémos Word et LibreOffice, fiches WCAG, fiche des liens pour les stagiaires.
 - **Pack livrable** : `livrables-IGPDE-2026-102846/`, remis à l'IGPDE pour la session du 9 octobre 2026.
 
 Une nouvelle session se prépare en modifiant `config.yml` (code, date, pied de page, nom du deck, dossier de livraison et URL du site), puis en relançant la fabrication. Il faut aussi renommer le dossier du pack, mettre à jour les documents administratifs et rechercher l'ancien code dans le site et la documentation (voir `AGENTS.md`).

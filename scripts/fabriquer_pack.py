@@ -79,7 +79,7 @@ PDFS = [
     ),
     (
         "liens-tp-en-ligne.md",
-        f"{CONFIG['livrables']}/Formateur/liens-tp-en-ligne.pdf",
+        f"{CONFIG['livrables']}/Formateur/liens-pour-les-stagiaires.pdf",
         BANDEAU_FICHE,
         ["--no-toc"],
         None,
