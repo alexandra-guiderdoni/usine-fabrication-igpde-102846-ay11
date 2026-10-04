@@ -1,10 +1,12 @@
 # Livrables formation 102846 — octobre 2026
 
 Snapshot du pack pour la session du 9 octobre 2026, sous le code 102846. Les
-quatre installeurs externes du dossier `outils/` ne sont pas versionnés :
-`make outils-telecharger` les récupère (PAC se dépose à la main) et `make outils`
-vérifie leurs empreintes. Ils sont déposés dans le dossier partagé, puis
-installés sur chaque poste avant la session.
+27 paquets du dossier `outils/` et les deux favoris ANDI ne sont pas versionnés :
+`make outils-telecharger` les reconstitue, puis `make outils` vérifie leurs
+tailles et empreintes. Le [guide des outils](outils/LIENS-INSTALLATION.md) donne
+les liens d’installation et les conditions d’utilisation sans droits
+d’administration. Les fichiers sont déposés dans le dossier partagé, puis
+préparés sur chaque poste avant la session.
 
 ## Structure
 
@@ -41,10 +43,13 @@ Livrables-Stagiaires/
   liens-pour-les-stagiaires.pdf  Présentations, TP, ressources et outils en ligne
 
 outils/
-  CCA-Setup-3.5.4.msi           Externe à Git, vérifié par make outils
-  focusHighlight-6.6.nvda-addon.zip   Externe à Git, vérifié par make outils
-  nvda_2024.4.1.exe             Externe à Git, vérifié par make outils
-  PAC_24.3.1.0.zip              Externe à Git, téléchargement manuel
+  MANIFEST.md                  Inventaire et guide des outils
+  LIENS-INSTALLATION.md        Liens et procédure d’installation
+  outils.json                  Adresses, tailles et empreintes des fichiers
+  application-windows/         NVDA 2026.2, Focus Highlight 6.6, CCA portable 3.5.5,
+                               PAC portable 24.4.4.0 et archives antérieures
+  extension-firefox/           11 extensions XPI et favori ANDI à importer
+  extension-edge/              12 extensions CRX et favori ANDI à importer
 ```
 
 ## Site d'exercice

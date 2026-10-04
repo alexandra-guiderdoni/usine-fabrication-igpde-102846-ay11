@@ -5,7 +5,7 @@ Ce dossier réunit les supports du fil rouge de la formation : les 4 principes W
 ## Quel document, à quel moment
 
 - `fiche-formateur-principes-wcag.pdf` : pour préparer et animer la séquence du module 1 sur le cadre légal et les principes WCAG (placement dans la journée, déroulé, phrases à faire retenir, liens avec chaque atelier).
-- `fiche-stagiaire-principes-wcag.pdf` : à distribuer à la slide 28 (« 6 profils, 4 questions - votre boussole WCAG ») ; les stagiaires la gardent ouverte ou imprimée pendant les ateliers.
+- `fiche-stagiaire-principes-wcag.pdf` : à distribuer à la slide 29 (« 6 profils, 4 questions - votre boussole WCAG ») ; les stagiaires la gardent ouverte ou imprimée pendant les ateliers.
 - `cartes-criteres-wcag-2-2-a-imprimer.pdf` : les critères WCAG 2.2 sous forme de cartes, en français, 6 par page, à imprimer.
 
 ## Provenance

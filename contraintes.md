@@ -142,7 +142,7 @@ Ce document décrit les contraintes effectives de l'usine. Il ne remplace ni les
 | Deck IGPDE-DSFR généré | Disponible | `scripts/assemble.py`, `scripts/slides/` | Sources Python uniquement ; total déterminé par la génération ; aucune retouche directe du PPTX. |
 | Finalisation accessible du PPTX | Disponible | `finalize_pptx()` | Une relecture visuelle humaine demeure nécessaire. |
 | Documents Sami, grille XLSX et deck WCAG | Disponible | cibles `sami`, `grille`, `wcag` | À régénérer avant `make pack` si leurs sources changent. |
-| PDF générés et démo hors ligne | Disponible | cibles `pdf`, `supports` | Les six PDF générés doivent être PDF/UA-1. Les deux jeux de cartes externes sont destinés à l'impression et ne déclarent pas PDF/UA-1 ; LibreOffice n'est pas appelé par ces cibles. |
+| PDF générés et démo hors ligne | Disponible | cibles `pdf`, `supports` | Les six PDF générés doivent être PDF/UA-1. Les cartes WCAG imprimables ne déclarent pas PDF/UA-1 ; les cartes « idées reçues » le déclarent, ce qui ne prouve pas à soi seul leur conformité. LibreOffice n'est pas appelé par ces cibles. |
 | Validation et recette du site | Disponible | `validate.py`, `make recette` | La recette visuelle requiert l’installation locale verrouillée via `make installer-recette`. |
 | Publication GitHub Pages | Disponible | `make publier-site` | Publication contrôlée depuis `docs/` ; aucun édit direct du clone. |
 

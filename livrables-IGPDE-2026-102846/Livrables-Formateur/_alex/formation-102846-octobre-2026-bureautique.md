@@ -7,8 +7,9 @@ Le support de travail explique lui-même comment rendre un document Word
 accessible. Les formateurs accompagnent les binômes sans corriger à leur place.
 
 **Environnement principal** : Word bureau sous Windows. Writer sous Windows est
-présenté en complément ; ses procédures détaillées figurent dans le mémo Writer
-et seront confirmées sur la version installée pendant la recette finale.
+présenté en complément ; ses procédures détaillées figurent dans le mémo Writer.
+La recette humaine T16 sur Word et Writer a été déclarée concluante par Alex le
+3 octobre 2026.
 
 ## Livrables et distribution
 
@@ -171,10 +172,11 @@ la démarche commune : structurer, rendre les contenus compréhensibles, vérifi
 avec les outils, puis terminer par un contrôle humain. Elle ne rajoute aucune
 manipulation au TP.
 
-## Recette humaine avant livraison
+## Recette humaine T16
 
-La refonte du deck peut avancer sans binôme disponible. Avant toute livraison à
-l'IGPDE, chronométrer néanmoins un binôme novice sur le fichier avec pistes et
-mener un essai fonctionnel distinct depuis le fichier autonome. Consigner le
-temps, les aides nécessaires, les productions obtenues et les écarts de
-procédure, puis rejouer tout parcours affecté par une modification ultérieure.
+Alex a déclaré la recette T16 concluante le 3 octobre 2026 : essais dans Word
+et Writer, contrôle du PDF avec PAC ou Acrobat et relecture visuelle du support
+dans PowerPoint. Le protocole figure dans
+`../../../notes/tickets-refonte-partie-II-tp-sami/T16-recette-integree-windows.md`.
+Toute modification ultérieure du parcours impose de rejouer les contrôles
+qu'elle affecte.
