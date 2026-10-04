@@ -10,7 +10,7 @@ ifeq ($(strip $(LIVRABLES)),)
 $(error Impossible de lire livrables depuis $(CONFIG))
 endif
 endif
-SITE_CLONE ?= $(LIVRABLES)/Formateur/tp-easy-check-site-web-igpde
+SITE_CLONE ?= $(LIVRABLES)/Livrables-Stagiaires/tp-easy-check-site-web-igpde
 SITE_CONSULTATION ?= ../tp-fabrication-igpde-102846-ay11
 
 .PHONY: aide installer installer-recette deck qa tests valider controles verifier grille sami checklist wcag pdf supports outils outils-telecharger fraicheur-pack pack apercu recette publier-site
@@ -65,6 +65,7 @@ verifier: tests valider controles
 grille:
 	$(PYTHON) scripts/generate_grille_audit.py
 	cp 03-easy-checks/grille-audit-easy-checks.xlsx docs/assets/downloads/grille-audit-easy-checks.xlsx
+	cp 03-easy-checks/grille-audit-easy-checks.xlsx docs/grille-audit-easy-checks.xlsx
 
 sami:
 	$(PYTHON) scripts/generate_exercice_sami.py

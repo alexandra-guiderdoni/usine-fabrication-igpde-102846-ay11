@@ -2,18 +2,17 @@
 
 from __future__ import annotations
 
-from pathlib import Path
 import re
 import subprocess
+from pathlib import Path
 from zipfile import ZipFile
 
-from docx import Document
-
 import fabriquer_pack
-from config import load_formation_config
+from docx import Document
 from exercice_sami_matrice import load_sami_matrix
 from generate_exercice_sami import build_checklists
 
+from config import load_formation_config
 
 PROJECT_ROOT = Path(__file__).parent.parent
 PACK = PROJECT_ROOT / load_formation_config()["livrables"]
@@ -100,7 +99,7 @@ def test_make_pdf_reutilise_la_source_markdown_de_la_checklist():
     )
 
     assert checklist[1].endswith(
-        "/Formateur/tp-word-igpde/checklist-accessibilite-bureautique.pdf"
+        "/Livrables-Stagiaires/tp-word-igpde/checklist-accessibilite-bureautique.pdf"
     )
     assert checklist[3][-2:] == [
         "--subtitle",
@@ -197,9 +196,9 @@ def test_markdown_utilise_le_code_de_formation_configure(tmp_path):
 def test_checklists_sont_declarees_sans_liste_normative_parallele():
     agents = (PROJECT_ROOT / "AGENTS.md").read_text(encoding="utf-8")
     pack_readme = (PACK / "README.md").read_text(encoding="utf-8")
-    legacy = (PACK / "Formateur" / "_alex" / "checklist-bureautique.md").read_text(
-        encoding="utf-8"
-    )
+    legacy = (
+        PACK / "Livrables-Formateur" / "_alex" / "checklist-bureautique.md"
+    ).read_text(encoding="utf-8")
 
     for filename in (CHECKLIST_DOCX, CHECKLIST_PDF, CHECKLIST_MARKDOWN):
         assert filename in agents
@@ -321,7 +320,7 @@ def test_la_checklist_pdf_reprend_la_mise_en_forme_de_la_docx(tmp_path):
         matrix=load_sami_matrix(), markdown_output=markdown, docx_output=docx
     )
     text = markdown.read_text(encoding="utf-8")
-    style = re.search(r"<style>(.*?)</style>", text, re.S).group(1)
+    style = re.search(r"<style>(.*?)</style>", text, re.DOTALL).group(1)
 
     for label in ("P - pratiqué", "C - contrôlé", "S - signalé"):
         assert f"- **{label} :** " in text

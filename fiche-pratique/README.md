@@ -21,7 +21,7 @@ Depuis la racine de l'usine :
 make pdf
 ```
 
-La commande régénère les deux mémos (et les autres PDF du pack) avec le générateur embarqué dans `vendor/accessible-pdf/`, puis copie les mémos dans `Formateur/tp-word-igpde/` du pack. Prérequis : `make installer`, et Pandoc, Pango et GLib (Homebrew).
+La commande régénère les deux mémos (et les autres PDF du pack) avec le générateur embarqué dans `vendor/accessible-pdf/`, puis copie les mémos dans `Livrables-Stagiaires/tp-word-igpde/` du pack. Prérequis : `make installer`, et Pandoc, Pango et GLib (Homebrew).
 
 ### Options utilisées
 
@@ -39,7 +39,7 @@ Le script `md2pdf.py` exécute 6 étapes :
 1. **Pandoc** : Markdown vers HTML5 sémantique (titres, listes, images avec alt, liens)
 2. **Injection CSS** : application du template `formation` + attributs d'accessibilité (lang, aria)
 3. **Audit HTML** : vérification des contrastes WCAG et des images sans alt (RGAA 13.8)
-4. **WeasyPrint** : HTML vers PDF balisé (PDF/UA-1 quand possible, sinon PDF tagué)
+4. **WeasyPrint** : HTML vers PDF balisé ; `make pdf` refuse la sortie si elle ne déclare pas PDF/UA-1 avec un arbre de structure
 5. **Post-traitement** : injection des balises /Figure + /Alt pour le logo (pikepdf)
 6. **Métadonnées XMP** : titre, auteur, langue dans les propriétés du PDF
 

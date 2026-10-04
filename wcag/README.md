@@ -13,7 +13,7 @@ Après toute modification d'une fiche, lancez depuis la racine de l'usine :
 make pdf
 ```
 
-La commande génère des PDF/UA-1 et les écrit dans `livrables-IGPDE-2026-102846/Formateur/fil-rouge-principes-wcag-igpde/`. Ne modifiez pas directement ces PDF : la génération suivante les remplacerait.
+La commande génère des PDF/UA-1 et les écrit dans `livrables-IGPDE-2026-102846/Livrables-Stagiaires/fil-rouge-principes-wcag-igpde/`. Ne modifiez pas directement ces PDF : la génération suivante les remplacerait.
 
 Les tableaux des sources Markdown doivent rester entiers sur une page. Un tableau coupé peut empêcher WeasyPrint de produire un PDF/UA-1 ; dans ce cas, `make pdf` échoue et préserve le livrable précédent.
 

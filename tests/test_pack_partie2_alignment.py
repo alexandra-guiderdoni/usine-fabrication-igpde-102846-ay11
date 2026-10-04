@@ -5,16 +5,14 @@ from pathlib import Path
 
 from docx import Document
 
-
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from config import load_formation_config  # noqa: E402
-
+from config import load_formation_config
 
 PACK = ROOT / load_formation_config()["livrables"]
-ADMIN = PACK / "Formateur" / "documents-administratifs-igpde"
-TP_WORD = PACK / "Formateur" / "tp-word-igpde"
+ADMIN = PACK / "Livrables-Formateur" / "documents-administratifs-igpde"
+TP_WORD = PACK / "Livrables-Stagiaires" / "tp-word-igpde"
 
 LEGACY_PATTERNS = (
     "21 " + "critères",
@@ -59,7 +57,10 @@ def _active_text_files() -> list[Path]:
         ROOT / "scripts" / "exercice_sami_matrice.py",
         ROOT / "scripts" / "sami_slide_data.py",
         ROOT / "scripts" / "slides" / "README.md",
-        PACK / "Formateur" / "_alex" / "formation-102846-octobre-2026-bureautique.md",
+        PACK
+        / "Livrables-Formateur"
+        / "_alex"
+        / "formation-102846-octobre-2026-bureautique.md",
     ]
     files.extend(sorted((ROOT / "scripts" / "slides").glob("*.py")))
     files.extend(sorted((ROOT / "tests").glob("*.py")))
@@ -109,7 +110,10 @@ def test_anciennes_valeurs_de_contraste_ne_sont_plus_un_echec_actif():
         ROOT / "fiche-pratique" / "README.md",
         ROOT / "fiche-pratique" / "memo-word.md",
         ROOT / "fiche-pratique" / "memo-libreoffice-writer.md",
-        PACK / "Formateur" / "_alex" / "formation-102846-octobre-2026-bureautique.md",
+        PACK
+        / "Livrables-Formateur"
+        / "_alex"
+        / "formation-102846-octobre-2026-bureautique.md",
     ]
     narrative = "\n".join(path.read_text(encoding="utf-8") for path in narrative_files)
     narrative += "\n" + "\n".join(_docx_text(path) for path in ADMIN.glob("*.docx"))

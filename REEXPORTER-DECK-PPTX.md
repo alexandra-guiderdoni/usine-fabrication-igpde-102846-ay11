@@ -22,7 +22,7 @@ La boucle QA du deck travaille sur une copie dans `.qa/formation-test-qa.pptx`. 
 Ouvrir le fichier livré :
 
 ```text
-livrables-IGPDE-2026-102846/Formateur/support-formation-102846-2026-IGPDE.pptx
+livrables-IGPDE-2026-102846/Livrables-Stagiaires/supports-projections/support-formation-102846-2026-IGPDE.pptx
 ```
 
 Pour chaque observation, noter :
@@ -80,7 +80,7 @@ Quand la QA est conforme, régénérer le fichier final :
 ```bash
 make deck
 make verifier
-unzip -t livrables-IGPDE-2026-102846/Formateur/support-formation-102846-2026-IGPDE.pptx
+unzip -t livrables-IGPDE-2026-102846/Livrables-Stagiaires/supports-projections/support-formation-102846-2026-IGPDE.pptx
 ```
 
 `make deck` met aussi à jour la copie du deck dans le pack livrable, qui est la version versionnée et remise à l'IGPDE. Cette copie refuse un deck partiel (produit par `--only`, `--from` ou `--to`) : le livrable reste alors inchangé. Pour régénérer en plus les PDF et les supports : `make pack`.
@@ -92,7 +92,7 @@ Contrôler en priorité chaque slide corrigée, la slide qui la précède, celle
 Le fichier à livrer est la copie du pack :
 
 ```text
-livrables-IGPDE-2026-102846/Formateur/support-formation-102846-2026-IGPDE.pptx
+livrables-IGPDE-2026-102846/Livrables-Stagiaires/supports-projections/support-formation-102846-2026-IGPDE.pptx
 ```
 
 ## Critère de fin d'un lot
@@ -175,7 +175,7 @@ QA_PPTX_PATH=.qa/formation-test-qa.pptx python -m pytest tests/test_deck_geometr
 Vérifier le PPTX stable :
 
 ```bash
-unzip -t livrables-IGPDE-2026-102846/Formateur/support-formation-102846-2026-IGPDE.pptx
+unzip -t livrables-IGPDE-2026-102846/Livrables-Stagiaires/supports-projections/support-formation-102846-2026-IGPDE.pptx
 ```
 
 Vérifier les tirets interdits dans les scripts :

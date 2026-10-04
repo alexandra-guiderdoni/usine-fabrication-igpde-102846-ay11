@@ -20,18 +20,19 @@ import zipfile
 from pathlib import Path
 from xml.etree import ElementTree
 
-from config import load_formation_config
 import pack_supports
+
+from config import load_formation_config
 
 RACINE = Path(__file__).resolve().parent.parent
 CONFIG = load_formation_config()
 PACK = RACINE / CONFIG["livrables"]
-FORMATEUR = PACK / "Formateur"
+STAGIAIRES = PACK / "Livrables-Stagiaires"
 MD2PDF = RACINE / "vendor" / "accessible-pdf" / "scripts" / "md2pdf.py"
 ALT_IGPDE = "République française - IGPDE"
 BANDEAU_MEMO = RACINE / "fiche-pratique" / "bandeau-igpde-logos.jpg"
 BANDEAU_FICHE = (
-    FORMATEUR / "fil-rouge-principes-wcag-igpde" / "assets" / "bandeau-igpde.jpg"
+    STAGIAIRES / "fil-rouge-principes-wcag-igpde" / "assets" / "bandeau-igpde.jpg"
 )
 
 # (source Markdown, PDF produit, bandeau, options supplémentaires, copie éventuelle dans le pack)
@@ -41,18 +42,18 @@ PDFS = [
         "fiche-pratique/memo-word-accessibilite.pdf",
         BANDEAU_MEMO,
         ["--header-text", "Mémo accessibilité - Microsoft Word"],
-        FORMATEUR / "tp-word-igpde",
+        STAGIAIRES / "tp-word-igpde",
     ),
     (
         "fiche-pratique/memo-libreoffice-writer.md",
         "fiche-pratique/memo-libreoffice-writer-accessibilite.pdf",
         BANDEAU_MEMO,
         ["--header-text", "Mémo accessibilité - LibreOffice Writer"],
-        FORMATEUR / "tp-word-igpde",
+        STAGIAIRES / "tp-word-igpde",
     ),
     (
         "_source/checklist-accessibilite-bureautique.md",
-        f"{CONFIG['livrables']}/Formateur/tp-word-igpde/checklist-accessibilite-bureautique.pdf",
+        f"{CONFIG['livrables']}/Livrables-Stagiaires/tp-word-igpde/checklist-accessibilite-bureautique.pdf",
         BANDEAU_MEMO,
         [
             "--header-text",
@@ -65,21 +66,21 @@ PDFS = [
     ),
     (
         "wcag/fiche-formateur-principes-wcag.md",
-        f"{CONFIG['livrables']}/Formateur/fil-rouge-principes-wcag-igpde/fiche-formateur-principes-wcag.pdf",
+        f"{CONFIG['livrables']}/Livrables-Stagiaires/fil-rouge-principes-wcag-igpde/fiche-formateur-principes-wcag.pdf",
         BANDEAU_FICHE,
         [],
         None,
     ),
     (
         "wcag/fiche-stagiaire-principes-wcag.md",
-        f"{CONFIG['livrables']}/Formateur/fil-rouge-principes-wcag-igpde/fiche-stagiaire-principes-wcag.pdf",
+        f"{CONFIG['livrables']}/Livrables-Stagiaires/fil-rouge-principes-wcag-igpde/fiche-stagiaire-principes-wcag.pdf",
         BANDEAU_FICHE,
         [],
         None,
     ),
     (
         "liens-tp-en-ligne.md",
-        f"{CONFIG['livrables']}/Formateur/liens-pour-les-stagiaires.pdf",
+        f"{CONFIG['livrables']}/Livrables-Stagiaires/liens-pour-les-stagiaires.pdf",
         BANDEAU_FICHE,
         ["--no-toc"],
         None,
@@ -137,10 +138,11 @@ def deck():
             f"Deck partiel : {present} slides pour {attendu} modules (génération --only, "
             "--from ou --to). Livrable du pack inchangé ; lancer make deck pour un deck complet."
         )
-    cible = FORMATEUR / CONFIG["output"]
+    cible = STAGIAIRES / "supports-projections" / CONFIG["output"]
     if cible.exists() and contenu_deck(cible) == contenu_deck(source):
         print(f"[deck] {cible.relative_to(RACINE)} déjà à jour (contenu identique)")
         return
+    cible.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(source, cible)
     retirer_quarantaine(cible)
     print(f"[deck] {source.name} copié dans {cible.relative_to(RACINE)}")
@@ -255,8 +257,8 @@ def main():
     if args.commande in ("pdf", "tout"):
         pdf()
     if args.commande in ("supports", "tout"):
-        pack_supports.tp_reseaux_sociaux(RACINE, FORMATEUR)
-        pack_supports.docx_sami(RACINE, FORMATEUR)
+        pack_supports.tp_reseaux_sociaux(RACINE, STAGIAIRES)
+        pack_supports.docx_sami(RACINE, STAGIAIRES)
     if args.commande in ("outils", "tout") and outils(args.telecharger):
         sys.exit(1)
 

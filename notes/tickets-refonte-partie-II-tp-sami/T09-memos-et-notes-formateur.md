@@ -13,7 +13,7 @@
 Réconcilier les mémos Word et Writer et les notes formateur avec les cinq
 stations, sans créer une troisième source narrative concurrente du guide Sami.
 La note formateur active est
-`livrables-IGPDE-2026-102846/Formateur/_alex/formation-102846-octobre-2026-bureautique.md`.
+`livrables-IGPDE-2026-102846/Livrables-Formateur/_alex/formation-102846-octobre-2026-bureautique.md`.
 
 ## Critères d’acceptation
 

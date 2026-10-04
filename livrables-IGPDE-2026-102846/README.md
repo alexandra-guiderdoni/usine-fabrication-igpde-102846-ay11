@@ -9,16 +9,26 @@ installés sur chaque poste avant la session.
 ## Structure
 
 ```
-Formateur/
+Livrables-Formateur/
   documents-administratifs-igpde/
     102846FiCat-v2.docx                     Fiche catalogue
     102846FiTechn-v2.docx                   Fiche technique (équipement, outils, accès internet)
     102846PL-v2.docx                        Programme de la formation (une page)
     Derped-deroule-pedagogique-102846-v2.docx  Déroulé pédagogique détaillé
-  support-formation-102846-2026-IGPDE.pptx      Deck principal DSFR
   _alex/                         Notes formateur (transcriptions du deck, checklists)
+
+Livrables-Stagiaires/
+  supports-projections/
+    support-formation-102846-2026-IGPDE.pptx    Deck principal DSFR
+    00-introduction-et-idees-recues.pptx         Présentations projetées avec notes :
+    01-accessibilite-numerique-et-cadre-legal.pptx
+    02-documents-bureautiques-accessibles-tp.pptx
+    03-web-accessible-tp.pptx
+    04-reseaux-sociaux-accessibles.pptx
   fil-rouge-principes-wcag-igpde/  Fiches formateur et stagiaire WCAG, cartes des critères WCAG 2.2 (voir son README)
   ice-breaker-idées-recues-cartes-igpde/  6 cartes PDF idées reçues a11y
+  tp-easy-check-site-web-igpde/   Clone local du site d'exercice, ignoré par Git
+    grille-audit-easy-checks.xlsx  Grille d'audit à ouvrir pour le TP web
   tp-word-igpde/
     tp-doc-inaccessible.docx             Document de départ sans aide
     tp-doc-aide-correction.docx          Document de départ avec pistes
@@ -28,7 +38,7 @@ Formateur/
     memo-word-accessibilite.pdf          Procédures Microsoft Word
     memo-libreoffice-writer-accessibilite.pdf  Procédures LibreOffice Writer
   tp-reseaux-sociaux-igpde/      Démo de mauvaise restitution des emojis
-  liens-pour-les-stagiaires.pdf  Présentations projetées et liens des deux TP (une page)
+  liens-pour-les-stagiaires.pdf  Présentations, TP, ressources et outils en ligne
 
 outils/
   CCA-Setup-3.5.4.msi           Externe à Git, vérifié par make outils
@@ -41,15 +51,19 @@ outils/
 
 Le site d'exercice est maintenu dans le dépôt séparé
 [`tp-fabrication-igpde-102846-ay11`](https://github.com/alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11).
-Dans cet espace de travail, son clone est placé au même niveau que l'usine, sous
-`../tp-fabrication-igpde-102846-ay11`. Il ne fait pas partie du snapshot livré.
+Le clone de publication est placé dans `Livrables-Stagiaires/tp-easy-check-site-web-igpde/` ;
+il est présent sur disque, mais ignoré par Git dans l'usine. Un second clone de
+consultation peut être placé au même niveau que l'usine, sous
+`../tp-fabrication-igpde-102846-ay11`.
+La grille d'audit se trouve directement à la racine du clone livré ; sa copie
+reste aussi disponible dans `assets/downloads/` pour le téléchargement depuis le site.
 
 ## Relation avec le dépôt
 
 Ce dossier est un **snapshot livrable** : il contient les fichiers finaux tels que remis à l'IGPDE. Deux cas :
 
 - **Fichiers générés ou récupérés** (deck, PDF, documents Sami, démo hors ligne ; installeurs récupérés par `make outils-telecharger`) : ne pas les modifier ici. Corriger la source à la racine de l'usine, puis lancer la commande indiquée dans « Qui fabrique quoi dans le pack » (`AGENTS.md`) : en général `make pack`, précédé de `make sami`, `make checklist`, `make grille` ou `make wcag` si leurs sources ont changé.
-- **Fichiers édités sur place** (documents administratifs de `Formateur/documents-administratifs-igpde/`, notes `Formateur/_alex/*.md`) : ils n'ont pas de générateur ; leur modification se fait directement ici.
+- **Fichiers édités sur place** (documents administratifs de `Livrables-Formateur/documents-administratifs-igpde/`, notes `Livrables-Formateur/_alex/*.md`) : ils n'ont pas de générateur ; leur modification se fait directement ici.
 
 La checklist du TP Word est livrée sous les noms
 `checklist-accessibilite-bureautique.docx` et

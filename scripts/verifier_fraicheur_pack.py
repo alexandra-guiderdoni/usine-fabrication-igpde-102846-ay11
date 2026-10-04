@@ -7,12 +7,11 @@ version plus ancienne que ses sources, quelle que soit sa chaîne de génératio
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
 
 from config import DEFAULT_CONFIG_PATH, load_formation_config
-
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 LIVRABLES = load_formation_config()["livrables"]
@@ -59,7 +58,7 @@ RESSOURCES_GENEREES = (
         ),
         sorties=(
             "_source/checklist-accessibilite-bureautique.md",
-            f"{LIVRABLES}/Formateur/tp-word-igpde/"
+            f"{LIVRABLES}/Livrables-Stagiaires/tp-word-igpde/"
             "checklist-accessibilite-bureautique.docx",
         ),
     ),
@@ -77,7 +76,7 @@ RESSOURCES_GENEREES = (
             "fiche-pratique/bandeau-igpde-logos.jpg",
         ),
         sorties=(
-            f"{LIVRABLES}/Formateur/tp-word-igpde/"
+            f"{LIVRABLES}/Livrables-Stagiaires/tp-word-igpde/"
             "checklist-accessibilite-bureautique.pdf",
         ),
     ),
@@ -92,6 +91,7 @@ RESSOURCES_GENEREES = (
         sorties=(
             "03-easy-checks/grille-audit-easy-checks.xlsx",
             "docs/assets/downloads/grille-audit-easy-checks.xlsx",
+            "docs/grille-audit-easy-checks.xlsx",
         ),
     ),
     RessourceGeneree(

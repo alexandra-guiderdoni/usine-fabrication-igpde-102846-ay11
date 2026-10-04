@@ -9,9 +9,9 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
-from config import load_formation_config  # noqa: E402
-from exercice_sami_matrice import load_sami_matrix  # noqa: E402
+from exercice_sami_matrice import load_sami_matrix
 
+from config import load_formation_config
 
 PACK = PROJECT_ROOT / load_formation_config()["livrables"]
 MEMO_PATHS = (
@@ -19,9 +19,14 @@ MEMO_PATHS = (
     PROJECT_ROOT / "fiche-pratique" / "memo-libreoffice-writer.md",
 )
 NOTES_PATH = (
-    PACK / "Formateur" / "_alex" / "formation-102846-octobre-2026-bureautique.md"
+    PACK
+    / "Livrables-Formateur"
+    / "_alex"
+    / "formation-102846-octobre-2026-bureautique.md"
 )
-LEGACY_CHECKLIST_PATH = PACK / "Formateur" / "_alex" / "checklist-bureautique.md"
+LEGACY_CHECKLIST_PATH = (
+    PACK / "Livrables-Formateur" / "_alex" / "checklist-bureautique.md"
+)
 
 
 def _read(path: Path) -> str:

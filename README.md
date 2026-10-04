@@ -97,4 +97,4 @@ Licence Ouverte 2.0 (etalab-2.0), voir [LICENSE](LICENSE). Les documents de tier
 ---
 
 Date de création : 2026-03-11 (projet), 2026-09-27 (usine autonome)
-Dernière mise à jour : 2026-10-02
+Dernière mise à jour : 2026-10-04

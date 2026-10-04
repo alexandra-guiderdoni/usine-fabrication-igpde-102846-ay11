@@ -10,10 +10,9 @@ from __future__ import annotations
 
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import urlparse, urldefrag
+from urllib.parse import urldefrag, urlparse
 
 import yaml
-
 
 ROOT = Path(__file__).resolve().parent
 CONTRACT = ROOT / "03-easy-checks" / "evaluation_contract.yml"
@@ -52,7 +51,7 @@ class LinkParser(HTMLParser):
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
-        if "id" in values and values["id"]:
+        if values.get("id"):
             self.ids.add(values["id"])
         if tag == "html":
             self.html_lang = values.get("lang")
@@ -136,6 +135,7 @@ def validate_docs(contract_pages: list[dict] | None = None) -> None:
         DOCS / "assets" / "dsfr" / "dsfr.module.min.js",
         DOCS / "assets" / "dsfr" / "dsfr.nomodule.min.js",
         DOCS / "assets" / "downloads" / "grille-audit-easy-checks.xlsx",
+        DOCS / "grille-audit-easy-checks.xlsx",
     ]
     for variant in ("site-inaccessible", "site-aide-correction", "site-accessible"):
         required_files.extend(

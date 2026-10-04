@@ -39,7 +39,7 @@ terminer la matinée par une synthèse distincte avant la partie III.
 - [x] Les notes formateur portent le minutage, les variantes guidée et autonome
   ainsi que les preuves attendues.
 - [x] La note formateur active
-  `livrables-IGPDE-2026-102846/Formateur/_alex/formation-102846-octobre-2026-bureautique.md`
+  `livrables-IGPDE-2026-102846/Livrables-Formateur/_alex/formation-102846-octobre-2026-bureautique.md`
   est réalignée après la structure finale du deck et ne cite plus de slides
   obsolètes.
 - [x] Les tests d’ordre restent relatifs aux chapitres et aux stations, sans

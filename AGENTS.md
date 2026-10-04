@@ -18,7 +18,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - **Cette usine** (`alexandra-guiderdoni/usine-fabrication-igpde-102846-ay11`) est la seule source. Les changements du site se font dans `docs/`. Ceux du `README.md`, de l'`AGENTS.md` et du `CLAUDE.md` du dépôt publié se font dans `publication-site/`, sous les noms `README.md`, `agents-site.md` et `claude-site.md`.
 - **Le dépôt du site** (`alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11`) n'est qu'une copie de publication servie par GitHub Pages. Chacun de ses fichiers correspond à `docs/<même chemin>`, sauf `README.md`, `AGENTS.md` et `CLAUDE.md`, qui viennent de `publication-site/`.
 - **Deux clones locaux du site**, en lecture seule pour un humain comme pour un agent (seul `make publier-site` y écrit) :
-  - `livrables-IGPDE-2026-102846/Formateur/tp-easy-check-site-web-igpde/` : clone de publication, écrit par `make publier-site` (variable `SITE_CLONE`), ignoré par l'usine ;
+  - `livrables-IGPDE-2026-102846/Livrables-Stagiaires/tp-easy-check-site-web-igpde/` : clone de publication, écrit par `make publier-site` (variable `SITE_CLONE`), ignoré par l'usine ;
   - `../tp-fabrication-igpde-102846-ay11/`, à côté de l'usine quand il existe : clone de consultation, avancé automatiquement à la fin de `make publier-site` (variable `SITE_CONSULTATION`).
 - **MUST** : pour changer le site, éditer `docs/`, lancer `make verifier`, puis `make publier-site`. Pour savoir ce qui est en ligne, lire `docs/` ou l'adresse publique, pas un clone.
 - **MUST NOT** : modifier, commiter ou pousser dans un clone du site. La publication suivante effectue une synchronisation avec suppression et effacerait la modification ; un commit poussé depuis un clone ferait aussi échouer le push de `make publier-site`.
@@ -40,7 +40,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - `finalize_pptx()` est obligatoire (langue, ordre de lecture, métadonnées, quarantaine macOS) ; `scripts/assemble.py` l'appelle.
 - **Images de slides avec ImageGen** : pour toute génération, régénération ou extension d'une série visuelle IGPDE avec ImageGen ou Imagine, lire d'abord `_source/imagegen-igpde/README.md`, puis son guide de style, son preset, son prompt de base, son storyboard et ses références. Ce preset « IGPDE Accessibilité - bleu illustré » est la référence locale ; il prévaut sur le guide visuel générique d'un skill, tandis que les exigences de traçabilité et de contrôle du skill `generer-images-slides-ia` restent obligatoires. Le skill historique `style-igpde`, destiné au tableau blanc ERNIE en 680 x 383, ne s'applique pas à cette famille sauf demande explicite.
 - Tester une seule slide (pas de cible `make`) : `.venv/bin/python scripts/assemble.py --only NN`, ou `/opt/homebrew/bin/python3.12` sans `.venv`. Cette commande écrit un deck partiel à la racine : relancer `make deck` ensuite. Le livrable du pack n'est jamais remplacé par un deck partiel. Même interpréteur pour les autres scripts appelés directement ci-dessous.
-- DOCX de l'exercice Sami : `make sami` (écrit dans `_source/`). Checklist Sami : `make checklist` lit `_source/exercice-sami-matrice.yml`, produit `_source/checklist-accessibilite-bureautique.md` et `livrables-IGPDE-2026-102846/Formateur/tp-word-igpde/checklist-accessibilite-bureautique.docx`, puis `make pdf` produit `checklist-accessibilite-bureautique.pdf` avec le générateur embarqué dans `vendor/`. Grille d'audit : `make grille`. Deck WCAG condensé : `make wcag`.
+- DOCX de l'exercice Sami : `make sami` (écrit dans `_source/`). Checklist Sami : `make checklist` lit `_source/exercice-sami-matrice.yml`, produit `_source/checklist-accessibilite-bureautique.md` et `livrables-IGPDE-2026-102846/Livrables-Stagiaires/tp-word-igpde/checklist-accessibilite-bureautique.docx`, puis `make pdf` produit `checklist-accessibilite-bureautique.pdf` avec le générateur embarqué dans `vendor/`. Grille d'audit : `make grille`. Deck WCAG condensé : `make wcag`.
 - Gabarit IGPDE : `_source/presentations-source/PPT-IGPDE-DSFR-base-intervenant.pptx`. S'il manque : `scripts/rebuild_template_from_demo.py`, depuis `_source/presentations-source/gabarits-ppt-igpde.pptx`. `scripts/build_template.py` est historique : sa source IGPDE native n'est plus dans le dépôt.
 - Le site `docs/` est maintenu à la main page par page : ne pas relancer `scripts/generate_easy_checks_site_skeleton.py` sans comparer ensuite le diff complet, il écraserait les corrections faites depuis juillet.
 
@@ -49,20 +49,20 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 `make pack` régénère d'abord les PDF, vérifie ensuite leur fraîcheur avec celle des autres ressources, puis régénère le deck, les supports et la vérification des outils. Il ne relance ni `make sami`, ni `make checklist`, ni `make grille`, ni `make wcag` : son contrôle les bloque si leurs sorties sont absentes ou plus anciennes que leurs sources. Chaque livrable relève de l'une de ces trois catégories.
 
 - **Généré par une commande**
-  - Deck `support-formation-*.pptx` : `make deck`, qui génère le deck à la racine (sortie de travail, ignorée par git) puis le copie dans le pack (livrable versionné). La copie refuse un deck partiel. Aucun PDF du deck n'est livré.
-  - Mémos Word et LibreOffice, fiches WCAG formateur et stagiaire, fiche des liens des TP : `make pdf`, depuis `fiche-pratique/*.md`, `wcag/*.md` et `liens-tp-en-ligne.md`. `make pdf` n'accepte que du PDF/UA-1 : sinon il s'arrête en erreur et laisse le livrable précédent en place (voir `contraintes.md`).
+  - Deck `support-formation-*.pptx` : `make deck`, qui génère le deck à la racine (sortie de travail, ignorée par git) puis le copie dans `Livrables-Stagiaires/supports-projections/` (livrable versionné). La copie refuse un deck partiel. Aucun PDF du deck n'est livré.
+  - Mémos Word et LibreOffice, fiches WCAG formateur et stagiaire, fiche des liens des présentations, TP et ressources : `make pdf`, depuis `fiche-pratique/*.md`, `wcag/*.md` et `liens-tp-en-ligne.md`. `make pdf` n'accepte que du PDF/UA-1 : sinon il s'arrête en erreur et laisse le livrable précédent en place (voir `contraintes.md`).
   - Checklist du TP Word : `make checklist` génère `checklist-accessibilite-bureautique.docx` dans le pack et sa source `_source/checklist-accessibilite-bureautique.md` depuis la matrice canonique ; `make pdf` transforme ensuite cette source en `checklist-accessibilite-bureautique.pdf` dans le même dossier. Ne modifier aucune de ces trois sorties à la main.
-  - Documents Sami (`Formateur/tp-word-igpde/`) : `make sami` (écrit dans `_source/`), puis `make supports` ou `make pack` pour la copie dans le pack.
-  - Démo réseaux sociaux hors ligne (`Formateur/tp-reseaux-sociaux-igpde/`) : `make supports`, depuis `docs/demo-mauvaise-restitution-emojis.html`.
-  - Grille d'audit XLSX : `make grille` (dans `03-easy-checks/` et dans le site).
+  - Documents Sami (`Livrables-Stagiaires/tp-word-igpde/`) : `make sami` (écrit dans `_source/`), puis `make supports` ou `make pack` pour la copie dans le pack.
+  - Démo réseaux sociaux hors ligne (`Livrables-Stagiaires/tp-reseaux-sociaux-igpde/`) : `make supports`, depuis `docs/demo-mauvaise-restitution-emojis.html`.
+  - Grille d'audit XLSX : `make grille` crée `03-easy-checks/grille-audit-easy-checks.xlsx`, `docs/grille-audit-easy-checks.xlsx` à la racine du site et `docs/assets/downloads/grille-audit-easy-checks.xlsx` pour le lien de téléchargement.
   - Installeurs (`livrables-IGPDE-2026-102846/outils/`) : `make outils-telecharger`, sauf PAC à déposer à la main (voir `MANIFEST.md` dans ce dossier).
 - **Document source édité à la main** (pas de générateur : modifier le fichier ; les versions précédentes restent dans l'historique git, pas de copie sur le disque)
-  - Fiche catalogue, fiche technique, programme et déroulé (`Formateur/documents-administratifs-igpde/`), au format Word de l'IGPDE.
+  - Fiche catalogue, fiche technique, programme et déroulé (`Livrables-Formateur/documents-administratifs-igpde/`), au format Word de l'IGPDE.
   - Site d'exercice `docs/`, publié par `make publier-site`.
-  - Notes formateur `Formateur/_alex/*.md`.
-  - README du dossier `Formateur/fil-rouge-principes-wcag-igpde/`.
+  - Notes formateur `Livrables-Formateur/_alex/*.md`.
+  - README du dossier `Livrables-Stagiaires/fil-rouge-principes-wcag-igpde/`.
 - **Ressource fixe** (fournie, jamais régénérée)
-  - Cartes idées reçues (`Formateur/ice-breaker-idées-recues-cartes-igpde/`), cartes WCAG 2.2 (`fil-rouge-principes-wcag-igpde/cartes-criteres-wcag-2-2-a-imprimer.pdf`, crédits et licence dans `CREDITS.md` à côté), bandeaux IGPDE.
+  - Cartes idées reçues (`Livrables-Stagiaires/ice-breaker-idées-recues-cartes-igpde/`), cartes WCAG 2.2 (`Livrables-Stagiaires/fil-rouge-principes-wcag-igpde/cartes-criteres-wcag-2-2-a-imprimer.pdf`, crédits et licence dans `CREDITS.md` à côté), bandeaux IGPDE.
   - Convocation des intervenants : sur le disque seulement, jamais versionnée.
 
 `scripts/assemble_reseaux_sociaux.py` est obsolète : les slides du module 4 sont intégrées au deck principal.

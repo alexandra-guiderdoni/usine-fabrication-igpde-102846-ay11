@@ -18,10 +18,11 @@ Site statique des travaux pratiques de la formation « L'accessibilité numériq
 ## Contenu du dépôt
 
 - `index.html` : page d'accueil de l'exercice.
+- `grille-audit-easy-checks.xlsx` : grille d'audit placée à la racine, facile à repérer dans le dossier remis aux stagiaires.
 - `site-inaccessible/`, `site-aide-correction/`, `site-accessible/` : les trois versions du site à auditer.
 - `demo-mauvaise-restitution-emojis.html` : démo émojis et lecteurs d'écran.
 - `accessibilite.html`, `mentions-legales.html`, `donnees-personnelles.html`, `plan-du-site.html` : pages légales.
-- `assets/` : Système de design de l'État (DSFR), images, vidéos et audio des exercices, grille d'audit.
+- `assets/` : Système de design de l'État (DSFR), images, vidéos et audio des exercices, ainsi qu'une copie de la grille dans `assets/downloads/` pour le lien de téléchargement.
 - `AGENTS.md`, `CLAUDE.md` : consignes pour les agents d'IA, qui les renvoient vers l'usine.
 
 Le site est statique : les formulaires d'exercice rechargent simplement la page, aucune donnée n'est traitée ni enregistrée par le site.
@@ -41,7 +42,7 @@ L'usine fabrique, à partir de sources versionnées, tous les supports de la for
 - le deck au format DSFR, généré par des scripts dont la sortie détermine le nombre courant de slides ;
 - ce site d'exercice et la démo ;
 - l'exercice Word (trois documents) et la grille d'audit ;
-- les fiches PDF accessibles (mémos Word et LibreOffice, fiches WCAG, fiche des liens des TP) ;
+- les fiches PDF accessibles (mémos Word et LibreOffice, fiches WCAG, liens des présentations, TP et ressources pour les stagiaires) ;
 - le pack livrable remis à l'IGPDE.
 
 Pour aller plus loin :

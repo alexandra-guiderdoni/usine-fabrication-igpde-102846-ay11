@@ -10,8 +10,7 @@ import pytest
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-import validate  # noqa: E402
-
+import validate
 
 PAGE_IDS = [
     "ec01-images",
@@ -58,6 +57,7 @@ def site_minimal(tmp_path, monkeypatch):
             "assets/dsfr/dsfr.module.min.js",
             "assets/dsfr/dsfr.nomodule.min.js",
             "assets/downloads/grille-audit-easy-checks.xlsx",
+            "grille-audit-easy-checks.xlsx",
         ):
             path = docs / relative_path
             path.parent.mkdir(parents=True, exist_ok=True)

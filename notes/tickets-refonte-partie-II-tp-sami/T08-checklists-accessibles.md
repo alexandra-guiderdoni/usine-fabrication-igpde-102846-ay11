@@ -30,7 +30,7 @@ DOCX remplissable, utilisables dès le préambule puis après chaque station.
 - [x] Les données nécessaires aux futures slides de checklist viennent de la
   même matrice.
 - [x] L’ancienne liste
-  `livrables-IGPDE-2026-102846/Formateur/_alex/checklist-bureautique.md` est
+  `livrables-IGPDE-2026-102846/Livrables-Formateur/_alex/checklist-bureautique.md` est
   retirée comme source normative : elle contient seulement un renvoi vers les
   checklists générées et la matrice canonique, sans conserver ses propres items.
 - [x] La cible `make checklist` est documentée dans `make aide` et dans la

@@ -15,7 +15,6 @@ from pathlib import Path
 
 from config import load_formation_config
 
-
 SITE_PUBLIE = load_formation_config()["site_url"]
 PAGES_DU_MENU = [
     "index.html",
@@ -33,9 +32,11 @@ DOCX_TP = [
     "tp-doc-aide-correction.docx",
     "tp-doc-inaccessible.docx",
 ]
-def tp_reseaux_sociaux(racine, formateur):
+
+
+def tp_reseaux_sociaux(racine, stagiaires):
     docs = racine / "docs"
-    cible = formateur / "tp-reseaux-sociaux-igpde"
+    cible = stagiaires / "tp-reseaux-sociaux-igpde"
     images = cible / "assets" / "shared" / "images"
     images.mkdir(parents=True, exist_ok=True)
     shutil.copytree(
@@ -55,8 +56,8 @@ def tp_reseaux_sociaux(racine, formateur):
     print(f"[supports] démo hors ligne : {(cible / DEMO).relative_to(racine)}")
 
 
-def docx_sami(racine, formateur):
-    cible = formateur / "tp-word-igpde"
+def docx_sami(racine, stagiaires):
+    cible = stagiaires / "tp-word-igpde"
     # Liste explicite : un document manquant fait échouer la copie.
     for nom in DOCX_TP:
         shutil.copy2(racine / "_source" / nom, cible / nom)
@@ -76,7 +77,20 @@ def generer_pdf(md2pdf, source, sortie, bandeau, alt, options):
     with tempfile.TemporaryDirectory() as dossier:
         copie = Path(dossier) / source.name
         copie.write_text(texte, encoding="utf-8")
-        commande = [sys.executable, str(md2pdf), str(copie), "--template", "formation",
-                    "--lang", "fr", "--logo", str(bandeau), "--logo-alt", alt,
-                    "-o", str(sortie), *options]
+        commande = [
+            sys.executable,
+            str(md2pdf),
+            str(copie),
+            "--template",
+            "formation",
+            "--lang",
+            "fr",
+            "--logo",
+            str(bandeau),
+            "--logo-alt",
+            alt,
+            "-o",
+            str(sortie),
+            *options,
+        ]
         return subprocess.run(commande, capture_output=True, text=True, check=False)

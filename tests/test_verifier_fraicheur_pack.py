@@ -7,16 +7,14 @@ import subprocess
 import sys
 from pathlib import Path
 
-
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
-from verifier_fraicheur_pack import (  # noqa: E402
+from verifier_fraicheur_pack import (
     RESSOURCES_GENEREES,
     RessourceGeneree,
     verifier_fraicheur,
 )
-
 
 RESSOURCE = RessourceGeneree(
     nom="ressource de test",
@@ -150,7 +148,7 @@ def test_les_checklists_sont_soumises_au_controle_de_fraicheur():
     assert "_source/exercice-sami-matrice.yml" in checklist.sources
     assert checklist.sorties == (
         "_source/checklist-accessibilite-bureautique.md",
-        "livrables-IGPDE-2026-102846/Formateur/tp-word-igpde/"
+        "livrables-IGPDE-2026-102846/Livrables-Stagiaires/tp-word-igpde/"
         "checklist-accessibilite-bureautique.docx",
     )
 
@@ -169,7 +167,7 @@ def test_le_pdf_checklist_est_soumis_au_controle_de_fraicheur():
     assert checklist_pdf.commande == "make pdf"
     assert "_source/checklist-accessibilite-bureautique.md" in checklist_pdf.sources
     assert checklist_pdf.sorties == (
-        "livrables-IGPDE-2026-102846/Formateur/tp-word-igpde/"
+        "livrables-IGPDE-2026-102846/Livrables-Stagiaires/tp-word-igpde/"
         "checklist-accessibilite-bureautique.pdf",
     )
 
@@ -183,7 +181,7 @@ def test_signale_un_pdf_checklist_absent(tmp_path):
 
     assert problemes == [
         "checklist PDF Sami : fichier absent "
-        "(livrables-IGPDE-2026-102846/Formateur/tp-word-igpde/"
+        "(livrables-IGPDE-2026-102846/Livrables-Stagiaires/tp-word-igpde/"
         "checklist-accessibilite-bureautique.pdf) ; lancer make pdf"
     ]
 
@@ -209,6 +207,6 @@ def test_signale_un_pdf_checklist_plus_ancien_que_le_markdown(tmp_path):
     assert problemes == [
         "checklist PDF Sami : plus ancien que "
         "_source/checklist-accessibilite-bureautique.md "
-        "(livrables-IGPDE-2026-102846/Formateur/tp-word-igpde/"
+        "(livrables-IGPDE-2026-102846/Livrables-Stagiaires/tp-word-igpde/"
         "checklist-accessibilite-bureautique.pdf) ; lancer make pdf"
     ]

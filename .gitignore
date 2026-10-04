@@ -28,7 +28,7 @@ livrables-IGPDE-*/outils/*
 *.partiel
 
 # Clone de travail du dépôt du site (publié par make publier-site)
-livrables-IGPDE-*/Formateur/tp-easy-check-site-web-igpde/
+livrables-IGPDE-*/Livrables-Stagiaires/tp-easy-check-site-web-igpde/
 
 # Convocation nominative des intervenants : conservée sur disque, hors du dépôt
 convocation-intervenants.pdf

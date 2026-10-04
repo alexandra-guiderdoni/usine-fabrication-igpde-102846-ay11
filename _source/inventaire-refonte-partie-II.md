@@ -149,7 +149,7 @@ Les résultats sont classés ainsi :
   `scripts/slides/07_5-piliers-vue-ensemble.py` et
   `scripts/slides/15_exercice-sami.py` ;
 - note formateur à aligner par T09 :
-  `livrables-IGPDE-2026-102846/Formateur/_alex/formation-102846-octobre-2026-bureautique.md` ;
+  `livrables-IGPDE-2026-102846/Livrables-Formateur/_alex/formation-102846-octobre-2026-bureautique.md` ;
 - historique du paquet à vérifier et aligner par T14 et T15 :
   `livrables-IGPDE-2026-102846/README.md`.
 

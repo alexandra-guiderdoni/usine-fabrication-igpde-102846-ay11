@@ -16,28 +16,27 @@ Produit :
 import argparse
 import re
 import subprocess
-from xml.sax.saxutils import escape
 from pathlib import Path
+from xml.sax.saxutils import escape
 
 import matplotlib
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+import matplotlib.pyplot as plt
 import numpy as np
-
 from docx import Document
-from docx.shared import Pt, Inches, RGBColor
 from docx.enum.section import WD_SECTION
-from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.opc.constants import RELATIONSHIP_TYPE as RT
-from docx.oxml.ns import qn, nsdecls
 from docx.oxml import parse_xml
+from docx.oxml.ns import nsdecls, qn
+from docx.shared import Inches, Pt, RGBColor
+from exercice_sami_matrice import load_sami_matrix
 from lxml import etree
 
 from config import load_formation_config
-from exercice_sami_matrice import load_sami_matrix
 
 PROJECT = Path(__file__).resolve().parent.parent
 ASSETS = PROJECT / "_assets"
@@ -1939,7 +1938,7 @@ def build_default_checklists():
     docx_output = (
         PROJECT
         / config["livrables"]
-        / "Formateur"
+        / "Livrables-Stagiaires"
         / "tp-word-igpde"
         / f"{CHECKLIST_BASENAME}.docx"
     )
