@@ -50,6 +50,11 @@ Démo émojis et lecteurs d'écran :<br>
 
 ## Documents, WCAG et outils d'assistance
 
+**Pour aller plus loin sur les documents Word accessibles :**
+
+- [Comment concevoir un document Word accessible ?](https://www.youtube.com/watch?v=aJ35DRdhDZ8) - vidéo d'Ideance sur YouTube ; [transcription textuelle complète sur le blog d'Ideance](https://ideance.net/blog/578/comment-concevoir-un-document-word-accessible-gaad-2023/)
+- [Formation sur la création de documents Word accessibles](https://www.youtube.com/watch?v=O3VRkBvZ3rs) - vidéo de l'Institut Nazareth et Louis-Braille sur YouTube
+
 - [NVDA, lecteur d'écran](https://www.nvda.fr/a21) et [extension Focus Highlight](https://github.com/nvdajp/focusHighlight)
 - [Colour Contrast Analyser](https://www.tpgi.com/color-contrast-checker/) et [PAC, contrôle des PDF](https://pac.pdf-accessibility.org/)
 - [WCAG en anglais clair, AAArdvark](https://aaardvarkaccessibility.com/wcag-plain-english/)

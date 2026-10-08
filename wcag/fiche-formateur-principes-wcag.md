@@ -68,20 +68,20 @@ Déroulé :
 
 Table: Les 4 principes WCAG et les personas concernés
 
-| Couleur | Principe | Question stagiaire | Reformulation métier | Personas concernés |
+| Repère | Principe | Question stagiaire | Reformulation métier | Personas concernés |
 |--------------|-----------------|------------------------------|----------------------|-----------------|
-| Bleu | Percevoir | Est-ce que l'information existe encore si je ne vois pas, n'entends pas ou lis difficilement ? | Images, sons, vidéos, contrastes, structure visible. | Amir, Anaïs, Justine |
-| Vert | Utiliser | Est-ce que je peux aller jusqu'au bout sans souris, sans geste précis, sans piège ? | Clavier, focus, liens, navigation, temps, actions possibles. | Agathe |
-| Orange | Comprendre | Est-ce que je sais quoi faire, quoi corriger et ce qui va se passer ? | Titres, libellés, langage clair, erreurs, aide, cohérence. | Anatole, Paul |
-| Gris | Compatible | Est-ce que les outils peuvent comprendre le contenu ? | Styles natifs, structure, noms accessibles, rôles, états, export propre. | Amir (lecteur d'écran), tous les utilisateurs de technologies d'assistance |
+| 1.x | Percevoir | Est-ce que l'information existe encore si je ne vois pas, n'entends pas ou lis difficilement ? | Images, sons, vidéos, contrastes, structure visible. | Amir, Anaïs, Justine |
+| 2.x | Utiliser | Est-ce que je peux aller jusqu'au bout sans souris, sans geste précis, sans piège ? | Clavier, focus, liens, navigation, temps, actions possibles. | Agathe |
+| 3.x | Comprendre | Est-ce que je sais quoi faire, quoi corriger et ce qui va se passer ? | Titres, libellés, langage clair, erreurs, aide, cohérence. | Anatole, Paul |
+| 4.x | Compatible | Est-ce que les outils peuvent comprendre le contenu ? | Styles natifs, structure, noms accessibles, rôles, états, export propre. | Amir (lecteur d'écran), tous les utilisateurs de technologies d'assistance |
 
 ### Conseil formateur : vocabulaire
 
 Ne pas utiliser le mot « robuste » (traduction officielle de Robust). Les stagiaires non-techniques décrochent. Dire « lisible par les outils » ou « compatible avec les technologies d'assistance ». Le mot « compatible » est celui qui passe le mieux à l'oral.
 
-### Code couleur
+### Repères des cartes
 
-Les slides personas utilisent un badge coloré (bleu, vert, orange) sous le portrait pour signaler le principe WCAG principal. Reprendre ce code couleur si la fiche stagiaire est imprimée en couleur. Si impression noir et blanc, les noms de principes suffisent.
+Le premier chiffre du critère indique le principe WCAG : 1 pour Perceptible, 2 pour Utilisable, 3 pour Compréhensible et 4 pour Robuste, reformulé ici « Compatible ». La couleur d'une carte indique son niveau de conformité A, AA ou AAA, jamais son principe. Les badges colorés des slides personas restent de simples repères visuels et ne doivent pas être présentés comme le code couleur des principes WCAG.
 
 ## Ce que les stagiaires gardent sous la main
 

@@ -1,4 +1,4 @@
-**Crédits des cartes WCAG 2.2.** Ce fichier concerne uniquement `cartes-criteres-wcag-2-2-a-imprimer.pdf`, version imprimable en français (6 cartes par page) du WCAG 2.2 Card Deck de Johannes Lehner et de ses contributeurs. Les deux fiches du dossier sont produites par l'usine de la formation.
+**Crédits des cartes WCAG 2.2.** Ce fichier concerne uniquement `cartes-criteres-wcag-2-2-a-imprimer.pdf`, version imprimable en français (6 cartes par page) du WCAG 2.2 Card Deck de Johannes Lehner et de ses contributeurs. La fiche stagiaire qui accompagne les cartes est produite par l'usine de la formation.
 
 Licence : [Creative Commons Attribution - Partage dans les mêmes conditions 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/deed.fr). Sources : [fichier Figma du projet](https://www.figma.com/community/file/1409436654182046971/wcag-2-2-card-deck) et [dépôt GitHub du projet](https://github.com/johanneslehner/wcag2.2-card-deck).
 
