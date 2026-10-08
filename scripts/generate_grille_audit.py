@@ -185,7 +185,11 @@ CHECKS = [
         "wcag": "1.3.1 - Information et relations ; 2.5.3 - Étiquette dans le nom ; 3.3.2 - Étiquettes ou instructions",
         "rgaa": "11.1, 11.2, 11.3, 11.5, 11.6, 11.7",
         "question": "Chaque champ possède-t-il une étiquette visible, persistante et correctement associée, y compris pour les groupes ?",
-        "methode": "Cliquer sur chaque libellé, vérifier le nom accessible et contrôler les légendes des groupes.",
+        "methode": (
+            "Repérer les champs et leurs étiquettes avec le bookmarklet « 11.1 Formulaires », "
+            "Tanaguru ou WAVE. Cliquer sur chaque libellé, vérifier le nom accessible et "
+            "contrôler les légendes des groupes."
+        ),
         "conformite": "Étiquette visible et associée au champ. Nom accessible cohérent avec le texte visible. Légende pertinente pour chaque groupe.",
     },
     {
