@@ -4,6 +4,9 @@
      Les adresses imprimées restent d'un seul tenant. -->
 <style>header#title-block-header { display: none; } :root { font-size: 10pt; line-height: 1.22; } h2 { margin: 0.6em 0 0.3em; break-after: avoid; } section#sensibilisation-et-cadre-legal { break-before: page; } p { margin: 0.25em 0 0.45em; } ul { margin: 0.3em 0 0.45em; } li { margin: 0.12em 0; } a { hyphens: none; } a.url-imprimee { white-space: nowrap; font-size: 8pt; }</style>
 
+<!-- Pagination explicite sur les deux pages, première comprise. -->
+<style>@page { @bottom-center { content: "Page " counter(page) " / " counter(pages); } } @page :first { @bottom-center { content: "Page " counter(page) " / " counter(pages); } }</style>
+
 Formation 102846 - L'accessibilité numérique pour la bureautique et le web - Session du 9 octobre 2026
 
 ## Présentations projetées en séance
