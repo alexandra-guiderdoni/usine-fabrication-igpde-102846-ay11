@@ -139,11 +139,14 @@ CHECKS = [
         "id": 8,
         "onglet": "#08 - Zoom 200 %",
         "titre": "Zoom à 200 %",
-        "wcag": "1.4.4 - Redimensionnement du texte ; 1.4.10 - Redistribution",
-        "rgaa": "10.4, 10.11",
-        "question": "À 200 % et dans une fenêtre étroite, les contenus restent-ils lisibles et utilisables sans perte d'information ?",
-        "methode": "Zoomer à 200 %, puis tester séparément une zone d'affichage de 320 CSS px et parcourir tout le contenu.",
-        "conformite": "Aucun texte coupé ou superposé. Contenus et commandes utilisables. Pas de défilement dans deux directions pour lire le contenu courant.",
+        "wcag": "1.4.4 - Redimensionnement du texte ; 1.4.10 - Redistribution ; 1.4.12 - Espacement du texte",
+        "rgaa": "10.4, 10.11, 10.12",
+        "question": "À 200 %, dans une fenêtre étroite et avec un espacement du texte renforcé, les contenus restent-ils lisibles et utilisables sans perte d'information ?",
+        "methode": (
+            "Zoomer à 200 %, puis tester séparément une zone d'affichage de 320 CSS px. "
+            "Activer ensuite le bookmarklet « 10.12 Espacement » et parcourir tout le contenu."
+        ),
+        "conformite": "Aucun texte coupé ou superposé. Contenus et commandes utilisables. Pas de défilement dans deux directions pour lire le contenu courant. Aucun contenu perdu après modification de l'espacement du texte.",
     },
     {
         "id": 9,

@@ -402,11 +402,12 @@ pages:
     easy_check:
       number: 8
       name: "Zoom à 200 %"
-    expected_minimal_finding: "À 200 % de zoom, une carte perd du contenu ou devient difficilement utilisable."
-    minimal_proof: "Capture à 200 % montrant texte tronqué, bouton sorti, superposition ou défilement horizontal non nécessaire."
+    expected_minimal_finding: "À 200 % de zoom ou avec l'espacement du texte renforcé, une carte perd du contenu ou devient difficilement utilisable."
+    minimal_proof: "Capture à 200 % ou avec le bookmarklet 10.12 montrant texte tronqué, bouton sorti, superposition ou défilement horizontal non nécessaire."
     detection:
       - "Zoom navigateur 200 %"
       - "Fenêtre étroite"
+      - "Bookmarklet 10.12 Espacement"
     inaccessible_errors:
       - "Cartes avec hauteur fixe."
       - "Grille avec largeur minimale rigide qui force un défilement horizontal."
@@ -417,21 +418,21 @@ pages:
       - "overflow hidden."
     do_not_penalize:
       - "Reflow vertical normal et augmentation de hauteur des cartes."
-    accessible_correction: "Cartes DSFR fluides ; grille responsive ; contenu visible ; reflow sans perte ; composants utilisables."
+    accessible_correction: "Cartes DSFR fluides ; grille responsive ; contenu visible ; reflow et espacement du texte sans perte ; composants utilisables."
     help:
-      hint: "Passer le navigateur à 200 % et réduire la largeur de fenêtre."
+      hint: "Passer le navigateur à 200 %, réduire la largeur de fenêtre, puis activer le bookmarklet 10.12 Espacement."
       problem: "Les cartes cassent au zoom ; les personnes malvoyantes ou sur petits écrans perdent du contenu et doivent faire défiler horizontalement la page."
       findings_intro: "Les trois symptômes à rechercher sont :"
       findings:
         - "Hauteur fixe : une carte ne grandit pas avec son contenu quand le texte grossit."
         - "Largeur rigide : la grille impose une largeur minimale et fait apparaître un défilement horizontal inutile."
         - "Contenu masqué : le texte, les détails ou les actions peuvent être tronqués par overflow hidden."
-      fix: "Retirer les hauteurs et largeurs minimales fixes, éviter overflow hidden, utiliser la grille DSFR et tester à 200 %."
+      fix: "Retirer les hauteurs et largeurs minimales fixes, éviter overflow hidden, utiliser la grille DSFR et tester à 200 % puis avec un espacement du texte renforcé."
       fixes_intro: "Corrections attendues :"
       fixes:
         - "Laisser les cartes adapter leur hauteur au contenu."
         - "Utiliser la grille DSFR responsive sans largeur minimale rigide."
-        - "Tester à 200 % et vérifier que les liens, boutons et textes restent lisibles et activables."
+        - "Tester à 200 % puis avec le bookmarklet 10.12 Espacement, et vérifier que les liens, boutons et textes restent lisibles et activables."
     dsfr_components:
       - "Carte"
       - "Lien"

@@ -264,10 +264,13 @@ Le zoom est utilisé pour agrandir le texte et les autres éléments afin qu'ils
   - Le texte n'est pas masqué derrière d'autres textes ou images
   - Le défilement horizontal n'est pas nécessaire pour un contenu en écriture horizontale
   - Les menus de navigation peuvent se transformer en icône cliquable — c'est acceptable
+- Activer le bookmarklet « 10.12 Espacement » et vérifier qu'aucun contenu n'est tronqué, masqué ou superposé
 
 #### Pour en savoir plus
 
 - [Comprendre le critère 1.4.4 : Redimensionnement du texte](https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html)
+- [Comprendre le critère 1.4.10 : Redistribution](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html)
+- [Comprendre le critère 1.4.12 : Espacement du texte](https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html)
 
 ---
 

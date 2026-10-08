@@ -56,7 +56,7 @@ L'objectif est de documenter l'écart et de proposer sa correction, pas de calcu
 | 5 | Lien d'évitement | 2.4.1 - Contourner des blocs | `site-inaccessible/ec05-skiplinks.html` |
 | 6 | Focus et navigation clavier | 2.1.1 ; 2.1.2 ; 2.4.3 ; 2.4.7 | `site-inaccessible/ec06-keyboard-focus.html` |
 | 7 | Langue de la page | 3.1.1 - Langue de la page ; 3.1.2 - Langue d'un passage | `site-inaccessible/ec07-language.html` |
-| 8 | Zoom à 200 % | 1.4.4 - Redimensionnement du texte ; 1.4.10 - Redistribution | `site-inaccessible/ec08-zoom.html` |
+| 8 | Zoom à 200 % | 1.4.4 - Redimensionnement du texte ; 1.4.10 - Redistribution ; 1.4.12 - Espacement du texte | `site-inaccessible/ec08-zoom.html` |
 | 9 | Sous-titres vidéo | 1.2.2 - Sous-titres pour un média pré-enregistré | `site-inaccessible/ec09-captions.html` |
 | 10 | Transcriptions audio et vidéo | 1.2.1 - Contenu seulement audio ou vidéo pré-enregistré | `site-inaccessible/ec10-transcript.html` |
 | 11 | Audiodescription | 1.2.3 - Audiodescription ou version de remplacement ; 1.2.5 - Audiodescription | `site-inaccessible/ec11-audio-description.html` |

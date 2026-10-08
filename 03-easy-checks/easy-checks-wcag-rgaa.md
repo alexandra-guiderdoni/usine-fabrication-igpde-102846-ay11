@@ -236,6 +236,7 @@ Source : https://www.w3.org/WAI/test-evaluate/easy-checks/
 2. Appuyer sur Ctrl/Cmd + « + » cinq fois pour atteindre 200 %
 3. Vérifier que le texte s'adapte dans la zone visible
 4. Confirmer qu'aucun défilement horizontal n'est nécessaire
+5. Activer le bookmarklet « 10.12 Espacement » et vérifier qu'aucun contenu n'est perdu ou superposé
 
 **Ce qu'il faut vérifier** :
 
@@ -244,12 +245,13 @@ Source : https://www.w3.org/WAI/test-evaluate/easy-checks/
 - Pas de défilement horizontal nécessaire (pour les contenus en écriture horizontale)
 - Les menus de navigation peuvent se réduire en icônes (acceptable)
 
-**Critère WCAG** : 1.4.4 Redimensionnement du texte
+**Critères WCAG** : 1.4.4 Redimensionnement du texte ; 1.4.10 Redistribution ; 1.4.12 Espacement du texte
 
 **Équivalences RGAA** :
 
 - 10.4 — Dans chaque page web, le texte reste-t-il lisible lorsque la taille des caractères est augmentée jusqu'à 200 % ?
 - 10.11 — Pour chaque page web, les contenus peuvent-ils être présentés sans perte d'information ou de fonctionnalité et sans avoir recours à un défilement horizontal pour une fenêtre de 320 CSS px ?
+- 10.12 — Dans chaque page web, les propriétés d'espacement du texte peuvent-elles être redéfinies sans perte de contenu ou de fonctionnalité ?
 
 ---
 

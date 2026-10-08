@@ -396,7 +396,7 @@ Le tableau ci-dessous est une vue lisible du contrat. En cas d'écart lors de la
 | 5 | Accès rapide aux contenus | Lien d'évitement | Clavier |
 | 6 | Parcours clavier | Focus et navigation clavier | Clavier / ANDI |
 | 7 | Déclarer les langues utilisées dans la page | Langue de la page | Bookmarklet « 08 Langue et direction » / Web Developer / validateur HTML du W3C / Tanaguru / code source / WAVE |
-| 8 | Ressources à zoomer | Zoom à 200 % | Navigateur |
+| 8 | Ressources à zoomer | Zoom à 200 % | Navigateur / bookmarklet « 10.12 Espacement » |
 | 9 | Vidéo de sensibilisation | Sous-titres vidéo | Lecteur vidéo |
 | 10 | Podcast RGAA | Transcriptions audio et vidéo | Revue humaine |
 | 11 | Démonstration vidéo | Audiodescription | Revue humaine |
@@ -512,9 +512,9 @@ Références DSFR obligatoires pour cette page :
 | Point de contrôle rapide | 8. Zoom à 200 % |
 | Erreur inaccessible | Cartes de ressources avec hauteur fixe, largeur rigide ou `overflow` masqué provoquant texte tronqué, boutons sortis ou superposition au zoom 200 %. |
 | Occurrences | Plusieurs cartes peuvent reproduire la même erreur. |
-| Détection | Zoom navigateur à 200 %, fenêtre étroite. |
-| Correction accessible | Cartes DSFR fluides ; grille responsive ; contenu visible ; reflow sans perte ; composants utilisables. |
-| Aide accordéon | Problème : les cartes cassent au zoom. Impact : malvoyance et petits écrans. Méthode : retirer les hauteurs/largeurs fixes, éviter `overflow: hidden`, utiliser la grille DSFR et tester à 200 %. |
+| Détection | Zoom navigateur à 200 %, fenêtre étroite et bookmarklet « 10.12 Espacement ». |
+| Correction accessible | Cartes DSFR fluides ; grille responsive ; contenu visible ; reflow et espacement du texte sans perte ; composants utilisables. |
+| Aide accordéon | Problème : les cartes cassent au zoom ou après renforcement de l'espacement du texte. Impact : malvoyance et petits écrans. Méthode : retirer les hauteurs/largeurs fixes, éviter `overflow: hidden`, utiliser la grille DSFR et tester à 200 % puis avec le bookmarklet. |
 
 ### 9. Vidéo de sensibilisation
 

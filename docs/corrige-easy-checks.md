@@ -75,10 +75,10 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 ## 8. Ressources à zoomer
 
 - Point de contrôle rapide : Zoom à 200 %
-- Constat minimal attendu : À 200 % de zoom, une carte perd du contenu ou devient difficilement utilisable.
-- Preuve possible : Capture à 200 % montrant texte tronqué, bouton sorti, superposition ou défilement horizontal non nécessaire.
-- Correction : Cartes DSFR fluides ; grille responsive ; contenu visible ; reflow sans perte ; composants utilisables.
-- Repère pédagogique : Passer le navigateur à 200 % et réduire la largeur de fenêtre.
+- Constat minimal attendu : À 200 % de zoom ou avec l'espacement du texte renforcé, une carte perd du contenu ou devient difficilement utilisable.
+- Preuve possible : Capture à 200 % ou avec le bookmarklet 10.12 montrant texte tronqué, bouton sorti, superposition ou défilement horizontal non nécessaire.
+- Correction : Cartes DSFR fluides ; grille responsive ; contenu visible ; reflow et espacement du texte sans perte ; composants utilisables.
+- Repère pédagogique : Passer le navigateur à 200 %, réduire la largeur de fenêtre, puis activer le bookmarklet « 10.12 Espacement ».
 - Occurrences bonus : Plusieurs cartes cassées. ; Hauteur fixe. ; overflow hidden.
 - À ne pas pénaliser : Reflow vertical normal et augmentation de hauteur des cartes.
 

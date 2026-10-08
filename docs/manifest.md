@@ -216,7 +216,7 @@ La page d'aide reprend les trois niveaux : indice, ce qui pose problème, commen
 
 ### Repère pédagogique
 
-Passer le navigateur à 200 % et réduire la largeur de fenêtre.
+Passer le navigateur à 200 %, réduire la largeur de fenêtre, puis activer le bookmarklet « 10.12 Espacement ».
 
 ### Erreurs injectées
 
