@@ -25,7 +25,7 @@
 <!-- Le fil de l'atelier Word est réparti en cinq tableaux courts : chaque
      tableau reste entier sur une page, conformément au contournement
      WeasyPrint ci-dessus, tout en conservant une taille de texte lisible. -->
-<style>.word-journey table { font-size: 9.5pt; } .word-journey th, .word-journey td { line-height: 1.2; padding: 0.38em 0.45em; } .word-journey h4 { break-after: avoid; margin-bottom: 0.35em; } .word-journey p { margin-top: 0.35em; margin-bottom: 0.65em; }</style>
+<style>.word-journey table { font-size: 9.5pt; } .word-journey th, .word-journey td { line-height: 1.2; padding: 0.38em 0.45em; } .word-journey h4 { break-after: avoid; margin-bottom: 0.35em; } .word-journey p { margin-top: 0.35em; margin-bottom: 0.65em; } .word-intro { font-size: 9.5pt; line-height: 1.25; hyphens: manual; } .word-intro p { margin: 0.35em 0; } .checklist-legend { break-inside: avoid; margin: 0.45em 0 0.6em; padding: 0.4em 0.65em; border-left: 0.22em solid #000091; background: #f5f5fe; font-size: 9.5pt; line-height: 1.2; hyphens: manual; } .checklist-legend h4 { font-size: 1em; margin: 0 0 0.2em; } .checklist-legend ul { margin: 0; padding-left: 1.2em; } .checklist-legend li { margin: 0; }</style>
 
 <!-- Le parcours web suit les 13 points du site dans quatre tableaux courts.
      Les intitulés complets et les références WCAG restent lisibles sans
@@ -105,9 +105,19 @@ Table: Corrections Word, principes, personas et réflexes
 
 ### Le fil de l'atelier Word
 
+::: {.word-intro}
 Suivez les slides dans l'ordre. Après chaque séquence, réalisez l'action dans le document puis renseignez les points indiqués dans la checklist.
 
 Les cartes citées sont des correspondances pédagogiques avec WCAG 2.2 ; elles ne constituent pas une évaluation directe du fichier Word selon WCAG. Les correspondances retiennent les critères de niveaux A et AA. « Pas de carte directe » signifie qu'aucune correspondance directe n'a été retenue dans ce périmètre.
+:::
+
+::: {.checklist-legend}
+#### Comment lire les codes de la checklist
+
+- **P - Pratiqué** : l'action est réalisée et sa preuve est conservée.
+- **C - Contrôlé** : un contrôle automatique ou humain est réalisé et son résultat est noté.
+- **S - Signalé** : le point est vérifié sans manipulation obligatoire pendant le TP.
+:::
 
 ::: {.word-journey}
 #### Station 1 - Structurer et naviguer
