@@ -32,6 +32,12 @@
      fragmenter un tableau entre deux pages. -->
 <style>.web-journey table { font-size: 0.78em; } .web-journey th, .web-journey td { line-height: 1.18; padding: 0.34em 0.42em; hyphens: manual; } .web-journey h3 { break-after: avoid; margin-bottom: 0.35em; } .web-journey p { margin-top: 0.35em; margin-bottom: 0.65em; }</style>
 
+<!-- Le parcours réseaux sociaux reprend les trois temps de la checklist
+     projetée. Les références sont qualifiées et cliquables : WCAG lorsqu'une
+     correspondance A ou AA existe, Opquast pour la qualité éditoriale, ou
+     pratique éditoriale quand aucun critère direct n'est retenu. -->
+<style>.social-journey table { font-size: 0.78em; } .social-journey th, .social-journey td { line-height: 1.17; padding: 0.34em 0.42em; hyphens: manual; } .social-journey h3 { break-after: avoid; margin-bottom: 0.35em; } .social-journey p { margin-top: 0.35em; margin-bottom: 0.65em; }</style>
+
 Formation 102846 - L'accessibilité numérique pour la bureautique et le web
 
 ## L'idée à retenir
@@ -202,16 +208,49 @@ Table: Points 12 et 13 - formulaires, personas et cartes WCAG
 
 ## Pendant les réseaux sociaux
 
-Table: Réseaux sociaux et personas
+Choisissez deux obstacles prioritaires. Pour chacun, identifiez la personne bloquée, la correction et la preuve.
 
-| Cas | Principe | Qui est bloqué ? | Réflexe |
-|--------------------|--------------------|---------------------------|---------------------------------|
-| Image sans alternative | Percevoir | Amir ne sait pas ce qu'elle contient | Ajouter un texte alternatif utile |
-| Texte dans une image | Percevoir + Compatible | Amir n'a pas accès au texte | Remettre l'info essentielle dans le texte du post |
-| Hashtag illisible | Comprendre | Paul et le lecteur d'écran d'Amir | Utiliser le CamelCase (#AccessibiliteNumerique) |
-| Emojis en série | Comprendre | Amir entend chaque emoji vocalisé | Limiter, placer en fin, ne pas remplacer les mots |
-| Caractères fantaisie Unicode | Compatible | Amir entend du charabia | Éviter les polices décoratives non interprétées |
-| Ordre de lecture confus | Comprendre + Utiliser | Amir et Paul perdent le fil | Relire le post linéairement, comme il sera vocalisé |
+Les références distinguent les critères WCAG, les règles Opquast et les pratiques éditoriales. « Pas de critère A/AA direct » signifie que le réflexe reste utile, sans correspondance directe retenue dans ce périmètre.
+
+Boussole des quatre réflexes : **slide 118**. Consigne de l'exercice : **slide 129**.
+
+::: {.social-journey}
+### Anticiper - slide 130
+
+Table: Réseaux sociaux - anticiper, questions, personas et références
+
+| Point présenté | Question à se poser | Qui est bloqué ? | Référence(s) |
+|--------------------------|------------------------------------------|-------------------------------|--------------------------------|
+| **Alternatives prévues selon le média**<br>Détail images : slides 119 à 121 | Le traitement est-il prévu selon le média : texte alternatif utile ou option décorative pour l'image, transcription pour l'audio, sous‑titres pour la vidéo ? | Amir - ne perçoit pas l'image ; Justine - ne perçoit pas le son | **WCAG [1.1.1](https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html)** - Contenu non textuel ; **[1.2.1](https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded.html)** - Audio seul préenregistré ; **[1.2.2](https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded.html)** - Sous‑titres préenregistrés |
+| **Représentations inclusives**<br>Détails : slides 126 et 127 | Qui est visible ou absent, dans quel rôle, et le visuel correspond-il à la réalité accessible de l'action ? | Pas de persona unique - les publics représentés ou oubliés | **Pratique éditoriale**<br>Pas de critère A/AA direct |
+| **Visuel chargé et version complète**<br>Détails : slide 120 | Les chiffres et messages clés existent-ils aussi dans le post ou dans une version complète ? | Amir - ne perçoit pas le visuel ; Anaïs - ne peut pas l'agrandir confortablement | **WCAG [1.1.1](https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html)** - Contenu non textuel<br>Si le visuel contient du texte : **[1.4.5](https://www.w3.org/WAI/WCAG22/Understanding/images-of-text.html)** - Texte sous forme d'image |
+| **Lisibilité du visuel** | Le texte est-il lisible sur mobile, avec une police adaptée et un contraste d'au moins 4,5:1 ? | Anaïs - distingue mal un texte petit ou peu contrasté ; Paul - lit plus difficilement | **WCAG [1.4.3](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)** - Contraste minimum<br>Police lisible : **pratique éditoriale** |
+
+### Rédiger - slide 131
+
+Table: Réseaux sociaux - rédiger, questions, personas et références
+
+| Point présenté | Question à se poser | Qui est bloqué ? | Référence(s) |
+|--------------------------|------------------------------------------|-------------------------------|--------------------------------|
+| **Ordre et lecture linéaire**<br>Détails : slides 114 à 117 | Lu à voix haute, le post garde-t-il un ordre logique et un sens complet ? | Amir - écoute le post ; Paul - perd le fil | **Correspondance pédagogique : WCAG [1.3.2](https://www.w3.org/WAI/WCAG22/Understanding/meaningful-sequence.html)** - Ordre séquentiel logique |
+| **Information essentielle dans le texte**<br>Détails : slide 120 | Le post contient-il les informations indispensables, sans dépendre du visuel ? | Amir - ne perçoit pas le visuel | **WCAG [1.1.1](https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html)** - Contenu non textuel<br>Si le visuel contient du texte : **[1.4.5](https://www.w3.org/WAI/WCAG22/Understanding/images-of-text.html)** - Texte sous forme d'image |
+| **Paragraphes courts et texte natif, sans faux gras Unicode**<br>Détails : slide 125 | Le post est-il découpé en paragraphes courts et écrit avec les caractères ordinaires et les fonctions natives de la plateforme, sans générateur de style ? | Amir - entend un texte déformé ; Paul - rencontre une lecture inutilement difficile | **Opquast [règle 14](https://checklists.opquast.com/fr/qualite-numerique/les-contenus-ne-detournent-pas-de-caracteres-pour-simuler-une-mise-en-forme-visuelle)** - Caractères détournés<br>Paragraphes courts : **pratique éditoriale**<br>Associé : **WCAG [1.1.1](https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html)** |
+| **Émojis sobres**<br>Détails : slides 122 et 123 | Le message reste-t-il complet sans les émojis ; ceux qui portent du sens sont-ils explicités par des mots ? | Amir - entend chaque émoji vocalisé ; Paul - subit les interruptions de lecture | **WCAG [1.1.1](https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html)** si l'émoji porte une information<br>Quantité et position : **pratique éditoriale** |
+| **Hashtags lisibles**<br>Détail : slide 124 | Les hashtags sont-ils écrits en CamelCase, courts, regroupés à la fin et limités à deux ou trois ? | Amir - entend une prononciation ambiguë ; Paul - déchiffre difficilement le bloc | **Pratique éditoriale**<br>Pas de critère A/AA direct |
+| **Langage inclusif clair**<br>Détail : slide 128 | La formulation reste-t-elle claire à voix haute et lors d'une lecture rapide ? | Anatole - comprend difficilement une formulation complexe ; Paul - lit plus lentement | **Pratique éditoriale**<br>Pas de critère A/AA direct |
+
+### Publier - slide 132
+
+Table: Réseaux sociaux - publier, questions, personas et références
+
+| Point présenté | Question à se poser | Qui est bloqué ? | Référence(s) |
+|--------------------------|------------------------------------------|-------------------------------|--------------------------------|
+| **Texte alternatif finalisé**<br>Détails : slides 119 à 121 | Chaque image informative possède-t-elle un texte alternatif utile et propre à son contenu ? | Amir - ne sait pas ce que montre l'image | **WCAG [1.1.1](https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html)** - Contenu non textuel |
+| **Infographie ou carrousel**<br>Détail : slide 120 | Les chiffres et messages clés sont-ils repris dans le post ou dans une version complète liée ? | Amir - ne perçoit pas les visuels ; Anaïs - ne peut pas les agrandir confortablement | **WCAG [1.1.1](https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html)** - Contenu non textuel ; **[1.4.5](https://www.w3.org/WAI/WCAG22/Understanding/images-of-text.html)** - Texte sous forme d'image |
+| **Audio préenregistré** | Une transcription écrite, relue et facile à trouver accompagne-t-elle le contenu audio ? | Justine - ne perçoit pas le contenu sonore | **WCAG [1.2.1](https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded.html)** - Contenus seulement audio préenregistrés |
+| **Vidéo préenregistrée** | Les sous‑titres sont-ils synchronisés, complets et relus ; l'information visuelle essentielle est-elle déjà donnée par l'audio, une audiodescription ou une alternative ; une transcription est-elle ajoutée si nécessaire ? | Justine - ne perçoit pas le son ; Amir - ne perçoit pas l'action visuelle | **WCAG [1.2.2](https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded.html)** - Sous‑titres préenregistrés<br>Associés : **[1.2.3](https://www.w3.org/WAI/WCAG22/Understanding/audio-description-or-media-alternative-prerecorded.html), [1.2.5](https://www.w3.org/WAI/WCAG22/Understanding/audio-description-prerecorded.html)** |
+| **Code QR et lien visible** | Le code à réponse rapide (QR) est-il accompagné d'un lien visible et explicite, avec une taille et un contraste suffisants ? | Amir - ne perçoit pas le code QR ; toute personne qui ne peut pas le scanner | **WCAG [1.1.1](https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html)** - Contenu non textuel<br>Associé : **[2.4.4](https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html)** - Fonction du lien<br>Taille et contraste : **pratique de scannabilité** |
+:::
 
 ## Pour formuler une preuve
 
@@ -223,6 +262,6 @@ Pour chaque problème repéré, notez :
 4. La correction possible.
 5. La preuve que c'est corrigé : test, mesure, comparaison ou relecture.
 
-## Phrase de contrôle
+## Phrase de contrôle pour une publication
 
-Si je retire la vue, le son, la souris ou le contexte, est-ce que le contenu fonctionne encore ?
+Si l'image, le son ou la mise en forme disparaît, le message reste-t-il complet et compréhensible ?
