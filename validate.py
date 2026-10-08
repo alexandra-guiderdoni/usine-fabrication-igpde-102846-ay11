@@ -8,6 +8,7 @@ cas specifiques (EC06, version accessible).
 
 from __future__ import annotations
 
+import re
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urldefrag, urlparse
@@ -17,25 +18,46 @@ import yaml
 ROOT = Path(__file__).resolve().parent
 CONTRACT = ROOT / "03-easy-checks" / "evaluation_contract.yml"
 DOCS = ROOT / "docs"
+LINKS_SOURCE = ROOT / "liens-tp-en-ligne.md"
+MARKDOWN_URL_PATTERN = re.compile(r"\]\((https?://[^)\s]+)\)")
 ALLOWED_EXTERNAL_HOSTS = {
+    "aaardvarkaccessibility.com",
     "accessibilite.numerique.gouv.fr",
     "addons.mozilla.org",
+    "alexandra-guiderdoni.github.io",
+    "app.contrast-finder.org",
+    "atalan.fr",
+    "checklists.opquast.com",
     "chromewebstore.google.com",
     "contrast-finder.tanaguru.com",
     "data.gouv.fr",
     "github.com",
+    "handicap.gouv.fr",
+    "ideance.net",
     "info.gouv.fr",
     "legifrance.gouv.fr",
+    "mentor.gouv.fr",
+    "obligations-legales-accessibilite-numerique.fr",
+    "pac.pdf-accessibility.org",
     "service-public.gouv.fr",
+    "silktide.com",
     "vispero.com",
+    "webaim.org",
     "www.data.gouv.fr",
     "www.defenseurdesdroits.fr",
+    "www.figma.com",
+    "www.info.gouv.fr",
     "www.legifrance.gouv.fr",
+    "www.linkedin.com",
+    "www.nvda.fr",
     "www.service-public.gouv.fr",
+    "www.tpgi.com",
+    "www.w3.org",
     "www.youtube.com",
     "youtube.com",
     "www.youtube-nocookie.com",
     "youtube-nocookie.com",
+    "x.com",
 }
 
 
@@ -48,6 +70,7 @@ class LinkParser(HTMLParser):
         self.html_lang: str | None = None
         self.images_without_alt: list[str] = []
         self.local_refs: list[tuple[str, str]] = []
+        self.external_refs: list[str] = []
         self.bad_refs: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
@@ -68,6 +91,7 @@ class LinkParser(HTMLParser):
                 host = urlparse(value).netloc
                 if host not in ALLOWED_EXTERNAL_HOSTS:
                     self.bad_refs.append(value)
+                self.external_refs.append(value)
                 continue
             if value.startswith("cdn"):
                 self.bad_refs.append(value)
@@ -127,6 +151,7 @@ def validate_docs(contract_pages: list[dict] | None = None) -> None:
     required_files = [
         DOCS / ".nojekyll",
         DOCS / "index.html",
+        DOCS / "liens.html",
         DOCS / "manifest.md",
         DOCS / "corrige-easy-checks.md",
         DOCS / "assets" / "dsfr" / "dsfr.min.css",
@@ -134,6 +159,7 @@ def validate_docs(contract_pages: list[dict] | None = None) -> None:
         DOCS / "assets" / "dsfr" / "dsfr.module.min.js",
         DOCS / "assets" / "dsfr" / "dsfr.nomodule.min.js",
         DOCS / "assets" / "downloads" / "grille-audit-easy-checks.xlsx",
+        DOCS / "assets" / "downloads" / "tp-word-accessibilite-igpde.zip",
         DOCS / "grille-audit-easy-checks.xlsx",
     ]
     for variant in ("site-inaccessible", "site-aide-correction", "site-accessible"):
@@ -192,6 +218,22 @@ def validate_docs(contract_pages: list[dict] | None = None) -> None:
     if missing_anchors:
         details = "\n".join(f"{file}: {value}" for file, value in missing_anchors[:20])
         raise ValueError(f"Ancres locales absentes:\n{details}")
+
+    links_page = DOCS / "liens.html"
+    links_parser = LinkParser(links_page)
+    links_parser.feed(links_page.read_text(encoding="utf-8"))
+    expected_training_links = set(
+        MARKDOWN_URL_PATTERN.findall(LINKS_SOURCE.read_text(encoding="utf-8"))
+    )
+    missing_training_links = sorted(
+        expected_training_links - set(links_parser.external_refs)
+    )
+    if missing_training_links:
+        details = "\n".join(missing_training_links)
+        raise ValueError(
+            "La page Liens ne reprend pas toutes les URL de la fiche stagiaire:\n"
+            f"{details}"
+        )
 
     accessible_errors: list[str] = []
     forbidden_accessible_markers = (

@@ -110,6 +110,7 @@ def header(
             "../" * depth + "demo-mauvaise-restitution-emojis.html",
             "demo-rs",
         ),
+        ("Liens", "../" * depth + "liens.html", "links"),
     ]
     links = "\n".join(
         f"""              <li class="fr-nav__item"><a class="fr-nav__link" href="{href}"{(' aria-current="page"' if key == current else "")}>{label}</a></li>"""
@@ -488,6 +489,7 @@ def generate_accessibility_statement_page(contract: dict) -> None:
       <h4>Pages générales</h4>
       <ul>
         <li><a class="fr-link" href="index.html">Accueil</a></li>
+        <li><a class="fr-link" href="liens.html">Liens utiles de la formation</a></li>
         <li><a class="fr-link" href="plan-du-site.html">Plan du site</a></li>
         <li><a class="fr-link" href="accessibilite.html">Déclaration d'accessibilité</a></li>
         <li><a class="fr-link" href="mentions-legales.html">Mentions légales</a></li>
@@ -596,6 +598,7 @@ def generate_sitemap_page(contract: dict) -> None:
       <h2 id="sitemap-general">Pages générales</h2>
       <ul>
         <li><a class="fr-link" href="index.html">Accueil</a></li>
+        <li><a class="fr-link" href="liens.html">Liens utiles de la formation</a></li>
         <li><a class="fr-link" href="plan-du-site.html">Plan du site</a></li>
         <li><a class="fr-link" href="assets/downloads/grille-audit-easy-checks.xlsx">Grille d'audit des points de contrôle rapides</a></li>
         <li><a class="fr-link" href="manifest.md">Manifeste des erreurs injectées</a></li>

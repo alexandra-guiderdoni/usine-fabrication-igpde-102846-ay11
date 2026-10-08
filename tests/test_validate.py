@@ -45,8 +45,13 @@ def site_minimal(tmp_path, monkeypatch):
     def build(*, include_nojekyll: bool = True) -> Path:
         docs = tmp_path / "docs"
         contract = tmp_path / "evaluation_contract.yml"
+        links_source = tmp_path / "liens-tp-en-ligne.md"
         contract.write_text(
             "pages:\n" + "".join(f'  - id: "{page_id}"\n' for page_id in PAGE_IDS),
+            encoding="utf-8",
+        )
+        links_source.write_text(
+            "[W3C](https://www.w3.org/WAI/test-evaluate/preliminary/)",
             encoding="utf-8",
         )
         for relative_path in (
@@ -57,6 +62,7 @@ def site_minimal(tmp_path, monkeypatch):
             "assets/dsfr/dsfr.module.min.js",
             "assets/dsfr/dsfr.nomodule.min.js",
             "assets/downloads/grille-audit-easy-checks.xlsx",
+            "assets/downloads/tp-word-accessibilite-igpde.zip",
             "grille-audit-easy-checks.xlsx",
         ):
             path = docs / relative_path
@@ -67,6 +73,10 @@ def site_minimal(tmp_path, monkeypatch):
 
         (docs / "index.html").write_text(
             '<html lang="fr"><body></body></html>', encoding="utf-8"
+        )
+        (docs / "liens.html").write_text(
+            '<html lang="fr"><body><a href="https://www.w3.org/WAI/test-evaluate/preliminary/">W3C</a></body></html>',
+            encoding="utf-8",
         )
         for number in range(8):
             (docs / f"annexe-{number}.html").write_text(
@@ -93,6 +103,7 @@ def site_minimal(tmp_path, monkeypatch):
 
         monkeypatch.setattr(validate, "DOCS", docs)
         monkeypatch.setattr(validate, "CONTRACT", contract)
+        monkeypatch.setattr(validate, "LINKS_SOURCE", links_source)
         return docs
 
     return build
@@ -102,6 +113,14 @@ def test_refuse_l_absence_de_nojekyll(site_minimal):
     site_minimal(include_nojekyll=False)
 
     with pytest.raises(FileNotFoundError, match=r"\.nojekyll"):
+        validate.validate_docs()
+
+
+def test_exige_l_archive_du_tp_bureautique(site_minimal):
+    docs = site_minimal()
+    (docs / "assets" / "downloads" / "tp-word-accessibilite-igpde.zip").unlink()
+
+    with pytest.raises(FileNotFoundError, match="tp-word-accessibilite-igpde.zip"):
         validate.validate_docs()
 
 
@@ -166,4 +185,14 @@ def test_verifie_l_ancre_dans_une_autre_page(site_minimal):
     )
 
     with pytest.raises(ValueError, match="Ancres locales absentes"):
+        validate.validate_docs()
+
+
+def test_exige_tous_les_liens_de_la_fiche_stagiaire(site_minimal):
+    docs = site_minimal()
+    (docs / "liens.html").write_text(
+        '<html lang="fr"><body></body></html>', encoding="utf-8"
+    )
+
+    with pytest.raises(ValueError, match="ne reprend pas toutes les URL"):
         validate.validate_docs()
