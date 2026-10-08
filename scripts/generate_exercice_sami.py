@@ -1836,7 +1836,7 @@ def _checklist_markdown(matrix, formation_code):
         for control in controls:
             lines.extend(
                 (
-                    f"- **{control['id']} · {control['niveau']}** - {control['checklist']}",
+                    f"- **{control['id']} · {control['niveau']} - {control['checklist']}**",
                     "  - Suivi : ☐ À vérifier · ☐ Fait · ☐ À reprendre",
                     "  - Notes :",
                     "",
@@ -1902,6 +1902,10 @@ def _checklist_docx(matrix):
             cells[0].text = f"{control['id']} · {control['niveau']}"
             cells[1].text = control["checklist"]
             cells[2].text = "☐ À vérifier\n☐ Fait\n☐ À reprendre\nNotes :"
+            for cell in cells[:2]:
+                for paragraph in cell.paragraphs:
+                    for run in paragraph.runs:
+                        run.bold = True
         # Colonne des points à vérifier élargie : la largeur utile fait 6 pouces.
         _set_table_column_widths(table, (Inches(1.3), Inches(3.2), Inches(1.5)))
         _prevent_table_row_splitting(table)

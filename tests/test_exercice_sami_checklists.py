@@ -35,7 +35,9 @@ def test_les_deux_checklists_reprennent_la_matrice_dans_l_ordre(tmp_path):
     markdown_positions = []
     expected_rows = []
     for control in matrix["controles"]:
-        expected = f"**{control['id']} · {control['niveau']}** - {control['checklist']}"
+        expected = (
+            f"**{control['id']} · {control['niveau']} - {control['checklist']}**"
+        )
         markdown_positions.append(markdown_text.index(expected))
         expected_rows.append(
             (
@@ -52,6 +54,24 @@ def test_les_deux_checklists_reprennent_la_matrice_dans_l_ordre(tmp_path):
         for row in table.rows[1:]
     ]
     assert actual_rows == expected_rows
+
+
+def test_la_checklist_docx_met_en_gras_les_intitules_des_points(tmp_path):
+    markdown = tmp_path / "checklist.md"
+    docx = tmp_path / CHECKLIST_DOCX
+    build_checklists(
+        matrix=load_sami_matrix(), markdown_output=markdown, docx_output=docx
+    )
+
+    for table in Document(docx).tables:
+        for row in table.rows[1:]:
+            for cell in row.cells[:2]:
+                runs = [run for paragraph in cell.paragraphs for run in paragraph.runs]
+                assert runs and all(run.bold is True for run in runs)
+            suivi_runs = [
+                run for paragraph in row.cells[2].paragraphs for run in paragraph.runs
+            ]
+            assert suivi_runs and not any(run.bold for run in suivi_runs)
 
 
 def test_make_expose_la_cible_checklist():
