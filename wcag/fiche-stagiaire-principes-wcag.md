@@ -30,6 +30,9 @@ Un contenu accessible reste utilisable quand la situation de la personne change.
 
 Il ne dépend pas d'une seule façon de voir, d'entendre, de lire, de comprendre ou d'agir.
 
+Pour comprendre les difficultés rencontrées, explorez le site de test :  
+[« L'accessibilité numérique, et si nous agissions ? »](https://atalan.fr/agissons/fr/index.html).
+
 ## Les 4 questions
 
 ::: {.questions-table}
