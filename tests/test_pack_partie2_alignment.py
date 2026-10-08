@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 
 from docx import Document
+from pptx import Presentation
 
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -13,6 +14,7 @@ from config import load_formation_config
 PACK = ROOT / load_formation_config()["livrables"]
 ADMIN = PACK / "Livrables-Formateur" / "documents-administratifs-igpde"
 TP_WORD = PACK / "Livrables-Stagiaires" / "tp-word-igpde"
+PROJECTIONS = PACK / "Livrables-Stagiaires" / "supports-projections"
 
 LEGACY_PATTERNS = (
     "21 " + "critères",
@@ -134,9 +136,38 @@ def test_deroule_et_fiche_technique_sont_alignes():
     assert "12h00 - 12h15" in deroule
     assert "slides 54 à 79" in deroule
     assert "slide 80" in deroule
+    assert "méthode en cinq étapes" in deroule
+    assert "TP guidé en cinq étapes" in deroule
+    assert "checklist renseignée après chaque étape" in deroule
+    assert "finaliser, vérifier, exporter et contrôler" in deroule
+    for projection in (
+        "00-introduction-et-idees-recues.pptx, slides 1 à 14",
+        "01-accessibilite-numerique-et-cadre-legal.pptx, slides 1 à 39",
+        "02-documents-bureautiques-accessibles-tp.pptx, slides 1 à 26",
+        "02-documents-bureautiques-accessibles-tp.pptx, slide 27",
+        "03-web-accessible-tp.pptx, slides 1 à 30",
+        "04-reseaux-sociaux-accessibles.pptx, slides 1 à 55",
+    ):
+        assert projection in deroule
     assert "PAC 24.4.4.0" in technique
     assert "disponible sur les postes" in technique
     assert "Acrobat Pro" in technique
+
+
+def test_projection_word_utilise_les_etapes():
+    path = PROJECTIONS / "02-documents-bureautiques-accessibles-tp.pptx"
+    presentation = Presentation(path)
+    visible_text = "\n".join(
+        shape.text
+        for slide in presentation.slides
+        for shape in slide.shapes
+        if hasattr(shape, "text_frame")
+    )
+
+    assert len(presentation.slides) == 27
+    assert "Étape 1" in visible_text
+    assert "Étape 5" in visible_text
+    assert "Station" not in visible_text
 
 
 def test_index_des_slides_couvre_la_fin_de_la_partie_2():

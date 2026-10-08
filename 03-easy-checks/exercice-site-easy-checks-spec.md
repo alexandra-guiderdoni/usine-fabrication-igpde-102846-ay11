@@ -15,25 +15,12 @@ Le site doit ressembler à un vrai site institutionnel, inspiré de l'univers é
 - **Public** : communicants, agents publics, profils métier, niveau initiation.
 - **Format** : exercice en binôme, 30 minutes.
 - **Modalité** : chaque binôme audite 3 pages rapides, puis restitution collective pour couvrir les 13 points de contrôle rapides.
-- **Livrable stagiaire** : grille `grille-audit-easy-checks.xlsx` remplie avec verdict, sévérité, constat, correctif et preuve.
+- **Livrable stagiaire** : carnet `grille-audit-easy-checks.xlsx` rempli avec constat, mise en conformité à réaliser et preuve de l'écart.
 - **Niveau visé** : pré-diagnostic exploitable, pas audit RGAA complet.
 
-Phrase-clé à retenir : **un défaut utilement remonté est un défaut prouvé, qualifié et corrigeable**.
+Phrase-clé à retenir : **un défaut utilement remonté est un défaut observé, prouvé et corrigeable**.
 
-Terminologie des verdicts à respecter strictement dans le corrigé et les exemples :
-
-- `C` = Conforme ;
-- `NC` = Non conforme ;
-- `NA` = Non applicable.
-
-Terminologie des sévérités à respecter strictement :
-
-- `Bloquant` ;
-- `Gênant` ;
-- `Mineur` ;
-- `Info`.
-
-La sévérité est renseignée uniquement pour les constats `NC`.
+Le carnet sert à documenter un écart et sa correction. Il ne produit ni verdict, ni niveau de sévérité, ni taux de conformité.
 
 ---
 
@@ -54,7 +41,7 @@ Les trois versions doivent avoir le même contenu éditorial et la même structu
 |---|---|---|
 | `site-inaccessible/` | Site à auditer | Non |
 | `site-aide-correction/` | Même site avec guidage pédagogique | Oui, en haut de page |
-| `site-accessible/` | Site corrigé et conforme DSFR/accessibilité | Non |
+| `site-accessible/` | Ressources sur l'accessibilité numérique | Non |
 
 ### Version aide à la correction
 
@@ -320,7 +307,7 @@ Organisation :
 | 3 min | Présentation de la page racine, de la grille et des outils |
 | 15 min | Audit en binômes sur 3 pages attribuées |
 | 7 min | Restitution collective des constats |
-| 5 min | Comparaison rapide avec la version aide/corrigée et choix de 3 actions prioritaires |
+| 5 min | Comparaison rapide avec la version aide/corrigée et consolidation des constats dans la synthèse |
 
 Les binômes ne doivent pas auditer toutes les pages. Chaque binôme travaille sur un lot limité, puis la restitution collective permet de couvrir l'ensemble des 13 points de contrôle rapides.
 
@@ -362,9 +349,9 @@ Les pages visibles doivent porter des titres réalistes de ministère. La corres
 
 Chaque page contient une seule erreur principale. La même erreur peut être reproduite à plusieurs endroits sur la page pour créer un constat réaliste.
 
-Une seule occurrence correctement prouvée suffit pour invalider le critère ciblé sur la page. Les occurrences multiples servent à rendre le défaut plus réaliste et à augmenter les chances de détection, pas à exiger une collecte exhaustive.
+Une seule occurrence correctement prouvée suffit pour documenter le point ciblé sur la page. Les occurrences multiples servent à rendre le défaut plus réaliste et à augmenter les chances de détection, pas à exiger une collecte exhaustive.
 
-La grille et le corrigé peuvent contenir plusieurs lignes pour une même page lorsque la même erreur principale est répétée à plusieurs endroits. Ces lignes doivent rester optionnelles ou illustratives sauf mention contraire. Le corrigé doit distinguer clairement :
+La grille contient une fiche par point. Lorsque la même erreur principale apparaît à plusieurs endroits, la preuve peut mentionner plusieurs occurrences dans cette fiche sans créer de lignes supplémentaires. Le corrigé doit distinguer clairement :
 
 - le constat minimal attendu ;
 - les occurrences bonus possibles ;
@@ -378,37 +365,37 @@ Les contenus doivent rester courts et très ciblés. L'objectif est de permettre
 
 Source unique désormais : `03-easy-checks/evaluation_contract.yml`.
 
-Ce tableau fait foi pour la grille, le manifeste, le corrigé et les aides. Pour une page donnée, le binôme n'a pas à trouver toutes les occurrences : le **constat minimal attendu**, correctement prouvé, suffit à renseigner `NC`.
+Ce tableau fait foi pour la grille, le manifeste, le corrigé et les aides. Pour une page donnée, le binôme n'a pas à trouver toutes les occurrences : le **constat minimal attendu**, correctement prouvé, suffit à documenter le point.
 
 Le tableau ci-dessous est une vue lisible du contrat. En cas d'écart lors de la production, le fichier YAML doit être corrigé en premier, puis les livrables doivent être régénérés depuis lui.
 
-| # | Page | Constat minimal attendu | Preuve minimale | Sévérité indicative | Occurrences bonus | À ne pas pénaliser |
-|---|---|---|---|---|---|---|
-| 1 | Actualité illustrée | Au moins une image n'a pas d'alternative adaptée à son rôle réel. | Capture WAVE/ANDI ou extrait HTML montrant `alt` absent, vide ou inadapté sur l'image concernée. | Gênant | Image décorative bavarde ; image-lien mal nommée ; lien composite dont l'icône ajoute du bruit au nom accessible. | Image purement décorative avec `alt=""`. |
-| 2 | Résultats de recherche RGAA | Le titre de page ne permet pas d'identifier précisément la page ou son état. | Onglet navigateur ou extrait `<title>` montrant un titre générique, dupliqué ou mal ordonné. | Gênant | Pagination absente du titre ; requête de recherche absente ; nom du ministère placé avant l'information spécifique. | Titre long si l'information spécifique est présente en premier. |
-| 3 | Guide du RGAA | Un texte qui est visuellement un titre n'est pas balisé comme titre, ou une balise de titre est utilisée pour un simple effet visuel. | HeadingsMap/WAVE ou extrait HTML montrant un faux titre ou un titre décoratif. | Gênant | Comparer le plan visuel et le plan technique ; repérer un titre non pertinent. | Saut de niveau ou plusieurs `h1` si la hiérarchie reste cohérente au sens RGAA. |
-| 4 | Charte de publication | Au moins un texte, lien, bouton ou statut présente un contraste insuffisant. | Mesure CCA/WebAIM/WAVE avec couleurs et ratio inférieur au seuil attendu. | Bloquant | Texte gris clair ; bouton pâle ; statut transmis par couleur faible. | Usage d'une couleur DSFR conforme et information de statut aussi disponible en texte ou icône nommée. |
-| 5 | Accès rapide aux contenus | Le lien d'évitement vers le contenu principal est absent, invisible au focus ou non fonctionnel. | Test clavier au premier `Tab`, puis activation du lien et vérification de l'ancre cible. | Bloquant | Lien vers menu ou pied de page cassé ; cible mal orthographiée. | Composant DSFR masqué hors écran par défaut s'il apparaît bien au focus. |
-| 6 | Parcours clavier | Le focus clavier n'est pas visible sur au moins un composant interactif. | Parcours `Tab` / `Shift+Tab` montrant le composant focusable sans indicateur visible. | Bloquant | Bouton, carte cliquable ou accordéon touché par la même surcharge CSS. | Variation visuelle DSFR du focus si elle reste perceptible et conforme. |
-| 7 | Atelier international | La langue principale ou un changement de langue utile n'est pas déclaré correctement. | Extrait HTML montrant `lang` absent/vide/invalide ou passage anglais non balisé. | Gênant | Code langue erroné ; expression anglaise non balisée ; mauvaise régionalisation. | Noms propres et mots étrangers passés dans l'usage courant non balisés. |
-| 8 | Ressources à zoomer | À 200 % de zoom, une carte perd du contenu ou devient difficilement utilisable. | Capture à 200 % montrant texte tronqué, bouton sorti, superposition ou défilement horizontal non nécessaire. | Gênant | Plusieurs cartes cassées ; hauteur fixe ; `overflow: hidden`. | Reflow vertical normal et augmentation de hauteur des cartes. |
-| 9 | Vidéo de sensibilisation | La vidéo ne propose pas de sous-titres exploitables pour le contenu oral. | Vérification du lecteur : absence de piste, bouton sous-titres absent, ou sous-titres automatiques non relus signalés. | Bloquant | Sous-titres non synchronisés ; sons utiles non indiqués. | Vidéo strictement décorative sans information orale utile, si elle est correctement ignorée ou décrite ailleurs. |
-| 10 | Podcast RGAA | Le contenu audio n'a pas de transcription accessible à proximité. | Revue de la page montrant absence de lien de transcription proche du média. | Bloquant | Transcription incomplète ; lien peu explicite ; transcription non structurée. | Résumé éditorial court en complément, s'il existe aussi une transcription complète. |
-| 11 | Démonstration vidéo | Une information visuelle essentielle n'est pas disponible autrement que par l'image. | Revue humaine de la vidéo montrant une action ou information visuelle non décrite dans l'audio ni dans une version alternative. | Bloquant | Absence de version audiodécrite ; description trop vague ; lien vers version décrite absent. | Vidéo où toutes les informations visuelles essentielles sont déjà dites dans l'audio. |
-| 12 | Inscription à un webinaire | Au moins un champ ou groupe de champs n'a pas de nom accessible fiable. | ANDI/WAVE, clic label ou extrait HTML montrant placeholder seul, label non associé ou groupe sans `fieldset`/`legend`. | Bloquant | Nom visible différent du nom accessible ; aide non reliée ; label masqué avec `display:none`. | Placeholder utilisé comme exemple si une étiquette visible et associée existe. |
-| 13 | Formulaire de contact | L'obligation ou l'erreur de saisie n'est pas annoncée et reliée de manière exploitable. | État initial puis soumission du formulaire vide + inspection HTML montrant obligation non balisée, message vague/non relié ou focus non accompagné. | Bloquant | Absence de `required`/`aria-required` ; erreur sans `aria-describedby` ; `aria-invalid` absent si pertinent. | Astérisque utilisé s'il est expliqué et complété par une information technique et textuelle. |
+| # | Page | Constat minimal attendu | Preuve minimale | Occurrences bonus | À ne pas pénaliser |
+|---|---|---|---|---|---|
+| 1 | Contrôler les images avant publication | Au moins une image n'a pas d'alternative adaptée à son rôle réel. | Capture WAVE/ANDI ou extrait HTML montrant `alt` absent, vide ou inadapté sur l'image concernée. | Image décorative bavarde ; image-lien mal nommée ; lien composite dont l'icône ajoute du bruit au nom accessible. | Image purement décorative avec `alt=""`. |
+| 2 | Résultats de recherche RGAA | Le titre de page ne permet pas d'identifier précisément la page ou son état. | Onglet navigateur ou extrait `<title>` montrant un titre générique, dupliqué ou mal ordonné. | Pagination absente du titre ; requête de recherche absente ; nom du ministère placé avant l'information spécifique. | Titre long si l'information spécifique est présente en premier. |
+| 3 | Guide du RGAA | Un texte qui est visuellement un titre n'est pas balisé comme titre, ou une balise de titre est utilisée pour un simple effet visuel. | HeadingsMap/WAVE ou extrait HTML montrant un faux titre ou un titre décoratif. | Comparer le plan visuel et le plan technique ; repérer un titre non pertinent. | Saut de niveau ou plusieurs `h1` si la hiérarchie reste cohérente au sens RGAA. |
+| 4 | Charte de publication | Au moins un texte, lien, bouton ou statut présente un contraste insuffisant. | Mesure CCA/WebAIM/WAVE avec couleurs et ratio inférieur au seuil attendu. | Texte gris clair ; bouton pâle ; statut transmis par couleur faible. | Usage d'une couleur DSFR conforme et information de statut aussi disponible en texte ou icône nommée. |
+| 5 | Accès rapide aux contenus | Le lien d'évitement vers le contenu principal est absent, invisible au focus ou non fonctionnel. | Test clavier au premier `Tab`, puis activation du lien et vérification de l'ancre cible. | Lien vers menu ou pied de page cassé ; cible mal orthographiée. | Composant DSFR masqué hors écran par défaut s'il apparaît bien au focus. |
+| 6 | Parcours clavier | Le focus clavier n'est pas visible sur au moins un composant interactif. | Parcours `Tab` / `Shift+Tab` montrant le composant focusable sans indicateur visible. | Bouton, carte cliquable ou accordéon touché par la même surcharge CSS. | Variation visuelle DSFR du focus si elle reste perceptible et conforme. |
+| 7 | Déclarer les langues utilisées dans la page | La langue principale ou un changement de langue utile n'est pas déclaré correctement. | Extrait HTML montrant `lang` absent, vide, invalide ou inadapté au contenu, ou contenu anglais non balisé. | Code langue erroné ; expression anglaise non balisée ; mauvaise régionalisation ; langue valide mais inadaptée au contenu. | Noms propres et mots étrangers passés dans l'usage courant non balisés. |
+| 8 | Ressources à zoomer | À 200 % de zoom, une carte perd du contenu ou devient difficilement utilisable. | Capture à 200 % montrant texte tronqué, bouton sorti, superposition ou défilement horizontal non nécessaire. | Plusieurs cartes cassées ; hauteur fixe ; `overflow: hidden`. | Reflow vertical normal et augmentation de hauteur des cartes. |
+| 9 | Vidéo de sensibilisation | La vidéo ne propose pas de sous-titres exploitables pour le contenu oral. | Vérification du lecteur : absence de piste, bouton sous-titres absent, ou sous-titres automatiques non relus signalés. | Sous-titres non synchronisés ; sons utiles non indiqués. | Vidéo strictement décorative sans information orale utile, si elle est correctement ignorée ou décrite ailleurs. |
+| 10 | Podcast RGAA | Le contenu audio n'a pas de transcription accessible à proximité. | Revue de la page montrant absence de lien de transcription proche du média. | Transcription incomplète ; lien peu explicite ; transcription non structurée. | Résumé éditorial court en complément, s'il existe aussi une transcription complète. |
+| 11 | Démonstration vidéo | Une information visuelle essentielle n'est pas disponible autrement que par l'image. | Revue humaine de la vidéo montrant une action ou information visuelle non décrite dans l'audio ni dans une version alternative. | Absence de version audiodécrite ; description trop vague ; lien vers version décrite absent. | Vidéo où toutes les informations visuelles essentielles sont déjà dites dans l'audio. |
+| 12 | Inscription à un webinaire | Au moins un champ ou groupe de champs n'a pas de nom accessible fiable. | ANDI/WAVE, clic label ou extrait HTML montrant placeholder seul, label non associé ou groupe sans `fieldset`/`legend`. | Nom visible différent du nom accessible ; aide non reliée ; label masqué avec `display:none`. | Placeholder utilisé comme exemple si une étiquette visible et associée existe. |
+| 13 | Formulaire de contact | L'obligation ou l'erreur de saisie n'est pas annoncée et reliée de manière exploitable. | État initial puis soumission du formulaire vide + inspection HTML montrant obligation non balisée, message vague/non relié ou focus non accompagné. | Absence de `required`/`aria-required` ; erreur sans `aria-describedby` ; `aria-invalid` absent si pertinent. | Astérisque utilisé s'il est expliqué et complété par une information technique et textuelle. |
 
 ### Vue d'ensemble
 
 | # | Page réaliste | Point de contrôle rapide ciblé | Détection principale |
 |---|---|---|---|
-| 1 | Actualité illustrée | Texte alternatif des images | WAVE / ANDI |
+| 1 | Contrôler les images avant publication | Texte alternatif des images | WAVE / ANDI |
 | 2 | Résultats de recherche RGAA | Titre de page | Navigateur / code source / WAVE |
 | 3 | Guide du RGAA | Titres et hiérarchie | HeadingsMap / WAVE |
 | 4 | Charte de publication | Contraste des couleurs | CCA / WebAIM Contrast Checker / WAVE |
 | 5 | Accès rapide aux contenus | Lien d'évitement | Clavier |
 | 6 | Parcours clavier | Focus et navigation clavier | Clavier / ANDI |
-| 7 | Atelier international | Langue de la page | Web Developer / code source / WAVE |
+| 7 | Déclarer les langues utilisées dans la page | Langue de la page | Bookmarklet « 08 Langue et direction » / Web Developer / validateur HTML du W3C / Tanaguru / code source / WAVE |
 | 8 | Ressources à zoomer | Zoom à 200 % | Navigateur |
 | 9 | Vidéo de sensibilisation | Sous-titres vidéo | Lecteur vidéo |
 | 10 | Podcast RGAA | Transcriptions audio et vidéo | Revue humaine |
@@ -420,7 +407,7 @@ Le tableau ci-dessous est une vue lisible du contrat. En cas d'écart lors de la
 
 ## Détail des 13 pages
 
-### 1. Actualité illustrée
+### 1. Contrôler les images avant publication
 
 **Contexte éditorial** : annonce d'une nouvelle ressource RGAA illustrée par une image informative.
 
@@ -503,17 +490,17 @@ Références DSFR obligatoires pour cette page :
 | Correction accessible | Focus visible DSFR conservé sur boutons, liens/cartes et accordéons ; ordre de tabulation logique ; aucun piège clavier ; comportement clavier des accordéons conforme à la fiche DSFR. |
 | Aide accordéon | Problème : on ne sait plus où l'on est. Impact : navigation impossible au clavier. Méthode : retirer les overrides qui masquent le focus, utiliser les styles DSFR et vérifier chaque composant interactif au clavier. |
 
-### 7. Atelier international
+### 7. Déclarer les langues utilisées dans la page
 
-**Contexte éditorial** : annonce d'un atelier avec un passage en anglais.
+**Contexte éditorial** : annonce d'un atelier avec plusieurs contenus en anglais.
 
 | Élément | Spécification |
 |---|---|
 | Point de contrôle rapide | 7. Langue de la page |
-| Erreur inaccessible | Trois cas complémentaires : attribut `lang` absent ou vide sur `<html>`, code langue invalide ou erroné, passage en anglais non balisé dans une page française. |
-| Occurrences | Les trois occurrences sont acceptées car elles relèvent du même Point de contrôle rapide et couvrent déclaration principale, validité du code et changement de langue. |
-| Détection | Web Developer, code source, WAVE. |
-| Correction accessible | `lang="fr"` sur la page ; code langue valide (`fr`, `en`, `es`, etc.) ; passages anglais avec `lang="en"` si nécessaire. Les noms propres et mots étrangers passés dans l'usage courant ne doivent pas être sur-balisés. |
+| Erreur inaccessible | Cas complémentaires : attribut `lang` invalide sur `<html>`, code langue invalide, contenu anglais non balisé et paragraphe anglais déclaré avec `lang="fr"`. |
+| Occurrences | Les occurrences relèvent du même Point de contrôle rapide et couvrent déclaration principale, validité du code, changement de langue et adéquation entre la langue déclarée et le contenu. |
+| Détection | Bookmarklet « 08 Langue et direction », Web Developer, validateur HTML du W3C, Tanaguru, code source et WAVE. |
+| Correction accessible | `lang="fr"` sur la page ; code langue valide (`fr`, `en`, `es`, etc.) ; contenus anglais avec `lang="en"` si nécessaire. Les noms propres et mots étrangers passés dans l'usage courant ne doivent pas être sur-balisés. |
 | Aide accordéon | Problème : la synthèse vocale ne sait pas quelle prononciation appliquer. Impact : compréhension dégradée, fatigue, mots étrangers mal prononcés. Méthode : déclarer la langue principale, utiliser un code valide et baliser seulement les vrais changements de langue utiles. |
 
 ### 8. Ressources à zoomer
@@ -616,13 +603,13 @@ Cette cartographie est une première proposition. Avant implémentation, chaque 
 
 | # | Page | Composants DSFR pressentis | Erreur inaccessible simulée | Vigilance version accessible |
 |---|---|---|---|---|
-| 1 | Actualité illustrée | Carte, image, lien image, lien composite | Image informative muette, image décorative bavarde, image-lien mal nommée, icône décorative bavarde dans un lien composite | Alternative selon le rôle : informative, décorative, fonctionnelle ou silencieuse dans un lien composite redondant |
+| 1 | Contrôler les images avant publication | Carte, image, lien image, lien composite | Image informative muette, image décorative bavarde, image-lien mal nommée, icône décorative bavarde dans un lien composite | Alternative selon le rôle : informative, décorative, fonctionnelle ou silencieuse dans un lien composite redondant |
 | 2 | Résultats de recherche RGAA | Barre de recherche, liste de résultats, liens | Titre générique, titre dupliqué, information spécifique trop tardive | `<title>` unique, contexte utile, information spécifique en premier |
 | 3 | Guide du RGAA | Sommaire, sections de contenu, éventuellement accordéon | Faux titre, titre décoratif, faux-ami sur saut de niveau ou plusieurs `h1` | Titres sémantiques, titres pertinents, hiérarchie qualifiée avec nuance RGAA |
 | 4 | Charte de publication | Mise en avant, alerte, liens | Contraste insuffisant | Couleurs DSFR ou ratios vérifiés |
 | 5 | Accès rapide aux contenus | En-tête, navigation, lien d'évitement, contenu long | Premier focus ne mène pas au contenu | Lien d'évitement visible au focus et cible valide |
 | 6 | Parcours clavier | Cartes, boutons, accordéons | Focus masqué par CSS sur plusieurs composants interactifs | Focus DSFR visible, ordre logique, accordéons conformes |
-| 7 | Atelier international | Carte événement, contenu bilingue | `lang` absent/vide, code langue invalide, passage anglais non balisé | Langue principale valide, changements de langue utiles, pas de sur-balisage |
+| 7 | Déclarer les langues utilisées dans la page | Carte événement, contenu bilingue | `lang` invalide, code langue invalide, contenu anglais non balisé ou déclaré en français | Langue principale valide, changements de langue utiles, pas de sur-balisage |
 | 8 | Ressources à zoomer | Cartes, tableau simple si nécessaire | Bloc fixe cassant à 200 % | Layout fluide, reflow sans perte |
 | 9 | Vidéo de sensibilisation | Lecteur vidéo HTML, lien ou bouton associé | Sous-titres absents/non relus | Piste VTT correcte, contrôles accessibles |
 | 10 | Podcast RGAA | Lecteur audio HTML, lien de transcription | Transcription absente | Lien proche vers transcription structurée |
@@ -664,7 +651,6 @@ Contenu attendu :
 - page ;
 - erreur ;
 - constat attendu ;
-- sévérité indicative ;
 - preuve possible ;
 - correction ;
 - référence à la grille ;
@@ -754,7 +740,7 @@ Les pages média doivent être conçues pour permettre le remplacement des asset
 - R12 - Récupération active : remplissage de la grille depuis les observations.
 - R16 - Visuel : comparaison des trois versions.
 - R18 - Sécurité : version aide à la correction pour débloquer sans corriger à la place.
-- R24 - Action : produire 3 actions prioritaires.
+- R24 - Action : proposer une mise en conformité pour chaque écart documenté.
 - R25 - Métacognition : restitution collective sur les checks les plus difficiles.
 
 Score pédagogique visé : **actif**.

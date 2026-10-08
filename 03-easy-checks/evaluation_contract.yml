@@ -21,22 +21,17 @@ versions:
     help_component: "Groupe d'accordéons DSFR"
   accessible:
     path: "site-accessible/"
-    role: "Site corrigé et conforme DSFR/accessibilité"
+    role: "Ressources sur l'accessibilité numérique"
     visible_help: false
-verdicts:
-  C: "Conforme"
-  NC: "Non conforme"
-  NA: "Non applicable"
-severities:
-  - "Bloquant"
-  - "Gênant"
-  - "Mineur"
-  - "Info"
+diagnostic_fields:
+  constat: "Ce qui est observé concrètement."
+  mise_en_conformite: "Ce que l'équipe doit corriger."
+  preuve_ecart: "URL, capture, sélecteur ou extrait permettant de retrouver l'écart."
 exercise_rules:
   format: "Binômes"
   duration_minutes: 30
   pages_per_group: 3
-  principle: "Pour une page donnée, une seule occurrence correctement prouvée suffit à renseigner NC."
+  principle: "Pour une page donnée, un seul écart correctement prouvé suffit à documenter le point."
   bonus_principle: "Les occurrences supplémentaires sont optionnelles et servent à enrichir la restitution collective."
   scope_warning: "Pré-diagnostic pédagogique, pas audit RGAA complet."
 tools:
@@ -73,12 +68,12 @@ source_documents:
 pages:
   - id: "ec01-images"
     number: 1
-    title: "Actualité illustrée"
+    title: "Contrôler les images avant publication"
+    card_description: "Rôle des images et alternatives textuelles"
     realistic_context: "Annonce d'une nouvelle ressource RGAA illustrée par une image informative."
     easy_check:
       number: 1
       name: "Texte alternatif des images"
-    severity: "Gênant"
     expected_minimal_finding: "Au moins une image n'a pas d'alternative adaptée à son rôle réel."
     minimal_proof: "Capture WAVE/ANDI ou extrait HTML montrant alt absent, vide ou inadapté sur l'image concernée."
     detection:
@@ -117,9 +112,6 @@ pages:
       - "Carte"
       - "Lien"
       - "Contenu médias"
-    grid:
-      verdict: "NC"
-      severity: "Gênant"
 
   - id: "ec02-page-title"
     number: 2
@@ -128,7 +120,6 @@ pages:
     easy_check:
       number: 2
       name: "Titre de page"
-    severity: "Gênant"
     expected_minimal_finding: "Le titre de page ne permet pas d'identifier précisément la page ou son état."
     minimal_proof: "Onglet navigateur ou extrait title montrant un titre absent, générique, dupliqué ou mal ordonné."
     detection:
@@ -165,9 +156,6 @@ pages:
       - "Barre de recherche"
       - "Lien"
       - "Carte"
-    grid:
-      verdict: "NC"
-      severity: "Gênant"
 
   - id: "ec03-headings"
     number: 3
@@ -176,7 +164,6 @@ pages:
     easy_check:
       number: 3
       name: "Titres et hiérarchie"
-    severity: "Gênant"
     expected_minimal_finding: "Un ou plusieurs textes visuellement présentés comme titres ne sont pas balisés comme titres, ou une balise de titre est utilisée pour une simple mise en valeur."
     minimal_proof: "HeadingsMap/WAVE ou extrait HTML montrant les faux titres en paragraphes, ou le titre détourné pour la présentation."
     detection:
@@ -213,9 +200,6 @@ pages:
       - "Lien"
       - "Accordéon"
       - "Mise en avant"
-    grid:
-      verdict: "NC"
-      severity: "Gênant"
 
   - id: "ec04-contrast"
     number: 4
@@ -224,7 +208,6 @@ pages:
     easy_check:
       number: 4
       name: "Contraste des couleurs"
-    severity: "Bloquant"
     expected_minimal_finding: "Au moins un texte, lien, bouton ou statut présente un contraste insuffisant."
     minimal_proof: "Mesure CCA/WebAIM/WAVE avec couleurs et ratio inférieur au seuil attendu."
     detection:
@@ -264,9 +247,6 @@ pages:
       - "Lien"
       - "Bouton"
       - "Badge"
-    grid:
-      verdict: "NC"
-      severity: "Bloquant"
 
   - id: "ec05-skiplinks"
     number: 5
@@ -275,7 +255,6 @@ pages:
     easy_check:
       number: 5
       name: "Lien d'évitement"
-    severity: "Bloquant"
     expected_minimal_finding: "Le lien d'évitement vers le contenu principal est absent, invisible au focus ou non fonctionnel."
     minimal_proof: "Test clavier au premier Tab, puis activation du lien et vérification de l'ancre cible."
     detection:
@@ -314,9 +293,6 @@ pages:
     dsfr_required_references:
       code: "https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/liens-d-evitement/code-des-liens-d-evitement"
       accessibility: "https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/liens-d-evitement/accessibilite-des-liens-d-evitement"
-    grid:
-      verdict: "NC"
-      severity: "Bloquant"
 
   - id: "ec06-keyboard-focus"
     number: 6
@@ -325,7 +301,6 @@ pages:
     easy_check:
       number: 6
       name: "Focus et navigation clavier"
-    severity: "Bloquant"
     expected_minimal_finding: "Le focus clavier n'est pas visible sur au moins un composant interactif, ou la modale de publication ouverte au clavier piège l'utilisateur."
     minimal_proof: "Parcours Tab / Shift+Tab montrant le composant focusable sans indicateur visible, les liens d'action secondaires sautés par le clavier, ou la modale ouverte sans sortie clavier standard."
     detection:
@@ -367,62 +342,58 @@ pages:
       - "Bouton"
       - "Accordéon"
       - "Lien"
-    grid:
-      verdict: "NC"
-      severity: "Bloquant"
 
   - id: "ec07-language"
     number: 7
-    title: "Atelier international"
-    realistic_context: "Annonce d'un atelier international avec plusieurs passages en langue étrangère."
+    title: "Déclarer les langues utilisées dans la page"
+    realistic_context: "Annonce d'un atelier international avec plusieurs contenus en langue étrangère."
     easy_check:
       number: 7
       name: "Langue de la page"
-    severity: "Gênant"
-    expected_minimal_finding: "La langue principale, un changement de langue utile ou un changement de sens de lecture n'est pas déclaré correctement."
-    minimal_proof: "Extrait HTML montrant lang absent/vide/invalide, passage anglais non balisé, code langue invalide ou passage RTL non identifié."
+    expected_minimal_finding: "La langue principale ou un changement de langue utile n'est pas déclaré correctement."
+    minimal_proof: "Extrait HTML montrant lang absent, vide, invalide ou inadapté au contenu, ou contenu anglais non balisé."
     detection:
+      - "Bookmarklet 08 Langue et direction"
       - "Web Developer"
+      - "Validateur HTML du W3C"
+      - "Tanaguru"
       - "Code source"
       - "WAVE"
     inaccessible_errors:
       - "Attribut lang invalide sur html."
-      - "Passage en anglais non balisé dans une page française."
+      - "Contenu en anglais non balisé dans une page française."
       - "Code langue invalide sur un passage anglais."
-      - "Passage en arabe sans langue ni sens de lecture déclarés."
+      - "Paragraphe anglais déclaré avec lang=\"fr\" au lieu de lang=\"en\"."
     bonus_occurrences:
       - "Code langue erroné."
       - "Expression anglaise non balisée."
       - "Mauvaise régionalisation."
-      - "Changement de sens de lecture non déclaré."
+      - "Langue valide mais inadaptée au contenu."
     do_not_penalize:
       - "Noms propres et mots étrangers passés dans l'usage courant non balisés."
-    accessible_correction: "lang fr sur la page ; codes langue ISO 639 valides ; passages anglais avec lang en si nécessaire ; passage arabe avec lang ar et dir rtl ; pas de sur-balisage des noms propres ou mots entrés dans l'usage courant."
+    accessible_correction: "lang fr sur la page ; codes langue ISO 639 valides ; contenus anglais avec lang en si nécessaire ; pas de sur-balisage des noms propres ou mots entrés dans l'usage courant."
     help:
       hint: "Inspecter la balise html, puis les expressions réellement rédigées dans une autre langue. Vérifier aussi que les codes utilisés sont des codes de langue, pas des noms complets ou des codes pays."
-      problem: "La synthèse vocale ne sait pas quelle prononciation appliquer, ou applique une bascule de langue invalide. Quand un passage s'écrit de droite à gauche, l'absence de direction peut aussi perturber l'ordre de lecture."
+      problem: "La synthèse vocale ne sait pas quelle prononciation appliquer, ou applique une bascule de langue invalide ou inadaptée au contenu."
       findings_intro: "Les cinq cas à qualifier sont :"
       findings:
         - "Langue principale : la balise html utilise une valeur invalide au lieu de lang=\"fr\"."
-        - "Passage anglais non balisé : « Fall / Winter accessibility workshop » reste dans le flux français."
+        - "Expression anglaise non balisée : « Fall / Winter accessibility workshop » reste dans le flux français."
         - "Code invalide : lang=\"us\" désigne un pays, pas une langue ; le code attendu est lang=\"en\"."
-        - "Sens de lecture : le passage en arabe n'indique ni sa langue ni son sens de lecture de droite à gauche."
+        - "Langue inadaptée : le paragraphe en anglais est déclaré avec lang=\"fr\" au lieu de lang=\"en\"."
         - "Faux ami : weekend, newsletter et e-mail sont des mots passés dans l'usage courant et ne doivent pas être balisés en anglais."
-      fix: "Déclarer la langue principale avec lang=\"fr\", baliser les vrais passages étrangers avec des codes ISO 639 valides, gérer le sens de lecture quand il change et éviter le sur-balisage des mots courants."
+      fix: "Déclarer la langue principale avec lang=\"fr\", baliser les vrais contenus étrangers avec des codes ISO 639 valides, vérifier que la langue déclarée correspond au contenu et éviter le sur-balisage des mots courants."
       fixes_intro: "Corrections attendues par cas :"
       fixes:
         - "Balise html : remplacer la valeur invalide par lang=\"fr\"."
-        - "Passages anglais : entourer les expressions anglaises utiles avec span lang=\"en\"."
+        - "Contenus anglais : entourer les expressions anglaises utiles avec span lang=\"en\"."
         - "Code langue : remplacer lang=\"us\" par lang=\"en\"."
-        - "Passage arabe : utiliser lang=\"ar\" et dir=\"rtl\" si ce cas est conservé dans l'exercice."
+        - "Paragraphe anglais : remplacer lang=\"fr\" par lang=\"en\"."
         - "Mots courants : ne pas ajouter lang=\"en\" sur weekend, newsletter et e-mail."
     dsfr_components:
       - "Carte"
       - "Lien"
       - "Mise en avant"
-    grid:
-      verdict: "NC"
-      severity: "Gênant"
 
   - id: "ec08-zoom"
     number: 8
@@ -431,7 +402,6 @@ pages:
     easy_check:
       number: 8
       name: "Zoom à 200 %"
-    severity: "Gênant"
     expected_minimal_finding: "À 200 % de zoom, une carte perd du contenu ou devient difficilement utilisable."
     minimal_proof: "Capture à 200 % montrant texte tronqué, bouton sorti, superposition ou défilement horizontal non nécessaire."
     detection:
@@ -466,9 +436,6 @@ pages:
       - "Carte"
       - "Lien"
       - "Bouton"
-    grid:
-      verdict: "NC"
-      severity: "Gênant"
 
   - id: "ec09-captions"
     number: 9
@@ -477,7 +444,6 @@ pages:
     easy_check:
       number: 9
       name: "Sous-titres vidéo"
-    severity: "Bloquant"
     expected_minimal_finding: "La vidéo ne propose pas de sous-titres exploitables pour le contenu oral."
     minimal_proof: "Vérification du lecteur : absence de piste, bouton sous-titres absent, ou sous-titres automatiques non relus signalés."
     detection:
@@ -516,9 +482,6 @@ pages:
         - "assets/video/captcha-le-retour-au-moyen-age.mp4"
         - "assets/shared/media/sous-titres-demo.vtt"
       final_assets_pending: true
-    grid:
-      verdict: "NC"
-      severity: "Bloquant"
 
   - id: "ec10-transcript"
     number: 10
@@ -527,7 +490,6 @@ pages:
     easy_check:
       number: 10
       name: "Transcriptions audio et vidéo"
-    severity: "Bloquant"
     expected_minimal_finding: "Le contenu audio n'a pas de transcription accessible à proximité."
     minimal_proof: "Revue de la page montrant absence de lien de transcription proche du média."
     detection:
@@ -565,9 +527,6 @@ pages:
         - "assets/audio/narration-complete.mp3"
         - "assets/shared/media/transcription-demo.html"
       final_assets_pending: true
-    grid:
-      verdict: "NC"
-      severity: "Bloquant"
 
   - id: "ec11-audio-description"
     number: 11
@@ -576,7 +535,6 @@ pages:
     easy_check:
       number: 11
       name: "Audiodescription"
-    severity: "Bloquant"
     expected_minimal_finding: "Une information visuelle essentielle n'est pas disponible autrement que par l'image."
     minimal_proof: "Revue humaine de la vidéo montrant une action ou information visuelle non décrite dans l'audio ni dans une version alternative."
     detection:
@@ -632,9 +590,6 @@ pages:
           embed_url: "https://www.youtube-nocookie.com/embed/trfLb7xlXjQ"
           role: "Version audiodécrite de la vidéo de sensibilisation."
       rights_note: "Ne pas télécharger ni réhéberger sans vérification des droits. Utiliser ces liens comme sources pédagogiques ou remplacer par fichiers locaux autorisés."
-    grid:
-      verdict: "NC"
-      severity: "Bloquant"
 
   - id: "ec12-form-labels"
     number: 12
@@ -643,7 +598,6 @@ pages:
     easy_check:
       number: 12
       name: "Étiquettes de formulaire"
-    severity: "Bloquant"
     expected_minimal_finding: "Au moins un champ ou groupe de champs n'a pas de nom accessible fiable."
     minimal_proof: "ANDI/WAVE, clic label ou extrait HTML montrant placeholder seul, label non associé ou groupe DSFR visuel sans fieldset/legend natifs."
     detection:
@@ -684,9 +638,6 @@ pages:
       - "Case à cocher"
       - "Bouton radio"
       - "Bouton"
-    grid:
-      verdict: "NC"
-      severity: "Bloquant"
 
   - id: "ec13-required-errors"
     number: 13
@@ -695,7 +646,6 @@ pages:
     easy_check:
       number: 13
       name: "Champs obligatoires et erreurs"
-    severity: "Bloquant"
     expected_minimal_finding: "L'obligation ou l'erreur de saisie n'est pas annoncée et reliée de manière exploitable."
     minimal_proof: "Soumission du formulaire et inspection HTML montrant obligation non balisée, message vague/non relié ou focus non accompagné."
     detection:
@@ -746,9 +696,6 @@ pages:
       - "Champ de saisie"
       - "Alerte"
       - "Bouton"
-    grid:
-      verdict: "NC"
-      severity: "Bloquant"
 
 generation_targets:
   manifest:
@@ -767,7 +714,6 @@ generation_targets:
       - "number"
       - "title"
       - "expected_minimal_finding"
-      - "severity"
       - "minimal_proof"
       - "accessible_correction"
       - "bonus_occurrences"
@@ -782,15 +728,16 @@ generation_targets:
       - "number"
       - "title"
       - "easy_check.name"
-      - "grid.verdict"
-      - "grid.severity"
       - "expected_minimal_finding"
       - "minimal_proof"
       - "accessible_correction"
+      - "diagnostic_fields.constat"
+      - "diagnostic_fields.mise_en_conformite"
+      - "diagnostic_fields.preuve_ecart"
 
 acceptance_checks:
   - "Le YAML contient 13 pages exactement."
-  - "Chaque page possède un id stable, un numéro, un titre, un Point de contrôle rapide, une sévérité, un constat minimal, une preuve minimale, une correction accessible et une aide en trois niveaux."
+  - "Chaque page possède un id stable, un numéro, un titre, un Point de contrôle rapide, un constat minimal, une preuve minimale, une correction accessible et une aide en trois niveaux."
   - "Les pages média déclarent les placeholders en attendant les fichiers finaux."
-  - "Les verdicts et sévérités utilisent strictement la terminologie de la grille."
+  - "La grille utilise uniquement les trois champs Constat, Mise en conformité à réaliser et Preuve de l'écart."
   - "Les composants DSFR déclarés renvoient aux règles projet Code et Accessibilité."

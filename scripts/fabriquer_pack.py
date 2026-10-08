@@ -47,14 +47,17 @@ PDFS = [
             "Mémo accessibilité - Microsoft Word",
             "--page-total-footer",
             "--subtitle",
-            (
-                "Les 5 étapes du parcours Word : "
-                "1. Structurer et naviguer ; "
-                "2. Rendre les contenus et les liens compréhensibles ; "
-                "3. Sécuriser les couleurs, les graphiques et les tableaux ; "
-                "4. Régler les langues et la lisibilité ; "
-                "5. Finaliser, vérifier, exporter et contrôler"
-            ),
+            "Les 5 étapes du parcours Word :",
+            "--subtitle-list-item",
+            "Structurer et naviguer",
+            "--subtitle-list-item",
+            "Rendre les contenus et les liens compréhensibles",
+            "--subtitle-list-item",
+            "Sécuriser les couleurs, les graphiques et les tableaux",
+            "--subtitle-list-item",
+            "Régler les langues et la lisibilité",
+            "--subtitle-list-item",
+            "Finaliser, vérifier, exporter et contrôler",
         ],
         STAGIAIRES / "tp-word-igpde",
     ),
@@ -67,14 +70,17 @@ PDFS = [
             "Mémo accessibilité - LibreOffice Writer",
             "--page-total-footer",
             "--subtitle",
-            (
-                "Les 5 étapes du parcours Writer : "
-                "1. Structurer et naviguer ; "
-                "2. Rendre les contenus et les liens compréhensibles ; "
-                "3. Sécuriser les couleurs, les graphiques et les tableaux ; "
-                "4. Régler les langues et la lisibilité ; "
-                "5. Finaliser, vérifier, exporter et contrôler"
-            ),
+            "Les 5 étapes du parcours Writer :",
+            "--subtitle-list-item",
+            "Structurer et naviguer",
+            "--subtitle-list-item",
+            "Rendre les contenus et les liens compréhensibles",
+            "--subtitle-list-item",
+            "Sécuriser les couleurs, les graphiques et les tableaux",
+            "--subtitle-list-item",
+            "Régler les langues et la lisibilité",
+            "--subtitle-list-item",
+            "Finaliser, vérifier, exporter et contrôler",
         ],
         STAGIAIRES / "tp-word-igpde",
     ),

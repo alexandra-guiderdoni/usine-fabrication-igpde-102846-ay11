@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Charte de publication - Formation 102846 - Accessibilité numérique</title>
+  <title>Vérifier le contraste des couleurs - Formation 102846 - Accessibilité numérique</title>
   <link rel="stylesheet" href="../assets/dsfr/dsfr.min.css">
   <link rel="stylesheet" href="../assets/dsfr/utility/utility.min.css">
   <link rel="stylesheet" href="../assets/site.css">
@@ -77,7 +77,7 @@
           <ol class="fr-breadcrumb__list">
             <li><a class="fr-breadcrumb__link" href="../index.html">Accueil</a></li>
             <li><a class="fr-breadcrumb__link" href="index.html">Même site avec guidage pédagogique</a></li>
-            <li><a class="fr-breadcrumb__link" aria-current="page">Charte de publication</a></li>
+            <li><a class="fr-breadcrumb__link" aria-current="page">Vérifier le contraste des couleurs</a></li>
           </ol>
         </div>
       </nav>
@@ -87,7 +87,13 @@
 <main id="contenu" class="fr-container fr-pt-3w fr-pb-6w">
 <div class="fr-grid-row fr-grid-row--center">
   <div class="fr-col-12 fr-col-md-8">
-  <h1>#4 Charte de publication</h1>
+  <h1>#4 Vérifier le contraste des couleurs</h1>
+  <aside class="fr-callout fr-mb-4w" aria-label="Consigne de l'exercice #04">
+    <p class="fr-callout__title">À tester</p>
+    <p class="fr-callout__text">Les textes, composants et informations graphiques atteignent-ils les contrastes minimaux requis ?</p>
+    <p class="fr-callout__text"><strong>WCAG 2.2 :</strong> 1.4.3 - Contraste minimum ; 1.4.11 - Contraste du contenu non textuel.</p>
+    <p class="fr-callout__text">Consignez votre diagnostic dans l'onglet « #04 - Contrastes » de la grille.</p>
+  </aside>
   <section class="fr-mb-6w" aria-labelledby="help-title">
   <h2 id="help-title">Aide à la correction</h2>
   <div class="fr-accordions-group">
@@ -96,7 +102,9 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec04-contrast-help-1">Indice</button>
   </h3>
   <div class="fr-collapse" id="ec04-contrast-help-1">
-    <p>Mesurer un texte, un lien ou un bouton avec un outil de contraste.</p>
+    <p><strong>Repérer :</strong> utiliser l&#x27;extension WCAG Contrast Checker pour identifier les éléments à vérifier.</p>
+    <p><strong>Mesurer :</strong> contrôler chaque couple de couleurs avec Tanaguru Contrast-Finder.</p>
+    <p><strong>Confirmer :</strong> les outils automatiques peuvent produire des faux positifs. Vérifier les couleurs calculées, la taille du texte et le rôle de l&#x27;élément avant de conclure.</p>
   </div>
 </section>
 <section class="fr-accordion">
@@ -104,12 +112,13 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec04-contrast-help-2">Ce qui pose problème</button>
   </h3>
   <div class="fr-collapse" id="ec04-contrast-help-2">
-    <p>La lecture ou l&#x27;identification devient difficile pour les personnes malvoyantes, en forte luminosité ou sur écran médiocre.</p>
-    <p>Les trois familles d&#x27;éléments à mesurer sont :</p>
+    <p>La lecture ou l&#x27;identification devient difficile pour les personnes malvoyantes, en forte luminosité ou sur un écran peu performant.</p>
+    <p>Les quatre éléments à mesurer sont :</p>
     <ul>
-      <li>Texte courant : le paragraphe gris clair sur fond blanc doit être mesuré, pas jugé à l&#x27;oeil.</li>
-      <li>Actions : le lien et le bouton pâles peuvent devenir difficiles à distinguer de leur arrière-plan.</li>
-      <li>Statut : l&#x27;information de validation ne doit pas dépendre d&#x27;une couleur peu contrastée.</li>
+      <li>Texte courant : le paragraphe gris clair sur fond blanc atteint seulement 1,98:1.</li>
+      <li>Lien : le texte violet pâle sur fond blanc atteint seulement 2,78:1.</li>
+      <li>Bouton : son texte atteint 2,39:1 sur son fond, et sa surface seulement 1,17:1 sur le fond blanc.</li>
+      <li>Statut : le mot « Validé » est bien présent, mais son texte gris clair atteint seulement 1,83:1 sur le fond vert pâle.</li>
     </ul>
   </div>
 </section>
@@ -118,12 +127,12 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec04-contrast-help-3">Comment corriger</button>
   </h3>
   <div class="fr-collapse" id="ec04-contrast-help-3">
-    <p>Mesurer, ne pas juger à l&#x27;oeil, et ne pas transmettre une information uniquement par une couleur peu contrastée.</p>
+    <p>Mesurer chaque couple de couleurs, ne pas juger à l’œil et confirmer les alertes produites automatiquement.</p>
     <p>Corrections attendues :</p>
     <ul>
       <li>Utiliser des couleurs DSFR dont les contrastes sont conformes aux seuils attendus.</li>
       <li>Vérifier 4,5:1 pour le texte courant et 3:1 pour les textes larges, composants et informations visuelles.</li>
-      <li>Rendre le statut compréhensible par le texte, pas uniquement par une couleur.</li>
+      <li>Conserver le texte « Validé » et augmenter son contraste avec le fond du badge.</li>
     </ul>
   </div>
 </section>
@@ -140,9 +149,11 @@
   <p>Utilisez ces outils pour mesurer le ratio entre le texte et son arrière-plan. Lors d'une vérification de publication, contrôlez en priorité les textes courants sous 4,5:1 et les gros textes, composants ou informations visuelles sous 3:1.</p>
   <ul>
     <li><a class="fr-link" href="https://addons.mozilla.org/en-US/firefox/addon/wcag-contrast-checker/" rel="external">WCAG Contrast Checker pour Firefox</a></li>
-    <li><a class="fr-link" href="https://chromewebstore.google.com/detail/wcag-color-contrast-check/plnahcmalebffmaghcpcmpaciebdhgdf" rel="external">WCAG Color Contrast Check pour Chrome</a></li>
-    <li><a class="fr-link" href="https://vispero.com/lp/color-contrast-checker/" rel="external">Color Contrast Checker de Vispero</a></li>
+    <li><a class="fr-link" href="https://chromewebstore.google.com/detail/wcag-color-contrast-check/plnahcmalebffmaghcpcmpaciebdhgdf" rel="external">WCAG Color contrast checker pour Chrome</a></li>
+    <li><a class="fr-link" href="https://vispero.com/lp/color-contrast-checker/" rel="external">Colour Contrast Analyser (CCA) de Vispero</a></li>
+    <li><a class="fr-link" href="https://contrast-finder.tanaguru.com/?lang=fr" rel="external">Tanaguru Contrast-Finder</a></li>
   </ul>
+  <p><strong>Attention :</strong> les outils automatiques peuvent produire des faux positifs. Confirmez chaque résultat en vérifiant les couleurs calculées, la taille du texte et le rôle de l&#x27;élément.</p>
 </section>
 </section>
   </div>

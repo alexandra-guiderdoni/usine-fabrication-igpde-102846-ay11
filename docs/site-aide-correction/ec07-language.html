@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Atelier international - Formation 102846 - Accessibilité numérique</title>
+  <title>Déclarer les langues utilisées dans la page - Formation 102846 - Accessibilité numérique</title>
   <link rel="stylesheet" href="../assets/dsfr/dsfr.min.css">
   <link rel="stylesheet" href="../assets/dsfr/utility/utility.min.css">
   <link rel="stylesheet" href="../assets/site.css">
@@ -77,7 +77,7 @@
           <ol class="fr-breadcrumb__list">
             <li><a class="fr-breadcrumb__link" href="../index.html">Accueil</a></li>
             <li><a class="fr-breadcrumb__link" href="index.html">Même site avec guidage pédagogique</a></li>
-            <li><a class="fr-breadcrumb__link" aria-current="page">Atelier international</a></li>
+            <li><a class="fr-breadcrumb__link" aria-current="page">Déclarer les langues utilisées dans la page</a></li>
           </ol>
         </div>
       </nav>
@@ -87,7 +87,7 @@
 <main id="contenu" class="fr-container fr-pt-3w fr-pb-6w">
 <div class="fr-grid-row fr-grid-row--center">
   <div class="fr-col-12 fr-col-md-8">
-  <h1>#7 Atelier international</h1>
+  <h1>#7 Déclarer les langues utilisées dans la page</h1>
   <section class="fr-mb-6w" aria-labelledby="help-title">
   <h2 id="help-title">Aide à la correction</h2>
   <div class="fr-accordions-group">
@@ -97,6 +97,7 @@
   </h3>
   <div class="fr-collapse" id="ec07-language-help-1">
     <p>Inspecter la balise html, puis les expressions réellement rédigées dans une autre langue. Vérifier aussi que les codes utilisés sont des codes de langue, pas des noms complets ou des codes pays.</p>
+    <p>Pour repérer les déclarations, utiliser le bookmarklet « 08 Langue et direction ». En complément, ouvrir le validateur HTML du W3C depuis Web Developer (Outils &gt; Valider le HTML), puis utiliser Tanaguru. Ces outils facilitent le repérage ; la pertinence de la langue déclarée doit être vérifiée manuellement.</p>
   </div>
 </section>
 <section class="fr-accordion">
@@ -104,13 +105,13 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec07-language-help-2">Ce qui pose problème</button>
   </h3>
   <div class="fr-collapse" id="ec07-language-help-2">
-    <p>La synthèse vocale ne sait pas quelle prononciation appliquer, ou applique une bascule de langue invalide. Quand un passage s&#x27;écrit de droite à gauche, l&#x27;absence de direction peut aussi perturber l&#x27;ordre de lecture.</p>
+    <p>La synthèse vocale ne sait pas quelle prononciation appliquer, ou applique une bascule de langue invalide ou inadaptée au contenu.</p>
     <p>Les cinq cas à qualifier sont :</p>
     <ul>
       <li>Langue principale : la balise html utilise une valeur invalide au lieu de lang=&quot;fr&quot;.</li>
-      <li>Passage anglais non balisé : « Fall / Winter accessibility workshop » reste dans le flux français.</li>
+      <li>Expression anglaise non balisée : « Fall / Winter accessibility workshop » reste dans le flux français.</li>
       <li>Code invalide : lang=&quot;us&quot; désigne un pays, pas une langue ; le code attendu est lang=&quot;en&quot;.</li>
-      <li>Sens de lecture : le passage en arabe n&#x27;indique ni sa langue ni son sens de lecture de droite à gauche.</li>
+      <li>Langue inadaptée : le paragraphe en anglais est déclaré avec lang=&quot;fr&quot; au lieu de lang=&quot;en&quot;.</li>
       <li>Faux ami : weekend, newsletter et e-mail sont des mots passés dans l&#x27;usage courant et ne doivent pas être balisés en anglais.</li>
     </ul>
   </div>
@@ -120,13 +121,13 @@
     <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="ec07-language-help-3">Comment corriger</button>
   </h3>
   <div class="fr-collapse" id="ec07-language-help-3">
-    <p>Déclarer la langue principale avec lang=&quot;fr&quot;, baliser les vrais passages étrangers avec des codes ISO 639 valides, gérer le sens de lecture quand il change et éviter le sur-balisage des mots courants.</p>
+    <p>Déclarer la langue principale avec lang=&quot;fr&quot;, baliser les vrais contenus étrangers avec des codes ISO 639 valides, vérifier que la langue déclarée correspond au contenu et éviter le sur-balisage des mots courants.</p>
     <p>Corrections attendues par cas :</p>
     <ul>
       <li>Balise html : remplacer la valeur invalide par lang=&quot;fr&quot;.</li>
-      <li>Passages anglais : entourer les expressions anglaises utiles avec span lang=&quot;en&quot;.</li>
+      <li>Contenus anglais : entourer les expressions anglaises utiles avec span lang=&quot;en&quot;.</li>
       <li>Code langue : remplacer lang=&quot;us&quot; par lang=&quot;en&quot;.</li>
-      <li>Passage arabe : utiliser lang=&quot;ar&quot; et dir=&quot;rtl&quot; si ce cas est conservé dans l&#x27;exercice.</li>
+      <li>Paragraphe anglais : remplacer lang=&quot;fr&quot; par lang=&quot;en&quot;.</li>
       <li>Mots courants : ne pas ajouter lang=&quot;en&quot; sur weekend, newsletter et e-mail.</li>
     </ul>
   </div>
@@ -137,7 +138,7 @@
   <h2 id="content-title">Atelier international</h2>
   <p>Le ministère invite les référents à participer au Fall / Winter accessibility workshop consacré aux contrôles rapides. Cette session rassemble des équipes françaises et européennes. Les supports seront relus avant diffusion pour éviter les ambiguïtés de prononciation.</p>
   <p>Le discours d'ouverture de nos partenaires internationaux aura pour thème : <span lang="us">Accessibility for all</span>. Les intervenants présenteront ce thème lors de la séance commune. Une synthèse sera ajoutée au compte rendu de l'atelier.</p>
-  <p>La documentation de cette séance sera également traduite en arabe : ورشة عمل دولية. Les supports correspondants seront transmis aux participants inscrits. Une version relue sera publiée dans l'espace documentaire.</p>
+  <p lang="fr">The workshop materials will be reviewed before publication. Participants will receive an accessible version and a short summary after the session.</p>
   <p>La séance alterne retours d'expérience et exemples internationaux. À l'issue du weekend, une newsletter récapitulative vous sera envoyée par e-mail. Elle reprendra les ressources citées pendant l'atelier.</p>
 </section>
   </div>

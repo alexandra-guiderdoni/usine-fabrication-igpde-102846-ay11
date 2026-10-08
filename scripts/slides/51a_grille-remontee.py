@@ -2,8 +2,8 @@
 
 Règles neuropédagogie appliquées :
 - R24 : action concrète - transformer le test en remontée exploitable
-- R5 : chunking - 5 champs de grille, pas plus
-- R18 : sécurité psychologique - qualifier l'impact avant de prioriser
+- R5 : chunking - 3 champs de diagnostic, pas plus
+- R18 : sécurité psychologique - décrire un écart sans notation
 """
 
 from igpde_dsfr_components import add_callout, add_notes, add_tableau, new_slide
@@ -23,11 +23,9 @@ def build(prs, layouts, ctx):
 
     headers = ["Champ", "Ce qu’il faut écrire", "Exemple court"]
     rows = [
-        ["Verdict", "C, NC ou NA", "NC"],
-        ["Sévérité", "Bloquant, gênant, mineur ou info", "Gênant"],
         ["Constat", "Ce que vous observez concrètement", "Le lien d’évitement n’apparaît pas au focus."],
-        ["Correctif", "Ce que l’équipe doit corriger", "Rendre le lien visible et cibler #contenu."],
-        ["Preuve", "URL, capture, sélecteur ou extrait", "/actualites - premier appui sur Tab"],
+        ["Mise en conformité à réaliser", "Ce que l’équipe doit corriger", "Rendre le lien visible et cibler #contenu."],
+        ["Preuve de l’écart", "URL, capture, sélecteur ou extrait", "/actualites - premier appui sur Tab"],
     ]
     add_tableau(
         slide,
@@ -35,7 +33,7 @@ def build(prs, layouts, ctx):
         rows,
         top=2.15,
         col_widths=[2.05, 4.20, 6.03],
-        row_h=0.55,
+        row_h=0.70,
     )
 
     add_callout(
@@ -43,18 +41,18 @@ def build(prs, layouts, ctx):
         "Règle de travail",
         [
             "Un défaut sans preuve est difficile à traiter.",
-            "Une preuve sans sévérité est difficile à prioriser.",
+            "L’objectif est de documenter l’écart et de proposer sa correction, pas de calculer un taux.",
         ],
-        top=5.45,
+        top=4.95,
         line_spacing=1.15,
     )
 
     add_notes(
         slide,
         "Faire ouvrir la grille d’audit grille-audit-easy-checks.xlsx, téléchargeable depuis la page d’accueil du site d’exercice. "
-        "Expliquer que l’objectif n’est pas seulement de dire « ça passe » ou « ça échoue ». "
-        "Une remontée utile doit permettre à l’équipe web de comprendre le problème, mesurer l’impact, "
+        "Expliquer que l’objectif est de documenter un problème et sa correction, pas de produire un verdict ni un taux. "
+        "Une remontée utile doit permettre à l’équipe web de comprendre le problème, "
         "retrouver l’endroit exact et corriger sans refaire toute l’enquête. "
-        "Insister sur les quatre niveaux de sévérité : bloquant, gênant, mineur, info.",
+        "Faire renseigner les trois champs : constat, mise en conformité à réaliser et preuve de l’écart.",
     )
     return slide

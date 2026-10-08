@@ -48,9 +48,9 @@
 
 | WCAG | Intitulé WCAG | RGAA | Intitulé RGAA |
 |------|---------------|------|---------------|
-| 2.1.1 | Clavier | 12.13 | Toutes les fonctionnalités utilisables au clavier |
-| 2.1.2 | Pas de piège au clavier | 12.14 | Pas de piège au clavier |
-| 2.1.4 | Raccourcis clavier utilisant des caractères | 12.15 | Raccourcis clavier de caractère unique désactivables/reconfigurables |
+| 2.1.1 | Clavier | 7.3 | Fonctionnalités des scripts utilisables au clavier et au pointeur |
+| 2.1.2 | Pas de piège au clavier | 12.9 | Absence de piège au clavier |
+| 2.1.4 | Raccourcis clavier utilisant des caractères | Pas de correspondance directe | Exigence WCAG à vérifier directement |
 
 ### 2.2 Délai suffisant
 
@@ -71,7 +71,7 @@
 |------|---------------|------|---------------|
 | 2.4.1 | Contourner des blocs | 12.7 | Liens d'évitement ou d'accès rapide |
 | 2.4.2 | Titre de page | 8.5, 8.6 | Titre de page pertinent |
-| 2.4.3 | Parcours du focus | 10.3 | Ordre de tabulation cohérent |
+| 2.4.3 | Parcours du focus | 12.8 | Ordre de tabulation cohérent |
 | 2.4.4 | Fonction du lien (selon le contexte) | 6.1, 6.2 | Intitulé de lien explicite (seul ou par contexte) |
 | 2.4.5 | Accès multiples | 12.1, 12.2, 12.3 | Navigation (menu, plan du site, moteur de recherche) |
 | 2.4.6 | En-têtes et étiquettes | 9.1, 11.1, 11.2 | Titres pertinents, étiquettes de formulaires |
@@ -82,12 +82,12 @@
 
 | WCAG | Intitulé WCAG | RGAA | Intitulé RGAA |
 |------|---------------|------|---------------|
-| 2.5.1 | Gestes pour le contrôle du pointeur | 12.16 | Gestes multipoints avec alternative simple |
-| 2.5.2 | Annulation de l'action du pointeur | 12.17 | Activation sur relâchement (up event) |
+| 2.5.1 | Gestes pour le contrôle du pointeur | Pas de correspondance directe | Exigence WCAG à vérifier directement |
+| 2.5.2 | Annulation de l'action du pointeur | Pas de correspondance directe | Exigence WCAG à vérifier directement |
 | 2.5.3 | Étiquette dans le nom | 11.2 | Nom accessible contient le texte visible |
 | 2.5.4 | Activation par le mouvement | 13.10 | Alternative au mouvement de l'appareil |
-| 2.5.7 | Mouvements de glissement | 12.16 | Gestes de glissement avec alternative (WCAG 2.2) |
-| 2.5.8 | Taille de la cible (minimum) | 12.18 | Zone de clic/toucher de 24x24 CSS px minimum (WCAG 2.2) |
+| 2.5.7 | Mouvements de glissement | Pas de correspondance directe | Critère WCAG 2.2 non repris directement dans le RGAA 4.1.2 |
+| 2.5.8 | Taille de la cible (minimum) | Pas de correspondance directe | Critère WCAG 2.2 non repris directement dans le RGAA 4.1.2 |
 
 ## 3 Compréhensible
 
@@ -95,8 +95,8 @@
 
 | WCAG | Intitulé WCAG | RGAA | Intitulé RGAA |
 |------|---------------|------|---------------|
-| 3.1.1 | Langue de la page | 8.3 | Langue par défaut déclarée |
-| 3.1.2 | Langue d'un passage | 8.4 | Changements de langue signalés |
+| 3.1.1 | Langue de la page | 8.3, 8.4 | Langue par défaut présente et code pertinent |
+| 3.1.2 | Langue d'un passage | 8.7, 8.8 | Changements de langue présents et codes pertinents |
 
 ### 3.2 Prévisible
 

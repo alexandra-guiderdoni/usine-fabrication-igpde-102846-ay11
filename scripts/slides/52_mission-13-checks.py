@@ -25,7 +25,7 @@ def build(prs, layouts, ctx):
         "Le site d’exercice contient 13 pages : 1 page correspond à 1 point de contrôle.",
         [
             "Choisissez quelques points avec votre binôme : vous n’avez pas à tout couvrir",
-            "Une seule NC prouvée suffit à invalider le critère",
+            "Un seul écart correctement prouvé suffit à documenter le point",
             "Certains binômes commencent au début, d’autres par la fin",
             "Bonus si rencontré : lien ou PDF problématique à noter dans la grille",
         ],
@@ -34,7 +34,7 @@ def build(prs, layouts, ctx):
 
     étapes = [
         "Choisir vos points",
-        "Prouver 1 NC",
+        "Prouver 1 écart",
         "Début / fin",
         "Restitution orale",
     ]
@@ -50,12 +50,12 @@ def build(prs, layouts, ctx):
         "Expliquer la logique du site d’exercice : 13 pages, 13 points de contrôle, une page par point. "
         "Les binômes ne doivent pas tout auditer : ils choisissent quelques points ou pages. "
         "Répartir le groupe : certains binômes commencent par le début du site, d’autres par la fin, pour que les 13 points soient couverts à la restitution. "
-        "Règle d’audit : une seule non-conformité prouvée suffit à passer le critère en NC ; inutile de chercher toutes les non-conformités possibles d’un même critère. "
+        "Règle de diagnostic : un seul écart correctement prouvé suffit à documenter le point ; inutile de chercher toutes les occurrences possibles. "
         "Timing : 3 min cadrage, 15 min audit en binômes, 7 min restitution orale, 5 min comparaison avec l’aide ou le corrigé. "
         "Outils autorisés : DevTools, HeadingsMap, Colour Contrast Analyser, clavier + casque audio. "
-        "Rappeler que le taux points de contrôle rapides n’est pas un taux de conformité RGAA publiable. "
-        "Restitution orale en binôme : point contrôlé, verdict, preuve, correction proposée. "
-        "Si un binôme trouve un lien non explicite ou un PDF problématique, le traiter comme signal bonus : utile à remonter, mais hors calcul des 13 points. "
+        "Rappeler que l’exercice ne produit aucun taux de conformité. "
+        "Restitution orale en binôme : point contrôlé, constat, preuve de l’écart et mise en conformité proposée. "
+        "Si un binôme trouve un lien non explicite ou un PDF problématique, le traiter comme signal bonus utile à remonter. "
         "Clôture métacognitive (R25) : « Quel check vous a surpris ? Quel est le plus facile à faire adopter dans votre équipe ? ».",
     )
     return slide

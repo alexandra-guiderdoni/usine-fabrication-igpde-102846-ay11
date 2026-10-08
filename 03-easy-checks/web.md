@@ -2,7 +2,7 @@
 
 Source : `support-formation-102846-2026-IGPDE.pptx`.
 
-Périmètre : diapositives 84 à 114 du deck, correspondant à la partie 3 sur les points de contrôle rapides W3C pour le web.
+Périmètre : diapositives 84 à 111 du deck, correspondant à la partie 3 sur les points de contrôle rapides W3C pour le web.
 
 ## Diapositive 84 - 3. Les 13 points de contrôle rapides du W3C
 
@@ -482,38 +482,32 @@ Après soumission
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Champs obligatoires et erreurs
 
-## Diapositive 112 - Ce qu’on remonte dans la grille
+## Diapositive 109 - Ce qu’on remonte dans la grille
 
 3. points de contrôle rapides | Grille d’audit
-112
+109
 Champ
 Ce qu’il faut écrire
 Exemple court
-Verdict
-C, NC ou NA
-NC
-Sévérité
-Bloquant, gênant, mineur ou info
-Gênant
 Constat
 Ce que vous observez concrètement
 Le lien d’évitement n’apparaît pas au focus.
-Correctif
+Mise en conformité à réaliser
 Ce que l’équipe doit corriger
 Rendre le lien visible et cibler #contenu.
-Preuve
+Preuve de l’écart
 URL, capture, sélecteur ou extrait
 /actualites - premier appui sur Tab
 Règle de travail
 • Un défaut sans preuve est difficile à traiter.
-• Une preuve sans sévérité est difficile à prioriser.
+• L’objectif est de documenter l’écart et de proposer sa correction, pas de calculer un taux.
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Grille
 
-## Diapositive 113 - Bonus site web : liens et PDF à repérer
+## Diapositive 110 - Bonus site web : liens et PDF à repérer
 
 3. points de contrôle rapides | Bonus
-113
+110
 Pendant l'audit, ces points ne remplacent pas les 13 checks. Mais si vous les voyez, notez-les : ils améliorent vraiment l'expérience utilisateur.
 Liens
 • Éviter les pages saturées de liens sans hiérarchie
@@ -528,19 +522,19 @@ Documents PDF
 9 octobre 2026
 Formation 102846 / points de contrôle rapides - Bonus web
 
-## Diapositive 114 - Votre mission : audit en binôme (30 min)
+## Diapositive 111 - Votre mission : audit en binôme (30 min)
 
 3. points de contrôle rapides | Mission finale
-114
+111
 Le site d’exercice contient 13 pages : 1 page correspond à 1 point de contrôle.
 • Choisissez quelques points avec votre binôme : vous n’avez pas à tout couvrir
-• Une seule NC prouvée suffit à invalider le critère
+• Un seul écart correctement prouvé suffit à documenter le point
 • Certains binômes commencent au début, d’autres par la fin
 • Bonus si rencontré : lien ou PDF problématique à noter dans la grille
 1
 Choisir vos points
 2
-Prouver 1 NC
+Prouver 1 écart
 3
 Début / fin
 4

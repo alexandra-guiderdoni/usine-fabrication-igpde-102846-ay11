@@ -277,7 +277,7 @@ def page_card(page: dict, href: str, heading_level: int = 3) -> str:
     <div class="fr-card__body">
       <div class="fr-card__content">
         <{heading} class="fr-card__title"><a href="{href}">#{page["number"]} {esc(page["title"])}</a></{heading}>
-        <p class="fr-card__desc">{esc(page["easy_check"]["name"])}</p>
+        <p class="fr-card__desc">{esc(page.get("card_description", page["easy_check"]["name"]))}</p>
         <p class="fr-card__detail">Point de contrôle rapide {page["easy_check"]["number"]}</p>
       </div>
     </div>
@@ -1616,16 +1616,16 @@ def content_ec07(version_key: str) -> str:
     if version_key == "accessible":
         workshop = '<span lang="en">Fall / Winter accessibility workshop</span>'
         keynote = '<span lang="en">Accessibility for all</span>'
-        arabic = '<span lang="ar" dir="rtl">ورشة عمل دولية</span>'
+        english_paragraph_lang = "en"
     else:
         workshop = "Fall / Winter accessibility workshop"
         keynote = '<span lang="us">Accessibility for all</span>'
-        arabic = "ورشة عمل دولية"
+        english_paragraph_lang = "fr"
     return f"""<section aria-labelledby="content-title">
   <h2 id="content-title">Atelier international</h2>
   <p>Le ministère invite les référents à participer au {workshop} consacré aux contrôles rapides. Cette session rassemble des équipes françaises et européennes. Les supports seront relus avant diffusion pour éviter les ambiguïtés de prononciation.</p>
   <p>Le discours d'ouverture de nos partenaires internationaux aura pour thème : {keynote}. Les intervenants présenteront ce thème lors de la séance commune. Une synthèse sera ajoutée au compte rendu de l'atelier.</p>
-  <p>La documentation de cette séance sera également traduite en arabe : {arabic}. Les supports correspondants seront transmis aux participants inscrits. Une version relue sera publiée dans l'espace documentaire.</p>
+  <p lang="{english_paragraph_lang}">The workshop materials will be reviewed before publication. Participants will receive an accessible version and a short summary after the session.</p>
   <p>La séance alterne retours d'expérience et exemples internationaux. À l'issue du weekend, une newsletter récapitulative vous sera envoyée par e-mail. Elle reprendra les ressources citées pendant l'atelier.</p>
 </section>"""
 
@@ -1986,7 +1986,6 @@ def generate_correction(contract: dict) -> None:
         parts.append(f"## {page['number']}. {page['title']}\n")
         parts.append(f"- Point de contrôle rapide : {page['easy_check']['name']}")
         parts.append(f"- Constat minimal attendu : {page['expected_minimal_finding']}")
-        parts.append(f"- Sévérité indicative : {page['severity']}")
         parts.append(f"- Preuve possible : {page['minimal_proof']}")
         parts.append(f"- Correction : {page['accessible_correction']}")
         parts.append(f"- Repère pédagogique : {page['help']['hint']}")

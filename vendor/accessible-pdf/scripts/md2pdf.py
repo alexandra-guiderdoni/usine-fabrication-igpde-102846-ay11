@@ -12,6 +12,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from html import escape as escape_html
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 SKILL_DIR = os.path.dirname(SCRIPT_DIR)
@@ -315,7 +316,7 @@ def pandoc_to_html(md_path, html_path, title, subtitle, lang, toc_depth, no_toc)
 
 
 def inject_css_and_a11y(html_path, css, lang, header_text, author=None, keywords=None,
-                        logo=None, logo_alt=None):
+                        logo=None, logo_alt=None, subtitle_list_items=None):
     """Step 2: Inject CSS and accessibility attributes into the HTML."""
     with open(html_path, 'r', encoding='utf-8') as f:
         html = f.read()
@@ -325,6 +326,23 @@ def inject_css_and_a11y(html_path, css, lang, header_text, author=None, keywords
         css = css.replace('{{HEADER_TEXT}}', escape_css_string(header_text))
     else:
         css = css.replace('{{HEADER_TEXT}}', '')
+
+    if subtitle_list_items:
+        items = "\n".join(
+            f"<li>{escape_html(item)}</li>" for item in subtitle_list_items
+        )
+        subtitle_list = f'<ol class="subtitle-steps">\n{items}\n</ol>'
+        html, replacements = re.subn(
+            r'(<p class="subtitle">.*?</p>)',
+            rf'\1\n{subtitle_list}',
+            html,
+            count=1,
+            flags=re.DOTALL,
+        )
+        if replacements != 1:
+            raise ValueError(
+                "Impossible d'ajouter la liste de couverture : sous-titre introuvable"
+            )
 
     # Inject CSS
     style_block = f'<style>\n{css}\n</style>'
@@ -670,7 +688,7 @@ doc.write_pdf({pdf_path!r})
 def convert(md_path, output_path=None, title=None, subtitle=None, lang='fr',
             template='dsfr', toc_depth=2, no_toc=False, header_text=None,
             author=None, keywords=None, logo=None, logo_alt=None,
-            page_total_footer=False):
+            page_total_footer=False, subtitle_list_items=None):
     """Main conversion pipeline."""
     if not os.path.exists(md_path):
         print(f"Fichier introuvable: {md_path}")
@@ -703,6 +721,26 @@ def convert(md_path, output_path=None, title=None, subtitle=None, lang='fr',
   }
 }
 """
+    if subtitle_list_items:
+        css += """
+
+header#title-block-header p.subtitle {
+  margin-bottom: 0.2em;
+  font-weight: 700;
+}
+header#title-block-header ol.subtitle-steps {
+  max-width: 36em;
+  margin: 0 auto;
+  padding-left: 1.5em;
+  font-size: 11pt;
+  line-height: 1.35;
+  text-align: left;
+  hyphens: manual;
+}
+header#title-block-header ol.subtitle-steps li {
+  margin: 0.15em 0;
+}
+"""
 
     # Temp HTML file
     fd, html_path = tempfile.mkstemp(suffix='.html')
@@ -722,7 +760,8 @@ def convert(md_path, output_path=None, title=None, subtitle=None, lang='fr',
         step += 1
         print(f"{step}/{steps} — Injection CSS ({template}) + accessibilité...")
         inject_css_and_a11y(html_path, css, lang, header_text, author, keywords,
-                            logo=logo, logo_alt=logo_alt)
+                            logo=logo, logo_alt=logo_alt,
+                            subtitle_list_items=subtitle_list_items)
 
         step += 1
         print(f"{step}/{steps} — Audit a11y HTML (contrastes WCAG + RGAA 13.8)...")
@@ -880,6 +919,8 @@ Exemples:
     parser.add_argument('-o', '--output', help='Chemin du PDF de sortie')
     parser.add_argument('--title', help='Titre du document')
     parser.add_argument('--subtitle', help='Sous-titre du document')
+    parser.add_argument('--subtitle-list-item', action='append', default=[],
+                        help='Élément d’une liste ordonnée placée sous le sous-titre')
     parser.add_argument('--lang', default='fr', help='Langue du document (défaut: fr)')
     parser.add_argument('--template', default='dsfr',
                         help='Template CSS: dsfr, default, formation, rapport, minimal')
@@ -938,6 +979,7 @@ Exemples:
             logo=args.logo,
             logo_alt=args.logo_alt,
             page_total_footer=args.page_total_footer,
+            subtitle_list_items=args.subtitle_list_item,
         )
 
 

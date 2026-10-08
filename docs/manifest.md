@@ -4,7 +4,7 @@ Généré depuis `03-easy-checks/evaluation_contract.yml`.
 
 Chaque section décrit une page de l'exercice, le Point de contrôle rapide visé, les erreurs injectées et la correction attendue.
 
-## 1. Actualité illustrée
+## 1. Contrôler les images avant publication
 
 **Point de contrôle rapide :** Texte alternatif des images
 
@@ -178,7 +178,7 @@ Focus visible DSFR conservé sur boutons, liens/cartes, accordéons et modale ; 
 
 La page d'aide reprend les trois niveaux : indice, ce qui pose problème, comment corriger.
 
-## 7. Atelier international
+## 7. Déclarer les langues utilisées dans la page
 
 **Point de contrôle rapide :** Langue de la page
 
@@ -189,19 +189,22 @@ Inspecter la balise html, puis les expressions réellement rédigées dans une a
 ### Erreurs injectées
 
 - Attribut lang invalide sur html.
-- Passage en anglais non balisé dans une page française.
+- Contenu en anglais non balisé dans une page française.
 - Code langue invalide sur un passage anglais.
-- Passage en arabe sans langue ni sens de lecture déclarés.
+- Paragraphe anglais déclaré avec `lang="fr"` au lieu de `lang="en"`.
 
 ### Outils de détection
 
+- Bookmarklet « 08 Langue et direction »
 - Web Developer
+- Validateur HTML du W3C
+- Tanaguru
 - Code source
 - WAVE
 
 ### Correction attendue
 
-lang fr sur la page ; codes langue ISO 639 valides ; passages anglais avec lang en si nécessaire ; passage arabe avec lang ar et dir rtl ; pas de sur-balisage des noms propres ou mots entrés dans l'usage courant.
+lang fr sur la page ; codes langue ISO 639 valides ; contenus anglais avec lang en si nécessaire ; pas de sur-balisage des noms propres ou mots entrés dans l'usage courant.
 
 ### Aide associée
 

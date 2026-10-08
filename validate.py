@@ -21,6 +21,7 @@ ALLOWED_EXTERNAL_HOSTS = {
     "accessibilite.numerique.gouv.fr",
     "addons.mozilla.org",
     "chromewebstore.google.com",
+    "contrast-finder.tanaguru.com",
     "data.gouv.fr",
     "github.com",
     "info.gouv.fr",
@@ -100,7 +101,6 @@ def validate_contract() -> list[dict]:
         "number",
         "title",
         "easy_check",
-        "severity",
         "expected_minimal_finding",
         "minimal_proof",
         "detection",
@@ -108,7 +108,6 @@ def validate_contract() -> list[dict]:
         "accessible_correction",
         "help",
         "dsfr_components",
-        "grid",
     }
     for page in pages:
         missing = sorted(required - set(page))
