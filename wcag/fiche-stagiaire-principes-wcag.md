@@ -5,9 +5,9 @@
      Ce style garde chaque tableau entier sur une page. La largeur des colonnes est
      fixée par les tirets de la ligne de séparation de chaque tableau : colonnes
      courtes étroites, colonnes de phrases larges, pour des tableaux moins hauts.
-     Pas de césure dans les en-têtes ni dans les deux colonnes de mots-clés : le
-     gabarit Pandoc l'active partout et coupait « Cou-leur » ou « Com-prendre ». -->
-<style>table { break-inside: avoid; } th, td:nth-child(-n+2) { hyphens: manual; }</style>
+     Pas de césure automatique dans les cellules : le gabarit Pandoc l'active
+     partout et coupait notamment « naviguer », « document » ou « relations ». -->
+<style>table { break-inside: avoid; } th, td { hyphens: manual; }</style>
 
 <!-- Sommaire sur la première page : le gabarit formation place la page de garde
      (header#title-block-header) seule sur une page. Ici elle n'impose plus de saut
@@ -15,28 +15,28 @@
      la page 1. Le sous-titre est masqué : le générateur y met le premier intertitre
      (« L'idée à retenir »), qui figure déjà dans le sommaire.
      Pied de page « Page X / Y » sur toutes les pages, première comprise. -->
-<style>header#title-block-header { break-after: avoid; padding: 2em 0 0.5em 0; } header#title-block-header .subtitle { display: none; } @page { @bottom-center { content: "Page " counter(page) " / " counter(pages); } } @page :first { @bottom-center { content: "Page " counter(page) " / " counter(pages); } }</style>
+<style>header#title-block-header { break-after: avoid; padding: 2em 0 0.5em 0; } header#title-block-header h1.title { bookmark-level: none; } header#title-block-header .subtitle { display: none; } @page { @bottom-center { content: "Page " counter(page) " / " counter(pages); } } @page :first { @bottom-center { content: "Page " counter(page) " / " counter(pages); } }</style>
 
 <!-- La boussole, ses exemples et le décodage doivent rester ensemble sur la
      page 2. Le tableau et les deux encarts sont donc légèrement resserrés,
      sans réduire la taille du texte courant du reste de la fiche. -->
-<style>.questions-table table { font-size: 0.78em; } .questions-table th, .questions-table td { line-height: 1.2; padding: 0.35em 0.45em; } .questions-note { font-size: 0.86em; margin: 0.3em 0 0.4em; } .wcag-bridge { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; break-inside: avoid; font-size: 0.78em; line-height: 1.15; hyphens: manual; } .wcag-bridge h3 { font-size: 1.08em; margin: 0 0 0.25em; } .wcag-bridge ul, .wcag-bridge p { margin-top: 0; margin-bottom: 0; } .wcag-bridge li { margin-bottom: 0.1em; }</style>
+<style>.questions-table table { font-size: 9pt; } .questions-table th, .questions-table td { line-height: 1.2; padding: 0.35em 0.45em; } .questions-note { font-size: 9pt; margin: 0.3em 0 0.4em; } .wcag-bridge { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; break-inside: avoid; font-size: 9pt; line-height: 1.2; hyphens: manual; } .wcag-bridge h3 { font-size: 1.08em; margin: 0 0 0.25em; } .wcag-bridge ul, .wcag-bridge p { margin-top: 0; margin-bottom: 0; } .wcag-bridge li { margin-bottom: 0.1em; }</style>
 
 <!-- Le fil de l'atelier Word est réparti en cinq tableaux courts : chaque
      tableau reste entier sur une page, conformément au contournement
      WeasyPrint ci-dessus, tout en conservant une taille de texte lisible. -->
-<style>.word-journey table { font-size: 0.82em; } .word-journey th, .word-journey td { line-height: 1.2; padding: 0.38em 0.45em; } .word-journey h4 { break-after: avoid; margin-bottom: 0.35em; } .word-journey p { margin-top: 0.35em; margin-bottom: 0.65em; }</style>
+<style>.word-journey table { font-size: 9.5pt; } .word-journey th, .word-journey td { line-height: 1.2; padding: 0.38em 0.45em; } .word-journey h4 { break-after: avoid; margin-bottom: 0.35em; } .word-journey p { margin-top: 0.35em; margin-bottom: 0.65em; }</style>
 
 <!-- Le parcours web suit les 13 points du site dans quatre tableaux courts.
      Les intitulés complets et les références WCAG restent lisibles sans
      fragmenter un tableau entre deux pages. -->
-<style>.web-journey table { font-size: 0.78em; } .web-journey th, .web-journey td { line-height: 1.18; padding: 0.34em 0.42em; hyphens: manual; } .web-journey h3 { break-after: avoid; margin-bottom: 0.35em; } .web-journey p { margin-top: 0.35em; margin-bottom: 0.65em; }</style>
+<style>.web-journey table { font-size: 9.5pt; } .web-journey th, .web-journey td { line-height: 1.2; padding: 0.34em 0.42em; } .web-journey h3 { break-after: avoid; margin-bottom: 0.35em; } .web-journey p { margin-top: 0.35em; margin-bottom: 0.65em; }</style>
 
 <!-- Le parcours réseaux sociaux reprend les trois temps de la checklist
      projetée. Les références sont qualifiées et cliquables : WCAG lorsqu'une
      correspondance A ou AA existe, Opquast pour la qualité éditoriale, ou
      pratique éditoriale quand aucun critère direct n'est retenu. -->
-<style>.social-journey table { font-size: 0.78em; } .social-journey th, .social-journey td { line-height: 1.17; padding: 0.34em 0.42em; hyphens: manual; } .social-journey h3 { break-after: avoid; margin-bottom: 0.35em; } .social-journey p { margin-top: 0.35em; margin-bottom: 0.65em; }</style>
+<style>.social-journey table { font-size: 9.5pt; } .social-journey th, .social-journey td { line-height: 1.2; padding: 0.34em 0.42em; } .social-journey h3 { break-after: avoid; margin-bottom: 0.35em; } .social-journey p { margin-top: 0.35em; margin-bottom: 0.65em; }</style>
 
 Formation 102846 - L'accessibilité numérique pour la bureautique et le web
 
@@ -79,9 +79,9 @@ Table: Les 4 principes WCAG
 ::: {.wcag-decoder}
 ### 1.1.1 - Décoder une carte
 
-`1` indique le principe **Perceptible** ;  
-`1.1`, la directive **Alternatives textuelles** ;  
-`1.1.1`, le critère **Contenu non textuel**.  
+`1` indique le principe **Perceptible** ;<br>
+`1.1,` la directive **Alternatives textuelles** ;<br>
+`1.1.1,` le critère **Contenu non textuel**.<br>
 La couleur indique le niveau de conformité, pas le principe.  
 Les étiquettes sont des repères de tri par publics, métiers ou usages.
 :::
@@ -98,7 +98,7 @@ Table: Corrections Word, principes, personas et réflexes
 | Styles de titres | Compatible + Utiliser | Amir ne peut pas naviguer dans le document | Un titre doit être un vrai style de titre, pas du texte gros et gras |
 | Listes natives | Compatible + Comprendre | Amir et Anatole perdent la structure | Une liste doit être une vraie liste, pas des tirets manuels |
 | Texte alternatif | Percevoir | Amir ne sait pas ce que l'image contient | Une image utile doit avoir une alternative textuelle |
-| Contraste | Percevoir | Anaïs ne peut pas lire le texte | Le contraste doit permettre de lire sans effort (ratio 4.5:1) |
+| Contraste | Percevoir | Anaïs ne peut pas lire le texte | Le contraste doit permettre de lire sans effort (ratio 4,5:1) |
 | Liens explicites | Comprendre + Utiliser | Amir et Anatole ne savent pas où mène le lien | Un lien doit annoncer clairement sa destination |
 | Langue du document | Comprendre + Compatible | Amir entend une prononciation incorrecte | La langue du document doit être indiquée |
 | Export PDF | Compatible | Amir perd toute la structure du document | L'export PDF doit conserver la structure Word |
@@ -116,7 +116,7 @@ Table: Slides 61 et 62 - actions, checklist et cartes WCAG
 
 | Slide / point présenté | Action dans Word | Checklist | Carte(s) WCAG |
 |-------------------------|------------------------------------------|------------|--------------------------------|
-| **61 - Titres, hiérarchie et sommaire** | Appliquer les styles adaptés, vérifier le plan dans le volet de navigation et générer le sommaire automatique. | **P-01 à P-03** | **P-01 et P-02** → **1.3.1** - Informations et relations ; **2.4.6** - En-têtes et étiquettes.<br>**P-03** → **2.4.5** - Accès multiples. |
+| **61 - Titres, hiérarchie et sommaire** | Appliquer les styles adaptés, vérifier le plan dans le volet de navigation et générer le sommaire automatique. | **P-01 à P-03** | **P-01 et P-02** → **1.3.1** - Informations et relations ; **2.4.6** - En‑têtes et étiquettes.<br>**P-03** → **2.4.5** - Accès multiples. |
 | **62 - Listes et mise en page robuste** | Remplacer les listes et mises en page simulées par les fonctions natives ; afficher les marques pour contrôler le résultat. | **P-04 et P-05** | **1.3.1** - Informations et relations ; **1.3.2** - Ordre séquentiel logique |
 
 #### Station 2 - Rendre les contenus et les liens compréhensibles
@@ -127,7 +127,7 @@ Table: Slides 64 à 66 - actions, checklist et cartes WCAG
 |-------------------------|------------------------------------------|------------|--------------------------------|
 | **64 - Choisir le bon traitement pour chaque image** | Identifier la fonction de chaque image : alternative simple, description détaillée ou traitement décoratif. | **P-06 à P-08** | **1.1.1** - Contenu non textuel |
 | **65 - Vrai texte et liens compréhensibles** | Remettre l'information en vrai texte ; rendre les liens autonomes et décrire les téléchargements. | **P-09 et P-10** | **1.4.5** - Texte sous forme d'image ; **2.4.4** - Fonction du lien (selon le contexte) |
-| **66 - L'information essentielle reste dans le corps** | Reprendre dans le corps toute information essentielle portée seulement par un en-tête, un filigrane ou un arrière-plan. | **P-11** | Pas de carte directe |
+| **66 - L'information essentielle reste dans le corps** | Reprendre dans le corps toute information essentielle portée seulement par un en-tête, un filigrane ou un arrière‑plan. | **P-11** | Pas de carte directe |
 
 #### Station 3 - Sécuriser couleurs, graphiques et tableaux
 
@@ -172,7 +172,7 @@ Table: Points 1 à 4 - contenus, structure, personas et cartes WCAG
 |------------------------------|----------------------------------------|-----------------------------|-----------------------------|
 | **[#1 - Texte alternatif des images](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec01-images.html)**<br>Slides 84 à 86 | Chaque image reçoit-elle le traitement adapté à son rôle : informative, décorative, fonctionnelle ou complexe ? | Amir - ne perçoit pas l'image | **1.1.1 - Contenu non textuel** |
 | **[#2 - Titre de page](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec02-page-title.html)**<br>Slide 87 | L'onglet annonce-t-il une page au titre clair et unique ? | Amir et Anatole - ne savent pas où ils sont | **2.4.2 - Titre de page** |
-| **[#3 - Titres et hiérarchie](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec03-headings.html)**<br>Slides 88 et 89 | Les titres sont-ils balisés et organisés selon une hiérarchie logique ? | Amir et Anatole - perdent la structure | **2.4.6 - En-têtes et étiquettes**<br>Associé : **1.3.1** |
+| **[#3 - Titres et hiérarchie](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec03-headings.html)**<br>Slides 88 et 89 | Les titres sont-ils balisés et organisés selon une hiérarchie logique ? | Amir et Anatole - perdent la structure | **2.4.6 - En‑têtes et étiquettes**<br>Associé : **1.3.1** |
 | **[#4 - Contraste des couleurs](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec04-contrast.html)**<br>Slides 90 et 91 | Le texte et les éléments utiles sont-ils suffisamment contrastés ? | Anaïs - distingue mal l'information | **1.4.3 - Contraste (minimum)**<br>Associé : **1.4.11** |
 
 ### #5 à #8 - Navigation et lecture
@@ -184,7 +184,7 @@ Table: Points 5 à 8 - navigation, lecture, personas et cartes WCAG
 | **[#5 - Lien d'évitement](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec05-skiplinks.html)**<br>Slide 92 | La première touche Tab révèle-t-elle un lien vers le contenu ? | Agathe - doit traverser toute la navigation | **2.4.1 - Contourner des blocs** |
 | **[#6 - Focus et navigation clavier](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec06-keyboard-focus.html)**<br>Slides 93 à 96 | Tout fonctionne-t-il au clavier avec un focus visible et logique ? | Agathe - ne peut pas utiliser la souris | **2.4.7 - Visibilité du focus**<br>Associés : **2.1.1, 2.1.2, 2.4.3** |
 | **[#7 - Langue de la page](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec07-language.html)**<br>Slide 97 | La langue de la page et des passages étrangers est-elle indiquée ? | Amir - entend une prononciation incorrecte | **3.1.1 - Langue de la page**<br>Associé : **3.1.2** |
-| **[#8 - Zoom à 200 %](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec08-zoom.html)**<br>Slide 98 | À 200 % et dans une fenêtre étroite, le contenu reste-t-il lisible et utilisable sans perte ? | Anaïs - ne peut pas lire la page agrandie | **1.4.4 - Redimensionnement du texte**<br>Associé : **1.4.10** |
+| **[#8 - Zoom à 200 %](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec08-zoom.html)**<br>Slide 98 | À 200 % et dans une fenêtre étroite, le contenu reste-t-il lisible et utilisable sans perte ? | Anaïs - ne peut pas lire la page agrandie | **1.4.4 - Redimensionnement du texte**<br>Associé : **1.4.10** |
 
 ### #9 à #11 - Médias
 
@@ -192,9 +192,9 @@ Table: Points 9 à 11 - médias, personas et cartes WCAG
 
 | Point du site | Ce que je vérifie | Qui est bloqué ? | Carte(s) WCAG |
 |------------------------------|----------------------------------------|-----------------------------|-----------------------------|
-| **[#9 - Sous-titres vidéo](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec09-captions.html)**<br>Slides 99 et 100 | La vidéo propose-t-elle des sous-titres synchronisés et complets ? | Justine - ne perçoit pas les paroles | **1.2.2 - Sous-titres (pré-enregistrés)** |
-| **[#10 - Transcriptions audio et vidéo](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec10-transcript.html)**<br>Slide 101 | Une transcription complète est-elle disponible près du média ? | Justine - n'accède pas au contenu sonore | **1.2.1 - Contenus seulement audio et seulement vidéo pré-enregistrés** |
-| **[#11 - Audiodescription](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec11-audio-description.html)**<br>Slide 102 | L'information visuelle essentielle reste-t-elle disponible sans la vue, par l'audio principal, une audiodescription ou une alternative ? | Amir - ne perçoit pas l'action visuelle | **1.2.5 - Audiodescription (pré-enregistrée)**<br>Associé : **1.2.3** |
+| **[#9 - Sous-titres vidéo](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec09-captions.html)**<br>Slides 99 et 100 | La vidéo propose-t-elle des sous-titres synchronisés et complets ? | Justine - ne perçoit pas les paroles | **1.2.2 - Sous-titres (pré‑enregistrés)** |
+| **[#10 - Transcriptions audio et vidéo](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec10-transcript.html)**<br>Slide 101 | Une transcription complète est-elle disponible près du média ? | Justine - n'accède pas au contenu sonore | **1.2.1 - Contenus seulement audio et seulement vidéo pré‑enregistrés** |
+| **[#11 - Audiodescription](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec11-audio-description.html)**<br>Slide 102 | L'information visuelle essentielle reste-t-elle disponible sans la vue, par l'audio principal, une audiodescription ou une alternative ? | Amir - ne perçoit pas l'action visuelle | **1.2.5 - Audiodescription (pré‑enregistrée)**<br>Associé : **1.2.3** |
 
 ### #12 à #13 - Formulaires
 
