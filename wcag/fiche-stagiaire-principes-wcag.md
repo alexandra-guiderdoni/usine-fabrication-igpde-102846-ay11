@@ -27,6 +27,11 @@
      WeasyPrint ci-dessus, tout en conservant une taille de texte lisible. -->
 <style>.word-journey table { font-size: 0.82em; } .word-journey th, .word-journey td { line-height: 1.2; padding: 0.38em 0.45em; } .word-journey h4 { break-after: avoid; margin-bottom: 0.35em; } .word-journey p { margin-top: 0.35em; margin-bottom: 0.65em; }</style>
 
+<!-- Le parcours web suit les 13 points du site dans quatre tableaux courts.
+     Les intitulés complets et les références WCAG restent lisibles sans
+     fragmenter un tableau entre deux pages. -->
+<style>.web-journey table { font-size: 0.78em; } .web-journey th, .web-journey td { line-height: 1.18; padding: 0.34em 0.42em; } .web-journey h3 { break-after: avoid; margin-bottom: 0.35em; } .web-journey p { margin-top: 0.35em; margin-bottom: 0.65em; }</style>
+
 Formation 102846 - L'accessibilité numérique pour la bureautique et le web
 
 ## L'idée à retenir
@@ -150,21 +155,50 @@ Table: Slides 75, 76 et 79 - actions, checklist et cartes WCAG
 
 ## Pendant l'atelier web
 
-Table: Atelier web - vérifications et personas
+Parcourez les scénarios dans l'ordre. Chaque intitulé ouvre directement la page correspondante du site à auditer.
 
-| Vérification web | Principe | Qui est bloqué ? | Réflexe |
-|--------------------|--------------------|---------------------------|---------------------------------|
-| Images | Percevoir | Amir ne sait pas ce que l'image montre | Une image informative doit avoir une alternative |
-| Titre de page | Comprendre + Utiliser | Amir et Anatole ne savent pas où ils sont | Une page doit avoir un titre clair et unique |
-| Titres | Comprendre + Compatible | Amir et Anatole perdent la structure | Les titres doivent organiser la page |
-| Contrastes | Percevoir | Anaïs ne peut pas lire | Le contraste doit être suffisant |
-| Clavier et focus | Utiliser | Agathe ne peut pas naviguer | Le clavier doit permettre de naviguer, le focus doit être visible |
-| Langue | Comprendre + Compatible | Amir entend une prononciation fausse | Le changement de langue doit être indiqué |
-| Zoom | Percevoir + Utiliser | Anaïs ne peut pas lire même agrandi | Le contenu doit rester lisible et utilisable à 200 % |
-| Sous-titres | Percevoir | Justine ne comprend pas la vidéo | Les vidéos doivent avoir des sous-titres synchronisés |
-| Transcription | Percevoir | Justine n'a pas accès au contenu audio | Le contenu audio doit exister en texte |
-| Libellés | Comprendre + Compatible | Anatole ne sait pas quoi remplir | Chaque champ doit dire ce qui est attendu |
-| Erreurs | Comprendre | Anatole ne sait pas comment corriger | L'erreur doit expliquer comment corriger |
+::: {.web-journey}
+### #1 à #4 - Contenus et structure
+
+Table: Points 1 à 4 - contenus, structure, personas et cartes WCAG
+
+| Point du site | Ce que je vérifie | Qui est bloqué ? | Carte(s) WCAG |
+|------------------------------|----------------------------------------|-----------------------------|-----------------------------|
+| **[#1 - Texte alternatif des images](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec01-images.html)**<br>Slides 84 à 86 | L'image informative possède-t-elle une alternative utile ? | Amir - ne perçoit pas l'image | **1.1.1 - Contenu non textuel** |
+| **[#2 - Titre de page](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec02-page-title.html)**<br>Slide 87 | L'onglet annonce-t-il une page au titre clair et unique ? | Amir et Anatole - ne savent pas où ils sont | **2.4.2 - Titre de page** |
+| **[#3 - Titres et hiérarchie](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec03-headings.html)**<br>Slides 88 et 89 | Les titres décrivent-ils une hiérarchie logique ? | Amir et Anatole - perdent la structure | **2.4.6 - En-têtes et étiquettes**<br>Associé : **1.3.1** |
+| **[#4 - Contraste des couleurs](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec04-contrast.html)**<br>Slides 90 et 91 | Le texte et les éléments utiles sont-ils suffisamment contrastés ? | Anaïs - distingue mal l'information | **1.4.3 - Contraste (minimum)**<br>Associé : **1.4.11** |
+
+### #5 à #8 - Navigation et lecture
+
+Table: Points 5 à 8 - navigation, lecture, personas et cartes WCAG
+
+| Point du site | Ce que je vérifie | Qui est bloqué ? | Carte(s) WCAG |
+|------------------------------|----------------------------------------|-----------------------------|-----------------------------|
+| **[#5 - Lien d'évitement](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec05-skiplinks.html)**<br>Slide 92 | La première touche Tab révèle-t-elle un lien vers le contenu ? | Agathe - doit traverser toute la navigation | **2.4.1 - Contourner des blocs** |
+| **[#6 - Focus et navigation clavier](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec06-keyboard-focus.html)**<br>Slides 93 à 96 | Tout fonctionne-t-il au clavier avec un focus visible et logique ? | Agathe - ne peut pas utiliser la souris | **2.4.7 - Visibilité du focus**<br>Associés : **2.1.1, 2.1.2, 2.4.3** |
+| **[#7 - Langue de la page](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec07-language.html)**<br>Slide 97 | La langue de la page et des passages étrangers est-elle indiquée ? | Amir - entend une prononciation incorrecte | **3.1.1 - Langue de la page**<br>Associé : **3.1.2** |
+| **[#8 - Zoom à 200 %](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec08-zoom.html)**<br>Slide 98 | À 200 %, le contenu reste-t-il lisible et utilisable sans perte ? | Anaïs - ne peut pas lire la page agrandie | **1.4.4 - Redimensionnement du texte**<br>Associé : **1.4.10** |
+
+### #9 à #11 - Médias
+
+Table: Points 9 à 11 - médias, personas et cartes WCAG
+
+| Point du site | Ce que je vérifie | Qui est bloqué ? | Carte(s) WCAG |
+|------------------------------|----------------------------------------|-----------------------------|-----------------------------|
+| **[#9 - Sous-titres vidéo](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec09-captions.html)**<br>Slides 99 et 100 | La vidéo propose-t-elle des sous-titres synchronisés et complets ? | Justine - ne perçoit pas les paroles | **1.2.2 - Sous-titres (pré-enregistrés)** |
+| **[#10 - Transcriptions audio et vidéo](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec10-transcript.html)**<br>Slide 101 | Une transcription complète est-elle disponible près du média ? | Justine - n'accède pas au contenu sonore | **1.2.1 - Contenus seulement audio et seulement vidéo pré-enregistrés** |
+| **[#11 - Audiodescription](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec11-audio-description.html)**<br>Slide 102 | Le contenu visuel essentiel est-il disponible en audiodescription ? | Amir - ne perçoit pas l'action visuelle | **1.2.5 - Audiodescription (pré-enregistrée)**<br>Associé : **1.2.3** |
+
+### #12 à #13 - Formulaires
+
+Table: Points 12 et 13 - formulaires, personas et cartes WCAG
+
+| Point du site | Ce que je vérifie | Qui est bloqué ? | Carte(s) WCAG |
+|------------------------------|----------------------------------------|-----------------------------|-----------------------------|
+| **[#12 - Étiquettes de champs de formulaire](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec12-form-labels.html)**<br>Slides 105 à 107 | Chaque champ possède-t-il une étiquette visible et correctement associée ? | Anatole - ne sait pas quoi saisir ; Amir - n'entend pas l'étiquette | **3.3.2 - Étiquettes ou instructions**<br>Associés : **1.3.1, 2.5.3** |
+| **[#13 - Champs obligatoires et erreurs](https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/site-inaccessible/ec13-required-errors.html)**<br>Slide 108 | Après l'envoi, les obligations et les erreurs sont-elles clairement indiquées ? | Anatole - ne comprend pas comment corriger | **3.3.2 - Étiquettes ou instructions**<br>Associés : **3.3.1, 3.3.3** |
+:::
 
 ## Pendant les réseaux sociaux
 
