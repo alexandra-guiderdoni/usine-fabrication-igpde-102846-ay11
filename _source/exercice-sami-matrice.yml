@@ -182,7 +182,7 @@ controles:
     defaut: Une image complexe n'offre ni résumé utile ni description détaillée équivalente.
     action_attendue: Ajouter une alternative courte et une description structurée à proximité.
     occurrences_attendues: 1
-    ancrage: Graphique ou schéma complexe de la station 2.
+    ancrage: Graphique ou schéma complexe de l'étape 2.
     piste: Résumer la fonction dans l'alternative et placer les données ou conclusions dans le texte voisin.
     etat_corrige: L'alternative oriente vers une description adjacente qui transmet toutes les informations utiles.
     procedure_word: Ajouter le texte de remplacement, puis saisir la description détaillée dans un paragraphe voisin.
@@ -292,7 +292,7 @@ controles:
     defaut: Une couleur volontairement insuffisante est utilisée sans mesure.
     action_attendue: Mesurer la combinaison puis choisir une couleur qui atteint le seuil applicable.
     occurrences_attendues: 1
-    ancrage: Exemple de texte à faible contraste de la station 3.
+    ancrage: Exemple de texte à faible contraste de l'étape 3.
     piste: Relever les deux couleurs et vérifier le ratio avec l'outil fourni avant de corriger.
     etat_corrige: Chaque combinaison utile atteint son seuil mesuré ; la valeur #767676 sur blanc n'est pas présentée comme un échec.
     procedure_word: Relever les couleurs de police et de fond, mesurer avec l'outil de contraste, puis modifier la couleur de police.
@@ -314,7 +314,7 @@ controles:
     defaut: Un graphique distingue ses séries uniquement par la couleur.
     action_attendue: Reconstruire dans Word le graphique à partir des valeurs affichées dans l'image, puis ajouter des étiquettes et des motifs ou conserver un équivalent textuel complet.
     occurrences_attendues: 1
-    ancrage: Image du graphique de la station 3.
+    ancrage: Image du graphique de l'étape 3.
     piste: Imaginer le graphique en niveaux de gris et repérer ce qui devient ambigu.
     etat_corrige: Les séries restent identifiables sans couleur ; le mot Urgent seul n'est pas traité comme un défaut si son texte transmet déjà le statut.
     procedure_word: Insertion > Graphique > Histogramme groupé, reporter les valeurs affichées dans l'image, puis afficher les étiquettes et appliquer des motifs distincts.
@@ -336,7 +336,7 @@ controles:
     defaut: Un tableau de données cumule en-tête non identifié, fusion et ligne fractionnable.
     action_attendue: Simplifier la structure, identifier l'en-tête et régler sa répétition ainsi que les lignes.
     occurrences_attendues: 1
-    ancrage: Unique tableau de données de la station 3.
+    ancrage: Unique tableau de données de l'étape 3.
     piste: Vérifier d'abord que chaque cellule appartient à une grille simple.
     etat_corrige: Le tableau possède un titre, une grille simple, une ligne d'en-tête répétable et aucune fusion.
     procedure_word: Outils de tableau > Disposition pour défusionner ; Propriétés du tableau pour répéter l'en-tête et interdire le fractionnement des lignes.
@@ -358,7 +358,7 @@ controles:
     defaut: Le document et une expression étrangère possèdent une langue absente ou incohérente.
     action_attendue: Régler la langue principale puis celle du passage étranger.
     occurrences_attendues: 1
-    ancrage: Paragraphe contenant l'expression anglaise de la station 4.
+    ancrage: Paragraphe contenant l'expression anglaise de l'étape 4.
     piste: Vérifier séparément la propriété du document et la langue du texte sélectionné.
     etat_corrige: Le document est en français et le passage étranger porte sa langue réelle.
     procedure_word: Révision > Langue > Définir la langue de vérification pour le document puis pour le passage sélectionné.
@@ -424,7 +424,7 @@ controles:
     defaut: Un acronyme n'est jamais développé et les mots en majuscules échappent à la vérification.
     action_attendue: Développer la première occurrence et activer l'option de vérification correspondante.
     occurrences_attendues: 1
-    ancrage: Première occurrence de l'acronyme choisi dans la station 4.
+    ancrage: Première occurrence de l'acronyme choisi dans l'étape 4.
     piste: Chercher la première apparition avant d'ajouter le développement.
     etat_corrige: L'acronyme est développé une fois et les mots en majuscules sont vérifiés.
     procedure_word: Développer le terme dans le corps, puis Fichier > Options > Vérification et décocher Ignorer les mots en MAJUSCULES.

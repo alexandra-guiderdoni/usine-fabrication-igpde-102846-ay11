@@ -1,4 +1,4 @@
-"""Tableau de données simple dans la station 3."""
+"""Tableau de données simple dans l'étape 3."""
 
 from igpde_dsfr_components import (
     COL_R,
@@ -25,9 +25,9 @@ def build(prs, layouts, ctx):
         prs,
         layouts,
         layout_name="titre_contenu",
-        titre="Station 3 - Un tableau de données simple",
-        fil_ariane="2. Documents accessibles | Station 3",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 3",
+        titre="Étape 3 - Un tableau de données simple",
+        fil_ariane="2. Documents accessibles | Étape 3",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Étape 3",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

@@ -64,26 +64,26 @@ Généré depuis les noms de fichiers dans `scripts/slides/`.
 | 05a | quiz flash réponse | `05a_quiz-flash-reponse.py` |
 | 06 | pourquoi concerne | `06_pourquoi-concerne.py` |
 | 07 | mission TP Sami | `07_5-piliers-vue-ensemble.py` |
-| 08 | station 1 vue ensemble | `08_pilier1-styles-titre.py` |
-| 09 | station 1 titres et sommaire | `09_pilier1-listes.py` |
-| 10 | station 1 listes et mise en page | `10_pilier1-tableaux-flottants.py` |
-| 11 | station 2 vue ensemble | `11_pilier2-contraste.py` |
-| 12 | station 2 images | `12_pilier2-couleur-seule.py` |
-| 13 | station 2 textes et liens | `13_pilier3-alt-text.py` |
-| 14 | station 2 information essentielle | `14_pilier3-liens-infos.py` |
-| 15 | station 3 vue ensemble | `15_exercice-sami.py` |
-| 16 | station 3 contraste | `16_pilier4-langue-lisibilite.py` |
-| 17 | station 3 graphique | `17_pilier4-espaces-clignotants.py` |
-| 18 | station 3 tableau | `18_pilier5-avant-publier.py` |
-| 19 | station 4 vue ensemble | `19_pilier5-verificateur.py` |
-| 20 | station 4 langues et styles | `20_export-pdf-accessible.py` |
-| 21 | station 4 casse accents sigles | `21_etude-cas-sophie.py` |
-| 22 | station 5 vue ensemble | `22_par-ou-commencer.py` |
-| 26 | station 5 propriétés et vérificateur | `26_checklist-21-criteres.py` |
-| 26a | station 5 export et contrôle PDF | `26a_checklist-exercice-2.py` |
-| 26b | checklist stations 1 et 2 | `26b_checklist-autres.py` |
-| 26c | checklist stations 3 et 4 | `26c_checklist-autres-2.py` |
-| 26d | checklist station 5 et contrôles signalés | `26d_checklist-station-5-signales.py` |
+| 08 | étape 1 vue ensemble | `08_pilier1-styles-titre.py` |
+| 09 | étape 1 titres et sommaire | `09_pilier1-listes.py` |
+| 10 | étape 1 listes et mise en page | `10_pilier1-tableaux-flottants.py` |
+| 11 | étape 2 vue ensemble | `11_pilier2-contraste.py` |
+| 12 | étape 2 images | `12_pilier2-couleur-seule.py` |
+| 13 | étape 2 textes et liens | `13_pilier3-alt-text.py` |
+| 14 | étape 2 information essentielle | `14_pilier3-liens-infos.py` |
+| 15 | étape 3 vue ensemble | `15_exercice-sami.py` |
+| 16 | étape 3 contraste | `16_pilier4-langue-lisibilite.py` |
+| 17 | étape 3 graphique | `17_pilier4-espaces-clignotants.py` |
+| 18 | étape 3 tableau | `18_pilier5-avant-publier.py` |
+| 19 | étape 4 vue ensemble | `19_pilier5-verificateur.py` |
+| 20 | étape 4 langues et styles | `20_export-pdf-accessible.py` |
+| 21 | étape 4 casse accents sigles | `21_etude-cas-sophie.py` |
+| 22 | étape 5 vue ensemble | `22_par-ou-commencer.py` |
+| 26 | étape 5 propriétés et vérificateur | `26_checklist-21-criteres.py` |
+| 26a | étape 5 export et contrôle PDF | `26a_checklist-exercice-2.py` |
+| 26b | checklist étapes 1 et 2 | `26b_checklist-autres.py` |
+| 26c | checklist étapes 3 et 4 | `26c_checklist-autres-2.py` |
+| 26d | checklist étape 5 et contrôles signalés | `26d_checklist-station-5-signales.py` |
 | 26e | synthèse de la matinée | `26e_synthese-matinee.py` |
 | 28 | chapitre easy checks | `28_chapitre-easy-checks.py` |
 | 28a | webaim million 2026 | `28a_webaim-million-2026.py` |

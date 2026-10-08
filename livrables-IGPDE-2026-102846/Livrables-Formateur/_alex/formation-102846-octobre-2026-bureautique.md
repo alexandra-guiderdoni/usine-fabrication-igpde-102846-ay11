@@ -24,7 +24,7 @@ Disponibles dès le préambule :
 Productions attendues de chaque binôme :
 
 - un DOCX corrigé portant un nom descriptif ;
-- une checklist renseignée progressivement après chaque station ;
+- une checklist renseignée progressivement après chaque étape ;
 - un PDF exporté, contrôlé avec PAC ou Acrobat Pro, puis relu avec la checklist.
 
 Le fichier `tp-doc-accessible.docx` sert de guide de référence. Il est **remis
@@ -32,11 +32,11 @@ seulement à la fin**, pendant la marge et la remise.
 
 ## Répartition des deux formateurs
 
-- **Formateur 1** : annonce la station, rappelle le résultat attendu et garde le
+- **Formateur 1** : annonce l'étape, rappelle le résultat attendu et garde le
   temps.
 - **Formateur 2** : observe les manipulations, aide par questionnement et relève
   les difficultés sans prendre la main sur le document.
-- À la fin de chaque station, les deux formateurs conduisent une **synthèse
+- À la fin de chaque étape, les deux formateurs conduisent une **synthèse
   commune** brève à partir des preuves produites par les binômes.
 
 ## Préambule - 5 minutes
@@ -158,10 +158,10 @@ exporté et le relevé PAC ou Acrobat Pro. Terminer la checklist humaine.
 
 ## Marge et remise - 5 minutes
 
-1. Absorber au plus trois minutes déplacées entre les stations, sans dépasser
+1. Absorber au plus trois minutes déplacées entre les étapes, sans dépasser
    le total de 90 minutes.
 2. Faire enregistrer le DOCX, la checklist et le PDF contrôlé.
-3. Recueillir les points restant à approfondir sans rouvrir une station.
+3. Recueillir les points restant à approfondir sans rouvrir une étape.
 4. Remettre le corrigé de référence et indiquer qu'il sert désormais de guide
    pratique autonome.
 

@@ -47,17 +47,17 @@ La fragmentation interne à la partie II rend le temps irréaliste, affaiblit le
 ## 3. Publics et usages
 
 - Stagiaire : apprend dans Word sous Windows, suit les pistes ou choisit le parcours autonome, produit et vérifie ses fichiers.
-- Formateurs : introduisent chaque station, aident sans corriger à la place du binôme et synthétisent au fil de l’eau.
+- Formateurs : introduisent chaque étape, aident sans corriger à la place du binôme et synthétisent au fil de l’eau.
 - Préparateur IGPDE : assure l’installation des outils, distribue les fichiers et contrôle la cohérence du paquet.
 - Mainteneur : intervient sur une source canonique, régénère les sorties et obtient des tests qui signalent toute dérive.
 
 ## 4. Décisions normatives
 
-- La partie II DOIT durer 90 minutes ; ses synthèses techniques sont incluses dans les stations.
+- La partie II DOIT durer 90 minutes ; ses synthèses techniques sont incluses dans les étapes.
 - Elle NE DOIT PAS contenir de quiz final ni reporter son débrief pédagogique après 12 h.
 - La synthèse générale de la matinée DOIT être maintenue de 12 h à 12 h 15, hors du minutage de la partie II, sans quiz final.
 - Le quiz diagnostic Documents A/B est maintenu comme première activité du préambule et inclus dans ses cinq minutes. Il pose le message « l’accessibilité ne se voit pas : elle se manipule et se vérifie ». Ce périmètre conservé comprend `scripts/slides/05_quiz-flash-a-vs-b.py`, `scripts/slides/05a_quiz-flash-reponse.py`, le bloc « Réponse au quiz » de `scripts/slides/06_pourquoi-concerne.py` et `tests/test_quiz_documents_sequence.py`.
-- La checklist DOIT être disponible dès le début et renseignée après chaque station.
+- La checklist DOIT être disponible dès le début et renseignée après chaque étape.
 - Les cartes WCAG 2.2 DOIVENT être utilisées comme mise en relation informelle, jamais comme évaluation.
 - Chaque binôme DOIT traiter tout le socle pratique.
 - Le DOCX avec pistes est le fichier conseillé ; le DOCX inaccessible est une variante autonome librement choisie.
@@ -72,14 +72,14 @@ La fragmentation interne à la partie II rend le temps irréaliste, affaiblit le
 Le minutage comprend les consignes, les manipulations et les synthèses intermédiaires.
 
 1. **Préambule — 5 minutes** : quiz diagnostic Documents A/B et message « l’accessibilité ne se voit pas : elle se manipule et se vérifie », puis ouverture des fichiers, mission, livrables, choix du fichier de départ, checklist et rapprochement informel avec les cartes WCAG.
-2. **Station 1 — 17 minutes : structurer et naviguer**.
-3. **Station 2 — 15 minutes : rendre les contenus et les liens compréhensibles**.
-4. **Station 3 — 15 minutes : sécuriser couleurs, graphiques et tableaux**.
-5. **Station 4 — 15 minutes : régler langues et lisibilité**.
-6. **Station 5 — 18 minutes : finaliser, vérifier, exporter et contrôler**.
+2. **Étape 1 — 17 minutes : structurer et naviguer**.
+3. **Étape 2 — 15 minutes : rendre les contenus et les liens compréhensibles**.
+4. **Étape 3 — 15 minutes : sécuriser couleurs, graphiques et tableaux**.
+5. **Étape 4 — 15 minutes : régler langues et lisibilité**.
+6. **Étape 5 — 18 minutes : finaliser, vérifier, exporter et contrôler**.
 7. **Marge et remise — 5 minutes** : absorber un léger retard, enregistrer les productions, recevoir le corrigé et noter les alertes restant à approfondir.
 
-Le premier essai chronométré PEUT déplacer jusqu’à trois minutes entre stations, mais le total NE DOIT PAS dépasser 90 minutes.
+Le premier essai chronométré PEUT déplacer jusqu’à trois minutes entre étapes, mais le total NE DOIT PAS dépasser 90 minutes.
 
 De 12 h à 12 h 15, une synthèse distincte consolide l’ensemble de la matinée et prépare la transition vers l’après-midi. Elle ne prolonge pas les manipulations du TP.
 
@@ -89,9 +89,9 @@ La source canonique doit attribuer un identifiant stable et un niveau à chaque 
 
 - `P` pratiqué : le binôme réalise une action dans Word, sur le DOCX ou sur une sortie du DOCX, et en produit la preuve ;
 - `C` contrôlé : le binôme exécute un outil ou une vérification humaine et consigne le résultat ;
-- `S` signalé : le point figure dans la checklist, les slides de checklist et les notes formateur, sans manipulation obligatoire ni présence imposée dans les slides de station ou le guide.
+- `S` signalé : le point figure dans la checklist, les slides de checklist et les notes formateur, sans manipulation obligatoire ni présence imposée dans les slides d'étape ou le guide.
 
-### Station 1 — Structurer et naviguer
+### Étape 1 — Structurer et naviguer
 
 - `P-01` : distinguer le style du titre principal des styles de titres hiérarchiques.
 - `P-02` : appliquer une hiérarchie sans saut et une numérotation de titres cohérente.
@@ -101,7 +101,7 @@ La source canonique doit attribuer un identifiant stable et un niveau à chaque 
 
 Preuve : le volet présente la hiérarchie attendue, le sommaire est actualisable et les listes sont sémantiques.
 
-### Station 2 — Contenus et liens
+### Étape 2 — Contenus et liens
 
 - `P-06` : rédiger soi-même l’alternative d’une image informative simple, sans reprendre une description générée automatiquement.
 - `P-07` : associer une image complexe à une alternative courte et une description détaillée adjacente.
@@ -112,7 +112,7 @@ Preuve : le volet présente la hiérarchie attendue, le sommaire est actualisabl
 
 Preuve : toutes les images ont le traitement approprié, le texte reste sélectionnable et chaque lien est compréhensible hors contexte.
 
-### Station 3 — Couleurs, graphiques et tableaux
+### Étape 3 — Couleurs, graphiques et tableaux
 
 - `P-12` : appliquer un code couleur puis mesurer le contraste avec un outil ; les seuils sont de 4,5:1 pour le texte normal et de 3:1 pour le grand texte ainsi que les éléments graphiques pertinents.
 - `P-13` : ne pas transmettre une information par la couleur seule ; le graphique doit avoir étiquettes et motifs ou un équivalent textuel complet. La mention « Urgent » ne constitue pas à elle seule une preuve de couleur seule si son texte transmet déjà l’information.
@@ -122,7 +122,7 @@ Le TP DOIT fournir une ressource ou une méthode qui permette de corriger le gra
 
 Preuve : mesure de contraste conservée, information perceptible sans couleur et structure du tableau vérifiable dans le DOCX.
 
-### Station 4 — Langues et lisibilité
+### Étape 4 — Langues et lisibilité
 
 - `P-15` : définir la langue principale et baliser le passage dans une langue différente.
 - `P-16` : modifier les styles pour employer une police sans sérif, un corps utile d’au moins 12 points, un interligne d’au moins 1,15 et un alignement à gauche.
@@ -131,7 +131,7 @@ Preuve : mesure de contraste conservée, information perceptible sans couleur et
 
 Preuve : propriétés et XML de langue cohérents, aucune information utile sous 12 points sans justification et contrôle visuel de la lisibilité.
 
-### Station 5 — Finaliser et publier
+### Étape 5 — Finaliser et publier
 
 - `P-19` : renseigner titre, auteur et langue, puis enregistrer sous un nom descriptif.
 - `C-01` : lancer le vérificateur Word, traiter les alertes pertinentes et expliquer toute alerte résiduelle.
@@ -172,23 +172,23 @@ Ces contrôles NE DOIVENT PAS être qualifiés de secondaires au sens de leur im
 
 - Devient le guide pratique autonome distribué en fin de TP.
 - Conserve la même information éditoriale que les deux fichiers de départ ; seules la structure, la mise en forme, les alternatives, les propriétés et les autres corrections d’accessibilité changent.
-- Suit l’ordre des stations.
+- Suit l’ordre des étapes.
 - Pour chaque point : problème, impact, règle, procédure Word, procédure Writer, manipulation et preuve de correction.
 - Vise 20 à 30 pages sans compression artificielle ; la lisibilité prime sur la pagination.
 - Limite les captures à celles qui changent réellement l’action et fournit une alternative pertinente à chacune.
 
 ## 8. Source unique et prévention de la dérive
 
-L’implémentation DOIT créer une matrice structurée unique, proposée sous `_source/exercice-sami-matrice.yml`. Elle contient une section `sequence` avec chaque bloc et sa durée, puis les contrôles avec au minimum : identifiant, niveau, station éventuelle, intitulé, impact, règle, défaut ou action attendue, occurrences attendues, règle d’ancrage, piste, état corrigé, procédure Word, procédure Writer, mode de preuve automatique ou humain, ligne de checklist, section éventuelle du guide, module de slide et référence pédagogique locale.
+L’implémentation DOIT créer une matrice structurée unique, proposée sous `_source/exercice-sami-matrice.yml`. Elle contient une section `sequence` avec chaque bloc et sa durée, puis les contrôles avec au minimum : identifiant, niveau, étape éventuelle (champ historique `station`), intitulé, impact, règle, défaut ou action attendue, occurrences attendues, règle d’ancrage, piste, état corrigé, procédure Word, procédure Writer, mode de preuve automatique ou humain, ligne de checklist, section éventuelle du guide, module de slide et référence pédagogique locale.
 
 Cette matrice DOIT être consommée directement par :
 
 - le générateur des trois DOCX ;
 - le générateur des checklists PDF et DOCX ;
-- les données des slides de station et de checklist ;
+- les données des slides d'étape et de checklist ;
 - les tests de complétude et de fraîcheur.
 
-La spécification, la liste des différences, le guide, les mémos et les notes peuvent conserver une rédaction humaine, mais leurs identifiants, libellés normalisés, niveaux et couverture DOIVENT être contrôlés contre la matrice. Les mémos Word et Writer peuvent conserver leur plan actuel en cinq thèmes si chaque section référence les identifiants de la matrice. Les contrôles `S` ont une station et une section de guide nulles ; ils figurent seulement dans la matrice, les deux checklists, les slides de checklist et les notes formateur.
+La spécification, la liste des différences, le guide, les mémos et les notes peuvent conserver une rédaction humaine, mais leurs identifiants, libellés normalisés, niveaux et couverture DOIVENT être contrôlés contre la matrice. Les mémos Word et Writer peuvent conserver leur plan actuel en cinq thèmes si chaque section référence les identifiants de la matrice. Les contrôles `S` ont une étape (champ `station`) et une section de guide nulles ; ils figurent seulement dans la matrice, les deux checklists, les slides de checklist et les notes formateur.
 
 Une référence locale `_source/references/martine-sutra-couverture.md` DOIT définir les codes de couverture repris de la source Martine sans copier son support ni conserver de chemin personnel. La matrice référence ces codes vérifiables depuis un clone propre.
 
@@ -200,16 +200,16 @@ La première étape d’implémentation DOIT mettre à jour `AGENTS.md` : suppri
 
 ## 9. Slides et animation
 
-- Avant toute réécriture, les modules actuels 03 à 26c DOIVENT être classés dans un inventaire `conserver`, `fusionner`, `remplacer` ou `supprimer`. Toute suppression autre que le quiz final exige une validation humaine. Le plan cible devient celui des stations.
+- Avant toute réécriture, les modules actuels 03 à 26c DOIVENT être classés dans un inventaire `conserver`, `fusionner`, `remplacer` ou `supprimer`. Toute suppression autre que le quiz final exige une validation humaine. Le plan cible devient celui des étapes.
 - La partie II vise 20 à 30 slides, sans plafond rigide.
-- Chaque station associe brièvement règle, défaut Sami, procédure Word, encadré Writer, manipulation et preuve.
+- Chaque étape associe brièvement règle, défaut Sami, procédure Word, encadré Writer, manipulation et preuve.
 - Le deck NE DOIT PAS recopier l’intégralité du guide.
 - Le quiz diagnostic Documents A/B et sa réponse sont conservés au début de la partie II comme amorce brève, sans devenir une évaluation ni allonger le préambule.
 - Le quiz final et sa correction DOIVENT disparaître.
 - Un module de synthèse de la matinée de une à deux slides DOIT être créé après la partie II et avant la partie III ; il consolide les acquis des parties I et II, accueille les questions et assure la transition, sans nouvelle évaluation.
 - La checklist reste dans le deck, mais son nombre de slides est déterminé par la lisibilité de la source consolidée.
 - Les compositions utilisent les composants DSFR-IGPDE existants et sont validées visuellement. Le support Martine reste une inspiration humaine pour la respiration et la variété, pas une source d’acceptation exécutable depuis le clone.
-- L’ordre des slides est testé relativement au chapitre et aux stations, sans total global ni index absolu fragile.
+- L’ordre des slides est testé relativement au chapitre et aux étapes, sans total global ni index absolu fragile.
 - Les notes formateur portent les consignes, le minutage, les points de synthèse et les variantes guidée/autonome.
 
 ## 10. Checklist et livrables stagiaires
@@ -238,13 +238,13 @@ Le chantier doit réviser les dépendances directes de la partie II :
 
 ### Automatisables
 
-- Un test de matrice échoue si un contrôle `P` ou `C` n’a pas de station, d’action attendue, d’état corrigé, de ligne de checklist, de section de guide, de slide ou de preuve. Le défaut, la règle d’ancrage et la piste sont exigés seulement lorsque le nombre d’occurrences attendues est supérieur à zéro. Pour un contrôle `S`, le test exige une ligne de checklist, une slide de checklist et une note formateur, avec une station et une section de guide nulles.
+- Un test de matrice échoue si un contrôle `P` ou `C` n’a pas d'étape (champ `station`), d’action attendue, d’état corrigé, de ligne de checklist, de section de guide, de slide ou de preuve. Le défaut, la règle d’ancrage et la piste sont exigés seulement lorsque le nombre d’occurrences attendues est supérieur à zéro. Pour un contrôle `S`, le test exige une ligne de checklist, une slide de checklist et une note formateur, avec une étape (champ `station`) et une section de guide nulles.
 - Des tests DOCX inspectent le XML : styles, hiérarchie, listes, en-têtes de tableau, absence de fusion, alternatives, marqueur décoratif, langues, propriétés, casse, alignement, tailles et espacements.
 - Chaque défaut attendu est présent dans les deux fichiers de départ et absent du corrigé.
 - Un test négatif réinjecte au moins un défaut par famille détectable dans le corrigé et doit échouer.
 - Les pistes couvrent chaque occurrence et ne modifient pas le contenu fautif.
 - Le calcul de contraste valide les couleurs plutôt qu’un commentaire codé en dur.
-- Pour les niveaux `P` et `C`, les identifiants, libellés, niveaux, stations et ordre sont cohérents entre matrice, checklists, guide, slides et tests ; les contrôles `S` restent limités aux surfaces prévues.
+- Pour les niveaux `P` et `C`, les identifiants, libellés, niveaux, étapes et ordre sont cohérents entre matrice, checklists, guide, slides et tests ; les contrôles `S` restent limités aux surfaces prévues.
 - La recherche des anciens contrats couvre `AGENTS.md`, `_source/exercice-sami-*`, le générateur Sami, les scripts actifs et l’index des slides, les mémos, les checklists, la note formateur active, les tests, le README du pack et les documents administratifs. La liste fermée des motifs recherchés est : `21 critères`, `25 min`, `25 minutes`, `sans checklist`, `sans filet`, `rapport trimestriel` et `102638`. La seule occurrence active autorisée de `102638` est la mention historique « ex-102638 » d’`AGENTS.md`. Sont explicitement exclus `todo.md`, `lessons.md`, les autres fichiers de `notes/`, les prompts de fabrication et `_source/references/`, sauf la nouvelle couverture Martine.
 - Les tests de deck n’emploient plus de total global ni de positions absolues, y compris dans les tests des parties I, III et IV affectés par la renumérotation.
 - Le plan du deck conserve la synthèse de la matinée après la partie II et avant la partie III, hors des 90 minutes du TP.
@@ -280,7 +280,7 @@ Le chantier doit réviser les dépendances directes de la partie II :
 3. **Prototype DOCX représentatif** : produire les trois fichiers avec tout le contenu éditorial cible et les occurrences minimales de chaque règle, puis chronométrer immédiatement un binôme novice avant d’étendre le deck.
 4. **DOCX et générateur** : stabiliser les occurrences, les pistes fiables et le guide corrigé sans ajouter de contenu au corrigé.
 5. **Checklist, mémos et notes** : générer les deux formats et réconcilier les procédures.
-6. **Deck** : conserver le quiz diagnostic Documents A/B et ses quatre éléments, reconstruire la suite de la partie II autour des stations, créer la synthèse de la matinée et supprimer le quiz final.
+6. **Deck** : conserver le quiz diagnostic Documents A/B et ses quatre éléments, reconstruire la suite de la partie II autour des étapes, créer la synthèse de la matinée et supprimer le quiz final.
 7. **Paquet et documents IGPDE** : aligner inventaires, déroulé, fiche technique et fraîcheur.
 8. **Recette Windows** : produire les preuves manuelles, corriger les écarts puis lancer la recette complète.
 
@@ -305,7 +305,7 @@ Les tickets seront rédigés en Markdown local après validation de ce PRD. Aucu
 - **Graphique impossible à corriger** : ressource de remplacement ou méthode équivalente fournie dans le fichier de travail.
 - **Dérive entre sorties** : matrice canonique, égalité des identifiants et contrôle de fraîcheur étendu.
 - **Fausse confiance automatisée** : outils automatiques suivis d’une vérification humaine obligatoire.
-- **Document trop dense** : priorité au corps de 12 points, aux stations et à la divulgation progressive.
+- **Document trop dense** : priorité au corps de 12 points, aux étapes et à la divulgation progressive.
 - **Échéance proche** : la refonte vise la session du 9 octobre 2026 ; T01 à T15 sont fusionnés dans `main`, mais aucune sortie ne doit être remise à l’IGPDE avant la recette finale T16.
 
 ## 16. Sources et ancrage

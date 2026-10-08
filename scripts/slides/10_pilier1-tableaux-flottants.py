@@ -1,4 +1,4 @@
-"""Listes et mise en page robuste de la station 1."""
+"""Listes et mise en page robuste de l'étape 1."""
 
 from igpde_dsfr_components import (
     COL_R,
@@ -19,9 +19,9 @@ def build(prs, layouts, ctx):
         prs,
         layouts,
         layout_name="titre_contenu",
-        titre="Station 1 - Listes et mise en page robuste",
-        fil_ariane="2. Documents accessibles | Station 1",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 1",
+        titre="Étape 1 - Listes et mise en page robuste",
+        fil_ariane="2. Documents accessibles | Étape 1",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Étape 1",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

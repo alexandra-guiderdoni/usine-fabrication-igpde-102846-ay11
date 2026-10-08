@@ -1,4 +1,4 @@
-"""Procédures de structure et de navigation de la station 1."""
+"""Procédures de structure et de navigation de l'étape 1."""
 
 from igpde_dsfr_components import COL_R, COL_W, MARGIN_L, add_card, add_notes, new_slide
 from sami_slide_data import sequence_block, station_controls, station_notes
@@ -11,9 +11,9 @@ def build(prs, layouts, ctx):
         prs,
         layouts,
         layout_name="titre_contenu",
-        titre="Station 1 - Titres, hiérarchie et sommaire",
-        fil_ariane="2. Documents accessibles | Station 1",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 1",
+        titre="Étape 1 - Titres, hiérarchie et sommaire",
+        fil_ariane="2. Documents accessibles | Étape 1",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Étape 1",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

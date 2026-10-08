@@ -1,4 +1,4 @@
-"""Checklist de la station 5 et contrôles signalés."""
+"""Checklist de l'étape 5 et contrôles signalés."""
 
 from igpde_dsfr_components import COL_R, COL_W, MARGIN_L, add_card, add_notes, new_slide
 from sami_slide_data import (
@@ -19,7 +19,7 @@ def build(prs, layouts, ctx):
         prs,
         layouts,
         layout_name="titre_contenu",
-        titre="Checklist progressive - Station 5 et points signalés",
+        titre="Checklist progressive - Étape 5 et points signalés",
         fil_ariane="2. Documents accessibles | Checklist",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Checklist",
         date_text=ctx.date,

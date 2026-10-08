@@ -120,7 +120,7 @@ Les cartes citées sont des correspondances pédagogiques avec WCAG 2.2 ; elles 
 :::
 
 ::: {.word-journey}
-#### Station 1 - Structurer et naviguer
+#### Étape 1 - Structurer et naviguer
 
 Table: Slides 61 et 62 - actions, checklist et cartes WCAG
 
@@ -129,7 +129,7 @@ Table: Slides 61 et 62 - actions, checklist et cartes WCAG
 | **61 - Titres, hiérarchie et sommaire** | Appliquer les styles adaptés, vérifier le plan dans le volet de navigation et générer le sommaire automatique. | **P-01 à P-03** | **P-01 et P-02** → **1.3.1** - Informations et relations ; **2.4.6** - En‑têtes et étiquettes.<br>**P-03** → **2.4.5** - Accès multiples. |
 | **62 - Listes et mise en page robuste** | Remplacer les listes et mises en page simulées par les fonctions natives ; afficher les marques pour contrôler le résultat. | **P-04 et P-05** | **1.3.1** - Informations et relations ; **1.3.2** - Ordre séquentiel logique |
 
-#### Station 2 - Rendre les contenus et les liens compréhensibles
+#### Étape 2 - Rendre les contenus et les liens compréhensibles
 
 Table: Slides 64 à 66 - actions, checklist et cartes WCAG
 
@@ -139,7 +139,7 @@ Table: Slides 64 à 66 - actions, checklist et cartes WCAG
 | **65 - Vrai texte et liens compréhensibles** | Remettre l'information en vrai texte ; rendre les liens autonomes et décrire les téléchargements. | **P-09 et P-10** | **1.4.5** - Texte sous forme d'image ; **2.4.4** - Fonction du lien (selon le contexte) |
 | **66 - L'information essentielle reste dans le corps** | Reprendre dans le corps toute information essentielle portée seulement par un en-tête, un filigrane ou un arrière‑plan. | **P-11** | Pas de carte directe |
 
-#### Station 3 - Sécuriser couleurs, graphiques et tableaux
+#### Étape 3 - Sécuriser couleurs, graphiques et tableaux
 
 Table: Slides 68 à 70 - actions, checklist et cartes WCAG
 
@@ -149,7 +149,7 @@ Table: Slides 68 à 70 - actions, checklist et cartes WCAG
 | **69 - Un graphique compréhensible sans la couleur** | Ajouter des étiquettes et des motifs, ou fournir un équivalent textuel complet. | **P-13** | **1.4.1** - Utilisation de la couleur |
 | **70 - Un tableau de données simple** | Simplifier la grille, titrer le tableau, identifier et répéter les en-têtes, puis empêcher le fractionnement des lignes. | **P-14** | **1.3.1** - Informations et relations |
 
-#### Station 4 - Régler langues et lisibilité
+#### Étape 4 - Régler langues et lisibilité
 
 Table: Slides 72 et 73 - actions, checklist et cartes WCAG
 
@@ -158,7 +158,7 @@ Table: Slides 72 et 73 - actions, checklist et cartes WCAG
 | **72 - Langues et styles typographiques** | Définir la langue principale et celle des passages étrangers ; régler la typographie dans le style du corps. | **P-15 et P-16** | **P-15** → **3.1.1** - Langue de la page ; **3.1.2** - Langue d'un passage.<br>**P-16** → Pas de carte directe. |
 | **73 - Casse, accents et sigles** | Rétablir la saisie accentuée, appliquer les majuscules par la mise en forme et développer les sigles. | **P-17 et P-18** | Pas de carte directe |
 
-#### Station 5 - Finaliser, vérifier, exporter et contrôler
+#### Étape 5 - Finaliser, vérifier, exporter et contrôler
 
 Table: Slides 75, 76 et 79 - actions, checklist et cartes WCAG
 
@@ -166,7 +166,7 @@ Table: Slides 75, 76 et 79 - actions, checklist et cartes WCAG
 |-------------------------|------------------------------------------|------------|--------------------------------|
 | **75 - Propriétés et vérificateur Word** | Renseigner les propriétés et le nom du fichier ; exécuter le vérificateur et expliquer les alertes restantes. | **P-19 et C-01** | **P-19**, titre et langue → **2.4.2** - Titre de page ; **3.1.1** - Langue de la page.<br>Auteur, nom de fichier et **C-01** → Pas de carte directe. |
 | **76 - Exporter puis contrôler le PDF** | Exporter avec les propriétés, les balises et les signets ; contrôler ensuite le PDF avec un outil et la checklist humaine. | **P-20 et C-02** | **P-20** → **1.3.1** - Informations et relations.<br>**C-02** → Pas de carte directe. |
-| **79 - Checklist progressive - Station 5 et points signalés** | Vérifier, sans manipulation obligatoire pendant l'atelier : protection, clignotement, formulaire Word, objets flottants et tableaux de mise en page. | **S-01 à S-05** | **S-02** → **2.3.1** - Pas plus de trois flashs ou sous le seuil critique.<br>**S-04** → **1.3.2** - Ordre séquentiel logique ; **S-05** → **1.3.1** - Informations et relations.<br>**S-01 et S-03** → Pas de carte directe. |
+| **79 - Checklist progressive - Étape 5 et points signalés** | Vérifier, sans manipulation obligatoire pendant l'atelier : protection, clignotement, formulaire Word, objets flottants et tableaux de mise en page. | **S-01 à S-05** | **S-02** → **2.3.1** - Pas plus de trois flashs ou sous le seuil critique.<br>**S-04** → **1.3.2** - Ordre séquentiel logique ; **S-05** → **1.3.1** - Informations et relations.<br>**S-01 et S-03** → Pas de carte directe. |
 :::
 
 ## Pendant l'atelier web

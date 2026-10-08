@@ -27,7 +27,7 @@ def build(prs, layouts, ctx):
     add_notes(
         slide,
         f"Annoncer un TP guidé de {tp_duration()} minutes organisé en "
-        f"{len(blocks)} stations. La théorie, la manipulation et la preuve avancent "
+        f"{len(blocks)} étapes. La théorie, la manipulation et la preuve avancent "
         "ensemble dans le document de Sami.",
         structure=True,
     )

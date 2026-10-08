@@ -25,9 +25,9 @@ def build(prs, layouts, ctx):
         prs,
         layouts,
         layout_name="titre_contenu",
-        titre="Station 2 - L'information essentielle reste dans le corps",
-        fil_ariane="2. Documents accessibles | Station 2",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 2",
+        titre="Étape 2 - L'information essentielle reste dans le corps",
+        fil_ariane="2. Documents accessibles | Étape 2",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Étape 2",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

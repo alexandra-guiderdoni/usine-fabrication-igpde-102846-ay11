@@ -42,14 +42,40 @@ PDFS = [
         "fiche-pratique/memo-word.md",
         "fiche-pratique/memo-word-accessibilite.pdf",
         BANDEAU_MEMO,
-        ["--header-text", "Mémo accessibilité - Microsoft Word"],
+        [
+            "--header-text",
+            "Mémo accessibilité - Microsoft Word",
+            "--page-total-footer",
+            "--subtitle",
+            (
+                "Les 5 étapes du parcours Word : "
+                "1. Structurer et naviguer ; "
+                "2. Rendre les contenus et les liens compréhensibles ; "
+                "3. Sécuriser les couleurs, les graphiques et les tableaux ; "
+                "4. Régler les langues et la lisibilité ; "
+                "5. Finaliser, vérifier, exporter et contrôler"
+            ),
+        ],
         STAGIAIRES / "tp-word-igpde",
     ),
     (
         "fiche-pratique/memo-libreoffice-writer.md",
         "fiche-pratique/memo-libreoffice-writer-accessibilite.pdf",
         BANDEAU_MEMO,
-        ["--header-text", "Mémo accessibilité - LibreOffice Writer"],
+        [
+            "--header-text",
+            "Mémo accessibilité - LibreOffice Writer",
+            "--page-total-footer",
+            "--subtitle",
+            (
+                "Les 5 étapes du parcours Writer : "
+                "1. Structurer et naviguer ; "
+                "2. Rendre les contenus et les liens compréhensibles ; "
+                "3. Sécuriser les couleurs, les graphiques et les tableaux ; "
+                "4. Régler les langues et la lisibilité ; "
+                "5. Finaliser, vérifier, exporter et contrôler"
+            ),
+        ],
         STAGIAIRES / "tp-word-igpde",
     ),
     (

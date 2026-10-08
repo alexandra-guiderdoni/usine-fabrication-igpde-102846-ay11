@@ -64,6 +64,16 @@ def test_make_pdf_ne_regenere_pas_la_fiche_formateur():
     )
 
 
+def test_les_memos_affichent_la_page_et_le_total_des_la_couverture():
+    memos = [
+        options
+        for source, _, _, options, _ in fabriquer_pack.PDFS
+        if source.startswith("fiche-pratique/memo-")
+    ]
+    assert len(memos) == 2
+    assert all("--page-total-footer" in options for options in memos)
+
+
 def test_make_pdf_refuse_un_repli_et_garde_le_livrable(pdfs, usine, monkeypatch):
     _, repli = pdfs
     monkeypatch.setattr(pack_supports, "generer_pdf", _generateur(repli))

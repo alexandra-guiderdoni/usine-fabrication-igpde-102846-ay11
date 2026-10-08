@@ -37,7 +37,7 @@ def build(prs, layouts, ctx):
         [
             f"Conseillé : {version_filename('avec_pistes')}",
             f"Variante autonome : {version_filename('inaccessible')}",
-            f"{len(blocks)} stations en {tp_duration()} minutes",
+            f"{len(blocks)} étapes en {tp_duration()} minutes",
         ],
         top=2.30,
         left=MARGIN_L,
@@ -52,7 +52,7 @@ def build(prs, layouts, ctx):
         "Productions à remettre",
         [
             "Le DOCX corrigé par votre binôme",
-            "La checklist renseignée au fil des stations",
+            "La checklist renseignée au fil des étapes",
             "Le PDF exporté puis contrôlé",
         ],
         top=2.30,

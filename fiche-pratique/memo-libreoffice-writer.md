@@ -7,13 +7,17 @@ lang: fr
 <!-- Adresse du site imprimée d'un seul tenant : pas de césure, pas de retour à la ligne. -->
 <style>.url-imprimee { hyphens: none; white-space: nowrap; }</style>
 
+<!-- La page de garde présente les cinq étapes du parcours. Le sous-titre est
+     compact pour conserver le bandeau, le titre et la liste sur une seule page. -->
+<style>header#title-block-header { padding: 1.5em 0 1em; } header#title-block-header h1.title { font-size: 28pt; margin-bottom: 0.35em; } header#title-block-header p.subtitle { max-width: 36em; margin: 0.5em auto 0; font-size: 11pt; line-height: 1.35; text-align: left; hyphens: manual; }</style>
+
 # Mémo accessibilité - LibreOffice Writer
 
 Mode opératoire complémentaire pour Writer sous Windows. Les identifiants
 renvoient à la checklist et au guide Sami. Les libellés peuvent varier selon la
 version installée ; les chemins sont à confirmer pendant la recette Windows.
 
-## Station 1 - Structurer et naviguer
+## Étape 1 - Structurer et naviguer
 
 ### P-01 - Distinguer le titre principal des titres hiérarchiques
 
@@ -51,7 +55,7 @@ de page au lieu de paragraphes vides, tabulations ou espaces répétés.
 
 ![Marques de formatage dans Writer](images-memo-writer/writer-marques-formatage.png)
 
-## Station 2 - Rendre les contenus et les liens compréhensibles
+## Étape 2 - Rendre les contenus et les liens compréhensibles
 
 ### P-06 - Rédiger l'alternative d'une image informative simple
 
@@ -93,7 +97,7 @@ diffère de celle du document.
 traiter l'arrière-plan séparément. Un filigrane éventuel ne doit jamais être
 l'unique porteur de l'information.
 
-## Station 3 - Sécuriser couleurs, graphiques et tableaux
+## Étape 3 - Sécuriser les couleurs, les graphiques et les tableaux
 
 ### P-12 - Mesurer les contrastes utiles
 
@@ -117,7 +121,7 @@ reste réalisable dans Writer, sans logiciel d'image.
 répéter les premières lignes et éviter le fractionnement. Scinder un tableau
 trop complexe plutôt que multiplier les fusions.
 
-## Station 4 - Régler langues et lisibilité
+## Étape 4 - Régler les langues et la lisibilité
 
 ### P-15 - Définir les langues du document et des passages
 
@@ -142,7 +146,7 @@ apparence est nécessaire.
 **Outils** > **Options** > **Paramètres linguistiques** > **Linguistique**,
 vérifier les options de contrôle des mots en majuscules.
 
-## Station 5 - Finaliser, vérifier, exporter et contrôler
+## Étape 5 - Finaliser, vérifier, exporter et contrôler
 
 ### P-19 - Renseigner les propriétés et le nom du fichier
 

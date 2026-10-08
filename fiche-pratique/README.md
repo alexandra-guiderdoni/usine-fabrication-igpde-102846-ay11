@@ -83,7 +83,7 @@ Les chemins d'images restent **relatifs** dans les sources Markdown. `md2pdf.py`
 
 ## Alignement pédagogique
 
-Les deux mémos suivent les cinq stations et les contrôles de la matrice
+Les deux mémos suivent les cinq étapes et les contrôles de la matrice
 canonique `_source/exercice-sami-matrice.yml` :
 
 1. **Structurer et naviguer** : titres, sommaire, listes et mise en page robuste.
@@ -97,7 +97,7 @@ canonique `_source/exercice-sami-matrice.yml` :
    avec PAC ou Acrobat Pro.
 
 Les contrôles signalés sans manipulation obligatoire restent dans la checklist
-et les notes formateur ; ils ne créent pas une sixième station.
+et les notes formateur ; ils ne créent pas une sixième étape.
 
 Les procédures sont spécifiques à chaque suite (Word ou Writer). Les différences notables sont documentées dans chaque mémo : selon la version de Writer, l'option « Marquer comme décoratif » peut être absente ou présentée différemment ; l'ancrage des images diffère également.
 

@@ -1,4 +1,4 @@
-"""Propriétés du DOCX et vérificateur Word de la station 5."""
+"""Propriétés du DOCX et vérificateur Word de l'étape 5."""
 
 from igpde_dsfr_components import (
     COL_R,
@@ -26,9 +26,9 @@ def build(prs, layouts, ctx):
         prs,
         layouts,
         layout_name="titre_contenu",
-        titre="Station 5 - Propriétés et vérificateur Word",
-        fil_ariane="2. Documents accessibles | Station 5",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 5",
+        titre="Étape 5 - Propriétés et vérificateur Word",
+        fil_ariane="2. Documents accessibles | Étape 5",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Étape 5",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

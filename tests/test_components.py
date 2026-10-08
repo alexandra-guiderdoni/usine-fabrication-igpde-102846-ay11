@@ -215,7 +215,7 @@ class TestCarteLisible:
 
 class TestNotesStructurees:
     TEXTE = (
-        "Minutage de la station : 17 minutes, synthèse comprise. "
+        "Minutage de l'étape : 17 minutes, synthèse comprise. "
         "Lire la citation lentement.\n\n"
         "Preuves attendues : P-01 : Styles vérifiables. ; P-02 : Ordre contrôlé."
     )
@@ -232,7 +232,7 @@ class TestNotesStructurees:
         add_notes(slide, self.TEXTE, structure=True)
         paragraphs = slide.notes_slide.notes_text_frame.paragraphs
         assert [(p.level, p.text) for p in paragraphs] == [
-            (0, "Minutage de la station : 17 minutes, synthèse comprise."),
+            (0, "Minutage de l'étape : 17 minutes, synthèse comprise."),
             (0, "Lire la citation lentement."),
             (0, "Preuves attendues :"),
             (1, "P-01 : Styles vérifiables."),
@@ -240,7 +240,7 @@ class TestNotesStructurees:
         ]
         bold = [[run.text for run in p.runs if run.font.bold] for p in paragraphs]
         assert bold == [
-            ["Minutage de la station :"],
+            ["Minutage de l'étape :"],
             [],
             ["Preuves attendues :"],
             ["P-01 :"],

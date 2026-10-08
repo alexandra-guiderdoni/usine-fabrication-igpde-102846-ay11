@@ -1,7 +1,7 @@
 """Tests d'intégration XML des trois DOCX de l'exercice Sami."""
 
 # PDG-LARGE-FILE-JUSTIFICATION: suite d'intégration unique qui compare les
-# trois variantes DOCX et leurs contrats OOXML station par station.
+# trois variantes DOCX et leurs contrats OOXML étape par étape.
 
 from __future__ import annotations
 
@@ -220,7 +220,7 @@ def _body_signature(document):
 
 
 def _assert_detectable_station_families_are_corrected(path):
-    """Oracle indépendant couvrant un signal automatisable par station."""
+    """Oracle indépendant couvrant un signal automatisable par étape."""
     document = Document(path)
     introduction = next(
         paragraph
@@ -516,7 +516,7 @@ def test_p05_remplace_les_artifices_par_des_fonctions_de_mise_en_page(tmp_path):
 def test_le_titre_de_station_est_lu_dans_la_matrice(tmp_path):
     matrix = deepcopy(load_sami_matrix())
     station = next(item for item in matrix["sequence"] if item["id"] == "station-1")
-    station["titre"] = "Titre de station injecté depuis la matrice"
+    station["titre"] = "Titre d'étape injecté depuis la matrice"
 
     output = build_accessible(
         PROJECT_ROOT / "_assets" / "graphique-accessible.png",
@@ -527,7 +527,7 @@ def test_le_titre_de_station_est_lu_dans_la_matrice(tmp_path):
     heading = next(
         paragraph
         for paragraph in Document(output).paragraphs
-        if paragraph.text == "Titre de station injecté depuis la matrice"
+        if paragraph.text == "Titre d'étape injecté depuis la matrice"
     )
     assert heading.style.name == "Heading 1"
 
@@ -1290,7 +1290,7 @@ def test_p12_calcule_un_vrai_defaut_de_contraste_et_sa_correction(tmp_path):
 def test_p13_fournit_dans_word_les_donnees_pour_corriger_le_graphique(tmp_path):
     matrix = load_sami_matrix()
     control = next(item for item in matrix["controles"] if item["id"] == "P-13")
-    assert control["ancrage"] == "Image du graphique de la station 3."
+    assert control["ancrage"] == "Image du graphique de l'étape 3."
     assert control["procedure_word"].startswith("Insertion > Graphique")
     assert "valeurs affichées" in control["procedure_word"]
     assert control["transformations_editoriales"] == ["alternative_graphique_complete"]
@@ -1992,7 +1992,7 @@ def test_commentaires_de_correction_en_francais_sans_corriger_le_defaut_de_langu
     assert runs
     for run in runs:
         assert run.xpath("w:rPr/w:lang/@w:val", namespaces=namespaces) == ["fr-FR"]
-    # Le défaut pédagogique de la station 4 reste dans le document lui-même.
+    # Le défaut pédagogique de l'étape 4 reste dans le document lui-même.
     styles = _archive_text(guided, "word/styles.xml")
     assert re.search(r'<w:docDefaults>.*w:val="de-DE"', styles, re.S)
 

@@ -19,7 +19,7 @@ def sequence_block(block_id: str) -> dict:
 
 
 def station_blocks() -> tuple[dict, ...]:
-    """Retourne les cinq stations dans l'ordre canonique."""
+    """Retourne les cinq étapes dans l'ordre canonique."""
     return tuple(
         block
         for block in sami_matrix()["sequence"]
@@ -38,7 +38,7 @@ def version_filename(version_name: str) -> str:
 
 
 def station_controls(station_id: str) -> tuple[dict, ...]:
-    """Retourne les contrôles d'une station dans l'ordre canonique."""
+    """Retourne les contrôles d'une étape dans l'ordre canonique."""
     return tuple(
         control
         for control in sami_matrix()["controles"]
@@ -70,7 +70,7 @@ def station_notes(
     question: str,
     help_text: str,
 ) -> str:
-    """Construit les notes formateur communes à une slide de station."""
+    """Construit les notes formateur communes à une slide d'étape."""
     block = sequence_block(station_id)
     selected = controls or station_controls(station_id)
     proofs = " ; ".join(
@@ -78,7 +78,7 @@ def station_notes(
     )
     ids = ", ".join(control["id"] for control in selected)
     return (
-        f"Minutage de la station : {block['duree_minutes']} minutes, synthèse comprise. "
+        f"Minutage de l'étape : {block['duree_minutes']} minutes, synthèse comprise. "
         f"Contrôles travaillés sur cette slide : {ids}.\n\n"
         "Parcours guidé : partir du DOCX avec pistes, reformuler le problème et "
         "laisser le binôme réaliser la correction. Variante autonome : partir du "

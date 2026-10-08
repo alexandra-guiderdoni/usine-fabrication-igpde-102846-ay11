@@ -1,4 +1,4 @@
-"""Mesure du contraste dans la station 3."""
+"""Mesure du contraste dans l'étape 3."""
 
 import re
 
@@ -29,9 +29,9 @@ def build(prs, layouts, ctx):
         prs,
         layouts,
         layout_name="titre_contenu",
-        titre="Station 3 - Le contraste se mesure",
-        fil_ariane="2. Documents accessibles | Station 3",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 3",
+        titre="Étape 3 - Le contraste se mesure",
+        fil_ariane="2. Documents accessibles | Étape 3",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Étape 3",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

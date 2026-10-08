@@ -1,4 +1,4 @@
-"""Checklist progressive des stations 1 et 2."""
+"""Checklist progressive des étapes 1 et 2."""
 
 from igpde_dsfr_components import COL_R, COL_W, MARGIN_L, add_card, add_notes, new_slide
 from sami_slide_data import checklist_item, sequence_block, station_controls
@@ -15,7 +15,7 @@ def build(prs, layouts, ctx):
         prs,
         layouts,
         layout_name="titre_contenu",
-        titre="Checklist progressive - Stations 1 et 2",
+        titre="Checklist progressive - Étapes 1 et 2",
         fil_ariane="2. Documents accessibles | Checklist",
         footer_text=f"{ctx.footer_base} / Documents accessibles - Checklist",
         date_text=ctx.date,
@@ -40,7 +40,7 @@ def build(prs, layouts, ctx):
 
     add_notes(
         slide,
-        "Faire relire les cases renseignées après les deux premières stations. "
+        "Faire relire les cases renseignées après les deux premières étapes. "
         "La formulation et l'ordre proviennent de la matrice et de la checklist distribuée.",
         structure=True,
     )

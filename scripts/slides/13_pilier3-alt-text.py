@@ -1,4 +1,4 @@
-"""Vrai texte et liens compréhensibles de la station 2."""
+"""Vrai texte et liens compréhensibles de l'étape 2."""
 
 from igpde_dsfr_components import (
     COL_R,
@@ -19,9 +19,9 @@ def build(prs, layouts, ctx):
         prs,
         layouts,
         layout_name="titre_contenu",
-        titre="Station 2 - Vrai texte et liens compréhensibles",
-        fil_ariane="2. Documents accessibles | Station 2",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 2",
+        titre="Étape 2 - Vrai texte et liens compréhensibles",
+        fil_ariane="2. Documents accessibles | Étape 2",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Étape 2",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

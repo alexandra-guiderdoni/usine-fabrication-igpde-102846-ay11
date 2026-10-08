@@ -19,7 +19,7 @@ body { hyphens: manual; }
 
 # Checklist accessibilité des documents bureautiques
 
-Utilisez cette même checklist dès le début du TP, puis complétez-la après chaque station.
+Utilisez cette même checklist dès le début du TP, puis complétez-la après chaque étape.
 
 - **P - pratiqué :** une action est réalisée et sa preuve est conservée.
 - **C - contrôlé :** un outil ou une vérification humaine est exécuté et son résultat est noté.

@@ -669,7 +669,8 @@ doc.write_pdf({pdf_path!r})
 
 def convert(md_path, output_path=None, title=None, subtitle=None, lang='fr',
             template='dsfr', toc_depth=2, no_toc=False, header_text=None,
-            author=None, keywords=None, logo=None, logo_alt=None):
+            author=None, keywords=None, logo=None, logo_alt=None,
+            page_total_footer=False):
     """Main conversion pipeline."""
     if not os.path.exists(md_path):
         print(f"Fichier introuvable: {md_path}")
@@ -688,6 +689,20 @@ def convert(md_path, output_path=None, title=None, subtitle=None, lang='fr',
         header_text = title or ''
 
     css = load_template(template)
+    if page_total_footer:
+        css += """
+
+@page {
+  @bottom-center {
+    content: "Page " counter(page) " / " counter(pages);
+  }
+}
+@page :first {
+  @bottom-center {
+    content: "Page " counter(page) " / " counter(pages);
+  }
+}
+"""
 
     # Temp HTML file
     fd, html_path = tempfile.mkstemp(suffix='.html')
@@ -877,6 +892,8 @@ Exemples:
     parser.add_argument('--keywords', help='Mots-clés du document (métadonnées PDF)')
     parser.add_argument('--logo', help='Image de bandeau/logo (chemin vers PNG/JPG/SVG)')
     parser.add_argument('--logo-alt', help='Texte alternatif du logo (obligatoire pour PDF/UA-1)')
+    parser.add_argument('--page-total-footer', action='store_true',
+                        help='Afficher « Page n / total » sur toutes les pages, couverture comprise')
     parser.add_argument('--via-docx', action='store_true',
                         help='Pipeline alternatif via DOCX accessible + LibreOffice (meilleure accessibilite lecteurs d\'ecran)')
     parser.add_argument('--check', action='store_true',
@@ -920,6 +937,7 @@ Exemples:
             keywords=args.keywords,
             logo=args.logo,
             logo_alt=args.logo_alt,
+            page_total_footer=args.page_total_footer,
         )
 
 

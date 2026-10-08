@@ -7,13 +7,17 @@ lang: fr
 <!-- Adresse du site imprimée d'un seul tenant : pas de césure, pas de retour à la ligne. -->
 <style>.url-imprimee { hyphens: none; white-space: nowrap; }</style>
 
+<!-- La page de garde présente les cinq étapes du parcours. Le sous-titre est
+     compact pour conserver le bandeau, le titre et la liste sur une seule page. -->
+<style>header#title-block-header { padding: 1.5em 0 1em; } header#title-block-header h1.title { font-size: 28pt; margin-bottom: 0.35em; } header#title-block-header p.subtitle { max-width: 36em; margin: 0.5em auto 0; font-size: 11pt; line-height: 1.35; text-align: left; hyphens: manual; }</style>
+
 # Mémo accessibilité - Microsoft Word
 
 Mode opératoire principal pour Word bureau sous Windows. Les identifiants
 renvoient à la checklist et au guide Sami. Le guide explique les règles et les
 impacts ; ce mémo indique où agir et quoi vérifier.
 
-## Station 1 - Structurer et naviguer
+## Étape 1 - Structurer et naviguer
 
 ### P-01 - Distinguer le titre principal des titres hiérarchiques
 
@@ -51,7 +55,7 @@ espaces répétés.
 
 ![Bouton Afficher tout dans la barre d'outils Word](images-memo-word/word-marques-formatage.png)
 
-## Station 2 - Rendre les contenus et les liens compréhensibles
+## Étape 2 - Rendre les contenus et les liens compréhensibles
 
 ### P-06 - Rédiger l'alternative d'une image informative simple
 
@@ -94,7 +98,7 @@ diffère de celle du document.
 filigrane ou un élément d'en-tête éventuel ne doit jamais être l'unique porteur
 de l'information.
 
-## Station 3 - Sécuriser couleurs, graphiques et tableaux
+## Étape 3 - Sécuriser les couleurs, les graphiques et les tableaux
 
 ### P-12 - Mesurer les contrastes utiles
 
@@ -120,7 +124,7 @@ complexe plutôt que multiplier les fusions.
 
 ![Option de répétition de la ligne d'en-tête dans Word](images-memo-word/word-tableau-entete.png)
 
-## Station 4 - Régler langues et lisibilité
+## Étape 4 - Régler les langues et la lisibilité
 
 ### P-15 - Définir les langues du document et des passages
 
@@ -147,7 +151,7 @@ Utiliser une police sans sérif, un corps d'au moins 12 points, un interligne de
 **Fichier** > **Options** > **Vérification**, décocher **Ignorer les mots en
 MAJUSCULES** pour que le correcteur les examine.
 
-## Station 5 - Finaliser, vérifier, exporter et contrôler
+## Étape 5 - Finaliser, vérifier, exporter et contrôler
 
 ### P-19 - Renseigner les propriétés et le nom du fichier
 

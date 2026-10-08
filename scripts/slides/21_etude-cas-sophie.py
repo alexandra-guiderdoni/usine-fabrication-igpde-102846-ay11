@@ -1,4 +1,4 @@
-"""Casse et sigles de la station 4."""
+"""Casse et sigles de l'étape 4."""
 
 from igpde_dsfr_components import (
     COL_R,
@@ -19,9 +19,9 @@ def build(prs, layouts, ctx):
         prs,
         layouts,
         layout_name="titre_contenu",
-        titre="Station 4 - Casse, accents et sigles",
-        fil_ariane="2. Documents accessibles | Station 4",
-        footer_text=f"{ctx.footer_base} / Documents accessibles - Station 4",
+        titre="Étape 4 - Casse, accents et sigles",
+        fil_ariane="2. Documents accessibles | Étape 4",
+        footer_text=f"{ctx.footer_base} / Documents accessibles - Étape 4",
         date_text=ctx.date,
         page_num=ctx.page_num,
     )

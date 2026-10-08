@@ -1,4 +1,4 @@
-"""Cohérence finale du pack avec le TP Sami organisé en stations."""
+"""Cohérence finale du pack avec le TP Sami organisé en étapes."""
 
 import sys
 from pathlib import Path
@@ -134,8 +134,8 @@ def test_deroule_et_fiche_technique_sont_alignes():
     assert "12h00 - 12h15" in deroule
     assert "slides 54 à 79" in deroule
     assert "slide 80" in deroule
-    assert "PDF Accessibility Checker 2024" in technique
-    assert "installé sur chaque poste" in technique
+    assert "PAC 24.4.4.0" in technique
+    assert "disponible sur les postes" in technique
     assert "Acrobat Pro" in technique
 
 

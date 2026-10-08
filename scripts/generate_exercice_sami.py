@@ -545,14 +545,14 @@ def _add_guidance_comment(doc, runs, text):
 
 
 def _station_controls(matrix, station_id):
-    """Retourne les contrôles d'une station dans l'ordre canonique."""
+    """Retourne les contrôles d'une étape dans l'ordre canonique."""
     return [
         control for control in matrix["controles"] if control["station"] == station_id
     ]
 
 
 def _station_title(matrix, station_id):
-    """Retourne le titre canonique d'une station."""
+    """Retourne le titre canonique d'une étape."""
     return next(
         block["titre"] for block in matrix["sequence"] if block["id"] == station_id
     )
@@ -594,7 +594,7 @@ def _add_control_details(doc, control):
 
 
 def _create_heading_numbering(doc):
-    """Crée une numérotation multiniveau native pour les titres de station."""
+    """Crée une numérotation multiniveau native pour les titres d'étape."""
     numbering = doc.part.numbering_part.element
     abstract_ids = [
         int(item.get(qn("w:abstractNumId")))
@@ -632,7 +632,7 @@ def _create_heading_numbering(doc):
 
 
 def _apply_heading_numbering(paragraph, num_id, level):
-    """Associe un titre à un niveau de la numérotation de station."""
+    """Associe un titre à un niveau de la numérotation d'étape."""
     p_pr = paragraph._p.get_or_add_pPr()
     current = p_pr.find(qn("w:numPr"))
     if current is not None:
@@ -696,7 +696,7 @@ def _add_station_one_p02(
 
 
 def _add_station_one_control(doc, control, numbering_id):
-    """Ajoute un point de station avec son titre structurel numéroté."""
+    """Ajoute un point d'étape avec son titre structurel numéroté."""
     text = f"{control['id']} - {control['intitule']}"
     heading = doc.add_heading(text, level=2)
     _apply_heading_numbering(heading, numbering_id, 1)
@@ -715,7 +715,7 @@ def _set_section_columns(section, count):
 def _add_station_one_p05(
     doc, control, numbering_id, *, corrected=False, with_guidance=False
 ):
-    """Ajoute l'occurrence composite de mise en page de la station 1."""
+    """Ajoute l'occurrence composite de mise en page de l'étape 1."""
     _add_station_one_control(doc, control, numbering_id)
     zone_heading = doc.add_heading("Mise en page robuste", level=3)
     if corrected:
@@ -775,7 +775,7 @@ def _add_station_two_p06(
     corrected=False,
     with_guidance=False,
 ):
-    """Ajoute l'image informative simple de la station 2."""
+    """Ajoute l'image informative simple de l'étape 2."""
     station_heading = doc.add_heading(station_title, level=1)
     _apply_heading_numbering(station_heading, numbering_id, 0)
     _add_station_one_control(doc, control, numbering_id)
@@ -1036,7 +1036,7 @@ def _add_station_three_p13(
     corrected=False,
     with_guidance=False,
 ):
-    """Ajoute le graphique fautif ou corrigé de la station 3."""
+    """Ajoute le graphique fautif ou corrigé de l'étape 3."""
     _add_station_one_control(doc, control, numbering_id)
     doc.add_heading("Détail par canal", level=3)
     doc.add_picture(str(chart_path), width=Inches(4.5))
@@ -1056,7 +1056,7 @@ def _add_station_three_p14(
     corrected=False,
     with_guidance=False,
 ):
-    """Ajoute le tableau de données fautif ou corrigé de la station 3."""
+    """Ajoute le tableau de données fautif ou corrigé de l'étape 3."""
     _add_station_one_control(doc, control, numbering_id)
     doc.add_heading("Répartition par service", level=3)
     doc.add_paragraph("Périmètre : Direction des affaires juridiques.")
@@ -1106,7 +1106,7 @@ def _add_station_four_p15(
     corrected=False,
     with_guidance=False,
 ):
-    """Ajoute le passage anglais de la station 4 et son balisage de langue."""
+    """Ajoute le passage anglais de l'étape 4 et son balisage de langue."""
     station_heading = doc.add_heading(station_title, level=1)
     _apply_heading_numbering(station_heading, numbering_id, 0)
     _add_station_one_control(doc, control, numbering_id)
@@ -1214,7 +1214,7 @@ def _add_station_five_followups(doc, controls, numbering_id):
 
 
 def _paginate_corrected_guide(doc, matrix):
-    """Découpe le guide par station et par contrôle sans réduire le texte."""
+    """Découpe le guide par étape et par contrôle sans réduire le texte."""
     paragraphs = {paragraph.text: paragraph for paragraph in doc.paragraphs}
     for station in (
         block for block in matrix["sequence"] if block["id"].startswith("station-")
@@ -1347,7 +1347,7 @@ def build_inaccessible(
 
     doc.add_heading("Résultats du trimestre", level=2)
 
-    # Tableau historique déjà structuré : la station 3 utilise un autre tableau cible.
+    # Tableau historique déjà structuré : l'étape 3 utilise un autre tableau cible.
     table = doc.add_table(rows=4, cols=4)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     data = [
@@ -1777,7 +1777,7 @@ def _remove_quarantine(path: Path):
 
 
 def _checklist_groups(matrix):
-    """Retourne les contrôles dans l'ordre des stations, puis les signalements."""
+    """Retourne les contrôles dans l'ordre des étapes, puis les signalements."""
     groups = []
     for block in matrix["sequence"]:
         if not block["id"].startswith("station-"):
@@ -1817,7 +1817,7 @@ def _checklist_markdown(matrix, formation_code):
         "",
         "# Checklist accessibilité des documents bureautiques",
         "",
-        "Utilisez cette même checklist dès le début du TP, puis complétez-la après chaque station.",
+        "Utilisez cette même checklist dès le début du TP, puis complétez-la après chaque étape.",
         "",
         "- **P - pratiqué :** une action est réalisée et sa preuve est conservée.",
         "- **C - contrôlé :** un outil ou une vérification humaine est exécuté et son résultat est noté.",
@@ -1864,7 +1864,7 @@ def _checklist_docx(matrix):
 
     doc.add_heading("Checklist accessibilité des documents bureautiques", level=0)
     doc.add_paragraph(
-        "Utilisez cette même checklist dès le début du TP, puis complétez-la après chaque station."
+        "Utilisez cette même checklist dès le début du TP, puis complétez-la après chaque étape."
     )
     for definition in (
         "P - pratiqué : une action est réalisée et sa preuve est conservée.",
