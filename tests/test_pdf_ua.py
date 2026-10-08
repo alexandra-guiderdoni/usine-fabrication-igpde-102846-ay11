@@ -56,6 +56,14 @@ def test_pdf_de_repli_refuse(pdfs):
     assert fabriquer_pack.est_pdf_ua(repli) is False
 
 
+def test_make_pdf_ne_regenere_pas_la_fiche_formateur():
+    assert all(
+        "fiche-formateur-principes-wcag" not in str(source)
+        and "fiche-formateur-principes-wcag" not in str(sortie)
+        for source, sortie, _, _, _ in fabriquer_pack.PDFS
+    )
+
+
 def test_make_pdf_refuse_un_repli_et_garde_le_livrable(pdfs, usine, monkeypatch):
     _, repli = pdfs
     monkeypatch.setattr(pack_supports, "generer_pdf", _generateur(repli))

@@ -66,13 +66,6 @@ PDFS = [
         None,
     ),
     (
-        "wcag/fiche-formateur-principes-wcag.md",
-        f"{CONFIG['livrables']}/Livrables-Stagiaires/fil-rouge-principes-wcag-igpde/fiche-formateur-principes-wcag.pdf",
-        BANDEAU_FICHE,
-        [],
-        None,
-    ),
-    (
         "wcag/fiche-stagiaire-principes-wcag.md",
         f"{CONFIG['livrables']}/Livrables-Stagiaires/fil-rouge-principes-wcag-igpde/fiche-stagiaire-principes-wcag.pdf",
         BANDEAU_FICHE,

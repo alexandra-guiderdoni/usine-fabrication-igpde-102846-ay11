@@ -17,6 +17,11 @@
      Pied de page « Page X / Y » sur toutes les pages, première comprise. -->
 <style>header#title-block-header { break-after: avoid; padding: 2em 0 0.5em 0; } header#title-block-header .subtitle { display: none; } @page { @bottom-center { content: "Page " counter(page) " / " counter(pages); } } @page :first { @bottom-center { content: "Page " counter(page) " / " counter(pages); } }</style>
 
+<!-- La boussole, ses exemples et le décodage doivent rester ensemble sur la
+     page 2. Le tableau et les deux encarts sont donc légèrement resserrés,
+     sans réduire la taille du texte courant du reste de la fiche. -->
+<style>.questions-table table { font-size: 0.78em; } .questions-table th, .questions-table td { line-height: 1.2; padding: 0.35em 0.45em; } .questions-note { font-size: 0.86em; margin: 0.3em 0 0.4em; } .wcag-bridge { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; break-inside: avoid; font-size: 0.78em; line-height: 1.15; hyphens: manual; } .wcag-bridge h3 { font-size: 1.08em; margin: 0 0 0.25em; } .wcag-bridge ul, .wcag-bridge p { margin-top: 0; margin-bottom: 0; } .wcag-bridge li { margin-bottom: 0.1em; }</style>
+
 Formation 102846 - L'accessibilité numérique pour la bureautique et le web
 
 ## L'idée à retenir
@@ -27,14 +32,41 @@ Il ne dépend pas d'une seule façon de voir, d'entendre, de lire, de comprendre
 
 ## Les 4 questions
 
+::: {.questions-table}
 Table: Les 4 principes WCAG
 
-| Couleur | Principe | Question à se poser | Qui est bloqué si c'est absent ? |
-|--------------|-----------------|--------------------------------------|-------------------------------|
-| Bleu | Percevoir | Est-ce que l'information existe encore si je ne vois pas, n'entends pas ou lis difficilement ? | Amir (aveugle), Anaïs (malvoyante), Justine (sourde) |
-| Vert | Utiliser | Est-ce que je peux aller jusqu'au bout sans souris, sans geste précis, sans piège ? | Agathe (déficience motrice) |
-| Orange | Comprendre | Est-ce que je sais quoi faire, quoi corriger et ce qui va se passer ? | Anatole (handicap cognitif), Paul (TDAH, dyslexie) |
-| Gris | Compatible | Est-ce que les outils d'assistance peuvent comprendre la structure et les actions ? | Amir (lecteur d'écran), tous les utilisateurs de technologies d'assistance |
+| Repère | Principe et action | Question à se poser | Qui est bloqué si c'est absent ? |
+|---|---------------------|------------------------------------------|-----------------------------------|
+| 1.x | Perceptible → percevoir | L'information existe-t-elle encore si je ne vois pas, n'entends pas ou lis difficilement ? | Amir - ne perçoit pas l'image ; Anaïs - distingue mal le texte ; Justine - ne perçoit pas le son |
+| 2.x | Utilisable → utiliser | Puis-je aller jusqu'au bout sans souris, sans geste précis et sans piège ? | Agathe - ne peut pas utiliser la souris |
+| 3.x | Compréhensible → comprendre | Sais-je quoi faire, quoi corriger et ce qui va se passer ? | Anatole - ne comprend pas la consigne ; Paul - perd le fil |
+| 4.x | Robuste → fonctionner avec les outils | Les outils d'assistance comprennent-ils la structure et les actions ? | Amir - son lecteur d'écran perd la structure ; autres utilisateurs d'outils d'assistance |
+:::
+
+::: {.questions-note}
+*Un persona peut être concerné par plusieurs principes selon l'obstacle rencontré.*
+:::
+
+:::: {.wcag-bridge}
+::: {.wcag-examples}
+### Quatre exemples pour démarrer
+
+- **Amir** - image sans alternative → **1.x Perceptible** → carte **1.1.1**
+- **Agathe** - navigation impossible sans souris → **2.x Utilisable** → carte **2.1.1**
+- **Anaïs** - contraste insuffisant → **1.x Perceptible** → carte **1.4.3**
+- **Anatole** - consigne de formulaire peu claire → **3.x Compréhensible** → carte **3.3.2**
+:::
+
+::: {.wcag-decoder}
+### 1.1.1 - Décoder une carte
+
+`1` indique le principe **Perceptible** ;  
+`1.1`, la directive **Alternatives textuelles** ;  
+`1.1.1`, le critère **Contenu non textuel**.  
+La couleur indique le niveau de conformité, pas le principe.  
+Les étiquettes sont des repères de tri par publics, métiers ou usages.
+:::
+::::
 
 ## Pendant l'atelier Word
 

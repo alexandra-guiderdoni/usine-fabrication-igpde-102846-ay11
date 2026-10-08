@@ -424,36 +424,31 @@ function writeAuditResults(tests) {
     byCategory[bug.category] = (byCategory[bug.category] || 0) + 1;
   }
 
-  const riskScore = Math.min(100, bySeverity.critical * 30 + bySeverity.high * 20 + bySeverity.medium * 10 + bySeverity.low * 3);
   const auditResults = {
     schema_version: "1.0",
-    tool: "sg-code-audit",
-    mode: "quick",
+    tool: "igpde-static-site-assets",
+    mode: "local-references-only",
     scope: scopeDir,
+    coverage: "Références locales href, src, poster et action des pages HTML testées.",
+    limitations: [
+      "Liens externes non contrôlés.",
+      "Comportement interactif, accessibilité et qualité du code non audités par ce contrôle.",
+    ],
     report_only: true,
     timestamp: new Date().toISOString(),
     summary: {
       total_bugs: bugs.length,
       by_severity: bySeverity,
       by_category: byCategory,
-      files_audited: tests.length,
+      pages_checked: tests.length,
       files_modified: 0,
-      risk_score: riskScore,
     },
     bugs,
     impacted_ui_routes: bugs.map((bug) => ({
       route: bug.impacted_ui_routes[0],
       bug_count: 1,
     })),
-    agents: [
-      {
-        id: "static-site-assets",
-        label: "Static site asset audit",
-        status: "completed",
-        bugs_found: bugs.length,
-        paths: [`${scopeDir}/**/*.html`, "assets/"],
-      },
-    ],
+    agents: [],
   };
 
   writeFileSync(path.join(resultsDir, "audit-results.json"), `${JSON.stringify(auditResults, null, 2)}\n`);

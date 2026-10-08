@@ -20,7 +20,7 @@ make verifier
 make publier-site
 ```
 
-Lancer `make publier-site` uniquement après le succès de `make verifier`, qui exécute les tests, la validation du site et les contrôles du dépôt. La commande de publication revalide ensuite le site (`validate.py`), effectue la synchronisation de `docs/` vers le clone (sans les fichiers `.md` internes ni `.DS_Store`), copie les trois fichiers de `publication-site/` à la racine du clone, commite et pousse, puis avance le clone de consultation s'il existe. Ces fichiers sont publics, et GitHub Pages les sert aussi en texte brut : n'y mettre que des informations publiables.
+Lancer `make publier-site` uniquement après le succès de `make verifier`, qui exécute les tests, la validation du site et les contrôles du dépôt. Avant toute copie, la commande vérifie que le clone de publication est sur `main`, sans changement local, relié en lecture et en écriture au dépôt SSH attendu et aligné sur `origin/main` après récupération des références distantes. Si un contrôle échoue, elle s'arrête avant la synchronisation. Elle revalide ensuite le site (`validate.py`), effectue la synchronisation de `docs/` vers le clone (sans les fichiers `.md` internes ni `.DS_Store`), copie les trois fichiers de `publication-site/` à la racine du clone, commite et pousse, puis avance le clone de consultation s'il existe. Ces fichiers sont publics, et GitHub Pages les sert aussi en texte brut : n'y mettre que des informations publiables.
 
 Si le clone est absent :
 

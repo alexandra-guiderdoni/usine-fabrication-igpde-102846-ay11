@@ -50,7 +50,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
 - **Généré par une commande**
   - Deck `support-formation-*.pptx` : `make deck`, qui génère le deck à la racine (sortie de travail, ignorée par git) puis le copie dans `Livrables-Stagiaires/supports-projections/` (livrable versionné). La copie refuse un deck partiel. Aucun PDF du deck n'est livré.
-  - Mémos Word et LibreOffice, fiches WCAG formateur et stagiaire, fiche des liens des présentations, TP et ressources : `make pdf`, depuis `fiche-pratique/*.md`, `wcag/*.md` et `liens-tp-en-ligne.md`. `make pdf` n'accepte que du PDF/UA-1 : sinon il s'arrête en erreur et laisse le livrable précédent en place (voir `contraintes.md`).
+  - Mémos Word et LibreOffice, fiche WCAG stagiaire, fiche des liens des présentations, TP et ressources : `make pdf`, depuis `fiche-pratique/*.md`, `wcag/fiche-stagiaire-principes-wcag.md` et `liens-tp-en-ligne.md`. `make pdf` n'accepte que du PDF/UA-1 : sinon il s'arrête en erreur et laisse le livrable précédent en place (voir `contraintes.md`).
   - Checklist du TP Word : `make checklist` génère `checklist-accessibilite-bureautique.docx` dans le pack et sa source `_source/checklist-accessibilite-bureautique.md` depuis la matrice canonique ; `make pdf` transforme ensuite cette source en `checklist-accessibilite-bureautique.pdf` dans le même dossier. Ne modifier aucune de ces trois sorties à la main.
   - Documents Sami (`Livrables-Stagiaires/tp-word-igpde/`) : `make sami` (écrit dans `_source/`), puis `make supports` ou `make pack` pour la copie dans le pack.
   - Démo réseaux sociaux hors ligne (`Livrables-Stagiaires/tp-reseaux-sociaux-igpde/`) : `make supports`, depuis `docs/demo-mauvaise-restitution-emojis.html`.
@@ -78,7 +78,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
 ## Publier
 
-- Site : `make publier-site` (validation et synchronisation de `docs/` et `publication-site/` vers le clone de publication, puis commit, push et avance du clone de consultation). Voir « Deux dépôts liés » ci-dessus et `PUBLIER-SITE.md`.
+- Site : `make publier-site` contrôle d'abord la branche `main`, l'arbre propre, le dépôt SSH et l'alignement du clone de publication sur `origin/main`, puis valide le site, effectue la synchronisation de `docs/` et `publication-site/`, commite, pousse et avance le clone de consultation. Voir « Deux dépôts liés » ci-dessus et `PUBLIER-SITE.md`.
 - Dépôt de l'usine : commits en français, forme nominale, première ligne de 50 caractères au plus, sans point final. Aucune ligne d'attribution d'agent (`Co-Authored-By`, `Generated with` ou signature d'outil).
 - Le hook `.githooks/pre-commit` bloque : fichiers de verrou Office, fichiers de plus de 50 Mo, convocation, installeurs `.msi` et `.exe`, tirets cadratins dans `scripts/`, chemins personnels absolus dans les dossiers qu'il surveille (`scripts/`, `tests/`, `recette/`, `docs/`, `fiche-pratique/`, `wcag/`, `03-easy-checks/`, `Makefile`, `config.yml`, `validate.py`, `liens-tp-en-ligne.md`). Ailleurs, notamment dans `notes/` et `_source/`, la règle reste à appliquer à la main. Ne jamais contourner le hook avec `--no-verify`.
 
