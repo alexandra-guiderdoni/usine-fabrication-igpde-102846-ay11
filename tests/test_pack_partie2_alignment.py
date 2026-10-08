@@ -5,6 +5,7 @@ from pathlib import Path
 
 from docx import Document
 from pptx import Presentation
+from pptx.enum.shapes import MSO_SHAPE_TYPE
 
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -157,17 +158,24 @@ def test_deroule_et_fiche_technique_sont_alignes():
 def test_projection_word_utilise_les_etapes():
     path = PROJECTIONS / "02-documents-bureautiques-accessibles-tp.pptx"
     presentation = Presentation(path)
-    visible_text = "\n".join(
-        shape.text
+    image_titles = "\n".join(
+        shape._element.nvPicPr.cNvPr.get("title", "")
         for slide in presentation.slides
         for shape in slide.shapes
-        if hasattr(shape, "text_frame")
+        if shape.shape_type == MSO_SHAPE_TYPE.PICTURE
+    )
+    presenter_notes = "\n".join(
+        slide.notes_slide.notes_text_frame.text for slide in presentation.slides
     )
 
     assert len(presentation.slides) == 27
-    assert "Étape 1" in visible_text
-    assert "Étape 5" in visible_text
-    assert "Station" not in visible_text
+    assert all(len(slide.shapes) == 1 for slide in presentation.slides)
+    assert "Étape 1" in image_titles
+    assert "Étape 5" in image_titles
+    assert "Lire la transcription" in presenter_notes
+    assert "Lire le discours oral" in presenter_notes
+    assert "Station" not in image_titles
+    assert "Station" not in presenter_notes
 
 
 def test_index_des_slides_couvre_la_fin_de_la_partie_2():
