@@ -26,6 +26,7 @@ livrables-IGPDE-*/outils/*
 livrables-IGPDE-*/outils.zip
 !livrables-IGPDE-*/outils/*.md
 !livrables-IGPDE-*/outils/*.json
+/livrables-IGPDE-2026-102846/livrables-IGPDE-2026-102846-V2.zip
 *.partiel
 
 # Clone de travail du dépôt du site (publié par make publier-site)
