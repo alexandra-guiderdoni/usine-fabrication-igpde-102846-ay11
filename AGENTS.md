@@ -7,7 +7,7 @@ Protocole unique pour tout agent (Claude, Codex ou autre) et pour un humain. `CL
 - Formation « L'accessibilité numérique pour la bureautique et le web », IGPDE, code 102846 (ex-102638), 1 jour, public communicants, pas développeurs.
 - Session du 9 octobre 2026. Code, date, pied de page, nom du deck, dossier de livraison et URL du site sont centralisés dans `config.yml` : `scripts/config.py` les valide et les expose à la fabrication. Une nouvelle session demande en plus de renommer le dossier du pack, de mettre à jour à la main les documents administratifs, et de rechercher l'ancien code et l'ancienne date dans les sources versionnées (`docs/`, `scripts/`, `tests/` et Markdown structurants), en distinguant les historiques et les fixtures de test.
 - Deck DSFR généré par scripts, composé de 4 modules dans un ordre impératif : 1. communication accessible et cadre légal, 2. Word accessible, 3. points de contrôle rapides W3C, 4. réseaux sociaux. Le total de slides est une sortie de génération, pas un contrat à maintenir manuellement.
-- Exercice Sami : TP guidé de 90 minutes organisé en étapes, avec 3 DOCX (inaccessible, aide à la correction, accessible). `_source/exercice-sami-matrice.yml` est la source canonique des contrôles ; le PRD `notes/prd-refonte-partie-II-tp-sami.md` conserve les décisions du chantier. L'ancienne spécification et la liste des différences sont historiques.
+- Exercice Sami : TP guidé de 90 minutes organisé en stations, avec 3 DOCX (inaccessible, aide à la correction, accessible). `_source/exercice-sami-matrice.yml` est la source canonique des contrôles ; le PRD `notes/prd-refonte-partie-II-tp-sami.md` conserve les décisions du chantier. L'ancienne spécification et la liste des différences sont historiques.
 - Site d'exercice dans `docs/` (versions `site-inaccessible/`, `site-aide-correction/`, `site-accessible/`, démo émojis, grille XLSX), publié sur https://alexandra-guiderdoni.github.io/tp-fabrication-igpde-102846-ay11/ depuis le dépôt `git@github.com:alexandra-guiderdoni/tp-fabrication-igpde-102846-ay11.git`.
 - Pack préparé pour l'IGPDE : `livrables-IGPDE-2026-102846/`, fabriqué par `make pack`. Son envoi reste distinct de sa fabrication.
 
@@ -50,7 +50,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 
 - **Généré par une commande**
   - Deck `support-formation-*.pptx` : `make deck`, qui génère le deck à la racine (sortie de travail, ignorée par git) puis le copie dans `Livrables-Stagiaires/supports-projections/` (livrable versionné). La copie refuse un deck partiel. Aucun PDF du deck n'est livré.
-  - Mémos Word et LibreOffice, fiche WCAG stagiaire, fiche des liens des présentations, TP et ressources : `make pdf`, depuis `fiche-pratique/*.md`, `wcag/fiche-stagiaire-principes-wcag.md` et `liens-tp-en-ligne.md`. `make pdf` n'accepte que du PDF/UA-1 : sinon il s'arrête en erreur et laisse le livrable précédent en place (voir `contraintes.md`).
+  - Mémos Word et LibreOffice, fiches WCAG formateur et stagiaire, fiche des liens des présentations, TP et ressources : `make pdf`, depuis `fiche-pratique/*.md`, `wcag/*.md` et `liens-tp-en-ligne.md`. `make pdf` n'accepte que du PDF/UA-1 : sinon il s'arrête en erreur et laisse le livrable précédent en place (voir `contraintes.md`).
   - Checklist du TP Word : `make checklist` génère `checklist-accessibilite-bureautique.docx` dans le pack et sa source `_source/checklist-accessibilite-bureautique.md` depuis la matrice canonique ; `make pdf` transforme ensuite cette source en `checklist-accessibilite-bureautique.pdf` dans le même dossier. Ne modifier aucune de ces trois sorties à la main.
   - Documents Sami (`Livrables-Stagiaires/tp-word-igpde/`) : `make sami` (écrit dans `_source/`), puis `make supports` ou `make pack` pour la copie dans le pack.
   - Démo réseaux sociaux hors ligne (`Livrables-Stagiaires/tp-reseaux-sociaux-igpde/`) : `make supports`, depuis `docs/demo-mauvaise-restitution-emojis.html`.
@@ -92,7 +92,7 @@ Le flux ne va que dans un sens : usine, puis site publié. Jamais l'inverse.
 - La version accessible du site d'exercice reste sobre, comme un vrai site corrigé, sans pédagogie visible.
 - Les erreurs de formulaire n'apparaissent qu'après une tentative de soumission ou une interaction avec le champ.
 - Les documents accessibles déclarent une langue cohérente (`fr`). Les versions volontairement inaccessibles peuvent garder des défauts pédagogiques explicites.
-- Exercice : rendre la checklist disponible dès le préambule et la faire renseigner progressivement après chaque étape ; les cartes WCAG servent à relier informellement chaque contrôle aux principes concernés.
+- Exercice : rendre la checklist disponible dès le préambule et la faire renseigner progressivement après chaque station ; les cartes WCAG servent à relier informellement chaque contrôle aux principes concernés.
 - Quiz : questions et réponses sur des slides séparées (suffixe `b`).
 
 ## Compétences recommandées, si l'agent en dispose
